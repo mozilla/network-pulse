@@ -1,0 +1,266 @@
+/* layout */
+
+body { 
+	font-family: "Open Sans", Sans-serif;
+	font-weight:500;
+	background:#555; 
+	background:#fff;
+	color:rgba(0,0,0,0.8);
+	padding-top:13em; /* for header */
+}
+
+#projectList {
+  position:relative;
+	margin:0;
+	padding:0 .5em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	opacity: 1;
+	z-index:1;
+	transition:opacity .25s;
+}
+
+#projectList.updating { opacity:0; }
+
+#addProjectForm {
+	display:none;
+	position:fixed;
+	top:0; left:0;
+	width:100%; height:100%;
+	background:rgba(0,0,0,0.67);
+	z-index:101;
+}
+
+/* site header */
+
+#siteHeader {
+	position: fixed;
+	top:0; left:0; width:100%;
+	color:white;
+	color:rgba(0,0,0,0.67);
+	margin: 0 2px 1.5em;
+	margin:0;
+	padding-bottom: 1em;
+	padding:0 1em 1em;
+	border-bottom:1px solid #ddd;
+	background:rgba(255,255,255,0.9);
+	z-index: 99;
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.12);
+}
+
+#siteHeader h1 {
+	margin-bottom:0;
+	line-height: .9em;
+	font-weight: 100;
+	transition: font-size 1s;
+}
+#siteHeader.minimized h1 { font-size:1.5em;}
+
+#siteHeader h1 span {
+	font-family: "Fira Sans", "Open Sans", Sans-serif;
+	font-weight: 500;
+}
+
+#siteHeader p {
+	margin:.25em 2px 0;
+	font-style:italic;
+	font-weight: 100;
+}
+
+#siteHeader.minimized p { display: none; }
+
+/* project card */
+
+.project {
+	width:100%;
+  max-width:360px;
+	background:#fff;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.24);
+	padding: 1em .8em 1em;
+	margin: 0 0 1em 0;
+	border-radius: 2px;
+	overflow:hidden;
+	opacity: .8;
+	transition: opacity .5s;
+}
+.project:hover {
+	opacity: 1;
+}
+
+h2 {
+	font-size:3em;
+	margin:0 0 .1em;
+	line-height: .9em;
+	padding-bottom:0;
+	border-bottom:5px solid rgba(255,255,255,0.25);
+	color:rgba(255,255,255,0.8);
+}
+
+h3 {
+	margin-top:.5em; 
+	color:rgba(255,255,255,0.8);
+	line-height: 1em;
+}
+
+a {
+	font-weight: 100;
+	color:rgba(255,255,255,0.8);
+}
+
+a:hover {
+	font-weight: 100;
+	color:rgba(0,0,0,0.67);
+	background:rgba(255,255,255,0.8);
+}
+
+
+
+/* buttons */
+
+button {
+	outline:0;
+	border:0;
+	background:#eee;
+	box-shadow:1px 1px 2px rgba(0,0,0,0.24);
+	padding:.25em .5em;
+}
+
+
+/* add new button */
+
+#toggleFormButton {
+	position: fixed;
+	bottom:.4em; right:.5em;
+	font-size:2.5em;
+	font-weight: 900;
+	line-height: 1em;
+	height:1.5em; width:1.5em;
+	padding:0em;
+	color:rgba(255,255,255,0.8);
+	border-radius: 50%;
+	background:rgba(0,0,0,0.67);
+ 	box-shadow:1px 1px 2px rgba(0,0,0,0.24); 
+	transition: transform .5s, color .25s, background .25s;
+  z-index: 101;
+}
+#toggleFormButton:hover,
+#toggleFormButton:active {
+	background:rgb(40,174,97);
+	cursor: pointer;
+}
+
+
+/* form fields */
+
+label {
+	color:rgba(0,0,0,0.67);
+	font-weight: 100;
+	vertical-align: -2px;
+	margin-left:.2em;
+}
+
+/* project filter form */
+
+#projectFilter {
+	position:absolute;
+	top:9em; left:50%;
+	width:200px;
+	margin-left:calc(-100px - 1em);
+	background:#fff;
+	padding:.5em;
+	z-index: 11;
+}
+#projectFilter.active {
+	box-shadow:1px 1px 2px rgba(0,0,0,0.24);
+}
+
+#filterButton {
+	font-size:.9em;
+	width:100%;
+	text-align: left;
+	padding:.25em;
+	background:none;
+	box-shadow: none;
+	font-weight: 100;
+	padding-bottom:.5em;
+	border-bottom:1px solid #ddd;
+}
+
+#projectFilter.active #filterButton {
+}
+
+.dropArrow { 
+	float:right;
+}
+
+#filterOptions {
+	display: none;	
+	margin:0;
+	width:100%;
+	padding:.25em 0;
+	font-size: .9em;
+}
+
+#projectFilter.active #filterOptions {
+	display:block;
+}
+
+#filterOptions div {
+	margin:1em .25em;
+}
+
+/* project filtering */
+
+.showFeatured .project { display: none; }
+.showFeatured .project.featured { display: block; }
+
+
+/* loading */
+
+#loading {	
+	width:100%;
+	height:300px; 
+	line-height:300px;
+	text-align: center;
+	font-size:4em;
+	color:rgba(0,0,0,0.67);
+}
+
+/* site footer */
+
+footer {
+	padding:0 1em;
+	border-top:1px solid #ddd;
+}
+
+
+/* colors */
+
+.green { background:rgb(40,174,97); }
+.bluegreen { background:rgb(22,160,134); }
+.purple { background:rgb(143,68,173); }
+.red { background:rgb(192,57,43); }
+.orange { background:rgb(212,104,1); }
+.blue { background:rgb(42,128,185); }
+
+
+/* wide screens */
+
+@media screen and (min-width: 600px) {
+	body {
+	  padding-top:11em; /* for header */
+	}
+	.project {
+	  margin:0 2em 2em 0;	
+	}
+	#projectFilter {
+	  top:7em;
+  	margin-left:calc(-100px -2em);
+	}
+	#toggleFormButton {
+		top:.5em;
+	}
+}
+
+
