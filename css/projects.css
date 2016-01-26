@@ -73,6 +73,7 @@ body {
 /* project card */
 
 .project {
+	position: relative;
 	width:100%;
   max-width:360px;
 	background:#fff;
@@ -161,6 +162,11 @@ label {
 	margin-left:.2em;
 }
 
+label, input[type='radio'] { 
+	cursor:pointer;
+}
+
+
 /* project filter form */
 
 #projectFilter {
@@ -216,6 +222,27 @@ label {
 .showFeatured .project { display: none; }
 .showFeatured .project.featured { display: block; }
 
+.showFavorites .project { display: none; }
+.showFavorites .project.starred { display: block; }
+
+
+/* favorites */
+
+.project .star {
+	position:absolute;
+	font-size:2em;
+	top:.5em; right:.25em;
+	color:rgba(255,255,255,0.5);
+	cursor:pointer;
+}
+
+.star:after {
+	content: "\2606"; /* &#9733; */
+}
+
+.project.starred .star:after {
+	content: '\2605'; /* &#9734; */
+}
 
 /* loading */
 
