@@ -53,7 +53,7 @@ body {
 	margin-bottom:0;
 	line-height: .9em;
 	font-weight: 100;
-	transition: font-size 1s;
+	transition: font-size .25s;
 }
 #siteHeader.minimized h1 { font-size:1.5em;}
 
@@ -83,7 +83,7 @@ body {
 	border-radius: 2px;
 	overflow:hidden;
 	opacity: .8;
-	transition: opacity .5s;
+	transition: opacity .25s;
 }
 .project:hover {
 	opacity: 1;
@@ -232,12 +232,16 @@ label, input[type='radio'] {
 	position:absolute;
 	font-size:2em;
 	top:.5em; right:.25em;
-	color:rgba(255,255,255,0.5);
+	color:rgba(0,0,0,0.75);
 	cursor:pointer;
 }
 
 .star:after {
-	content: "\2606"; /* &#9733; */
+	content: "\2605"; /* &#9733; */
+}
+
+.project.starred .star {
+	color:rgba(255,255,153,1);
 }
 
 .project.starred .star:after {
