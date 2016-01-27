@@ -21,7 +21,10 @@ body {
 	transition:opacity .25s;
 }
 
-#projectList.updating { opacity:0; }
+#projectList.fadeUpdate {
+	opacity:0;
+	transition:opactiy 0s;
+}
 
 #addProjectForm {
 	display:none;

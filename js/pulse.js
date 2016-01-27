@@ -29,16 +29,18 @@ var typography = {
 
 /* UI effects */
 
-var uiStyle = {
-	'fadeIn' : function () {
-		filterProjects.projectListContainer.classList.add('updating');
+var fadeUpdate = {
+	'fadeOut' : function (elem) {
+		elem.classList.add('fadeUpdate');
 	},
-	'fadeOut' : function () {
-		filterProjects.projectListContainer.classList.remove('updating');
+	'fadeIn' : function (elem) {
+		elem.classList.remove('fadeUpdate');
 	},
-	'fadeInOut' : function (elem) {
-		uiStyle.fadeIn(elem);
-		setTimeout(uiStyle.fadeOut, 500)
+	'fadeOutIn' : function (elem) {
+		fadeUpdate.fadeOut(elem);
+		setTimeout( function () {
+			fadeUpdate.fadeIn(elem);
+		}, 250)
 	},
 };
 
@@ -148,7 +150,7 @@ var filterForm = {
 var filterProjects = {
 	'projectListContainer' : document.getElementById('projectList'),
 	'updateSort' : function (choice) {
-		uiStyle.fadeInOut(filterProjects.projectListContainer);
+		fadeUpdate.fadeOutIn(filterProjects.projectListContainer);
 		switch (choice) {
 			case 'featured' : 
 				filterProjects.showFeaturedProjects();
