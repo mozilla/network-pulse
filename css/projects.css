@@ -217,8 +217,14 @@ label, input[type='radio'] {
 }
 
 #filterOptions div {
-	margin:1em .25em;
+	margin:.5em 0;
+	padding:.25em .5em;
 }
+
+#filterOptions div:hover {
+	background:#eee;
+}
+
 
 /* project filtering */
 
@@ -233,17 +239,31 @@ label, input[type='radio'] {
 
 .project .star {
 	position:absolute;
-	font-size:2em;
-	top:.5em; right:.25em;
-	color:rgba(0,0,0,0.75);
+	font-size:1.5em;
+	top:.2em; right:0.25em;
+	height:1.5em; width:1.5em;
+	text-align: center;
+	color:rgba(0,0,0,0.25);
 	cursor:pointer;
+	border-radius: 50%;
+  border:5px solid rgba(255,255,255,0.1);
+	background:inherit;
+	transition:top .25s, right .25s;
 }
 
+.project:hover .star {
+		top:.2em; right:0.25em;
+}
+
+.star:hover {
+	color:rgba(255,255,255,0.33);
+}
 .star:after {
 	content: "\2605"; /* &#9733; */
 }
 
 .project.starred .star {
+  top:.2em; right:0.25em;
 	color:rgba(255,255,153,1);
 }
 
@@ -283,19 +303,31 @@ footer {
 /* wide screens */
 
 @media screen and (min-width: 600px) {
+
 	body {
 	  padding-top:11em; /* for header */
 	}
+
 	.project {
 	  margin:0 2em 2em 0;	
 	}
+
 	#projectFilter {
 	  top:7em;
   	margin-left:calc(-100px -2em);
 	}
+
 	#toggleFormButton {
 		top:.67em;
 	}
+	
+  .project .star { /* hide and peek */ 
+  	top:-.75em; right:-.75em;  
+  }
+  .project:hover .star {
+		top:.2em; right:0.25em;
+	}	
+
 }
 
 

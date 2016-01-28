@@ -211,7 +211,6 @@ var starred = {
 	'toggle' : function (event) {
 		var star = event.target;
 		var project = star.parentElement;
-		console.log('toggle',star,project);
 		var starred = project.classList.contains('starred');
 		starred ? project.classList.remove('starred') : project.classList.add('starred');
 	},
