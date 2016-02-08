@@ -323,32 +323,32 @@ footer {
 @media screen and (min-width: 600px) {
 
 	body {
-	  padding-top:11em; /* for header */
+		padding-top:11em; /* for header */
 	}
 
 	#siteHeader h2 {
-  	top:.5em; left:-1.25em; right:auto;
-  	padding:.25em 3em .25em 1em;
-  	transform:rotate(-30deg);
-  }
-	
+		top:.5em; left:-1.25em; right:auto;
+		padding:.25em 3em .25em 1em;
+		transform:rotate(-30deg);
+	}
+
 	.project {
-	  margin:0 5em 5em 0;	
+		margin:0 5em 5em 0;	
 	}
 
 	#projectFilter {
-	  top:7em;
-  	margin-left:calc(-100px -2em);
+		top:7em;
+		margin-left:calc(-100px -2em);
 	}
 
 	#toggleFormButton {
 		top:.67em;
 	}
-	
-  .project .star { /* hide and peek */ 
-  	top:-.75em; right:-.75em;  
-  }
-  .project:hover .star {
+
+	.project .star { /* hide and peek */ 
+		top:-.75em; right:-.75em;  
+	}
+	.project:hover .star {
 		top:.2em; right:0.25em;
 	}	
 
