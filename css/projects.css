@@ -118,6 +118,7 @@ body {
 	border-radius: 2px;
 	overflow:hidden;
 	opacity: .8;
+	opacity: 1; /* too much with patterns */
 	transition: opacity .25s;
 }
 .project:hover {
