@@ -70,8 +70,13 @@ project.buildHTML = function (projectID, projectData) {
 };
 
 project.render = function (projectID, projectData) {
+	var featured = projectData.Featured;
 	var html = project.buildHTML(projectID, projectData);
-	$('#projectList').append(html);
+	if (featured) {
+		$('#featuredProjects').append(html);
+	} else {
+		$('#recentProjects').append(html);
+	}
 };
 
 
@@ -86,12 +91,12 @@ var newProjectForm = {
 	},
 	'showForm' : function (){
 		newProjectForm.formContainer.style.display = 'block';
-		filterProjects.projectListContainer.style.display = 'none';
+		filterProjects.projectContainer.style.display = 'none';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(45deg)';
 	},
 	'hideForm' : function (){
 		newProjectForm.formContainer.style.display = 'none';
-		filterProjects.projectListContainer.style.display = 'flex';
+		filterProjects.projectContainer.style.display = 'flex';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
 	},
 	'toggleForm' : function () {	
@@ -148,9 +153,9 @@ var filterForm = {
 /* project list filtering */
 
 var filterProjects = {
-	'projectListContainer' : document.getElementById('projectList'),
+	'projectContainer' : document.getElementById('projectContainer'),
 	'updateSort' : function (choice) {
-		fadeUpdate.fadeOutIn(filterProjects.projectListContainer);
+		fadeUpdate.fadeOutIn(filterProjects.projectContainer);
 		switch (choice) {
 			case 'featured' : 
 				filterProjects.showFeaturedProjects();
@@ -169,8 +174,8 @@ var filterProjects = {
 		};
 	},
 	'showFeaturedProjects' : function () {
-		filterProjects.projectListContainer.classList.remove('showFavorites');
-		filterProjects.projectListContainer.classList.add('showFeatured');
+		filterProjects.projectContainer.classList.remove('showFavorites');
+		filterProjects.projectContainer.classList.add('showFeatured');
 		filterForm.filterChoice.innerHTML = 'Show featured';
 	},
 	'showFavoriteProjects' : function () {
@@ -178,22 +183,22 @@ var filterProjects = {
 		if ( !starred ) {
 			alert('You haven\'t starred any favorites yet.');
 			document.querySelector('input[id="recent"]').checked=true;
-			filterProjects.projectListContainer.classList.remove('showFeatured');
+			filterProjects.projectContainer.classList.remove('showFeatured');
 			filterForm.filterChoice.innerHTML = 'Show recent';
 		} else {
-			filterProjects.projectListContainer.classList.remove('showFeatured');
-			filterProjects.projectListContainer.classList.add('showFavorites');
+			filterProjects.projectContainer.classList.remove('showFeatured');
+			filterProjects.projectContainer.classList.add('showFavorites');
 			filterForm.filterChoice.innerHTML = 'My Favorites';			
 		};
 	},
 	'showPopularProjects' : function () {
-		filterProjects.projectListContainer.classList.remove('showFeatured');
-		filterProjects.projectListContainer.classList.remove('showFavorites');
+		filterProjects.projectContainer.classList.remove('showFeatured');
+		filterProjects.projectContainer.classList.remove('showFavorites');
 		filterForm.filterChoice.innerHTML = 'Popular (not yet available)';
 	},
 	'showRecentProjects' : function () {
-		filterProjects.projectListContainer.classList.remove('showFeatured');
-		filterProjects.projectListContainer.classList.remove('showFavorites');
+		filterProjects.projectContainer.classList.remove('showFeatured');
+		filterProjects.projectContainer.classList.remove('showFavorites');
 		filterForm.filterChoice.innerHTML = 'Show recent';
 	},
 };

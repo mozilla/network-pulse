@@ -6,22 +6,19 @@ body {
 	background:#555; 
 	background:#fff;
 	color:rgba(0,0,0,0.8);
-	padding-top:13em; /* for header */
+	padding-top:8em; /* for header */
 }
 
-#projectList {
+#projectContainer {
   position:relative;
 	margin:0;
 	padding:0 .5em;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
 	opacity: 1;
 	z-index:1;
 	transition:opacity .25s;
 }
 
-#projectList.fadeUpdate {
+#projectContainer.fadeUpdate {
 	opacity:0;
 	transition:opactiy 0s;
 }
@@ -34,6 +31,23 @@ body {
 	background:rgba(0,0,0,0.67);
 	z-index:101;
 }
+
+/* project lists */
+
+#projectContainer h4 {
+	margin:1em 0;
+	font-weight: 100;
+	font-size:1.25em;
+	color:rgba(0,0,0,0.67);
+}
+
+.projectList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+
 
 /* site header */
 
@@ -198,6 +212,10 @@ label, input[type='radio'] {
 	background:#fff;
 	padding:.5em;
 	z-index: 11;
+	
+	/* depracated for now */
+	display: none;
+
 }
 #projectFilter.active {
 	box-shadow:1px 1px 2px rgba(0,0,0,0.24);
@@ -213,6 +231,8 @@ label, input[type='radio'] {
 	font-weight: 100;
 	padding-bottom:.5em;
 	border-bottom:1px solid #ddd;
+	
+	
 }
 
 #projectFilter.active #filterButton {
@@ -323,7 +343,7 @@ footer {
 @media screen and (min-width: 600px) {
 
 	body {
-		padding-top:11em; /* for header */
+		padding-top:7em; /* for header */
 	}
 
 	#siteHeader h2 {
@@ -332,6 +352,18 @@ footer {
 		transform:rotate(-30deg);
 	}
 
+	#projectContainer {
+		margin:0 .5em;
+	}
+	
+	#projectContainer h4 {
+		margin:1em 0;
+	}
+
+	.projectList {
+		justify-content: left;
+	}
+	
 	.project {
 		margin:0 5em 5em 0;	
 	}
