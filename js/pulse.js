@@ -69,6 +69,12 @@ project.buildHTML = function (projectID, projectData) {
 	return html;
 };
 
+project.addPattern = function(projectID, projectData){
+	var pattern = GeoPattern.generate(projectData.Title);
+	pattern = pattern.toDataUrl();
+	document.getElementById('p' + projectID).style.backgroundImage = pattern;
+};
+
 project.render = function (projectID, projectData) {
 	var featured = projectData.Featured;
 	var html = project.buildHTML(projectID, projectData);
@@ -77,6 +83,8 @@ project.render = function (projectID, projectData) {
 	} else {
 		$('#recentProjects').append(html);
 	}
+
+	project.addPattern(projectID, projectData);
 };
 
 
