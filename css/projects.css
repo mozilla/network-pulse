@@ -362,7 +362,7 @@ footer {
 	}
 
 	.projectList {
-		justify-content: left;
+		justify-content: flex-start;
 	}
 	
 	.project {
