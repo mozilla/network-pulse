@@ -49,6 +49,13 @@ var fadeUpdate = {
 
 var project = {};
 
+project.getID = function (projectData) {
+	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
+	var id = timestamp ? timestamp.replace(/-|:|\s|\//gi, '') : '0';
+	var id = 'p' + id;
+	return id; 
+}
+
 project.buildHTML = function (projectID, projectData) {
 	// format available data
 	var URL = projectData.URL ? projectData.URL : '';
@@ -60,11 +67,14 @@ project.buildHTML = function (projectID, projectData) {
 	var favorites = projectData.Favorites ? projectData.Favorites : 0;
 	var featured = projectData.Featured ? ' featured' : '';
 
+	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
+	var id = project.getID(projectData);
+
 	// rotate colors
-	var color = colors.getColor();
+	var color = colors.getColor(); 
 
 	// assemble html
-	var html = '<div id="p' + projectID + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest +link + '<div class="star"></div></div>';
+	var html = '<div id="' + id + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest +link + '<div class="star"></div></div>';
 
 	return html;
 };
@@ -72,13 +82,20 @@ project.buildHTML = function (projectID, projectData) {
 project.addPattern = function(projectID, projectData){
 	var pattern = GeoPattern.generate(projectData.Title);
 	pattern = pattern.toDataUrl();
-	document.getElementById('p' + projectID).style.backgroundImage = pattern;
+
+	var id = project.getID(projectData);
+	document.getElementById(id).style.backgroundImage = pattern;
 };
 
 project.render = function (projectID, projectData) {
+	var id = project.getID(projectData);
+	var starStatus = starred.list.indexOf(id);
 	var featured = projectData.Featured;
 	var html = project.buildHTML(projectID, projectData);
-	if (featured) {
+
+	if (starStatus != -1) {
+	    $('#starredProjects').append(html);
+	} else if (featured) {
 		$('#featuredProjects').append(html);
 	} else {
 		$('#recentProjects').append(html);
@@ -217,21 +234,55 @@ var filterProjects = {
 /* favorite stars */
 
 var starred = {
+	'list' : [],
 	'getStarred' : function () {
 		var allStarred = document.querySelectorAll('.starred');
 		return allStarred;
 	},
+	'saveStar' : function (id) {
+		starred.list.push(id);
+		var starIDs = starred.list.toString(); 
+		localStorage.setItem("pulse",starIDs);
+	},	
+	'deleteStar' : function (id) {
+		var index = starred.list.indexOf(id);
+		if (index != -1) {
+		    starred.list.splice(index, 1);
+		}
+		var starIDs = starred.list.toString(); 
+		localStorage.setItem("pulse",starIDs);
+	},	
 	'toggle' : function (event) {
 		var star = event.target;
 		var project = star.parentElement;
-		var starred = project.classList.contains('starred');
-		starred ? project.classList.remove('starred') : project.classList.add('starred');
+		var status = project.classList.contains('starred');
+		status ? project.classList.remove('starred') : project.classList.add('starred');
+		if (!status) { 
+			starred.saveStar(project.id);
+		} else {
+			starred.deleteStar(project.id);
+		};
 	},
-	'init' : function () {
-		var emptyStars = document.querySelectorAll('.star');
-		Array.prototype.forEach.call(emptyStars, function(el, i){
+	'loadStars' : function () {
+		var starIDs = localStorage.getItem("pulse"); 
+		if (!starIDs) { return false; }
+		starred.list = starIDs.split(',');
+	},
+	'showStars' : function () {
+		Array.prototype.forEach.call(starred.list, function(el, i){
+			var project = document.getElementById(el);
+			project.classList.add('starred');
+		});	
+	},
+	'addHandlers' : function () {
+		var starButtons = document.querySelectorAll('.star');
+		Array.prototype.forEach.call(starButtons, function(el, i){
 			el.onclick = starred.toggle;
 		});	
+	},
+	'init' : function () {
+		starred.addHandlers();
+		starred.showStars();
 	},
 }
 
@@ -281,6 +332,7 @@ var projectData = {
 	},
 };
 
+starred.loadStars();
 projectData.getData();
 
 
