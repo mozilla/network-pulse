@@ -104,7 +104,7 @@ var newProjectForm = {
 	},
 	'hideForm' : function (){
 		newProjectForm.formContainer.style.display = 'none';
-		filterProjects.projectContainer.style.display = 'flex';
+		filterProjects.projectContainer.style.display = 'block';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
 	},
 	'toggleForm' : function () {	
