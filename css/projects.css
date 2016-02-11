@@ -369,7 +369,7 @@ footer {
   #siteHeader.minimized p { display: none; }
 
 	#projectContainer {
-		margin:0 .5em;
+		margin:0 -2em 0 .5em;
 	}
 	
 	#projectContainer h4 {
