@@ -57,7 +57,7 @@ project.getID = function (projectData) {
 	return id; 
 }
 
-project.buildHTML = function (projectID, projectData) {
+project.buildHTML = function (projectData) {
 	// format available data
 	var URL = projectData.URL ? projectData.URL : '';
 	var link = '<p><a class="projectLink" href="' + URL + '">Open &#8599;</a></p>';
@@ -78,7 +78,7 @@ project.buildHTML = function (projectID, projectData) {
 	return html;
 };
 
-project.addPattern = function(projectID, projectData){
+project.addPattern = function(projectData){
 	var color = colors.getColor('hex'); 
 	var pattern = GeoPattern.generate(projectData.Title,{
 		color : color,
@@ -89,11 +89,11 @@ project.addPattern = function(projectID, projectData){
 	document.getElementById(id).style.backgroundImage = pattern;
 };
 
-project.render = function (projectID, projectData) {
+project.render = function (projectData) {
 	var id = project.getID(projectData);
 	var starStatus = starred.list.indexOf(id);
 	var featured = projectData.Featured;
-	var html = project.buildHTML(projectID, projectData);
+	var html = project.buildHTML(projectData);
 
 	if (starStatus != -1) {
 	    $('#starredProjects').append(html);
@@ -103,7 +103,7 @@ project.render = function (projectID, projectData) {
 		$('#recentProjects').append(html);
 	}
 
-	project.addPattern(projectID, projectData);
+	project.addPattern(projectData);
 };
 
 
@@ -318,7 +318,7 @@ var projectData = {
 		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
 			$.each( data.result, function( projectID, projectData ) {
-				project.render(projectID, projectData);
+				project.render(projectData);
 			});
 		}).done( function() {
 			console.log('gotData');
