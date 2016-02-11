@@ -4,9 +4,10 @@
 
 var colors = {
 	'names' : ['nightlyblue','developerblue','mobileblue','summitteal','geckgreen','flameyellow','marketorange','firefoxorange','dinored','bikeshedmagenta','aurorapurple'],
+	'hexes' : ['#2D457E','#1EC198','#F19B2D','#DF5B74','#135E9F','#7CC260','#E66C32','#793876','#20A5D9','#F9D12F','#C95142'],
 	'id' : 0,
-	'getColor' : function (){
-		color = colors.names[colors.id];
+	'getColor' : function (type){
+		var color = type === 'hex' ? colors.hexes[colors.id] : colors.names[colors.id];
 		colors.id += 1;
 		if ( colors.id === colors.names.length ) { colors.id = 0; }
 		return color;
@@ -69,9 +70,7 @@ project.buildHTML = function (projectID, projectData) {
 
 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
 	var id = project.getID(projectData);
-
-	// rotate colors
-	var color = colors.getColor(); 
+	var color = colors.getColor('name'); 
 
 	// assemble html
 	var html = '<div id="' + id + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest +link + '<div class="star"></div></div>';
@@ -80,7 +79,10 @@ project.buildHTML = function (projectID, projectData) {
 };
 
 project.addPattern = function(projectID, projectData){
-	var pattern = GeoPattern.generate(projectData.Title);
+	var color = colors.getColor('hex'); 
+	var pattern = GeoPattern.generate(projectData.Title,{
+		color : color,
+	});
 	pattern = pattern.toDataUrl();
 
 	var id = project.getID(projectData);
@@ -101,7 +103,7 @@ project.render = function (projectID, projectData) {
 		$('#recentProjects').append(html);
 	}
 
-	// project.addPattern(projectID, projectData);
+	project.addPattern(projectID, projectData);
 };
 
 

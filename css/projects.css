@@ -331,19 +331,17 @@ footer {
 
 /* colors */
 
-.nightlyblue { background:rgb(45,69,126); }
-.developerblue { background:rgb(18,202,169); }
-.mobileblue { background:rgb(241,155,45); }
-.summitteal { background:rgb(223,91,116); }
-.geckgreen { background:rgb(19,94,159); }
-.flameyellow { background:rgb(124,194,96); }
-.marketorange { background:rgb(230,108,50); }
-.firefoxorange { background:rgb(121,56,118); }
-.dinored { background:rgb(32,165,217); }
-.bikeshedmagenta { background:rgb(249,209,47); }
-.aurorapurple { background:rgb(201,81,66); }
-
-
+.nightlyblue  { background:#2D457E; /* rgb(45,69,126:) */ }
+.developerblue  { background:#1EC198; /* rgb(18,202,169:) */ }
+.mobileblue  { background:#F19B2D; /* rgb(241,155,45:) */ }
+.summitteal  { background:#DF5B74; /* rgb(223,91,116:) */ }
+.geckgreen  { background:#135E9F; /* rgb(19,94,159:) */ }
+.flameyellow  { background:#7CC260; /* rgb(124,194,96:) */ }
+.marketorange  { background:#E66C32; /* rgb(230,108,50:) */ }
+.firefoxorange  { background:#793876; /* rgb(121,56,118:) */ }
+.dinored  { background:#20A5D9; /* rgb(32,165,217:) */ }
+.bikeshedmagenta  { background:#F9D12F; /* rgb(249,209,47:) */ }
+.aurorapurple  { background:#C95142; /* rgb(201,81,66:) */ }
 
 
 /* wide screens */
