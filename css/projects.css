@@ -135,10 +135,10 @@ h3 {
 	line-height: 1em;
 }
 
-.projectLink {
+.projectLinks a {
 	display: inline-block;
 	border:1px solid rgba(255,255,255,0.8);
-	margin:.25em 0; 
+	margin:.25em .5em .25em 0; 
 	padding:.25em .5em; 
 	border-radius: 6px;
 	text-decoration: none;
@@ -146,7 +146,7 @@ h3 {
 	color:rgba(255,255,255,0.8);
 }
 
-.projectLink:hover {
+.projectLinks a:hover {
 	color:rgba(0,0,0,0.67);
 	background:rgba(255,255,255,0.8);
 }

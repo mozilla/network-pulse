@@ -59,8 +59,10 @@ project.getID = function (projectData) {
 
 project.buildHTML = function (projectData) {
 	// format available data
-	var URL = projectData.URL ? projectData.URL : '';
-	var link = '<p><a class="projectLink" href="' + URL + '">Open &#8599;</a></p>';
+	var helpURL = projectData['Get involved URL'];
+	helpURL = !helpURL ? '' : '<a href="' + helpURL + '">Get Involved &#8599;</a>';
+	var projectURL = !projectData.URL ? '' : '<a href="' + projectData.URL + '">Open &#8599;</a>';
+	var links = '<p class="projectLinks">' + projectURL + helpURL +  '</p>';
 	var title = projectData.Title ? '<h2>' + projectData.Title + '</h2>' : '';
 	var creator = projectData.Creator ? '<h3>' + projectData.Creator + '</h3>' : '';
 	var description = projectData.Description ? '<p class="description">' + projectData.Description + '</p>' : '';
@@ -73,7 +75,7 @@ project.buildHTML = function (projectData) {
 	var color = colors.getColor('name'); 
 
 	// assemble html
-	var html = '<div id="' + id + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest +link + '<div class="star"></div></div>';
+	var html = '<div id="' + id + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest + links + '<div class="star"></div></div>';
 
 	return html;
 };
@@ -82,6 +84,7 @@ project.addPattern = function(projectData){
 	var color = colors.getColor('hex'); 
 	var pattern = GeoPattern.generate(projectData.Title,{
 		color : color,
+		baseColor : '333333	'
 	});
 	pattern = pattern.toDataUrl();
 
