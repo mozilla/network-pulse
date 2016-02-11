@@ -3,7 +3,7 @@
 /* color project cards */
 
 var colors = {
-	'names' : ['orange','blue','bluegreen','purple','red'],
+	'names' : ['nightlyblue','developerblue','mobileblue','summitteal','geckgreen','flameyellow','marketorange','firefoxorange','dinored','bikeshedmagenta','aurorapurple'],
 	'id' : 0,
 	'getColor' : function (){
 		color = colors.names[colors.id];
@@ -101,7 +101,7 @@ project.render = function (projectID, projectData) {
 		$('#recentProjects').append(html);
 	}
 
-	project.addPattern(projectID, projectData);
+	// project.addPattern(projectID, projectData);
 };
 
 

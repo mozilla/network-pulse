@@ -331,12 +331,19 @@ footer {
 
 /* colors */
 
-.green { background:rgb(40,174,97); }
-.bluegreen { background:rgb(22,160,134); }
-.purple { background:rgb(143,68,173); }
-.red { background:rgb(192,57,43); }
-.orange { background:rgb(212,104,1); }
-.blue { background:rgb(42,128,185); }
+.nightlyblue { background:rgb(45,69,126); }
+.developerblue { background:rgb(18,202,169); }
+.mobileblue { background:rgb(241,155,45); }
+.summitteal { background:rgb(223,91,116); }
+.geckgreen { background:rgb(19,94,159); }
+.flameyellow { background:rgb(124,194,96); }
+.marketorange { background:rgb(230,108,50); }
+.firefoxorange { background:rgb(121,56,118); }
+.dinored { background:rgb(32,165,217); }
+.bikeshedmagenta { background:rgb(249,209,47); }
+.aurorapurple { background:rgb(201,81,66); }
+
+
 
 
 /* wide screens */
