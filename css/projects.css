@@ -76,6 +76,7 @@ body {
 #siteHeader h1 span {
 	font-family: "Fira Sans", "Open Sans", Sans-serif;
 	font-weight: 500;
+	opacity:.67;
 }
 
 #siteHeader h2 {
@@ -117,12 +118,8 @@ body {
 	margin: 0 0 1em 0;
 	border-radius: 2px;
 	overflow:hidden;
-	opacity: .8;
-	opacity: 1; /* too much with patterns */
 	transition: opacity .25s;
-}
-.project:hover {
-	opacity: 1;
+	color:rgba(255,255,255,0.8);
 }
 
 .project h2 {
@@ -131,7 +128,6 @@ body {
 	line-height: .9em;
 	padding-bottom:0;
 	border-bottom:5px solid rgba(255,255,255,0.25);
-	color:rgba(255,255,255,0.8);
 }
 
 h3 {
@@ -140,13 +136,18 @@ h3 {
 	line-height: 1em;
 }
 
-a {
+.projectLink {
+	display: inline-block;
+	border:1px solid rgba(255,255,255,0.8);
+	margin:.25em 0; 
+	padding:.25em .5em; 
+	border-radius: 6px;
+	text-decoration: none;
 	font-weight: 100;
 	color:rgba(255,255,255,0.8);
 }
 
-a:hover {
-	font-weight: 100;
+.projectLink:hover {
 	color:rgba(0,0,0,0.67);
 	background:rgba(255,255,255,0.8);
 }
@@ -282,10 +283,10 @@ label, input[type='radio'] {
 	top:.2em; right:0.25em;
 	height:1.5em; width:1.5em;
 	text-align: center;
-	color:rgba(0,0,0,0.25);
 	cursor:pointer;
 	border-radius: 50%;
   border:5px solid rgba(255,255,255,0.1);
+	color:rgba(0,0,0,0.25);
 	background:inherit;
 	transition:top .25s, right .25s;
 }
@@ -303,7 +304,7 @@ label, input[type='radio'] {
 
 .project.starred .star {
   top:.2em; right:0.25em;
-	color:rgba(255,255,153,1);
+	color:rgba(249,209,47,1);
 }
 
 .project.starred .star:after {

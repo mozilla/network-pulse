@@ -60,7 +60,7 @@ project.getID = function (projectData) {
 project.buildHTML = function (projectID, projectData) {
 	// format available data
 	var URL = projectData.URL ? projectData.URL : '';
-	var link = '<p><a href="' + URL + '">' + URL + '</a></p>';
+	var link = '<p><a class="projectLink" href="' + URL + '">Open &#8599;</a></p>';
 	var title = projectData.Title ? '<h2>' + projectData.Title + '</h2>' : '';
 	var creator = projectData.Creator ? '<h3>' + projectData.Creator + '</h3>' : '';
 	var description = projectData.Description ? '<p class="description">' + projectData.Description + '</p>' : '';
