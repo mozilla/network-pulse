@@ -111,6 +111,7 @@ project.render = function (projectData) {
 
 project.hideProject = function (element) {
     element.style.display = 'none';
+    dismissed.addDismissed(element.id);
 };
 
 project.shrinkProject = function (element) {
@@ -271,6 +272,39 @@ var filterProjects = {
 
 
 
+/* dismissed */
+
+var dismissed = {
+	'list' : [],
+	'addDismissed' : function (id) {
+		dismissed.list.push(id);
+		var projIDs = dismissed.list.toString(); 
+		localStorage.setItem("dismissed",projIDs);
+		console.log('addDismissed',localStorage.dismissed);
+	},	
+	'loadDismissed' : function () {
+		var projIDs = localStorage.getItem("dismissed"); 
+		if (!projIDs) { return false; }
+		dismissed.list = projIDs.split(',');
+		console.log('loadDismissed',dismissed.list);
+	},
+	'hideDismissed' : function () {
+		Array.prototype.forEach.call(dismissed.list, function(el, i){
+			var proj = document.getElementById(el);
+			proj.style.display = 'none';
+		});	
+	},
+	'clearDismissed' : function () {
+		 localStorage.removeItem("dismissed");
+		 location.reload();
+	},
+	'init' : function () {
+		console.log('initDismissed');
+		dismissed.hideDismissed();
+		document.getElementById('clearDismissed').onclick = dismissed.clearDismissed;
+	},	
+}
+
 /* favorite stars */
 
 var starred = {
@@ -385,6 +419,7 @@ var projectData = {
 		typography.preventTextOrphans();
 		filterForm.init();
 		filterForm.updateChoice('recent');
+		dismissed.init();
 		starred.init();
 		touch.init();
 	},
@@ -395,6 +430,7 @@ var projectData = {
 };
 
 starred.loadStars();
+dismissed.loadDismissed();
 projectData.getData();
 
 
