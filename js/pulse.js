@@ -109,33 +109,36 @@ project.render = function (projectData) {
 	project.addPattern(projectData);
 };
 
-project.hideProject = function (project) {
-    project.style.display = 'none';
+project.hideProject = function (element) {
+    element.style.display = 'none';
 };
 
-project.shrinkProject = function (project) {
-    project.style.height = '0';
-    setTimeout(function(){ project.hideProject(project) }, 500);
+project.shrinkProject = function (element) {
+    element.style.height = '0';
+    setTimeout(function(){ project.hideProject(element) }, 500);
 };
 
-project.checkSwipe = function (project,deltaX) {
-    var width = project.offsetWidth;
-    var threshold = width * -.5;
+project.checkSwipe = function (element,deltaX) {
+    var width = element.offsetWidth;
+    var threshold = width / -3;
     var purgatory = width * -2;
     if (deltaX < threshold ) { 
-        project.style.left = purgatory + 'px';
-        setTimeout(function(){ project.shrinkProject(project) }, 500);
+        element.style.left = purgatory + 'px';
+        setTimeout(function(){ project.shrinkProject(element) }, 500);
     } else {
-        project.style.left = '0';
+		console.log('deltaX !< threshold');
+        element.style.left = '0px';
     }
 };
 
-project.swipeProject = function swipeProject (ev) {
-    var project = ev.target;
-    var deltaX = ev.deltaX;
-    project.style.left = deltaX + 'px';
-    if (ev.isFinal) { 
-       project.checkSwipe(project,deltaX);
+project.swipeProject = function (event) {
+    var element = event.target;
+	if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is weird
+	if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is insane
+    var deltaX = event.deltaX;
+    element.style.left = deltaX + 'px';
+    if (event.isFinal) { 
+		project.checkSwipe(element,deltaX);
     }
 };
 
@@ -351,11 +354,11 @@ scrollStyle.init();
 var touch = {
 	'init' : function () {
 		var projects = projectData.getProjectElements();
-		Array.prototype.forEach.call(projects, function(el, i){
-			var touch = new Hammer(el);
-			touch.get('swipe').set({ velocity : 1, threshold : 20 });
-			touch.get('pan').set({ threshold : 20 });
-			touch.on("panleft swipeleft", project.swipeProject);
+		Array.prototype.forEach.call(projects, function(element, i){
+			touch.i = new Hammer(element);
+			// touch.i.get('swipe').set({ velocity : 1, threshold : 20 });
+			// touch.i.get('pan').set({ threshold : 20 });
+			touch.i.on("panleft", project.swipeProject);
 		});
 	}
 }
