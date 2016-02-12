@@ -415,6 +415,9 @@ footer {
 		top:.2em; right:0.25em;
 	}	
 
+	.mobileOnly {
+		display: none;
+	}
 }
 
 
