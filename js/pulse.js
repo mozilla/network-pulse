@@ -127,7 +127,6 @@ project.checkSwipe = function (element,deltaX) {
         element.style.left = purgatory + 'px';
         setTimeout(function(){ project.shrinkProject(element) }, 500);
     } else {
-		console.log('deltaX !< threshold');
         element.style.left = '0px';
     }
 };
@@ -164,6 +163,10 @@ var newProjectForm = {
 		newProjectForm.formContainer.style.display = 'none';
 		filterProjects.projectContainer.style.display = 'block';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
+
+		projectData.clearProjectLists();
+		projectData.getData();
+
 	},
 	'toggleForm' : function () {	
 		var displayState = newProjectForm.getDisplayState();
@@ -280,13 +283,11 @@ var dismissed = {
 		dismissed.list.push(id);
 		var projIDs = dismissed.list.toString(); 
 		localStorage.setItem("dismissed",projIDs);
-		console.log('addDismissed',localStorage.dismissed);
 	},	
 	'loadDismissed' : function () {
 		var projIDs = localStorage.getItem("dismissed"); 
 		if (!projIDs) { return false; }
 		dismissed.list = projIDs.split(',');
-		console.log('loadDismissed',dismissed.list);
 	},
 	'hideDismissed' : function () {
 		Array.prototype.forEach.call(dismissed.list, function(el, i){
@@ -299,7 +300,6 @@ var dismissed = {
 		 location.reload();
 	},
 	'init' : function () {
-		console.log('initDismissed');
 		dismissed.hideDismissed();
 		document.getElementById('clearDismissed').onclick = dismissed.clearDismissed;
 	},	
@@ -426,6 +426,14 @@ var projectData = {
 	'getProjectElements' : function () {
 		var projects = document.querySelectorAll('.project');
 		return projects;
+	},
+	'clearProjectLists' : function () {
+		document.getElementById('projectContainer').classList.add('fadeUpdate');
+		document.getElementById('loading').style.display = 'block';
+		var lists = document.querySelectorAll('.projectList');
+		Array.prototype.forEach.call(lists, function(list, i){
+			list.innerHTML = '';
+		});
 	}
 };
 
