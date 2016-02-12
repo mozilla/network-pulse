@@ -121,7 +121,7 @@ project.shrinkProject = function (element) {
 project.checkSwipe = function (element,deltaX) {
     var width = element.offsetWidth;
     var threshold = width / -3;
-    var purgatory = width * -2;
+    var purgatory = (width * -1) - 50;
     if (deltaX < threshold ) { 
         element.style.left = purgatory + 'px';
         setTimeout(function(){ project.shrinkProject(element) }, 500);
