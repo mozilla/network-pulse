@@ -109,6 +109,41 @@ project.render = function (projectData) {
 	project.addPattern(projectData);
 };
 
+project.hideProject = function (element) {
+    element.style.display = 'none';
+};
+
+project.shrinkProject = function (element) {
+    element.style.height = '0';
+    setTimeout(function(){ project.hideProject(element) }, 500);
+};
+
+project.checkSwipe = function (element,deltaX) {
+    var width = element.offsetWidth;
+    var threshold = width / -3;
+    var purgatory = width * -2;
+    if (deltaX < threshold ) { 
+        element.style.left = purgatory + 'px';
+        setTimeout(function(){ project.shrinkProject(element) }, 500);
+    } else {
+		console.log('deltaX !< threshold');
+        element.style.left = '0px';
+    }
+};
+
+project.swipeProject = function (event) {
+    var element = event.target;
+	if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is weird
+	if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is insane
+    var deltaX = event.deltaX;
+    element.style.left = deltaX + 'px';
+    if (event.isFinal) { 
+		project.checkSwipe(element,deltaX);
+    }
+};
+
+
+
 
 /* add new project form */
 
@@ -312,6 +347,23 @@ var scrollStyle = {
 scrollStyle.init();
 
 
+
+
+/* touch */
+
+var touch = {
+	'init' : function () {
+		var projects = projectData.getProjectElements();
+		Array.prototype.forEach.call(projects, function(element, i){
+			touch.i = new Hammer(element);
+			// touch.i.get('swipe').set({ velocity : 1, threshold : 20 });
+			// touch.i.get('pan').set({ threshold : 20 });
+			touch.i.on("panleft", project.swipeProject);
+		});
+	}
+}
+
+
 /* project data */
 
 
@@ -334,7 +386,12 @@ var projectData = {
 		filterForm.init();
 		filterForm.updateChoice('recent');
 		starred.init();
+		touch.init();
 	},
+	'getProjectElements' : function () {
+		var projects = document.querySelectorAll('.project');
+		return projects;
+	}
 };
 
 starred.loadStars();
