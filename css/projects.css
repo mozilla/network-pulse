@@ -123,7 +123,7 @@ body {
 	color:rgba(255,255,255,0.8);
 	left:0px;
 	width:100%;
-	transition:left .25s, height .25s;
+	transition:left .25s, height .25s, padding .25s, margin .25s;
 }
 
 .project h2 {
@@ -314,6 +314,15 @@ label, input[type='radio'] {
 .project.starred .star:after {
 	content: '\2605'; /* &#9734; */
 }
+
+/* transitions */
+
+.shrunken {
+	height:0;
+	margin:0;
+	padding:0;
+}
+
 
 /* loading */
 

@@ -114,7 +114,7 @@ project.hideProject = function (element) {
 };
 
 project.shrinkProject = function (element) {
-    element.style.height = '0';
+    element.classList.add = 'shrunken';
     setTimeout(function(){ project.hideProject(element) }, 500);
 };
 
