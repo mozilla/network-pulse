@@ -382,16 +382,19 @@ scrollStyle.init();
 
 
 
-
 /* touch */
 
 var touch = {
 	'init' : function () {
+		var width = screen.width;
+		if (screen.width < 601) {
+			touch.addHandlers();
+		}
+	},
+	'addHandlers' : function () {
 		var projects = projectData.getProjectElements();
 		Array.prototype.forEach.call(projects, function(element, i){
 			touch.i = new Hammer(element);
-			// touch.i.get('swipe').set({ velocity : 1, threshold : 20 });
-			// touch.i.get('pan').set({ threshold : 20 });
 			touch.i.on("panleft", project.swipeProject);
 		});
 	}
