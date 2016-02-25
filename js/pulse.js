@@ -308,7 +308,7 @@ var dismissed = {
 	'hideDismissed' : function () {
 		Array.prototype.forEach.call(dismissed.list, function(el, i){
 			var proj = document.getElementById(el);
-			proj.style.display = 'none';
+			if (proj) { proj.style.display = 'none'; }
 		});	
 	},
 	'clearDismissed' : function () {
