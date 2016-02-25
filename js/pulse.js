@@ -50,12 +50,21 @@ var fadeUpdate = {
 
 var project = {};
 
+
+
 project.getID = function (projectData) {
 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-	var id = timestamp ? timestamp.replace(/-|:|\s|\//gi, '') : '0';
-	var id = 'p' + id;
+	var id = timestamp ? Date.parse(timestamp) : '0';
 	return id; 
 }
+
+// project.getID = function (projectData) {
+// 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
+// 	console.log('timestamp',timestamp);
+// 	var id = timestamp ? timestamp.replace(/-|:|\s|\//gi, '') : '0';
+// 	var id = 'p' + id;
+// 	return id; 
+// }
 
 project.buildHTML = function (projectData) {
 	// format available data
@@ -75,7 +84,7 @@ project.buildHTML = function (projectData) {
 	var color = colors.getColor('name'); 
 
 	// assemble html
-	var html = '<div id="' + id + '" class="project ' + color + featured + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest + links + '<div class="star"></div></div>';
+	var html = '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest + links + '<div class="star"></div></div>';
 
 	return html;
 };
@@ -88,13 +97,13 @@ project.addPattern = function(projectData){
 	});
 	pattern = pattern.toDataUrl();
 
-	var id = project.getID(projectData);
+	var id = 'p' + project.getID(projectData);
 	document.getElementById(id).style.backgroundImage = pattern;
 };
 
 project.render = function (projectData) {
 	var id = project.getID(projectData);
-	var starStatus = starred.list.indexOf(id);
+	var starStatus = starred.list.indexOf('p' + id);
 	var featured = projectData.Featured;
 	var html = project.buildHTML(projectData);
 
@@ -216,6 +225,13 @@ var filterForm = {
 		});	
 	},
 };
+
+
+
+/* search filter */
+
+var search = {};
+
 
 
 
@@ -345,7 +361,7 @@ var starred = {
 	'showStars' : function () {
 		Array.prototype.forEach.call(starred.list, function(el, i){
 			var project = document.getElementById(el);
-			project.classList.add('starred');
+			if (project) { project.classList.add('starred'); };
 		});	
 	},
 	'addHandlers' : function () {
@@ -409,7 +425,8 @@ var projectData = {
 	'getData' : function () {
 		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
-			$.each( data.result, function( projectID, projectData ) {
+			var sortedData = projectData.sortByTimestamp(data.result);
+			$.each( sortedData, function( projectID, projectData ) {
 				project.render(projectData);
 			});
 		}).done( function() {
@@ -418,7 +435,14 @@ var projectData = {
 			projectData.processData();
 		});		
 	},
-	'processData' : function (){ // init most things here
+	'sortByTimestamp' : function (data) {
+		var sorted = _.orderBy( data, function(o) { 
+			var timestamp = Date.parse(o.Timestamp);
+			return timestamp;
+		}, 'desc');
+		return sorted;
+	},
+	'processData' : function () { // init most things here
 		typography.preventTextOrphans();
 		filterForm.init();
 		filterForm.updateChoice('recent');
