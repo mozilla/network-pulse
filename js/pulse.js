@@ -204,11 +204,11 @@ var filterForm = {
 	},
 	'showFilters' : function () {
 		filterForm.container.classList.add('active');
-		document.onclick = function(e) { /* tap outside to close */
-		    if(e.target != filterForm.filterButton) {
-        		filterForm.hideFilters;          
-    		}
-		};
+		// document.onclick = function(e) { /* tap outside to close */
+		//     if(e.target != filterForm.filterButton) {
+  //       		filterForm.hideFilters;          
+  //   		}
+		// };
 	},
 	'hideFilters' : function () {
 		filterForm.container.classList.remove('active');
@@ -417,6 +417,78 @@ var touch = {
 }
 
 
+/* notifications */
+
+
+var notify = {};
+
+notify.checkPermission = function() {
+	var permission = false;
+	if (!"Notification" in window) {
+		// check browser support
+	} else if (Notification.permission === "granted") {
+		permission = true;
+		notify.hideCTA();
+		return permission;
+	} else if (Notification.permission !== 'denied') {
+		// permission unknown
+		permission = notify.requestPermission();
+		return permission;
+	}
+}
+
+notify.requestPermission = function() {
+    var permission = false;
+    Notification.requestPermission(function(result) {
+        if (result === 'denied') {
+          return false;
+        } else if (result === 'default') {
+          return false;
+        } else { // accepted
+          notify.hideCTA();
+          return true;
+        }
+    });
+}
+
+notify.hideCTA = function() {
+ 	document.getElementById('notificationsCTA').style.display = 'none';
+}
+
+notify.create = function(notice) {
+	var permission = notify.checkPermission();
+	if (permission) { 
+		var notification = new Notification('Mozilla Pulse', { body: notice });
+	}
+}
+
+notify.checkForUpdates = function(mostRecent){
+	var lastProject = Number(localStorage.getItem("lastProject")); 
+	if (lastProject && lastProject < mostRecent) { 
+		var title = document.querySelector('#p' + mostRecent + ' h2').innerHTML; // @todo make less brittle
+		var notification = 'New project added. Check out ' + title;
+		console.log(notification);
+		notify.create(notification);
+	}
+	localStorage.setItem("lastProject",mostRecent);
+}
+
+
+
+notify.init = function(){
+  var addNotificationsButton = document.getElementById('addNotifications');
+  addNotificationsButton.onclick = function(){
+      notify.requestPermission();
+  };
+  var testNotificationsButton = document.getElementById('testNotifications');
+  testNotificationsButton.onclick = function(){
+      notify.create('Test notification');
+  };
+}
+
+
+
+
 /* project data */
 
 
@@ -426,9 +498,9 @@ var projectData = {
 		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
 			var sortedData = projectData.sortByTimestamp(data.result);
-			$.each( sortedData, function( projectID, projectData ) {
-				project.render(projectData);
-			});
+			projectData.renderData(sortedData);
+			var mostRecent = Date.parse(sortedData[0].Timestamp);
+			notify.checkForUpdates(mostRecent);
 		}).done( function() {
 			console.log('gotData');
 			document.getElementById('loading').style.display = 'none';
@@ -442,9 +514,14 @@ var projectData = {
 		}, 'desc');
 		return sorted;
 	},
+	'renderData' : function(sortedData) {
+		$.each( sortedData, function( projectID, projectData ) {
+			project.render(projectData);
+		});
+	},
 	'processData' : function () { // init most things here
-		typography.preventTextOrphans();
-		filterForm.init();
+		// typography.preventTextOrphans(); // @todo screwing things up
+		filterForm.init(); // @todo deprecate
 		filterForm.updateChoice('recent');
 		dismissed.init();
 		starred.init();
@@ -453,6 +530,11 @@ var projectData = {
 	'getProjectElements' : function () {
 		var projects = document.querySelectorAll('.project');
 		return projects;
+	},
+	'refresh' : function () {
+		// @todo - only refresh if latest fetched is actually newer
+		projectData.clearProjectLists();
+		projectData.getData();
 	},
 	'clearProjectLists' : function () {
 		document.getElementById('projectContainer').classList.add('fadeUpdate');
@@ -466,7 +548,7 @@ var projectData = {
 
 starred.loadStars();
 dismissed.loadDismissed();
+notify.init();
 projectData.getData();
 
-
-
+var getProjects = setInterval(projectData.refresh, 600000);
