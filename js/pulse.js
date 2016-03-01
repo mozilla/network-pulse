@@ -172,10 +172,7 @@ var newProjectForm = {
 		newProjectForm.formContainer.style.display = 'none';
 		filterProjects.projectContainer.style.display = 'block';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
-
-		projectData.clearProjectLists();
-		projectData.getData();
-
+		setTimeout(function(){ projectData.getData(); }, 250);
 	},
 	'toggleForm' : function () {	
 		var displayState = newProjectForm.getDisplayState();
@@ -434,6 +431,8 @@ notify.checkPermission = function() {
 		// permission unknown
 		permission = notify.requestPermission();
 		return permission;
+	} else {
+		return permission;
 	}
 }
 
@@ -462,15 +461,16 @@ notify.create = function(notice) {
 	}
 }
 
-notify.checkForUpdates = function(mostRecent){
+notify.checkForUpdates = function(newestTimestamp,newestTitle){
+	var updated = false;
 	var lastProject = Number(localStorage.getItem("lastProject")); 
-	if (lastProject && lastProject < mostRecent) { 
-		var title = document.querySelector('#p' + mostRecent + ' h2').innerHTML; // @todo make less brittle
-		var notification = 'New project added. Check out ' + title;
-		console.log(notification);
+	if (lastProject && lastProject < newestTimestamp) { 
+		var notification = 'New project. Check out ' + newestTitle;
 		notify.create(notification);
+		updated = true;
 	}
-	localStorage.setItem("lastProject",mostRecent);
+	localStorage.setItem("lastProject",newestTimestamp);
+	return updated;
 }
 
 
@@ -494,13 +494,18 @@ notify.init = function(){
 
 var projectData = {
 	'url' : 'https://sheetsu.com/apis/0144610c',
-	'getData' : function () {
+	'projects' : {},
+	'getData' : function (firstRun) {
 		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
 			var sortedData = projectData.sortByTimestamp(data.result);
-			projectData.renderData(sortedData);
-			var mostRecent = Date.parse(sortedData[0].Timestamp);
-			notify.checkForUpdates(mostRecent);
+			var newestTimestamp = Date.parse(sortedData[0].Timestamp);
+			var newestTitle = sortedData[0].Title;
+			var updated = notify.checkForUpdates(newestTimestamp,newestTitle);
+			if (updated || firstRun) {
+				projectData.clearProjectLists();
+				projectData.renderData(sortedData);	
+			}
 		}).done( function() {
 			console.log('gotData');
 			document.getElementById('loading').style.display = 'none';
@@ -532,9 +537,7 @@ var projectData = {
 		return projects;
 	},
 	'refresh' : function () {
-		// @todo - only refresh if latest fetched is actually newer
-		projectData.clearProjectLists();
-		projectData.getData();
+		projectData.getData(false);
 	},
 	'clearProjectLists' : function () {
 		document.getElementById('projectContainer').classList.add('fadeUpdate');
@@ -549,6 +552,7 @@ var projectData = {
 starred.loadStars();
 dismissed.loadDismissed();
 notify.init();
-projectData.getData();
+projectData.getData(true);
 
-var getProjects = setInterval(projectData.refresh, 600000);
+var getDelay = 2 * 60 * 1000;
+var getProjects = setInterval(projectData.refresh, getDelay);
