@@ -397,7 +397,6 @@ notify.checkPermission = function() {
 		// check browser support
 	} else if (Notification.permission === "granted") {
 		permission = true;
-		notify.hideCTA();
 		return permission;
 	} else if (Notification.permission !== 'denied') {
 		// permission unknown
