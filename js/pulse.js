@@ -416,14 +416,9 @@ notify.requestPermission = function() {
         } else if (result === 'default') {
           return false;
         } else { // accepted
-          notify.hideCTA();
           return true;
         }
     });
-}
-
-notify.hideCTA = function() {
- 	document.getElementById('notificationsCTA').style.display = 'none';
 }
 
 notify.create = function(notice) {
@@ -445,16 +440,6 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	return updated;
 }
 
-notify.init = function(){
-  var addNotificationsButton = document.getElementById('addNotifications');
-  addNotificationsButton.onclick = function(){
-      notify.requestPermission();
-  };
-  var testNotificationsButton = document.getElementById('testNotifications');
-  testNotificationsButton.onclick = function(){
-      notify.create('Test notification');
-  };
-}
 
 
 
@@ -520,7 +505,6 @@ newProjectForm.init();
 scrollStyle.init();
 starred.loadStars();
 dismissed.loadDismissed();
-notify.init();
 projectData.getData(true);
 
 var getDelay = 10 * 60 * 1000;
