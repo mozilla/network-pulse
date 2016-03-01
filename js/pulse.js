@@ -50,21 +50,11 @@ var fadeUpdate = {
 
 var project = {};
 
-
-
 project.getID = function (projectData) {
 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
 	var id = timestamp ? Date.parse(timestamp) : '0';
 	return id; 
 }
-
-// project.getID = function (projectData) {
-// 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-// 	console.log('timestamp',timestamp);
-// 	var id = timestamp ? timestamp.replace(/-|:|\s|\//gi, '') : '0';
-// 	var id = 'p' + id;
-// 	return id; 
-// }
 
 project.buildHTML = function (projectData) {
 	// format available data
@@ -85,7 +75,6 @@ project.buildHTML = function (projectData) {
 
 	// assemble html
 	var html = '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest + links + '<div class="star"></div></div>';
-
 	return html;
 };
 
@@ -183,7 +172,6 @@ var newProjectForm = {
 	},
 };
 
-newProjectForm.init();
 
 
 
@@ -201,11 +189,6 @@ var filterForm = {
 	},
 	'showFilters' : function () {
 		filterForm.container.classList.add('active');
-		// document.onclick = function(e) { /* tap outside to close */
-		//     if(e.target != filterForm.filterButton) {
-  //       		filterForm.hideFilters;          
-  //   		}
-		// };
 	},
 	'hideFilters' : function () {
 		filterForm.container.classList.remove('active');
@@ -222,14 +205,6 @@ var filterForm = {
 		});	
 	},
 };
-
-
-
-/* search filter */
-
-var search = {};
-
-
 
 
 /* project list filtering */
@@ -391,8 +366,6 @@ var scrollStyle = {
 	},	
 }
 
-scrollStyle.init();
-
 
 
 /* touch */
@@ -415,7 +388,6 @@ var touch = {
 
 
 /* notifications */
-
 
 var notify = {};
 
@@ -473,8 +445,6 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	return updated;
 }
 
-
-
 notify.init = function(){
   var addNotificationsButton = document.getElementById('addNotifications');
   addNotificationsButton.onclick = function(){
@@ -491,12 +461,10 @@ notify.init = function(){
 
 /* project data */
 
-
 var projectData = {
 	'url' : 'https://sheetsu.com/apis/0144610c',
 	'projects' : {},
 	'getData' : function (firstRun) {
-		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
 			var sortedData = projectData.sortByTimestamp(data.result);
 			var newestTimestamp = Date.parse(sortedData[0].Timestamp);
@@ -507,7 +475,6 @@ var projectData = {
 				projectData.renderData(sortedData);	
 			}
 		}).done( function() {
-			console.log('gotData');
 			document.getElementById('loading').style.display = 'none';
 			projectData.processData();
 		});		
@@ -549,6 +516,8 @@ var projectData = {
 	}
 };
 
+newProjectForm.init();
+scrollStyle.init();
 starred.loadStars();
 dismissed.loadDismissed();
 notify.init();
