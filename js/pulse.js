@@ -554,5 +554,5 @@ dismissed.loadDismissed();
 notify.init();
 projectData.getData(true);
 
-var getDelay = 2 * 60 * 1000;
+var getDelay = 10 * 60 * 1000;
 var getProjects = setInterval(projectData.refresh, getDelay);
