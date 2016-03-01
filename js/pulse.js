@@ -74,7 +74,7 @@ project.buildHTML = function (projectData) {
 	var color = colors.getColor('name'); 
 
 	// assemble html
-	var html = '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' + title + creator + description + interest + links + '<div class="star"></div></div>';
+	var html = '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '><div class="projectSummary">' + title + creator + description + interest + links + '</div><div class="star"></div></div>';
 	return html;
 };
 
@@ -431,7 +431,7 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	var updated = false;
 	var lastProject = Number(localStorage.getItem("lastProject")); 
 	if (lastProject && lastProject < newestTimestamp) { 
-		var notification = 'New project. Check out ' + newestTitle;
+		var notification = 'Check out ' + newestTitle;
 		notify.create(notification);
 		updated = true;
 	}
