@@ -46,6 +46,41 @@ var fadeUpdate = {
 };
 
 
+/* search */
+
+var search = {
+	'input' : document.getElementById('searchBox'),
+	'contains' : function (selector, text) {
+		text = text.toLowerCase();
+		var elements = document.querySelectorAll(selector);
+		var results = [].filter.call(elements, function(element){
+			return RegExp(text).test(element.textContent.toLowerCase());
+		});
+		return results;
+	},
+	'filter' : function () {
+		var selector = '.project';
+		var query = search.input.value;
+		var container = filterProjects.projectContainer;
+
+		if (query.length > 3) { 
+			container.classList.add('search');
+			var results = search.contains(selector, query);
+			results.forEach(function(item, i){
+				item.classList.add('found');
+			});
+		} else {
+			container.classList.remove('search');
+		}
+	},
+	'init' : function () {
+		search.input.onkeyup = search.filter;
+		// @todo - add clear search icon
+	},
+}
+
+
+
 /* render projects cards */
 
 var project = {};
@@ -441,6 +476,14 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 
 
 
+/* utility */
+
+var utility = {
+	'findContainer' : function(elem, containerClass){
+	    while ((elem = elem.parentElement) && !elem.classList.contains(containerClass));
+	    return elem;
+	},
+}
 
 
 /* project data */
@@ -471,12 +514,12 @@ var projectData = {
 		return sorted;
 	},
 	'renderData' : function(sortedData) {
-		$.each( sortedData, function( projectID, projectData ) {
+		$.each( sortedData, function( projectID, projectData ) { // @todo replace jquery
 			project.render(projectData);
 		});
 	},
 	'processData' : function () { // init most things here
-		// typography.preventTextOrphans(); // @todo screwing things up
+		// typography.preventTextOrphans(); // @todo screwing things for notifications??!
 		filterForm.init(); // @todo deprecate
 		filterForm.updateChoice('recent');
 		dismissed.init();
@@ -505,6 +548,7 @@ scrollStyle.init();
 starred.loadStars();
 dismissed.loadDismissed();
 projectData.getData(true);
+search.init();
 
 var getDelay = 10 * 60 * 1000;
 var getProjects = setInterval(projectData.refresh, getDelay);

@@ -47,6 +47,9 @@ body {
 	justify-content: center;
 }
 
+#starredProjects {
+	margin-top:1em;
+}
 
 
 /* site header */
@@ -112,6 +115,21 @@ body {
 }
 
 
+/* search */
+
+#search { 
+	text-align:center;
+}
+
+#searchBox {
+	padding:.5em 0;
+	width:calc(100% - 1em);
+	text-align: center;
+	border:1px solid #eee;
+}
+
+
+
 /* project card */
 
 .project {
@@ -165,6 +183,15 @@ h3 {
 }
 
 
+
+/* search */
+
+.search .project { 
+	display: none;
+ }
+.search .project.found { 
+	display: block;
+ }
 
 /* buttons */
 
@@ -442,6 +469,10 @@ footer {
 	.project:hover .star {
 		top:.2em; right:0.25em;
 	}	
+
+	#searchBox {
+	 width:50%;
+  }
 
 	.mobileOnly {
 		display: none;
