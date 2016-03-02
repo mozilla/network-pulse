@@ -12,3 +12,5 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 ### Contribute
 
 You can contribute by testing the [prototype](https://xmatthewx.github.io/network-pulse/) to view or submit a project. File [issues](https://github.com/xmatthewx/network-pulse/issues) with bugs or suggestions. 
+
+[<img width="1119" alt="screenshot 2016-03-02 12 58 14" src="https://cloud.githubusercontent.com/assets/53411/13469670/74f42362-e076-11e5-9075-492e2d5d32b7.png">](https://xmatthewx.github.io/network-pulse/)
