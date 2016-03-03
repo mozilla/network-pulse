@@ -1,4 +1,14 @@
+var env = {
+	'production' : 'https://sheetsu.com/apis/0144610c',
+	'staging' : 'https://sheetsu.com/apis/895dabf3',
+};
 
+var feature = {
+	'touch' : false,
+	'orphans' : false,// @todo screwing things for notifications??!
+	'patterns' : true,
+	'notify' : false,
+};
 
 /* color project cards */
 
@@ -31,16 +41,17 @@ var typography = {
 /* UI effects */
 
 var fadeUpdate = {
-	'fadeOut' : function (elem) {
-		elem.classList.add('fadeUpdate');
+	'projects' : document.getElementById('projectContainer'),
+	'fadeOut' : function () {
+		fadeUpdate.projects.classList.add('fadeUpdate');
 	},
-	'fadeIn' : function (elem) {
-		elem.classList.remove('fadeUpdate');
+	'fadeIn' : function () {
+		fadeUpdate.projects.classList.remove('fadeUpdate');
 	},
-	'fadeOutIn' : function (elem) {
-		fadeUpdate.fadeOut(elem);
+	'fadeOutIn' : function () {
+		fadeUpdate.fadeOut();
 		setTimeout( function () {
-			fadeUpdate.fadeIn(elem);
+			fadeUpdate.fadeIn();
 		}, 100);
 	},
 };
@@ -170,7 +181,7 @@ project.render = function (projectData) {
 		$('#recentProjects').append(html);
 	}
 
-	project.addPattern(projectData);
+	if (feature.patterns) { project.addPattern(projectData); }
 };
 
 project.hideProject = function (element) {
@@ -216,6 +227,7 @@ project.swipeProject = function (event) {
 
 var newProjectForm = {
 	'formContainer' : document.getElementById('addProjectForm'),
+	'projectContainer' : document.getElementById('projectContainer'),
 	'toggleFormButton' : document.getElementById('toggleFormButton'),
 	'getDisplayState' : function () {
 		var state = newProjectForm.formContainer.style.display;
@@ -223,12 +235,12 @@ var newProjectForm = {
 	},
 	'showForm' : function (){
 		newProjectForm.formContainer.style.display = 'block';
-		filterProjects.projectContainer.style.display = 'none';
+		newProjectForm.projectContainer.style.display = 'none'; // @todo get elem within module
 		newProjectForm.toggleFormButton.style.transform = 'rotate(45deg)';
 	},
 	'hideForm' : function (){
 		newProjectForm.formContainer.style.display = 'none';
-		filterProjects.projectContainer.style.display = 'block';
+		newProjectForm.projectContainer.style.display = 'block';
 		newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
 		setTimeout(function(){ projectData.getData(); }, 250);
 	},
@@ -244,58 +256,6 @@ var newProjectForm = {
 		newProjectForm.toggleFormButton.onclick = newProjectForm.toggleForm;
 	},
 };
-
-
-
-/* project list filtering */
-
-var filterProjects = {
-	'projectContainer' : document.getElementById('projectContainer'),
-	'updateSort' : function (choice) {
-		fadeUpdate.fadeOutIn(filterProjects.projectContainer);
-		switch (choice) {
-			case 'featured' : 
-				filterProjects.showFeaturedProjects();
-				break;
-			case 'recent' : 
-				filterProjects.showRecentProjects();
-				break;
-			case 'favorite' : 
-				filterProjects.showFavoriteProjects();
-				break;
-			case 'popular' : 
-				filterProjects.showPopularProjects();
-				break;
-			default : 
-				filterProjects.showRecentProjects();
-		}
-	},
-	'showFeaturedProjects' : function () {
-		filterProjects.projectContainer.classList.remove('showFavorites');
-		filterProjects.projectContainer.classList.add('showFeatured');
-	},
-	'showFavoriteProjects' : function () {
-		var starred = document.querySelector('.starred');
-		if ( !starred ) {
-			alert('You haven\'t starred any favorites yet.');
-			document.querySelector('input[id="recent"]').checked=true;
-			filterProjects.projectContainer.classList.remove('showFeatured');
-		} else {
-			filterProjects.projectContainer.classList.remove('showFeatured');
-			filterProjects.projectContainer.classList.add('showFavorites');
-		}
-	},
-	'showPopularProjects' : function () {
-		filterProjects.projectContainer.classList.remove('showFeatured');
-		filterProjects.projectContainer.classList.remove('showFavorites');
-	},
-	'showRecentProjects' : function () {
-		filterProjects.projectContainer.classList.remove('showFeatured');
-		filterProjects.projectContainer.classList.remove('showFavorites');
-	},
-};
-
-
 
 
 /* dismissed */
@@ -388,22 +348,7 @@ var starred = {
 };
 
 
-/* reformat on scroll */
 
-
-var scrollStyle = {
-	'siteHeader' : document.getElementById('siteHeader'),
-	'formatHeader' : function () {
-	    if (document.documentElement.scrollTop > 50 || document.body.scrollTop > 50) {
-	        scrollStyle.siteHeader.classList.add("minimized");
-	    } else {
-	        scrollStyle.siteHeader.classList.remove("minimized");
-	    }		
-	},
-	'init' : function () {
-		window.onscroll = function () { scrollStyle.formatHeader(); };		
-	},	
-};
 
 
 
@@ -430,18 +375,23 @@ var touch = {
 
 var notify = {};
 
+notify.interval = 1 * 60 * 1000;
+
 notify.checkPermission = function() {
 	var permission = false;
 	if (!"Notification" in window) {
 		// check browser support
 	} else if (Notification.permission === "granted") {
+		console.log('permission granted');
 		permission = true;
 		return permission;
 	} else if (Notification.permission !== 'denied') {
+		console.log('permission unknown');
 		// permission unknown
 		permission = notify.requestPermission();
 		return permission;
 	} else {
+		console.log('permission denied');
 		return permission;
 	}
 };
@@ -460,7 +410,9 @@ notify.requestPermission = function() {
 };
 
 notify.create = function(notice) {
+	console.log('notify.create');
 	if (!window.Notification) { // @todo switch to ServiceWorkerRegistration.showNotification() instead
+		console.log('!window.Notification');
 		var permission = notify.checkPermission();
 		if (permission) { 
 			var notification = new Notification('Mozilla Pulse', { body: notice });
@@ -471,6 +423,7 @@ notify.create = function(notice) {
 notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	var updated = false;
 	var lastProject = Number(localStorage.getItem("lastProject")); 
+	console.log('compare: ',newestTimestamp,lastProject);
 	if (lastProject && lastProject < newestTimestamp) { 
 		var notification = 'Check out ' + newestTitle;
 		notify.create(notification);
@@ -480,6 +433,9 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	return updated;
 };
 
+notify.init = function () {
+	var getProjects = setInterval(projectData.refresh, notify.interval);
+};
 
 
 /* utility */
@@ -495,19 +451,25 @@ var utility = {
 /* project data */
 
 var projectData = {
-	'url' : 'https://sheetsu.com/apis/0144610c',
+	'url' : env.production,
 	'projects' : {},
 	'getData' : function (firstRun) {
+		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
 			var sortedData = projectData.sortByTimestamp(data.result);
 			var newestTimestamp = Date.parse(sortedData[0].Timestamp);
 			var newestTitle = sortedData[0].Title;
-			var updated = notify.checkForUpdates(newestTimestamp,newestTitle);
+			if (feature.notify) { 
+				var updated = notify.checkForUpdates(newestTimestamp,newestTitle); 
+				console.log('updated: ',updated);
+			}
 			if (updated || firstRun) {
+				console.log('go to town');
 				projectData.clearProjectLists();
 				projectData.renderData(sortedData);	
 			}
 		}).done( function() {
+			console.log('gotData');
 			document.getElementById('loading').style.display = 'none';
 			projectData.processData();
 		    setTimeout(function(){ 
@@ -535,36 +497,34 @@ var projectData = {
 			project.render(projectData);
 		});
 	},
-	'processData' : function () { // init most things here
-		// typography.preventTextOrphans(); // @todo screwing things for notifications??!
-		filterProjects.updateSort('recent');
-		dismissed.init();
-		starred.init();
-		touch.init();
-	},
 	'getProjectElements' : function () {
 		var projects = document.querySelectorAll('.project');
 		return projects;
 	},
 	'refresh' : function () {
+		console.log('refresh');
 		projectData.getData(false);
 	},
 	'clearProjectLists' : function () {
-		document.getElementById('projectContainer').classList.add('fadeUpdate');
+		fadeUpdate.fadeOut();
 		document.getElementById('loading').style.display = 'block';
 		var lists = document.querySelectorAll('.projectList');
 		Array.prototype.forEach.call(lists, function(list, i){
 			list.innerHTML = '';
 		});
-	}
+	},
+	'processData' : function () { // init most things here
+		if (feature.orphans) { typography.preventTextOrphans(); }
+		fadeUpdate.fadeIn();
+		dismissed.init();
+		starred.init();
+		if (feature.touch) { touch.init(); }
+	},
 };
 
 newProjectForm.init();
-scrollStyle.init();
 starred.loadStars();
 dismissed.loadDismissed();
 projectData.getData(true);
 search.init();
-
-var getDelay = 10 * 60 * 1000;
-var getProjects = setInterval(projectData.refresh, getDelay);
+if (feature.notify) { notify.init(); }
