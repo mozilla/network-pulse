@@ -1,7 +1,7 @@
 {
   "short_name": "Pulse",
   "name": "Mozilla Network Pulse",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "display": "standalone",
   "background_color": "#7CC260",
   "icons": [
