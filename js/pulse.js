@@ -55,7 +55,7 @@ var search = {
 	'checkContents' : function (selector, text) {
 		text = text.toLowerCase();
 		var elements = document.querySelectorAll(selector);
-		var results = [].filter.call(elements, function(element){
+		var results = Array.prototype.filter.call(elements, function(element){
 			return RegExp(text).test(element.textContent.toLowerCase());
 		});
 		return results;
