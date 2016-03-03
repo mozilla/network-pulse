@@ -50,7 +50,7 @@ var fadeUpdate = {
 
 var search = {
 	'input' : document.getElementById('searchBox'),
-	'contains' : function (selector, text) {
+	'checkContents' : function (selector, text) {
 		text = text.toLowerCase();
 		var elements = document.querySelectorAll(selector);
 		var results = [].filter.call(elements, function(element){
@@ -62,16 +62,26 @@ var search = {
 		var selector = '.project';
 		var query = search.input.value;
 		var container = filterProjects.projectContainer;
-
-		if (query.length > 3) { 
-			container.classList.add('search');
-			var results = search.contains(selector, query);
-			results.forEach(function(item, i){
-				item.classList.add('found');
-			});
+		if (query.length > 2) { 
+			container.classList.add('searching');
+			search.clearFound();
+			var results = search.checkContents(selector, query);
+			if (results.length > 0) {
+				results.forEach(function(item, i){
+					item.classList.add('found');
+				});				
+			} else {
+				// nothing found
+			}
 		} else {
-			container.classList.remove('search');
+			container.classList.remove('searching');
 		}
+	},
+	'clearFound' : function () {
+		var previouslyFound = document.querySelectorAll('.found');
+		Array.prototype.forEach.call(previouslyFound, function(elem, i){
+			elem.classList.remove('found');
+		});
 	},
 	'init' : function () {
 		search.input.onkeyup = search.filter;
@@ -174,7 +184,6 @@ project.swipeProject = function (event) {
 		project.checkSwipe(element,deltaX);
     }
 };
-
 
 
 
