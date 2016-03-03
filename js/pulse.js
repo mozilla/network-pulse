@@ -460,9 +460,11 @@ notify.requestPermission = function() {
 };
 
 notify.create = function(notice) {
-	var permission = notify.checkPermission();
-	if (permission) { 
-		var notification = new Notification('Mozilla Pulse', { body: notice });
+	if (!window.Notification) { // @todo switch to ServiceWorkerRegistration.showNotification() instead
+		var permission = notify.checkPermission();
+		if (permission) { 
+			var notification = new Notification('Mozilla Pulse', { body: notice });
+		}		
 	}
 };
 
