@@ -464,7 +464,6 @@ var projectData = {
 				console.log('updated: ',updated);
 			}
 			if (updated || firstRun) {
-				console.log('go to town');
 				projectData.clearProjectLists();
 				projectData.renderData(sortedData);	
 			}
