@@ -12,7 +12,7 @@ var colors = {
 		if ( colors.id === colors.names.length ) { colors.id = 0; }
 		return color;
 	},
-}
+};
 
 
 /* better typography */
@@ -41,7 +41,7 @@ var fadeUpdate = {
 		fadeUpdate.fadeOut(elem);
 		setTimeout( function () {
 			fadeUpdate.fadeIn(elem);
-		}, 100)
+		}, 100);
 	},
 };
 
@@ -108,7 +108,7 @@ var search = {
 		search.dismissButton.onclick = search.dismiss;
 		// @todo - add clear search icon
 	},
-}
+};
 
 
 
@@ -120,7 +120,7 @@ project.getID = function (projectData) {
 	var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
 	var id = timestamp ? Date.parse(timestamp) : '0';
 	return id; 
-}
+};
 
 project.buildHTML = function (projectData) {
 	// format available data
@@ -180,7 +180,9 @@ project.hideProject = function (element) {
 
 project.shrinkProject = function (element) {
     element.classList.add = 'shrunken';
-    setTimeout(function(){ project.hideProject(element) }, 500);
+    setTimeout(function(){ 
+    	project.hideProject(element);
+    }, 500);
 };
 
 project.checkSwipe = function (element,deltaX) {
@@ -189,7 +191,9 @@ project.checkSwipe = function (element,deltaX) {
     var purgatory = (width * -1) - 50;
     if (deltaX < threshold ) { 
         element.style.left = purgatory + 'px';
-        setTimeout(function(){ project.shrinkProject(element) }, 500);
+        setTimeout(function(){ 
+        	project.shrinkProject(element);
+        }, 500);
     } else {
         element.style.left = '0px';
     }
@@ -230,7 +234,11 @@ var newProjectForm = {
 	},
 	'toggleForm' : function () {	
 		var displayState = newProjectForm.getDisplayState();
-		displayState === 'block' ? newProjectForm.hideForm() : newProjectForm.showForm();		 
+		if (displayState === 'block') { 
+			newProjectForm.hideForm();
+		} else { 
+			newProjectForm.showForm(); 
+		}		 
 	},
 	'init' : function () {
 		newProjectForm.toggleFormButton.onclick = newProjectForm.toggleForm;
@@ -260,7 +268,7 @@ var filterProjects = {
 				break;
 			default : 
 				filterProjects.showRecentProjects();
-		};
+		}
 	},
 	'showFeaturedProjects' : function () {
 		filterProjects.projectContainer.classList.remove('showFavorites');
@@ -275,7 +283,7 @@ var filterProjects = {
 		} else {
 			filterProjects.projectContainer.classList.remove('showFeatured');
 			filterProjects.projectContainer.classList.add('showFavorites');
-		};
+		}
 	},
 	'showPopularProjects' : function () {
 		filterProjects.projectContainer.classList.remove('showFeatured');
@@ -318,7 +326,7 @@ var dismissed = {
 		dismissed.hideDismissed();
 		document.getElementById('clearDismissed').onclick = dismissed.clearDismissed;
 	},	
-}
+};
 
 /* favorite stars */
 
@@ -345,12 +353,16 @@ var starred = {
 		var star = event.target;
 		var project = star.parentElement;
 		var status = project.classList.contains('starred');
-		status ? project.classList.remove('starred') : project.classList.add('starred');
+		if (status) {
+			project.classList.remove('starred');
+		} else {
+			project.classList.add('starred');
+		}
 		if (!status) { 
 			starred.saveStar(project.id);
 		} else {
 			starred.deleteStar(project.id);
-		};
+		}
 	},
 	'loadStars' : function () {
 		var starIDs = localStorage.getItem("pulse"); 
@@ -360,7 +372,7 @@ var starred = {
 	'showStars' : function () {
 		Array.prototype.forEach.call(starred.list, function(el, i){
 			var project = document.getElementById(el);
-			if (project) { project.classList.add('starred'); };
+			if (project) { project.classList.add('starred'); }
 		});	
 	},
 	'addHandlers' : function () {
@@ -373,7 +385,7 @@ var starred = {
 		starred.addHandlers();
 		starred.showStars();
 	},
-}
+};
 
 
 /* reformat on scroll */
@@ -391,7 +403,7 @@ var scrollStyle = {
 	'init' : function () {
 		window.onscroll = function () { scrollStyle.formatHeader(); };		
 	},	
-}
+};
 
 
 
@@ -411,7 +423,7 @@ var touch = {
 			touch.i.on("panleft", project.swipeProject);
 		});
 	}
-}
+};
 
 
 /* notifications */
@@ -432,7 +444,7 @@ notify.checkPermission = function() {
 	} else {
 		return permission;
 	}
-}
+};
 
 notify.requestPermission = function() {
     var permission = false;
@@ -445,14 +457,14 @@ notify.requestPermission = function() {
           return true;
         }
     });
-}
+};
 
 notify.create = function(notice) {
 	var permission = notify.checkPermission();
 	if (permission) { 
 		var notification = new Notification('Mozilla Pulse', { body: notice });
 	}
-}
+};
 
 notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	var updated = false;
@@ -464,7 +476,7 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	}
 	localStorage.setItem("lastProject",newestTimestamp);
 	return updated;
-}
+};
 
 
 
@@ -475,7 +487,7 @@ var utility = {
 	    while ((elem = elem.parentElement) && !elem.classList.contains(containerClass));
 	    return elem;
 	},
-}
+};
 
 
 /* project data */
@@ -496,7 +508,9 @@ var projectData = {
 		}).done( function() {
 			document.getElementById('loading').style.display = 'none';
 			projectData.processData();
-		    setTimeout(function(){ projectData.dismissSplash() }, 250);
+		    setTimeout(function(){ 
+		    	projectData.dismissSplash();
+		    }, 250);
 		});		
 	},
 	'dismissSplash' : function() {
