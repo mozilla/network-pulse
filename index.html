@@ -14,21 +14,13 @@
   <header id="siteHeader">
     <h1><span>mozilla</span> Network Pulse</h1>
     <p>A stream of projects, research, and lessons from the network.</p>
+    <p><br>Loading...</p>
     <h2>Prototype</h2>
   </header>
   
   <section id="search">
     <input id="searchBox" name="searchBox" placeholder="search" >
-  </section>
-
-  <section id="projectFilter">
-    <button id="filterButton"><span id="filterChoice">Show recent</span><span class="dropArrow">&#9662;</span></button>
-    <div id="filterOptions" >
-        <div><input name="projectSort" value="recent" id="recent" type="radio" checked > <label for="recent">Recent</label></div>
-        <div><input name="projectSort" value="featured" id="featured" type="radio" > <label for="featured">Featured</label></div>
-        <div><input name="projectSort" value="favorite" id="favorite" type="radio" > <label for="favorite">Favorites</label></div>
-        <div><input name="projectSort" value="popular" id="popular" type="radio" > <label for="popular">Popular</label></div>
-    </div>
+    <button class="dismiss">&times;</button>
   </section>
 
   <section id="projectContainer" class="fadeUpdate">

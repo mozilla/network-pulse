@@ -41,7 +41,7 @@ var fadeUpdate = {
 		fadeUpdate.fadeOut(elem);
 		setTimeout( function () {
 			fadeUpdate.fadeIn(elem);
-		}, 250)
+		}, 100)
 	},
 };
 
@@ -50,6 +50,8 @@ var fadeUpdate = {
 
 var search = {
 	'input' : document.getElementById('searchBox'),
+	'dismissButton' : document.querySelector('#search .dismiss'),
+	'projectContainer' : document.getElementById('projectContainer'),
 	'checkContents' : function (selector, text) {
 		text = text.toLowerCase();
 		var elements = document.querySelectorAll(selector);
@@ -58,14 +60,20 @@ var search = {
 		});
 		return results;
 	},
+	'getInput' : function (evt) {
+		if (evt.keyCode === 27) { 
+			search.dismiss();
+		} else {
+			search.filter();
+		}
+	},
 	'filter' : function () {
-		var selector = '.project';
+		search.activate();
 		var query = search.input.value;
-		var container = filterProjects.projectContainer;
-		if (query.length > 2) { 
-			container.classList.add('searching');
-			search.clearFound();
-			var results = search.checkContents(selector, query);
+		if (query.length > 2) {
+			search.projectContainer.classList.add('searching');
+			search.clearPrevious();
+			var results = search.checkContents('.project', query);
 			if (results.length > 0) {
 				results.forEach(function(item, i){
 					item.classList.add('found');
@@ -74,17 +82,30 @@ var search = {
 				// nothing found
 			}
 		} else {
-			container.classList.remove('searching');
+			search.deactivate();
 		}
 	},
-	'clearFound' : function () {
+	'activate' : function(){
+		search.input.parentElement.classList.add('focus');
+	},
+	'deactivate' : function(){
+		search.projectContainer.classList.remove('searching');
+		search.input.parentElement.classList.remove('focus');
+	},
+	'dismiss' : function(){
+		search.input.value = '';
+		search.input.blur();
+		search.filter();
+	},
+	'clearPrevious' : function () {
 		var previouslyFound = document.querySelectorAll('.found');
 		Array.prototype.forEach.call(previouslyFound, function(elem, i){
 			elem.classList.remove('found');
 		});
 	},
 	'init' : function () {
-		search.input.onkeyup = search.filter;
+		search.input.onkeyup = search.getInput;
+		search.dismissButton.onclick = search.dismiss;
 		// @todo - add clear search icon
 	},
 }
@@ -218,39 +239,6 @@ var newProjectForm = {
 
 
 
-
-/* project filter form */
-
-var filterForm = {
-	'container' : document.getElementById('projectFilter'),
-	'filterButton' : document.getElementById('filterButton'),
-	'filterOptions' : document.getElementById('filterOptions'),
-	'filterChoice' : document.getElementById('filterChoice'),
-	'filterSort' : document.querySelectorAll('input[name="projectSort"]'),
-	'toggleFilters' : function () {
-		var filterState = filterForm.container.classList.contains('active');
-		filterState ? filterForm.hideFilters() : filterForm.showFilters();
-	},
-	'showFilters' : function () {
-		filterForm.container.classList.add('active');
-	},
-	'hideFilters' : function () {
-		filterForm.container.classList.remove('active');
-	},
-	'updateChoice' : function () {
-		filterForm.filterSort = document.querySelector('input[name="projectSort"]:checked');
-		filterProjects.updateSort(filterForm.filterSort.id);
-		filterForm.hideFilters();
-	}, 
-	'init' : function () {
-		filterForm.filterButton.onclick = filterForm.toggleFilters;
-		Array.prototype.forEach.call(filterForm.filterSort, function(el, i){
-			el.onchange = filterForm.updateChoice;
-		});	
-	},
-};
-
-
 /* project list filtering */
 
 var filterProjects = {
@@ -277,7 +265,6 @@ var filterProjects = {
 	'showFeaturedProjects' : function () {
 		filterProjects.projectContainer.classList.remove('showFavorites');
 		filterProjects.projectContainer.classList.add('showFeatured');
-		filterForm.filterChoice.innerHTML = 'Show featured';
 	},
 	'showFavoriteProjects' : function () {
 		var starred = document.querySelector('.starred');
@@ -285,22 +272,18 @@ var filterProjects = {
 			alert('You haven\'t starred any favorites yet.');
 			document.querySelector('input[id="recent"]').checked=true;
 			filterProjects.projectContainer.classList.remove('showFeatured');
-			filterForm.filterChoice.innerHTML = 'Show recent';
 		} else {
 			filterProjects.projectContainer.classList.remove('showFeatured');
 			filterProjects.projectContainer.classList.add('showFavorites');
-			filterForm.filterChoice.innerHTML = 'My Favorites';			
 		};
 	},
 	'showPopularProjects' : function () {
 		filterProjects.projectContainer.classList.remove('showFeatured');
 		filterProjects.projectContainer.classList.remove('showFavorites');
-		filterForm.filterChoice.innerHTML = 'Popular (not yet available)';
 	},
 	'showRecentProjects' : function () {
 		filterProjects.projectContainer.classList.remove('showFeatured');
 		filterProjects.projectContainer.classList.remove('showFavorites');
-		filterForm.filterChoice.innerHTML = 'Show recent';
 	},
 };
 
@@ -513,7 +496,16 @@ var projectData = {
 		}).done( function() {
 			document.getElementById('loading').style.display = 'none';
 			projectData.processData();
+		    setTimeout(function(){ projectData.dismissSplash() }, 250);
 		});		
+	},
+	'dismissSplash' : function() {
+		var siteHeader = document.getElementById('siteHeader');
+		siteHeader.classList.add('dismissed');
+		var remove = setTimeout(function(){ 
+			siteHeader.style.display = 'none';
+		}, 500);
+
 	},
 	'sortByTimestamp' : function (data) {
 		var sorted = _.orderBy( data, function(o) { 
@@ -529,8 +521,7 @@ var projectData = {
 	},
 	'processData' : function () { // init most things here
 		// typography.preventTextOrphans(); // @todo screwing things for notifications??!
-		filterForm.init(); // @todo deprecate
-		filterForm.updateChoice('recent');
+		filterProjects.updateSort('recent');
 		dismissed.init();
 		starred.init();
 		touch.init();
