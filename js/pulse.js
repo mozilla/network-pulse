@@ -202,7 +202,7 @@ project.checkSwipe = function (element,deltaX) {
     var threshold = width / -3;
     var purgatory = (width * -1) - 50;
     if (deltaX < threshold ) { 
-        element.style.left = purgatory + 'px';
+        element.style.left = purgatory + 'px'; // @todo optimize with a class and transforms
         setTimeout(function(){ 
         	project.shrinkProject(element);
         }, 500);

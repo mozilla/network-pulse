@@ -130,13 +130,14 @@ body {
 	color:rgba(255,255,255,0.8);
 	left:0px;
 	width:100%;
-	transition:left .25s, height .25s, padding .25s, margin .25s;
+	transition:left .25s, height .25s, padding .25s, margin .25s; 
+	/* optimize swipe with class and transform. */
 }
 
 .project h2 {
 	font-size:3em;
 	margin:0 0 .1em;
-	line-height: .9em;
+	line-height: .8em;
 	padding-bottom:0;
 	border-bottom:5px solid rgba(255,255,255,0.25);
 }
