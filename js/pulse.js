@@ -454,7 +454,7 @@ var utility = {
 /* project data */
 
 var projectData = {
-	'url' : env.develop,
+	'url' : env.production,
 	'projects' : {},
 	'getData' : function (firstRun) {
 		console.log('getData');
