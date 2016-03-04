@@ -1,13 +1,13 @@
 var env = {
 	'production' : 'https://sheetsu.com/apis/0144610c',
-	'staging' : 'https://sheetsu.com/apis/895dabf3',
+	'develop' : 'https://sheetsu.com/apis/895dabf3',
 };
 
 var feature = {
 	'touch' : false,
 	'orphans' : false,// @todo screwing things for notifications??!
 	'patterns' : true,
-	'notify' : false,
+	'notify' : true,
 	'dismiss' : false,
 };
 
@@ -380,9 +380,7 @@ notify.interval = 1 * 60 * 1000;
 
 notify.checkPermission = function() {
 	var permission = false;
-	if (!"Notification" in window) {
-		// check browser support
-	} else if (Notification.permission === "granted") {
+	if (Notification.permission === "granted") {
 		console.log('permission granted');
 		permission = true;
 		return permission;
@@ -411,11 +409,16 @@ notify.requestPermission = function() {
 };
 
 notify.create = function(notice) {
-	console.log('notify.create');
-	if (!window.Notification) { // @todo switch to ServiceWorkerRegistration.showNotification() instead
-		console.log('!window.Notification');
+	if ("Notification" in window) {
 		var permission = notify.checkPermission();
 		if (permission) { 
+			try {
+				new window.Notification('');
+			} catch (e) {
+				if (e.name === 'TypeError') { // dang you ambivalent android
+					return false;
+				}
+ 			}
 			var notification = new Notification('Mozilla Pulse', { body: notice });
 		}		
 	}
@@ -424,7 +427,6 @@ notify.create = function(notice) {
 notify.checkForUpdates = function(newestTimestamp,newestTitle){
 	var updated = false;
 	var lastProject = Number(localStorage.getItem("lastProject")); 
-	console.log('compare: ',newestTimestamp,lastProject);
 	if (lastProject && lastProject < newestTimestamp) { 
 		var notification = 'Check out ' + newestTitle;
 		notify.create(notification);
@@ -452,7 +454,7 @@ var utility = {
 /* project data */
 
 var projectData = {
-	'url' : env.production,
+	'url' : env.develop,
 	'projects' : {},
 	'getData' : function (firstRun) {
 		console.log('getData');
