@@ -8,6 +8,7 @@ var feature = {
 	'orphans' : false,// @todo screwing things for notifications??!
 	'patterns' : true,
 	'notify' : false,
+	'dismiss' : false,
 };
 
 /* color project cards */
@@ -186,7 +187,7 @@ project.render = function (projectData) {
 
 project.hideProject = function (element) {
     element.style.display = 'none';
-    dismissed.addDismissed(element.id);
+    if (feature.dismiss) { dismissed.addDismissed(element.id); }
 };
 
 project.shrinkProject = function (element) {
@@ -515,7 +516,7 @@ var projectData = {
 	'processData' : function () { // init most things here
 		if (feature.orphans) { typography.preventTextOrphans(); }
 		fadeUpdate.fadeIn();
-		dismissed.init();
+		if (feature.dismissed) { dismissed.init(); }
 		starred.init();
 		if (feature.touch) { touch.init(); }
 	},
@@ -523,7 +524,7 @@ var projectData = {
 
 newProjectForm.init();
 starred.loadStars();
-dismissed.loadDismissed();
+if (feature.dismiss) { dismissed.loadDismissed(); }
 projectData.getData(true);
 search.init();
 if (feature.notify) { notify.init(); }
