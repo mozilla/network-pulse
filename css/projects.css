@@ -66,6 +66,7 @@ body {
 	z-index:1001;
 	opacity:1;
 	transition: opacity .5s;
+	font-size:1.25em;
 }
 
 #siteHeader h1 {
@@ -111,7 +112,7 @@ body {
 	margin:.25em 2px 0;
 	font-style:italic;
 	font-weight: 100;
-	width:80%;
+	width:95%;
 }
 
 
