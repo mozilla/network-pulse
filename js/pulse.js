@@ -79,7 +79,6 @@ var search = {
 		} else if (evt.keyCode === 13) { // enter
 			search.input.blur();
 		} else {
-			console.log(evt.keyCode);
 			search.filter();
 		}
 	},
@@ -297,6 +296,7 @@ var dismissed = {
 
 var starred = {
 	'list' : [],
+	'header' : document.getElementById('starredHeader'),
 	'getStarred' : function () {
 		var allStarred = document.querySelectorAll('.starred');
 		return allStarred;
@@ -305,7 +305,7 @@ var starred = {
 		starred.list.push(id);
 		var starIDs = starred.list.toString(); 
 		localStorage.setItem("pulse",starIDs);
-	},	
+	},
 	'deleteStar' : function (id) {
 		var index = starred.list.indexOf(id);
 		if (index != -1) {
@@ -313,7 +313,7 @@ var starred = {
 		}
 		var starIDs = starred.list.toString(); 
 		localStorage.setItem("pulse",starIDs);
-	},	
+	},
 	'toggle' : function (event) {
 		var star = event.target;
 		var project = star.parentElement;
@@ -333,6 +333,7 @@ var starred = {
 		var starIDs = localStorage.getItem("pulse"); 
 		if (!starIDs) { return false; }
 		starred.list = starIDs.split(',');
+		starred.header.classList.remove('hidden');
 	},
 	'showStars' : function () {
 		Array.prototype.forEach.call(starred.list, function(el, i){

@@ -130,7 +130,7 @@ body {
 	color:rgba(255,255,255,0.8);
 	left:0px;
 	width:100%;
-	transition:left .25s, height .25s, padding .25s, margin .25s; 
+	transition:left .25s, height .25s, padding .25s, margin .25s;
 	/* optimize swipe with class and transform. */
 }
 
@@ -375,14 +375,14 @@ label, input[type='radio'] {
 	text-align: center;
 	cursor:pointer;
 	border-radius: 50%;
-  border:5px solid rgba(255,255,255,0.1);
+	border:5px solid rgba(255,255,255,0.25);
 	color:rgba(0,0,0,0.25);
 	background:inherit;
-	transition:top .25s, right .25s;
+	transition:top .25s, right .25s; /* @todo use transforms */
 }
 
 .project:hover .star {
-		top:.2em; right:0.25em;
+	top:.2em; right:0.25em;
 }
 
 .star:hover {
@@ -427,6 +427,11 @@ footer {
 	padding:0 1em;
 	border-top:1px solid #ddd;
 }
+
+
+/* utility */
+
+.hidden { display: none; }
 
 
 /* colors */
