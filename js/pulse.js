@@ -73,9 +73,13 @@ var search = {
 		return results;
 	},
 	'getInput' : function (evt) {
-		if (evt.keyCode === 27) { 
+		if (evt.keyCode === 27) { // escape
 			search.dismiss();
+			search.input.blur();
+		} else if (evt.keyCode === 13) { // enter
+			search.input.blur();
 		} else {
+			console.log(evt.keyCode);
 			search.filter();
 		}
 	},
@@ -106,7 +110,7 @@ var search = {
 	},
 	'dismiss' : function(){
 		search.input.value = '';
-		search.input.blur();
+		search.input.focus();
 		search.filter();
 	},
 	'clearPrevious' : function () {
