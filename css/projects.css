@@ -518,4 +518,13 @@ footer {
   .project {
 		max-width:calc(33% - 1em);
 	}
+	#featuredProjects .project {
+		max-width:calc(50% - 1em);
+	}
+}
+
+@media screen and (min-width: 1440px) {
+  .project {
+		max-width:calc(25% - 1em);
+	}
 }
