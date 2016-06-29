@@ -1,7 +1,6 @@
-var env = {
-	'production' : 'https://sheetsu.com/apis/0144610c',
-	'develop' : 'https://sheetsu.com/apis/895dabf3',
-};
+// Your Google Drive Spreadsheet URL
+var SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
+var SHEET_URL = "https://spreadsheets.google.com/feeds/cells/"+SHEET_ID+"/1/public/values?alt=json";
 
 var feature = {
 	'touch' : false,
@@ -455,16 +454,16 @@ var utility = {
 	},
 };
 
-
 /* project data */
 
 var projectData = {
-	'url' : env.production,
+	'url' : SHEET_URL,
 	'projects' : {},
 	'getData' : function (firstRun) {
 		console.log('getData');
 		$.getJSON( projectData.url, function( data ) {
-			var sortedData = projectData.sortByTimestamp(data.result);
+			data = parseDriveData(data);
+			var sortedData = projectData.sortByTimestamp(data);
 			var newestTimestamp = Date.parse(sortedData[0].Timestamp);
 			var newestTitle = sortedData[0].Title;
 			if (feature.notify) { 
@@ -528,6 +527,42 @@ var projectData = {
 		if (feature.touch) { touch.init(); }
 	},
 };
+
+
+// Formats JSON data returned from Google Spreadsheet and formats it into
+// an array with a series of objects with key value pairs like "column-name":"value"
+
+function parseDriveData(driveData){
+  var headings = {};
+  var newData = {};
+  var finalData = [];
+  var entries = driveData.feed.entry;
+
+  for(var i = 0; i < entries.length; i++){
+    var entry = entries[i];
+    var row = parseInt(entry.gs$cell.row);
+    var col = parseInt(entry.gs$cell.col);
+    var value = entry.content.$t;
+
+    if(row == 1) {
+      headings[col] = value;
+    }
+
+    if(row > 1) {
+      if(!newData[row]) {
+        newData[row] = {};
+      }
+      newData[row][headings[col]] = value;
+    }
+  }
+
+  for(var k in newData){
+    finalData.push(newData[k]);
+  }
+
+  return finalData;
+}
+
 
 newProjectForm.init();
 starred.loadStars();
