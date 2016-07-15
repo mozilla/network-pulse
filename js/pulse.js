@@ -2,7 +2,7 @@
 var SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
 var SHEET_URL = "https://spreadsheets.google.com/feeds/cells/"+SHEET_ID+"/1/public/values?alt=json";
 
-var feature = {
+var FEATURE = {
   'touch' : false,
   'orphans' : false,// @todo screwing things for notifications??!
   'patterns' : true,
@@ -184,12 +184,12 @@ project.render = function (projectData) {
     $('#recentProjects').append(html);
   }
 
-  if (feature.patterns) { project.addPattern(projectData); }
+  if (FEATURE.patterns) { project.addPattern(projectData); }
 };
 
 project.hideProject = function (element) {
     element.style.display = 'none';
-    if (feature.dismiss) { dismissed.addDismissed(element.id); }
+    if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
 };
 
 project.shrinkProject = function (element) {
@@ -466,7 +466,7 @@ var projectData = {
       var sortedData = projectData.sortByTimestamp(data);
       var newestTimestamp = Date.parse(sortedData[0].Timestamp);
       var newestTitle = sortedData[0].Title;
-      if (feature.notify) { 
+      if (FEATURE.notify) { 
         var updated = notify.checkForUpdates(newestTimestamp,newestTitle); 
         console.log('updated: ',updated);
       }
@@ -520,11 +520,11 @@ var projectData = {
     });
   },
   'processData' : function () { // init most things here
-    if (feature.orphans) { typography.preventTextOrphans(); }
+    if (FEATURE.orphans) { typography.preventTextOrphans(); }
     fadeUpdate.fadeIn();
-    if (feature.dismissed) { dismissed.init(); }
+    if (FEATURE.dismissed) { dismissed.init(); }
     starred.init();
-    if (feature.touch) { touch.init(); }
+    if (FEATURE.touch) { touch.init(); }
   },
 };
 
@@ -566,7 +566,7 @@ function parseDriveData(driveData){
 
 newProjectForm.init();
 starred.loadStars();
-if (feature.dismiss) { dismissed.loadDismissed(); }
+if (FEATURE.dismiss) { dismissed.loadDismissed(); }
 projectData.getData(true);
 search.init();
-if (feature.notify) { notify.init(); }
+if (FEATURE.notify) { notify.init(); }
