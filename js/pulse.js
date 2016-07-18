@@ -188,40 +188,40 @@ project.render = function (projectData) {
 };
 
 project.hideProject = function (element) {
-    element.style.display = 'none';
-    if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
+  element.style.display = 'none';
+  if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
 };
 
 project.shrinkProject = function (element) {
-    element.classList.add = 'shrunken';
-    setTimeout(function(){ 
-      project.hideProject(element);
-    }, 500);
+  element.classList.add = 'shrunken';
+  setTimeout(function(){ 
+    project.hideProject(element);
+  }, 500);
 };
 
 project.checkSwipe = function (element,deltaX) {
-    var width = element.offsetWidth;
-    var threshold = width / -3;
-    var purgatory = (width * -1) - 50;
-    if (deltaX < threshold ) { 
-        element.style.left = purgatory + 'px'; // @todo optimize with a class and transforms
-        setTimeout(function(){ 
-          project.shrinkProject(element);
-        }, 500);
-    } else {
-        element.style.left = '0px';
-    }
+  var width = element.offsetWidth;
+  var threshold = width / -3;
+  var purgatory = (width * -1) - 50;
+  if (deltaX < threshold ) { 
+      element.style.left = purgatory + 'px'; // @todo optimize with a class and transforms
+      setTimeout(function(){ 
+        project.shrinkProject(element);
+      }, 500);
+  } else {
+      element.style.left = '0px';
+  }
 };
 
 project.swipeProject = function (event) {
-    var element = event.target;
+  var element = event.target;
   if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is weird
   if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is insane
-    var deltaX = event.deltaX;
-    element.style.left = deltaX + 'px';
-    if (event.isFinal) { 
+  var deltaX = event.deltaX;
+  element.style.left = deltaX + 'px';
+  if (event.isFinal) { 
     project.checkSwipe(element,deltaX);
-    }
+  }
 };
 
 
@@ -400,16 +400,16 @@ notify.checkPermission = function() {
 };
 
 notify.requestPermission = function() {
-    var permission = false;
-    Notification.requestPermission(function(result) {
-        if (result === 'denied') {
-          return false;
-        } else if (result === 'default') {
-          return false;
-        } else { // accepted
-          return true;
-        }
-    });
+  var permission = false;
+  Notification.requestPermission(function(result) {
+      if (result === 'denied') {
+        return false;
+      } else if (result === 'default') {
+        return false;
+      } else { // accepted
+        return true;
+      }
+  });
 };
 
 notify.create = function(notice) {
