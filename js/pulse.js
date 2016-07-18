@@ -2,7 +2,7 @@
 var SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
 var SHEET_URL = "https://spreadsheets.google.com/feeds/cells/"+SHEET_ID+"/1/public/values?alt=json";
 
-var feature = {
+var FEATURE = {
   'touch' : false,
   'orphans' : false,// @todo screwing things for notifications??!
   'patterns' : true,
@@ -184,12 +184,12 @@ project.render = function (projectData) {
     $('#recentProjects').append(html);
   }
 
-  if (feature.patterns) { project.addPattern(projectData); }
+  if (FEATURE.patterns) { project.addPattern(projectData); }
 };
 
 project.hideProject = function (element) {
     element.style.display = 'none';
-    if (feature.dismiss) { dismissed.addDismissed(element.id); }
+    if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
 };
 
 project.shrinkProject = function (element) {
@@ -245,7 +245,7 @@ var newProjectForm = {
     newProjectForm.formContainer.style.display = 'none';
     newProjectForm.projectContainer.style.display = 'block';
     newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
-    setTimeout(function(){ projectData.getData(); }, 250);
+    setTimeout(function(){ PulseMaker.getData(); }, 250);
   },
   'toggleForm' : function () {  
     var displayState = newProjectForm.getDisplayState();
@@ -367,7 +367,7 @@ var touch = {
     }
   },
   'addHandlers' : function () {
-    var projects = projectData.getProjectElements();
+    var projects = PulseMaker.getProjectElements();
     Array.prototype.forEach.call(projects, function(element, i){
       touch.i = new Hammer(element);
       touch.i.on("panleft", project.swipeProject);
@@ -441,7 +441,7 @@ notify.checkForUpdates = function(newestTimestamp,newestTitle){
 };
 
 notify.init = function () {
-  var getProjects = setInterval(projectData.refresh, notify.interval);
+  var getProjects = setInterval(PulseMaker.refresh, notify.interval);
 };
 
 
@@ -454,34 +454,50 @@ var utility = {
   },
 };
 
-/* project data */
+/* pulse maker */
 
-var projectData = {
+var PulseMaker = {
   'url' : SHEET_URL,
-  'projects' : {},
+  'projects' : [],
+  'init': function() {
+    newProjectForm.init();
+    starred.loadStars();
+    if (FEATURE.dismiss) { dismissed.loadDismissed(); }
+    PulseMaker.getData(true);
+    search.init();
+    if (FEATURE.notify) { notify.init(); }
+  },
   'getData' : function (firstRun) {
-    console.log('getData');
-    $.getJSON( projectData.url, function( data ) {
-      data = parseDriveData(data);
-      var sortedData = projectData.sortByTimestamp(data);
-      var newestTimestamp = Date.parse(sortedData[0].Timestamp);
-      var newestTitle = sortedData[0].Title;
-      if (feature.notify) { 
-        var updated = notify.checkForUpdates(newestTimestamp,newestTitle); 
-        console.log('updated: ',updated);
-      }
-      if (updated || firstRun) {
-        projectData.clearProjectLists();
-        projectData.renderData(sortedData); 
-      }
-    }).done( function() {
-      console.log('gotData');
-      document.getElementById('loading').style.display = 'none';
-      projectData.processData();
-        setTimeout(function(){ 
-          projectData.dismissSplash();
-        }, 250);
+    console.log('Getting data from Google Spreadsheet.');
+    $.getJSON( PulseMaker.url, function( data ) {
+      // succeeded!
+      PulseMaker.projects = PulseMaker.parseGoogleSheetData(data);
+      console.log(PulseMaker.projects);
+      PulseMaker.renderApp(firstRun);
+    }).error(function() {
+      console.log("Failed to fetch data from Google Spreadsheet.");
+    }).complete( function() {
+      // AJAX call is done (whether it was successful or failed)
+      console.log("Ajax call to Google Spreadsheet has finished.");
     });   
+  },
+  'renderApp': function(firstRun) {
+    var sortedProjects = PulseMaker.sortByTimestamp(PulseMaker.projects);
+    var newestTimestamp = Date.parse(sortedProjects[0].Timestamp);
+    var newestTitle = sortedProjects[0].Title;
+    if (FEATURE.notify) { 
+      var updated = notify.checkForUpdates(newestTimestamp,newestTitle); 
+      console.log('updated: ',updated);
+    }
+    if (updated || firstRun) {
+      PulseMaker.clearProjectLists();
+      PulseMaker.renderProjectsIntoView(sortedProjects); 
+    }
+    document.getElementById('loading').style.display = 'none';
+    PulseMaker.toggleAdditionalFeatures();
+    setTimeout(function(){ 
+      PulseMaker.dismissSplash();
+    }, 250);
   },
   'dismissSplash' : function() {
     var siteHeader = document.getElementById('siteHeader');
@@ -498,7 +514,7 @@ var projectData = {
     }, 'desc');
     return sorted;
   },
-  'renderData' : function(sortedData) {
+  'renderProjectsIntoView' : function(sortedData) {
     $.each( sortedData, function( projectID, projectData ) { // @todo replace jquery
       project.render(projectData);
     });
@@ -509,7 +525,7 @@ var projectData = {
   },
   'refresh' : function () {
     console.log('refresh');
-    projectData.getData(false);
+    PulseMaker.getData(false);
   },
   'clearProjectLists' : function () {
     fadeUpdate.fadeOut();
@@ -519,54 +535,46 @@ var projectData = {
       list.innerHTML = '';
     });
   },
-  'processData' : function () { // init most things here
-    if (feature.orphans) { typography.preventTextOrphans(); }
+  'toggleAdditionalFeatures' : function () {
+    if (FEATURE.orphans) { typography.preventTextOrphans(); }
     fadeUpdate.fadeIn();
-    if (feature.dismissed) { dismissed.init(); }
+    if (FEATURE.dismissed) { dismissed.init(); }
     starred.init();
-    if (feature.touch) { touch.init(); }
+    if (FEATURE.touch) { touch.init(); }
   },
+  'parseGoogleSheetData': function(driveData) {
+    // Formats JSON data returned from Google Spreadsheet and formats it into
+    // an array with a series of objects with key value pairs like "column-name":"value"
+    var headings = {};
+    var newData = {};
+    var finalData = [];
+    var entries = driveData.feed.entry;
+
+    for(var i = 0; i < entries.length; i++){
+      var entry = entries[i];
+      var row = parseInt(entry.gs$cell.row);
+      var col = parseInt(entry.gs$cell.col);
+      var value = entry.content.$t;
+
+      if(row == 1) {
+        headings[col] = value;
+      }
+
+      if(row > 1) {
+        if(!newData[row]) {
+          newData[row] = {};
+        }
+        newData[row][headings[col]] = value;
+      }
+    }
+
+    for(var k in newData){
+      finalData.push(newData[k]);
+    }
+
+    return finalData;
+  }
 };
 
-
-// Formats JSON data returned from Google Spreadsheet and formats it into
-// an array with a series of objects with key value pairs like "column-name":"value"
-
-function parseDriveData(driveData){
-  var headings = {};
-  var newData = {};
-  var finalData = [];
-  var entries = driveData.feed.entry;
-
-  for(var i = 0; i < entries.length; i++){
-    var entry = entries[i];
-    var row = parseInt(entry.gs$cell.row);
-    var col = parseInt(entry.gs$cell.col);
-    var value = entry.content.$t;
-
-    if(row == 1) {
-      headings[col] = value;
-    }
-
-    if(row > 1) {
-      if(!newData[row]) {
-        newData[row] = {};
-      }
-      newData[row][headings[col]] = value;
-    }
-  }
-
-  for(var k in newData){
-    finalData.push(newData[k]);
-  }
-
-  return finalData;
-}
-
-
-newProjectForm.init();
-starred.loadStars();
-if (feature.dismiss) { dismissed.loadDismissed(); }
-projectData.getData(true);
-search.init();
-if (feature.notify) { notify.init(); }
+// initialize network pulse
+PulseMaker.init();
