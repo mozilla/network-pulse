@@ -421,6 +421,49 @@ label, input[type='radio'] {
   color:rgba(0,0,0,0.67);
 }
 
+/* detail view */
+
+#lightbox-overlay {
+  background: rgba(0,0,0,.85);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1000;
+  display: none;
+}
+
+#detail-view-wrapper {
+  position: fixed;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  margin: 0;
+  z-index: 100000;
+  display: none;
+}
+
+#close-control {
+  float: right;
+  background: #fff;
+  cursor: pointer;
+}
+
+#detail-view {
+  background: #fff;
+  margin: 100px 200px;
+  padding: 25px;
+}
+
+#detail-view h3 {
+  text-align: center;
+  color: #000;
+  border-bottom: 1px solid #777;
+  padding-bottom: 20px;
+}
+
 /* site footer */
 
 footer {
@@ -473,6 +516,7 @@ footer {
   .project {
     margin:0 1em 1em 0; 
     max-width:calc(50% - 1em);
+    cursor: pointer;
   }
 
   #featuredProjects .project {

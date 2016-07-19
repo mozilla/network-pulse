@@ -124,108 +124,6 @@ var search = {
   },
 };
 
-
-
-/* render projects cards */
-
-var project = {};
-
-project.getID = function (projectData) {
-  var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-  var id = timestamp ? Date.parse(timestamp) : '0';
-  return id; 
-};
-
-project.buildHTML = function (projectData) {
-  // format available data
-  var helpURL = projectData['Get involved URL'];
-  helpURL = !helpURL ? '' : '<a href="' + helpURL + '">Get Involved &#8599;</a>';
-  var projectURL = !projectData.URL ? '' : '<a href="' + projectData.URL + '">Open &#8599;</a>';
-  var links = '<p class="projectLinks">' + projectURL + helpURL +  '</p>';
-  var title = projectData.Title ? '<h2>' + projectData.Title + '</h2>' : '';
-  var creator = projectData.Creator ? '<h3>' + projectData.Creator + '</h3>' : '';
-  var description = projectData.Description ? '<p class="description">' + projectData.Description + '</p>' : '';
-  var interest = projectData.Interest ? '<p class="interest">' + projectData.Interest + '</p>' : '';
-  var favorites = projectData.Favorites ? projectData.Favorites : 0;
-  var featured = projectData.Featured ? ' featured' : '';
-
-  var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-  var id = project.getID(projectData);
-  var color = colors.getColor('name'); 
-
-  // assemble html
-  var html = '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '><div class="projectSummary">' + title + creator + description + interest + links + '</div><div class="star"></div></div>';
-  return html;
-};
-
-project.addPattern = function(projectData){
-  var color = colors.getColor('hex'); 
-  var pattern = GeoPattern.generate(projectData.Title,{
-    color : color,
-    baseColor : '333333 '
-  });
-  pattern = pattern.toDataUrl();
-
-  var id = 'p' + project.getID(projectData);
-  document.getElementById(id).style.backgroundImage = pattern;
-};
-
-project.render = function (projectData) {
-  var id = project.getID(projectData);
-  var starStatus = starred.list.indexOf('p' + id);
-  var featured = projectData.Featured;
-  var html = project.buildHTML(projectData);
-
-  if (starStatus != -1) {
-      $('#starredProjects').append(html);
-  } else if (featured) {
-    $('#featuredProjects').append(html);
-  } else {
-    $('#recentProjects').append(html);
-  }
-
-  if (FEATURE.patterns) { project.addPattern(projectData); }
-};
-
-project.hideProject = function (element) {
-  element.style.display = 'none';
-  if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
-};
-
-project.shrinkProject = function (element) {
-  element.classList.add = 'shrunken';
-  setTimeout(function(){ 
-    project.hideProject(element);
-  }, 500);
-};
-
-project.checkSwipe = function (element,deltaX) {
-  var width = element.offsetWidth;
-  var threshold = width / -3;
-  var purgatory = (width * -1) - 50;
-  if (deltaX < threshold ) { 
-      element.style.left = purgatory + 'px'; // @todo optimize with a class and transforms
-      setTimeout(function(){ 
-        project.shrinkProject(element);
-      }, 500);
-  } else {
-      element.style.left = '0px';
-  }
-};
-
-project.swipeProject = function (event) {
-  var element = event.target;
-  if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is weird
-  if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is insane
-  var deltaX = event.deltaX;
-  element.style.left = deltaX + 'px';
-  if (event.isFinal) { 
-    project.checkSwipe(element,deltaX);
-  }
-};
-
-
-
 /* add new project form */
 
 var newProjectForm = {
@@ -454,6 +352,61 @@ var utility = {
   },
 };
 
+/* Detailer View Handler */
+
+function enableDetailView() {
+  var showDetailsModal = function(id) {
+    var $detailViewTitle = $("#detail-view-wrapper h3");
+    var $detailViewContent = $("#detail-view-wrapper .content");
+    var $project = $("#"+id);
+    var html = 
+      "Project id: " + id + "<br><br>" +
+      "Project Name: " + $project.find(".projectSummary h2").html() + "<br><br>" +
+      "Project Creator: " + $project.find(".projectSummary h3").html() + "<br><br>" +
+      "Project Description: " + $project.find(".projectSummary .description").html() + "<br><br>" +
+      "Project Interest: " + $project.find(".projectSummary .interest").html() + "<br><br>" +
+      "Project Links: " + $project.find(".projectSummary .projectLinks").html();
+    toggleOverlay('on');
+    $detailViewTitle.html($project.find(".projectSummary h2").html());
+    $detailViewContent.html(html);
+
+    // FIXME: just a quick solution to add id query param to URL
+    window.history.pushState(id, "", window.location.href.split("?")[0] + "?id=" + id);
+  };
+
+  var toggleOverlay = function(onOrOff) {
+    var $overlay = $("#lightbox-overlay");
+    var $detailViewWrapper = $("#detail-view-wrapper");
+    if ( onOrOff === 'on' ) {
+      $overlay.show();
+      $detailViewWrapper.show();
+    }
+    if ( onOrOff === 'off' ) {
+      $overlay.hide();
+      $detailViewWrapper.hide();
+      window.history.pushState("Mozilla Network Pulse", "", window.location.href.split("?")[0]);
+    }
+  };
+
+  $(".project").on('click', function() {
+    showDetailsModal($(this).attr('id'));
+  });
+  $("#close-control").on('click', function() {
+    toggleOverlay('off');
+  });
+
+  if ( window.location.href.indexOf("id=") > -1 ) {
+    var queryParams = window.location.href.split("?")[1].split("&");
+    var currentProjectId;
+    queryParams.forEach(function(param) {
+      if ( param.substr(0,3) === 'id=' ) {
+        currentProjectId = param.substr(3);
+      }
+    });
+    showDetailsModal(currentProjectId);
+  }
+};
+
 /* pulse maker */
 
 var PulseMaker = {
@@ -498,6 +451,9 @@ var PulseMaker = {
     setTimeout(function(){ 
       PulseMaker.dismissSplash();
     }, 250);
+
+    // detail view handler
+    enableDetailView();
   },
   'dismissSplash' : function() {
     var siteHeader = document.getElementById('siteHeader');
@@ -516,7 +472,7 @@ var PulseMaker = {
   },
   'renderProjectsIntoView' : function(sortedData) {
     $.each( sortedData, function( projectID, projectData ) { // @todo replace jquery
-      project.render(projectData);
+      ProjectCard.render(projectData);
     });
   },
   'getProjectElements' : function () {
@@ -578,3 +534,4 @@ var PulseMaker = {
 
 // initialize network pulse
 PulseMaker.init();
+
