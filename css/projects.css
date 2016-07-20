@@ -447,13 +447,14 @@ label, input[type='radio'] {
 
 #close-control {
   float: right;
-  background: #fff;
   cursor: pointer;
 }
 
 #detail-view {
+  width: calc( 100% - 100px );
+  max-width: 500px;
   background: #fff;
-  margin: 50px 20px 10px 20px;
+  margin: 70px auto 0 auto;
   padding: 25px;
 }
 
@@ -557,10 +558,6 @@ footer {
     display: none;
   }
 
-  #detail-view {
-    margin: 100px 50px;
-  }
-
 }
 
 @media screen and (min-width: 1024px) {
@@ -569,9 +566,6 @@ footer {
   }
   #featuredProjects .project {
     max-width:calc(50% - 1em);
-  }
-  #detail-view {
-    margin: 100px 200px;
   }
 }
 

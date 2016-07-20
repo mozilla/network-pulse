@@ -1,6 +1,5 @@
 // Your Google Drive Spreadsheet URL
-var SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
-var SHEET_URL = "https://spreadsheets.google.com/feeds/cells/"+SHEET_ID+"/1/public/values?alt=json";
+var GOOGLE_SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
 
 var FEATURE = {
   'touch' : false,
@@ -358,16 +357,16 @@ function enableDetailView() {
   var showDetailsModal = function(id) {
     var $detailViewTitle = $("#detail-view-wrapper h3");
     var $detailViewContent = $("#detail-view-wrapper .content");
-    var $project = $("#"+id);
+    var $projectSummary = $("#"+id).children(".projectSummary");
     var html = 
-      "Project id: " + id + "<br><br>" +
-      "Project Name: " + $project.find(".projectSummary h2").html() + "<br><br>" +
-      "Project Creator: " + $project.find(".projectSummary h3").html() + "<br><br>" +
-      "Project Description: " + $project.find(".projectSummary .description").html() + "<br><br>" +
-      "Project Interest: " + $project.find(".projectSummary .interest").html() + "<br><br>" +
-      "Project Links: " + $project.find(".projectSummary .projectLinks").html();
+      "[ Project ID ] " + id + "<br><br>" +
+      "[ Project Name ] " + $projectSummary.find("h2").html() + "<br><br>" +
+      "[ Project Creator ] " + $projectSummary.find("h3").html() + "<br><br>" +
+      "[ Project Description ] " + $projectSummary.find(".description").html() + "<br><br>" +
+      "[ Project Interest ] " + $projectSummary.find(".interest").html() + "<br><br>" +
+      "[ Project Links ] " + $projectSummary.find(".projectLinks").html().split("</a>").join("</a>&nbsp;&nbsp;");
     toggleOverlay('on');
-    $detailViewTitle.html($project.find(".projectSummary h2").html());
+    $detailViewTitle.html($projectSummary.find("h2").html());
     $detailViewContent.html(html);
 
     // FIXME: just a quick solution to add id query param to URL
@@ -410,7 +409,7 @@ function enableDetailView() {
 /* pulse maker */
 
 var PulseMaker = {
-  'url' : SHEET_URL,
+  'url' : "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
   'projects' : [],
   'init': function() {
     newProjectForm.init();
