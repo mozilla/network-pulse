@@ -60,43 +60,6 @@ var ProjectCard = {
     }
 
     if (FEATURE.patterns) { ProjectCard.addPattern(projectData); }
-  },
-  
-  hideProject: function(element) {
-    element.style.display = 'none';
-    if (FEATURE.dismiss) { dismissed.addDismissed(element.id); }
-  },
-
-  shrinkProject: function(element) {
-    element.classList.add = 'shrunken';
-    setTimeout(function(){ 
-      ProjectCard.hideProject(element);
-    }, 500);
-  },
-
-  checkSwipe: function(element,deltaX) {
-    var width = element.offsetWidth;
-    var threshold = width / -3;
-    var purgatory = (width * -1) - 50;
-    if (deltaX < threshold ) { 
-      element.style.left = purgatory + 'px'; // @todo optimize with a class and transforms
-      setTimeout(function(){ 
-        ProjectCard.shrinkProject(element);
-      }, 500);
-    } else {
-      element.style.left = '0px';
-    }
-  },
-
-  swipeProject: function(event) {
-    var element = event.target;
-    if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is weird
-    if ( !element.classList.contains('project') ) { element = element.parentElement; } // this is insane
-    var deltaX = event.deltaX;
-    element.style.left = deltaX + 'px';
-    if (event.isFinal) { 
-      ProjectCard.checkSwipe(element,deltaX);
-    }
   }
 
 };
