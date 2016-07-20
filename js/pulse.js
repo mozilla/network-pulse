@@ -2,11 +2,9 @@
 var GOOGLE_SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
 
 var FEATURE = {
-  'touch' : false,
   'orphans' : false,// @todo screwing things for notifications??!
   'patterns' : true,
-  'notify' : true,
-  'dismiss' : false,
+  'notify' : true
 };
 
 /* color project cards */
@@ -157,37 +155,6 @@ var newProjectForm = {
   },
 };
 
-
-/* dismissed */
-
-var dismissed = {
-  'list' : [],
-  'addDismissed' : function (id) {
-    dismissed.list.push(id);
-    var projIDs = dismissed.list.toString(); 
-    localStorage.setItem("dismissed",projIDs);
-  },  
-  'loadDismissed' : function () {
-    var projIDs = localStorage.getItem("dismissed"); 
-    if (!projIDs) { return false; }
-    dismissed.list = projIDs.split(',');
-  },
-  'hideDismissed' : function () {
-    Array.prototype.forEach.call(dismissed.list, function(el, i){
-      var proj = document.getElementById(el);
-      if (proj) { proj.style.display = 'none'; }
-    }); 
-  },
-  'clearDismissed' : function () {
-     localStorage.removeItem("dismissed");
-     location.reload();
-  },
-  'init' : function () {
-    dismissed.hideDismissed();
-    document.getElementById('clearDismissed').onclick = dismissed.clearDismissed;
-  },  
-};
-
 /* favorite stars */
 
 var starred = {
@@ -247,29 +214,6 @@ var starred = {
     starred.addHandlers();
     starred.showStars();
   },
-};
-
-
-
-
-
-
-/* touch */
-
-var touch = {
-  'init' : function () {
-    var width = screen.width;
-    if (screen.width < 601) {
-      touch.addHandlers();
-    }
-  },
-  'addHandlers' : function () {
-    var projects = PulseMaker.getProjectElements();
-    Array.prototype.forEach.call(projects, function(element, i){
-      touch.i = new Hammer(element);
-      touch.i.on("panleft", project.swipeProject);
-    });
-  }
 };
 
 
@@ -414,7 +358,6 @@ var PulseMaker = {
   'init': function() {
     newProjectForm.init();
     starred.loadStars();
-    if (FEATURE.dismiss) { dismissed.loadDismissed(); }
     PulseMaker.getData(true);
     search.init();
     if (FEATURE.notify) { notify.init(); }
@@ -474,10 +417,6 @@ var PulseMaker = {
       ProjectCard.render(projectData);
     });
   },
-  'getProjectElements' : function () {
-    var projects = document.querySelectorAll('.project');
-    return projects;
-  },
   'refresh' : function () {
     console.log('refresh');
     PulseMaker.getData(false);
@@ -493,9 +432,7 @@ var PulseMaker = {
   'toggleAdditionalFeatures' : function () {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
     fadeUpdate.fadeIn();
-    if (FEATURE.dismissed) { dismissed.init(); }
     starred.init();
-    if (FEATURE.touch) { touch.init(); }
   },
   'parseGoogleSheetData': function(driveData) {
     // Formats JSON data returned from Google Spreadsheet and formats it into

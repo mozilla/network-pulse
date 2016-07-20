@@ -401,15 +401,6 @@ label, input[type='radio'] {
   content: '\2605'; /* &#9734; */
 }
 
-/* transitions */
-
-.shrunken {
-  height:0;
-  margin:0;
-  padding:0;
-}
-
-
 /* loading */
 
 #loading {  
