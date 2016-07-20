@@ -453,7 +453,7 @@ label, input[type='radio'] {
 
 #detail-view {
   background: #fff;
-  margin: 100px 200px;
+  margin: 50px 20px 10px 20px;
   padding: 25px;
 }
 
@@ -556,6 +556,11 @@ footer {
   .mobileOnly {
     display: none;
   }
+
+  #detail-view {
+    margin: 100px 50px;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -564,6 +569,9 @@ footer {
   }
   #featuredProjects .project {
     max-width:calc(50% - 1em);
+  }
+  #detail-view {
+    margin: 100px 200px;
   }
 }
 
