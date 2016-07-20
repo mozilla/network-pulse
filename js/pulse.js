@@ -290,7 +290,7 @@ var PulseMaker = {
     starred.loadStars();
     PulseMaker.getData(true);
     search.init();
-    if (FEATURE.notify) { Notifier.init(); }
+    if (FEATURE.notify) { Notifier.init(PulseMaker.refresh); }
   },
   'getData' : function (firstRun) {
     console.log('Getting data from Google Spreadsheet.');

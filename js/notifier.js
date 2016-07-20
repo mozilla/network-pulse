@@ -1,7 +1,7 @@
 /* notifications */
 
 var Notifier = {
-  interval: 1 * 60 * 1000,
+  defaultInterval: 1*60*1000,
   checkPermission: function() {
     var permission = false;
     if (Notification.permission === "granted") {
@@ -56,7 +56,9 @@ var Notifier = {
     localStorage.setItem("lastProject",newestTimestamp);
     return updated;
   },
-  init: function() {
-    setInterval(PulseMaker.refresh, this.interval);
+  init: function(action,interval) {
+    if (action && typeof action === 'function') {
+      setInterval(action, interval || this.defaultInterval);
+    }
   }
 };
