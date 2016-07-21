@@ -7,7 +7,7 @@ var ProjectCard = {
     return id; 
   },
 
-  buildHTML: function(projectData) {
+  buildHTML: function(projectData,color) {
     // format available data
     var helpURL = projectData['Get involved URL'];
     helpURL = !helpURL ? '' : '<a href="' + helpURL + '">Get Involved &#8599;</a>';
@@ -22,21 +22,20 @@ var ProjectCard = {
 
     var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
     var id = ProjectCard.getID(projectData);
-    var color = colors.getColor('name'); 
+    var colorName = color.name;
 
     // assemble html
     var html = 
-      '<div id="p' + id + '" class="project ' + color + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' +
+      '<div id="p' + id + '" class="project ' + colorName + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' +
         '<div class="projectSummary">' + title + creator + description + interest + links + '</div>' + 
         '<div class="star"></div>' + 
       '</div>';
     return html;
   },
 
-  addPattern: function(projectData) {
-    var color = colors.getColor('hex'); 
+  addPattern: function(projectData,color) {
     var pattern = GeoPattern.generate(projectData.Title,{
-      color : color,
+      color : color.hex,
       baseColor : '333333 '
     });
     pattern = pattern.toDataUrl();
@@ -45,11 +44,11 @@ var ProjectCard = {
     document.getElementById(id).style.backgroundImage = pattern;
   },
 
-  render: function(projectData) {
+  render: function(projectData,color) {
     var id = ProjectCard.getID(projectData);
     var starStatus = starred.list.indexOf('p' + id);
     var featured = projectData.Featured;
-    var html = ProjectCard.buildHTML(projectData);
+    var html = ProjectCard.buildHTML(projectData,color);
 
     if (starStatus != -1) {
       $('#starredProjects').append(html);
@@ -59,7 +58,7 @@ var ProjectCard = {
       $('#recentProjects').append(html);
     }
 
-    if (FEATURE.patterns) { ProjectCard.addPattern(projectData); }
+    if (FEATURE.patterns) { ProjectCard.addPattern(projectData,color); }
   }
 
 };

@@ -7,21 +7,6 @@ var FEATURE = {
   'notify' : true
 };
 
-/* color project cards */
-
-var colors = {
-  'names' : ['nightlyblue','developerblue','mobileblue','summitteal','geckgreen','flameyellow','marketorange','firefoxorange','dinored','bikeshedmagenta','aurorapurple'],
-  'hexes' : ['#2D457E','#1EC198','#F19B2D','#DF5B74','#135E9F','#7CC260','#E66C32','#793876','#20A5D9','#F9D12F','#C95142'],
-  'id' : 0,
-  'getColor' : function (type){
-    var color = type === 'hex' ? colors.hexes[colors.id] : colors.names[colors.id];
-    colors.id += 1;
-    if ( colors.id === colors.names.length ) { colors.id = 0; }
-    return color;
-  },
-};
-
-
 /* better typography */
 
 var typography = {
@@ -355,6 +340,19 @@ function enableDetailView() {
 var PulseMaker = {
   'url' : "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
   'projects' : [],
+  'colors': [
+    { name: "nightlyblue", hex: "#2D457E" },
+    { name: "developerblue", hex: "#1EC198" },
+    { name: "mobileblue", hex: "#F19B2D" },
+    { name: "summitteal", hex: "#DF5B74" },
+    { name: "geckgreen", hex: "#135E9F" },
+    { name: "flameyellow", hex: "#7CC260" },
+    { name: "marketorange", hex: "#E66C32" },
+    { name: "firefoxorange", hex: "#793876" },
+    { name: "dinored", hex: "#20A5D9" },
+    { name: "bikeshedmagenta", hex: "#F9D12F" },
+    { name: "aurorapurple", hex: "#C95142" }
+  ],
   'init': function() {
     newProjectForm.init();
     starred.loadStars();
@@ -413,8 +411,10 @@ var PulseMaker = {
     return sorted;
   },
   'renderProjectsIntoView' : function(sortedData) {
-    $.each( sortedData, function( projectID, projectData ) { // @todo replace jquery
-      ProjectCard.render(projectData);
+    var colorsLength = PulseMaker.colors.length;
+    $.each( sortedData, function( index, projectData ) { // @todo replace jquery
+      var color = PulseMaker.colors[index%colorsLength];
+      ProjectCard.render(projectData,color);
     });
   },
   'refresh' : function () {
