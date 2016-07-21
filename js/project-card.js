@@ -9,10 +9,22 @@ var ProjectCard = {
 
   buildHTML: function(projectData,color) {
     // format available data
+    var idPrefix = "p";
+    var id = idPrefix + ProjectCard.getID(projectData);
     var helpURL = projectData['Get involved URL'];
     helpURL = !helpURL ? '' : '<a href="' + helpURL + '">Get Involved &#8599;</a>';
     var projectURL = !projectData.URL ? '' : '<a href="' + projectData.URL + '">Open &#8599;</a>';
-    var links = '<p class="projectLinks">' + projectURL + helpURL +  '</p>';
+    var shareButton = '<a href="" class="share-btn">Share</a>';
+    var links = '<div class="projectLinks">' +
+                  '<div>' +
+                    projectURL +
+                    helpURL +
+                    shareButton +
+                  '</div>' +
+                  '<div>' +
+                    '<input type="text" value="'+ utility.getProjectDirectLink(id) +'" readonly class="direct-link" />' +
+                  '</div>' +
+                '</div>';
     var title = projectData.Title ? '<h2>' + projectData.Title + '</h2>' : '';
     var creator = projectData.Creator ? '<h3>' + projectData.Creator + '</h3>' : '';
     var description = projectData.Description ? '<p class="description">' + projectData.Description + '</p>' : '';
@@ -21,12 +33,11 @@ var ProjectCard = {
     var featured = projectData.Featured ? ' featured' : '';
 
     var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-    var id = ProjectCard.getID(projectData);
     var colorName = color.name;
 
     // assemble html
     var html = 
-      '<div id="p' + id + '" class="project ' + colorName + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' +
+      '<div id="' + id + '" class="project ' + colorName + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' +
         '<div class="projectSummary">' + title + creator + description + interest + links + '</div>' + 
         '<div class="star"></div>' + 
       '</div>';

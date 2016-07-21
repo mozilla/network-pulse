@@ -168,6 +168,16 @@ h3 {
   background:rgba(255,255,255,0.8);
 }
 
+.projectLinks input.direct-link {
+  display: none;
+  box-sizing: border-box;
+  color: #888;
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  border: 0;
+}
+
 
 /* search */
 
@@ -508,7 +518,6 @@ footer {
   .project {
     margin:0 1em 1em 0; 
     max-width:calc(50% - 1em);
-    cursor: pointer;
   }
 
   #featuredProjects .project {
