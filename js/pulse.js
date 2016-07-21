@@ -1,10 +1,11 @@
 // Your Google Drive Spreadsheet URL
 var GOOGLE_SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
+var REFRESH_INTERVAL = 1*60*1000; // 60 secs
 
 var FEATURE = {
   'orphans' : false,// @todo screwing things for notifications??!
   'patterns' : true,
-  'notify' : true
+  'notify' : true // this turns on both auto app refresh and browser notification
 };
 
 /* color project cards */
@@ -290,7 +291,9 @@ var PulseMaker = {
     starred.loadStars();
     PulseMaker.getData(true);
     search.init();
-    if (FEATURE.notify) { Notifier.init(PulseMaker.refresh); }
+    if (FEATURE.notify) {
+      setInterval(PulseMaker.refresh,REFRESH_INTERVAL);
+    }
   },
   'getData' : function (firstRun) {
     console.log('Getting data from Google Spreadsheet.');
@@ -308,10 +311,8 @@ var PulseMaker = {
   },
   'renderApp': function(firstRun) {
     var sortedProjects = PulseMaker.sortByTimestamp(PulseMaker.projects);
-    var newestTimestamp = Date.parse(sortedProjects[0].Timestamp);
-    var newestTitle = sortedProjects[0].Title;
     if (FEATURE.notify) { 
-      var updated = Notifier.checkForUpdates(newestTimestamp,newestTitle);
+      var updated = Notifier.checkForUpdates(sortedProjects);
       console.log('updated: ',updated);
     }
     if (updated || firstRun) {
