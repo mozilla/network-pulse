@@ -49,12 +49,12 @@ var Notifier = {
     var updated = false;
     var newestProject = sortedProjects[0];
     var newestTimestamp = Date.parse(newestProject.Timestamp);
-    var lastProject = Number(localStorage.getItem("lastProject")); 
-    if (lastProject && lastProject < newestTimestamp) { 
+    var lastNewestProjectTimestamp = Number(localStorage.getItem("newestProjectTimestamp"));
+    if (lastNewestProjectTimestamp && lastNewestProjectTimestamp < newestTimestamp) {
       var notification = 'Check out ' + newestProject.Title;
       this.create(notification);
       updated = true;
-      localStorage.setItem("lastProject",newestTimestamp);
+      localStorage.setItem("newestProjectTimestamp",newestTimestamp);
     }
     return updated;
   }
