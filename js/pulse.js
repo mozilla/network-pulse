@@ -1,10 +1,11 @@
 // Your Google Drive Spreadsheet URL
 var GOOGLE_SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
+var REFRESH_INTERVAL = 1*60*1000; // 60 secs
 
 var FEATURE = {
   'orphans' : false,// @todo screwing things for notifications??!
   'patterns' : true,
-  'notify' : true
+  'notify' : true // this turns on both auto app refresh and browser notification
 };
 
 /* better typography */
@@ -201,76 +202,6 @@ var starred = {
   },
 };
 
-
-/* notifications */
-
-var notify = {};
-
-notify.interval = 1 * 60 * 1000;
-
-notify.checkPermission = function() {
-  var permission = false;
-  if (Notification.permission === "granted") {
-    console.log('permission granted');
-    permission = true;
-    return permission;
-  } else if (Notification.permission !== 'denied') {
-    console.log('permission unknown');
-    // permission unknown
-    permission = notify.requestPermission();
-    return permission;
-  } else {
-    console.log('permission denied');
-    return permission;
-  }
-};
-
-notify.requestPermission = function() {
-  var permission = false;
-  Notification.requestPermission(function(result) {
-      if (result === 'denied') {
-        return false;
-      } else if (result === 'default') {
-        return false;
-      } else { // accepted
-        return true;
-      }
-  });
-};
-
-notify.create = function(notice) {
-  if ("Notification" in window) {
-    var permission = notify.checkPermission();
-    if (permission) { 
-      try {
-        new window.Notification('');
-      } catch (e) {
-        if (e.name === 'TypeError') { // dang you ambivalent android
-          return false;
-        }
-      }
-      var notification = new Notification('Mozilla Pulse', { body: notice });
-    }   
-  }
-};
-
-notify.checkForUpdates = function(newestTimestamp,newestTitle){
-  var updated = false;
-  var lastProject = Number(localStorage.getItem("lastProject")); 
-  if (lastProject && lastProject < newestTimestamp) { 
-    var notification = 'Check out ' + newestTitle;
-    notify.create(notification);
-    updated = true;
-  }
-  localStorage.setItem("lastProject",newestTimestamp);
-  return updated;
-};
-
-notify.init = function () {
-  var getProjects = setInterval(PulseMaker.refresh, notify.interval);
-};
-
-
 /* utility */
 
 var utility = {
@@ -358,7 +289,9 @@ var PulseMaker = {
     starred.loadStars();
     PulseMaker.getData(true);
     search.init();
-    if (FEATURE.notify) { notify.init(); }
+    if (FEATURE.notify) {
+      setInterval(PulseMaker.refresh,REFRESH_INTERVAL);
+    }
   },
   'getData' : function (firstRun) {
     console.log('Getting data from Google Spreadsheet.');
@@ -376,10 +309,8 @@ var PulseMaker = {
   },
   'renderApp': function(firstRun) {
     var sortedProjects = PulseMaker.sortByTimestamp(PulseMaker.projects);
-    var newestTimestamp = Date.parse(sortedProjects[0].Timestamp);
-    var newestTitle = sortedProjects[0].Title;
     if (FEATURE.notify) { 
-      var updated = notify.checkForUpdates(newestTimestamp,newestTitle); 
+      var updated = Notifier.checkForUpdates(sortedProjects);
       console.log('updated: ',updated);
     }
     if (updated || firstRun) {
