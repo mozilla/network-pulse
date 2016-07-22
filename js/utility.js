@@ -19,19 +19,20 @@ var utility = {
     return false;
   },
   getProjectDirectLink: function(projectId) {
+    var repoName = "network-pulse";
     var location = window.location.href;
     var fileUrlPrefix = "file://"; 
     var projectDirectLink;
     if ( location.substr(0,fileUrlPrefix.length) === fileUrlPrefix ) {
     // if it's on local file system
-      var dirName = "network-pulse";
-      var rootUrlWithProtocol = location.substr(0,location.indexOf(dirName)+dirName.length);
+      var rootUrlWithProtocol = location.substr(0,location.indexOf(repoName)+repoName.length);
       projectDirectLink = rootUrlWithProtocol + "/index.html?id=" + projectId;
     } else {
       // otherwise it's on the Webbbb
       var protocol = location.indexOf("https://") > -1 ? "https://" : "http://";
       var rootUrl = location.replace("http://","").replace("https://","").split("/")[0];
-      projectDirectLink = protocol + rootUrl + "/?id=" + projectId;
+      var path = ( rootUrl.indexOf("mozilla.github.io") > -1 ) ? "/"+repoName : "";
+      projectDirectLink = protocol + rootUrl + path + "/?id=" + projectId;
     }
 
     return projectDirectLink;
