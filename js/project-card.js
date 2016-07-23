@@ -1,49 +1,32 @@
 /* Project Card */
 
 var ProjectCard = {
-  getID: function(projectData) {
+  ID_PREFIX: "p",
+  template: _.template($("script#project-card").html()),
+  getProjectCardId: function(projectData) {
     var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-    var id = timestamp ? Date.parse(timestamp) : '0';
-    return id; 
-  },
+    var projectId = timestamp ? Date.parse(timestamp) : '0';
 
+    return this.ID_PREFIX + projectId;
+  },
   buildHTML: function(projectData,color) {
-    // format available data
-    var idPrefix = "p";
-    var id = idPrefix + ProjectCard.getID(projectData);
-    var helpURL = projectData['Get involved URL'];
-    helpURL = !helpURL ? '' : '<a href="' + helpURL + '">Get Involved &#8599;</a>';
-    var projectURL = !projectData.URL ? '' : '<a href="' + projectData.URL + '">Open &#8599;</a>';
-    var shareButton = '<a href="" class="share-btn">Share</a>';
-    var links = '<div class="projectLinks">' +
-                  '<div>' +
-                    projectURL +
-                    helpURL +
-                    shareButton +
-                  '</div>' +
-                  '<div>' +
-                    '<input type="text" value="'+ utility.getProjectDirectLink(id) +'" readonly class="direct-link" />' +
-                  '</div>' +
-                '</div>';
-    var title = projectData.Title ? '<h2>' + projectData.Title + '</h2>' : '';
-    var creator = projectData.Creator ? '<h3>' + projectData.Creator + '</h3>' : '';
-    var description = projectData.Description ? '<p class="description">' + projectData.Description + '</p>' : '';
-    var interest = projectData.Interest ? '<p class="interest">' + projectData.Interest + '</p>' : '';
-    var favorites = projectData.Favorites ? projectData.Favorites : 0;
-    var featured = projectData.Featured ? ' featured' : '';
+    var id = this.getProjectCardId(projectData);
+    var dataForTemplate = {
+      id: id,
+      colorName: color.name,
+      featured: projectData.Featured,
+      favorites: projectData.Favorites ? projectData.Favorites : 0,
+      title: projectData.Title ? projectData.Title : "",
+      creator: projectData.Creator ? projectData.Creator : "",
+      description: projectData.Description ? projectData.Description : "",
+      interest: projectData.Interest ? projectData.Interest : "",
+      link: projectData.URL ? projectData.URL : "",
+      getInvolvedLink: projectData['Get involved URL'] ? projectData['Get involved URL'] : "",
+      detailViewLink: utility.getProjectDirectLink(id)
+    };
 
-    var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-    var colorName = color.name;
-
-    // assemble html
-    var html = 
-      '<div id="' + id + '" class="project ' + colorName + featured + '" data-created="' + id + '" data-favorites="' + favorites + '" ' + '>' +
-        '<div class="projectSummary">' + title + creator + description + interest + links + '</div>' + 
-        '<div class="star"></div>' + 
-      '</div>';
-    return html;
+    return this.template(dataForTemplate);
   },
-
   addPattern: function(projectData,color) {
     var pattern = GeoPattern.generate(projectData.Title,{
       color : color.hex,
@@ -51,13 +34,12 @@ var ProjectCard = {
     });
     pattern = pattern.toDataUrl();
 
-    var id = 'p' + ProjectCard.getID(projectData);
+    var id = ProjectCard.getProjectCardId(projectData);
     document.getElementById(id).style.backgroundImage = pattern;
   },
-
   render: function(projectData,color) {
-    var id = ProjectCard.getID(projectData);
-    var starStatus = starred.list.indexOf('p' + id);
+    var id = ProjectCard.getProjectCardId(projectData);
+    var starStatus = starred.list.indexOf(id);
     var featured = projectData.Featured;
     var html = ProjectCard.buildHTML(projectData,color);
 
