@@ -42,10 +42,7 @@
 
   <div id="detail-view-wrapper">
     <a id="close-control"><img src="x-white.svg" width="25" height="25" /></a>
-    <div id="detail-view">
-      <h3></h3>
-      <div class="content"></div>
-    </div>
+    <div id="detail-view"></div>
   </div>
   <div id="lightbox-overlay"></div>
 
@@ -55,10 +52,11 @@
   </footer>
 
   <!-- Project Card template -->
-  <script type="text/template" id="project-card">
+  <script type="text/template" id="project-card-template">
     <%
       var classNames = [
         "project",
+        typeof(displayType)!== 'undefined' ? displayType : "thumbnail-view",
         typeof(colorName)!== 'undefined' ? colorName : "",
         featured ? "featured" : "",
       ].join(" ");

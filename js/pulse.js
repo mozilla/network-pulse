@@ -204,27 +204,27 @@ var starred = {
 
 /* Detailer View Handler */
 
-function enableDetailView() {
-  var showDetailsModal = function(id) {
-    var $detailViewTitle = $("#detail-view-wrapper h3");
-    var $detailViewContent = $("#detail-view-wrapper .content");
-    var $projectSummary = $("#"+id).children(".projectSummary");
-    var html = 
-      "[ Project ID ] " + id + "<br><br>" +
-      "[ Project Name ] " + $projectSummary.find("h2").html() + "<br><br>" +
-      "[ Project Creator ] " + $projectSummary.find("h3").html() + "<br><br>" +
-      "[ Project Description ] " + $projectSummary.find(".description").html() + "<br><br>" +
-      "[ Project Interest ] " + $projectSummary.find(".interest").html() + "<br><br>" +
-      "[ Project Links ] " + $projectSummary.find(".projectLinks").html().split("</a>").join("</a>&nbsp;&nbsp;");
-    toggleOverlay('on');
-    $detailViewTitle.html($projectSummary.find("h2").html());
-    $detailViewContent.html(html);
+var DetailViewManager = {
+  buildDetailModal: function(id) {
+    // jQuery's .html() returns an element's *inner* HTML, not the element itself.
+    // However, we can achieve our goal by wrapping the clone with a temporary <div> and
+    // call .html() on the temporary wrapper <div>
+    var tempWrapperId = "temp-wrapper-" + id;
+    var $clone = $("#"+id).removeAttr("id").addClass(id).clone();
+    $clone.wrapAll("<div class='"+tempWrapperId+"'></div>");
+    var $projectDetail = $clone.parent("."+tempWrapperId);
+    $projectDetail.find(".share-btn").on("click", this.shareBtnClickHandler);
 
+    $("#detail-view").append( $projectDetail );
+  },
+  showDetailModal: function(id) {
+    this.buildDetailModal(id);
+    this.toggleOverlay('on');
     // FIXME: just a quick solution to add id query param to URL
     window.history.pushState(id, "", window.location.href.split("?")[0] + "?id=" + id);
-  };
+  },
 
-  var toggleOverlay = function(onOrOff) {
+  toggleOverlay: function(onOrOff) {
     var $overlay = $("#lightbox-overlay");
     var $detailViewWrapper = $("#detail-view-wrapper");
     if ( onOrOff === 'on' ) {
@@ -236,19 +236,28 @@ function enableDetailView() {
       $detailViewWrapper.hide();
       window.history.pushState("Mozilla Network Pulse", "", window.location.href.split("?")[0]);
     }
-  };
+  },
 
-  $(".project .share-btn").on('click', function(event) {
+  shareBtnClickHandler: function(event) {
     event.preventDefault();
-    $(this).parents(".project").find(".direct-link").show().focus().select();
-  });
-  $("#close-control").on('click', function() {
-    toggleOverlay('off');
-  });
+    $(event.target).parents(".project").find(".direct-link").show().focus().select();
+  },
 
-  var projectId = utility.getProjectIdFromUrl(window.location.href);
-  if ( projectId ) {
-    showDetailsModal(projectId);
+  init: function() {
+    var self = this;
+    var projectId = utility.getProjectIdFromUrl(window.location.href);
+
+    $(".project .share-btn").on('click', function(event) {
+      self.shareBtnClickHandler(event);
+    });
+    
+    $("#close-control").on('click', function() {
+      self.toggleOverlay('off');
+    });
+
+    if ( projectId ) {
+      this.showDetailModal(projectId);
+    }
   }
 };
 
@@ -310,7 +319,7 @@ var PulseMaker = {
     }, 250);
 
     // detail view handler
-    enableDetailView();
+    DetailViewManager.init();
   },
   'dismissSplash' : function() {
     var siteHeader = document.getElementById('siteHeader');

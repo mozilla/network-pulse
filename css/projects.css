@@ -456,14 +456,11 @@ label, input[type='radio'] {
   max-width: 500px;
   background: #fff;
   margin: 70px auto 0 auto;
-  padding: 25px;
 }
 
-#detail-view h3 {
-  text-align: center;
-  color: #000;
-  border-bottom: 1px solid #777;
-  padding-bottom: 20px;
+#detail-view .project {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* site footer */
