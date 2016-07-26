@@ -1,60 +1,47 @@
 /* favorite stars */
 
-var starred = {
-  'list' : [],
-  'header' : document.getElementById('starredHeader'),
-  'getStarred' : function () {
-    var allStarred = document.querySelectorAll('.starred');
-    return allStarred;
+var FavouritesManager = {
+  list: [],
+  LOCALSTORAGE_KEY: 'favourites',
+  isProjectFavourited: function(projectId) {
+    return this.list.indexOf(projectId) > -1;
   },
-  'saveStar' : function (id) {
-    starred.list.push(id);
-    var starIDs = starred.list.toString(); 
-    localStorage.setItem("pulse",starIDs);
+  getListFromLocalStorage: function() {
+    if ( localStorage.removeItem("pulse") ) { // old key we no longer use
+      localStorage.removeItem("pulse");
+    }
+    return localStorage.getItem(this.LOCALSTORAGE_KEY);
   },
-  'deleteStar' : function (id) {
-    var index = starred.list.indexOf(id);
+  saveListToLocalStorage: function() {
+    localStorage.setItem(this.LOCALSTORAGE_KEY, this.list.toString());
+  },
+  favProject: function(projectId) {
+    this.list.push(projectId);
+    this.saveListToLocalStorage();
+
+    $(".project[data-id="+projectId+"]").addClass("starred");
+  },
+  unfavProject: function(projectId) {
+    var index = this.list.indexOf(projectId);
     if (index != -1) {
-        starred.list.splice(index, 1);
+      this.list.splice(index, 1);
     }
-    var starIDs = starred.list.toString(); 
-    localStorage.setItem("pulse",starIDs);
+    this.saveListToLocalStorage();
+
+    $(".project[data-id="+projectId+"]").removeClass("starred");
   },
-  'toggle' : function (event) {
-    var star = event.target;
-    var project = star.parentElement;
-    var status = project.classList.contains('starred');
-    if (status) {
-      project.classList.remove('starred');
+  toggleProjectFavState: function(projectId) {
+    if ( this.isProjectFavourited(projectId) ) {
+      this.unfavProject(projectId);
     } else {
-      project.classList.add('starred');
-    }
-    if (!status) { 
-      starred.saveStar(project.id);
-    } else {
-      starred.deleteStar(project.id);
+      this.favProject(projectId);
     }
   },
-  'loadStars' : function () {
-    var starIDs = localStorage.getItem("pulse"); 
-    if (!starIDs) { return false; }
-    starred.list = starIDs.split(',');
-    starred.header.classList.remove('hidden');
-  },
-  'showStars' : function () {
-    Array.prototype.forEach.call(starred.list, function(el, i){
-      var project = document.getElementById(el);
-      if (project) { project.classList.add('starred'); }
-    }); 
-  },
-  'addHandlers' : function () {
-    var starButtons = document.querySelectorAll('.star');
-    Array.prototype.forEach.call(starButtons, function(el, i){
-      el.onclick = starred.toggle;
-    }); 
-  },
-  'init' : function () {
-    starred.addHandlers();
-    starred.showStars();
-  },
+  init: function() {
+    var starIDs = this.getListFromLocalStorage();
+    if (starIDs) {
+      this.list = starIDs.split(',');
+      document.getElementById('starredHeader').classList.remove('hidden');
+    }
+  }
 };

@@ -161,7 +161,7 @@ var PulseMaker = {
   ],
   'init': function() {
     newProjectForm.init();
-    starred.loadStars();
+    FavouritesManager.init();
     PulseMaker.getData(true);
     search.init();
     if (FEATURE.notify) {
@@ -238,7 +238,6 @@ var PulseMaker = {
   'toggleAdditionalFeatures' : function () {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
     fadeUpdate.fadeIn();
-    starred.init();
   },
   'parseGoogleSheetData': function(driveData) {
     // Formats JSON data returned from Google Spreadsheet and formats it into

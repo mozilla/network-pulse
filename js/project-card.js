@@ -15,7 +15,7 @@ var ProjectCard = {
       id: id,
       colorName: color.name,
       featured: projectData.Featured,
-      favorites: projectData.Favorites ? projectData.Favorites : 0,
+      starred: FavouritesManager.isProjectFavourited(id),
       title: projectData.Title ? projectData.Title : "",
       creator: projectData.Creator ? projectData.Creator : "",
       description: projectData.Description ? projectData.Description : "",
@@ -39,16 +39,23 @@ var ProjectCard = {
   },
   render: function(projectData,color) {
     var id = ProjectCard.getProjectCardId(projectData);
-    var starStatus = starred.list.indexOf(id);
+    var isStarred = FavouritesManager.isProjectFavourited(id);
     var featured = projectData.Featured;
     var html = ProjectCard.buildHTML(projectData,color);
+    var $card = $(html);
 
-    if (starStatus != -1) {
-      $('#starredProjects').append(html);
+    $card.find(".star").on("click", function(event) {
+      FavouritesManager.toggleProjectFavState(id);
+    });
+
+    $card.find(".share-btn").on("click", DetailViewManager.shareBtnClickHandler);
+
+    if (isStarred) {
+      $('#starredProjects').append($card);
     } else if (featured) {
-      $('#featuredProjects').append(html);
+      $('#featuredProjects').append($card);
     } else {
-      $('#recentProjects').append(html);
+      $('#recentProjects').append($card);
     }
 
     if (FEATURE.patterns) { ProjectCard.addPattern(projectData,color); }

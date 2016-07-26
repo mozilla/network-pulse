@@ -58,12 +58,11 @@
         "project",
         typeof(displayType)!== 'undefined' ? displayType : "thumbnail-view",
         typeof(colorName)!== 'undefined' ? colorName : "",
+        starred ? "starred" : "",
         featured ? "featured" : "",
       ].join(" ");
     %>
-    <div id="<%- id %>" 
-         class="<%- classNames %>" data-created="<%- id %>" 
-         data-favorites="<%- favorites %>">
+    <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>">
       <div class="projectSummary">
         <h2><%- title %></h2>
         <h3><%- creator %></h3>
@@ -89,9 +88,9 @@
   <script src="js/geopattern.min.js"></script>
   <script src="js/utility.js"></script>
   <script src="js/notifier.js"></script>
-  <script src="js/project-card.js"></script>
-  <script src="js/detail-view-manager.js"></script>
   <script src="js/favourites-manager.js"></script>
+  <script src="js/detail-view-manager.js"></script>
+  <script src="js/project-card.js"></script>
   <script src="js/pulse.js"></script>
 
 </body>
