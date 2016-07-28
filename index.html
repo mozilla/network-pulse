@@ -63,23 +63,23 @@
         featured ? "featured" : "",
       ].join(" ");
     %>
-    <div id="<%= id %>" 
-         class="<%= classNames %>" data-created="<%= id %>" 
-         data-favorites="<%= favorites %>">
+    <div id="<%- id %>" 
+         class="<%- classNames %>" data-created="<%- id %>" 
+         data-favorites="<%- favorites %>">
       <div class="projectSummary">
-        <h2><%= title %></h2>
-        <h3><%= creator %></h3>
-        <p class="description"><%= description %></p>
-        <p class="interest"><%= interest %></p>
+        <h2><%- title %></h2>
+        <h3><%- creator %></h3>
+        <p class="description"><%- description %></p>
+        <p class="interest"><%- interest %></p>
         <div class="projectLinks">
           <% if (link) { %>
-          <a href="<%= link %>">Open &#8599;</a>
+          <a href="<%- link %>">Open &#8599;</a>
           <% } %>
           <% if (getInvolvedLink) { %>
-          <a href="<%= getInvolvedLink %>">Get Involved &#8599;</a>
+          <a href="<%- getInvolvedLink %>">Get Involved &#8599;</a>
           <% } %>
           <a href="" class="share-btn">Share</a>
-          <input value="<%= detailViewLink %>" readonly="" class="direct-link" type="text">
+          <input value="<%- detailViewLink %>" readonly="" class="direct-link" type="text">
         </div>
       </div>
       <div class="star"></div>
