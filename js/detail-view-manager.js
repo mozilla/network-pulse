@@ -2,17 +2,10 @@
 
 var DetailViewManager = {
   buildDetailModal: function(id) {
-    // jQuery's .html() returns an element's *inner* HTML, not the element itself.
-    // However, we can achieve our goal by wrapping the clone with a temporary <div> and
-    // call .html() on the temporary wrapper <div>
-    var tempWrapperId = "temp-wrapper-" + id;
-    var $clone = $("#"+id).removeAttr("id").addClass(id).clone();
-    $clone.wrapAll("<div class='"+tempWrapperId+"'></div>");
-    var $projectDetail = $clone.parent("."+tempWrapperId);
-    $projectDetail.find(".share-btn").on("click", this.shareBtnClickHandler);
-
-    $("#detail-view").append( $projectDetail );
+    var $clone = $("#"+id).clone(true).removeAttr("id").addClass(id); // pass in `true` to .clone() as we want event handlers to be copied along with the elements
+    $("#detail-view").append($clone);
   },
+  
   showDetailModal: function(id) {
     this.buildDetailModal(id);
     this.toggleOverlay('on');
@@ -42,10 +35,6 @@ var DetailViewManager = {
   init: function() {
     var self = this;
     var projectId = utility.getProjectIdFromUrl(window.location.href);
-
-    $(".project .share-btn").on('click', function(event) {
-      self.shareBtnClickHandler(event);
-    });
     
     $("#close-control").on('click', function() {
       self.toggleOverlay('off');
