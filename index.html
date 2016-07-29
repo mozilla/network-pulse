@@ -54,6 +54,38 @@
     <p>Brought to you by the Network. <a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
   </footer>
 
+  <!-- Project Card template -->
+  <script type="text/template" id="project-card">
+    <%
+      var classNames = [
+        "project",
+        typeof(colorName)!== 'undefined' ? colorName : "",
+        featured ? "featured" : "",
+      ].join(" ");
+    %>
+    <div id="<%- id %>" 
+         class="<%- classNames %>" data-created="<%- id %>" 
+         data-favorites="<%- favorites %>">
+      <div class="projectSummary">
+        <h2><%- title %></h2>
+        <h3><%- creator %></h3>
+        <p class="description"><%- description %></p>
+        <p class="interest"><%- interest %></p>
+        <div class="projectLinks">
+          <% if (link) { %>
+          <a href="<%- link %>">Open &#8599;</a>
+          <% } %>
+          <% if (getInvolvedLink) { %>
+          <a href="<%- getInvolvedLink %>">Get Involved &#8599;</a>
+          <% } %>
+          <a href="" class="share-btn">Share</a>
+          <input value="<%- detailViewLink %>" readonly="" class="direct-link" type="text">
+        </div>
+      </div>
+      <div class="star"></div>
+    </div>
+  </script>
+
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
   <script src="js/geopattern.min.js"></script>
