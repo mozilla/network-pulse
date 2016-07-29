@@ -202,56 +202,6 @@ var starred = {
   },
 };
 
-/* Detailer View Handler */
-
-function enableDetailView() {
-  var showDetailsModal = function(id) {
-    var $detailViewTitle = $("#detail-view-wrapper h3");
-    var $detailViewContent = $("#detail-view-wrapper .content");
-    var $projectSummary = $("#"+id).children(".projectSummary");
-    var html = 
-      "[ Project ID ] " + id + "<br><br>" +
-      "[ Project Name ] " + $projectSummary.find("h2").html() + "<br><br>" +
-      "[ Project Creator ] " + $projectSummary.find("h3").html() + "<br><br>" +
-      "[ Project Description ] " + $projectSummary.find(".description").html() + "<br><br>" +
-      "[ Project Interest ] " + $projectSummary.find(".interest").html() + "<br><br>" +
-      "[ Project Links ] " + $projectSummary.find(".projectLinks").html().split("</a>").join("</a>&nbsp;&nbsp;");
-    toggleOverlay('on');
-    $detailViewTitle.html($projectSummary.find("h2").html());
-    $detailViewContent.html(html);
-
-    // FIXME: just a quick solution to add id query param to URL
-    window.history.pushState(id, "", window.location.href.split("?")[0] + "?id=" + id);
-  };
-
-  var toggleOverlay = function(onOrOff) {
-    var $overlay = $("#lightbox-overlay");
-    var $detailViewWrapper = $("#detail-view-wrapper");
-    if ( onOrOff === 'on' ) {
-      $overlay.show();
-      $detailViewWrapper.show();
-    }
-    if ( onOrOff === 'off' ) {
-      $overlay.hide();
-      $detailViewWrapper.hide();
-      window.history.pushState("Mozilla Network Pulse", "", window.location.href.split("?")[0]);
-    }
-  };
-
-  $(".project .share-btn").on('click', function(event) {
-    event.preventDefault();
-    $(this).parents(".project").find(".direct-link").show().focus().select();
-  });
-  $("#close-control").on('click', function() {
-    toggleOverlay('off');
-  });
-
-  var projectId = utility.getProjectIdFromUrl(window.location.href);
-  if ( projectId ) {
-    showDetailsModal(projectId);
-  }
-};
-
 /* pulse maker */
 
 var PulseMaker = {
@@ -310,7 +260,7 @@ var PulseMaker = {
     }, 250);
 
     // detail view handler
-    enableDetailView();
+    DetailViewManager.init();
   },
   'dismissSplash' : function() {
     var siteHeader = document.getElementById('siteHeader');

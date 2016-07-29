@@ -2,7 +2,7 @@
 
 var ProjectCard = {
   ID_PREFIX: "p",
-  template: _.template($("script#project-card").html()),
+  template: _.template($("script#project-card-template").html()),
   getProjectCardId: function(projectData) {
     var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
     var projectId = timestamp ? Date.parse(timestamp) : '0';
