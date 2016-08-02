@@ -4,7 +4,6 @@ var REFRESH_INTERVAL = 1*60*1000; // 60 secs
 
 var FEATURE = {
   'orphans' : false,// @todo screwing things for notifications??!
-  'patterns' : true,
   'notify' : true // this turns on both auto app refresh and browser notification
 };
 
@@ -146,19 +145,6 @@ var newProjectForm = {
 var PulseMaker = {
   'url' : "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
   'projects' : [],
-  'colors': [
-    { name: "nightlyblue", hex: "#2D457E" },
-    { name: "developerblue", hex: "#1EC198" },
-    { name: "mobileblue", hex: "#F19B2D" },
-    { name: "summitteal", hex: "#DF5B74" },
-    { name: "geckgreen", hex: "#135E9F" },
-    { name: "flameyellow", hex: "#7CC260" },
-    { name: "marketorange", hex: "#E66C32" },
-    { name: "firefoxorange", hex: "#793876" },
-    { name: "dinored", hex: "#20A5D9" },
-    { name: "bikeshedmagenta", hex: "#F9D12F" },
-    { name: "aurorapurple", hex: "#C95142" }
-  ],
   'init': function() {
     newProjectForm.init();
     FavouritesManager.init();
@@ -217,10 +203,8 @@ var PulseMaker = {
     return sorted;
   },
   'renderProjectsIntoView' : function(sortedData) {
-    var colorsLength = PulseMaker.colors.length;
     $.each( sortedData, function( index, projectData ) { // @todo replace jquery
-      var color = PulseMaker.colors[index%colorsLength];
-      ProjectCard.render(projectData,color);
+      ProjectCard.render(projectData);
     });
   },
   'refresh' : function () {

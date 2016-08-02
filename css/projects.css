@@ -122,12 +122,11 @@ body {
   position: relative;
   width:100%;
   background:#fff;
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.24);
   margin: 0 0 1em 0;
-  padding: 0;
+  padding: 10px; /* temporary styling */
+  border: 1px solid #ccc; /* temporary styling */
   border-radius: 2px;
   overflow:hidden;
-  color:rgba(255,255,255,0.8);
   left:0px;
   width:100%;
   transition:left .25s, height .25s, padding .25s, margin .25s;
@@ -422,21 +421,6 @@ footer {
 /* utility */
 
 .hidden { display: none; }
-
-
-/* colors */
-
-.nightlyblue  { background:#2D457E; /* rgb(45,69,126:) */ }
-.developerblue  { background:#1EC198; /* rgb(18,202,169:) */ }
-.mobileblue  { background:#F19B2D; /* rgb(241,155,45:) */ }
-.summitteal  { background:#DF5B74; /* rgb(223,91,116:) */ }
-.geckgreen  { background:#135E9F; /* rgb(19,94,159:) */ }
-.flameyellow  { background:#7CC260; /* rgb(124,194,96:) */ }
-.marketorange  { background:#E66C32; /* rgb(230,108,50:) */ }
-.firefoxorange  { background:#793876; /* rgb(121,56,118:) */ }
-.dinored  { background:#20A5D9; /* rgb(32,165,217:) */ }
-.bikeshedmagenta  { background:#F9D12F; /* rgb(249,209,47:) */ }
-.aurorapurple  { background:#C95142; /* rgb(201,81,66:) */ }
 
 
 /* wide screens */
