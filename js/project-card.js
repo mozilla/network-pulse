@@ -55,7 +55,7 @@ var ProjectCard = {
     } else if (featured) {
       $('#featured-projects').append($card);
     } else {
-      $('#recentProjects').append($card);
+      $('#recent-projects').append($card);
     }
 
     if (FEATURE.patterns) { ProjectCard.addPattern(projectData,color); }
