@@ -53,7 +53,7 @@ var ProjectCard = {
     if (isStarred) {
       $('#starred-projects').append($card);
     } else if (featured) {
-      $('#featuredProjects').append($card);
+      $('#featured-projects').append($card);
     } else {
       $('#recentProjects').append($card);
     }

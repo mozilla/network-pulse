@@ -517,11 +517,11 @@ footer {
     max-width:calc(50% - 1em);
   }
 
-  #featuredProjects .project {
+  #featured-projects .project {
     max-width:100%;
   }
   
-  #featuredProjects p {
+  #featured-projects p {
     max-width:400px;
   }
   
@@ -561,7 +561,7 @@ footer {
   .project {
     max-width:calc(33% - 1em);
   }
-  #featuredProjects .project {
+  #featured-projects .project {
     max-width:calc(50% - 1em);
   }
 }
