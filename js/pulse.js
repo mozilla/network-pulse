@@ -112,7 +112,7 @@ var search = {
 var newProjectForm = {
   'formContainer' : document.getElementById('add-project-form'),
   'projectContainer' : document.getElementById('project-container'),
-  'toggleFormButton' : document.getElementById('toggleFormButton'),
+  'toggleFormButton' : document.getElementById('toggle-form-button'),
   'getDisplayState' : function () {
     var state = newProjectForm.formContainer.style.display;
     return state;
