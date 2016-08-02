@@ -26,10 +26,10 @@ var typography = {
 var fadeUpdate = {
   'projects' : document.getElementById('project-container'),
   'fadeOut' : function () {
-    fadeUpdate.projects.classList.add('fadeUpdate');
+    fadeUpdate.projects.classList.add('fade-update');
   },
   'fadeIn' : function () {
-    fadeUpdate.projects.classList.remove('fadeUpdate');
+    fadeUpdate.projects.classList.remove('fade-update');
   },
   'fadeOutIn' : function () {
     fadeUpdate.fadeOut();

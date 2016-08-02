@@ -19,7 +19,7 @@ body {
   min-height:25vh;
 }
 
-#project-container.fadeUpdate {
+#project-container.fade-update {
   opacity:0;
   transition:opactiy 0s;
 }
