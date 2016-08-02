@@ -42,7 +42,7 @@ body {
   color:rgba(0,0,0,0.67);
 }
 
-.projectList {
+.project-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -508,7 +508,7 @@ footer {
     margin:1em 0;
   }
 
-  .projectList {
+  .project-list {
     justify-content: flex-start;
   }
   

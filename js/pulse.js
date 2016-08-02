@@ -230,7 +230,7 @@ var PulseMaker = {
   'clearProjectLists' : function () {
     fadeUpdate.fadeOut();
     document.getElementById('loading').style.display = 'block';
-    var lists = document.querySelectorAll('.projectList');
+    var lists = document.querySelectorAll('.project-list');
     Array.prototype.forEach.call(lists, function(list, i){
       list.innerHTML = '';
     });
