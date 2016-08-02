@@ -24,7 +24,7 @@ var typography = {
 /* UI effects */
 
 var fadeUpdate = {
-  'projects' : document.getElementById('projectContainer'),
+  'projects' : document.getElementById('project-container'),
   'fadeOut' : function () {
     fadeUpdate.projects.classList.add('fadeUpdate');
   },
@@ -45,7 +45,7 @@ var fadeUpdate = {
 var search = {
   'input' : document.getElementById('search-box'),
   'dismissButton' : document.querySelector('#search .dismiss'),
-  'projectContainer' : document.getElementById('projectContainer'),
+  'projectContainer' : document.getElementById('project-container'),
   'checkContents' : function (selector, text) {
     text = text.toLowerCase();
     var elements = document.querySelectorAll(selector);
@@ -111,7 +111,7 @@ var search = {
 
 var newProjectForm = {
   'formContainer' : document.getElementById('addProjectForm'),
-  'projectContainer' : document.getElementById('projectContainer'),
+  'projectContainer' : document.getElementById('project-container'),
   'toggleFormButton' : document.getElementById('toggleFormButton'),
   'getDisplayState' : function () {
     var state = newProjectForm.formContainer.style.display;

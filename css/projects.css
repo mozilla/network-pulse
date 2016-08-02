@@ -9,7 +9,7 @@ body {
   padding-top:0;
  }
 
-#projectContainer {
+#project-container {
   position:relative;
   margin:0;
   padding:0 .5em;
@@ -19,7 +19,7 @@ body {
   min-height:25vh;
 }
 
-#projectContainer.fadeUpdate {
+#project-container.fadeUpdate {
   opacity:0;
   transition:opactiy 0s;
 }
@@ -35,7 +35,7 @@ body {
 
 /* project lists */
 
-#projectContainer h4 {
+#project-container h4 {
   margin:1em 0;
   font-weight: 100;
   font-size:1.5em;
@@ -499,12 +499,12 @@ footer {
     margin-top:1em;
   }
   
-  #projectContainer {
+  #project-container {
     margin:0 -2em 0 .5em;
     margin:0 0 0 .5em;
   }
   
-  #projectContainer h4 {
+  #project-container h4 {
     margin:1em 0;
   }
 
