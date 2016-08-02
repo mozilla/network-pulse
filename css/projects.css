@@ -24,7 +24,7 @@ body {
   transition:opactiy 0s;
 }
 
-#addProjectForm {
+#add-project-form {
   display:none;
   position:fixed;
   top:0; left:0;

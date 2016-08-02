@@ -110,7 +110,7 @@ var search = {
 /* add new project form */
 
 var newProjectForm = {
-  'formContainer' : document.getElementById('addProjectForm'),
+  'formContainer' : document.getElementById('add-project-form'),
   'projectContainer' : document.getElementById('project-container'),
   'toggleFormButton' : document.getElementById('toggleFormButton'),
   'getDisplayState' : function () {
