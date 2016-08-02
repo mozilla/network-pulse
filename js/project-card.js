@@ -51,7 +51,7 @@ var ProjectCard = {
     $card.find(".share-btn").on("click", DetailViewManager.shareBtnClickHandler);
 
     if (isStarred) {
-      $('#starredProjects').append($card);
+      $('#starred-projects').append($card);
     } else if (featured) {
       $('#featuredProjects').append($card);
     } else {
