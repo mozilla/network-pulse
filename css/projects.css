@@ -152,7 +152,7 @@ h3 {
   line-height: 1em;
 }
 
-.projectLinks a {
+.project-links a {
   display: inline-block;
   border:1px solid rgba(255,255,255,0.8);
   margin:.25em .5em .25em 0; 
@@ -168,7 +168,7 @@ h3 {
   background:rgba(255,255,255,0.8);
 }
 
-.projectLinks input.direct-link {
+.project-links input.direct-link {
   display: none;
   box-sizing: border-box;
   color: #888;
