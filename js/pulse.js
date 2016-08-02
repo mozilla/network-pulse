@@ -43,7 +43,7 @@ var fadeUpdate = {
 /* search */
 
 var search = {
-  'input' : document.getElementById('searchBox'),
+  'input' : document.getElementById('search-box'),
   'dismissButton' : document.querySelector('#search .dismiss'),
   'projectContainer' : document.getElementById('projectContainer'),
   'checkContents' : function (selector, text) {

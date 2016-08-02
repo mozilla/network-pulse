@@ -202,7 +202,7 @@ h3 {
   height:2.5em;
 }
 
-#searchBox {
+#search-box {
   padding:.5em 0;
   width:calc(100% - 1em);
   text-align: center;
@@ -211,8 +211,8 @@ h3 {
   opacity:.9;
 }
 
-#searchBox:focus,
-.focus #searchBox {
+#search-box:focus,
+.focus #search-box {
   position: fixed;
   top:.25em; left:.5em; right:.5em;
 }
@@ -536,12 +536,12 @@ footer {
     top:.2em; right:0.25em;
   } 
 
-  #searchBox {
+  #search-box {
    width:50%;
   }
 
-  #searchBox:focus,
-  .focus #searchBox {
+  #search-box:focus,
+  .focus #search-box {
     position: fixed;
     top:1em; left:25%; right:25%;
   }
