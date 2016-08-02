@@ -19,6 +19,7 @@ var ProjectCard = {
       title: projectData.Title ? projectData.Title : "",
       creator: projectData.Creator ? projectData.Creator : "",
       description: projectData.Description ? projectData.Description : "",
+      thumbnail: projectData['Thumbnail URL'] ? projectData['Thumbnail URL'] : "",
       interest: projectData.Interest ? projectData.Interest : "",
       link: projectData.URL ? projectData.URL : "",
       getInvolvedLink: projectData['Get involved URL'] ? projectData['Get involved URL'] : "",

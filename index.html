@@ -64,6 +64,9 @@
     %>
     <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>">
       <div class="project-summary">
+        <% if (thumbnail) { %>
+        <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
+        <% } %>
         <h2><%- title %></h2>
         <h3><%- creator %></h3>
         <p class="description"><%- description %></p>
