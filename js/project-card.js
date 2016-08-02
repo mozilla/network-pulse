@@ -51,11 +51,11 @@ var ProjectCard = {
     $card.find(".share-btn").on("click", DetailViewManager.shareBtnClickHandler);
 
     if (isStarred) {
-      $('#starredProjects').append($card);
+      $('#starred-projects').append($card);
     } else if (featured) {
-      $('#featuredProjects').append($card);
+      $('#featured-projects').append($card);
     } else {
-      $('#recentProjects').append($card);
+      $('#recent-projects').append($card);
     }
 
     if (FEATURE.patterns) { ProjectCard.addPattern(projectData,color); }

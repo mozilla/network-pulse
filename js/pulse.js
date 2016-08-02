@@ -24,12 +24,12 @@ var typography = {
 /* UI effects */
 
 var fadeUpdate = {
-  'projects' : document.getElementById('projectContainer'),
+  'projects' : document.getElementById('project-container'),
   'fadeOut' : function () {
-    fadeUpdate.projects.classList.add('fadeUpdate');
+    fadeUpdate.projects.classList.add('fade-update');
   },
   'fadeIn' : function () {
-    fadeUpdate.projects.classList.remove('fadeUpdate');
+    fadeUpdate.projects.classList.remove('fade-update');
   },
   'fadeOutIn' : function () {
     fadeUpdate.fadeOut();
@@ -43,9 +43,9 @@ var fadeUpdate = {
 /* search */
 
 var search = {
-  'input' : document.getElementById('searchBox'),
+  'input' : document.getElementById('search-box'),
   'dismissButton' : document.querySelector('#search .dismiss'),
-  'projectContainer' : document.getElementById('projectContainer'),
+  'projectContainer' : document.getElementById('project-container'),
   'checkContents' : function (selector, text) {
     text = text.toLowerCase();
     var elements = document.querySelectorAll(selector);
@@ -110,9 +110,9 @@ var search = {
 /* add new project form */
 
 var newProjectForm = {
-  'formContainer' : document.getElementById('addProjectForm'),
-  'projectContainer' : document.getElementById('projectContainer'),
-  'toggleFormButton' : document.getElementById('toggleFormButton'),
+  'formContainer' : document.getElementById('add-project-form'),
+  'projectContainer' : document.getElementById('project-container'),
+  'toggleFormButton' : document.getElementById('toggle-form-button'),
   'getDisplayState' : function () {
     var state = newProjectForm.formContainer.style.display;
     return state;
@@ -202,7 +202,7 @@ var PulseMaker = {
     DetailViewManager.init();
   },
   'dismissSplash' : function() {
-    var siteHeader = document.getElementById('siteHeader');
+    var siteHeader = document.getElementById('site-header');
     siteHeader.classList.add('dismissed');
     var remove = setTimeout(function(){ 
       siteHeader.style.display = 'none';
@@ -230,7 +230,7 @@ var PulseMaker = {
   'clearProjectLists' : function () {
     fadeUpdate.fadeOut();
     document.getElementById('loading').style.display = 'block';
-    var lists = document.querySelectorAll('.projectList');
+    var lists = document.querySelectorAll('.project-list');
     Array.prototype.forEach.call(lists, function(list, i){
       list.innerHTML = '';
     });

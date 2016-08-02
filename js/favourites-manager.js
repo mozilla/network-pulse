@@ -41,7 +41,7 @@ var FavouritesManager = {
     var starIDs = this.getListFromLocalStorage();
     if (starIDs) {
       this.list = starIDs.split(',');
-      document.getElementById('starredHeader').classList.remove('hidden');
+      document.getElementById('starred-header').classList.remove('hidden');
     }
   }
 };

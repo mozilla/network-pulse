@@ -11,7 +11,7 @@
   <title>Mozilla Network Pulse</title>
 </head>
 <body>
-  <header id="siteHeader">
+  <header id="site-header">
     <h1><span>mozilla</span> Network Pulse</h1>
     <p>A stream of projects, research, and lessons from the network.</p>
     <p><br>Loading...</p>
@@ -19,26 +19,26 @@
   </header>
   
   <section id="search">
-    <input id="searchBox" name="searchBox" placeholder="search" >
+    <input id="search-box" name="search-box" placeholder="search" >
     <button class="dismiss">&times;</button>
   </section>
 
-  <section id="projectContainer" class="fadeUpdate">
-    <h4 id="starredHeader" class="hidden">Starred</h4>
-    <div id="starredProjects" class="projectList"></div>
+  <section id="project-container" class="fade-update">
+    <h4 id="starred-header" class="hidden">Starred</h4>
+    <div id="starred-projects" class="project-list"></div>
     <h4>Featured</h4>
-    <div id="featuredProjects" class="projectList"></div>
+    <div id="featured-projects" class="project-list"></div>
     <h4>Recently added</h4>
-    <div id="recentProjects" class="projectList"></div>
+    <div id="recent-projects" class="project-list"></div>
   </section>
   <div id="loading">loading...</div>
 
-  <section id="addProjectForm">
+  <section id="add-project-form">
     <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
   </section>
   
 
-  <div id="toggleFormButton" title="Add a project">+</div>
+  <div id="toggle-form-button" title="Add a project">+</div>
 
   <div id="detail-view-wrapper">
     <a id="close-control"><img src="x-white.svg" width="25" height="25" /></a>
@@ -63,12 +63,12 @@
       ].join(" ");
     %>
     <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>">
-      <div class="projectSummary">
+      <div class="project-summary">
         <h2><%- title %></h2>
         <h3><%- creator %></h3>
         <p class="description"><%- description %></p>
         <p class="interest"><%- interest %></p>
-        <div class="projectLinks">
+        <div class="project-links">
           <% if (link) { %>
           <a href="<%- link %>">Open &#8599;</a>
           <% } %>
