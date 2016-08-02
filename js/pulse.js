@@ -202,7 +202,7 @@ var PulseMaker = {
     DetailViewManager.init();
   },
   'dismissSplash' : function() {
-    var siteHeader = document.getElementById('siteHeader');
+    var siteHeader = document.getElementById('site-header');
     siteHeader.classList.add('dismissed');
     var remove = setTimeout(function(){ 
       siteHeader.style.display = 'none';

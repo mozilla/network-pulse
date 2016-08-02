@@ -55,7 +55,7 @@ body {
 
 /* site header */
 
-#siteHeader {
+#site-header {
   position: fixed;
   top:0; left:0; right:0; bottom:0;
   margin:0;
@@ -69,7 +69,7 @@ body {
   font-size:1.25em;
 }
 
-#siteHeader h1 {
+#site-header h1 {
   margin-top:33vh;
   margin-bottom:.5em;
   line-height: .9em;
@@ -77,9 +77,9 @@ body {
   transition: font-size .25s;
 }
 
-#siteHeader.dismissed { opacity: 0; }
+#site-header.dismissed { opacity: 0; }
 
-#siteHeader h1 span {
+#site-header h1 span {
   display: block;
   position: relative;
   font-family: "Fira Sans", "Open Sans", Sans-serif;
@@ -89,7 +89,7 @@ body {
   font-size: .75em;
 }
 
-#siteHeader h2 { /* prototype banner */
+#site-header h2 { /* prototype banner */
   position:absolute;
   display: block;
   margin:0;
@@ -108,7 +108,7 @@ body {
   box-shadow:0 0 1px rgba(0,0,0,0.8);
 }
 
-#siteHeader p {
+#site-header p {
   margin:.25em 2px 0;
   font-style:italic;
   font-weight: 100;
