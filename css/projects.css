@@ -323,58 +323,6 @@ label, input[type='radio'] {
   box-shadow:1px 1px 2px rgba(0,0,0,0.24);
 }
 
-#filterButton {
-  font-size:.9em;
-  width:100%;
-  text-align: left;
-  padding:.25em;
-  background:none;
-  box-shadow: none;
-  font-weight: 100;
-  padding-bottom:.5em;
-  border-bottom:1px solid #ddd;
-  
-  
-}
-
-#projectFilter.active #filterButton {
-}
-
-.dropArrow { 
-  float:right;
-}
-
-#filterOptions {
-  display: none;  
-  margin:0;
-  width:100%;
-  padding:.25em 0;
-  font-size: .9em;
-}
-
-#projectFilter.active #filterOptions {
-  display:block;
-}
-
-#filterOptions div {
-  margin:.5em 0;
-  padding:.25em .5em;
-}
-
-#filterOptions div:hover {
-  background:#eee;
-}
-
-
-/* project filtering */
-
-.showFeatured .project { display: none; }
-.showFeatured .project.featured { display: block; }
-
-.showFavorites .project { display: none; }
-.showFavorites .project.starred { display: block; }
-
-
 /* favorites */
 
 .project .star {
