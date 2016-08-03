@@ -127,14 +127,11 @@ body {
 /* project card */
 
 .project {
-  position: relative;
   box-sizing: border-box;
   width:100%;
   background:#fff;
   margin: 0 0 1em 0;
   overflow:hidden;
-  left:0px;
-  width:100%;
   transition:left .25s, height .25s, padding .25s, margin .25s;
   /* optimize swipe with class and transform. */
 }
@@ -434,14 +431,6 @@ footer {
     margin:0 1em 1em 0; 
     max-width:calc(50% - 1em);
   }
-
-  #featured-projects .project {
-    max-width:100%;
-  }
-  
-  #featured-projects p {
-    max-width:400px;
-  }
   
   #toggle-form-button {
     top:.25em;
@@ -470,15 +459,12 @@ footer {
 
 @media screen and (min-width: 1024px) {
   .project {
-    max-width:calc(33% - 1em);
-  }
-  #featured-projects .project {
-    max-width:calc(50% - 1em);
+    width:calc(33% - 1em) ;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .project {
-    max-width:calc(25% - 1em);
+    width:calc(25% - 1em);
   }
 }
