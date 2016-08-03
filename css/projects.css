@@ -197,12 +197,17 @@ body {
   margin-top: 5px;
 }
 
-.star:hover {
-  color: #E14164;
+.star {
+  display: inline-block;
+  width: 23px;
+  height: 19px;
+  background: url(../svg/icon-fav.svg) center center no-repeat;
+  background-size: 20px 17px;
 }
 
 .project.starred .star {
-  background: #E14164;
+  background: url(../svg/icon-fav-selected.svg) center center no-repeat;
+  background-size: 19px 16px;
 }
 
 .project-links input.direct-link {
@@ -441,13 +446,6 @@ footer {
   #toggle-form-button {
     top:.25em;
   }
-
-  .project .star { /* hide and peek */ 
-    top:-.75em; right:-.75em;  
-  }
-  .project:hover .star {
-    top:.2em; right:0.25em;
-  } 
 
   #search-box {
    width:50%;
