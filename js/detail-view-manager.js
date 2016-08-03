@@ -29,7 +29,7 @@ var DetailViewManager = {
 
   shareBtnClickHandler: function(event) {
     event.preventDefault();
-    $(event.target).parents(".project").find(".direct-link").show().focus().select();
+    $(event.target).parents(".project").find(".direct-link").css("visibility","visible").focus().select();
   },
 
   init: function() {
