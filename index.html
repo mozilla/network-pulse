@@ -62,26 +62,30 @@
       ].join(" ");
     %>
     <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>">
+      <% if (thumbnail) { %>
+      <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
+      <% } %>
       <div class="project-summary">
-        <% if (thumbnail) { %>
-        <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
-        <% } %>
         <h2><%- title %></h2>
-        <h3><%- creator %></h3>
+        <h3><%- creator %> on <%- timestamp %></h3>
         <p class="description"><%- description %></p>
         <p class="interest"><%- interest %></p>
         <div class="project-links">
-          <% if (link) { %>
-          <a href="<%- link %>">Open &#8599;</a>
-          <% } %>
-          <% if (getInvolvedLink) { %>
-          <a href="<%- getInvolvedLink %>">Get Involved &#8599;</a>
-          <% } %>
-          <a href="" class="share-btn">Share</a>
-          <input value="<%- detailViewLink %>" readonly="" class="direct-link" type="text">
+          <div class="btn-group">
+            <% if (link) { %>
+            <a href="<%- link %>" class="btn">Visit</a>
+            <% } %>
+            <% if (getInvolvedLink) { %>
+            <a href="<%- getInvolvedLink %>" class="btn">Get Involved</a>
+            <% } %>
+          </div>
+          <div class="action-panel">
+            <a href="" class="share-btn"><img src="svg/icon-link.svg" height="17px"></a>
+            <input value="<%- detailViewLink %>" readonly="" class="direct-link" type="text">
+            <a href="" class="star"><img src="svg/icon-fav.svg" height="17px"></a>
+          </div>
         </div>
       </div>
-      <div class="star"></div>
     </div>
   </script>
 

@@ -11,12 +11,15 @@ var ProjectCard = {
   },
   buildHTML: function(projectData) {
     var id = this.getProjectCardId(projectData);
+    var timestamp = new Date(projectData.Timestamp);
+    var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][timestamp.getMonth()];
     var dataForTemplate = {
       id: id,
       featured: projectData.Featured,
       starred: FavouritesManager.isProjectFavourited(id),
       title: projectData.Title ? projectData.Title : "",
       creator: projectData.Creator ? projectData.Creator : "",
+      timestamp: month + " " + timestamp.getDate() + ", " + timestamp.getFullYear(),
       description: projectData.Description ? projectData.Description : "",
       thumbnail: projectData['Thumbnail URL'] ? projectData['Thumbnail URL'] : "",
       interest: projectData.Interest ? projectData.Interest : "",
@@ -35,6 +38,7 @@ var ProjectCard = {
     var $card = $(html);
 
     $card.find(".star").on("click", function(event) {
+      event.preventDefault();
       FavouritesManager.toggleProjectFavState(id);
     });
 
