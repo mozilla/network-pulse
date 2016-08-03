@@ -2,7 +2,7 @@
 
 var DetailViewManager = {
   buildDetailModal: function(id) {
-    var $clone = $("#"+id).clone(true).removeAttr("id").addClass(id); // pass in `true` to .clone() as we want event handlers to be copied along with the elements
+    var $clone = $("#"+id).clone(true).removeAttr("id").addClass(id).removeClass("thumbnail-view"); // pass in `true` to .clone() as we want event handlers to be copied along with the elements
     $("#detail-view").append($clone);
   },
   

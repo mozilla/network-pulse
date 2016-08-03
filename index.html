@@ -12,43 +12,60 @@
 </head>
 <body>
   <header id="site-header">
-    <h1><span>mozilla</span> Network Pulse</h1>
-    <p>A stream of projects, research, and lessons from the network.</p>
-    <p><br>Loading...</p>
-    <h2>Prototype</h2>
+    <div class="container">
+      <h1><span>mozilla</span> Network Pulse</h1>
+      <p>A stream of projects, research, and lessons from the network.</p>
+      <p><br>Loading...</p>
+      <h2>Prototype</h2>
+    </div>
   </header>
   
   <section id="search">
-    <input id="search-box" name="search-box" placeholder="search" >
-    <button class="dismiss">&times;</button>
+    <div class="container">
+      <input id="search-box" name="search-box" placeholder="Search keywords, people, categories..." >
+    </div>
   </section>
 
+  <nav>
+    <div class="container">
+      placeholder nav bar
+      <div id="toggle-form-button" title="Add a project">+</div>
+    </div>
+  </nav>
+
   <section id="project-container" class="fade-update">
-    <h4 id="starred-header" class="hidden">Starred</h4>
-    <div id="starred-projects" class="project-list"></div>
-    <h4>Featured</h4>
-    <div id="featured-projects" class="project-list"></div>
-    <h4>Recently added</h4>
-    <div id="recent-projects" class="project-list"></div>
+    <div class="container">
+      <h4 id="starred-header" class="hidden">Starred</h4>
+      <div id="starred-projects" class="project-list"></div>
+      <h4>Featured</h4>
+      <div id="featured-projects" class="project-list"></div>
+      <h4>Recently added</h4>
+      <div id="recent-projects" class="project-list"></div>
+    </div>
   </section>
-  <div id="loading">loading...</div>
+  <div id="loading">
+    <div class="container">
+      loading...
+    </div>
+  </div>
 
   <section id="add-project-form">
     <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
   </section>
-  
-
-  <div id="toggle-form-button" title="Add a project">+</div>
 
   <div id="detail-view-wrapper">
-    <a id="close-control"><img src="x-white.svg" width="25" height="25" /></a>
-    <div id="detail-view"></div>
+    <div class="container">
+      <a id="close-control"><img src="x-white.svg" width="25" height="25" /></a>
+      <div id="detail-view"></div>
+    </div>
   </div>
   <div id="lightbox-overlay"></div>
 
   <footer>
-    <p>Get new projects by email. <a class="button" href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a></p>
-    <p>Brought to you by the Network. <a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
+    <div class="container">
+      <p>Get new projects by email. <a href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a></p>
+      <p><a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
+    </div>
   </footer>
 
   <!-- Project Card template -->
@@ -56,7 +73,7 @@
     <%
       var classNames = [
         "project",
-        typeof(displayType)!== 'undefined' ? displayType : "thumbnail-view",
+        thumbnailView ? "thumbnail-view" : "",
         starred ? "starred" : "",
         featured ? "featured" : "",
       ].join(" ");
