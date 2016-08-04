@@ -185,8 +185,8 @@ var PulseMaker = {
       PulseMaker.dismissSplash();
     }, 250);
 
-    // detail view handler
-    DetailViewManager.init();
+    // routes handler
+    RoutesManager.init();
   },
   'dismissSplash' : function() {
     var siteHeader = document.getElementById('site-header');

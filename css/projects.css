@@ -33,6 +33,7 @@ nav {
   padding: 15px 0;
   text-transform: uppercase;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 nav .container {
@@ -73,10 +74,6 @@ nav .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-#starred-projects {
-  margin-top:1em;
 }
 
 #search-not-found {
@@ -352,46 +349,6 @@ label, input[type='radio'] {
   text-align: center;
   font-size:4em;
   color:rgba(0,0,0,0.67);
-}
-
-/* detail view */
-
-#lightbox-overlay {
-  background: rgba(0,0,0,.85);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  z-index: 1000;
-  display: none;
-}
-
-#detail-view-wrapper {
-  position: fixed;
-  top: 20px;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  margin: 0;
-  z-index: 100000;
-  display: none;
-}
-
-#close-control {
-  float: right;
-  cursor: pointer;
-}
-
-#detail-view {
-  width: calc( 100% - 100px );
-  max-width: 500px;
-  background: #fff;
-  margin: 70px auto 0 auto;
-}
-
-#detail-view .project {
-  width: 100%;
 }
 
 /* site footer */

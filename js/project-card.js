@@ -31,6 +31,10 @@ var ProjectCard = {
 
     return this.template(dataForTemplate);
   },
+  shareBtnClickHandler: function(event) {
+    event.preventDefault();
+    $(event.target).parents(".project").find(".direct-link").css("visibility","visible").focus().select();
+  },
   render: function(projectData) {
     var id = ProjectCard.getProjectCardId(projectData);
     var isStarred = FavouritesManager.isProjectFavourited(id);
@@ -43,7 +47,7 @@ var ProjectCard = {
       FavouritesManager.toggleProjectFavState(id);
     });
 
-    $card.find(".share-btn").on("click", DetailViewManager.shareBtnClickHandler);
+    $card.find(".share-btn").on("click", ProjectCard.shareBtnClickHandler);
 
     if (isStarred) {
       $('#starred-projects').append($card);
