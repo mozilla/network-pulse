@@ -2,13 +2,16 @@
 
 var FavouritesManager = {
   list: [],
-  LOCALSTORAGE_KEY: 'favourites',
+  LOCALSTORAGE_KEY: 'pulse-favourites',
   isProjectFavourited: function(projectId) {
     return this.list.indexOf(projectId) > -1;
   },
   getListFromLocalStorage: function() {
     if ( localStorage.removeItem("pulse") ) { // old key we no longer use
       localStorage.removeItem("pulse");
+    }
+    if ( localStorage.removeItem("favourites") ) { // old key we no longer use
+      localStorage.removeItem("favourites");
     }
     return localStorage.getItem(this.LOCALSTORAGE_KEY);
   },
