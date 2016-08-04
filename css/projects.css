@@ -125,25 +125,6 @@ nav .container {
   font-size: .75em;
 }
 
-#site-header h2 { /* prototype banner */
-  position:absolute;
-  display: block;
-  margin:0;
-  top:.8em; right:-1.25em;
-  text-transform: uppercase;
-  font-size:.75em;
-  font-weight: 100;
-  letter-spacing: 1px;
-  line-height:1em;
-  padding:.25em 1em .25em 3em;
-  transform:rotate(30deg);
-  z-index: 2;
-  opacity: .75; 
-  background:white;
-  color:black;
-  box-shadow:0 0 1px rgba(0,0,0,0.8);
-}
-
 #site-header p {
   margin:.25em 2px 0;
   font-style:italic;
