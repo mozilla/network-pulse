@@ -102,7 +102,6 @@ var search = {
   'init' : function () {
     search.input.onkeyup = search.getInput;
     search.dismissButton.onclick = search.dismiss;
-    // @todo - add clear search icon
   },
 };
 

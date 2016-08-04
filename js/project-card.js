@@ -25,7 +25,8 @@ var ProjectCard = {
       interest: projectData.Interest ? projectData.Interest : "",
       link: projectData.URL ? projectData.URL : "",
       getInvolvedLink: projectData['Get involved URL'] ? projectData['Get involved URL'] : "",
-      detailViewLink: utility.getProjectDirectLink(id)
+      detailViewLink: utility.getProjectDirectLink(id),
+      thumbnailView: false
     };
 
     return this.template(dataForTemplate);
