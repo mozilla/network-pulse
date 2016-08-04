@@ -43,6 +43,7 @@ var fadeUpdate = {
 
 var search = {
   'input' : document.getElementById('search-box'),
+  'dismissButton' : document.querySelector('#search .dismiss'),
   'projectContainer' : document.getElementById('project-container'),
   'checkContents' : function (selector, text) {
     text = text.toLowerCase();
@@ -54,6 +55,7 @@ var search = {
   },
   'getInput' : function (evt) {
     if (evt.keyCode === 27) { // escape
+      search.dismiss();
       search.input.blur();
     } else if (evt.keyCode === 13) { // enter
       search.input.blur();
@@ -86,6 +88,11 @@ var search = {
     search.projectContainer.classList.remove('searching');
     search.input.parentElement.classList.remove('focus');
   },
+  'dismiss' : function(){
+    search.input.value = '';
+    search.input.focus();
+    search.filter();
+  },
   'clearPrevious' : function () {
     var previouslyFound = document.querySelectorAll('.found');
     Array.prototype.forEach.call(previouslyFound, function(elem, i){
@@ -94,7 +101,7 @@ var search = {
   },
   'init' : function () {
     search.input.onkeyup = search.getInput;
-    // @todo - add clear search icon
+    search.dismissButton.onclick = search.dismiss;
   },
 };
 

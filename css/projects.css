@@ -256,11 +256,38 @@ nav .container {
   background: #FFF;
 }
 
+#search .container {
+  position: relative;
+}
+
 #search-box {
   width: 100%;
   padding: 18px 0 18px 30px;
   background: url(../svg/icon-search.svg) #FFF no-repeat left center;
   border: 0;
+}
+
+#search .dismiss {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  opacity: 0;
+  transition: opacity .1s;
+}
+
+#search .focus .dismiss {
+  opacity: 1;
+}
+
+#search .dismiss div {
+  position: absolute;
+  width: 20px;
+  top: 0;
+  right: 0;
 }
 
 /* buttons */
