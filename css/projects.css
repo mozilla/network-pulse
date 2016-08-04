@@ -79,6 +79,15 @@ nav .container {
   margin-top:1em;
 }
 
+#search-not-found {
+  display: none;
+  padding-bottom: 200px;
+}
+
+#search-not-found h2 {
+  font-size: 20px;
+  color: #E14164;
+}
 
 /* site header */
 

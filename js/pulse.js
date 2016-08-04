@@ -76,6 +76,7 @@ var search = {
         });       
       } else {
         // nothing found
+        $("#search-not-found").show();
       }
     } else {
       search.deactivate();
