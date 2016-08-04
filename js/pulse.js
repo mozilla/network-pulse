@@ -73,7 +73,8 @@ var search = {
       if (results.length > 0) {
         results.forEach(function(item, i){
           item.classList.add('found');
-        });       
+        });
+        $("#search-not-found").hide();
       } else {
         // nothing found
         $("#search-not-found").show();
