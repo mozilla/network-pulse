@@ -17,6 +17,10 @@ body {
   padding-top:0;
  }
 
+ input {
+  outline: none;
+ }
+
 .container {
   max-width: 950px;
   padding: 0 20px;
