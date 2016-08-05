@@ -1,10 +1,13 @@
 /* favorite stars */
 
 var FavouritesManager = {
-  list: [],
+  _list: [],
   LOCALSTORAGE_KEY: 'pulse-favourites',
+  getFavedProjects: function() {
+    return this._list;
+  },
   isProjectFavourited: function(projectId) {
-    return this.list.indexOf(projectId) > -1;
+    return this._list.indexOf(projectId) > -1;
   },
   getListFromLocalStorage: function() {
     if ( localStorage.removeItem("pulse") ) { // old key we no longer use
@@ -16,18 +19,18 @@ var FavouritesManager = {
     return localStorage.getItem(this.LOCALSTORAGE_KEY);
   },
   saveListToLocalStorage: function() {
-    localStorage.setItem(this.LOCALSTORAGE_KEY, this.list.toString());
+    localStorage.setItem(this.LOCALSTORAGE_KEY, this._list.toString());
   },
   favProject: function(projectId) {
-    this.list.push(projectId);
+    this._list.push(projectId);
     this.saveListToLocalStorage();
 
     $(".project[data-id="+projectId+"]").addClass("starred");
   },
   unfavProject: function(projectId) {
-    var index = this.list.indexOf(projectId);
+    var index = this._list.indexOf(projectId);
     if (index != -1) {
-      this.list.splice(index, 1);
+      this._list.splice(index, 1);
     }
     this.saveListToLocalStorage();
 
@@ -43,8 +46,7 @@ var FavouritesManager = {
   init: function() {
     var starIDs = this.getListFromLocalStorage();
     if (starIDs) {
-      this.list = starIDs.split(',');
-      document.getElementById('starred-header').classList.remove('hidden');
+      this._list = starIDs.split(',');
     }
   }
 };

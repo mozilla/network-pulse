@@ -11,11 +11,10 @@
   <title>Mozilla Network Pulse</title>
 </head>
 <body>
-  <header id="site-header">
+  <header id="splash-screen">
     <div class="container">
       <h1><span>mozilla</span> Network Pulse</h1>
-      <p>A stream of projects, research, and lessons from the network.</p>
-      <p><br>Loading...</p>
+      <p>A stream of assets from peers across the Mozilla Network.</p>
     </div>
   </header>
   
@@ -28,29 +27,40 @@
 
   <nav>
     <div class="container">
-      placeholder nav bar
+      <a class="nav-item" id="featured-view-link">featured</a>
+      <a class="nav-item" id="latest-view-link">latest</a>
+      <a class="nav-item" id="favs-view-link">favs</a>
+      <a class="nav-item" id="issues-view-link">issues</a>
       <div id="toggle-form-button" title="Add a project">+</div>
     </div>
   </nav>
 
-  <section id="project-container" class="fade-update">
+  <section id="project-container">
     <div class="container">
-      <h4 id="starred-header" class="hidden">Starred</h4>
-      <div id="starred-projects" class="project-list"></div>
-      <h4>Featured</h4>
-      <div id="featured-projects" class="project-list"></div>
-      <h4>Recently added</h4>
-      <div id="recent-projects" class="project-list"></div>
+      <div class="controls">
+        <a class="issue-btn" data-issue="privacy-security">Online Privacy & Security</a>
+        <a class="issue-btn" data-issue="open-innovation">Open Innovation</a>
+        <a class="issue-btn" data-issue="decentralization">Decentralization</a>
+        <a class="issue-btn" data-issue="web-literacy">Web Literacy</a>
+        <a class="issue-btn" data-issue="digital-inclusion">Digital Inclusion</a>
+      </div>
+      <div class="projects"></div>
     </div>
   </section>
 
-  <div id="search-not-found">
+  <div id="search-not-found" class="not-found-message">
     <div class="container">
       <h2>Nothing found</h2>
       <p>Try another search or submit something new!</p>
     </div>
   </div>
 
+  <div id="fav-not-found" class="not-found-message">
+    <div class="container">
+      <h2>Save your Favs</h2>
+      <p>Tap the heart on any project to save it here.</p>
+    </div>
+  </div>
 
   <div id="loading">
     <div class="container">
@@ -80,7 +90,7 @@
         featured ? "featured" : "",
       ].join(" ");
     %>
-    <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>">
+    <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>" data-timestamp="<%= rawTimestamp %>">
       <% if (thumbnail) { %>
       <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
       <% } %>
@@ -92,10 +102,10 @@
         <div class="project-links">
           <div class="btn-group">
             <% if (link) { %>
-            <a href="<%- link %>" class="btn">Visit</a>
+            <a href="<%- link %>" target="_blank" class="btn">Visit</a>
             <% } %>
             <% if (getInvolvedLink) { %>
-            <a href="<%- getInvolvedLink %>" class="btn">Get Involved</a>
+            <a href="<%- getInvolvedLink %>" target="_blank" class="btn">Get Involved</a>
             <% } %>
           </div>
           <div class="action-panel">
@@ -112,9 +122,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
   <script src="js/utility.js"></script>
   <script src="js/notifier.js"></script>
-  <script src="js/routes-manager.js"></script>
   <script src="js/favourites-manager.js"></script>
   <script src="js/project-card.js"></script>
+  <script src="js/views-manager.js"></script>
+  <script src="js/nav-items-manager.js"></script>
   <script src="js/pulse.js"></script>
 
 </body>

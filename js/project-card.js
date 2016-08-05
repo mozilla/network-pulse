@@ -15,6 +15,7 @@ var ProjectCard = {
     var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][timestamp.getMonth()];
     var dataForTemplate = {
       id: id,
+      rawTimestamp: Date.parse(projectData.Timestamp),
       featured: projectData.Featured,
       starred: FavouritesManager.isProjectFavourited(id),
       title: projectData.Title ? projectData.Title : "",
@@ -49,13 +50,7 @@ var ProjectCard = {
 
     $card.find(".share-btn").on("click", ProjectCard.shareBtnClickHandler);
 
-    if (isStarred) {
-      $('#starred-projects').append($card);
-    } else if (featured) {
-      $('#featured-projects').append($card);
-    } else {
-      $('#recent-projects').append($card);
-    }
+    $("#project-container .projects").append($card);
   }
 
 };
