@@ -53,10 +53,11 @@ var search = {
         results.forEach(function(item, i){
           item.classList.add('found');
         });
-        $("#search-not-found").hide();
+        ViewsManager.NotFoundView.hide();
       } else {
         // nothing found
-        $("#search-not-found").show();
+        ViewsManager.NotFoundView.setMessages("Nothing found", "Try another search or submit something new!");
+        ViewsManager.NotFoundView.show();
       }
     } else {
       search.deactivate();
