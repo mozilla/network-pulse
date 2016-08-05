@@ -80,6 +80,7 @@ var ViewsManager = {
     $("#issues-view-link").addClass("active");
   },
   resetView: function() {
+    $("#fav-not-found").hide();
     this.$controlsContainer.hide();
     this.$projectsContainer.children().remove();
     $(".nav-item").removeClass("active");
