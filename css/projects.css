@@ -317,7 +317,7 @@ a.button:active {
   bottom: 50%;
   right: 0;
   font-size: 50px;
-  line-height: 1;
+  line-height: 47px;
   font-weight: 300;
   height: 50px;
   width: 50px;
@@ -326,6 +326,7 @@ a.button:active {
   background: #48484A;
   transition: transform .5s, color .25s, background .25s;
   text-align:center;
+  z-index: 1000;
 }
 #toggle-form-button:hover,
 #toggle-form-button:active {
