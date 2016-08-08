@@ -424,4 +424,8 @@ footer {
     /* 3-column layout, margin should only appear in between cards  */
     margin-right: 20px;
   }
+
+  .project.single {
+    margin: 0 auto;
+  }
 }
