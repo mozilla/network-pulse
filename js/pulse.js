@@ -4,7 +4,7 @@ var REFRESH_INTERVAL = 1*60*1000; // 60 secs
 
 var FEATURE = {
   'orphans' : false,// @todo screwing things for notifications??!
-  'notify' : true // this turns on both auto app refresh and browser notification
+  'notify' : false // this turns on both auto app refresh and browser notification
 };
 
 /* better typography */
