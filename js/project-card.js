@@ -15,6 +15,7 @@ var ProjectCard = {
     var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][timestamp.getMonth()];
     var dataForTemplate = {
       id: id,
+      rawTimestamp: Date.parse(projectData.Timestamp),
       featured: projectData.Featured,
       starred: FavouritesManager.isProjectFavourited(id),
       title: projectData.Title ? projectData.Title : "",
@@ -31,6 +32,10 @@ var ProjectCard = {
 
     return this.template(dataForTemplate);
   },
+  shareBtnClickHandler: function(event) {
+    event.preventDefault();
+    $(event.target).parents(".project").find(".direct-link").css("visibility","visible").focus().select();
+  },
   render: function(projectData) {
     var id = ProjectCard.getProjectCardId(projectData);
     var isStarred = FavouritesManager.isProjectFavourited(id);
@@ -43,15 +48,9 @@ var ProjectCard = {
       FavouritesManager.toggleProjectFavState(id);
     });
 
-    $card.find(".share-btn").on("click", DetailViewManager.shareBtnClickHandler);
+    $card.find(".share-btn").on("click", ProjectCard.shareBtnClickHandler);
 
-    if (isStarred) {
-      $('#starred-projects').append($card);
-    } else if (featured) {
-      $('#featured-projects').append($card);
-    } else {
-      $('#recent-projects').append($card);
-    }
+    $("#project-container .projects").append($card);
   }
 
 };

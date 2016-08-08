@@ -18,27 +18,6 @@ var typography = {
   },
 };
 
-
-
-/* UI effects */
-
-var fadeUpdate = {
-  'projects' : document.getElementById('project-container'),
-  'fadeOut' : function () {
-    fadeUpdate.projects.classList.add('fade-update');
-  },
-  'fadeIn' : function () {
-    fadeUpdate.projects.classList.remove('fade-update');
-  },
-  'fadeOutIn' : function () {
-    fadeUpdate.fadeOut();
-    setTimeout( function () {
-      fadeUpdate.fadeIn();
-    }, 100);
-  },
-};
-
-
 /* search */
 
 var search = {
@@ -104,6 +83,7 @@ var search = {
   'init' : function () {
     search.input.onkeyup = search.getInput;
     search.dismissButton.onclick = search.dismiss;
+    search.dismiss();
   },
 };
 
@@ -171,28 +151,32 @@ var PulseMaker = {
   },
   'renderApp': function(firstRun) {
     var sortedProjects = PulseMaker.sortByTimestamp(PulseMaker.projects);
+
+    // nav items manager
+    NavItemsManager.init();
+    // routes handler
+    ViewsManager.init(sortedProjects);
+
     if (FEATURE.notify) { 
       var updated = Notifier.checkForUpdates(sortedProjects);
       console.log('updated: ',updated);
     }
     if (updated || firstRun) {
+      // TODO:FIXME: is this check needed?
+      // else block means data update was triggered by refresh
       PulseMaker.clearProjectLists();
-      PulseMaker.renderProjectsIntoView(sortedProjects); 
     }
     document.getElementById('loading').style.display = 'none';
     PulseMaker.toggleAdditionalFeatures();
     setTimeout(function(){ 
       PulseMaker.dismissSplash();
     }, 250);
-
-    // detail view handler
-    DetailViewManager.init();
   },
   'dismissSplash' : function() {
-    var siteHeader = document.getElementById('site-header');
-    siteHeader.classList.add('dismissed');
+    var splashScreen = document.getElementById('splash-screen');
+    splashScreen.classList.add('dismissed');
     var remove = setTimeout(function(){ 
-      siteHeader.style.display = 'none';
+      splashScreen.style.display = 'none';
     }, 500);
 
   },
@@ -203,26 +187,15 @@ var PulseMaker = {
     }, 'desc');
     return sorted;
   },
-  'renderProjectsIntoView' : function(sortedData) {
-    $.each( sortedData, function( index, projectData ) { // @todo replace jquery
-      ProjectCard.render(projectData);
-    });
-  },
   'refresh' : function () {
     console.log('refresh');
     PulseMaker.getData(false);
   },
   'clearProjectLists' : function () {
-    fadeUpdate.fadeOut();
     document.getElementById('loading').style.display = 'block';
-    var lists = document.querySelectorAll('.project-list');
-    Array.prototype.forEach.call(lists, function(list, i){
-      list.innerHTML = '';
-    });
   },
   'toggleAdditionalFeatures' : function () {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
-    fadeUpdate.fadeIn();
   },
   'parseGoogleSheetData': function(driveData) {
     // Formats JSON data returned from Google Spreadsheet and formats it into
