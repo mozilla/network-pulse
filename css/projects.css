@@ -385,23 +385,14 @@ footer {
 
 /* wide screens */
 
-@media screen and (min-width: 950px) {
-  .container {
-    padding: 0;
-  }
-}
+@media screen and (min-width: 650px) {
 
-@media screen and (min-width: 600px) {
-
-  #project-container .projects {
-    justify-content: flex-start;
-  }
-  
   .project {
-    width: calc( (100% - 40px) / 3 );
+    width: calc( (100% - 20px) / 2 );
   }
 
-  .project:not(:nth-child(3n)) {
+  .project:not(:nth-child(2n)) {
+    /* 2-column layout, margin should only appear in between cards  */
     margin-right: 20px;
   }
 
@@ -413,4 +404,24 @@ footer {
     display: none;
   }
 
+}
+
+@media screen and (min-width: 950px) {
+  .container {
+    padding: 0;
+  }
+
+  .project {
+    width: calc( (100% - 40px) / 3 );
+  }
+
+  .project:not(:nth-child(2n)) {
+    /* to reset what has been set in the @media screen and (min-width: 600px) block  */
+    margin-right: 0;
+  }
+
+  .project:not(:nth-child(3n)) {
+    /* 3-column layout, margin should only appear in between cards  */
+    margin-right: 20px;
+  }
 }
