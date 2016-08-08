@@ -106,7 +106,6 @@ var newProjectForm = {
     newProjectForm.formContainer.style.display = 'none';
     newProjectForm.projectContainer.style.display = 'block';
     newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
-    setTimeout(function(){ PulseMaker.getData(); }, 250);
   },
   'toggleForm' : function () {  
     var displayState = newProjectForm.getDisplayState();
