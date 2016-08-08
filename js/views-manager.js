@@ -5,7 +5,6 @@
 
 var IssueBtnClickHandler = function(event) {
   var issue = $(this).data("issue");
-  console.log("issue = ", issue);
 };
 
 var ViewsManager = {
@@ -27,8 +26,6 @@ var ViewsManager = {
     this.renderAllProjectsIntoView();
     $(".project").hide();
     $(".project[data-id="+projectId+"]").addClass("single").show();
-    // FIXME: just a quick solution to add id query param to URL
-    window.history.pushState(projectId, "", window.location.href.split("?")[0] + "?id=" + projectId);
   },
   showFeaturedView: function() {
     this.resetView();
@@ -89,7 +86,6 @@ var ViewsManager = {
     this.projects = allProjects;
     var projectId = utility.getProjectIdFromUrl(window.location.href);
     if ( projectId ) {
-      console.log(projectId);
       this.showSingleProjectView(projectId);
     } else {
       // Featured view the default view
