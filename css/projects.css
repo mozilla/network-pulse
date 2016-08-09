@@ -11,6 +11,10 @@ nav-link-pink: #EB8399;
 issue-btn-border-grey: #C7C7CA;
 ***** */
 
+/* ***** other stuff
+padding/gutter: 20px
+***** */
+
 /* layout */
 
 body { 
@@ -361,9 +365,9 @@ a.button:active {
 /* add new button */
 
 #toggle-form-button {
-  position: absolute;
-  bottom: 50%;
-  right: 0;
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
   font-size: 50px;
   line-height: 55px;
   font-weight: 300;
@@ -424,6 +428,16 @@ footer {
 
 @media screen and (min-width: 650px) {
 
+  nav .container {
+    position: relative;
+  }
+
+  #toggle-form-button {
+    position: absolute;
+    bottom: 50%;
+    right: 20px;
+  }
+
   .project {
     width: calc( (100% - 2*20px) / 2 );
   }
@@ -437,6 +451,10 @@ footer {
 @media screen and (min-width: 950px) {
   .container {
     padding: 0;
+  }
+
+  #toggle-form-button {
+    right: 0;
   }
 
   .project {
