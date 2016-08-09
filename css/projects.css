@@ -378,7 +378,7 @@ a.button:active {
 }
 #toggle-form-button:hover,
 #toggle-form-button:active {
-  background:rgb(40,174,97);
+  background: #16AFE5;
   cursor: pointer;
 }
 
