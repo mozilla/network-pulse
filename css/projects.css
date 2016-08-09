@@ -427,7 +427,7 @@ footer {
   .project {
     width: calc( (100% - 2*20px) / 2 );
   }
-  
+
   .mobileOnly {
     display: none;
   }
@@ -441,5 +441,16 @@ footer {
 
   .project {
     width: calc( (100% - 3*20px) / 3 );
+  }
+
+  footer p {
+    display: inline-block;
+  }
+
+  footer p:not(:last-child):after {
+    content: "|";
+    display: inline-block;
+    padding: 0 12px;
+    color: #ADADAD;
   }
 }
