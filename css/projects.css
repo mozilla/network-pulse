@@ -11,8 +11,8 @@ issue-btn-border-grey: #C7C7CA;
 /* layout */
 
 body { 
-  font-family: "Open Sans", Sans-serif;
-  font-weight:500;
+  font-family: "Fira Sans", Sans-serif;
+  font-weight: 400;
   font-size: 15px;
   background:#F1F1F1;
   color:#48484A;
@@ -138,8 +138,6 @@ nav .container {
 #splash-screen h1 span {
   display: block;
   position: relative;
-  font-family: "Fira Sans", "Open Sans", Sans-serif;
-  font-weight: 500;
   opacity:.5;
   top:5px;
   font-size: .75em;
@@ -166,13 +164,14 @@ nav .container {
   color: #E14164;
   font-size:30px;
   line-height: 1;
+  font-weight: 500;
   margin: 0 0 10px 0;
 }
 
 .project h3 {
   color: #ADADAD;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 18px;
   margin: 0;
 }
@@ -328,7 +327,7 @@ a.button:active {
   bottom: 50%;
   right: 0;
   font-size: 50px;
-  line-height: 47px;
+  line-height: 55px;
   font-weight: 300;
   height: 50px;
   width: 50px;
