@@ -91,7 +91,7 @@
         featured ? "featured" : "",
       ].join(" ");
     %>
-    <div id="<%= id %>" class="<%= classNames %>" data-id="<%= id %>" data-timestamp="<%= rawTimestamp %>">
+    <div id="<%- id %>" class="<%- classNames %>" data-id="<%- id %>">
       <% if (thumbnail) { %>
       <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
       <% } %>
@@ -100,6 +100,7 @@
         <h3><%- creator %> on <%- timestamp %></h3>
         <p class="description"><%- description %></p>
         <p class="interest"><%- interest %></p>
+        <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
         <div class="project-links">
           <div class="btn-group">
             <% if (link) { %>

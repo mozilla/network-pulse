@@ -241,6 +241,9 @@ nav .container {
   border: 0;
 }
 
+.hidden-meta {
+  display: none;
+}
 
 /* search */
 
