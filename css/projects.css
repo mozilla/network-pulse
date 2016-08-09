@@ -1,7 +1,10 @@
 /* ***** colors
+mofo unified palette: https://redpen.io/aq798f74c9a3ad7266
+
 hot-pink: #E14164;
 body-text-color: #48484A;
 link-blue: #16AFE5;
+link-blue-hover: #0490C0;
 light-grey: #ADADAD;
 body-background-grey: #F1F1F1;
 nav-link-pink: #EB8399;
@@ -34,6 +37,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #0490C0;
+}
+
 nav {
   background: #E14164;
   padding: 15px 0;
@@ -59,6 +66,27 @@ nav .container {
 .nav-item.active,
 .nav-item:active,
 .nav-item:hover {
+  color: #fff;
+}
+
+.btn,
+.issue-btn {
+  transition: background-color .15s, color .15s, border-color .15s;
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  border:1px solid #16AFE5;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.btn:hover,
+.btn:active {
+  background: #16AFE5;
   color: #fff;
 }
 
@@ -185,16 +213,6 @@ nav .container {
   margin-bottom: 20px;
 }
 
-.project .btn-group .btn {
-  display: inline-block;
-  text-align: center;
-  border:1px solid #16AFE5;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  border-radius: 6px;
-  width: 100%;
-}
-
 .project .btn-group .btn:not(:last-child),
 .project .action-panel :not(:last-child) {
   margin-right: 10px;
@@ -219,14 +237,30 @@ nav .container {
   margin-top: 5px;
 }
 
+.share-btn {
+  display: inline-block;
+  width: 23px;
+  height: 19px;
+  background: url(../svg/icon-link.svg) center center no-repeat;
+  background-size: auto 17px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: url(../svg/icon-link-selected.svg) center center no-repeat;
+  background-size: auto 17px;
+}
+
 .star {
   display: inline-block;
   width: 23px;
   height: 19px;
   background: url(../svg/icon-fav.svg) center center no-repeat;
   background-size: auto 16px;
+  cursor: pointer;
 }
 
+.project .star:hover,
 .project.starred .star {
   background: url(../svg/icon-fav-selected.svg) center center no-repeat;
   background-size: auto 16px;
@@ -344,7 +378,7 @@ a.button:active {
 }
 #toggle-form-button:hover,
 #toggle-form-button:active {
-  background:rgb(40,174,97);
+  background: #16AFE5;
   cursor: pointer;
 }
 
