@@ -1,7 +1,7 @@
 /* notifications */
 
 var Notifier = {
-  defaultInterval: 1*60*1000,
+  LOCALSTORAGE_KEY: "pulse-newestProjectTimestamp",
   checkPermission: function() {
     var permission = false;
     if (Notification.permission === "granted") {
@@ -49,13 +49,18 @@ var Notifier = {
     var updated = false;
     var newestProject = sortedProjects[0];
     var newestTimestamp = Date.parse(newestProject.Timestamp);
-    var lastNewestProjectTimestamp = Number(localStorage.getItem("newestProjectTimestamp"));
-    if (lastNewestProjectTimestamp && lastNewestProjectTimestamp < newestTimestamp) {
+    var localStorageKey = this.LOCALSTORAGE_KEY;
+    var newestTimestampInStorage = localStorage.getItem(localStorageKey);
+    var onInitialLoad = !newestTimestampInStorage;
+    var hasUpdates = Number(newestTimestampInStorage) < newestTimestamp;
+
+    if ( onInitialLoad || hasUpdates ) {
       var notification = 'Check out ' + newestProject.Title;
       this.create(notification);
+      localStorage.setItem(localStorageKey,newestTimestamp);
       updated = true;
-      localStorage.setItem("newestProjectTimestamp",newestTimestamp);
     }
+
     return updated;
   }
 };
