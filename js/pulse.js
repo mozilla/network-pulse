@@ -124,8 +124,9 @@ var newProjectForm = {
 /* pulse maker */
 
 var PulseMaker = {
-  'url' : "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
-  'projects' : [],
+  PROJECT_ID_PREFIX: "p",
+  url: "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
+  projects: [],
   'init': function() {
     newProjectForm.init();
     FavouritesManager.init();
@@ -197,12 +198,18 @@ var PulseMaker = {
   'toggleAdditionalFeatures' : function () {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
   },
+  generatePulseProjectId(projectData) {
+    var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
+    var projectId = timestamp ? Date.parse(timestamp) : '0';
+
+    return this.PROJECT_ID_PREFIX + projectId;
+  },
   'parseGoogleSheetData': function(driveData) {
     // Formats JSON data returned from Google Spreadsheet and formats it into
     // an array with a series of objects with key value pairs like "column-name":"value"
     var headings = {};
-    var newData = {};
-    var finalData = [];
+    var projects = {};
+    var parsedData = [];
     var entries = driveData.feed.entry;
 
     for(var i = 0; i < entries.length; i++){
@@ -216,18 +223,20 @@ var PulseMaker = {
       }
 
       if(row > 1) {
-        if(!newData[row]) {
-          newData[row] = {};
+        if(!projects[row]) {
+          projects[row] = {};
         }
-        newData[row][headings[col]] = value;
+        projects[row][headings[col]] = value;
       }
     }
 
-    for(var k in newData){
-      finalData.push(newData[k]);
+    for(var rowNum in projects){
+      var projectData = projects[rowNum];
+      projectData.id = this.generatePulseProjectId(projectData); 
+      parsedData.push(projectData);
     }
 
-    return finalData;
+    return parsedData;
   }
 };
 

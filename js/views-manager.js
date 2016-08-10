@@ -70,7 +70,7 @@ var ViewsManager = {
     if ( favedProjects.length > 0 ) {
       var sortedFavedProjects = [];
       this.projects.forEach(function(project) {
-        var index = FavouritesManager.getFavedProjects().indexOf( ProjectCard.getProjectCardId(project) );
+        var index = FavouritesManager.getFavedProjects().indexOf( project.id );
         if (index > -1) { 
           sortedFavedProjects[index] = project;
         }
