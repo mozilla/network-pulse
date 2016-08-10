@@ -62,10 +62,6 @@
     </div>
   </div>
 
-  <section id="add-project-form">
-    <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-  </section>
-
   <footer>
     <div class="container">
       <p>Get new projects by email. <a href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a>.</p>
@@ -73,6 +69,11 @@
       <p>Submit an <a href="https://docs.google.com/a/mozillafoundation.org/forms/d/e/1FAIpQLScsZ6NLDIo87YH8Z3guR-9slPampPTavcKgbqOJvLsrnqIVMQ/viewform">Impact Story tip</a>.</p>
     </div>
   </footer>
+
+  <!-- do not move this "add-project-form" div around. it should stay after <footer> for the scrollbar and close form button to show/work in embedded form -->
+  <div id="add-project-form">
+    <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+  </div>
 
   <!-- Project Card template -->
   <script type="text/template" id="project-card-template">
