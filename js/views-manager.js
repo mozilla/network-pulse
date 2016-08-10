@@ -11,8 +11,8 @@ var ViewsManager = {
   projects: [],
   $controlsContainer: $("#project-container .controls"),
   $projectsContainer: $("#project-container .projects"),
-  NotFoundView: {
-    _$container: $("#not-found-message"),
+  MessageView: {
+    _$container: $("#message-view"),
     setMessages: function(header,bodyText) {
       this._$container.find("h2").html(header);
       this._$container.find("p").html(bodyText);
@@ -42,8 +42,8 @@ var ViewsManager = {
     if ( $matchedProject.length > 0 ) {
       $matchedProject.addClass("single").show();
     } else {
-      this.NotFoundView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
-      this.NotFoundView.show();
+      this.MessageView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
+      this.MessageView.show();
     }
   },
   showFeaturedView: function() {
@@ -77,10 +77,10 @@ var ViewsManager = {
       });
       sortedFavedProjects.reverse(); // start from most recently favourited project
       this.renderProjectsIntoView(sortedFavedProjects);
-      this.NotFoundView.hide();
+      this.MessageView.hide();
     } else {
-      this.NotFoundView.setMessages("Save your Favs", "Tap the heart on any project to save it here.");
-      this.NotFoundView.show();
+      this.MessageView.setMessages("Save your Favs", "Tap the heart on any project to save it here.");
+      this.MessageView.show();
     }
     
     $("#favs-view-link").addClass("active");
@@ -97,7 +97,7 @@ var ViewsManager = {
     $("#issues-view-link").addClass("active");
   },
   resetView: function() {
-    this.NotFoundView.hide();
+    this.MessageView.hide();
     this.$controlsContainer.hide();
     this.$projectsContainer.children().remove();
     $(".nav-item").removeClass("active");

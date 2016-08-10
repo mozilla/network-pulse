@@ -133,12 +133,12 @@ nav .container {
   margin-right: -10px;
 }
 
-#not-found-message {
+#message-view {
   display: none;
   padding-bottom: 200px;
 }
 
-#not-found-message h2 {
+#message-view h2 {
   font-size: 20px;
   color: #E14164;
 }

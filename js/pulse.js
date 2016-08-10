@@ -53,11 +53,11 @@ var search = {
         results.forEach(function(item, i){
           item.classList.add('found');
         });
-        ViewsManager.NotFoundView.hide();
+        ViewsManager.MessageView.hide();
       } else {
         // nothing found
-        ViewsManager.NotFoundView.setMessages("Nothing found", "Try another search or submit something new!");
-        ViewsManager.NotFoundView.show();
+        ViewsManager.MessageView.setMessages("Nothing found", "Try another search or submit something new!");
+        ViewsManager.MessageView.show();
       }
     } else {
       search.deactivate();
