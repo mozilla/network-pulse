@@ -11,6 +11,19 @@ var ViewsManager = {
   projects: [],
   $controlsContainer: $("#project-container .controls"),
   $projectsContainer: $("#project-container .projects"),
+  MessageView: {
+    _$container: $("#message-view"),
+    setMessages: function(header,bodyText) {
+      this._$container.find("h2").html(header);
+      this._$container.find("p").html(bodyText);
+    },
+    show: function() {
+      this._$container.show();
+    },
+    hide: function() {
+      this._$container.hide();
+    }
+  },
   renderProjectsIntoView: function(projects) {
     this.$projectsContainer.hide();
     $.each(projects, function(index, project) {
@@ -25,7 +38,13 @@ var ViewsManager = {
     this.resetView();
     this.renderAllProjectsIntoView();
     $(".project").hide();
-    $(".project[data-id="+projectId+"]").addClass("single").show();
+    var $matchedProject = $(".project[data-id="+projectId+"]");
+    if ( $matchedProject.length > 0 ) {
+      $matchedProject.addClass("single").show();
+    } else {
+      this.MessageView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
+      this.MessageView.show();
+    }
   },
   showFeaturedView: function() {
     this.resetView();
@@ -58,9 +77,10 @@ var ViewsManager = {
       });
       sortedFavedProjects.reverse(); // start from most recently favourited project
       this.renderProjectsIntoView(sortedFavedProjects);
-      $("#fav-not-found").hide();
+      this.MessageView.hide();
     } else {
-      $("#fav-not-found").show();
+      this.MessageView.setMessages("Save your Favs", "Tap the heart on any project to save it here.");
+      this.MessageView.show();
     }
     
     $("#favs-view-link").addClass("active");
@@ -77,7 +97,7 @@ var ViewsManager = {
     $("#issues-view-link").addClass("active");
   },
   resetView: function() {
-    $("#fav-not-found").hide();
+    this.MessageView.hide();
     this.$controlsContainer.hide();
     this.$projectsContainer.children().remove();
     $(".nav-item").removeClass("active");
