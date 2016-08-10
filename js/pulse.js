@@ -30,7 +30,7 @@ var newProjectForm = {
   },
   'showForm' : function (){
     newProjectForm.formContainer.style.display = 'block';
-    newProjectForm.projectContainer.style.display = 'none'; // @todo get elem within module
+    newProjectForm.projectContainer.style.display = 'none';
     newProjectForm.toggleFormButton.style.transform = 'rotate(45deg)';
   },
   'hideForm' : function (){
@@ -40,6 +40,7 @@ var newProjectForm = {
   },
   'toggleForm' : function () {  
     var displayState = newProjectForm.getDisplayState();
+    window.scrollTo(0,0);
     if (displayState === 'block') { 
       newProjectForm.hideForm();
     } else { 
