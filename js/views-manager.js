@@ -1,8 +1,3 @@
-// TODO:FIXME: 
-// search result layout
-// auto refresh?
-// issues view: coming soon
-
 var IssueBtnClickHandler = function(event) {
   var issue = $(this).data("issue");
 };
@@ -25,20 +20,27 @@ var ViewsManager = {
     }
   },
   renderProjectsIntoView: function(projects) {
-    this.$projectsContainer.hide();
     $.each(projects, function(index, project) {
       ProjectCard.render(project);
     });
-    this.$projectsContainer.fadeIn();
   },
   renderAllProjectsIntoView: function() {
-    this.renderProjectsIntoView(this.projects);
+    var numProjectCards = $(".project").length;
+    if ( this.projects.length != numProjectCards ) {
+      // this happens when user nagivates away from the Favs Tab
+      this.$projectsContainer.children().remove();
+      this.renderProjectsIntoView(this.projects);
+    }
+    // else, do nothing, since we already have all Project Cards in DOM
+  },
+  makeProjectsVisible: function(projects) {
+    projects.forEach(function(project) {
+      $("#"+project.id).show();
+    });
   },
   showSingleProjectView: function(projectId) {
     this.resetView();
-    this.renderAllProjectsIntoView();
-    $(".project").hide();
-    var $matchedProject = $(".project[data-id="+projectId+"]");
+    var $matchedProject = $("#"+projectId);
     if ( $matchedProject.length > 0 ) {
       $matchedProject.addClass("single").show();
     } else {
@@ -48,29 +50,30 @@ var ViewsManager = {
   },
   showFeaturedView: function() {
     this.resetView();
-
     var featuredProjects = this.projects.filter(function(project) {
       return project["Featured"] === 'TRUE';
     });
-    this.renderProjectsIntoView(featuredProjects);
+    this.makeProjectsVisible(featuredProjects);
     $("#featured-view-link").addClass("active");
-    // TODO:FIXME: update url
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showLatestView: function() {
-    this.resetView();
-    this.renderAllProjectsIntoView();
+    this.resetView({
+      showAllProjects: true
+    });
     $("#latest-view-link").addClass("active");
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showFavsView: function() {
-    this.resetView();
+    this.resetView({
+      clearAllProjectsFromDom: true // faved projects are displayed in a different order, therefore hide/show tricks won't work
+    });
 
     var favedProjects = FavouritesManager.getFavedProjects();
     if ( favedProjects.length > 0 ) {
       var sortedFavedProjects = [];
       this.projects.forEach(function(project) {
-        var index = FavouritesManager.getFavedProjects().indexOf( project.id );
+        var index = favedProjects.indexOf( project.id );
         if (index > -1) { 
           sortedFavedProjects[index] = project;
         }
@@ -84,23 +87,37 @@ var ViewsManager = {
     }
     
     $("#favs-view-link").addClass("active");
-    // TODO:FIXME: update url
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showIssuesView: function() {
     // TODO:FIXME: issue view hasn't been not implemented yet
-    this.resetView();
-    // this.renderAllProjectsIntoView();
+    this.resetView({
+      clearAllProjectsFromDom: true
+    });
     // this.$controlsContainer.show();
     // $(".issue-btn").on("click",IssueBtnClickHandler);
-    this.$projectsContainer.append("<h3 style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
+    this.$projectsContainer.append("<h3 id='temp-coming-soon' style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
     $("#issues-view-link").addClass("active");
   },
-  resetView: function() {
+  resetView: function(resetOptions) {
+    var options = {
+      clearAllProjectsFromDom: resetOptions ? resetOptions.clearAllProjectsFromDom : false,
+      showAllProjects: resetOptions ? resetOptions.showAllProjects : false
+    };
     this.MessageView.hide();
     this.$controlsContainer.hide();
-    this.$projectsContainer.children().remove();
+    $("#temp-coming-soon").remove();
     $(".nav-item").removeClass("active");
+    if (options.clearAllProjectsFromDom === true) {
+      this.$projectsContainer.children().remove();
+    } else {
+      this.renderAllProjectsIntoView();
+      this.$projectsContainer.children('.project').hide();
+    }
+
+    if ( options.showAllProjects === true ) {
+      this.$projectsContainer.children(".project").show();
+    }
   },
   init: function(allProjects) {
     this.projects = allProjects;
