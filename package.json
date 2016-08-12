@@ -1,0 +1,19 @@
+{
+  "name": "network-pulse",
+  "version": "1.0.0",
+  "description": "This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests to run\"; exit 0;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozilla/network-pulse.git"
+  },
+  "author": "Mozilla Foundation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mozilla/network-pulse/issues"
+  },
+  "homepage": "https://github.com/mozilla/network-pulse#readme"
+}
