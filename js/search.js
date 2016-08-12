@@ -59,6 +59,8 @@ var Search = {
       if ( !matchingProjectsFound ) {
         ViewsManager.MessageView.setMessages("Nothing found", "Try another search or submit something new!");
         ViewsManager.MessageView.show();
+      } else {
+        ViewsManager.MessageView.hide();
       }
     }
   },
