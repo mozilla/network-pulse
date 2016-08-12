@@ -105,6 +105,10 @@ nav .container {
 
 /* project lists */
 
+#project-container {
+  margin-top: 20px;
+}
+
 #project-container .controls {
   margin-bottom: 20px;
 }
@@ -283,21 +287,6 @@ nav .container {
   display: none;
 }
 
-/* search */
-
-.searching .project { 
-  display: none;
- }
-
-.searching .project.found { 
-  display: block;
- }
-
-.searching h4 {
-  display: none;
-}
-
-
 /* search box */
 
 #search { 
@@ -328,7 +317,7 @@ nav .container {
   transition: opacity .1s;
 }
 
-#search .focus .dismiss {
+#search .activated .dismiss {
   opacity: 1;
 }
 

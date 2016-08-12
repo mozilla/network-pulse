@@ -1,14 +1,20 @@
-// TODO:FIXME: 
-// search result layout
-// auto refresh?
-// issues view: coming soon
-
 var IssueBtnClickHandler = function(event) {
   var issue = $(this).data("issue");
 };
 
 var ViewsManager = {
-  projects: [],
+  VIEWS_NAMES: {
+    single: "single-project-view",
+    featured: "featured-view",
+    latest: "latest-view",
+    favs: "favs-view",
+    issues: "issues-view"
+  },
+  _currentViewMeta: {
+    viewName: "",
+    projectId: ""
+  },
+  _projects: [],
   $controlsContainer: $("#project-container .controls"),
   $projectsContainer: $("#project-container .projects"),
   MessageView: {
@@ -24,53 +30,92 @@ var ViewsManager = {
       this._$container.hide();
     }
   },
+  updateCurrentViewMeta: function(viewName,projectId) {
+    this._currentViewMeta.viewName = viewName;
+    this._currentViewMeta.projectId = projectId || "";
+  },
+  returnFromSearch: function() {
+    var viewsNames = this.VIEWS_NAMES;
+    switch(this._currentViewMeta.viewName) {
+      case viewsNames.single:
+        this.showSingleProjectView(this.getStoredViewName().projectId);
+        break;
+      case viewsNames.featured:
+        this.showFeaturedView();
+        break;
+      case viewsNames.lastest:
+        this.showLatestView();
+        break;
+      case viewsNames.favs:
+        this.showFavsView();
+        break;
+      case viewsNames.issues:
+        this.showIssuesView();
+        break;
+      default:
+        this.showLatestView();
+    }
+  },
   renderProjectsIntoView: function(projects) {
-    this.$projectsContainer.hide();
     $.each(projects, function(index, project) {
       ProjectCard.render(project);
     });
-    this.$projectsContainer.fadeIn();
   },
   renderAllProjectsIntoView: function() {
-    this.renderProjectsIntoView(this.projects);
+    var numProjectCards = $(".project").length;
+    if ( this._projects.length != numProjectCards ) {
+      // this happens when user nagivates away from the Favs Tab
+      this.$projectsContainer.children().remove();
+      this.renderProjectsIntoView(this._projects);
+    }
+    // else, do nothing, since we already have all Project Cards in DOM
+  },
+  makeProjectsVisible: function(projects) {
+    projects.forEach(function(project) {
+      $("#"+project.id).show();
+    });
   },
   showSingleProjectView: function(projectId) {
     this.resetView();
-    this.renderAllProjectsIntoView();
-    $(".project").hide();
-    var $matchedProject = $(".project[data-id="+projectId+"]");
+    var $matchedProject = $("#"+projectId);
     if ( $matchedProject.length > 0 ) {
       $matchedProject.addClass("single").show();
     } else {
       this.MessageView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
       this.MessageView.show();
     }
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.single,projectId);
   },
   showFeaturedView: function() {
     this.resetView();
-
-    var featuredProjects = this.projects.filter(function(project) {
+    var featuredProjects = this._projects.filter(function(project) {
       return project["Featured"] === 'TRUE';
     });
-    this.renderProjectsIntoView(featuredProjects);
+    this.makeProjectsVisible(featuredProjects);
     $("#featured-view-link").addClass("active");
-    // TODO:FIXME: update url
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.featured);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
-  showLatestView: function() {
-    this.resetView();
-    this.renderAllProjectsIntoView();
+  showLatestView: function(onSearchMode) {
+    this.resetView({
+      showAllProjects: true
+    });
     $("#latest-view-link").addClass("active");
+    if (!onSearchMode) {
+      this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.latest);
+    }
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showFavsView: function() {
-    this.resetView();
+    this.resetView({
+      clearAllProjectsFromDom: true // faved projects are displayed in a different order, therefore hide/show tricks won't work
+    });
 
     var favedProjects = FavouritesManager.getFavedProjects();
     if ( favedProjects.length > 0 ) {
       var sortedFavedProjects = [];
-      this.projects.forEach(function(project) {
-        var index = FavouritesManager.getFavedProjects().indexOf( project.id );
+      this._projects.forEach(function(project) {
+        var index = favedProjects.indexOf( project.id );
         if (index > -1) { 
           sortedFavedProjects[index] = project;
         }
@@ -84,26 +129,42 @@ var ViewsManager = {
     }
     
     $("#favs-view-link").addClass("active");
-    // TODO:FIXME: update url
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.favs);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showIssuesView: function() {
     // TODO:FIXME: issue view hasn't been not implemented yet
-    this.resetView();
-    // this.renderAllProjectsIntoView();
+    this.resetView({
+      clearAllProjectsFromDom: true
+    });
     // this.$controlsContainer.show();
     // $(".issue-btn").on("click",IssueBtnClickHandler);
-    this.$projectsContainer.append("<h3 style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
+    this.$projectsContainer.append("<h3 id='temp-coming-soon' style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.issues);
     $("#issues-view-link").addClass("active");
   },
-  resetView: function() {
+  resetView: function(resetOptions) {
+    var options = {
+      clearAllProjectsFromDom: resetOptions ? resetOptions.clearAllProjectsFromDom : false,
+      showAllProjects: resetOptions ? resetOptions.showAllProjects : false
+    };
     this.MessageView.hide();
     this.$controlsContainer.hide();
-    this.$projectsContainer.children().remove();
+    $("#temp-coming-soon").remove();
     $(".nav-item").removeClass("active");
+    if (options.clearAllProjectsFromDom === true) {
+      this.$projectsContainer.children().remove();
+    } else {
+      this.renderAllProjectsIntoView();
+      this.$projectsContainer.children('.project').hide();
+    }
+
+    if ( options.showAllProjects === true ) {
+      this.$projectsContainer.children(".project").show();
+    }
   },
   init: function(allProjects) {
-    this.projects = allProjects;
+    this._projects = allProjects;
     var projectId = utility.getProjectIdFromUrl(window.location.href);
     if ( projectId ) {
       this.showSingleProjectView(projectId);
