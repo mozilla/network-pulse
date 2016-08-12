@@ -18,76 +18,6 @@ var typography = {
   },
 };
 
-/* search */
-
-var search = {
-  'input' : document.getElementById('search-box'),
-  'dismissButton' : document.querySelector('#search .dismiss'),
-  'projectContainer' : document.getElementById('project-container'),
-  'checkContents' : function (selector, text) {
-    text = text.toLowerCase();
-    var elements = document.querySelectorAll(selector);
-    var results = Array.prototype.filter.call(elements, function(element){
-      return RegExp(text).test(element.textContent.toLowerCase());
-    });
-    return results;
-  },
-  'getInput' : function (evt) {
-    if (evt.keyCode === 27) { // escape
-      search.dismiss();
-      search.input.blur();
-    } else if (evt.keyCode === 13) { // enter
-      search.input.blur();
-    } else {
-      search.filter();
-    }
-  },
-  'filter' : function () {
-    search.activate();
-    var query = search.input.value;
-    if (query.length > 2) {
-      search.projectContainer.classList.add('searching');
-      search.clearPrevious();
-      var results = search.checkContents('.project', query);
-      if (results.length > 0) {
-        results.forEach(function(item, i){
-          item.classList.add('found');
-        });
-        ViewsManager.MessageView.hide();
-      } else {
-        // nothing found
-        ViewsManager.MessageView.setMessages("Nothing found", "Try another search or submit something new!");
-        ViewsManager.MessageView.show();
-      }
-    } else {
-      search.deactivate();
-    }
-  },
-  'activate' : function(){
-    search.input.parentElement.classList.add('focus');
-  },
-  'deactivate' : function(){
-    search.projectContainer.classList.remove('searching');
-    search.input.parentElement.classList.remove('focus');
-  },
-  'dismiss' : function(){
-    search.input.value = '';
-    search.input.focus();
-    search.filter();
-  },
-  'clearPrevious' : function () {
-    var previouslyFound = document.querySelectorAll('.found');
-    Array.prototype.forEach.call(previouslyFound, function(elem, i){
-      elem.classList.remove('found');
-    });
-  },
-  'init' : function () {
-    search.input.onkeyup = search.getInput;
-    search.dismissButton.onclick = search.dismiss;
-    search.dismiss();
-  },
-};
-
 /* add new project form */
 
 var newProjectForm = {
@@ -131,7 +61,7 @@ var PulseMaker = {
     newProjectForm.init();
     FavouritesManager.init();
     PulseMaker.getData(true);
-    search.init();
+    Search.init();
     if (FEATURE.notify) {
       setInterval(PulseMaker.refresh,REFRESH_INTERVAL);
     }
