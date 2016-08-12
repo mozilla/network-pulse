@@ -10,7 +10,11 @@ var ViewsManager = {
     favs: "favs-view",
     issues: "issues-view"
   },
-  projects: [],
+  _currentViewMeta: {
+    viewName: "",
+    projectId: ""
+  },
+  _projects: [],
   $controlsContainer: $("#project-container .controls"),
   $projectsContainer: $("#project-container .projects"),
   MessageView: {
@@ -26,19 +30,13 @@ var ViewsManager = {
       this._$container.hide();
     }
   },
-  updateStoredViewName: function(viewName,projectId) {
-    document.querySelector("body").dataset.view = viewName;
-    if (projectId) document.querySelector("body").dataset.projectId = projectId;
-  },
-  getStoredViewName: function() {
-    return {
-      viewName: document.querySelector("body").dataset.view,
-      projectId: document.querySelector("body").dataset.projectId
-    }
+  updateCurrentViewMeta: function(viewName,projectId) {
+    this._currentViewMeta.viewName = viewName;
+    this._currentViewMeta.projectId = projectId || "";
   },
   returnFromSearch: function() {
     var viewsNames = this.VIEWS_NAMES;
-    switch(this.getStoredViewName().viewName) {
+    switch(this._currentViewMeta.viewName) {
       case viewsNames.single:
         this.showSingleProjectView(this.getStoredViewName().projectId);
         break;
@@ -65,10 +63,10 @@ var ViewsManager = {
   },
   renderAllProjectsIntoView: function() {
     var numProjectCards = $(".project").length;
-    if ( this.projects.length != numProjectCards ) {
+    if ( this._projects.length != numProjectCards ) {
       // this happens when user nagivates away from the Favs Tab
       this.$projectsContainer.children().remove();
-      this.renderProjectsIntoView(this.projects);
+      this.renderProjectsIntoView(this._projects);
     }
     // else, do nothing, since we already have all Project Cards in DOM
   },
@@ -86,16 +84,16 @@ var ViewsManager = {
       this.MessageView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
       this.MessageView.show();
     }
-    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.single,projectId);
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.single,projectId);
   },
   showFeaturedView: function() {
     this.resetView();
-    var featuredProjects = this.projects.filter(function(project) {
+    var featuredProjects = this._projects.filter(function(project) {
       return project["Featured"] === 'TRUE';
     });
     this.makeProjectsVisible(featuredProjects);
     $("#featured-view-link").addClass("active");
-    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.featured);
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.featured);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showLatestView: function(onSearchMode) {
@@ -104,7 +102,7 @@ var ViewsManager = {
     });
     $("#latest-view-link").addClass("active");
     if (!onSearchMode) {
-      this.updateStoredViewName(ViewsManager.VIEWS_NAMES.latest);
+      this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.latest);
     }
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
@@ -116,7 +114,7 @@ var ViewsManager = {
     var favedProjects = FavouritesManager.getFavedProjects();
     if ( favedProjects.length > 0 ) {
       var sortedFavedProjects = [];
-      this.projects.forEach(function(project) {
+      this._projects.forEach(function(project) {
         var index = favedProjects.indexOf( project.id );
         if (index > -1) { 
           sortedFavedProjects[index] = project;
@@ -131,7 +129,7 @@ var ViewsManager = {
     }
     
     $("#favs-view-link").addClass("active");
-    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.favs);
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.favs);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showIssuesView: function() {
@@ -142,7 +140,7 @@ var ViewsManager = {
     // this.$controlsContainer.show();
     // $(".issue-btn").on("click",IssueBtnClickHandler);
     this.$projectsContainer.append("<h3 id='temp-coming-soon' style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
-    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.issues);
+    this.updateCurrentViewMeta(ViewsManager.VIEWS_NAMES.issues);
     $("#issues-view-link").addClass("active");
   },
   resetView: function(resetOptions) {
@@ -166,7 +164,7 @@ var ViewsManager = {
     }
   },
   init: function(allProjects) {
-    this.projects = allProjects;
+    this._projects = allProjects;
     var projectId = utility.getProjectIdFromUrl(window.location.href);
     if ( projectId ) {
       this.showSingleProjectView(projectId);
