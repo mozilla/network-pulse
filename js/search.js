@@ -7,7 +7,7 @@ var Search = {
     if (event.keyCode === 27) { // escape
       Search.deactivate();
     } else {
-      Search.showFilteredList(query);
+      Search.showSearchResult(query);
     }
   },
   inputBoxFocusHandler: function(event) {
@@ -35,20 +35,28 @@ var Search = {
     ViewsManager.returnFromSearch();
     $("nav").slideDown();
   },
-  showFilteredList: function(query) {
+  showMatchingProjects: function(query) {
     query = query.toLowerCase();
+    var matchingProjectsFound = false;
+    var projectCards = document.querySelectorAll(".project");
+    var matchingProjects = Array.prototype.filter.call(projectCards, function(projectCard) {
+      if ( RegExp(query).test(projectCard.textContent.toLowerCase()) ) {
+        $(projectCard).show();
+        return true;
+      } else {
+        $(projectCard).hide();
+        return false;
+      }
+    });
+    if ( matchingProjects.length > 0 ) {
+      matchingProjectsFound = true;
+    }
+    return matchingProjectsFound;
+  },
+  showSearchResult: function(query) {
     if (query.length > 0) {
-      var projectCards = document.querySelectorAll(".project");
-      var matchingProjects = Array.prototype.filter.call(projectCards, function(projectCard) {
-        if ( RegExp(query).test(projectCard.textContent.toLowerCase()) ) {
-          $(projectCard).show();
-          return true;
-        } else {
-          $(projectCard).hide();
-          return false;
-        }
-      });
-      if ( matchingProjects.length == 0 ) {
+      var matchingProjectsFound = this.showMatchingProjects(query);
+      if ( !matchingProjectsFound ) {
         ViewsManager.MessageView.setMessages("Nothing found", "Try another search or submit something new!");
         ViewsManager.MessageView.show();
       }
