@@ -3,6 +3,13 @@ var IssueBtnClickHandler = function(event) {
 };
 
 var ViewsManager = {
+  VIEWS_NAMES: {
+    single: "single-project-view",
+    featured: "featured-view",
+    latest: "latest-view",
+    favs: "favs-view",
+    issues: "issues-view"
+  },
   projects: [],
   $controlsContainer: $("#project-container .controls"),
   $projectsContainer: $("#project-container .projects"),
@@ -17,6 +24,38 @@ var ViewsManager = {
     },
     hide: function() {
       this._$container.hide();
+    }
+  },
+  updateStoredViewName: function(viewName,projectId) {
+    document.querySelector("body").dataset.view = viewName;
+    if (projectId) document.querySelector("body").dataset.projectId = projectId;
+  },
+  getStoredViewName: function() {
+    return {
+      viewName: document.querySelector("body").dataset.view,
+      projectId: document.querySelector("body").dataset.projectId
+    }
+  },
+  returnFromSearch: function() {
+    var viewsNames = this.VIEWS_NAMES;
+    switch(this.getStoredViewName().viewName) {
+      case viewsNames.single:
+        this.showSingleProjectView(this.getStoredViewName().projectId);
+        break;
+      case viewsNames.featured:
+        this.showFeaturedView();
+        break;
+      case viewsNames.lastest:
+        this.showLatestView();
+        break;
+      case viewsNames.favs:
+        this.showFavsView();
+        break;
+      case viewsNames.issues:
+        this.showIssuesView();
+        break;
+      default:
+        this.showLatestView();
     }
   },
   renderProjectsIntoView: function(projects) {
@@ -47,6 +86,7 @@ var ViewsManager = {
       this.MessageView.setMessages("Something's wrong", "Check your URL or try a new search. Still no luck? <a href='https://github.com/mozilla/network-pulse/issues/new'>Let us know</a>.");
       this.MessageView.show();
     }
+    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.single,projectId);
   },
   showFeaturedView: function() {
     this.resetView();
@@ -55,13 +95,17 @@ var ViewsManager = {
     });
     this.makeProjectsVisible(featuredProjects);
     $("#featured-view-link").addClass("active");
+    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.featured);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
-  showLatestView: function() {
+  showLatestView: function(onSearchMode) {
     this.resetView({
       showAllProjects: true
     });
     $("#latest-view-link").addClass("active");
+    if (!onSearchMode) {
+      this.updateStoredViewName(ViewsManager.VIEWS_NAMES.latest);
+    }
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showFavsView: function() {
@@ -87,6 +131,7 @@ var ViewsManager = {
     }
     
     $("#favs-view-link").addClass("active");
+    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.favs);
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showIssuesView: function() {
@@ -97,6 +142,7 @@ var ViewsManager = {
     // this.$controlsContainer.show();
     // $(".issue-btn").on("click",IssueBtnClickHandler);
     this.$projectsContainer.append("<h3 id='temp-coming-soon' style='text-align: center; width: 100%; margin-bottom: 200px;'>Coming soon...</h3>");
+    this.updateStoredViewName(ViewsManager.VIEWS_NAMES.issues);
     $("#issues-view-link").addClass("active");
   },
   resetView: function(resetOptions) {
