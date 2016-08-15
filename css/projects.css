@@ -113,7 +113,7 @@ nav .container {
   margin-bottom: 20px;
 }
 
-#project-container .controls a {
+.issue-btn {
   display: inline-block;
   color: #7A7A7A;
   border: 1px solid #C7C7CA;
@@ -124,7 +124,8 @@ nav .container {
   cursor: pointer;
 }
 
-#project-container .controls a:hover {
+.issue-btn.active,
+.issue-btn:hover {
   color: #E14164;
   border-color: #E14164;
 }

@@ -25,7 +25,7 @@ var FavouritesManager = {
     this._list.push(projectId);
     this.saveListToLocalStorage();
 
-    $(".project[data-id="+projectId+"]").addClass("starred");
+    $("#"+projectId).addClass("starred");
   },
   unfavProject: function(projectId) {
     var index = this._list.indexOf(projectId);
@@ -34,7 +34,7 @@ var FavouritesManager = {
     }
     this.saveListToLocalStorage();
 
-    $(".project[data-id="+projectId+"]").removeClass("starred");
+    $("#"+projectId).removeClass("starred");
   },
   toggleProjectFavState: function(projectId) {
     if ( this.isProjectFavourited(projectId) ) {

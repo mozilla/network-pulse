@@ -57,8 +57,7 @@ var Search = {
     if (query.length > 0) {
       var matchingProjectsFound = this.showMatchingProjects(query);
       if ( !matchingProjectsFound ) {
-        ViewsManager.MessageView.setMessages("Nothing found", "Try another search or submit something new!");
-        ViewsManager.MessageView.show();
+        ViewsManager.MessageView.show("Nothing found", "Try another search or submit something new!");
       } else {
         ViewsManager.MessageView.hide();
       }
