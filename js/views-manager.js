@@ -150,16 +150,14 @@ var ViewsManager = {
     this.resetView({
       showAllProjects: false
     });
-
     this.$controlsContainer.show();
 
     if ( !selectedIssue ) {
       this.MessageView.show("", "Mozilla has identified five issues critical to a healthy and open internet. Tap above to browse by issue.");
     } else {
       this.MessageView.hide();
-      $(".project").show();
       $(".issue-btn[data-issue="+ selectedIssue + "]").addClass("active");
-      $(".project[data-issue-"+ selectedIssue +"!=true]").hide();
+      $(".project[data-issue-"+ selectedIssue +"=true]").show();
     }
 
     this.updateCurrentViewMeta({
