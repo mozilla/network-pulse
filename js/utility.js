@@ -21,7 +21,7 @@ var utility = {
     // all we want to do is to generate a direct link to a project
     // create an anchor element so that we can make use of the Location API
     var tempAnchor = document.createElement("a");
-    tempAnchor.href = window.location.href;
+    tempAnchor.href = "https://mzl.la/pulse";
     tempAnchor.search = "id="+projectId;
       
     return tempAnchor.href;
