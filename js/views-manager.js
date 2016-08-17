@@ -191,7 +191,7 @@ var ViewsManager = {
     this._projects = allProjects;
     this.$issueBtns.on("click",this.issueBtnClickHandler);
 
-    var projectId = utility.getProjectIdFromUrl(window.location.href);
+    var projectId = utility.getProjectIdFromUrl();
     if ( projectId ) {
       this.showSingleProjectView(projectId);
     } else {

@@ -1,40 +1,29 @@
 /* utility */
 
 var utility = {
-  findContainer : function(elem, containerClass){
-      while ((elem = elem.parentElement) && !elem.classList.contains(containerClass));
-      return elem;
-  },
-  getProjectIdFromUrl: function(url) {
-    if ( url.indexOf("id=") > -1 ) {
-      var queryParams = window.location.href.split("?")[1].split("&");
-      var projectId;
-      queryParams.forEach(function(param) {
-        if ( !projectId && param.substr(0,3) === 'id=' ) {
+  getProjectIdFromUrl: function() {
+    var projectId = false;
+    if ( window.location.href.indexOf("id=") > -1 ) {
+      var queryParams = window.location.search.substring(1).split("&");
+      queryParams.some(function(param) {
+        if ( param.substr(0,3) === 'id=' ) {
           projectId = param.substr(3);
+          return true;
         }
+        return false;
       });
-      return projectId;
-    }
-    return false;
-  },
-  getProjectDirectLink: function(projectId) {
-    var repoName = "network-pulse";
-    var location = window.location.href;
-    var fileUrlPrefix = "file://"; 
-    var projectDirectLink;
-    if ( location.substr(0,fileUrlPrefix.length) === fileUrlPrefix ) {
-    // if it's on local file system
-      var rootUrlWithProtocol = location.substr(0,location.indexOf(repoName)+repoName.length);
-      projectDirectLink = rootUrlWithProtocol + "/index.html?id=" + projectId;
-    } else {
-      // otherwise it's on the Webbbb
-      var protocol = location.indexOf("https://") > -1 ? "https://" : "http://";
-      var rootUrl = location.replace("http://","").replace("https://","").split("/")[0];
-      var path = ( rootUrl.indexOf("mozilla.github.io") > -1 ) ? "/"+repoName : "";
-      projectDirectLink = protocol + rootUrl + path + "/?id=" + projectId;
     }
 
-    return projectDirectLink;
+    return projectId;
+  },
+  getProjectDirectLink: function(projectId) {
+    // we don't want to change values in window.location here
+    // all we want to do is to generate a direct link to a project
+    // create an anchor element so that we can make use of the Location API
+    var tempAnchor = document.createElement("a");
+    tempAnchor.href = window.location.href;
+    tempAnchor.search = "id="+projectId;
+      
+    return tempAnchor.href;
   }
 };
