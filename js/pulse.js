@@ -32,11 +32,13 @@ var newProjectForm = {
     newProjectForm.formContainer.style.display = 'block';
     newProjectForm.projectContainer.style.display = 'none'; // @todo get elem within module
     newProjectForm.toggleFormButton.style.transform = 'rotate(45deg)';
+    newProjectForm.toggleFormButton.title = 'Close Form';
   },
   'hideForm' : function (){
     newProjectForm.formContainer.style.display = 'none';
     newProjectForm.projectContainer.style.display = 'block';
     newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
+    newProjectForm.toggleFormButton.title = 'Add something new';
   },
   'toggleForm' : function () {  
     var displayState = newProjectForm.getDisplayState();
