@@ -14,7 +14,7 @@ var ProjectCard = {
       featured: projectData.Featured,
       starred: FavouritesManager.isProjectFavourited(id),
       title: projectData.Title ? projectData.Title : "",
-      creator: projectData.Creator ? projectData.Creator : "",
+      creators: projectData.Creators ? projectData.Creators : "",
       timestamp: month + " " + timestamp.getDate() + ", " + timestamp.getFullYear(),
       description: projectData.Description ? projectData.Description : "",
       thumbnail: projectData['Thumbnail URL'] ? projectData['Thumbnail URL'] : "",
