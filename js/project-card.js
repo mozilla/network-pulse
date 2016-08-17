@@ -6,6 +6,8 @@ var ProjectCard = {
     var id = projectData.id;
     var timestamp = new Date(projectData.Timestamp);
     var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][timestamp.getMonth()];
+    var issues = projectData.Issues ? projectData.Issues : "";
+    var issuesAsArray = issues.split(", ");
     var dataForTemplate = {
       id: id,
       rawTimestamp: Date.parse(projectData.Timestamp),
@@ -18,7 +20,12 @@ var ProjectCard = {
       thumbnail: projectData['Thumbnail URL'] ? projectData['Thumbnail URL'] : "",
       interest: projectData.Interest ? projectData.Interest : "",
       tags: projectData.Tags,
-      issues: projectData.Issues,
+      issues: issues,
+      belongsToOnlinePrivacyAndSecurityIssue: issuesAsArray.indexOf("Online Privacy & Security") > -1,
+      belongsToOpenInnovationIssue: issuesAsArray.indexOf("Open Innovation") > -1,
+      belongsToDecentralizationIssue: issuesAsArray.indexOf("Decentralization") > -1,
+      belongsToWebLiteracyIssue: issuesAsArray.indexOf("Web Literacy") > -1,
+      belongsToDigitalInclusionIssue: issuesAsArray.indexOf("Digital Inclusion") > -1,
       program: projectData.Program,
       type: projectData.Type,
       link: projectData.URL ? projectData.URL : "",

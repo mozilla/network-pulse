@@ -39,7 +39,7 @@
   <section id="project-container">
     <div class="container">
       <div class="controls">
-        <a class="issue-btn" data-issue="privacy-security">Online Privacy & Security</a>
+        <a class="issue-btn" data-issue="online-privacy-and-security">Online Privacy & Security</a>
         <a class="issue-btn" data-issue="open-innovation">Open Innovation</a>
         <a class="issue-btn" data-issue="decentralization">Decentralization</a>
         <a class="issue-btn" data-issue="web-literacy">Web Literacy</a>
@@ -84,7 +84,13 @@
         featured ? "featured" : "",
       ].join(" ");
     %>
-    <div id="<%- id %>" class="<%- classNames %>" data-id="<%- id %>">
+    <div id="<%- id %>" 
+          class="<%- classNames %>" 
+          data-issue-online-privacy-and-security="<%- belongsToOnlinePrivacyAndSecurityIssue %>"
+          data-issue-open-innovation="<%- belongsToOpenInnovationIssue %>"
+          data-issue-decentralization="<%- belongsToDecentralizationIssue %>"
+          data-issue-web-literacy="<%- belongsToWebLiteracyIssue %>"
+          data-issue-digital-inclusion="<%- belongsToDigitalInclusionIssue %>" >
       <% if (thumbnail) { %>
       <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
       <% } %>
