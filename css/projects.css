@@ -360,22 +360,19 @@ a.button:active {
   position: fixed;
   bottom: 50px;
   right: 20px;
-  font-size: 50px;
-  line-height: 55px;
   font-weight: 300;
   height: 50px;
   width: 50px;
-  color: #FFF;
   border-radius: 50%;
-  background: #48484A;
   transition: transform .5s, color .25s, background .25s;
   text-align:center;
   z-index: 1000;
+  background: url(../svg/icon-plus.svg) #48484A center center no-repeat;
+  cursor: pointer;
 }
 #toggle-form-button:hover,
 #toggle-form-button:active {
-  background: #16AFE5;
-  cursor: pointer;
+  background-color: #16AFE5;
 }
 
 
