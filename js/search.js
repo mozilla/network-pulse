@@ -12,6 +12,11 @@ var Search = {
   },
   inputBoxFocusHandler: function(event) {
     Search.activate();
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Search box",
+      eventAction: 'focus'
+    });
   },
   dismissButtonClickHandler: function(event) {
     Search.deactivate();

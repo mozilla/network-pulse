@@ -10,6 +10,17 @@
   <link href="css/normalize.css" rel="stylesheet">
   <link href="css/projects.css" rel="stylesheet">
   <title>Mozilla Network Pulse</title>
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-49796218-43', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <!-- End Google Analytics -->
 </head>
 <body>
   <header id="splash-screen">
@@ -68,7 +79,7 @@
 
   <footer>
     <div class="container">
-      <p>Get new projects by email. <a href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a>.</p>
+      <p>Get new projects by email. <a id="sign-up-btn" href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a>.</p>
       <p><a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
       <p>Submit an <a href="https://docs.google.com/a/mozillafoundation.org/forms/d/e/1FAIpQLScsZ6NLDIo87YH8Z3guR-9slPampPTavcKgbqOJvLsrnqIVMQ/viewform">Impact Story tip</a>.</p>
     </div>
@@ -86,6 +97,7 @@
     %>
     <div id="<%- id %>" 
           class="<%- classNames %>" 
+          data-title="<%- title %>"
           data-issue-online-privacy-and-security="<%- belongsToOnlinePrivacyAndSecurityIssue %>"
           data-issue-open-innovation="<%- belongsToOpenInnovationIssue %>"
           data-issue-decentralization="<%- belongsToDecentralizationIssue %>"
@@ -103,10 +115,10 @@
         <div class="project-links">
           <div class="btn-group">
             <% if (link) { %>
-            <a href="<%- link %>" target="_blank" class="btn">Visit</a>
+            <a href="<%- link %>" target="_blank" class="btn visit-btn">Visit</a>
             <% } %>
             <% if (getInvolvedLink) { %>
-            <a href="<%- getInvolvedLink %>" target="_blank" class="btn">Get Involved</a>
+            <a href="<%- getInvolvedLink %>" target="_blank" class="btn get-involved-btn">Get Involved</a>
             <% } %>
           </div>
           <div class="action-panel">
