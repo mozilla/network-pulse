@@ -38,7 +38,34 @@ var ProjectCard = {
   },
   shareBtnClickHandler: function(event) {
     event.preventDefault();
-    $(event.target).parents(".project").find(".direct-link").css("visibility","visible").focus().select();
+
+    var $projectCard = $(this).parents(".project");
+    $projectCard.find(".direct-link").css("visibility","visible").focus().select();
+
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Share Link Button",
+      eventAction: 'click',
+      eventLabel: $projectCard.data("title")
+    });
+  },
+  visitBtnClickHandler: function(event) {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Visit Button",
+      eventAction: 'click',
+      eventLabel: $(this).parents(".project").data("title"),
+      transport: "beacon"
+    });
+  },
+  getInvolvedBtnClickHandler: function(event) {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Get Involved Button",
+      eventAction: 'click',
+      eventLabel: $(this).parents(".project").data("title"),
+      transport: "beacon"
+    });
   },
   render: function(projectData) {
     var id = projectData.id;
@@ -49,10 +76,12 @@ var ProjectCard = {
 
     $card.find(".star").on("click", function(event) {
       event.preventDefault();
-      FavouritesManager.toggleProjectFavState(id);
+      FavouritesManager.toggleProjectFavState(id,projectData.Title);
     });
 
     $card.find(".share-btn").on("click", ProjectCard.shareBtnClickHandler);
+    $card.find(".visit-btn").on("click", ProjectCard.visitBtnClickHandler);
+    $card.find(".get-involved-btn").on("click", ProjectCard.getInvolvedBtnClickHandler);
 
     $("#project-container .projects").append($card);
   }
