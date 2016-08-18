@@ -33,6 +33,11 @@ var newProjectForm = {
     newProjectForm.projectContainer.style.display = 'none'; // @todo get elem within module
     newProjectForm.toggleFormButton.style.transform = 'rotate(45deg)';
     newProjectForm.toggleFormButton.title = 'Close Form';
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Add New Button",
+      eventAction: 'click'
+    });
   },
   'hideForm' : function (){
     newProjectForm.formContainer.style.display = 'none';
@@ -46,7 +51,7 @@ var newProjectForm = {
       newProjectForm.hideForm();
     } else { 
       newProjectForm.showForm(); 
-    }    
+    }
   },
   'init' : function () {
     newProjectForm.toggleFormButton.onclick = newProjectForm.toggleForm;
@@ -64,6 +69,8 @@ var PulseMaker = {
     FavouritesManager.init();
     PulseMaker.getData(true);
     Search.init();
+    $("#sign-up-btn").on("click", this.signUpBtnClickHandler);
+    
     if (FEATURE.notify) {
       setInterval(PulseMaker.refresh,REFRESH_INTERVAL);
     }
@@ -169,6 +176,13 @@ var PulseMaker = {
     }
 
     return parsedData;
+  },
+  signUpBtnClickHandler: function(event) {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: "Sign Up Link",
+      eventAction: 'click'
+    });
   }
 };
 
