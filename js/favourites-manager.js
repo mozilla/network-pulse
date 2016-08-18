@@ -21,9 +21,7 @@ var FavouritesManager = {
   saveListToLocalStorage: function() {
     localStorage.setItem(this.LOCALSTORAGE_KEY, this._list.toString());
   },
-  favProject: function(projectId,projectTitle) {
-    console.log(projectTitle);
-
+  favProject: function(projectId, projectTitle) {
     this._list.push(projectId);
     this.saveListToLocalStorage();
     $("#"+projectId).addClass("starred");
@@ -34,7 +32,7 @@ var FavouritesManager = {
       eventLabel: projectTitle
     });
   },
-  unfavProject: function(projectId,projectTitle) {
+  unfavProject: function(projectId, projectTitle) {
     var index = this._list.indexOf(projectId);
     if (index != -1) {
       this._list.splice(index, 1);
@@ -49,7 +47,7 @@ var FavouritesManager = {
       eventLabel: projectTitle
     });
   },
-  toggleProjectFavState: function(projectId,projectTitle) {
+  toggleProjectFavState: function(projectId, projectTitle) {
     if ( this.isProjectFavourited(projectId) ) {
       this.unfavProject(projectId,projectTitle);
     } else {

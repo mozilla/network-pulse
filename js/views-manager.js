@@ -198,10 +198,5 @@ var ViewsManager = {
       // Featured view the default view
       this.showFeaturedView();
     }
-
-    ga('send', {
-      hitType: 'pageview',
-      page: window.location.href
-    });
   }
 };
