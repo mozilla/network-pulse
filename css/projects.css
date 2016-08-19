@@ -270,7 +270,6 @@ nav .container {
   cursor: pointer;
 }
 
-.project .star:hover,
 .project.starred .star {
   background: url(../svg/icon-fav-selected.svg) center center no-repeat;
   background-size: auto 16px;
