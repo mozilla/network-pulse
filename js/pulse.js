@@ -139,10 +139,11 @@ var PulseMaker = {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
   },
   generatePulseProjectId: function(projectData) {
-    var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
-    var projectId = timestamp ? Date.parse(timestamp) : '0';
-
-    return this.PROJECT_ID_PREFIX + projectId;
+    var projectId = false;
+    if ( projectData.Timestamp ) {
+      projectId = this.PROJECT_ID_PREFIX + Date.parse(projectData.Timestamp);
+    }
+    return projectId;
   },
   'parseGoogleSheetData': function(driveData) {
     // Formats JSON data returned from Google Spreadsheet and formats it into
@@ -172,8 +173,11 @@ var PulseMaker = {
 
     for(var rowNum in projects){
       var projectData = projects[rowNum];
-      projectData.id = this.generatePulseProjectId(projectData); 
-      parsedData.push(projectData);
+      var id = this.generatePulseProjectId(projectData);
+      if ( id ) {
+        projectData.id = id;
+        parsedData.push(projectData);
+      }
     }
 
     return parsedData;
