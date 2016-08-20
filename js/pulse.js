@@ -138,7 +138,7 @@ var PulseMaker = {
   'toggleAdditionalFeatures' : function () {
     if (FEATURE.orphans) { typography.preventTextOrphans(); }
   },
-  generatePulseProjectId(projectData) {
+  generatePulseProjectId: function(projectData) {
     var timestamp = projectData.Timestamp ? projectData.Timestamp : false;
     var projectId = timestamp ? Date.parse(timestamp) : '0';
 
