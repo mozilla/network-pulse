@@ -108,8 +108,9 @@ var ViewsManager = {
     window.history.pushState("Network Pulse", "", window.location.href.split("?")[0]);
   },
   showLatestView: function(onSearchMode) {
+    var showAllProjects = onSearchMode ? false : true;
     this.resetView({
-      showAllProjects: true
+      showAllProjects: showAllProjects
     });
     $("#latest-view-link").addClass("active");
     if (!onSearchMode) {

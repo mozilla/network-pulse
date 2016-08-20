@@ -66,6 +66,8 @@ var Search = {
       } else {
         ViewsManager.MessageView.hide();
       }
+    } else {
+      $(".project").hide();
     }
   },
   init: function() {
