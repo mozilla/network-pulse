@@ -7,6 +7,9 @@ var Search = {
     if (event.keyCode === 27) { // escape
       Search.deactivate();
     } else {
+      if ( event.keyCode === 13 ) { // enter
+         Search.updateUrlQuery(query);
+      }
       Search.showSearchResult(query);
     }
   },
@@ -18,10 +21,13 @@ var Search = {
       eventAction: 'focus'
     });
   },
+  inputBoxBlurHandler: function(event) {
+    Search.updateUrlQuery(Search.inputBox.value);
+  },
   dismissButtonClickHandler: function(event) {
     Search.deactivate();
   },
-  activate: function() {
+  activate: function(query) {
     if ( !this.activated ) {
       this.activated = true;
       this.inputBox.parentElement.classList.add('activated');
@@ -29,6 +35,11 @@ var Search = {
         // we want to search through all projects, 
         // which is essentially like searching within the Latest Tab
         ViewsManager.showLatestView(true);
+        if ( query ) {
+          Search.inputBox.value = query;
+          Search.showSearchResult(query);
+          Search.updateUrlQuery(query);
+        }
       });
     }
   },
@@ -68,9 +79,13 @@ var Search = {
       }
     }
   },
+  updateUrlQuery: function(query) {
+    utility.updateUrlWithoutReload("keyword",query);
+  },
   init: function() {
     this.inputBox.onkeyup = this.inputBoxKeyUpHandler;
     this.inputBox.onfocus = this.inputBoxFocusHandler;
+    this.inputBox.onblur = this.inputBoxBlurHandler;
     this.dismissButton.onclick = this.dismissButtonClickHandler;
     this.inputBox.value = '';
   },
