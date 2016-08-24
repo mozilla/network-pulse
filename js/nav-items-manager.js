@@ -1,4 +1,8 @@
 var NavItemsManager = {
+  backLinkHandler: function(event) {
+    event.preventDefault();
+    ViewsManager.returnFromSingleView();
+  },
   showFeaturedViewLinkHandler: function(event) {
     event.preventDefault();
     ViewsManager.showFeaturedView();
@@ -17,6 +21,7 @@ var NavItemsManager = {
   },
   init: function() {
     var self = this;
+    $("#back-link").on("click",self.backLinkHandler);
     $("#featured-view-link").on("click",self.showFeaturedViewLinkHandler);
     $("#latest-view-link").on("click",self.showLatestViewLinkHandler);
     $("#favs-view-link").on("click",self.showFavsViewLinkHandler);

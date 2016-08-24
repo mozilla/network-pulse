@@ -19,6 +19,8 @@ var ProjectCard = {
       description: projectData.Description ? projectData.Description : "",
       thumbnail: projectData['Thumbnail URL'] ? projectData['Thumbnail URL'] : "",
       interest: projectData.Interest ? projectData.Interest : "",
+      networkConnection: projectData['Network connection'] ? projectData['Network connection'] : "",
+      origin: projectData.Origin ? projectData.Origin : "",
       tags: projectData.Tags,
       issues: issues,
       belongsToOnlinePrivacyAndSecurityIssue: issuesAsArray.indexOf("Online Privacy & Security") > -1,
@@ -29,6 +31,7 @@ var ProjectCard = {
       program: projectData.Program,
       type: projectData.Type,
       link: projectData.URL ? projectData.URL : "",
+      getInvolvedText: projectData['Get involved'] ? projectData['Get involved'] : "",
       getInvolvedLink: projectData['Get involved URL'] ? projectData['Get involved URL'] : "",
       detailViewLink: utility.getProjectDirectLink(id),
       thumbnailView: false
@@ -36,18 +39,18 @@ var ProjectCard = {
 
     return this.template(dataForTemplate);
   },
-  shareBtnClickHandler: function(event) {
+  readMoreLinkClickHandler: function(event) {
     event.preventDefault();
-
     var $projectCard = $(this).parents(".project");
-    $projectCard.find(".direct-link").css("visibility","visible").focus().select();
-
+    var projectId = $projectCard.attr("id");
     ga('send', {
       hitType: 'event',
-      eventCategory: "Share Link Button",
+      eventCategory: "Read More Link",
       eventAction: 'click',
       eventLabel: $projectCard.data("title")
     });
+    utility.updateUrlWithoutReload("id",projectId);
+    ViewsManager.showSingleProjectView(projectId);
   },
   visitBtnClickHandler: function(event) {
     ga('send', {
@@ -79,9 +82,9 @@ var ProjectCard = {
       FavouritesManager.toggleProjectFavState(id,projectData.Title);
     });
 
-    $card.find(".share-btn").on("click", ProjectCard.shareBtnClickHandler);
+    $card.find(".read-more-link").on("click", ProjectCard.readMoreLinkClickHandler);
     $card.find(".visit-btn").on("click", ProjectCard.visitBtnClickHandler);
-    $card.find(".get-involved-btn").on("click", ProjectCard.getInvolvedBtnClickHandler);
+    $card.find(".get-involved-link").on("click", ProjectCard.getInvolvedBtnClickHandler);
 
     $("#project-container .projects").append($card);
   }
