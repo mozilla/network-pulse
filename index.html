@@ -117,8 +117,10 @@
           Network Connection: <span class="network-connection"><%- networkConnection %></span> <span class="origin"><%- origin %></span>
         </p>
         <% } %>
+        <% if (getInvolvedText) { %>
         <p class="get-involved">
           <%- getInvolvedText %> <a href="<%- getInvolvedLink %>" target="_blank" class="get-involved-link">Get Involved</a>
+        <% } %>
         </p>
         <div class="project-links">
           <div class="btn-group">

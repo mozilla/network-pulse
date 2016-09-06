@@ -41,11 +41,12 @@ var ViewsManager = {
   },
   returnToPrevious: function() {
     var viewsNames = this.VIEWS_NAMES;
+    console.log("returnToPrevious",this._currentViewMeta.viewName);
     switch(this._currentViewMeta.viewName) {
       case viewsNames.featured:
         this.showFeaturedView();
         break;
-      case viewsNames.lastest:
+      case viewsNames.latest:
         this.showLatestView();
         break;
       case viewsNames.favs:
