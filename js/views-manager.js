@@ -41,7 +41,6 @@ var ViewsManager = {
   },
   returnToPrevious: function() {
     var viewsNames = this.VIEWS_NAMES;
-    console.log("returnToPrevious",this._currentViewMeta.viewName);
     switch(this._currentViewMeta.viewName) {
       case viewsNames.featured:
         this.showFeaturedView();
