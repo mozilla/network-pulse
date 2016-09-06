@@ -107,7 +107,7 @@
       <% if (thumbnail) { %>
       <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
       <% } %>
-      <div class="project-summary">
+      <div class="content">
         <h2><%- title %></h2>
         <h3><%- creators %> on <%- timestamp %></h3>
         <p class="description"><%- description %></p>
@@ -122,19 +122,19 @@
           <%- getInvolvedText %> <a href="<%- getInvolvedLink %>" target="_blank" class="get-involved-link">Get Involved</a>
         <% } %>
         </p>
-        <div class="project-links">
-          <div class="btn-group">
-            <% if (link) { %>
-            <a href="<%- link %>" target="_blank" class="btn visit-btn">Visit</a>
-            <% } %>
-          </div>
-          <div class="action-panel">
-            <a href="<%- detailViewLink %>" class="read-more-link">Read more</a>
-            <a class="star"></a>
-          </div>
-        </div>
-        <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
       </div>
+      <div class="project-links">
+        <div class="btn-group">
+          <% if (link) { %>
+          <a href="<%- link %>" target="_blank" class="btn visit-btn">Visit</a>
+          <% } %>
+        </div>
+        <div class="action-panel">
+          <a href="<%- detailViewLink %>" class="read-more-link">Read more</a>
+          <a class="star"></a>
+        </div>
+      </div>
+      <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
     </div>
   </script>
 
