@@ -2,6 +2,7 @@ var Search = {
   activated: false,
   inputBox: document.getElementById('search-box'),
   dismissButton: document.querySelector('#search .dismiss'),
+  currentSearchTerm: "",
   inputBoxKeyUpHandler: function(event) {
     var query = event.target.value;
     if (event.keyCode === 27) { // escape
@@ -27,8 +28,8 @@ var Search = {
   dismissButtonClickHandler: function(event) {
     Search.deactivate();
   },
-  activate: function(query) {
-    if ( !this.activated ) {
+  activate: function(query,cameFromSingleView) {
+    if ( !this.activated || (query&&cameFromSingleView) ) {
       this.activated = true;
       this.inputBox.parentElement.classList.add('activated');
       $("nav").slideUp(function(){
@@ -45,6 +46,7 @@ var Search = {
   },
   deactivate: function() {
     this.activated = false;
+    this.currentSearchTerm = "";
     this.inputBox.value = '';
     this.inputBox.blur();
     this.inputBox.parentElement.classList.remove('activated');
@@ -80,6 +82,7 @@ var Search = {
     } else {
       $(".project").hide();
     }
+    this.currentSearchTerm = query;
   },
   updateUrlQuery: function(query) {
     utility.updateUrlWithoutReload("keyword",query);

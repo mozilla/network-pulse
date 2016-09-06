@@ -39,6 +39,7 @@
 
   <nav>
     <div class="container">
+      <a id="back-link">Back</a>
       <a class="nav-item" id="featured-view-link">featured</a>
       <a class="nav-item" id="latest-view-link">latest</a>
       <a class="nav-item" id="favs-view-link">favs</a>
@@ -111,22 +112,28 @@
         <h3><%- creators %> on <%- timestamp %></h3>
         <p class="description"><%- description %></p>
         <p class="interest"><%- interest %></p>
-        <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
+        <% if ( networkConnection || origin ) { %>
+        <p class="network-connection-and-origin">
+          Network Connection: <span class="network-connection"><%- networkConnection %></span> <span class="origin"><%- origin %></span>
+        </p>
+        <% } %>
+        <% if (getInvolvedText) { %>
+        <p class="get-involved">
+          <%- getInvolvedText %> <a href="<%- getInvolvedLink %>" target="_blank" class="get-involved-link">Get Involved</a>
+        <% } %>
+        </p>
         <div class="project-links">
           <div class="btn-group">
             <% if (link) { %>
             <a href="<%- link %>" target="_blank" class="btn visit-btn">Visit</a>
             <% } %>
-            <% if (getInvolvedLink) { %>
-            <a href="<%- getInvolvedLink %>" target="_blank" class="btn get-involved-btn">Get Involved</a>
-            <% } %>
           </div>
           <div class="action-panel">
-            <a class="share-btn"></a>
-            <input value="<%- detailViewLink %>" readonly="" class="direct-link" type="text">
+            <a href="<%- detailViewLink %>" class="read-more-link">Read more</a>
             <a class="star"></a>
           </div>
         </div>
+        <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
       </div>
     </div>
   </script>

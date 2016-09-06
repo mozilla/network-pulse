@@ -63,14 +63,35 @@ nav .container {
   cursor: pointer;
 }
 
+.single-project-view .nav-item {
+  display: none;
+}
+
 .nav-item:not(:last-of-type) {
   margin-right: 15px;
 }
 
+#back-link,
 .nav-item.active,
 .nav-item:active,
 .nav-item:hover {
   color: #fff;
+}
+
+#back-link {
+  display: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#back-link::before {
+  content: "<";
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.single-project-view #back-link {
+  display: inline-block;
 }
 
 .btn,
@@ -198,6 +219,20 @@ nav .container {
   /* optimize swipe with class and transform. */
 }
 
+.project .interest,
+.project .network-connection-and-origin,
+.project .get-involved,
+.project .btn-group,
+.single-project-view .project .read-more-link {
+  display: none;
+}
+
+.single-project-view .project .interest,
+.single-project-view .project .network-connection-and-origin,
+.single-project-view .project .get-involved {
+  display: block;
+}
+
 .project-summary {
   padding: 15px;
 }
@@ -218,12 +253,13 @@ nav .container {
   margin: 0;
 }
 
-.project .btn-group {
+.single-project-view .project .btn-group {
   display: flex;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.project .btn-group .btn:not(:last-child),
+.single-project-view .project .btn-group .btn:not(:last-child),
 .project .action-panel :not(:last-child) {
   margin-right: 10px;
 }
@@ -240,25 +276,23 @@ nav .container {
 
 .project .action-panel {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .project .action-panel img {
   margin-top: 5px;
 }
 
-.share-btn {
-  display: inline-block;
-  width: 23px;
-  height: 19px;
-  background: url(../svg/icon-link.svg) center center no-repeat;
-  background-size: auto 17px;
-  cursor: pointer;
+.single-project-view .project .action-panel {
+  flex-direction: row-reverse;
 }
 
-.share-btn:hover {
-  background: url(../svg/icon-link-selected.svg) center center no-repeat;
-  background-size: auto 17px;
+
+.read-more-link {
+  display: inline-block;
+  cursor: pointer;
 }
 
 .star {
@@ -275,20 +309,15 @@ nav .container {
   background-size: auto 16px;
 }
 
-.project-links input.direct-link {
-  visibility: hidden;
-  box-sizing: border-box;
-  color: #ADADAD;
-  width: 100%;
-  padding: 5px;
-  border: 0;
-}
-
 .hidden-meta {
   display: none;
 }
 
 /* search box */
+
+.single-project-view #search {
+  display: none;
+}
 
 #search { 
   background: #FFF;
@@ -422,6 +451,11 @@ footer {
     position: relative;
   }
 
+  .single-project-view #toggle-form-button {
+    bottom: none;
+    top: 50%;
+  }
+
   #toggle-form-button {
     position: absolute;
     bottom: 50%;
@@ -449,6 +483,10 @@ footer {
 
   .project {
     width: calc( (100% - 3*20px) / 3 );
+  }
+
+  .single-project-view .project {
+    width: calc( (100% - 2*20px) / 2 );
   }
 
   footer p {
