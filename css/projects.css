@@ -225,6 +225,7 @@ nav .container {
 .project .network-connection-and-origin,
 .project .get-involved,
 .project .btn-group,
+.project .share,
 .single-project-view .project .read-more-link {
   display: none;
 }
@@ -233,6 +234,10 @@ nav .container {
 .single-project-view .project .network-connection-and-origin,
 .single-project-view .project .get-involved {
   display: block;
+}
+
+.single-project-view .project .share {
+  display: flex;
 }
 
 .project h2 {
@@ -307,14 +312,39 @@ nav .container {
   margin-top: 5px;
 }
 
-.single-project-view .project .action-panel {
-  flex-direction: row-reverse;
-}
-
-
 .read-more-link {
   display: inline-block;
   cursor: pointer;
+}
+
+
+.share {
+  display: flex;
+  display: inline-block;
+  width: 100%;
+}
+
+.share .btn {
+  width: 23px;
+  height: 19px;
+  background: url(../svg/icon-link.svg) center center no-repeat;
+  background-size: auto 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.share .btn:hover {
+  background: url(../svg/icon-link-selected.svg) center center no-repeat;
+  background-size: auto 18px;
+}
+
+.share input {
+  visibility: hidden;
+  box-sizing: border-box;
+  color: #ADADAD;
+  width: 100%;
+  padding: 5px;
+  border: none;
 }
 
 .star {

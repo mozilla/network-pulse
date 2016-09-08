@@ -70,6 +70,11 @@ var ProjectCard = {
       transport: "beacon"
     });
   },
+  shareBtnClickHandler: function(event) {
+    event.preventDefault();
+    var $projectCard = $(this).parents(".project");
+    $projectCard.find(".share input").css("visibility","visible").focus().select();
+  },
   render: function(projectData) {
     var id = projectData.id;
     var isStarred = FavouritesManager.isProjectFavourited(id);
@@ -85,6 +90,7 @@ var ProjectCard = {
     $card.find(".read-more-link").on("click", ProjectCard.readMoreLinkClickHandler);
     $card.find(".visit-btn").on("click", ProjectCard.visitBtnClickHandler);
     $card.find(".get-involved-link").on("click", ProjectCard.getInvolvedBtnClickHandler);
+    $card.find(".share .btn").on("click", ProjectCard.shareBtnClickHandler);
 
     $("#project-container .projects").append($card);
   }
