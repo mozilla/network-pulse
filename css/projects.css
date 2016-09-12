@@ -18,12 +18,7 @@ padding/gutter: 20px
 /* layout */
 
 body { 
-  font-family: "Fira Sans", Sans-serif;
-  font-weight: 400;
-  font-size: 15px;
   background:#F1F1F1;
-  color:#48484A;
-  padding-top:0;
  }
 
  input {
