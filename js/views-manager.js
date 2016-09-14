@@ -176,6 +176,8 @@ var ViewsManager = {
     utility.updateUrlWithoutReload();
   },
   resetView: function(resetOptions) {
+    this.updateProjectData();
+
     var options = {
       clearAllProjectsFromDom: resetOptions ? resetOptions.clearAllProjectsFromDom : false,
       showAllProjects: resetOptions ? resetOptions.showAllProjects : false
@@ -197,6 +199,14 @@ var ViewsManager = {
     }
 
     window.scrollTo(0,0);
+  },
+  updateProjectData: function() {
+    var updatedProjects = PulseMaker.getProjectsUpdated();
+    if (updatedProjects) {
+      this._projects = updatedProjects;
+      PulseMaker.setProjectsUpdated(false);
+    }
+    // else, do nothing
   },
   init: function(allProjects) {
     this._projects = allProjects;
