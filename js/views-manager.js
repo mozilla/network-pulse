@@ -202,11 +202,11 @@ var ViewsManager = {
   },
   updateProjectData: function() {
     var updatedProjects = PulseMaker.getProjectsUpdated();
-    if (updatedProjects) {
-      this._projects = updatedProjects;
-      PulseMaker.setProjectsUpdated(false);
+    if (!updatedProjects) {
+      return;
     }
-    // else, do nothing
+    this._projects = updatedProjects;
+    PulseMaker.setProjectsUpdated(false);
   },
   init: function(allProjects) {
     this._projects = allProjects;
