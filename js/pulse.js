@@ -1,22 +1,5 @@
 // Your Google Drive Spreadsheet URL
 var GOOGLE_SHEET_ID = "1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4";
-var REFRESH_INTERVAL = 1*60*1000; // 60 secs
-
-var FEATURE = {
-  'orphans' : false,// @todo screwing things for notifications??!
-  'notify' : false // this turns on both auto app refresh and browser notification
-};
-
-/* better typography */
-
-var typography = {
-  preventTextOrphans : function () {
-    var textElements = document.querySelectorAll('h1,h3,li,p');
-    Array.prototype.forEach.call(textElements, function(el, i){
-      el.innerHTML = el.innerHTML.replace(/\s([^\s<]{0,10})\s*$/,'&nbsp;$1');
-    }); 
-  },
-};
 
 /* add new project form */
 
@@ -44,6 +27,10 @@ var newProjectForm = {
     newProjectForm.projectContainer.style.display = 'block';
     newProjectForm.toggleFormButton.style.transform = 'rotate(0deg)';
     newProjectForm.toggleFormButton.title = 'Add something new';
+
+    PulseMaker.getData(function() {
+      PulseMaker.setProjectsUpdated(true);
+    });
   },
   'toggleForm' : function () {  
     var displayState = newProjectForm.getDisplayState();
@@ -64,54 +51,42 @@ var newProjectForm = {
 var PulseMaker = {
   PROJECT_ID_PREFIX: "p",
   url: "https://spreadsheets.google.com/feeds/cells/"+GOOGLE_SHEET_ID+"/1/public/values?alt=json",
-  projects: [],
-  'init': function() {
+  _projects: [],
+  _projectsUpdated: false,
+  setProjectsUpdated: function(ifTrue) {
+    this._projectsUpdated = ifTrue;
+  },
+  getProjectsUpdated: function() {
+    return this._projectsUpdated ? this._projects : false;
+  },
+  init: function() {
     newProjectForm.init();
     FavouritesManager.init();
-    PulseMaker.getData(true);
-    Search.init();
     $("#sign-up-btn").on("click", this.signUpBtnClickHandler);
-    
-    if (FEATURE.notify) {
-      setInterval(PulseMaker.refresh,REFRESH_INTERVAL);
-    }
+
+    PulseMaker.getData(function() {
+      ViewsManager.init(PulseMaker._projects);
+      NavItemsManager.init();
+      Search.init();
+
+      setTimeout(function(){ 
+        PulseMaker.dismissSplash();
+      }, 250);
+    });
   },
-  'getData' : function (firstRun) {
+  getData: function(callback) {
     console.log('Getting data from Google Spreadsheet.');
-    $.getJSON( PulseMaker.url, function( data ) {
+    $.getJSON( PulseMaker.url, function(data) {
       // succeeded!
-      PulseMaker.projects = PulseMaker.parseGoogleSheetData(data);
-      console.log(PulseMaker.projects);
-      PulseMaker.renderApp(firstRun);
+      var projects = PulseMaker.parseGoogleSheetData(data);
+      PulseMaker._projects = PulseMaker.sortByTimestamp(projects);
     }).error(function() {
       console.log("Failed to fetch data from Google Spreadsheet.");
     }).complete( function() {
       // AJAX call is done (whether it was successful or failed)
       console.log("Ajax call to Google Spreadsheet has finished.");
+      callback();
     });   
-  },
-  'renderApp': function(firstRun) {
-    var sortedProjects = PulseMaker.sortByTimestamp(PulseMaker.projects);
-
-    // nav items manager
-    NavItemsManager.init();
-    // routes handler
-    ViewsManager.init(sortedProjects);
-
-    if (FEATURE.notify) { 
-      var updated = Notifier.checkForUpdates(sortedProjects);
-      console.log('updated: ',updated);
-    }
-    if (updated || firstRun) {
-      // TODO:FIXME: is this check needed?
-      // else block means data update was triggered by refresh
-      PulseMaker.clearProjectLists();
-    }
-    document.getElementById('loading').style.display = 'none';
-    PulseMaker.toggleAdditionalFeatures();
-    setTimeout(function(){ 
-      PulseMaker.dismissSplash();
-    }, 250);
   },
   'dismissSplash' : function() {
     var splashScreen = document.getElementById('splash-screen');
@@ -127,16 +102,6 @@ var PulseMaker = {
       return timestamp;
     }, 'desc');
     return sorted;
-  },
-  'refresh' : function () {
-    console.log('refresh');
-    PulseMaker.getData(false);
-  },
-  'clearProjectLists' : function () {
-    document.getElementById('loading').style.display = 'block';
-  },
-  'toggleAdditionalFeatures' : function () {
-    if (FEATURE.orphans) { typography.preventTextOrphans(); }
   },
   generatePulseProjectId: function(projectData) {
     var projectId = false;
