@@ -328,7 +328,7 @@ nav .container {
 
 .share {
   display: flex;
-  display: inline-block;
+  align-items: center;
   width: 100%;
 }
 
@@ -398,7 +398,7 @@ nav .container {
 #search .dismiss {
   position: absolute;
   top: 18px;
-  right: 0;
+  right: 18px;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -509,6 +509,10 @@ footer {
     position: absolute;
     bottom: 50%;
     right: 20px;
+  }
+
+  #search .dismiss {
+    right: 0;
   }
 
   .project {
