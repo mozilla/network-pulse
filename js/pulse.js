@@ -103,10 +103,54 @@ var PulseMaker = {
     }, 'desc');
     return sorted;
   },
+  timestampStringToId: function(timestampStr) {
+    // timestampStr returned from Google is in the format of "m/dd/yyyy hh:mm:ss"
+    // e.g., "9/26/2016 12:59:01"
+    var timestamp = {
+      month: "", // start froms 1
+      day: "",
+      year: "",
+      hour: "",
+      minute: "",
+      second: ""
+    };
+    var formatNumber = function(number) {
+      if (number < 10) {
+        return "0" + number;
+      }
+      return number;
+    }
+    var timestampArr = timestampStr.split(" ");
+    var date = timestampArr[0].split("/").map(function(meta,index) {
+      if ( index == 0 ) { // month
+        timestamp.month = formatNumber(meta);
+      } else if ( index == 1 ) { // day
+        timestamp.day = formatNumber(meta);
+      } else if ( index == 2 ) { // year
+        timestamp.year = meta;
+      }
+    });
+    var time = timestampArr[1].split(":").map(function(meta,index) {
+      if ( index == 0 ) { // hour
+        timestamp.hour = formatNumber(meta);
+      } else if ( index == 1 ) { // minute
+        timestamp.minute = formatNumber(meta);
+      } else if ( index == 2 ) { // second
+        timestamp.second = formatNumber(meta);
+      }
+    });
+
+    return  timestamp.month + 
+            timestamp.day + 
+            timestamp.year + 
+            timestamp.hour + 
+            timestamp.minute + 
+            timestamp.second;
+  },
   generatePulseProjectId: function(projectData) {
     var projectId = false;
     if ( projectData.Timestamp ) {
-      projectId = this.PROJECT_ID_PREFIX + Date.parse(projectData.Timestamp);
+      projectId = this.PROJECT_ID_PREFIX + PulseMaker.timestampStringToId(projectData.Timestamp);
     }
     return projectId;
   },
