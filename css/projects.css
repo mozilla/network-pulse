@@ -205,6 +205,7 @@ nav .container {
   line-height: .9em;
   font-weight: 100;
   transition: font-size .25s;
+  color: #fff;
 }
 
 #splash-screen.dismissed { opacity: 0; }
