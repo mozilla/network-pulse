@@ -1,0 +1,32 @@
+.navbar {
+  background: $bikeshed-magenta;
+  border-radius: 0;
+  margin-bottom: 20px;
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      text-transform: uppercase;
+      margin-bottom: 0;
+
+      &:not(:last-of-type) {
+        margin-right: 15px;
+      }
+
+      a {
+        color: transparentize($white, 0.5);
+        text-decoration: none;
+
+        &.active,
+        &:active,
+        &:hover,
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+  }
+}

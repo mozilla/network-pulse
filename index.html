@@ -1,152 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="icon" sizes="192x192" href="icon.png">
-  <link rel="apple-touch-icon" href="icon-ios.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
-  <link rel="stylesheet" href="css/mofo-bootstrap.css">
-  <link href="css/normalize.css" rel="stylesheet">
-  <link href="css/projects.css" rel="stylesheet">
-  <title>Mozilla Network Pulse</title>
-  <!-- Google Analytics -->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-49796218-43', 'auto');
-    ga('send', 'pageview');
-  </script>
-  <!-- End Google Analytics -->
-</head>
-<body>
-  <header id="splash-screen">
-    <div class="container">
-      <h1><span>mozilla</span> Network Pulse</h1>
-      <p>A stream of assets from peers across the Mozilla Network.</p>
-    </div>
-  </header>
-  
-  <section id="search">
-    <div class="container">
-      <input id="search-box" name="search-box" placeholder="Search keywords, people, tags..." >
-      <button class="dismiss"><div>&times;</div></button>
-    </div>
-  </section>
-
-  <nav>
-    <div class="container">
-      <a id="back-link">Back</a>
-      <a class="nav-item" id="featured-view-link">featured</a>
-      <a class="nav-item" id="latest-view-link">latest</a>
-      <a class="nav-item" id="favs-view-link">favs</a>
-      <a class="nav-item" id="issues-view-link">issues</a>
-      <a id="toggle-form-button" title="Add something new"></a>
-    </div>
-  </nav>
-
-  <section id="project-container">
-    <div class="container">
-      <div class="controls">
-        <a class="issue-btn" data-issue="online-privacy-and-security">Online Privacy & Security</a>
-        <a class="issue-btn" data-issue="open-innovation">Open Innovation</a>
-        <a class="issue-btn" data-issue="decentralization">Decentralization</a>
-        <a class="issue-btn" data-issue="web-literacy">Web Literacy</a>
-        <a class="issue-btn" data-issue="digital-inclusion">Digital Inclusion</a>
-      </div>
-      <div class="projects"></div>
-    </div>
-  </section>
-
-  <div id="message-view">
-    <div class="container">
-      <h2></h2>
-      <p></p>
-    </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <p>Get new projects by email. <a id="sign-up-btn" href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a>.</p>
-      <p><a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
-      <p>Submit an <a href="https://docs.google.com/a/mozillafoundation.org/forms/d/e/1FAIpQLScsZ6NLDIo87YH8Z3guR-9slPampPTavcKgbqOJvLsrnqIVMQ/viewform">Impact Story tip</a>.</p>
-    </div>
-  </footer>
-
-  <div id="add-project-form">
-    <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-  </div>
-
-  <!-- Project Card template -->
-  <script type="text/template" id="project-card-template">
-    <%
-      var classNames = [
-        "project",
-        thumbnailView ? "thumbnail-view" : "",
-        starred ? "starred" : "",
-        featured ? "featured" : "",
-      ].join(" ");
-    %>
-    <div id="<%- id %>" 
-          class="<%- classNames %>" 
-          data-title="<%- title %>"
-          data-issue-online-privacy-and-security="<%- belongsToOnlinePrivacyAndSecurityIssue %>"
-          data-issue-open-innovation="<%- belongsToOpenInnovationIssue %>"
-          data-issue-decentralization="<%- belongsToDecentralizationIssue %>"
-          data-issue-web-literacy="<%- belongsToWebLiteracyIssue %>"
-          data-issue-digital-inclusion="<%- belongsToDigitalInclusionIssue %>" >
-      <% if (thumbnail) { %>
-      <img src="<%- thumbnail %>" class="thumbnail" width="100%" />
-      <% } %>
-      <div class="content">
-        <h2><%- title %></h2>
-        <h3><%- creators %> on <%- timestamp %></h3>
-        <p class="description"><%- description %></p>
-        <p class="interest"><%- interest %></p>
-        <% if ( networkConnection || origin ) { %>
-        <p class="network-connection-and-origin">
-          Network Connection: <span class="network-connection"><%- networkConnection %></span> <span class="origin"><%- origin %></span>
-        </p>
-        <% } %>
-        <% if (getInvolvedText) { %>
-        <p class="get-involved">
-          <%- getInvolvedText %> <a href="<%- getInvolvedLink %>" target="_blank" class="get-involved-link">Get Involved</a>
-        <% } %>
-        </p>
-      </div>
-      <div class="project-links">
-        <div class="btn-group">
-          <% if (link) { %>
-          <a href="<%- link %>" target="_blank" class="btn visit-btn">Visit</a>
-          <% } %>
-        </div>
-        <div class="action-panel">
-          <a href="<%- detailViewLink %>" class="read-more-link">Read more</a>
-          <div class="share">
-            <a class="btn"></a>
-            <input value="<%- detailViewLink %>" readonly="" type="text">
-          </div>
-          <a class="star"></a>
-        </div>
-      </div>
-      <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
-    </div>
-  </script>
-
-  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
-  <script src="js/utility.js"></script>
-  <script src="js/notifier.js"></script>
-  <script src="js/favourites-manager.js"></script>
-  <script src="js/project-card.js"></script>
-  <script src="js/views-manager.js"></script>
-  <script src="js/nav-items-manager.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/pulse.js"></script>
-
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" sizes="192x192" href="/assets/favicons/icon.png">
+    <link rel="apple-touch-icon" href="/assets/favicons/icon-ios.png">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <!-- <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <title>Mozilla Network Pulse</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/bundle.js"></script>
+  </body>
 </html>

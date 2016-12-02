@@ -1,0 +1,17 @@
+// mofo-bootstrap bits
+
+@import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
+@import '../node_modules/bootstrap/scss/_variables.scss';
+@import '../node_modules/bootstrap/scss/mixins.scss';
+
+// Components
+
+@import '../components/search-bar/search-bar';
+@import '../components/navbar/navbar';
+@import '../components/project-list/project-list';
+@import '../components/project-card/project-card';
+@import '../components/footer/footer';
+
+body {
+  background: #f1f1f1;
+}

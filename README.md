@@ -2,6 +2,9 @@
 
 This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.
 
+* Staging - http://network-pulse.mofostaging.net
+* Production - https://mozilla.github.io/network-pulse
+
 ### More info
 
  - [Submission form](https://docs.google.com/a/mozillafoundation.org/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform)
@@ -15,7 +18,13 @@ You can contribute by testing the [prototype](http://mozilla.github.io/network-p
 
 [![network-pulse](https://cloud.githubusercontent.com/assets/2896608/17790072/ce78cc14-6549-11e6-9cb1-1ef37fcaf863.png)](http://mozilla.github.io/network-pulse/)
 
-### Deployment
+### Development
 
-* Staging - http://network-pulse.mofostaging.net
-* Production - https://mozilla.github.io/network-pulse
+```bash
+
+$> npm install
+$> npm start
+
+```
+
+By default the site runs on localhost port `3000`.
