@@ -11,7 +11,12 @@
 @import '../components/project-list/project-list';
 @import '../components/project-card/project-card';
 @import '../components/footer/footer';
+@import '../components/issue-selector/issue-selector';
 
 body {
   background: #f1f1f1;
+}
+
+.btn {
+  transition: background-color .15s, color .15s, border-color .15s;
 }

@@ -7,7 +7,7 @@ export default React.createClass({
     return (
       <div>
         <h1>Featured Page</h1>
-        <ProjectList filteredBy={`Featured`} />
+        <ProjectList featuredProjectsOnly={true} />
       </div>
     );
   }

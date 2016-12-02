@@ -32,7 +32,7 @@ export default {
 
       if ( id ) {
         projectData.id = id;
-        parsedData.push(projectData);
+        parsedData.push(this.formatRowEntry(projectData));
       }
     }
 
@@ -91,5 +91,63 @@ export default {
       projectId = this.PROJECT_ID_PREFIX + this.timestampStringToId(projectData.Timestamp);
     }
     return projectId;
+  },
+  formatRowEntry: function(entry) {
+    /* ***** entry properties we are converting into
+      id: int
+      timestamp: Date
+      featured: boolean
+      /// Favorites  /// not sure what this is for
+      title: string
+      /// Status  /// not sure what this is for
+      Creators: string
+      URL: string
+      description: string
+      interest: string
+      Get involved URL: string
+      Get involved: string
+      Suggestions & Feedback: string
+      Network connection: string
+      Origin: string
+      Tags: string
+      Issues: string
+      Program Type: string
+      Thumbnail URL: string
+      Backup Thumbnail URL: string
+    *** */
+    return {
+      id: entry.id,
+      creators: entry.Creators,
+      description: entry.Description || ``,
+      issues: entry.Issues ? entry.Issues.split(`,`) : [],
+      featured: entry.Featured,
+      getInvolved: entry[`Get involved`],
+      thumbnailUrl: entry[`Thumbnail URL`],
+      timestamp: new Date(entry.Timestamp),
+      title: entry.Title,
+      url: entry.url
+    };
   }
 };
+
+// id
+
+// Timestamp  
+// Featured  
+// Favorites 
+// Title 
+// Status  
+// Creators  
+// URL 
+// Description 
+// Interest  
+// Get involved URL  
+// Get involved  
+// Suggestions & Feedback  
+// Network connection  
+// Origin  
+// Tags  
+// Issues  
+// Program Type  
+// Thumbnail URL
+// Backup Thumbnail URL

@@ -1,8 +1,12 @@
 import React from 'react';
 import request from 'superagent';
+import slug from 'slug';
 import ProjectCard from '../project-card/project-card.jsx';
 
 import googleSheetParser from '../../js/google-sheet-parser';
+
+// see https://www.npmjs.com/package/slug#options for config options
+slug.defaults.mode =`rfc3986`;
 
 export default React.createClass({
   getInitialState() {
@@ -32,27 +36,21 @@ export default React.createClass({
 
     if (this.state.loadedFromGoogle) {
       projects = this.state.projects.sort((a,b) => {
-        return Date.parse(a.Timestamp) < Date.parse(b.Timestamp);
+        return a.timestamp < b.timestamp;
       }).filter((project)=>{
         if (this.props.featuredProjectsOnly) {
           return project.featured;
-        } else if (this.props.singleProjectId) {
-          return project.id === this.props.singleProjectId;
+        } else if (this.props.entryId) {
+          return project.id === this.props.entryId;
+        } else if (this.props.issue) {
+          return project.issues.some((issue)=>{
+            return slug(issue) === this.props.issue;
+          });
         }
         return true;
       }).map((project) => {
-        console.log(project);
-        return ( <ProjectCard key={project.id} id={project.id}
-                                               creators={project.Creators}
-                                               description={project.Description}
-                                               issues={project.Issues}
-                                               featured={project.Featured}
-                                               getInvolved={project[`Get involved`]}
-                                               thumbnailUrl={project[`Thumbnail URL`]}
-                                               timestamp={project.Timestamp}
-                                               title={project.Title}
-                                               url={project.url}
-                                                /> );
+        // console.log(project);
+        return ( <ProjectCard key={project.id} {...project} /> );
       });
     }
 

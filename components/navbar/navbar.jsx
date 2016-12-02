@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import SelectorLink from '../selector-link/selector-link.jsx';
 
 export default React.createClass({
   render() {
@@ -7,10 +7,10 @@ export default React.createClass({
       <div className="navbar">
         <div className="container">
           <ul>
-            <li><Link to="/featured" activeClassName="active">Featured</Link></li>
-            <li><Link to="/latest" activeClassName="active">Latest</Link></li>
-            <li><Link to="/favs" activeClassName="active">Favs</Link></li>
-            <li><Link to="/issues" activeClassName="active">Issues</Link></li>
+            <li><SelectorLink to="/featured">Featured</SelectorLink></li>
+            <li><SelectorLink to="/latest">Latest</SelectorLink></li>
+            <li><SelectorLink to="/favs">Favs</SelectorLink></li>
+            <li><SelectorLink to="/issues">Issues</SelectorLink></li>
           </ul>
         </div>
       </div>

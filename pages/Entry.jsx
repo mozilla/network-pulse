@@ -7,7 +7,7 @@ export default React.createClass({
     return (
       <div>
         <h1>Project Entry: {this.props.params.entryId}</h1>
-        <ProjectList singleProjectId={this.props.params.entryId} />
+        <ProjectList entryId={this.props.params.entryId} />
       </div>
     );
   }
