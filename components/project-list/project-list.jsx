@@ -10,13 +10,14 @@ slug.defaults.mode =`rfc3986`;
 
 export default React.createClass({
   getInitialState() {
-    this.projects = null;
-
     return {
       loadedFromGoogle: false,
+      projects: null
     };
   },
   componentDidMount() {
+    console.log(`componentDidMount`);
+
     let GOOGLE_SHEET_ID = `1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4`;
     let url = `https://spreadsheets.google.com/feeds/cells/${GOOGLE_SHEET_ID}/1/public/values?alt=json`;
 
@@ -31,26 +32,43 @@ export default React.createClass({
         });
       });
   },
-  render() {
-    let projects;
+  applyFilterToList(filter) {
+    if (!filter || !filter.hasOwnProperty(`key`)) {
+      return this.state.projects;
+    }
 
-    if (this.state.loadedFromGoogle) {
-      projects = this.state.projects.sort((a,b) => {
-        return a.timestamp < b.timestamp;
-      }).filter((project)=>{
-        if (this.props.featuredProjectsOnly) {
-          return project.featured;
-        } else if (this.props.entryId) {
-          return project.id === this.props.entryId;
-        } else if (this.props.issue) {
-          return project.issues.some((issue)=>{
-            return slug(issue) === this.props.issue;
-          });
+    let key = filter.key;
+    let value = filter.value;
+
+    return this.state.projects.sort((a,b) => {
+      return a.timestamp < b.timestamp;
+    }).filter((project)=>{
+      if ( key === `featured` ) {
+        return project.featured;
+      } else if ( key === `entry` ) {
+        return project.id === value;
+      } else if ( key === `issue` ) {
+        return project.issues.some((issue)=>{
+          return slug(issue) === value;
+        });
+      } else if ( key === `search` ) {
+        if (value) {
+          return JSON.stringify(project).toLowerCase().indexOf(value.toLowerCase().trim()) > -1;
+        } else {
+          return true;
         }
+      } else {
         return true;
-      }).map((project) => {
+      }
+    });
+  },
+  render() {
+    let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.props.filter) : null;
+
+    if (projects) {
+      projects = projects.map((project) => {
         // console.log(project);
-        return ( <ProjectCard key={project.id} {...project} /> );
+        return ( <ProjectCard key={project.id} {...project} showDetail={this.props.showDetail} /> );
       });
     }
 

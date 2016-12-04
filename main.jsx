@@ -11,39 +11,28 @@ import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
 import AddNew from './pages/add.jsx';
 
-import Navbar from './components/navbar/navbar.jsx';
-import SearchBar from './components/search-bar/search-bar.jsx';
-import Footer from './components/footer/footer.jsx';
-
 import googleSheetParser from './js/google-sheet-parser';
 
 const App = React.createClass({
-  componentDidMount() {
-    let GOOGLE_SHEET_ID = `1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4`;
-    let url = `https://spreadsheets.google.com/feeds/cells/${GOOGLE_SHEET_ID}/1/public/values?alt=json`;
+  // componentDidMount() {
+  //   let GOOGLE_SHEET_ID = `1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4`;
+  //   let url = `https://spreadsheets.google.com/feeds/cells/${GOOGLE_SHEET_ID}/1/public/values?alt=json`;
 
-    request
-      .get(url)
-      .set(`Accept`, `application/json`)
-      .end((err, res)=>{
-        console.log("///////////////////////// \n\n\n");
-        // console.log(googleSheetParser.parse(res.body));
-        this.setState({
-          loadedFromGoogle: true,
-          projects: googleSheetParser.parse(res.body)
-        });
-        window.projects = googleSheetParser.parse(res.body);
-      });
-  },
+  //   request
+  //     .get(url)
+  //     .set(`Accept`, `application/json`)
+  //     .end((err, res)=>{
+  //       this.setState({
+  //         loadedFromGoogle: true,
+  //         projects: googleSheetParser.parse(res.body)
+  //       });
+  //       window.projects = googleSheetParser.parse(res.body);
+  //     });
+  // },
   render() {
     return (
       <div>
-        <SearchBar/>
-        <Navbar/>
-        <div className="container">
-          {this.props.children}
-        </div>
-        <Footer/>
+        {this.props.children}
       </div>
     );
   }

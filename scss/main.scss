@@ -4,19 +4,34 @@
 @import '../node_modules/bootstrap/scss/_variables.scss';
 @import '../node_modules/bootstrap/scss/mixins.scss';
 
-// Components
-
-@import '../components/search-bar/search-bar';
-@import '../components/navbar/navbar';
-@import '../components/project-list/project-list';
-@import '../components/project-card/project-card';
-@import '../components/footer/footer';
-@import '../components/issue-selector/issue-selector';
 
 body {
   background: #f1f1f1;
 }
 
 .btn {
-  transition: background-color .15s, color .15s, border-color .15s;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid $mobile-blue;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 6px;
+  width: 100%;
+
+  &:hover,
+  &:active {
+    background: $mobile-blue;
+    color: #fff;
+  }
 }
+
+
+// Components
+
+@import '../components/page-wrapper/page-wrapper';
+@import '../components/navbar/navbar';
+@import '../components/project-list/project-list';
+@import '../components/project-card/project-card';
+@import '../components/footer/footer';
+@import '../components/issue-selector/issue-selector';

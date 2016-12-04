@@ -119,13 +119,15 @@ export default {
       id: entry.id,
       creators: entry.Creators,
       description: entry.Description || ``,
+      interest: entry.Interest,
       issues: entry.Issues ? entry.Issues.split(`,`) : [],
       featured: entry.Featured,
       getInvolved: entry[`Get involved`],
+      getInvolvedUrl: entry[`Get involved URL`],
       thumbnailUrl: entry[`Thumbnail URL`],
       timestamp: new Date(entry.Timestamp),
       title: entry.Title,
-      url: entry.url
+      url: entry.URL
     };
   }
 };
