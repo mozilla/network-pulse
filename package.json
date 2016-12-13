@@ -58,5 +58,9 @@
     "react-router": "^3.0.0",
     "slug": "^0.9.1",
     "superagent": "^3.1.0"
+  },
+  "engines": {
+    "node": "^6.0.0",
+    "npm": "^3.0.0"
   }
 }
