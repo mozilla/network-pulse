@@ -16,7 +16,7 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    console.log(`componentDidMount`);
+    console.log(`(componentDidMount) Send request to Google Sheet`);
 
     let GOOGLE_SHEET_ID = `1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4`;
     let url = `https://spreadsheets.google.com/feeds/cells/${GOOGLE_SHEET_ID}/1/public/values?alt=json`;
@@ -25,7 +25,7 @@ export default React.createClass({
       .get(url)
       .set(`Accept`, `application/json`)
       .end((err, res)=>{
-        console.log(googleSheetParser.parse(res.body));
+        // console.log(googleSheetParser.parse(res.body));
         this.setState({
           loadedFromGoogle: true,
           projects: googleSheetParser.parse(res.body)
@@ -39,6 +39,8 @@ export default React.createClass({
 
     let key = filter.key;
     let value = filter.value;
+
+    console.log(key,value);
 
     return this.state.projects.sort((a,b) => {
       return a.timestamp < b.timestamp;
@@ -67,8 +69,7 @@ export default React.createClass({
 
     if (projects) {
       projects = projects.map((project) => {
-        // console.log(project);
-        return ( <ProjectCard key={project.id} {...project} showDetail={this.props.showDetail} /> );
+        return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
       });
     }
 

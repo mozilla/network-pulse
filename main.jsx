@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import request from 'superagent';
+// import request from 'superagent';
 
 import Featured from './pages/featured.jsx';
 import Latest from './pages/latest.jsx';
@@ -9,9 +9,12 @@ import Favs from './pages/favs.jsx';
 import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
-import AddNew from './pages/add.jsx';
+import Add from './pages/add.jsx';
+import Search from './pages/search.jsx';
 
-import googleSheetParser from './js/google-sheet-parser';
+import Footer from './components/footer/footer.jsx';
+
+// import googleSheetParser from './js/google-sheet-parser';
 
 const App = React.createClass({
   // componentDidMount() {
@@ -33,22 +36,26 @@ const App = React.createClass({
     return (
       <div>
         {this.props.children}
+        <Footer/>
       </div>
     );
   }
 });
 
-render((
+ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Featured} />
       <Route path="/featured" component={Featured} />
       <Route path="/latest" component={Latest} />
       <Route path="/favs" component={Favs} />
-      <Route path="/issues" component={Issues} />
-      <Route path="/issues/:issue" component={Issue} />
+      <Route path="/issues">
+        <IndexRoute component={Issues} />
+        <Route path=":issue" component={Issue} />
+      </Route>
       <Route path="/entry/:entryId" component={Entry} />
-      <Route path="/add" component={AddNew} />
+      <Route path="/add" component={Add} />
+      <Route path="/search" component={Search} />
     </Route>
   </Router>
 ), document.getElementById(`app`));

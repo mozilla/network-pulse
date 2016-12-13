@@ -1,15 +1,19 @@
 import React from 'react';
 
-import PageWrapper from '../components/page-wrapper/page-wrapper.jsx';
+import InactiveSearchBar from '../components/inactive-search-bar.jsx';
+import Navbar from '../components/navbar/navbar.jsx';
 import ProjectList from '../components/project-list/project-list.jsx';
 
 export default React.createClass({
   render() {
     return (
-      <PageWrapper showSearch={true} showNav={true}>
-        <h1>Latest Page</h1>
-        <ProjectList />
-      </PageWrapper>
+      <div>
+        <InactiveSearchBar/>
+        <Navbar/>
+        <div className="container">
+          <ProjectList />
+        </div>
+      </div>
     );
   }
 });

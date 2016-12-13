@@ -1,18 +1,20 @@
 import React from 'react';
 
-import PageWrapper from '../components/page-wrapper/page-wrapper.jsx';
+import InactiveSearchBar from '../components/inactive-search-bar.jsx';
+import Navbar from '../components/navbar/navbar.jsx';
 import ProjectList from '../components/project-list/project-list.jsx';
 
 export default React.createClass({
   render() {
+    console.log(`this.props.router`,this.props.router);
     return (
-      <PageWrapper showSearch={true} showNav={true}>
-        <h1>Featured Page</h1>
-
-      </PageWrapper>
+      <div>
+        <InactiveSearchBar/>
+        <Navbar/>
+        <div className="container">
+          <ProjectList filter={{key: `featured`}} />
+        </div>
+      </div>
     );
   }
 });
-
-
-// <ProjectList featuredProjectsOnly={true} />

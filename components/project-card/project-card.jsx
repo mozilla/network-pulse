@@ -1,7 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames';
+
+const Details = (props) => {
+  return props.onDetailView ?
+          (<div>
+            {props.interest ? <p className="interest">{props.interest}</p> : null}
+            {props.getInvolved ? <p className="get-involved">{props.getInvolved} <a href={props.getInvolvedUrl} target="_blank">Get Involved</a></p> : null}
+            {props.url ? <a href={props.url} target="_blank" className="btn visit-btn">Visit</a> : null}
+          </div>) : null;
+};
 
 export default React.createClass({
+  getDefaultProps() {
+    return {
+      onDetailView: false
+    };
+  },
   propTypes: {
     id: React.PropTypes.string.isRequired,
     creators: React.PropTypes.string,
@@ -15,33 +30,37 @@ export default React.createClass({
     timestamp: React.PropTypes.object,
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string,
-    showDetail: React.PropTypes.bool
+    onDetailView: React.PropTypes.bool
+  },
+  componentDidMount() {
+    if (this.urlToShare) {
+      // TODO:FIXME: not sure if this is the best way to display URL of the current page
+      this.urlToShare.value = window.location.href;
+    }
   },
   render() {
-    // TODO:FIXME: sanitize data
-
-    let detail = this.props.showDetail ?
-                  (<div>
-                    {this.props.interest ? <p className="interest">{this.props.interest}</p> : null}
-                    {this.props.getInvolved ? <p className="get-involved">{this.props.getInvolved} <a href={this.props.getInvolvedUrl} target="_blank">Get Involved</a></p> : null}
-                    {this.props.url ? <a href={this.props.url} target="_blank" className="btn visit-btn">Visit</a> : null}
-                  </div>) : null;
+    let classnames = classNames({"project-card": true, "single": this.props.onDetailView});
+    let actions = this.props.onDetailView ?
+                  (<div className="share">
+                    <a className="btn"></a>
+                    <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
+                  </div>)
+                  : (<div>
+                      <Link to={`/entry/${this.props.id}`} className="read-more-link">Read more</Link>
+                    </div>);
 
     return (
-      <div className="project-card">
-        <img src={this.props.thumbnailUrl} className="thumbnail" />
+      <div className={classnames}>
+        <img src={this.props.thumbnailUrl} className="img-fluid mx-auto d-block" />
         <div className="content">
           <h2>{this.props.title}</h2>
           <h3>{this.props.creators} on {this.props.timestamp.toString()}</h3>
           <p className="description">{this.props.description}</p>
-          {detail}
+          <Details {...this.props} />
         </div>
         <div className="project-links">
           <div className="action-panel">
-            <Link to={`/entry/${this.props.id}`} className="read-more-link">Read more</Link>
-            <div className="share">
-              <a className="btn"></a>
-            </div>
+            {actions}
             <a className="star"></a>
           </div>
         </div>

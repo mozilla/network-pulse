@@ -1,12 +1,19 @@
 import React from 'react';
-import PageWrapper from '../components/page-wrapper/page-wrapper.jsx';
+
+import InactiveSearchBar from '../components/inactive-search-bar.jsx';
+import Navbar from '../components/navbar/navbar.jsx';
 
 export default React.createClass({
   render() {
     return (
-      <PageWrapper showSearch={true} showNav={true}>
-        <h1>Fav Page</h1>
-      </PageWrapper>
+      <div>
+        <InactiveSearchBar/>
+        <Navbar/>
+        <div className="container">
+          <h2>Save your Favs</h2>
+          <p>Tap the heart on any project to save it here.</p>
+        </div>
+      </div>
     );
   }
 });

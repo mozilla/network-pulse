@@ -12,8 +12,11 @@
   /* optimize swipe with class and transform. */
   transition: left 0.25s, height 0.25s, padding 0.25s, margin 0.25s;
 
+  &.single {
+    width: calc((100% - 2 * 20px) / 2);
+  }
+
   h2 {
-    color: $bikeshed-magenta;
     font-size: 30px;
     line-height: 1;
     font-weight: 500;
@@ -26,10 +29,6 @@
     font-weight: 400;
     line-height: 18px;
     margin: 0.5rem 0;
-  }
-
-  .thumbnail {
-    max-width: 100%;
   }
 
   .content,
@@ -57,6 +56,36 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .share {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 10px;
+
+    .btn {
+      width: 23px;
+      height: 19px;
+      background: url(../assets/svg/icon-link.svg) center center no-repeat;
+      background-size: auto 18px;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background: url(../assets/svg/icon-link-selected.svg) center center no-repeat;
+        background-size: auto 18px;
+      }
+    }
+
+    input {
+      // visibility: hidden;
+      box-sizing: border-box;
+      color: #adadad;
+      width: 100%;
+      padding: 5px;
+      border: none;
+    }
   }
 
   .star {
