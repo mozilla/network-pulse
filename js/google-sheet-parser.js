@@ -36,7 +36,7 @@ export default {
       }
     }
 
-    return parsedData;
+    return this.sortByTimestamp(parsedData);
   },
   timestampStringToId: function(timestampStr) {
     // timestampStr returned from Google is in the format of "m/dd/yyyy hh:mm:ss"
@@ -129,6 +129,12 @@ export default {
       title: entry.Title,
       url: entry.URL
     };
+  },
+  sortByTimestamp: function(projects) {
+    // most recently -> least recently
+    return projects.sort((a,b) => {
+      return a.timestamp < b.timestamp;
+    });
   }
 };
 

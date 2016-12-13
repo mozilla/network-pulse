@@ -42,9 +42,7 @@ export default React.createClass({
 
     console.log(key,value);
 
-    return this.state.projects.sort((a,b) => {
-      return a.timestamp < b.timestamp;
-    }).filter((project)=>{
+    return this.state.projects.filter((project)=>{
       if ( key === `featured` ) {
         return project.featured;
       } else if ( key === `entry` ) {

@@ -9,7 +9,7 @@ import Favs from './pages/favs.jsx';
 import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
-import Add from './pages/add.jsx';
+import Add from './pages/add/add.jsx';
 import Search from './pages/search.jsx';
 
 import Footer from './components/footer/footer.jsx';

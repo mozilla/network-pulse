@@ -32,7 +32,8 @@ export default React.createClass({
     });
     this.searchInput.value = ``;
     this.searchInput.blur();
-    // browserHistory.push(this.state.returnTo);
+    // TODO:FIXME: this should go back to the route that the user was before coming to /search
+    // not like clicking on browser's back button
     browserHistory.goBack();
   },
   updateSearchQuery(event) {

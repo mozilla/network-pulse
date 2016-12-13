@@ -44,25 +44,4 @@
       margin-right: 5px;
     }
   }
-
-  .btn-add {
-    position: absolute;
-    top: -40px;
-    right: 15px;
-    font-weight: 300;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    transition: transform 0.5s, color 0.25s, background 0.25s;
-    text-align: center;
-    z-index: 1000;
-    background: #48484a center center no-repeat;
-    cursor: pointer;
-
-    &:hover,
-    &:active,
-    &:focus {
-      background: $mobile-blue;
-    }
-  }
 }
