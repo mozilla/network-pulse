@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-// import request from 'superagent';
 
 import Featured from './pages/featured.jsx';
 import Latest from './pages/latest.jsx';
@@ -14,24 +13,7 @@ import Search from './pages/search.jsx';
 
 import Footer from './components/footer/footer.jsx';
 
-// import googleSheetParser from './js/google-sheet-parser';
-
 const App = React.createClass({
-  // componentDidMount() {
-  //   let GOOGLE_SHEET_ID = `1vmYQjQ9f6CR8Hs5JH3GGJ6F9fqWfLSW0S4dz-t2KTF4`;
-  //   let url = `https://spreadsheets.google.com/feeds/cells/${GOOGLE_SHEET_ID}/1/public/values?alt=json`;
-
-  //   request
-  //     .get(url)
-  //     .set(`Accept`, `application/json`)
-  //     .end((err, res)=>{
-  //       this.setState({
-  //         loadedFromGoogle: true,
-  //         projects: googleSheetParser.parse(res.body)
-  //       });
-  //       window.projects = googleSheetParser.parse(res.body);
-  //     });
-  // },
   render() {
     return (
       <div>
