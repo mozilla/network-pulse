@@ -42,11 +42,17 @@ export default React.createClass({
 
     console.log(key,value);
 
-    return this.state.projects.filter((project)=>{
+    let filteredProjects = this.state.projects.filter((project)=>{
       if ( key === `featured` ) {
         return project.featured;
       } else if ( key === `entry` ) {
         return project.id === value;
+      } else if ( key === `favs` ) {
+        try {
+          return value.indexOf(project.id) > -1;
+        } catch (err) {
+          return false;
+        }
       } else if ( key === `issue` ) {
         return project.issues.some((issue)=>{
           return slug(issue) === value;
@@ -61,6 +67,15 @@ export default React.createClass({
         return true;
       }
     });
+
+    if ( key === `favs` && value ) {
+      // we want to show the list from the most recently faved entry first
+      return filteredProjects.sort((a,b) => {
+        return value.indexOf(a.id) > value.indexOf(b.id);
+      });
+    }
+
+    return filteredProjects;
   },
   render() {
     let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.props.filter) : null;

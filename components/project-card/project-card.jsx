@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
+import { getFavs, saveFavs } from '../../js/favs-manager';
 
 const Details = (props) => {
   return props.onDetailView ?
@@ -12,6 +13,11 @@ const Details = (props) => {
 };
 
 export default React.createClass({
+  getInitialState() {
+    return {
+      faved: false
+    };
+  },
   getDefaultProps() {
     return {
       onDetailView: false
@@ -37,9 +43,49 @@ export default React.createClass({
       // TODO:FIXME: not sure if this is the best way to display URL of the current page
       this.urlToShare.value = window.location.href;
     }
+
+    this.setInitialFavedStatus();
+
+  },
+  setInitialFavedStatus() {
+    let favs = getFavs();
+    let faved;
+    let index;
+
+    if (favs) {
+      index = favs.indexOf(this.props.id);
+      if (index > -1) {
+        faved = true;
+      } else {
+        faved = false;
+      }
+      this.setState({faved: faved});
+    }
+  },
+  favProject(favs) {
+    favs.unshift(this.props.id);
+    this.setState({faved: true});
+  },
+  unfavProject(favs,index) {
+    favs.splice(index,1);
+    this.setState({faved: false});
+  },
+  toggleFavState() {
+    let favs = getFavs();
+    let index;
+
+    if (favs) {
+      index = favs.indexOf(this.props.id);
+      if (index > -1) {
+        this.unfavProject(favs,index);
+      } else {
+        this.favProject(favs);
+      }
+      saveFavs(favs);
+    }
   },
   render() {
-    let classnames = classNames({"project-card": true, "single": this.props.onDetailView});
+    let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "faved": this.state.faved});
     let actions = this.props.onDetailView ?
                   (<div className="share">
                     <a className="btn"></a>
@@ -61,7 +107,7 @@ export default React.createClass({
         <div className="project-links">
           <div className="action-panel">
             {actions}
-            <a className="star"></a>
+            <a className="heart" onClick={this.toggleFavState}></a>
           </div>
         </div>
       </div>

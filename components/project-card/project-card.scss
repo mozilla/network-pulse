@@ -88,7 +88,7 @@
     }
   }
 
-  .star {
+  .heart {
     display: inline-block;
     width: 23px;
     height: 19px;
@@ -97,7 +97,7 @@
     cursor: pointer;
   }
 
-  &.starred .star {
+  &.faved .heart {
     background: url(../assets/svg/icon-fav-selected.svg) center center no-repeat;
     background-size: auto 16px;
   }
