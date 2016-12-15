@@ -97,12 +97,15 @@ export default React.createClass({
 
     return (
       <div className={classnames}>
-        <img src={this.props.thumbnailUrl} className="img-fluid mx-auto d-block" />
-        <div className="content">
-          <h2>{this.props.title}</h2>
-          <h3>{this.props.creators} on {this.props.timestamp.toString()}</h3>
-          <p className="description">{this.props.description}</p>
-          <Details {...this.props} />
+        <div className="main-content">
+          <img src={this.props.thumbnailUrl} className="img-fluid mx-auto d-block" />
+          <div className="content">
+            <h2>{this.props.title}</h2>
+            <h3>{this.props.creators} on {this.props.timestamp.toString()}</h3>
+            <p className="description">{this.props.description}</p>
+            <Details {...this.props} />
+          </div>
+          <div className="fade-overlay"></div>
         </div>
         <div className="project-links">
           <div className="action-panel">
