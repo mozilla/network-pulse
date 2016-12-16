@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
+import moment from 'moment';
 import { getFavs, saveFavs } from '../../js/favs-manager';
 
 const Details = (props) => {
@@ -86,6 +87,13 @@ export default React.createClass({
   },
   render() {
     let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "faved": this.state.faved});
+    let thumbnail = this.props.thumbnailUrl ?
+                    <div className="thumbnail">
+                      <div className="img-container">
+                        <img src={this.props.thumbnailUrl} />
+                      </div>
+                    </div>
+                    : null;
     let actions = this.props.onDetailView ?
                   (<div className="share">
                     <a className="btn"></a>
@@ -98,10 +106,10 @@ export default React.createClass({
     return (
       <div className={classnames}>
         <div className="main-content">
-          <img src={this.props.thumbnailUrl} className="img-fluid mx-auto d-block" />
+          {thumbnail}
           <div className="content">
             <h2>{this.props.title}</h2>
-            <h3>{this.props.creators} on {this.props.timestamp.toString()}</h3>
+            <h3>{this.props.creators} on {moment(this.props.timestamp).format(`MMM DD, YYYY`)}</h3>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} />
           </div>

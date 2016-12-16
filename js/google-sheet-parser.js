@@ -133,7 +133,7 @@ export default {
   sortByTimestamp: function(projects) {
     // most recently -> least recently
     return projects.sort((a,b) => {
-      return a.timestamp < b.timestamp;
+      return b.timestamp - a.timestamp;
     });
   }
 };

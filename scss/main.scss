@@ -4,6 +4,10 @@
 @import '../node_modules/bootstrap/scss/_variables.scss';
 @import '../node_modules/bootstrap/scss/mixins.scss';
 
+// mixins
+
+@import 'mixin.scss';
+
 // Breakpoints (imported from Bootstrap)
 
 $bp-xs: #{map-get($grid-breakpoints, xs)}; // < 544px
@@ -19,6 +23,11 @@ body {
 h2 {
   font-size: 20px;
   color: $bikeshed-magenta;
+}
+
+p {
+  font-size: 0.9375rem;
+  line-height: 1.333;
 }
 
 .btn {
