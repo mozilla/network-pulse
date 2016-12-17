@@ -5,8 +5,8 @@
   background: $white;
   overflow: hidden;
   padding-bottom: calc(30px + 1rem * 1.5);
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: $project-card-side-margin;
+  margin-right: $project-card-side-margin;
   margin-bottom: 20px;
 
   /* optimize swipe with class and transform. */
@@ -137,13 +137,13 @@
 // >= 768px
 @media screen and (min-width: $bp-md) {
   .project-card {
-    width: calc((100% - 2 * 20px) / 2);
+    @include project-card-width(3);
   }
 }
 
 // >= 992px
 @media screen and (min-width: $bp-lg) {
   .project-card {
-    width: calc((100% - 3 * 20px) / 3);
+    @include project-card-width(3);
   }
 }

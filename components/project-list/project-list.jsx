@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 import request from 'superagent';
 import slug from 'slug';
+import moment from 'moment';
 import ProjectCard from '../project-card/project-card.jsx';
 
 import googleSheetParser from '../../js/google-sheet-parser';
@@ -13,6 +15,11 @@ export default React.createClass({
     return {
       loadedFromGoogle: false,
       projects: null
+    };
+  },
+  getDefaultProps() {
+    return {
+      onSearch: false
     };
   },
   componentDidMount() {
@@ -61,7 +68,7 @@ export default React.createClass({
         if (value) {
           return JSON.stringify(project).toLowerCase().indexOf(value.toLowerCase().trim()) > -1;
         } else {
-          return true;
+          return false;
         }
       } else {
         return true;
@@ -79,11 +86,27 @@ export default React.createClass({
   },
   render() {
     let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.props.filter) : null;
+    let numProjects;
 
     if (projects) {
-      projects = projects.map((project) => {
-        return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
-      });
+      if (this.props.onSearch) {
+        numProjects = projects.length;
+        projects = projects.map((project) => {
+          return (<li key={project.id}>
+                    <h2><Link to={`/entry/${project.id}`}>{project.title}</Link></h2>
+                    <p>{project.creators} on {moment(project.timestamp).format(`MMM DD, YYYY`)}</p>
+                  </li>);
+        });
+        projects = (<div>
+                      { numProjects > 0 ? <p>{numProjects} {numProjects > 1 ? `results` : `result`} found for ‘{this.props.filter.value}’</p>
+                                        : null }
+                      <ul>{projects}</ul>
+                    </div>);
+      } else {
+        projects = projects.map((project) => {
+          return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
+        });
+      }
     }
 
     return (

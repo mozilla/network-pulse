@@ -1,3 +1,7 @@
+@mixin project-card-width($num-col: 1, $side-margin-width: $project-card-side-margin) {
+  width: calc((100% - (#{$num-col} * #{$side-margin-width} * 2)) / #{$num-col});
+}
+
 // modified from https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/
 @mixin aspect-ratio($width, $height) {
   position: relative;

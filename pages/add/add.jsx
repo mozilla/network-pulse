@@ -8,7 +8,7 @@ export default React.createClass({
   },
   render() {
     return (
-      <div className="page-add">
+      <div className="add-page">
         <div className="container">
           <a className="btn-add" onClick={this.quitAdd}><img src="../assets/svg/icon-plus.svg" /></a>
         </div>

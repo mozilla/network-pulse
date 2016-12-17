@@ -1,0 +1,77 @@
+.search-page {
+  .project-list {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    h2 {
+      font-size: 1.125rem;
+      line-height: 1.5;
+      font-weight: 500;
+      margin-bottom: 0;
+
+      a {
+        color: $bikeshed-magenta;
+        text-decoration: none;
+
+        &:hover {
+          color: darken($bikeshed-magenta,15%);
+        }
+      }
+    }
+
+    h2 + p {
+      color: #7A7A7A;
+      font-size: 0.75rem
+    }
+  }
+}
+
+.search-bar {
+  .container {
+    position: relative;
+  }
+
+  &.activated {
+    margin-bottom: 20px;
+
+    .dismiss {
+      opacity: 1;
+    }
+  }
+
+  .dismiss {
+    position: absolute;
+    top: 0.7rem;
+    right: 1.8rem;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    padding: 0;
+    background: #eee;
+    border: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: #333;
+      color: $white;
+    }
+  }
+
+  input {
+    width: 100%;
+    padding: .5rem 1rem;
+    background: $white;
+    border: 0;
+    box-sizing: border-box;
+  }
+}

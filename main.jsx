@@ -9,14 +9,16 @@ import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';
-import Search from './pages/search.jsx';
+import Search from './pages/search/search.jsx';
 
+import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const App = React.createClass({
   render() {
     return (
       <div>
+        <Navbar/>
         {this.props.children}
         <Footer/>
       </div>
