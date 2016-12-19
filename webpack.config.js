@@ -1,4 +1,5 @@
 module.exports = {
+  context: `${__dirname}`,
   entry: `./main.jsx`,
   output: {
     path: `${__dirname}/dist`,
