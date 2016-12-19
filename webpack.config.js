@@ -3,7 +3,8 @@ module.exports = {
   entry: `./main.jsx`,
   output: {
     path: `${__dirname}/dist`,
-    filename: `bundle.js`
+    filename: `bundle.js`,
+    publicPath: `/`
   },
   module: {
     loaders: [
