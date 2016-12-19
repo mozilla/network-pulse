@@ -17,7 +17,7 @@ export default React.createClass({
               <li><SelectorLink to="/favs">Favs</SelectorLink></li>
               <li><SelectorLink to="/issues">Issues</SelectorLink></li>
               <li><SelectorLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></SelectorLink></li>
-              <li><SelectorLink to="/add" className="btn-add"><img src="../assets/svg/icon-plus.svg" /></SelectorLink></li>
+              <li><SelectorLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></SelectorLink></li>
             </ul>
           </div>
         </div>
