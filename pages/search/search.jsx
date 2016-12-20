@@ -26,23 +26,30 @@ export default React.createClass({
     this.searchInput.value = ``;
     this.searchInput.blur();
   },
-  updateSearchQuery(event) {
-    if (!event.keyCode || event.keyCode === 27) { // escape
+  handleInputBlur() {
+    this.updateSearchQuery();
+  },
+  handleInputKeyUp(event) {
+    if (event.keyCode === 27) { // escape key
       this.clearSearch();
     }
-
+    this.updateSearchQuery();
+  },
+  handleDismissBtnClick() {
+    this.clearSearch();
+    this.updateSearchQuery();
+  },
+  updateSearchQuery() {
+    let query = this.searchInput.value;
     let location = {
       pathname: this.props.router.location.pathname
     };
-    let query = this.searchInput.value;
 
-    if ( event.keyCode === 13 ) { // enter
+    if ( query ) {
       location[`query`] = { keyword: query };
     }
 
-    if (!event.keyCode || event.keyCode === 27 || event.keyCode === 13) {
-      browserHistory.push(location);
-    }
+    browserHistory.push(location);
 
     this.setState({
       searchQuery: query
@@ -55,9 +62,10 @@ export default React.createClass({
           <div className="container">
             <input id="search-box"
                     placeholder="Search keywords, people, tags..."
-                    onKeyUp={this.updateSearchQuery}
+                    onKeyUp={this.handleInputKeyUp}
+                    onBlur={this.handleInputBlur}
                     ref={(searchInput) => { this.searchInput = searchInput; }} />
-            <a className="btn dismiss" onClick={this.updateSearchQuery}>&times;</a>
+            <a className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</a>
           </div>
         </div>
         <div className="container">
