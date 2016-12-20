@@ -9,7 +9,7 @@ const Details = (props) => {
           (<div>
             {props.interest ? <p className="interest">{props.interest}</p> : null}
             {props.getInvolved ? <p className="get-involved">{props.getInvolved} <a href={props.getInvolvedUrl} target="_blank">Get Involved</a></p> : null}
-            {props.url ? <a href={props.url} target="_blank" className="btn visit-btn">Visit</a> : null}
+            {props.url ? <a href={props.url} target="_blank" className="btn btn-block btn-view">Visit</a> : null}
           </div>) : null;
 };
 

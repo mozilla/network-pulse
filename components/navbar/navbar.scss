@@ -1,6 +1,5 @@
 .navbar {
   background: $bikeshed-magenta;
-  border-radius: 0;
   margin-bottom: 30px;
   padding: 1rem 0;
 
@@ -14,12 +13,12 @@
     h1,
     h2 {
       color: $white;
-      font-weight: 500;
       margin-bottom: 0;
     }
 
     h1 {
       font-size: 1.4375rem;
+      font-weight: 500;
     }
 
     h2 {
@@ -59,6 +58,32 @@
     right: 0;
   }
 
+  .btn-add {
+    position: fixed;
+    bottom: $grid-gutter-width-base;
+    right: $grid-gutter-width-base / 2;
+    font-weight: 300;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    transition: transform 0.5s, color 0.25s, background 0.25s;
+    text-align: center;
+    z-index: 1000;
+    background: #48484a center center no-repeat;
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $mobile-blue;
+    }
+
+    &.active {
+      transform: rotate(45deg);
+    }
+  }
+
   // >= 768px
   @media screen and (min-width: $bp-md) {
     .inner {
@@ -84,6 +109,12 @@
       position: static;
       top: 0;
       right: 0;
+    }
+
+    .btn-add {
+      position: absolute;
+      bottom: -30px;
+      right: 15px;
     }
   }
 }

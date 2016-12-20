@@ -2,7 +2,7 @@
 
 @import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
 @import '../node_modules/bootstrap/scss/_variables.scss';
-@import '../node_modules/bootstrap/scss/mixins.scss';
+@import '../node_modules/bootstrap/scss/mixins';
 
 // mixins
 
@@ -14,7 +14,8 @@ body {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: $bikeshed-magenta;
 }
 
@@ -26,14 +27,11 @@ p {
 .btn {
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
   display: inline-block;
-  text-align: center;
-  text-transform: uppercase;
   color: $mobile-blue;
   border: 1px solid $mobile-blue;
   padding-top: 7px;
   padding-bottom: 7px;
-  border-radius: 6px;
-  width: 100%;
+  border-radius: 3px;
 
   &:hover,
   &:active {
@@ -42,30 +40,8 @@ p {
   }
 }
 
-.btn-add {
-  position: absolute;
-  bottom: -30px;
-  right: 15px;
-  font-weight: 300;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  transition: transform 0.5s, color 0.25s, background 0.25s;
+.text-center {
   text-align: center;
-  z-index: 1000;
-  background: #48484a center center no-repeat;
-  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus {
-    background: $mobile-blue;
-  }
-
-  &.active {
-    transform: rotate(45deg);
-  }
 }
 
 // Components
