@@ -18,7 +18,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <Navbar/>
+        <Navbar router={this.props.router}/>
         {this.props.children}
         <Footer/>
       </div>
