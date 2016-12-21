@@ -11,10 +11,12 @@ import googleSheetParser from '../../js/google-sheet-parser';
 slug.defaults.mode =`rfc3986`;
 
 export default React.createClass({
+  numProjectsInBatch: 24, // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes
   getInitialState() {
     return {
       loadedFromGoogle: false,
-      projects: null
+      allProjectsInGoogleSheet: null,
+      displayBatchIndex: 1
     };
   },
   getDefaultProps() {
@@ -35,13 +37,13 @@ export default React.createClass({
         // console.log(googleSheetParser.parse(res.body));
         this.setState({
           loadedFromGoogle: true,
-          projects: googleSheetParser.parse(res.body)
+          allProjectsInGoogleSheet: googleSheetParser.parse(res.body)
         });
       });
   },
   applyFilterToList(filter) {
     if (!filter || !filter.hasOwnProperty(`key`)) {
-      return this.state.projects;
+      return this.state.allProjectsInGoogleSheet;
     }
 
     let key = filter.key;
@@ -49,7 +51,7 @@ export default React.createClass({
 
     console.log(key,value);
 
-    let filteredProjects = this.state.projects.filter((project)=>{
+    let filteredProjects = this.state.allProjectsInGoogleSheet.filter((project)=>{
       if ( key === `featured` ) {
         return project.featured;
       } else if ( key === `entry` ) {
@@ -84,12 +86,18 @@ export default React.createClass({
 
     return filteredProjects;
   },
+  handleViewMoreClick() {
+    this.setState({displayBatchIndex: this.state.displayBatchIndex+1});
+  },
   render() {
     let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.props.filter) : null;
     let numProjects;
+    let showViewMoreBtn;
 
     if (projects) {
       if (this.props.onSearch) {
+        // on search page,
+        // instead of project card we only wanna show project title, creator, and date of form submission
         numProjects = projects.length;
         projects = projects.map((project) => {
           return (<li key={project.id}>
@@ -103,7 +111,11 @@ export default React.createClass({
                       <ul>{projects}</ul>
                     </div>);
       } else {
-        projects = projects.map((project) => {
+        // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
+        // first, check to see if there are more projects to show after this batch
+        showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
+        // prepare ProjectCards we are going to render in this batch
+        projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
           return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
         });
       }
@@ -112,6 +124,7 @@ export default React.createClass({
     return (
       <div className="project-list">
         {projects}
+        {showViewMoreBtn ? <div><a className="btn" onClick={this.handleViewMoreClick}>View more</a></div> : null}
       </div>
     );
   }

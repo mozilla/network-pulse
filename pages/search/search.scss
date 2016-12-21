@@ -19,14 +19,14 @@
         text-decoration: none;
 
         &:hover {
-          color: darken($bikeshed-magenta,15%);
+          color: darken($bikeshed-magenta, 15%);
         }
       }
     }
 
     h2 + p {
       color: #7A7A7A;
-      font-size: 0.75rem
+      font-size: 0.75rem;
     }
   }
 }
@@ -68,7 +68,7 @@
 
   input {
     width: 100%;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     background: $white;
     border: 0;
     box-sizing: border-box;
