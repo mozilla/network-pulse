@@ -127,6 +127,13 @@ nav .container {
   color: #fff;
 }
 
+.dot-separator::after {
+  content: "\00b7"; // middot
+  display: inline-block;
+  padding: 0 4px;
+  font-weight: 800;
+}
+
 #add-project-form {
   display:none;
   position:absolute;
