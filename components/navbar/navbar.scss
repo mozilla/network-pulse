@@ -1,0 +1,121 @@
+.navbar {
+  background: $bikeshed-magenta;
+  margin-bottom: 30px;
+  padding: 1rem 0;
+  border-radius: 0;
+
+  .inner {
+    position: relative;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+
+    h1,
+    h2 {
+      color: $white;
+      margin-bottom: 0;
+    }
+
+    h1 {
+      font-size: 1.4375rem;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      margin-bottom: 0;
+
+      &:not(:last-of-type) {
+        margin-right: 15px;
+      }
+
+      a {
+        color: transparentize($white, 0.5);
+        text-decoration: none;
+
+        &.active,
+        &:active,
+        &:hover,
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .btn-search {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .btn-add {
+    position: fixed;
+    bottom: $grid-gutter-width-base;
+    right: $grid-gutter-width-base / 2;
+    font-weight: 300;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    transition: transform 0.5s, color 0.25s, background 0.25s;
+    text-align: center;
+    z-index: 1000;
+    background: #48484a center center no-repeat;
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $mobile-blue;
+    }
+
+    &.active {
+      transform: rotate(45deg);
+    }
+  }
+
+  // >= 768px
+  @media screen and (min-width: $bp-md) {
+    .inner {
+      display: flex;
+      align-items: center;
+      margin-left: -10px; // similar treatment as what we have for .project-list
+      margin-right: -10px;
+    }
+
+    .logo {
+      @include project-card-width(3);
+
+      margin-bottom: 0;
+    }
+
+    .logo,
+    ul {
+      margin-left: $project-card-side-margin;
+      margin-right: $project-card-side-margin;
+    }
+
+    .btn-search {
+      position: static;
+      top: 0;
+      right: 0;
+    }
+
+    .btn-add {
+      position: absolute;
+      bottom: -30px;
+      right: 15px;
+    }
+  }
+}

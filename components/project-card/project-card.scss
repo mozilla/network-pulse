@@ -1,0 +1,151 @@
+.project-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  background: $white;
+  overflow: hidden;
+  padding-bottom: calc(30px + 1rem * 1.5);
+  margin-left: $project-card-side-margin;
+  margin-right: $project-card-side-margin;
+  margin-bottom: 20px;
+
+  /* optimize swipe with class and transform. */
+  transition: left 0.25s, height 0.25s, padding 0.25s, margin 0.25s;
+
+  &.single {
+    width: 100%;
+  }
+
+  &:not(.single) {
+    .main-content {
+      position: relative;
+      height: 350px;
+      overflow: hidden;
+    }
+
+    .fade-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0);
+    }
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 1;
+    margin: 0 0 10px;
+  }
+
+  h3 {
+    color: #adadad;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    margin: 0.5rem 0;
+  }
+
+  .thumbnail {
+    @include aspect-ratio(1200, 630);
+
+    overflow: hidden;
+
+    .img-container {
+      text-align: center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .content,
+  .project-links {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .content {
+    margin-top: 15px;
+  }
+
+  .btn-view {
+    margin-bottom: 20px;
+  }
+
+  .project-links {
+    position: absolute;
+    bottom: 15px;
+    width: calc(100% - 15px * 2);
+  }
+
+  .action-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .share {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 10px;
+
+    .btn {
+      width: 23px;
+      height: 19px;
+      background: url(/assets/svg/icon-link.svg) center center no-repeat;
+      background-size: auto 18px;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background: url(/assets/svg/icon-link-selected.svg) center center no-repeat;
+        background-size: auto 18px;
+      }
+    }
+
+    input {
+      // visibility: hidden;
+      box-sizing: border-box;
+      color: #adadad;
+      width: 100%;
+      padding: 5px;
+      border: none;
+    }
+  }
+
+  .heart {
+    display: inline-block;
+    width: 23px;
+    height: 19px;
+    background: url(/assets/svg/icon-fav.svg) center center no-repeat;
+    background-size: auto 16px;
+    cursor: pointer;
+  }
+
+  &.faved .heart {
+    background: url(/assets/svg/icon-fav-selected.svg) center center no-repeat;
+    background-size: auto 16px;
+  }
+}
+
+// >= 768px
+@media screen and (min-width: $bp-md) {
+  .project-card {
+    @include project-card-width(3);
+
+    &.single {
+      @include project-card-width(2);
+    }
+  }
+}
+
+// >= 992px
+@media screen and (min-width: $bp-lg) {
+  .project-card {
+    @include project-card-width(3);
+  }
+}

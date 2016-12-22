@@ -1,0 +1,8 @@
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -$project-card-side-margin;
+  margin-right: -$project-card-side-margin;
+  padding-bottom: 200px;
+}

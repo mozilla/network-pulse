@@ -1,0 +1,77 @@
+// mofo-bootstrap bits
+
+@import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
+@import '../node_modules/bootstrap/scss/_variables.scss';
+@import '../node_modules/bootstrap/scss/mixins';
+
+// mixins
+
+@import 'variables.scss';
+@import 'mixin.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  background: #f1f1f1;
+  min-height: 100%;
+  position: relative;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: $bikeshed-magenta;
+}
+
+p {
+  font-size: 0.9375rem;
+  line-height: 1.333;
+}
+
+a {
+  // this is to override Bootstrap rules
+  &:not([href]):not([tabindex]) {
+    color: $mobile-blue;
+
+    &.btn:hover,
+    &.btn:active {
+      background: $mobile-blue;
+      color: #fff;
+    }
+  }
+}
+
+.btn {
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  display: inline-block;
+  color: $mobile-blue;
+  border: 1px solid $mobile-blue;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 3px;
+
+  &:hover,
+  &:active {
+    background: $mobile-blue;
+    color: #fff;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Components
+
+@import '../components/navbar/navbar';
+@import '../components/project-list/project-list';
+@import '../components/project-card/project-card';
+@import '../components/footer/footer';
+@import '../components/issue-selector/issue-selector';
+
+// Pages
+
+@import '../pages/add/add';
+@import '../pages/search/search';

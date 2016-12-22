@@ -1,0 +1,11 @@
+// Breakpoints (imported from Bootstrap)
+
+$bp-xs: #{map-get($grid-breakpoints, xs)}; // < 544px
+$bp-sm: #{map-get($grid-breakpoints, sm)}; // >= 544px
+$bp-md: #{map-get($grid-breakpoints, md)}; // >= 768px
+$bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
+$bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
+
+// spacing
+
+$project-card-side-margin: 10px;
