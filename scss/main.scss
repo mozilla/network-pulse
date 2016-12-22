@@ -63,6 +63,15 @@ a {
   text-align: center;
 }
 
+.dot-separator {
+  &::after {
+    content: "\00b7"; // middot
+    display: inline-block;
+    padding: 0 7px;
+    font-weight: 800;
+  }
+}
+
 // Components
 
 @import '../components/navbar/navbar';

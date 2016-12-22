@@ -102,6 +102,8 @@ export default React.createClass({
                   : (<div>
                       <Link to={`/entry/${this.props.id}`} className="read-more-link">Read more</Link>
                     </div>);
+    let creators = this.props.creators ? `By ${this.props.creators}` : null;
+    let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
 
     return (
       <div className={classnames}>
@@ -109,7 +111,7 @@ export default React.createClass({
           {thumbnail}
           <div className="content">
             <h2>{this.props.title}</h2>
-            <h3>{this.props.creators} on {moment(this.props.timestamp).format(`MMM DD, YYYY`)}</h3>
+            <h3>{creators}{creators && timestamp ? <span className="dot-separator"></span> : null}{timestamp}</h3>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} />
           </div>
