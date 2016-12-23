@@ -20,8 +20,7 @@ export default React.createClass({
         <div className="container">
           <div className="inner">
             <div className="logo">
-              <h2>Mozilla</h2>
-              <h1>Network Pulse</h1>
+              <img src="assets/svg/pulse-wordmark.svg" width="160" alt="Mozilla Network Pulse" />
             </div>
             <ul>
               <li><SelectorLink to="/featured">Featured</SelectorLink></li>
