@@ -23,10 +23,10 @@ export default React.createClass({
               <img src="assets/svg/pulse-wordmark.svg" width="160" alt="Mozilla Network Pulse" />
             </div>
             <ul>
-              <li><SelectorLink to="/featured">Featured</SelectorLink></li>
-              <li><SelectorLink to="/latest">Latest</SelectorLink></li>
-              <li><SelectorLink to="/favs">Favs</SelectorLink></li>
-              <li><SelectorLink to="/issues">Issues</SelectorLink></li>
+              <li><SelectorLink to="/featured" className="text-nav-link">Featured</SelectorLink></li>
+              <li><SelectorLink to="/latest" className="text-nav-link">Latest</SelectorLink></li>
+              <li><SelectorLink to="/issues" className="text-nav-link">Issues</SelectorLink></li>
+              <li><SelectorLink to="/favs" className="text-nav-link favs">Favs</SelectorLink></li>
               <li><SelectorLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></SelectorLink></li>
               <li><SelectorLink to="/add" className="btn-add" onClick={this.handleAddPageLinkClick} ref={(link) => { this.btnAdd = link; }}><img src="/assets/svg/icon-plus.svg" /></SelectorLink></li>
             </ul>

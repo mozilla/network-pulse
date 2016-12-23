@@ -20,10 +20,6 @@
       display: inline-block;
       margin-bottom: 0;
 
-      &:not(:last-of-type) {
-        margin-right: 15px;
-      }
-
       a {
         color: transparentize($white, 0.5);
         text-decoration: none;
@@ -35,6 +31,12 @@
           color: $white;
         }
       }
+    }
+  }
+
+  .text-nav-link {
+    &:not(.favs) {
+      margin-right: 1.9rem;
     }
   }
 
@@ -89,6 +91,14 @@
     ul {
       margin-left: $project-card-side-margin;
       margin-right: $project-card-side-margin;
+    }
+
+    .text-nav-link {
+      margin-right: 2.4rem;
+
+      &:not(.favs) {
+        margin-right: 2.4rem;
+      }
     }
 
     .btn-search {
