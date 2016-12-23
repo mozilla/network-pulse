@@ -59,18 +59,14 @@ export default React.createClass({
     return (
       <div className="search-page">
         <div className={classNames({activated: true, 'search-bar': true})}>
-          <div className="container">
-            <input id="search-box"
-                    placeholder="Search keywords, people, tags..."
-                    onKeyUp={this.handleInputKeyUp}
-                    onBlur={this.handleInputBlur}
-                    ref={(searchInput) => { this.searchInput = searchInput; }} />
-            <a className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</a>
-          </div>
+          <input id="search-box"
+                  placeholder="Search keywords, people, tags..."
+                  onKeyUp={this.handleInputKeyUp}
+                  onBlur={this.handleInputBlur}
+                  ref={(searchInput) => { this.searchInput = searchInput; }} />
+          <a className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</a>
         </div>
-        <div className="container">
-          <ProjectList filter={{key: `search`, value: this.state.searchQuery}} onSearch={true} />
-        </div>
+        <ProjectList filter={{key: `search`, value: this.state.searchQuery}} onSearch={true} />
       </div>
     );
   }

@@ -6,10 +6,8 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <div className="container">
-          <IssueSelector />
-          <ProjectList filter={ {key: `issue`, value: this.props.params.issue} } />
-        </div>
+        <IssueSelector />
+        <ProjectList filter={ {key: `issue`, value: this.props.params.issue} } />
       </div>
     );
   }

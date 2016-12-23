@@ -5,11 +5,7 @@ export default React.createClass({
   render() {
     console.log(`this.props.router`,this.props.router);
     return (
-      <div>
-        <div className="container">
-          <ProjectList filter={{key: `featured`}} />
-        </div>
-      </div>
+      <ProjectList filter={{key: `featured`}} />
     );
   }
 });
