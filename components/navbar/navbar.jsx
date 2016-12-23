@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { IndexLink, browserHistory } from 'react-router';
 import SelectorLink from '../selector-link/selector-link.jsx';
 
 export default React.createClass({
@@ -20,7 +20,7 @@ export default React.createClass({
         <div className="container">
           <div className="inner">
             <div className="logo">
-              <img src="assets/svg/pulse-wordmark.svg" width="160" alt="Mozilla Network Pulse" />
+              <IndexLink to="/"><img src="/assets/svg/pulse-wordmark.svg" width="160" alt="Mozilla Network Pulse" /></IndexLink>
             </div>
             <ul>
               <li><SelectorLink to="/featured" className="text-nav-link">Featured</SelectorLink></li>

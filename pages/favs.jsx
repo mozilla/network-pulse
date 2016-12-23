@@ -19,7 +19,7 @@ export default React.createClass({
           { this.state.favs && this.state.favs.length > 0 ?
                               <ProjectList filter={{key: `favs`, value: this.state.favs}} />
                               : <div className="text-center">
-                                  <h2><img src="assets/svg/icon-fav-selected.svg" /></h2>
+                                  <h2><img src="/assets/svg/icon-fav-selected.svg" /></h2>
                                   <h2>Save your Favs</h2>
                                   <p>Tap the heart on any project to save it here.</p>
                                   <Link to="/featured" className="btn">Expore featured</Link>
