@@ -196,7 +196,7 @@ nav .container {
   position: fixed;
   top:0; left:0; right:0; bottom:0;
   margin:0;
-  padding:0 1em 1em;
+  padding-top: 33vh;
   overflow: hidden;
   background:#E14164;
   color:white;
@@ -206,25 +206,9 @@ nav .container {
   font-size:1.25em;
 }
 
-#splash-screen h1 {
-  margin-top:33vh;
-  margin-bottom:.5em;
-  line-height: .9em;
-  font-weight: 100;
-  transition: font-size .25s;
-  color: #fff;
+#splash-screen.dismissed { 
+  opacity: 0; 
 }
-
-#splash-screen.dismissed { opacity: 0; }
-
-#splash-screen h1 span {
-  display: block;
-  position: relative;
-  opacity:.5;
-  top:5px;
-  font-size: .75em;
-}
-
 
 /* project card */
 
