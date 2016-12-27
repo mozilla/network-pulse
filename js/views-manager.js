@@ -73,6 +73,11 @@ var ViewsManager = {
       ProjectCard.render(project);
     });
   },
+  renderfavProjectsIntoView: function(projects) {
+    $.each(projects, function(index, project) {
+      ProjectList.render(project);
+    });
+  },
   renderAllProjectsIntoView: function() {
     var numProjectCards = $(".project").length;
     if ( this._projects.length != numProjectCards ) {
@@ -142,7 +147,9 @@ var ViewsManager = {
         }
       });
       sortedFavedProjects.reverse(); // start from most recently favourited project
-      this.renderProjectsIntoView(sortedFavedProjects);
+      // create a new div that shows count of favs
+      $("<div id='fav-count'><span class='star'></span> &nbsp; <span id='fav-count-text'>You have "+_.size(sortedFavedProjects)+" favs</div>").insertBefore(".projects");
+      this.renderfavProjectsIntoView(sortedFavedProjects);
       this.MessageView.hide();
     } else {
       this.MessageView.show("Save your Favs", "Tap the heart on any project to save it here.");
@@ -176,6 +183,8 @@ var ViewsManager = {
     utility.updateUrlWithoutReload();
   },
   resetView: function(resetOptions) {
+    // remove fav-count div on reset
+    $("#fav-count").remove();
     this.updateProjectData();
 
     var options = {
