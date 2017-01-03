@@ -93,6 +93,7 @@
     width: 100%;
     margin-right: 10px;
 
+
     .btn {
       width: 23px;
       height: 19px;
@@ -101,19 +102,24 @@
       border: none;
       cursor: pointer;
 
-      &:hover {
+      &:hover,
+      &.active {
         background: url(/assets/svg/icon-link-selected.svg) center center no-repeat;
         background-size: auto 18px;
       }
     }
 
     input {
-      // visibility: hidden;
+      visibility: hidden;
       box-sizing: border-box;
       color: #adadad;
       width: 100%;
       padding: 5px;
       border: none;
+    }
+
+    .btn.active + input {
+      visibility: visible;
     }
   }
 

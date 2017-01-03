@@ -85,6 +85,11 @@ export default React.createClass({
       saveFavs(favs);
     }
   },
+  handleShareBtnClick() {
+    this.shareBtn.classList.add(`active`);
+    this.urlToShare.focus();
+    this.urlToShare.select();
+  },
   render() {
     let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "faved": this.state.faved});
     let thumbnail = this.props.thumbnailUrl ?
@@ -96,7 +101,7 @@ export default React.createClass({
                     : null;
     let actions = this.props.onDetailView ?
                   (<div className="share">
-                    <a className="btn"></a>
+                    <a className="btn" onClick={this.handleShareBtnClick} ref={(btn) => { this.shareBtn = btn; }}></a>
                     <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
                   </div>)
                   : (<div>
