@@ -30,19 +30,6 @@ p {
   line-height: 1.333;
 }
 
-a {
-  // this is to override Bootstrap rules
-  &:not([href]):not([tabindex]) {
-    color: $mobile-blue;
-
-    &.btn:hover,
-    &.btn:active {
-      background: $mobile-blue;
-      color: #fff;
-    }
-  }
-}
-
 .btn {
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
   display: inline-block;
