@@ -6,12 +6,12 @@
   "background_color": "white",
   "icons": [
     {
-      "src": "/favicon.png",
+      "src": "favicon.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "/assets/favicons/favicon-128x128@2x.png",
+      "src": "assets/favicons/favicon-128x128@2x.png",
       "sizes": "128x128",
       "type": "image/png"
     }
