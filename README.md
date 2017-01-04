@@ -30,3 +30,5 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 ## 🔷 Contribute
 
 You can contribute by testing the [prototype](http://mozilla.github.io/network-pulse/) to view or submit a project. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions.
+
+Network Pulse follows the Mozilla Foundation engineering guidelines outlining best practices used by Mozilla Foundation's engineering team. It provides helpful information to first time and veteran contributors alike. Review the guidelines [here](https://github.com/MozillaFoundation/mofo-standards).
