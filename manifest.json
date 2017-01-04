@@ -1,0 +1,20 @@
+{
+  "short_name": "Pulse",
+  "name": "Mozilla Network Pulse",
+  "version": "2.0.0",
+  "display": "fullscreen",
+  "background_color": "white",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/favicon-128x128@2x.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html"
+}
