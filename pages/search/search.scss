@@ -32,9 +32,7 @@
 }
 
 .search-bar {
-  .container {
-    position: relative;
-  }
+  position: relative;
 
   &.activated {
     margin-bottom: 20px;
@@ -47,7 +45,7 @@
   .dismiss {
     position: absolute;
     top: 0.7rem;
-    right: 1.8rem;
+    right: 1rem;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -56,6 +54,7 @@
     transition: opacity 0.1s;
     padding: 0;
     background: #eee;
+    color: inherit;
     border: none;
 
     &:hover,
