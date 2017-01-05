@@ -71,7 +71,7 @@ var PulseMaker = {
 
       setTimeout(function(){ 
         PulseMaker.dismissSplash();
-      }, 250);
+      }, 2000);
     });
   },
   getData: function(callback) {
