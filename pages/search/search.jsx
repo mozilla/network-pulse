@@ -18,9 +18,11 @@ export default React.createClass({
     this.setSearchQuery(this.props.location.query.keyword);
   },
   setSearchQuery(searchQuery) {
-    this.searchInput.focus();
-    this.searchInput.value = searchQuery ? decodeURIComponent(searchQuery) : ``;
-    this.setState({searchQuery: searchQuery});
+    if (searchQuery !== this.searchInput.value) {
+      this.searchInput.focus();
+      this.searchInput.value = searchQuery ? decodeURIComponent(searchQuery) : ``;
+      this.setState({searchQuery: searchQuery});
+    }
   },
   clearSearch() {
     this.searchInput.value = ``;
@@ -64,7 +66,7 @@ export default React.createClass({
                   onKeyUp={this.handleInputKeyUp}
                   onBlur={this.handleInputBlur}
                   ref={(searchInput) => { this.searchInput = searchInput; }} />
-          <a className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</a>
+          <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
         </div>
         <ProjectList filter={{key: `search`, value: this.state.searchQuery}} onSearch={true} />
       </div>
