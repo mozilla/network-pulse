@@ -149,8 +149,13 @@
     <div id="<%- id %>" 
           class="<%- classNames %>" 
           data-title="<%- title %>">
-      <div class="content">
-        <a href="<%- detailViewLink %>" class="read-more-link"><h2><%- title %></h2></a>
+      <div class="content fav-list">
+        <div class="fav-title">
+          <a href="<%- detailViewLink %>" class="read-more-link"><h2><%- title %></h2></a>        
+        </div>
+        <div class="fav-heart">
+          <a class="starred star"></a>
+        </div>
         <h3><% if (creators) { %> <%- creators %> <% } %><% if (creators && timestamp)  %><% if (timestamp) { %> on <%- timestamp %> <% } %></h3>
       </div>
     </div>
