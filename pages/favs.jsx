@@ -21,7 +21,7 @@ export default React.createClass({
                                 <h2><img src="/assets/svg/icon-fav-selected.svg" /></h2>
                                 <h2>Save your Favs</h2>
                                 <p>Tap the heart on any project to save it here.</p>
-                                <Link to="/featured" className="btn">Expore featured</Link>
+                                <Link to="/featured" className="btn">Explore featured</Link>
                               </div>
         }
       </div>
