@@ -1,4 +1,4 @@
-/* Project List */
+3/* Project List */
 
 var ProjectList = {
   template: _.template($("script#project-list-template").html()),
@@ -42,6 +42,16 @@ var ProjectList = {
     var featured = projectData.Featured;
     var html = ProjectList.buildHTML(projectData);
     var $list = $(html);
+
+    $list.find(".star").on("click", function(event) {
+      event.preventDefault();
+      FavouritesManager.toggleProjectFavState(id,projectData.Title);
+
+      var favedProjects = FavouritesManager.getFavedProjects();
+      favs_count = _.size(favedProjects);
+      $("#fav-count-text").html("You have "+favs_count+" favs");
+    });
+
     $("#project-container .projects").append($list);
   }
 };
