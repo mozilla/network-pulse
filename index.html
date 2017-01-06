@@ -81,6 +81,7 @@
     <iframe src="https://docs.google.com/forms/d/1CiNYA3gzHPd4HYrgQuQB2KM0TDpsbn6jbMcl-0_OjM4/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
   </div>
 
+  <!-- Project Card template -->
   <script type="text/template" id="project-card-template">
     <%
       var classNames = [
@@ -136,29 +137,22 @@
     </div>
   </script>
 
-  <!-- Project List template -->
+  <!-- Project List item -->
   <script type="text/template" id="project-list-template">
     <%
       var classNames = [
         "project-list",
-        thumbnailView ? "thumbnail-view" : "",
         starred ? "starred" : "",
         featured ? "featured" : "",
       ].join(" ");
     %>
     <div id="<%- id %>" 
           class="<%- classNames %>" 
-          data-title="<%- title %>"
-          data-issue-online-privacy-and-security="<%- belongsToOnlinePrivacyAndSecurityIssue %>"
-          data-issue-open-innovation="<%- belongsToOpenInnovationIssue %>"
-          data-issue-decentralization="<%- belongsToDecentralizationIssue %>"
-          data-issue-web-literacy="<%- belongsToWebLiteracyIssue %>"
-          data-issue-digital-inclusion="<%- belongsToDigitalInclusionIssue %>" >
+          data-title="<%- title %>">
       <div class="content">
-        <a href="<%- link %>" target="_blank"><h2><%- title %></h2></a>
+        <a href="<%- detailViewLink %>" class="read-more-link"><h2><%- title %></h2></a>
         <h3><% if (creators) { %> <%- creators %> <% } %><% if (creators && timestamp)  %><% if (timestamp) { %> on <%- timestamp %> <% } %></h3>
       </div>
-      <div class="hidden-meta"><%- tags %> <%- issues %> <%- program %> <%- type %></div>
     </div>
   </script>
 
