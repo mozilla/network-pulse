@@ -546,7 +546,7 @@ footer {
   }
 }
 
-/* project card */
+/* project list */
 
 #fav-count{
   margin-bottom: 10px;
@@ -558,15 +558,9 @@ footer {
 }
 
 .project-list {
-  position: relative;
-  box-sizing: border-box;
   width:100%;
-  overflow:hidden;
-  padding-bottom: calc( 15px + 1rem*1.3 );
   margin-left: 10px;
   margin-right: 10px;
-  transition:left .25s, height .25s, padding .25s, margin .25s;
-  /* optimize swipe with class and transform. */
 }
 
 .project-list h2 {
