@@ -36,6 +36,10 @@
     font-size: 30px;
     line-height: 1;
     margin: 0 0 10px;
+
+    a {
+      color: $bikeshed-magenta;
+    }
   }
 
   h3 {
@@ -49,6 +53,7 @@
   .thumbnail {
     @include aspect-ratio(1200, 630);
 
+    display: block;
     overflow: hidden;
 
     .img-container {
