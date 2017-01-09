@@ -1,7 +1,13 @@
 .project-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: -$project-card-side-margin;
-  margin-right: -$project-card-side-margin;
+  .projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: -$project-card-side-margin;
+    margin-right: -$project-card-side-margin;
+  }
+
+  .view-more {
+    text-align: center;
+  }
 }
