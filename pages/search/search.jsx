@@ -68,7 +68,7 @@ export default React.createClass({
                   ref={(searchInput) => { this.searchInput = searchInput; }} />
           <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
         </div>
-        <ProjectList filter={{key: `search`, value: this.state.searchQuery}} onSearch={true} />
+        <ProjectList filter={{key: `search`, value: this.state.searchQuery}} />
       </div>
     );
   }

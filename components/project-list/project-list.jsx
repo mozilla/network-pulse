@@ -1,3 +1,7 @@
+// this file has some complicated logics going
+// this is just interim and will be fixed once the backend API is ready to use 
+// (so we can ditch Google Spreadsheet)
+
 import React from 'react';
 import { Link } from 'react-router';
 import request from 'superagent';
@@ -17,11 +21,6 @@ export default React.createClass({
       loadedFromGoogle: false,
       allProjectsInGoogleSheet: null,
       displayBatchIndex: 1
-    };
-  },
-  getDefaultProps() {
-    return {
-      onSearch: false
     };
   },
   componentDidMount() {
@@ -91,40 +90,23 @@ export default React.createClass({
   },
   render() {
     let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.props.filter) : null;
-    let numProjects;
     let showViewMoreBtn;
 
     if (projects) {
-      if (this.props.onSearch) {
-        // on search page,
-        // instead of project card we only wanna show project title, creator, and date of form submission
-        numProjects = projects.length;
-        projects = projects.map((project) => {
-          return (<li key={project.id}>
-                    <h2><Link to={`/entry/${project.id}`}>{project.title}</Link></h2>
-                    <p>{project.creators} on {moment(project.timestamp).format(`MMM DD, YYYY`)}</p>
-                  </li>);
-        });
-        projects = (<div>
-                      { numProjects > 0 ? <p>{numProjects} {numProjects > 1 ? `results` : `result`} found for ‘{this.props.filter.value}’</p>
-                                        : null }
-                      <ul>{projects}</ul>
-                    </div>);
-      } else {
-        // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
-        // first, check to see if there are more projects to show after this batch
-        showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
-        // prepare ProjectCards we are going to render in this batch
-        projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
-          return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
-        });
-      }
+      // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
+      // first, check to see if there are more projects to show after this batch
+      showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
+      // prepare ProjectCards we are going to render in this batch
+      projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
+        return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
+      });
     }
 
     return (
       <div className="project-list">
-        {projects}
-        {showViewMoreBtn ? <div><button type="button" className="btn btn-view-more" onClick={this.handleViewMoreClick}>View more</button></div> : null}
+        { this.props.filter && this.props.filter.key === `search` && projects && projects.length > 0 ? <p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.filter.value}’</p> : null }
+        { projects ? <div className="projects">{projects}</div> : null }
+        { showViewMoreBtn ? <div className="view-more"><button type="button" className="btn" onClick={this.handleViewMoreClick}>View more</button></div> : null }
       </div>
     );
   }
