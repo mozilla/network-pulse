@@ -92,12 +92,13 @@ export default React.createClass({
   },
   render() {
     let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "faved": this.state.faved});
+    let detailViewLink = `/entry/${this.props.id}`;
     let thumbnail = this.props.thumbnailUrl ?
-                    <div className="thumbnail">
+                    <Link to={detailViewLink} className="thumbnail">
                       <div className="img-container">
                         <img src={this.props.thumbnailUrl} />
                       </div>
-                    </div>
+                    </Link>
                     : null;
     let actions = this.props.onDetailView ?
                   (<div className="share">
@@ -105,7 +106,7 @@ export default React.createClass({
                     <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
                   </div>)
                   : (<div>
-                      <Link to={`/entry/${this.props.id}`} className="read-more-link">Read more</Link>
+                      <Link to={detailViewLink}>Read more</Link>
                     </div>);
     let creators = this.props.creators ? `By ${this.props.creators}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
@@ -115,7 +116,7 @@ export default React.createClass({
         <div className="main-content">
           {thumbnail}
           <div className="content">
-            <h2>{this.props.title}</h2>
+            <h2><Link to={detailViewLink}>{this.props.title}</Link></h2>
             <h3>{creators}{creators && timestamp ? <span className="dot-separator"></span> : null}{timestamp}</h3>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} />
