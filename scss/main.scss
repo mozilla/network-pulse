@@ -82,6 +82,7 @@ p {
 
   &.dismissed {
     opacity: 0;
+    z-index: -1;
   }
 
   .container {
