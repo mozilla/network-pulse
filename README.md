@@ -20,6 +20,18 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 - Work is happening in the `react` branch.
 - Relevant tickets are marked with the `v2 (upcoming)` label.
 
+### Requirements for Development
+
+- `node`
+- `npm`
+
+### Setup for Development
+
+- `git clone -b react https://github.com/mozilla/network-pulse.git`
+- `cd network-pulse`
+- `npm install`
+- `npm start`
+
 
 ## 🔷 More info
 
