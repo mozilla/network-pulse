@@ -10,6 +10,7 @@ import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';
 import Search from './pages/search/search.jsx';
+import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
@@ -54,6 +55,7 @@ ReactDOM.render((
       <Route path="entry/:entryId" component={Entry} />
       <Route path="add" component={Add} />
       <Route path="search" component={Search} />
+      <Route path="*" component={NotFound}/>
     </Route>
   </Router>
 ), document.getElementById(`app`));

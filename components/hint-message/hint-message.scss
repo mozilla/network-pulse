@@ -1,0 +1,7 @@
+.hint-message {
+  margin-top: 2rem;
+
+  @media screen and (min-width: $bp-md) {
+    margin-top: 5rem;
+  }
+}
