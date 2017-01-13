@@ -75,7 +75,7 @@ var ViewsManager = {
   },
   renderfavProjectsIntoView: function(projects) {
     $.each(projects, function(index, project) {
-      ProjectList.render(project);
+      ProjectListItem.render(project);
     });
   },
   renderAllProjectsIntoView: function() {
