@@ -4,7 +4,7 @@ import ProjectList from '../components/project-list/project-list.jsx';
 export default React.createClass({
   render() {
     return (
-      <ProjectList filter={{key: `featured`}} />
+      <ProjectList params={{featured: true}} />
     );
   }
 });

@@ -4,7 +4,7 @@ import ProjectList from '../components/project-list/project-list.jsx';
 export default React.createClass({
   render() {
     return (
-      <ProjectList filter={ {key: `entry`, value: this.props.params.entryId} } onDetailView={true} />
+      <ProjectList params={{entry: this.props.params.entryId}} onDetailView={true} />
     );
   }
 });
