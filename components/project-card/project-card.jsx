@@ -25,10 +25,10 @@ export default React.createClass({
     };
   },
   propTypes: {
-    id: React.PropTypes.string.isRequired,
-    creators: React.PropTypes.string,
+    id: React.PropTypes.number.isRequired,
+    creators: React.PropTypes.array,
     description: React.PropTypes.string.isRequired,
-    featured: React.PropTypes.string,
+    featured: React.PropTypes.bool,
     getInvolved: React.PropTypes.string,
     getInvolvedUrl: React.PropTypes.string,
     interest: React.PropTypes.string,
@@ -108,7 +108,7 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink}>Read more</Link>
                     </div>);
-    let creators = this.props.creators ? `By ${this.props.creators}` : null;
+    let creators = this.props.creators ? `By ${this.props.creators.join(` ,`)}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
 
     return (
