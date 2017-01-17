@@ -1,6 +1,13 @@
+# Ignore the following ...
+
 .DS_Store
 node_modules/
 dist/
 npm-debug.log
 *.env
 env.generated.json
+
+# But not these...
+!config/default.env
+
+
