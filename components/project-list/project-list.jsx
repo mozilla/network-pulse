@@ -96,7 +96,7 @@ export default React.createClass({
       showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
       // prepare ProjectCards we are going to render in this batch
       projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
-        return ( <ProjectCard key={project.id} {...project} onDetailView={this.props.onDetailView} /> );
+        return ( <ProjectCard key={project.id} {...project} /> );
       });
     }
 
