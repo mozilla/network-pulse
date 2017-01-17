@@ -52,6 +52,12 @@ export default {
     get: function (params) {
       return doXHR(`${pulseAPI}/entries/`, params);
     }
+  },
+  entry: {
+    get: function (entryId) {
+      console.log(`${pulseAPI}/entries/${entryId}`);
+      return doXHR(`${pulseAPI}/entries/${entryId}`);
+    }
   }
   // ... and more Pulse API endpoints to come
 };

@@ -56,9 +56,6 @@ export default React.createClass({
       } else if ( params.featured ) {
         // if we want to only return featured entries
         return project.featured;
-      } else if ( params.entry ) {
-        // if we want to only return one entry of user's choice
-        return project.id.toString() === params.entry;
       } else if ( params.favs ) {
         // if we want to return projects that have been favrourited by user
         try {
