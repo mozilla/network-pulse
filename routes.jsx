@@ -11,6 +11,8 @@ import Add from './pages/add/add.jsx';
 import Search from './pages/search/search.jsx';
 import NotFound from './pages/not-found.jsx';
 
+import TemporaryLogIn from './pages/log-in.jsx';
+
 import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
@@ -53,6 +55,7 @@ module.exports = (
     <Route path="entry/:entryId" component={Entry} />
     <Route path="add" component={Add} />
     <Route path="search" component={Search} />
+    <Route path="log-in" component={TemporaryLogIn} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

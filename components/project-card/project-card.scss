@@ -144,6 +144,13 @@
   }
 }
 
+// >= 544px
+@media screen and (min-width: $bp-sm) {
+  .project-card {
+    @include project-card-width(2);
+  }
+}
+
 // >= 768px
 @media screen and (min-width: $bp-md) {
   .project-card {
@@ -152,12 +159,5 @@
     &.single {
       @include project-card-width(2);
     }
-  }
-}
-
-// >= 992px
-@media screen and (min-width: $bp-lg) {
-  .project-card {
-    @include project-card-width(3);
   }
 }
