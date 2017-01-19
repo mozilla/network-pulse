@@ -140,12 +140,29 @@
     </div>
   </script>
 
+  <!-- Project List Item -->
+  <script type="text/template" id="project-list-item-template">
+    <%
+      var classNames = [
+        "project-list-item",
+        starred ? "starred" : "",
+      ].join(" ");
+    %>
+    <div id="<%- id %>" class="<%- classNames %>" data-title="<%- title %>">
+      <div class="content">
+        <a href="<%- detailViewLink %>" class="read-more-link"><h2><%- title %></h2></a>
+        <h3><% if (creators) { %> <%- creators %> <% } %><% if (creators && timestamp)  %><% if (timestamp) { %> on <%- timestamp %> <% } %></h3>
+      </div>
+    </div>
+  </script>
+
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
   <script src="js/utility.js"></script>
   <script src="js/notifier.js"></script>
   <script src="js/favourites-manager.js"></script>
   <script src="js/project-card.js"></script>
+  <script src="js/project-list-item.js"></script>
   <script src="js/views-manager.js"></script>
   <script src="js/nav-items-manager.js"></script>
   <script src="js/search.js"></script>
