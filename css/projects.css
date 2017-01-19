@@ -356,7 +356,7 @@ nav .container {
   cursor: pointer;
 }
 
-.project.starred .star {
+.starred .star {
   background: url(../svg/icon-fav-selected.svg) center center no-repeat;
   background-size: auto 16px;
 }
@@ -565,6 +565,25 @@ footer {
   padding: 1em;
   margin-bottom: 1rem;
   background: white;
+}
+
+.fav-list{
+  background-color: white;
+  padding: 1em;
+}
+
+#fav-count-text{
+  color:black;
+  font-size: 18px;
+}
+
+.fav-title{
+	display: inline-block;	
+}
+
+.fav-heart{
+	display: inline-block;
+	float: right;
 }
 
 .project-list-item h2 {

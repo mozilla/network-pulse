@@ -36,7 +36,16 @@ var ProjectListItem = {
     var html = ProjectListItem.buildHTML(projectData);
     var $listItem = $(html);
 
+    $listItem.find(".star").on("click", function(event) {
+      event.preventDefault();
+      FavouritesManager.toggleProjectFavState(id,projectData.Title);
+
     $listItem.find(".project-title").on("click", ProjectListItem.viewProjectLinkClickHandler);
+
+      var favedProjects = FavouritesManager.getFavedProjects();
+      favs_count = _.size(favedProjects);
+      $("#fav-count-text").html("You have "+favs_count+" favs");
+    });
 
     $("#project-container .projects").append($listItem);
   }

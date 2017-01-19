@@ -148,7 +148,8 @@ var ViewsManager = {
       });
       sortedFavedProjects.reverse(); // start from most recently favourited project
       // create a new div that shows count of favs
-      $("<div id='fav-count'><img src='svg/icon-fav.svg' width=20 />You have "+_.size(sortedFavedProjects)+" favs</div>").insertBefore(".projects");
+      var favs_count = _.size(sortedFavedProjects);
+      $("<div id='fav-count'><span class='star'></span> &nbsp; <span id='fav-count-text'>You have "+favs_count+" favs</div>").insertBefore(".projects");
       this.renderfavProjectsIntoView(sortedFavedProjects);
       this.MessageView.hide();
     } else {
