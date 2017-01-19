@@ -34,9 +34,10 @@ var ProjectListItem = {
     var isStarred = FavouritesManager.isProjectFavourited(id);
     var featured = projectData.Featured;
     var html = ProjectListItem.buildHTML(projectData);
-    var $list = $(html);
-    var title = $($list).find("h2");
-    $(title).click(this.viewProjectLinkClickHandler);
-    $("#project-container .projects").append($list);
+    var $listItem = $(html);
+
+    $listItem.find(".project-title").on("click", ProjectListItem.viewProjectLinkClickHandler);
+
+    $("#project-container .projects").append($listItem);
   }
 };
