@@ -3,81 +3,72 @@
   margin-bottom: 30px;
   padding: 1rem 0;
   border-radius: 0;
-  font-weight: 400;
 
   .inner {
     position: relative;
   }
 
   .logo {
-    display: inline-block;
+    margin-bottom: 1rem;
   }
 
-  .page-navs {
+  ul {
     padding: 0;
-    margin-top: 1rem;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    margin: 0;
 
     li {
       display: inline-block;
       margin-bottom: 0;
+
+      a {
+        color: transparentize($white, 0.5);
+        text-decoration: none;
+
+        &.active,
+        &:active,
+        &:hover,
+        &:focus {
+          color: $white;
+        }
+      }
     }
   }
 
   .text-nav-link {
-    color: transparentize($white, 0.5);
-    text-decoration: none;
-
-    &.active,
-    &:active,
-    &:hover,
-    &:focus {
-      color: $white;
+    &:not(.favs) {
+      margin-right: 1.9rem;
     }
   }
 
-  .log-in-out-panel {
+  .btn-search {
     position: absolute;
     top: 0;
     right: 0;
-    display: flex;
-    align-items: center;
   }
 
   .btn-add {
     position: fixed;
     bottom: $grid-gutter-width-base;
     right: $grid-gutter-width-base / 2;
+    font-weight: 300;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    transition: transform 0.5s, color 0.25s, background 0.25s;
+    text-align: center;
     z-index: 1000;
+    background: #48484a center center no-repeat;
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 
     &:hover,
     &:active,
     &:focus {
-      &::before {
-        background: url(/assets/svg/icon-plus.svg) $mobile-blue center center no-repeat;
-      }
+      background: $mobile-blue;
     }
 
     &.active {
       transform: rotate(45deg);
-    }
-
-    &::before {
-      content: " ";
-      display: inline-block;
-      height: 50px;
-      width: 50px;
-      position: relative;
-      top: 3px;
-      border-radius: 50%;
-      transition: transform 0.5s, color 0.25s, background 0.25s;
-      text-align: center;
-      background: url(/assets/svg/icon-plus.svg) #48484a center center no-repeat;
-      box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
     }
   }
 
@@ -97,39 +88,29 @@
     }
 
     .logo,
-    .page-navs,
-    .log-in-out-panel {
+    ul {
       margin-left: $project-card-side-margin;
       margin-right: $project-card-side-margin;
     }
 
-    .page-navs {
-      margin-top: 0;
-      width: 50%;
-      max-width: 300px;
+    .text-nav-link {
+      margin-right: 2.4rem;
+
+      &:not(.favs) {
+        margin-right: 2.4rem;
+      }
     }
 
-    .log-in-out-panel {
-      top: -10px;
-    }
-
-    .log-in-out-link {
-      margin-right: 1.5rem;
+    .btn-search {
+      position: static;
+      top: 0;
+      right: 0;
     }
 
     .btn-add {
-      position: static;
-
-      &::before {
-        background: url(/assets/svg/icon-plus-pink.svg) $white center center no-repeat;
-      }
-    }
-  }
-
-  // >= 992px
-  @media screen and (min-width: $bp-lg) {
-    .page-navs {
-      max-width: 350px;
+      position: absolute;
+      bottom: -30px;
+      right: 15px;
     }
   }
 }
