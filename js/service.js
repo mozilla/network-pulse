@@ -19,12 +19,13 @@ function pojoToQuery(pojo) {
 }
 
 /**
- * Make an XHR request and return a promise to resolve it.
+ * Make an GET XHR request and return a promise to resolve it.
+ * Useful for making a call to an endpoint that does return data.
  * @param  {String} route A route fragment
  * @param  {Object} params A POJO to be serialized as a query string
  * @returns {Promise} A promise to resolve an XHR request
  */
-function doXHR(route, params = {}) {
+function getDataFromURL(route, params = {}) {
   let request = new XMLHttpRequest();
   let combinedParams = Object.assign(params,defaultParams);
 
@@ -36,11 +37,6 @@ function doXHR(route, params = {}) {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
-        // we don't get a data object back when it was a succesful XHR and we got redirected to the base route. e.g., when making a /logout call
-        if (result.status == 200 && result.responseURL.replace(/\/$/, ``) == `${pulseAPI}`) {
-          resolve();
-        }
-
         try {
           resolve(JSON.parse(result.response));
         } catch (error) {
@@ -59,23 +55,56 @@ function doXHR(route, params = {}) {
   });
 }
 
+/**
+ * Make an GET XHR request and return a promise to resolve it.
+ * Useful for making a call to an endpoint that doesn't return data.
+ * @param  {String} route A route fragment
+ * @param  {Object} params A POJO to be serialized as a query string
+ * @returns {Promise} A promise to resolve an XHR request
+ */
+function callURL(route, params = {}) {
+  let request = new XMLHttpRequest();
+  let combinedParams = Object.assign(params,defaultParams);
+
+  return new Promise((resolve, reject) => {
+    request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
+
+    request.withCredentials = true;
+    request.onload = (event) => {
+      let result = event.currentTarget;
+
+      if ( result.status == 200 ) {
+        resolve();
+      } else {
+        reject(`XHR request failed. Status ${result.status}.`);
+      }
+    };
+
+    request.onerror = () => {
+      reject(`XHR request failed`);
+    };
+
+    request.send();
+  });
+}
+
 export default {
   entries: {
     get: function(params) {
-      return doXHR(`${pulseAPI}/entries/`, params);
+      return getDataFromURL(`${pulseAPI}/entries/`, params);
     }
   },
   entry: {
     get: function(entryId) {
       console.log(`${pulseAPI}/entries/${entryId}`);
-      return doXHR(`${pulseAPI}/entries/${entryId}`);
+      return getDataFromURL(`${pulseAPI}/entries/${entryId}`);
     }
   },
   logout: function() {
-    return doXHR(`${pulseAPI}/logout/`);
+    return callURL(`${pulseAPI}/logout/`);
   },
   nonce: function() {
-    return doXHR(`${pulseAPI}/nonce/`);
+    return getDataFromURL(`${pulseAPI}/nonce/`);
   }
   // ... and more Pulse API endpoints to come
 };
