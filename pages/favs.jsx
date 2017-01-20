@@ -29,9 +29,7 @@ export default React.createClass({
     config.username.set(username);
     this.setState({loggedInCheckDateTime: new Date()});
   },
-  logOutUser(event) {
-    event.preventDefault();
-
+  logOutUser() {
     Service.logout()
       .then(() => {
         // we have successfully logged user out
@@ -57,7 +55,7 @@ export default React.createClass({
 
     let logInUrl = config.logInUrl.get(redirectUrl);
     let loggedInStatus = config.userLoggedInStatus.get() ?
-                        <p>Hi {config.username.get()}! <a href="" onClick={this.logOutUser}>Log out</a>.</p>
+                        <p>Hi {config.username.get()}! <button onClick={this.logOutUser} className="btn-link">Log out</button>.</p>
                         : <p>Are you Mozilla Staff? <a href={logInUrl}>Sign in</a>.</p>;
 
     return (
