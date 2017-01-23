@@ -46,7 +46,6 @@
     "eslint": "^3.11.1",
     "eslint-plugin-react": "^6.7.1",
     "mofo-style": "^2.4.0",
-    "npm-run-all": "^3.1.1",
     "stylelint": "^7.6.0",
     "stylelint-config-standard": "^15.0.0"
   },
@@ -64,6 +63,7 @@
     "mofo-bootstrap": "^2.0.1",
     "moment": "^2.17.1",
     "node-sass": "^3.13.0",
+    "npm-run-all": "^3.1.1",
     "postcss-cli-simple": "^1.0.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
