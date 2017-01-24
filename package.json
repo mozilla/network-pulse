@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.bundle.js",
   "scripts": {
-    "bootstrap": "shx rm -rf dist && shx mkdir dist",
+    "bootstrap": "shx rm -rf dist && shx mkdir dist && shx rm -f config/env.generated.json",
     "start": "npm run build && run-p server watch:**",
     "build": "run-s bootstrap build:**",
     "build:config": "node js/build-env-config.js > config/env.generated.json",
