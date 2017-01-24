@@ -18,11 +18,6 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 - `git clone -b react https://github.com/mozilla/network-pulse.git`
 - `cd network-pulse`
 - `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env)
-    ```bash
-    HOST='the host you are using'
-    PORT='the port number you are using'
-    PULSE_API='URL to your local Pulse API instance. Remove this var if you don't have one set up.'
-    ```
 - `npm install`
 - `npm start`
 
