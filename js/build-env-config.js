@@ -15,12 +15,7 @@ if (environment !== `PRODUCTION`) {
 const HOST = habitat.get(`HOST`);
 const PORT = habitat.get(`PORT`);
 const ORIGIN = HOST + (PORT ? `:${PORT}` : ``);
-const CONFIG = {
-  HOST: HOST,
-  PORT: PORT,
-  ORIGIN: ORIGIN,
-  PULSE_API: habitat.get(`PULSE_API`)
-};
+const CONFIG = { HOST, PORT, ORIGIN, PULSE_API: habitat.get(`PULSE_API`)};
 
 process.stdout.write(
   `${JSON.stringify(CONFIG)}\n`
