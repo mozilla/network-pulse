@@ -10,7 +10,8 @@ export default React.createClass({
   getInitialState() {
     return {
       dataLoaded: false,
-      entries: null,
+      apiPageIndex: 1,
+      entries: [],
       displayBatchIndex: 1
     };
   },
@@ -26,13 +27,22 @@ export default React.createClass({
     }
   },
   fetchData(params = {}) {
+    params.page = this.state.apiPageIndex;
     Service.entries
       .get(params)
       .then((data) => {
         this.setState({
-          dataLoaded: true,
-          entries: data.results
+          entries: this.state.entries.concat(data.results)
         });
+
+        if (data.next) { // there are more data in the database we need to fetch
+          this.setState({apiPageIndex: this.state.apiPageIndex+1});
+          this.fetchData(params);
+        } else {
+          this.setState({
+            dataLoaded: true
+          });
+        }
       })
       .catch((reason) => {
         console.error(reason);
