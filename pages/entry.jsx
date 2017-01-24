@@ -5,7 +5,7 @@ import Service from '../js/service.js';
 export default React.createClass({
   getInitialState() {
     return {
-      loadedFromGoogle: false,
+      dataLoaded: false,
       entry: null
     };
   },
@@ -17,7 +17,7 @@ export default React.createClass({
       .get(entryId)
       .then((entry) => {
         this.setState({
-          loadedFromGoogle: true,
+          dataLoaded: true,
           entry: entry
         });
       })
@@ -28,7 +28,7 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.state.loadedFromGoogle ? <ProjectCard {...this.state.entry} onDetailView={true} /> : null }
+        { this.state.dataLoaded ? <ProjectCard {...this.state.entry} onDetailView={true} /> : null }
       </div>
     );
   }

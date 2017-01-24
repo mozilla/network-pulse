@@ -2,7 +2,6 @@
 // this is just interim and will be fixed once all the backend API is ready to use
 
 import React from 'react';
-import moment from 'moment';
 import ProjectCard from '../project-card/project-card.jsx';
 import Service from '../../js/service.js';
 
@@ -10,8 +9,9 @@ export default React.createClass({
   numProjectsInBatch: 24, // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes
   getInitialState() {
     return {
-      loadedFromGoogle: false,
-      entries: null,
+      dataLoaded: false,
+      apiPageIndex: 1,
+      entries: [],
       displayBatchIndex: 1
     };
   },
@@ -27,68 +27,60 @@ export default React.createClass({
     }
   },
   fetchData(params = {}) {
+    params.page = this.state.apiPageIndex;
     Service.entries
       .get(params)
-      .then((entries) => {
-        // sort data from mostly -> least recently added
-        entries = entries.sort((a,b) => {
-          return b.id - a.id;
-        });
+      .then((data) => {
         this.setState({
-          loadedFromGoogle: true,
-          entries: entries
+          entries: this.state.entries.concat(data.results)
         });
+
+        if (data.next) { // there are more data in the database we need to fetch
+          this.setState({apiPageIndex: this.state.apiPageIndex+1});
+          this.fetchData(params);
+        } else {
+          this.setState({
+            dataLoaded: true
+          });
+        }
       })
       .catch((reason) => {
         console.error(reason);
       });
   },
   applyFilterToList(entries,params = {}) {
-    // TODO:FIXME:
-    // currently there are no API endpoints for the following params
-    // so there comes the temporary solution to filter entries on client side
+    if ( params.ids ) { // we want to show the list from the most recently faved entry first
+      let favedIdArray = params.ids.split(`,`);
 
-    let filteredProjects = entries.filter((project) => {
-      if ( Object.keys(params).length === 0 || params.issue ) {
-        // if no params have been passed, we want to return all entries returned from the API call
-        // OR if entries of a particular issue have been requested, we return all entries as well as the corresponding API call was used and there's no need to go through another fitlering
-        return true;
-      } else if ( params.featured ) {
-        // if we want to only return featured entries
-        return project.featured;
-      } else if ( params.favs ) {
-        // if we want to return projects that have been favrourited by user
-        try {
-          return params.favs.indexOf(project.id) > -1;
-        } catch (err) {
-          return false;
-        }
-      } else if ( params.search ) {
-        // if this is for the search page, return entries that include the search keyword user has entered
-        return JSON.stringify(project).toLowerCase().indexOf(params.search.toLowerCase().trim()) > -1;
-      } else {
-        // this is for the search page default view case
-        // the default view for search page is blank (no entries shown)
-        return false;
-      }
-    });
-
-    if ( params.favs ) {
-      // we want to show the list from the most recently faved entry first
-      return filteredProjects.sort((a,b) => {
-        return params.favs.indexOf(a.id) > params.favs.indexOf(b.id);
+      return entries.sort((a,b) => {
+        return favedIdArray.indexOf(a.id.toString()) > favedIdArray.indexOf(b.id.toString());
       });
+    } else if ( Object.keys(params).indexOf(`search`) > -1 ) { // if this is for the search page, filter entries as user types on client side
+      if (params.search) {
+        return entries.filter(project =>
+          // return entries that include the search keyword user has entered
+          JSON.stringify(project).toLowerCase().indexOf(params.search.toLowerCase().trim()) > -1
+        );
+      } else { // by default shows empty list
+        return [];
+      }
+    } else {
+      return entries;
     }
 
-    return filteredProjects;
   },
   handleViewMoreClick() {
     this.setState({displayBatchIndex: this.state.displayBatchIndex+1});
   },
   render() {
-    let projects = this.state.loadedFromGoogle ? this.applyFilterToList(this.state.entries,this.props.params) : null;
+    let projects = this.state.dataLoaded ? this.applyFilterToList(this.state.entries,this.props.params) : null;
     let showViewMoreBtn;
     let searchResult;
+
+    if (this.props.params && this.props.params.search && projects) {
+      // show search result if on search page and search keyword is presented
+      searchResult = (<p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.params.search}’</p>);
+    }
 
     if (projects) {
       // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
@@ -98,11 +90,6 @@ export default React.createClass({
       projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
         return ( <ProjectCard key={project.id} {...project} /> );
       });
-    }
-
-    if (this.props.params && this.props.params.search && projects) {
-      // show search result if on search page and search keyword is presented
-      searchResult = (<p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.params.search}’</p>);
     }
 
     return (

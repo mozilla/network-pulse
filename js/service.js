@@ -2,7 +2,9 @@ import env from "../config/env.generated.json";
 
 let pulseAPI = env.PULSE_API;
 let defaultParams = {
-  format: `json`
+  ordering: `-created`,
+  page_size: 6 * Math.floor(1000/6), // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes. Note that max_page_size on Pulse API is set to 1000.
+  format: `json`,
 };
 
 /**

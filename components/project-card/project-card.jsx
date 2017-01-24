@@ -34,7 +34,7 @@ export default React.createClass({
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
     thumbnailUrl: React.PropTypes.string,
-    timestamp: React.PropTypes.object,
+    timestamp: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string,
     onDetailView: React.PropTypes.bool
@@ -108,7 +108,7 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink}>Read more</Link>
                     </div>);
-    let creators = this.props.creators ? `By ${this.props.creators.join(` ,`)}` : null;
+    let creators = this.props.creators ? `By ${this.props.creators.join(`, `)}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
 
     return (
