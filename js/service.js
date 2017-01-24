@@ -36,7 +36,16 @@ function doXHR(route, params = {}) {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
-        resolve(result.response);
+        // we don't get a data object back when it was a succesful XHR and we got redirected to the base route. e.g., when making a /logout call
+        if (result.status == 200 && result.responseURL.replace(/\/$/, ``) == `${pulseAPI}`) {
+          resolve();
+        }
+
+        try {
+          resolve(JSON.parse(result.response));
+        } catch (error) {
+          reject(error);
+        }
       } else {
         reject(`XHR request failed, status ${result.status}.`);
       }

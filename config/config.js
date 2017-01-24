@@ -1,7 +1,7 @@
 import env from "../config/env.generated.json";
 
-let config = {
-  userLoggedInStatus: false,
+let userData = {
+  loggedInStatus: false,
   username: ``
 };
 
@@ -13,18 +13,18 @@ export default {
   },
   userLoggedInStatus: {
     get: function () {
-      return config.userLoggedInStatus;
+      return userData.loggedInStatus;
     },
     set: function (status) {
-      config.userLoggedInStatus = ( status === `True` || status === true);
+      userData.loggedInStatus = status.toString().toLowerCase() === `true`;
     }
   },
   username: {
     get: function () {
-      return config.username;
+      return userData.username;
     },
     set: function (username) {
-      config.username = username;
+      userData.username = username;
     }
   }
 };

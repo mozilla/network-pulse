@@ -11,20 +11,13 @@ export default React.createClass({
   getInitialState() {
     return {
       favs: null,
-      loggedInCheckTimestamp: null
+      loggedInCheckDateTime: null
     };
   },
   verifyLoggedInStatus() {
     Service.nonce()
       .then((response) => {
-        let user = {};
-
-        try {
-          user = JSON.parse(response).user;
-        } catch (err) {
-          console.error(err);
-        }
-        this.updateLoggedInInfo(true, user);
+        this.updateLoggedInInfo(true, response.user);
       })
       .catch((reason) => {
         this.updateLoggedInInfo(false);
@@ -34,7 +27,7 @@ export default React.createClass({
   updateLoggedInInfo(status, username = ``) {
     config.userLoggedInStatus.set(status);
     config.username.set(username);
-    this.setState({loggedInCheckTimestamp: new Date()});
+    this.setState({loggedInCheckDateTime: new Date()});
   },
   logOutUser(event) {
     event.preventDefault();
@@ -56,8 +49,13 @@ export default React.createClass({
     this.verifyLoggedInStatus();
   },
   render() {
-    let redirectBackUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-    let logInUrl = config.logInUrl.get(redirectBackUrl);
+    let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
+
+    if (typeof window !== `undefined`) {
+      redirectUrl = window.location.toString();
+    }
+
+    let logInUrl = config.logInUrl.get(redirectUrl);
     let loggedInStatus = config.userLoggedInStatus.get() ?
                         <p>Hi {config.username.get()}! <a href="" onClick={this.logOutUser}>Log out</a>.</p>
                         : <p>Are you Mozilla Staff? <a href={logInUrl}>Sign in</a>.</p>;
