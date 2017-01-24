@@ -12,10 +12,11 @@ if (environment !== `PRODUCTION`) {
   habitat.load(`config/default.env`);
 }
 
-var config = {
-  PULSE_API: habitat.get(`PULSE_API`)
-};
+const HOST = habitat.get(`HOST`);
+const PORT = habitat.get(`PORT`);
+const ORIGIN = HOST + (PORT ? `:${PORT}` : ``);
+const CONFIG = { HOST, PORT, ORIGIN, PULSE_API: habitat.get(`PULSE_API`)};
 
 process.stdout.write(
-  `${JSON.stringify(config)}\n`
+  `${JSON.stringify(CONFIG)}\n`
 );

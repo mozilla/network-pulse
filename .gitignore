@@ -9,5 +9,6 @@ env.generated.json
 
 # But not these...
 !config/default.env
+!sample.env
 
 

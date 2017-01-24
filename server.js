@@ -5,9 +5,10 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
 
-const app = express();
+import env from "./config/env.generated.json";
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = env.PORT;
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 

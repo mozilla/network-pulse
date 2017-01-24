@@ -30,6 +30,11 @@ p {
   line-height: 1.333;
 }
 
+.btn-link {
+  cursor: pointer;
+  padding: 0;
+}
+
 .btn {
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
   display: inline-block;
@@ -100,6 +105,10 @@ p {
   @media screen and (min-width: $bp-lg) {
     padding-bottom: 100px;
   }
+}
+
+.logged-in-status {
+  font-weight: 400;
 }
 
 // Components
