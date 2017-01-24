@@ -64,7 +64,7 @@ function getDataFromURL(route, params = {}) {
  */
 function callURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign(params,defaultParams);
+  let combinedParams = Object.assign(defaultParams, params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);

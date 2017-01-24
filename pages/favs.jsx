@@ -5,7 +5,7 @@ import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
 import Service from '../js/service.js';
-import config from '../config/config.js';
+import config from '../js/user-data.js';
 import env from "../config/env.generated.json";
 
 export default React.createClass({
@@ -43,7 +43,7 @@ export default React.createClass({
     // we don't need the "loggedin" param sent back from Pulse API to be presented at all times
     delete query.loggedin;
 
-    browserHistory.push({
+    browserHistory.replace({
       pathname: this.props.router.location.pathname,
       query: query
     });
