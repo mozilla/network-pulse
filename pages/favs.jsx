@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { getFavs } from '../js/favs-manager';
 import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
@@ -10,16 +11,13 @@ import env from "../config/env.generated.json";
 export default React.createClass({
   getInitialState() {
     return {
-      favs: null,
-      loggedInCheckDateTime: null
+      favs: null
     };
   },
   verifyLoggedInStatus() {
-    Service.nonce()
-      .then((response) => {
-        this.updateLoggedInInfo(true, response.user);
-      })
-      .catch((reason) => {
+    Service.userstatus()
+      .then(response => this.updateLoggedInInfo(response.loggedin, response.username))
+      .catch(reason => {
         this.updateLoggedInInfo(false);
         console.error(reason);
       });
@@ -27,7 +25,7 @@ export default React.createClass({
   updateLoggedInInfo(status, username = ``) {
     config.userLoggedInStatus.set(status);
     config.username.set(username);
-    this.setState({loggedInCheckDateTime: new Date()});
+    this.forceUpdate();
   },
   logOutUser() {
     Service.logout()
@@ -35,11 +33,21 @@ export default React.createClass({
         // we have successfully logged user out
         this.updateLoggedInInfo(false);
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   },
   componentDidMount() {
+    let query = this.props.router.location.query;
+    
+    // we don't need the "loggedin" param sent back from Pulse API to be presented at all times
+    delete query.loggedin;
+
+    browserHistory.push({
+      pathname: this.props.router.location.pathname,
+      query: query
+    });
+
     // get IDs of user's favorited entries
     this.setState({favs: getFavs()});
 
@@ -48,11 +56,6 @@ export default React.createClass({
   },
   render() {
     let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-
-    if (typeof window !== `undefined`) {
-      redirectUrl = window.location.toString();
-    }
-
     let logInUrl = config.logInUrl.get(redirectUrl);
     let loggedInStatus = config.userLoggedInStatus.get() ?
                         <p>Hi {config.username.get()}! <button onClick={this.logOutUser} className="btn-link">Log out</button>.</p>

@@ -13,7 +13,9 @@ if (environment !== `PRODUCTION`) {
 }
 
 var config = {
-  ORIGIN: habitat.get(`ORIGIN`),
+  HOST: habitat.get(`HOST`),
+  PORT: habitat.get(`PORT`),
+  ORIGIN: `${habitat.get(`HOST`)}:${habitat.get(`PORT`)}`,
   PULSE_API: habitat.get(`PULSE_API`)
 };
 

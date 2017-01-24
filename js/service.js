@@ -8,7 +8,7 @@ let defaultParams = {
 };
 
 /**
- * Serialize a POJO as a URL query string fragment
+ * Serialize a POJO(Plain Old JavaScript Object. A set of key-value pairs.) as a URL query string fragment
  * @param  {Object} pojo A shallow object to serialize
  * @returns {String} Serialized string fragment (eg: ?foo=bar&cool=23
  */
@@ -27,7 +27,7 @@ function pojoToQuery(pojo) {
  */
 function getDataFromURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign(params,defaultParams);
+  let combinedParams = Object.assign(defaultParams,params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
@@ -103,8 +103,8 @@ export default {
   logout: function() {
     return callURL(`${pulseAPI}/logout/`);
   },
-  nonce: function() {
-    return getDataFromURL(`${pulseAPI}/nonce/`);
+  userstatus: function() {
+    return getDataFromURL(`${pulseAPI}/userstatus/`);
   }
   // ... and more Pulse API endpoints to come
 };

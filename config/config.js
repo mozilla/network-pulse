@@ -8,6 +8,9 @@ let userData = {
 export default {
   logInUrl: {
     get: function(redirectUrl = env.ORIGIN) {
+      if (typeof window !== `undefined`) {
+        redirectUrl = window.location.toString();
+      }
       return `${env.PULSE_API}/login?original_url=${encodeURIComponent(redirectUrl)}`;
     }
   },
