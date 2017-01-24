@@ -1,9 +1,64 @@
-#add-project-form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: $nightly-blue;
-  z-index: 101;
+.add-page {
+  max-width: 640px;
+  margin: 0 auto;
+
+  h1,
+  h2 {
+    color: $bikeshed-magenta;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: $form-field-vertical-margin;
+  }
+}
+
+.posted-by {
+  p {
+    font-size: 1rem;
+    display: inline-block;
+    margin: 0 1rem 1rem 0;
+  }
+
+  .user-full-name,
+  .log-out-prompt {
+    color: $form-text-light;
+  }
+
+  .user-full-name {
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+
+fieldset.creators {
+  input {
+    margin-bottom: 0.5rem;
+
+    @media screen and (min-width: $bp-md) {
+      display: inline-block;
+      width: calc(50% - 1rem / 2);
+
+      &:nth-child(2n) {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  button {
+    background: none;
+    border: none;
+
+    &:hover,
+    &:active {
+      color: darken($mobile-blue, 15%);
+      background: none;
+      text-decoration: none;
+    }
+  }
 }
