@@ -7,7 +7,7 @@
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build && run-p server watch:**",
     "build": "run-s bootstrap build:**",
-    "build:config": "node js/build-config.js > config/env.generated.json",
+    "build:config": "node js/build-env-config.js > config/env.generated.json",
     "build:client": "run-s build-client:**",
     "build-client:js": "webpack --config webpack.config.js --optimize-minimize --display-error-details",
     "build-client:scss": "node-sass scss/main.scss dist/css/main.css",

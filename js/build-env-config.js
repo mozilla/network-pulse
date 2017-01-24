@@ -13,6 +13,7 @@ if (environment !== `PRODUCTION`) {
 }
 
 var config = {
+  ORIGIN: habitat.get(`ORIGIN`),
   PULSE_API: habitat.get(`PULSE_API`)
 };
 

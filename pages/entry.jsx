@@ -15,7 +15,7 @@ export default React.createClass({
   fetchData(entryId = ``) {
     Service.entry
       .get(entryId)
-      .then((entry) => {
+      .then((response) => {
         this.setState({
           dataLoaded: true,
           entry: entry

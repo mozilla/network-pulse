@@ -31,13 +31,14 @@ function doXHR(route, params = {}) {
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
 
+    request.withCredentials = true;
     request.onload = (event) => {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
-        resolve(JSON.parse(result.response));
+        resolve(result.response);
       } else {
-        reject(`XHR request failed.`);
+        reject(`XHR request failed, status ${result.status}.`);
       }
     };
 
@@ -51,15 +52,21 @@ function doXHR(route, params = {}) {
 
 export default {
   entries: {
-    get: function (params) {
+    get: function(params) {
       return doXHR(`${pulseAPI}/entries/`, params);
     }
   },
   entry: {
-    get: function (entryId) {
+    get: function(entryId) {
       console.log(`${pulseAPI}/entries/${entryId}`);
       return doXHR(`${pulseAPI}/entries/${entryId}`);
     }
+  },
+  logout: function() {
+    return doXHR(`${pulseAPI}/logout/`);
+  },
+  nonce: function() {
+    return doXHR(`${pulseAPI}/nonce/`);
   }
   // ... and more Pulse API endpoints to come
 };
