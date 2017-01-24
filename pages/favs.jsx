@@ -16,7 +16,7 @@ export default React.createClass({
     return (
       <div>
         { this.state.favs && this.state.favs.length > 0 ?
-                            <ProjectList params={{favs: this.state.favs}} />
+                            <ProjectList params={{ids: this.state.favs.join(`,`)}} />
                             : <HintMessage imgSrc={`/assets/svg/icon-fav-selected.svg`}
                                            header={`Save your Favs`}
                                            btn={{to: `/featured`, text: `Explore featured`}}>

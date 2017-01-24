@@ -2,7 +2,8 @@ import env from "../config/env.generated.json";
 
 let pulseAPI = env.PULSE_API;
 let defaultParams = {
-  format: `json`
+  ordering: `-created`,
+  format: `json`,
 };
 
 /**
