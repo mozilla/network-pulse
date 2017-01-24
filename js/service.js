@@ -8,14 +8,37 @@ let defaultParams = {
 };
 
 /**
- * Serialize a POJO(Plain Old JavaScript Object. A set of key-value pairs.) as a URL query string fragment
- * @param  {Object} pojo A shallow object to serialize
- * @returns {String} Serialized string fragment (eg: ?foo=bar&cool=23
+ * A helper function to process value in a key-value pair into a valid query param value
+ * @param  {String} key The key of the key-value pair we are going to process
+ * @param  {Object} data Object that contains all keys and unprocessed values
+ * @returns {Boolean or String} Processed value of the key
  */
-function pojoToQuery(pojo) {
-  return Object.keys(pojo).reduce((previousValue, currentValue, index) => {
-    return `${previousValue}${index !== 0 ? `&` : ``}${currentValue}=${pojo[currentValue]}`;
-  }, `?`);
+function toQueryPair(key, data) {
+  let val = data[key];
+
+  if (val === undefined || val === null) {
+    return false;
+  }
+
+  let type = typeof val;
+
+  switch(type) {
+    case `object`: return false;
+    case `function`: return false;
+    default: return `${key}=${val.toString()}`;
+  }
+}
+
+/**
+ * Create query string from an object that contains key-value pairs.
+ * @param  {Object} data Object that contains key-value pairs.
+ * @returns {String} Query string
+ */
+function toQueryString(data) {
+  const pairs = Object.keys(data).map( key => toQueryPair(key, data)).filter(e => !!e);
+  const queryArguments = pairs.join(`&`);
+
+  return `?${queryArguments}`;
 }
 
 /**
@@ -30,7 +53,7 @@ function getDataFromURL(route, params = {}) {
   let combinedParams = Object.assign(defaultParams, params);
 
   return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
+    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
@@ -67,7 +90,7 @@ function callURL(route, params = {}) {
   let combinedParams = Object.assign(defaultParams, params);
 
   return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
+    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
