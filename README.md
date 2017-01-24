@@ -4,7 +4,7 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 ## 🔷 v2, React-based (upcoming)
 
-- https://pulse-react.herokuapp.com to check out what have been implemented
+- https://pulse-react.herokuapp.com to check out what has been implemented
 - Work is happening in the `react` branch.
 - Relevant tickets are marked with the `v2 (upcoming)` label.
 

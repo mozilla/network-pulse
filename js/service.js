@@ -27,7 +27,7 @@ function pojoToQuery(pojo) {
  */
 function getDataFromURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign(defaultParams,params);
+  let combinedParams = Object.assign(defaultParams, params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? pojoToQuery(combinedParams) : ``}`, true);
