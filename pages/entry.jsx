@@ -16,6 +16,12 @@ export default React.createClass({
     Service.entry
       .get(entryId)
       .then((response) => {
+        let entry = {};
+        try {
+          entry = JSON.parse(response);
+        } catch (err) {
+          console.error(err);
+        }
         this.setState({
           dataLoaded: true,
           entry: entry

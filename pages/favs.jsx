@@ -17,7 +17,14 @@ export default React.createClass({
   verifyLoggedInStatus() {
     Service.nonce()
       .then((response) => {
-        this.updateLoggedInInfo(true, JSON.parse(response).user);
+        let user = {};
+
+        try {
+          user = JSON.parse(response).user;
+        } catch (err) {
+          console.error(err);
+        }
+        this.updateLoggedInInfo(true, user);
       })
       .catch((reason) => {
         this.updateLoggedInInfo(false);
