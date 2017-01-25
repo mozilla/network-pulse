@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { getFavs } from '../js/favs-manager';
+import { getBookmarks } from '../js/bookmarks-manager';
 import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
@@ -11,7 +11,7 @@ import env from "../config/env.generated.json";
 export default React.createClass({
   getInitialState() {
     return {
-      favs: null
+      bookmarks: null
     };
   },
   verifyLoggedInStatus() {
@@ -48,8 +48,8 @@ export default React.createClass({
       query: query
     });
 
-    // get IDs of user's favorited entries
-    this.setState({favs: getFavs()});
+    // get IDs of user's bookmarked entries
+    this.setState({bookmarks: getBookmarks()});
 
     // let's verify what the logged in status is
     this.verifyLoggedInStatus();
@@ -60,14 +60,20 @@ export default React.createClass({
     let loggedInStatus = config.userLoggedInStatus.get() ?
                         <p>Hi {config.username.get()}! <button onClick={this.logOutUser} className="btn-link">Log out</button>.</p>
                         : <p>Are you Mozilla Staff? <a href={logInUrl}>Sign in</a>.</p>;
+    
+    // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
+    // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
+    // For user facing bits like UI labels and URL path we want them to stay as "favorites".
+    // For more info see: https://github.com/mozilla/network-pulse/issues/326
+    let headerText = `Save your Favs`;
 
     return (
       <div>
         <div className="logged-in-status">{ loggedInStatus }</div>
-        { this.state.favs && this.state.favs.length > 0 ?
-                            <ProjectList params={{ids: this.state.favs.join(`,`)}} />
-                            : <HintMessage imgSrc={`/assets/svg/icon-fav-selected.svg`}
-                                           header={`Save your Favs`}
+        { this.state.bookmarks && this.state.bookmarks.length > 0 ?
+                            <ProjectList params={{ids: this.state.bookmarks.join(`,`)}} />
+                            : <HintMessage imgSrc={`/assets/svg/icon-bookmark-selected.svg`}
+                                           header={headerText}
                                            btn={{to: `/featured`, text: `Explore featured`}}>
                                 <p>Tap the heart on any project to save it here.</p>
                               </HintMessage>

@@ -3,7 +3,7 @@ import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
 import Featured from './pages/featured.jsx';
 import Latest from './pages/latest.jsx';
-import Favs from './pages/favs.jsx';
+import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
@@ -40,12 +40,17 @@ const App = React.createClass({
   }
 });
 
+// We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
+// This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
+// For user facing bits like UI labels and URL path we want them to stay as "favorites".
+// That's why a route like <Route path="favs" component={Bookmarks} /> is seen here.
+// For more info see: https://github.com/mozilla/network-pulse/issues/326
 module.exports = (
   <Route path="/" component={App}>
     <IndexRedirect to="/featured" />
     <Route path="featured" component={Featured} />
     <Route path="latest" component={Latest} />
-    <Route path="favs" component={Favs} />
+    <Route path="favs" component={Bookmarks} />
     <Route path="issues">
       <IndexRoute component={Issues} />
       <Route path=":issue" component={Issue} />

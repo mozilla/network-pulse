@@ -35,7 +35,7 @@
   }
 
   .text-nav-link {
-    &:not(.favs) {
+    &:not(.bookmarks) {
       margin-right: 1.9rem;
     }
   }
@@ -96,7 +96,7 @@
     .text-nav-link {
       margin-right: 2.4rem;
 
-      &:not(.favs) {
+      &:not(.bookmarks) {
         margin-right: 2.4rem;
       }
     }

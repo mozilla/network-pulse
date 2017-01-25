@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 import moment from 'moment';
-import { getFavs, saveFavs } from '../../js/favs-manager';
+import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
 
 const Details = (props) => {
   let getInvolvedText = props.getInvolved ? props.getInvolved : null;
@@ -19,7 +19,7 @@ const Details = (props) => {
 export default React.createClass({
   getInitialState() {
     return {
-      faved: false
+      bookmarked: false
     };
   },
   getDefaultProps() {
@@ -48,44 +48,44 @@ export default React.createClass({
       this.urlToShare.value = window.location.href;
     }
 
-    this.setInitialFavedStatus();
+    this.setInitialBookmarkedStatus();
 
   },
-  setInitialFavedStatus() {
-    let favs = getFavs();
-    let faved;
+  setInitialBookmarkedStatus() {
+    let bookmarks = getBookmarks();
+    let bookmarked;
     let index;
 
-    if (favs) {
-      index = favs.indexOf(this.props.id);
+    if (bookmarks) {
+      index = bookmarks.indexOf(this.props.id);
       if (index > -1) {
-        faved = true;
+        bookmarked = true;
       } else {
-        faved = false;
+        bookmarked = false;
       }
-      this.setState({faved: faved});
+      this.setState({bookmarked: bookmarked});
     }
   },
-  favProject(favs) {
-    favs.unshift(this.props.id);
-    this.setState({faved: true});
+  bookmarkProject(bookmarks) {
+    bookmarks.unshift(this.props.id);
+    this.setState({bookmarked: true});
   },
-  unfavProject(favs,index) {
-    favs.splice(index,1);
-    this.setState({faved: false});
+  unbookmarkProject(bookmarks,index) {
+    bookmarks.splice(index,1);
+    this.setState({bookmarked: false});
   },
-  toggleFavState() {
-    let favs = getFavs();
+  toggleBookmarkedState() {
+    let bookmarks = getBookmarks();
     let index;
 
-    if (favs) {
-      index = favs.indexOf(this.props.id);
+    if (bookmarks) {
+      index = bookmarks.indexOf(this.props.id);
       if (index > -1) {
-        this.unfavProject(favs,index);
+        this.unbookmarkProject(bookmarks,index);
       } else {
-        this.favProject(favs);
+        this.bookmarkProject(bookmarks);
       }
-      saveFavs(favs);
+      saveBookmarks(bookmarks);
     }
   },
   handleShareBtnClick() {
@@ -94,7 +94,7 @@ export default React.createClass({
     this.urlToShare.select();
   },
   render() {
-    let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "faved": this.state.faved});
+    let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "bookmarked": this.state.bookmarked});
     let detailViewLink = `/entry/${this.props.id}`;
     let thumbnail = this.props.thumbnailUrl ?
                     <Link to={detailViewLink} className="thumbnail">
@@ -129,7 +129,7 @@ export default React.createClass({
         <div className="project-links">
           <div className="action-panel">
             {actions}
-            <a className="heart" onClick={this.toggleFavState}></a>
+            <a className="heart" onClick={this.toggleBookmarkedState}></a>
           </div>
         </div>
       </div>

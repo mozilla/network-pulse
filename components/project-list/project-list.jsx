@@ -50,11 +50,11 @@ export default React.createClass({
       });
   },
   applyFilterToList(entries,params = {}) {
-    if ( params.ids ) { // we want to show the list from the most recently faved entry first
-      let favedIdArray = params.ids.split(`,`);
+    if ( params.ids ) { // we want to show the list from the most recently bookmarked entry first
+      let bookmarkedIdArray = params.ids.split(`,`);
 
       return entries.sort((a,b) => {
-        return favedIdArray.indexOf(a.id.toString()) > favedIdArray.indexOf(b.id.toString());
+        return bookmarkedIdArray.indexOf(a.id.toString()) > bookmarkedIdArray.indexOf(b.id.toString());
       });
     } else if ( Object.keys(params).indexOf(`search`) > -1 ) { // if this is for the search page, filter entries as user types on client side
       if (params.search) {
