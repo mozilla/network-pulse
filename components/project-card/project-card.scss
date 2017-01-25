@@ -133,13 +133,13 @@
     display: inline-block;
     width: 23px;
     height: 19px;
-    background: url(/assets/svg/icon-fav.svg) center center no-repeat;
+    background: url(/assets/svg/icon-bookmark.svg) center center no-repeat;
     background-size: auto 16px;
     cursor: pointer;
   }
 
-  &.faved .heart {
-    background: url(/assets/svg/icon-fav-selected.svg) center center no-repeat;
+  &.bookmarked .heart {
+    background: url(/assets/svg/icon-bookmark-selected.svg) center center no-repeat;
     background-size: auto 16px;
   }
 }
