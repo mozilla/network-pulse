@@ -27,13 +27,15 @@ export default React.createClass({
     // By calling this.fetchData() in the componentWillReceiveProps method here
     // we ensure data gets fetched and displayed accordingly.
 
-    // reset this.state.entries
-    this.setState({
-      entries: []
-    });
+    if ( this.props.params.issue ) {
+      // reset this.state.entries
+      this.setState({
+        entries: []
+      });
 
-    // fetch data based on the new params props
-    this.fetchData(nextProps.params);
+      // fetch data based on the new params props
+      this.fetchData(nextProps.params);
+    }
   },
   fetchData(params = {}) {
     params.page = this.state.apiPageIndex;
