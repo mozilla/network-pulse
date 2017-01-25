@@ -5,11 +5,14 @@ import moment from 'moment';
 import { getFavs, saveFavs } from '../../js/favs-manager';
 
 const Details = (props) => {
+  let getInvolvedText = props.getInvolved ? props.getInvolved : null;
+  let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank">Get Involved</a>) : null;
+
   return props.onDetailView ?
           (<div>
-            {props.interest ? <p className="interest">{props.interest}</p> : null}
-            {props.getInvolved ? <p className="get-involved">{props.getInvolved} <a href={props.getInvolvedUrl} target="_blank">Get Involved</a></p> : null}
-            {props.url ? <a href={props.url} target="_blank" className="btn btn-block btn-view">Visit</a> : null}
+            { props.interest ? <p className="interest">{props.interest}</p> : null }
+            { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
+            { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-view">Visit</a> : null }
           </div>) : null;
 };
 
@@ -36,7 +39,7 @@ export default React.createClass({
     thumbnailUrl: React.PropTypes.string,
     timestamp: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
-    url: React.PropTypes.string,
+    contentUrl: React.PropTypes.string,
     onDetailView: React.PropTypes.bool
   },
   componentDidMount() {

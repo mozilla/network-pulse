@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
+import Utility from '../js/utility.js';
 
 export default React.createClass({
   getInitialState() {
@@ -28,7 +29,7 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.state.dataLoaded ? <ProjectCard {...this.state.entry} onDetailView={true} /> : null }
+        { this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null }
       </div>
     );
   }
