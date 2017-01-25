@@ -5,10 +5,17 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
 
+const app = express();
+
+// Find the port we're using. If we're deployed on heroku,
+// that information will not be in our config because the
+// bundle compilation will have taken place on a different
+// dyno from where the code actually runs, but is available
+// at runtime as a PORT environment variable
+
 import env from "./config/env.generated.json";
 
-const app = express();
-const PORT = env.PORT;
+const PORT = env.PORT || process.env.PORT;
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
