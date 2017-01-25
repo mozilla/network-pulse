@@ -4,6 +4,7 @@
 import React from 'react';
 import ProjectCard from '../project-card/project-card.jsx';
 import Service from '../../js/service.js';
+import Utility from '../../js/utility.js';
 
 export default React.createClass({
   numProjectsInBatch: 24, // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes
@@ -88,7 +89,7 @@ export default React.createClass({
       showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
       // prepare ProjectCards we are going to render in this batch
       projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
-        return ( <ProjectCard key={project.id} {...project} /> );
+        return ( <ProjectCard key={project.id} {...Utility.processEntryData(project)} /> );
       });
     }
 
