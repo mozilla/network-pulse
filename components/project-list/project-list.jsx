@@ -20,12 +20,20 @@ export default React.createClass({
     this.fetchData(this.props.params);
   },
   componentWillReceiveProps(nextProps) {
-    // When navigating between the /issue/issue-name pages component does not get re-mounted,
-    // as been treated as passing new props to the same components (<Issue><ProjectList></Issue>)
-    // By calling this.fetchData() in the componentWillReceiveProps method here it ensures data gets fetched and displayed accordingly
-    if (nextProps.params.issue) {
-      this.fetchData(nextProps.params);
-    }
+    // <ProjectList> doesn't always get unmounted and remounted when navigating between pages.
+    // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue> do not
+    //  get re-mounted since the same components are being rendered.)
+    // It is treated as passing new props to theses components (<Issue><ProjectList></Issue>)
+    // By calling this.fetchData() in the componentWillReceiveProps method here
+    // we ensure data gets fetched and displayed accordingly.
+
+    // reset this.state.entries
+    this.setState({
+      entries: []
+    });
+
+    // fetch data based on the new params props
+    this.fetchData(nextProps.params);
   },
   fetchData(params = {}) {
     params.page = this.state.apiPageIndex;
