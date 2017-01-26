@@ -144,7 +144,7 @@ export default React.createClass({
           <fieldset className="creators">
             <legend>Who are the creators? This could be staff, contributors, partners…</legend>
             { creatorFields }
-            <button ref={(addCreatorLink) => { this.addCreatorLink = addCreatorLink; }} onClick={this.handleCreatorClick} className="btn btn-link">&#43; Add another creator</button>
+            <button onClick={this.handleCreatorClick} className="btn btn-link">&#43; Add another creator</button>
           </fieldset>
           <label className="form-control-label">
             Keywords to help with search by program, event, campaign, subject …
