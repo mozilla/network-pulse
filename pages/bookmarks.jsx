@@ -5,7 +5,7 @@ import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
 import Service from '../js/service.js';
-import config from '../js/user-data.js';
+import UserData from '../js/user-data.js';
 import env from "../config/env.generated.json";
 
 export default React.createClass({
@@ -23,11 +23,12 @@ export default React.createClass({
       });
   },
   updateLoggedInInfo(status, username = ``) {
-    config.userLoggedInStatus.set(status);
-    config.username.set(username);
+    UserData.userLoggedInStatus.set(status);
+    UserData.username.set(username);
     this.forceUpdate();
   },
-  logOutUser() {
+  logOutUser(event) {
+    event.preventDefault();
     Service.logout()
       .then(() => {
         // we have successfully logged user out
@@ -54,11 +55,14 @@ export default React.createClass({
     // let's verify what the logged in status is
     this.verifyLoggedInStatus();
   },
+  componentWillMount() {
+    console.log(`[bookmarks componentWillMount] UserData.userLoggedInStatus.get() = `, UserData.userLoggedInStatus.get());
+  },
   render() {
     let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-    let logInUrl = config.logInUrl.get(redirectUrl);
-    let loggedInStatus = config.userLoggedInStatus.get() ?
-                        <p>Hi {config.username.get()}! <button onClick={this.logOutUser} className="btn-link">Log out</button>.</p>
+    let logInUrl = UserData.logInUrl.get(redirectUrl);
+    let loggedInStatus = UserData.userLoggedInStatus.get() ?
+                        <p>Hi {UserData.username.get()}! <button onClick={this.logOutUser} className="btn-link">Log out</button>.</p>
                         : <p>Are you Mozilla Staff? <a href={logInUrl}>Sign in</a>.</p>;
     
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".

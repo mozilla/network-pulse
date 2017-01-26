@@ -49,16 +49,4 @@ fieldset.creators {
       }
     }
   }
-
-  button {
-    background: none;
-    border: none;
-
-    &:hover,
-    &:active {
-      color: darken($mobile-blue, 15%);
-      background: none;
-      text-decoration: none;
-    }
-  }
 }
