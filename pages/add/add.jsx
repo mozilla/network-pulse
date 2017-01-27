@@ -141,7 +141,7 @@ export default React.createClass({
     );
 
 
-    let Content;
+    let content;
     let userType = UserData.type.get();
 
     if (userType === `staff`) {
