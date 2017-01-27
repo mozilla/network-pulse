@@ -50,8 +50,7 @@ function toQueryString(data) {
  */
 function getDataFromURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let clonedDefaultParams = Object.assign({}, defaultParams); // so we don't mutate defaultParams itself in the next line
-  let combinedParams = Object.assign(clonedDefaultParams, params);
+  let combinedParams = Object.assign({}, defaultParams, params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
@@ -88,8 +87,7 @@ function getDataFromURL(route, params = {}) {
  */
 function callURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let clonedDefaultParams = Object.assign({}, defaultParams); // so we don't mutate defaultParams itself in the next line
-  let combinedParams = Object.assign(clonedDefaultParams, params);
+  let combinedParams = Object.assign({}, defaultParams, params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
