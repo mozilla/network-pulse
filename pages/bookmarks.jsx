@@ -3,7 +3,7 @@ import { getBookmarks } from '../js/bookmarks-manager';
 import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
-import user from '../js/app-user.js';
+import user from '../js/app-user';
 import env from "../config/env.generated.json";
 
 export default React.createClass({
