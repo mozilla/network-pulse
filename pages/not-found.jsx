@@ -6,7 +6,8 @@ export default React.createClass({
     return (
       <HintMessage imgSrc={`/assets/svg/icon-404.svg`}
                    header={`Something's wrong`}
-                   btn={{to: `/featured`, text: `Explore featured`}}>
+                   internalLink={`/featured`}
+                   linkText={`Explore featured`}>
         <p>Check your URL or try a search. Still no luck? <a href="https://github.com/mozilla/network-pulse/issues/new">Let us know</a>.</p>
       </HintMessage>
     );

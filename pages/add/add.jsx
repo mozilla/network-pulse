@@ -1,8 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
-import UserData from '../../js/user-data.js';
-import Login from '../../js/login.js';
+import user from '../../js/app-user.js';
 import env from "../../config/env.generated.json";
 
 const CreatorInputField = () => {
@@ -14,27 +13,26 @@ const CreatorInputField = () => {
 export default React.createClass({
   getInitialState() {
     return {
-      numCreatorFields: 1
+      numCreatorFields: 1,
+      user
     };
   },
   componentDidMount() {
-    let currentLocation = this.props.router.location;
+    // let's verify what the logged in status is
+    user.verify(this.props.router.location, () => this.setState({ user }));
+  },
+  handleSignInBtnClick(event) {
+    event.preventDefault();
 
-    Login.verifyLoggedInStatus(currentLocation, error => {
-      if (!error) {
-        this.forceUpdate();
-      }
-    });
+    let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
+    user.login(redirectUrl);
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
-    Login.logoutUser(error => {
-      if (!error) {
-        browserHistory.push({
-          pathname: `/featured`
-        });
-      }
+    user.logout();
+    browserHistory.push({
+      pathname: `/featured`
     });
   },
   handleCreatorClick(event) {
@@ -49,27 +47,30 @@ export default React.createClass({
     }
 
     let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-    let promptToLogIn = (<HintMessage imgSrc={`/assets/svg/icon-user.svg`}
-                                       header={`Please sign in to add a post`}
-                                       link={{href: UserData.logInUrl.get(redirectUrl), text: `Sign in`}}>
+    let anonymousContent = (<HintMessage imgSrc={`/assets/svg/icon-user.svg`}
+                                         header={`Please sign in to add a post`}
+                                         externalLink={user.getLoginURL(redirectUrl)}
+                                         linkText={`Sign in`}
+                                         onClick={this.handleSignInBtnClick}>
                             <p>Please note, only Mozilla staff can login now as we test this new platform.</p>
                           </HintMessage>);
 
 
-    let contentForNonStaff= ( <HintMessage imgSrc={`/assets/svg/icon-user.svg`}
-                                               header={`Sign in failed`}
-                                               btn={{to: `/featured`, text: `Explore featured`}}>
-                                    <p>Only Mozilla staff can login now as we test this new platform. Check back soon!</p>
-                                  </HintMessage>);
+    let failurePrompt= ( <HintMessage imgSrc={`/assets/svg/icon-user.svg`}
+                                      header={`Sign in failed`}
+                                      internalLink={`/featured`}
+                                      linkText={`Explore featured`}>
+                          <p>Only Mozilla staff can login now as we test this new platform. Check back soon!</p>
+                        </HintMessage>);
 
-    let contentForStaff = (
+    let contentForLoggedInUser = (
       <div>
         <h1>Share with the Network</h1>
         <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it … at any stage or fidelity.</p>
         <form action="" method="post">
           <h2>Basic Info</h2>
           <div className="posted-by">
-            <p>Posted by:&nbsp;<span className="user-full-name">{UserData.username.get()}</span></p>
+            <p>Posted by:&nbsp;<span className="user-full-name">{user.username}</span></p>
             <p className="log-out-prompt">Not you? <button className="btn btn-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
           </div>
           <fieldset hidden>
@@ -140,21 +141,21 @@ export default React.createClass({
       </div>
     );
 
+    let getContent = function() {
+      if (user.loggedin) {
+        return contentForLoggedInUser;
+      }
 
-    let content;
-    let userType = UserData.type.get();
+      if (user.failedLogin) {
+        return failurePrompt;
+      }
 
-    if (userType === `staff`) {
-      content = contentForStaff;
-    } else if (userType === `nonstaff`) {
-      content = contentForNonStaff;
-    } else {
-      content = promptToLogIn;
-    }
+      return anonymousContent;
+    };
 
     return (
       <div className="add-page">
-        { content }
+        { getContent() }
       </div>
     );
   }
