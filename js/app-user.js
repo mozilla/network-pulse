@@ -25,10 +25,7 @@ const Login = {
   /**
    * Generates the oauth url for logging a user in, with a redirect-when-finished URL
    */
-  getLoginURL(redirectUrl = env.ORIGIN) {
-    if (typeof window !== `undefined`) {
-      redirectUrl = window.location.toString();
-    }
+  getLoginURL(redirectUrl) {
     return `${env.PULSE_API}/login?original_url=${encodeURIComponent(redirectUrl)}`;
   },
 
@@ -149,8 +146,8 @@ class User {
     if (onUpdated) { onUpdated(this); }
   }
 
-  getLoginURL() {
-    return Login.getLoginURL();
+  getLoginURL(redirectUrl) {
+    return Login.getLoginURL(redirectUrl);
   }
 }
 

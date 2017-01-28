@@ -3,8 +3,8 @@ import { getBookmarks } from '../js/bookmarks-manager';
 import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
+import utility from '../js/utility';
 import user from '../js/app-user';
-import env from "../config/env.generated.json";
 
 export default React.createClass({
   getInitialState() {
@@ -16,13 +16,15 @@ export default React.createClass({
   handleSignInBtnClick(event) {
     event.preventDefault();
 
-    let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-    user.login(redirectUrl);
+    user.login(utility.getCurrentURL());
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
     user.logout();
     this.setState({ user });
+  },
+  componentWillUnmount() {
+    user.verify(this.props.router.location);
   },
   componentDidMount() {
     // get IDs of user's bookmarked entries

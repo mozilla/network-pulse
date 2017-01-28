@@ -1,14 +1,8 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
+import utility from '../../js/utility';
 import user from '../../js/app-user';
-import env from "../../config/env.generated.json";
-
-const CreatorInputField = () => {
-  return (
-    <input name="creators" type="text" placeholder="Name" width="150" className="form-control" />
-  );
-};
 
 export default React.createClass({
   getInitialState() {
@@ -17,15 +11,16 @@ export default React.createClass({
       user
     };
   },
+  componentWillUnmount() {
+    user.verify(this.props.router.location);
+  },
   componentDidMount() {
-    // let's verify what the logged in status is
     user.verify(this.props.router.location, () => this.setState({ user }));
   },
   handleSignInBtnClick(event) {
     event.preventDefault();
 
-    let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
-    user.login(redirectUrl);
+    user.login(utility.getCurrentURL());
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
@@ -55,10 +50,9 @@ export default React.createClass({
             </HintMessage>);
   },
   getAnonymousContent() {
-    let redirectUrl = `${env.ORIGIN}${this.props.router.getCurrentLocation().pathname}`;
     return (<HintMessage imgSrc={`/assets/svg/icon-user.svg`}
                          header={`Please sign in to add a post`}
-                         externalLink={user.getLoginURL(redirectUrl)}
+                         externalLink={user.getLoginURL(utility.getCurrentURL())}
                          linkText={`Sign in`}
                          onClick={this.handleSignInBtnClick}>
               <p>Please note, only Mozilla staff can login now as we test this new platform.</p>
