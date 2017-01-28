@@ -11,9 +11,6 @@ export default React.createClass({
       user
     };
   },
-  componentWillUnmount() {
-    user.verify(this.props.router.location);
-  },
   componentDidMount() {
     user.verify(this.props.router.location, () => this.setState({ user }));
   },

@@ -23,9 +23,6 @@ export default React.createClass({
     user.logout();
     this.setState({ user });
   },
-  componentWillUnmount() {
-    user.verify(this.props.router.location);
-  },
   componentDidMount() {
     // get IDs of user's bookmarked entries
     this.setState({bookmarks: getBookmarks()});
