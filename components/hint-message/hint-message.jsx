@@ -8,7 +8,8 @@ const HintMessage = (props) => {
         <h2><img src={props.imgSrc} /></h2>
         <h2>{props.header}</h2>
         {props.children}
-        <Link to={props.btn.to} className="btn">{props.btn.text}</Link>
+        { props.internalLink && props.linkText ? <Link to={props.internalLink} className="btn" onClick={props.onClick}>{props.linkText}</Link> : null }
+        { props.externalLink && props.linkText ? <a href={props.externalLink} className="btn" onClick={props.onClick}>{props.linkText}</a> : null }
       </div>
     </div>
   );

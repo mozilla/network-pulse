@@ -51,6 +51,20 @@ p {
   }
 }
 
+button {
+  &.btn-link {
+    background: none;
+    border: none;
+
+    &:hover,
+    &:active {
+      color: darken($mobile-blue, 15%);
+      background: none;
+      text-decoration: none;
+    }
+  }
+}
+
 .text-center {
   text-align: center;
 }
@@ -109,6 +123,50 @@ p {
 
 .logged-in-status {
   font-weight: 400;
+}
+
+// Form 
+
+form {
+  font-weight: 400;
+}
+
+label {
+  width: 100%;
+  margin-bottom: $form-field-vertical-margin;
+
+  .required {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: $form-text-light;
+  }
+}
+
+fieldset {
+  margin-bottom: $form-field-vertical-margin;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+legend {
+  font-size: 1rem;
+}
+
+.form-control[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+button[type="submit"] {
+  margin-top: $form-field-vertical-margin;
+}
+
+.form-text {
+  color: $form-text-light;
 }
 
 // Components

@@ -24,7 +24,7 @@
     "server": "node dist/server.bundle.js",
     "watch:css": "chokidar 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' -c 'npm run build-client:scss'",
     "watch:html": "chokidar 'index.html' -c 'npm run build-client:static'",
-    "watch:js": "chokidar 'main.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'webpack.config.js' -c 'npm run build-client:js'",
+    "watch:js": "chokidar 'main.jsx' 'routes.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'webpack.config.js' -c 'npm run build-client:js'",
     "test": "run-s test:**",
     "test:js": "eslint --config .eslintrc.yaml 'main.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' --syntax scss",
