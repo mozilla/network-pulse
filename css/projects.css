@@ -548,14 +548,14 @@ footer {
 
 /* project list item */
 
-#fav-count {
+#fav-count-text {
   margin-bottom: 10px;
 }
 
-#fav-count img {
+#fav-count-text .star {
   position: relative;
-  top: -2px;
-  margin-right: .5rem;
+  top: 3px;
+  margin-right: .5em;
 }
 
 .project-list-item {
@@ -567,23 +567,18 @@ footer {
   background: white;
 }
 
-.fav-list{
-  background-color: white;
-  padding: 1em;
+.list-header{
+  display: flex;
+  flex-direction: row;
 }
 
-#fav-count-text{
-  color:black;
-  font-size: 18px;
+.project-title{
+  order: 1;
+  flex-grow: 2;
 }
 
-.fav-title{
-	display: inline-block;	
-}
-
-.fav-heart{
-	display: inline-block;
-	float: right;
+.starred{
+  order: 1;
 }
 
 .project-list-item h2 {
