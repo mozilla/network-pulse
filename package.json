@@ -11,13 +11,13 @@
     "build:client": "run-s build-client:**",
     "build-client:js": "webpack --config webpack.config.js --optimize-minimize --display-error-details",
     "build-client:scss": "node-sass scss/main.scss dist/css/main.css",
-    "build-client:prefix:main": "postcss --use autoprefixer --autoprefixer.browsers 'last 3 versions' -o dist/css/main.css dist/css/main.css",
+    "build-client:prefix:main": "postcss --use autoprefixer -o dist/css/main.css dist/css/main.css",
     "build-client:static": "run-s copy:**",
     "build:server": "webpack --config webpack.server.config.js --optimize-minimize --display-error-details",
     "copy:styling-dependency": "run-s bootstrap:clean bootstrap:fontawesome bootstrap:prefix",
     "bootstrap:clean": "shx cp -r node_modules/mofo-bootstrap/dest/css dist",
     "bootstrap:fontawesome": "shx cp -r node_modules/font-awesome/css/font-awesome.min.css dist/css && shx cp -r node_modules/font-awesome/fonts dist",
-    "bootstrap:prefix": "postcss --use autoprefixer --autoprefixer.browsers 'last 3 versions' -o dist/css/mofo-bootstrap.css dist/css/mofo-bootstrap.css",
+    "bootstrap:prefix": "postcss --use autoprefixer -o dist/css/mofo-bootstrap.css dist/css/mofo-bootstrap.css",
     "copy:index": "shx cp index.html dist/index.html",
     "copy:manifest": "shx cp manifest.json dist",
     "copy:assets": "shx cp favicon.png dist && shx cp -r assets dist",
@@ -30,6 +30,10 @@
     "test:scss": "stylelint --config .stylelintrc 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' --syntax scss",
     "postinstall": "npm run build"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mozilla/network-pulse.git"
@@ -55,6 +59,7 @@
     "babel-loader": "^6.2.9",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "browserslist": "^1.7.1",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
@@ -64,7 +69,7 @@
     "moment": "^2.17.1",
     "node-sass": "^3.13.0",
     "npm-run-all": "^3.1.1",
-    "postcss-cli-simple": "^1.0.1",
+    "postcss-cli-simple": "^1.0.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
