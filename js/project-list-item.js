@@ -39,13 +39,12 @@ var ProjectListItem = {
     $listItem.find(".star").on("click", function(event) {
       event.preventDefault();
       FavouritesManager.toggleProjectFavState(id,projectData.Title);
+      var favedProjects = FavouritesManager.getFavedProjects();
+      var favsCount = _.size(favedProjects);
+      $("#fav-count").html(favsCount);
+    });
 
     $listItem.find(".project-title").on("click", ProjectListItem.viewProjectLinkClickHandler);
-
-      var favedProjects = FavouritesManager.getFavedProjects();
-      favs_count = _.size(favedProjects);
-      $("#fav-count-text").html("You have "+favs_count+" favs");
-    });
 
     $("#project-container .projects").append($listItem);
   }
