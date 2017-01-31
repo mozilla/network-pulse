@@ -149,10 +149,10 @@
       ].join(" ");
     %>
     <div id="<%- id %>" class="<%- classNames %>" data-title="<%- title %>">
-      <div class="content fav-list">
+      <div class="content">
         <div class="list-header">
           <a href="<%- detailViewLink %>" class="project-title"><h2><%- title %></h2></a>
-          <a class="starred star"></a>
+          <a class="star"></a>
         </div>
         <p><% if (creators) { %> <%- creators %> <% } %><% if (creators && timestamp)  %><% if (timestamp) { %> on <%- timestamp %> <% } %></p>
       </div>
