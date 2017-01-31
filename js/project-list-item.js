@@ -41,7 +41,7 @@ var ProjectListItem = {
       FavouritesManager.toggleProjectFavState(id,projectData.Title);
       var favedProjects = FavouritesManager.getFavedProjects();
       var favsCount = _.size(favedProjects);
-      $("#fav-count").html(favsCount);
+      $("#fav-count").text(favsCount);
     });
 
     $listItem.find(".project-title").on("click", ProjectListItem.viewProjectLinkClickHandler);
