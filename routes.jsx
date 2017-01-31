@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import localstorage from './js/localstorage.js';
 
 import Featured from './pages/featured.jsx';
 import Latest from './pages/latest.jsx';
@@ -17,36 +18,36 @@ import Footer from './components/footer/footer.jsx';
 const App = React.createClass({
   getInitialState() {
     return {
-      suppressSplashScreen: false
+      suppressSplashScreen: localstorage.getItem(`suppressSplashScreen`) === `true`
     };
   },
   componentDidMount() {
-    const suppressSplashScreenKey = `suppressSplashScreen`;
-
-    this.setState({
-      suppressSplashScreen: localStorage.getItem(suppressSplashScreenKey) === `true`
-    });
-
     if (this.state.suppressSplashScreen !== `true`) {
       setTimeout(function() {
         this.splash.classList.add(`dismissed`);
         document.querySelector(`#app`).classList.add(`splash-dismissed`);
       }, 3000);
-      localStorage.setItem(suppressSplashScreenKey, `true`);
+      localstorage.setItem(`suppressSplashScreen`, `true`);
     }
+  },
+  renderWelcomeSplash() {
+    if (this.state.suppressSplashScreen) {
+      return null;
+    }
+    return (
+      <div id="splash" ref={(splash) => { this.splash = splash; }}>
+        <div className="container">
+          <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" height="46" alt="Mozilla Network Pulse" /></h1>
+          <p>A stream of assets from peers across the Mozilla Network.</p>
+        </div>
+      </div>
+    );
   },
   render() {
 
     return (
       <div>
-        { !this.state.suppressSplashScreen ?
-            <div id="splash" ref={(splash) => { this.splash = splash; }}>
-              <div className="container">
-                <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" alt="Mozilla Network Pulse" /></h1>
-                <p>A stream of assets from peers across the Mozilla Network.</p>
-              </div>
-            </div>
-          : null }
+        { this.renderWelcomeSplash() }
         <Navbar router={this.props.router}/>
         <div id="main" className="container">
           {this.props.children}
