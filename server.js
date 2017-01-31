@@ -15,7 +15,8 @@ const app = express();
 
 import env from "./config/env.generated.json";
 
-const PORT = env.PORT || process.env.PORT;
+const defaultPort = 3000;
+const PORT = env.PORT || process.env.PORT || defaultPort;
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
