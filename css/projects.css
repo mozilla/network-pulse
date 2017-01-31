@@ -552,10 +552,10 @@ footer {
   margin-bottom: 10px;
 }
 
-#fav-count-text .star {
+#fav-count-text img {
   position: relative;
-  top: 3px;
-  margin-right: .5em;
+  top: -2px;
+  margin-right: .5rem;
 }
 
 .project-list-item {
@@ -567,18 +567,10 @@ footer {
   background: white;
 }
 
-.list-header{
+.list-header {
   display: flex;
   flex-direction: row;
-}
-
-.project-title{
-  order: 1;
-  flex-grow: 2;
-}
-
-.starred{
-  order: 1;
+  justify-content: space-between;
 }
 
 .project-list-item h2 {
