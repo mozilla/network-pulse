@@ -18,17 +18,23 @@ import Footer from './components/footer/footer.jsx';
 const App = React.createClass({
   getInitialState() {
     return {
-      suppressSplashScreen: localstorage.getItem(`suppressSplashScreen`) === `true`
+      suppressSplashScreen: (localstorage.getItem(`suppressSplashScreen`) === `true`)
+    };
+  },
+  getDefaultProps() {
+    return {
+      dismissTimeout: 3000
     };
   },
   componentDidMount() {
-    if (this.state.suppressSplashScreen !== `true`) {
-      setTimeout(function() {
-        this.splash.classList.add(`dismissed`);
-        document.querySelector(`#app`).classList.add(`splash-dismissed`);
-      }, 3000);
-      localstorage.setItem(`suppressSplashScreen`, `true`);
+    if (!this.state.suppressSplashScreen) {
+      setTimeout(this.dismissSplash, this.props.dismissTimeout);
     }
+  },
+  dismissSplash() {
+    this.splash.classList.add(`dismissed`);
+    document.querySelector(`#app`).classList.add(`splash-dismissed`);
+    localstorage.setItem(`suppressSplashScreen`, `true`);
   },
   renderWelcomeSplash() {
     if (this.state.suppressSplashScreen) {
@@ -44,7 +50,6 @@ const App = React.createClass({
     );
   },
   render() {
-
     return (
       <div>
         { this.renderWelcomeSplash() }
