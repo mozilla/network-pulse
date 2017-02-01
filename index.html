@@ -150,7 +150,10 @@
     %>
     <div id="<%- id %>" class="<%- classNames %>" data-title="<%- title %>">
       <div class="content">
-        <a href="<%- detailViewLink %>" class="project-title"><h2><%- title %></h2></a>
+        <div class="list-header">
+          <a href="<%- detailViewLink %>" class="project-title"><h2><%- title %></h2></a>
+          <a class="star"></a>
+        </div>
         <p><% if (creators) { %> <%- creators %> <% } %><% if (creators && timestamp)  %><% if (timestamp) { %> on <%- timestamp %> <% } %></p>
       </div>
     </div>

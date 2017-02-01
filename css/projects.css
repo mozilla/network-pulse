@@ -356,7 +356,7 @@ nav .container {
   cursor: pointer;
 }
 
-.project.starred .star {
+.starred .star {
   background: url(../svg/icon-fav-selected.svg) center center no-repeat;
   background-size: auto 16px;
 }
@@ -548,11 +548,11 @@ footer {
 
 /* project list item */
 
-#fav-count {
+#fav-count-text {
   margin-bottom: 10px;
 }
 
-#fav-count img {
+#fav-count-text img {
   position: relative;
   top: -2px;
   margin-right: .5rem;
@@ -565,6 +565,12 @@ footer {
   padding: 1em;
   margin-bottom: 1rem;
   background: white;
+}
+
+.list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .project-list-item h2 {
