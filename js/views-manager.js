@@ -149,7 +149,7 @@ var ViewsManager = {
       sortedFavedProjects.reverse(); // start from most recently favourited project
       // create a new div that shows count of favs
       var favsCount = _.size(sortedFavedProjects);
-      $("<div id='fav-count-text'><img class='star'></img>You have <span id='fav-count'>"+favsCount+"</span> favs</div>").insertBefore(".projects");
+      $("<div id='fav-count-text'><img src='svg/icon-fav.svg' width=20 />You have <span id='fav-count'>"+favsCount+"</span> favs</div>").insertBefore(".projects");
       this.renderfavProjectsIntoView(sortedFavedProjects);
       this.MessageView.hide();
     } else {
