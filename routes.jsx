@@ -38,6 +38,7 @@ const App = React.createClass({
       // wait for CSS animation to finish first before we
       // set `suppressSplashScreen` in localStorage to true
       localstorage.setItem(`suppressSplashScreen`, `true`);
+      this.setState({ suppressSplashScreen: true });
     });
   },
   renderWelcomeSplash() {
