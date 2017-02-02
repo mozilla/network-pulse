@@ -1,20 +1,7 @@
 import { browserHistory } from 'react-router';
 import env from "../config/env.generated.json";
+import localstorage from './localstorage.js';
 import Service from './service.js';
-
-// shim localStorage for server-side generation
-let storage;
-if (typeof localStorage !== `undefined`) {
-  storage = localStorage;
-} else {
-  let data = {};
-  storage =  {
-    data: data,
-    setItem(key, val) { data[key] = val; },
-    getItem(key) { return data[key] || null; },
-    removeItem(key) { delete data[key]; }
-  };
-}
 
 /**
  * A set of helper functions for fascilitating login and logout
@@ -107,7 +94,7 @@ class User {
     // oauth callback drops the user back at a URL that loads
     // the app again, pages can run `user.verify` to finalise
     // the login process.
-    localStorage.setItem(`pulse:user:attemptingLogin`, `True`);
+    localstorage.setItem(`pulse:user:attemptingLogin`, `True`);
     window.location = Login.getLoginURL(redirectUrl);
   }
 
@@ -135,7 +122,7 @@ class User {
     if (attemptingLogin && !username) {
       this.failedLogin = true;
     }
-    localStorage.removeItem(`pulse:user:attemptingLogin`);
+    localstorage.removeItem(`pulse:user:attemptingLogin`);
 
     // bind the user values
     this.loggedin = !!username;

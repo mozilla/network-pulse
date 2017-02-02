@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import localstorage from './js/localstorage.js';
 
 import Featured from './pages/featured.jsx';
 import Latest from './pages/latest.jsx';
@@ -15,21 +16,49 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const App = React.createClass({
+  getInitialState() {
+    return {
+      suppressSplashScreen: (localstorage.getItem(`suppressSplashScreen`) === `true`)
+    };
+  },
+  getDefaultProps() {
+    return {
+      dismissTimeout: 3000
+    };
+  },
   componentDidMount() {
-    setTimeout(function() {
-      this.splash.classList.add(`dismissed`);
-      document.querySelector(`#app`).classList.add(`splash-dismissed`);
-    }, 3000);
+    if (this.refs.splash) {
+      setTimeout(this.dismissSplash, this.props.dismissTimeout);
+    }
+  },
+  dismissSplash() {
+    this.refs.splash.classList.add(`dismissed`);
+    document.querySelector(`#app`).classList.add(`splash-dismissed`);
+    this.refs.splash.addEventListener(`transitionend`, () => {
+      // wait for CSS animation to finish first before we
+      // set `suppressSplashScreen` in localStorage and 
+      // this.state.suppressSplashScreen to true
+      localstorage.setItem(`suppressSplashScreen`, `true`);
+      this.setState({ suppressSplashScreen: true });
+    });
+  },
+  renderWelcomeSplash() {
+    if (this.state.suppressSplashScreen) {
+      return null;
+    }
+    return (
+      <div id="splash" ref="splash">
+        <div className="container">
+          <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" height="46" alt="Mozilla Network Pulse" /></h1>
+          <p>A stream of assets from peers across the Mozilla Network.</p>
+        </div>
+      </div>
+    );
   },
   render() {
     return (
       <div>
-        <div id="splash" ref={(splash) => { this.splash = splash; }}>
-          <div className="container">
-            <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" alt="Mozilla Network Pulse" /></h1>
-            <p>A stream of assets from peers across the Mozilla Network.</p>
-          </div>
-        </div>
+        { this.renderWelcomeSplash() }
         <Navbar router={this.props.router}/>
         <div id="main" className="container">
           {this.props.children}
