@@ -27,21 +27,25 @@ const App = React.createClass({
     };
   },
   componentDidMount() {
-    if (!this.state.suppressSplashScreen) {
+    if (this.refs.splash) {
       setTimeout(this.dismissSplash, this.props.dismissTimeout);
     }
   },
   dismissSplash() {
-    this.splash.classList.add(`dismissed`);
+    this.refs.splash.classList.add(`dismissed`);
     document.querySelector(`#app`).classList.add(`splash-dismissed`);
-    localstorage.setItem(`suppressSplashScreen`, `true`);
+    this.refs.splash.addEventListener(`transitionend`, () => {
+      // wait for CSS animation to finish first before we
+      // set `suppressSplashScreen` in localStorage to true
+      localstorage.setItem(`suppressSplashScreen`, `true`);
+    });
   },
   renderWelcomeSplash() {
     if (this.state.suppressSplashScreen) {
       return null;
     }
     return (
-      <div id="splash" ref={(splash) => { this.splash = splash; }}>
+      <div id="splash" ref="splash">
         <div className="container">
           <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" height="46" alt="Mozilla Network Pulse" /></h1>
           <p>A stream of assets from peers across the Mozilla Network.</p>
