@@ -36,7 +36,8 @@ const App = React.createClass({
     document.querySelector(`#app`).classList.add(`splash-dismissed`);
     this.refs.splash.addEventListener(`transitionend`, () => {
       // wait for CSS animation to finish first before we
-      // set `suppressSplashScreen` in localStorage to true
+      // set `suppressSplashScreen` in localStorage and 
+      // this.state.suppressSplashScreen to true
       localstorage.setItem(`suppressSplashScreen`, `true`);
       this.setState({ suppressSplashScreen: true });
     });
