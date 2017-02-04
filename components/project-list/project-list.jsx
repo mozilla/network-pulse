@@ -16,28 +16,50 @@ export default React.createClass({
       displayBatchIndex: 1
     };
   },
+  getDefaultProps() {
+    return {
+      params: {
+        featured: null,
+        issue: null,
+        search: null,
+        ids: null
+      }
+    };
+  },
   componentDidMount() {
     this.fetchData(this.props.params);
   },
   componentWillReceiveProps(nextProps) {
+    // Reset this.state.entries
+    this.resetEntries();
+
     // <ProjectList> doesn't always get unmounted and remounted when navigating between pages.
-    // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue> do not
-    //  get re-mounted since the same components are being rendered.)
-    // It is treated as passing new props to theses components (<Issue><ProjectList></Issue>)
-    // By calling this.fetchData() in the componentWillReceiveProps method here
-    // we ensure data gets fetched and displayed accordingly.
+    // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue>
+    //        do not get re-mounted since the same components are being rendered.)
+    // It is treated as passing new props to <ProjectList {...newProps} />
+    let newIssueEntered = (nextProps.params.issue !== this.props.params.issue);
 
-    if ( this.props.params.issue ) {
-      // reset this.state.entries
-      this.setState({
-        entries: []
-      });
+    // Similarly, on the /search page, <ProjectList> doesn't get re-mounted as user changes the
+    // search keyword.
+    // It is treated as passing new props to (<ProjectList {...newProps} />
+    let newSearchQueryEntered = (nextProps.params.search !== this.props.params.search);
 
-      // fetch data based on the new params props
+    if ( newIssueEntered || newSearchQueryEntered ) {
+      // Fetch data based on the new params props to ensure data gets fetched and displayed accordingly.
       this.fetchData(nextProps.params);
     }
   },
+  resetEntries() {
+    this.setState({
+      entries: []
+    });
+  },
   fetchData(params = {}) {
+    if (params.hasOwnProperty(`search`) && !params.search) {
+      // we don't want to show any entries if no search query was passed
+      return;
+    }
+
     params.page = this.state.apiPageIndex;
     Service.entries
       .get(params)
@@ -66,15 +88,6 @@ export default React.createClass({
       return entries.sort((a,b) => {
         return bookmarkedIdArray.indexOf(a.id.toString()) > bookmarkedIdArray.indexOf(b.id.toString());
       });
-    } else if ( Object.keys(params).indexOf(`search`) > -1 ) { // if this is for the search page, filter entries as user types on client side
-      if (params.search) {
-        return entries.filter(project =>
-          // return entries that include the search keyword user has entered
-          JSON.stringify(project).toLowerCase().indexOf(params.search.toLowerCase().trim()) > -1
-        );
-      } else { // by default shows empty list
-        return [];
-      }
     } else {
       return entries;
     }

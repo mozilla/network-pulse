@@ -1,6 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import classNames from 'classnames';
+import DebounceInput from 'react-debounce-input';
 import ProjectList from '../../components/project-list/project-list.jsx';
 
 export default React.createClass({
@@ -17,32 +18,29 @@ export default React.createClass({
   componentDidMount() {
     this.setSearchQuery(this.props.location.query.keyword);
   },
-  setSearchQuery(searchQuery) {
-    if (searchQuery !== this.searchInput.value) {
-      this.searchInput.focus();
-      this.searchInput.value = searchQuery ? decodeURIComponent(searchQuery) : ``;
-      this.setState({searchQuery: searchQuery});
+  setSearchQuery(newSearchQuery) {
+    let prevSearchQuery = this.refs.searchInput.state.value;
+
+    if (newSearchQuery !== prevSearchQuery) {
+      // update value in input box
+      this.refs.searchInput.setState({value: newSearchQuery ? decodeURIComponent(newSearchQuery) : ``});
+      // update searchQuery state
+      this.setState({searchQuery: newSearchQuery});
     }
   },
   clearSearch() {
-    this.searchInput.value = ``;
-    this.searchInput.blur();
+    this.refs.searchInput.setState({value: ``}, () => {
+      this.updateSearchQuery();
+    });
   },
-  handleInputBlur() {
-    this.updateSearchQuery();
-  },
-  handleInputKeyUp(event) {
-    if (event.keyCode === 27) { // escape key
-      this.clearSearch();
-    }
+  handleInputChange() {
     this.updateSearchQuery();
   },
   handleDismissBtnClick() {
     this.clearSearch();
-    this.updateSearchQuery();
   },
   updateSearchQuery() {
-    let query = this.searchInput.value;
+    let query = this.refs.searchInput.state.value;
     let location = {
       pathname: this.props.router.location.pathname
     };
@@ -51,6 +49,7 @@ export default React.createClass({
       location[`query`] = { keyword: query };
     }
 
+    // note browserHistory.push() triggers component re-render
     browserHistory.push(location);
 
     this.setState({
@@ -61,11 +60,12 @@ export default React.createClass({
     return (
       <div className="search-page">
         <div className={classNames({activated: true, 'search-bar': true})}>
-          <input id="search-box"
-                  placeholder="Search keywords, people, tags..."
-                  onKeyUp={this.handleInputKeyUp}
-                  onBlur={this.handleInputBlur}
-                  ref={(searchInput) => { this.searchInput = searchInput; }} />
+          <DebounceInput id="search-box"
+                          debounceTimeout={500}
+                          type="search"
+                          ref="searchInput"
+                          onChange={this.handleInputChange}
+                          placeholder="Search keywords, people, tags..." />
           <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
         </div>
         <ProjectList params={{search: this.state.searchQuery}} />

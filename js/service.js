@@ -119,7 +119,6 @@ export default {
   },
   entry: {
     get: function(entryId) {
-      console.log(`${pulseAPI}/entries/${entryId}`);
       return getDataFromURL(`${pulseAPI}/entries/${entryId}`);
     }
   },
