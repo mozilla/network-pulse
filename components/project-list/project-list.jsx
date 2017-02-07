@@ -30,8 +30,8 @@ export default React.createClass({
     this.fetchData(this.props.params);
   },
   componentWillReceiveProps(nextProps) {
-    // Reset this.state.entries
-    this.resetEntries();
+    // Reset state
+    this.resetState();
 
     // <ProjectList> doesn't always get unmounted and remounted when navigating between pages.
     // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue>
@@ -49,10 +49,8 @@ export default React.createClass({
       this.fetchData(nextProps.params);
     }
   },
-  resetEntries() {
-    this.setState({
-      entries: []
-    });
+  resetState() {
+    this.setState(this.getInitialState());
   },
   fetchData(params = {}) {
     if (params.hasOwnProperty(`search`) && !params.search) {
@@ -101,9 +99,14 @@ export default React.createClass({
     let showViewMoreBtn;
     let searchResult;
 
-    if (this.props.params && this.props.params.search && projects) {
-      // show search result if on search page and search keyword is presented
-      searchResult = (<p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.params.search}’</p>);
+    if (this.props.params && this.props.params.search) {
+      if (projects) {
+        // Show search result
+        searchResult = (<p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.params.search}’</p>);
+      } else {
+        // We are still waiting to hear back from Pulse API. Let's show some 'searching' notice in the meantime.
+        searchResult = (<p>Searching for entries that match ‘{this.props.params.search}’...</p>);
+      }
     }
 
     if (projects) {

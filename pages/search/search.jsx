@@ -33,9 +33,6 @@ export default React.createClass({
       this.updateSearchQuery();
     });
   },
-  handleInputChange() {
-    this.updateSearchQuery();
-  },
   handleDismissBtnClick() {
     this.clearSearch();
   },
@@ -64,7 +61,7 @@ export default React.createClass({
                           debounceTimeout={500}
                           type="search"
                           ref="searchInput"
-                          onChange={this.handleInputChange}
+                          onChange={this.updateSearchQuery}
                           placeholder="Search keywords, people, tags..." />
           <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
         </div>
