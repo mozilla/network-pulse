@@ -1,20 +1,40 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 import moment from 'moment';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
 
-const Details = (props) => {
-  let getInvolvedText = props.getInvolved ? props.getInvolved : null;
-  let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank">Get Involved</a>) : null;
+const Details = React.createClass({
+  handleVisitBtnClick() {
+    ReactGA.event({
+      category: `Visit Button`,
+      action: `Clicked`,
+      label: `${this.props.id}`, // value has to be a string,
+      transport: `beacon`
+    });
+  },
+  handleGetInvolvedLinkClick() {
+    ReactGA.event({
+      category: `Get involved Link`,
+      action: `Clicked`,
+      label: `${this.props.id}`, // value has to be a string,
+      transport: `beacon`
+    });
+  },
+  render() {
+    let props = this.props;
+    let getInvolvedText = props.getInvolved ? props.getInvolved : null;
+    let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={this.handleGetInvolvedLinkClick}>Get Involved</a>) : null;
 
-  return props.onDetailView ?
-          (<div>
-            { props.interest ? <p className="interest">{props.interest}</p> : null }
-            { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
-            { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-view">Visit</a> : null }
-          </div>) : null;
-};
+    return props.onDetailView ?
+            (<div>
+              { props.interest ? <p className="interest">{props.interest}</p> : null }
+              { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
+              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-view" onClick={this.handleVisitBtnClick}>Visit</a> : null }
+            </div>) : null;
+  }
+});
 
 export default React.createClass({
   getInitialState() {
@@ -67,10 +87,20 @@ export default React.createClass({
     }
   },
   bookmarkProject(bookmarks) {
+    ReactGA.event({
+      category: `Bookmark Button`,
+      action: `Bookmarked`,
+      label: `${this.props.id}` // value has to be a string
+    });
     bookmarks.unshift(this.props.id);
     this.setState({bookmarked: true});
   },
   unbookmarkProject(bookmarks,index) {
+    ReactGA.event({
+      category: `Bookmark Button`,
+      action: `Unbookmarked`,
+      label: `${this.props.id}` // value has to be a string
+    });
     bookmarks.splice(index,1);
     this.setState({bookmarked: false});
   },
@@ -89,6 +119,11 @@ export default React.createClass({
     }
   },
   handleShareBtnClick() {
+    ReactGA.event({
+      category: `Reveal entry link Button`,
+      action: `Clicked`,
+      label: `${this.props.id}` // value has to be a string
+    });
     this.shareBtn.classList.add(`active`);
     this.urlToShare.focus();
     this.urlToShare.select();
