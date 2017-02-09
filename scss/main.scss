@@ -166,10 +166,25 @@ button[type="submit"] {
   color: $form-text-light;
 }
 
+// project-list
+
+.project-list {
+  .projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: -$project-card-side-margin;
+    margin-right: -$project-card-side-margin;
+  }
+
+  .view-more {
+    text-align: center;
+  }
+}
+
 // Components
 
 @import '../components/navbar/navbar';
-@import '../components/project-list/project-list';
 @import '../components/project-card/project-card';
 @import '../components/footer/footer';
 @import '../components/issue-selector/issue-selector';
