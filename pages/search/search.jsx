@@ -115,7 +115,7 @@ export default React.createClass({
       <div className="search-page">
         <div className={classNames({activated: true, 'search-bar': true})}>
           <DebounceInput id="search-box"
-                          debounceTimeout={500}
+                          debounceTimeout={250}
                           type="search"
                           ref="searchInput"
                           onChange={this.handleInputChange}
