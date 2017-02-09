@@ -79,9 +79,6 @@ button {
 }
 
 #app {
-  max-height: 100vh;
-  overflow: hidden;
-
   &.splash-dismissed {
     max-height: 100%;
     overflow: auto;
