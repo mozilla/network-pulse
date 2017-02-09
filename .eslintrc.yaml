@@ -13,3 +13,6 @@ parserOptions:
 
 rules:
   react/jsx-uses-vars: [2]
+  newline-after-var: [1]
+  indent: [2, 2, {"SwitchCase": 1}]
+  camelcase: [1, properties: "always"]
