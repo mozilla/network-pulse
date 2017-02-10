@@ -23,11 +23,5 @@ module.exports = {
         ]
       }
     ]
-  },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true
-    })
-  ]
+  }
 };
