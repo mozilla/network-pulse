@@ -134,7 +134,7 @@ export default React.createClass({
         <div className="project-list">
           { searchResult }
           { projects ? <div className="projects">{projects}</div> : null }
-          { showViewMoreBtn ? <div className="view-more"><button type="button" className="btn" onClick={this.handleViewMoreClick}>View more</button></div> : null }
+          { showViewMoreBtn ? <div className="view-more text-center"><button type="button" className="btn" onClick={this.handleViewMoreClick}>View more</button></div> : null }
         </div>
       </div>
     );
