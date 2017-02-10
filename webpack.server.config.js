@@ -1,3 +1,4 @@
+var webpack = require(`webpack`);
 var fs = require(`fs`);
 var path = require(`path`);
 
@@ -23,19 +24,25 @@ module.exports = {
     __dirname: true
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.jsx?$/,
-        loader: `babel-loader`,
         exclude: /node_modules/,
-        query: {
-          presets: [`es2015`, `react`]
-        }
-      },
-      {
-        test: /\.json$/,
-        loader: `json`
+        use: [
+          {
+            loader: `babel-loader`,
+            options: {
+              presets: [`es2015`, `react`]
+            }
+          }
+        ],
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      minimize: true
+    })
+  ]
 };
