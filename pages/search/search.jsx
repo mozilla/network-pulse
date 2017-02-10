@@ -11,7 +11,6 @@ export default React.createClass({
   getInitialState() {
     return {
       displayBatchIndex: 1,
-      keywordBeingSearched: ``,
       keywordSearched: ``,
       entriesMatched: []
     };
@@ -34,9 +33,6 @@ export default React.createClass({
       // make sure input box value is updated with searchQueryInUrl
       // then use searchQueryInUrl as the search param to fetch data from Pulse API
       this.refs.searchInput.setState({value: searchQueryInUrl ? decodeURIComponent(searchQueryInUrl) : ``});
-      this.setState({
-        keywordBeingSearched: searchQueryInUrl
-      });
       this.fetchData({search: searchQueryInUrl});
     }
   },
@@ -82,11 +78,10 @@ export default React.createClass({
           // our current search keyword. If entries returned from Pulse API here
           // belong to any of our previous search keywords, we can ignore them by
           // doing nothing.
-          if (params.search !== this.state.keywordBeingSearched) {
+          if (params.search !== this.refs.searchInput.state.value) {
             return;
           }
           this.setState({
-            keywordBeingSearched: ``,
             keywordSearched: params.search,
             entriesMatched: entries
           });
@@ -98,9 +93,6 @@ export default React.createClass({
   },
   handleInputChange() {
     this.updateBrowserHistory();
-    this.setState({
-      keywordBeingSearched: this.refs.searchInput.state.value
-    });
     this.fetchData({search: this.refs.searchInput.state.value});
   },
   handleDismissBtnClick() {
