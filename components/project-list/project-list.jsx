@@ -1,6 +1,3 @@
-// this file has some complicated logics going
-// this is just interim and will be fixed once all the backend API is ready to use
-
 import React from 'react';
 import ProjectCard from '../project-card/project-card.jsx';
 import Service from '../../js/service.js';
@@ -11,47 +8,55 @@ export default React.createClass({
   getInitialState() {
     return {
       dataLoaded: false,
-      apiPageIndex: 1,
       entries: [],
       displayBatchIndex: 1
+    };
+  },
+  getDefaultProps() {
+    return {
+      params: {
+        featured: null,
+        issue: null,
+        ids: null
+      }
     };
   },
   componentDidMount() {
     this.fetchData(this.props.params);
   },
   componentWillReceiveProps(nextProps) {
+    // Reset state
+    this.resetState();
+
     // <ProjectList> doesn't always get unmounted and remounted when navigating between pages.
-    // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue> do not
-    //  get re-mounted since the same components are being rendered.)
-    // It is treated as passing new props to theses components (<Issue><ProjectList></Issue>)
-    // By calling this.fetchData() in the componentWillReceiveProps method here
-    // we ensure data gets fetched and displayed accordingly.
+    // (e.g., When navigating between the /issue/issue-name pages <Issue><ProjectList></Issue>
+    //        do not get re-mounted since the same components are being rendered.)
+    // It is treated as passing new props to <ProjectList {...newProps} />
+    let newIssueEntered = (nextProps.params.issue !== this.props.params.issue);
 
-    if ( this.props.params.issue ) {
-      // reset this.state.entries
-      this.setState({
-        entries: []
-      });
-
-      // fetch data based on the new params props
+    if ( newIssueEntered ) {
+      // Fetch data based on the new params props to ensure data gets fetched and displayed accordingly.
       this.fetchData(nextProps.params);
     }
   },
-  fetchData(params = {}) {
-    params.page = this.state.apiPageIndex;
+  resetState() {
+    this.setState(this.getInitialState());
+  },
+  fetchData(params = {}, entries = [], apiPageIndex = 1) {
+    params.page = apiPageIndex;
+
     Service.entries
       .get(params)
       .then((data) => {
-        this.setState({
-          entries: this.state.entries.concat(data.results)
-        });
+        entries = entries.concat(data.results);
 
         if (data.next) { // there are more data in the database we need to fetch
-          this.setState({apiPageIndex: this.state.apiPageIndex+1});
+          apiPageIndex += 1;
           this.fetchData(params);
         } else {
           this.setState({
-            dataLoaded: true
+            dataLoaded: true,
+            entries: entries
           });
         }
       })
@@ -66,15 +71,6 @@ export default React.createClass({
       return entries.sort((a,b) => {
         return bookmarkedIdArray.indexOf(a.id.toString()) > bookmarkedIdArray.indexOf(b.id.toString());
       });
-    } else if ( Object.keys(params).indexOf(`search`) > -1 ) { // if this is for the search page, filter entries as user types on client side
-      if (params.search) {
-        return entries.filter(project =>
-          // return entries that include the search keyword user has entered
-          JSON.stringify(project).toLowerCase().indexOf(params.search.toLowerCase().trim()) > -1
-        );
-      } else { // by default shows empty list
-        return [];
-      }
     } else {
       return entries;
     }
@@ -86,12 +82,6 @@ export default React.createClass({
   render() {
     let projects = this.state.dataLoaded ? this.applyFilterToList(this.state.entries,this.props.params) : null;
     let showViewMoreBtn;
-    let searchResult;
-
-    if (this.props.params && this.props.params.search && projects) {
-      // show search result if on search page and search keyword is presented
-      searchResult = (<p>{projects.length} {projects.length > 1 ? `results` : `result`} found for ‘{this.props.params.search}’</p>);
-    }
 
     if (projects) {
       // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
@@ -105,7 +95,6 @@ export default React.createClass({
 
     return (
       <div className="project-list">
-        { searchResult }
         { projects ? <div className="projects">{projects}</div> : null }
         { showViewMoreBtn ? <div className="view-more"><button type="button" className="btn" onClick={this.handleViewMoreClick}>View more</button></div> : null }
       </div>
