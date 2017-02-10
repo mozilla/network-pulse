@@ -42,10 +42,7 @@ export default React.createClass({
   resetState() {
     this.setState(this.getInitialState());
   },
-  fetchData(params = {}) {
-    let apiPageIndex = 1;
-    let entries = [];
-
+  fetchData(params = {}, entries = [], apiPageIndex = 1) {
     params.page = apiPageIndex;
 
     Service.entries

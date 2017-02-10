@@ -11,6 +11,7 @@ export default React.createClass({
   getInitialState() {
     return {
       displayBatchIndex: 1,
+      keywordBeingSearched: ``,
       keywordSearched: ``,
       entriesMatched: []
     };
@@ -33,6 +34,9 @@ export default React.createClass({
       // make sure input box value is updated with searchQueryInUrl
       // then use searchQueryInUrl as the search param to fetch data from Pulse API
       this.refs.searchInput.setState({value: searchQueryInUrl ? decodeURIComponent(searchQueryInUrl) : ``});
+      this.setState({
+        keywordBeingSearched: searchQueryInUrl
+      });
       this.fetchData({search: searchQueryInUrl});
     }
   },
@@ -54,30 +58,37 @@ export default React.createClass({
       this.updateBrowserHistory();
     });
   },
-  fetchData(params = {}) {
+  fetchData(params = {}, entries = [], apiPageIndex = 1) {
     if (!params.search) {
       // if no search keyword was passed reset search page back to its initial state
       this.setState(this.getInitialState());
       return;
     }
 
-    let newResult = [];
-    let apiPageIndex = 1;
-
     params.page = apiPageIndex;
 
     Service.entries
       .get(params)
       .then((data) => {
-        newResult = newResult.concat(data.results);
+        entries = entries.concat(data.results);
 
-        if (data.next) { // there is more data in the database we need to fetch
-          apiPageIndex += 1;
-          this.fetchData(params);
+        if (data.next) {
+          // there are more matched entries in the database we need to fetch
+          this.fetchData(params, entries, apiPageIndex+1);
         } else {
+          // Multiple XHRs to Pulse API can happen around the same time and
+          // we can't guarantee which one we hear back first.
+          // However, we only care about capturing entries that are matched with
+          // our current search keyword. If entries returned from Pulse API here
+          // belong to any of our previous search keywords, we can ignore them by
+          // doing nothing.
+          if (params.search !== this.state.keywordBeingSearched) {
+            return;
+          }
           this.setState({
+            keywordBeingSearched: ``,
             keywordSearched: params.search,
-            entriesMatched: newResult
+            entriesMatched: entries
           });
         }
       })
@@ -87,6 +98,9 @@ export default React.createClass({
   },
   handleInputChange() {
     this.updateBrowserHistory();
+    this.setState({
+      keywordBeingSearched: this.refs.searchInput.state.value
+    });
     this.fetchData({search: this.refs.searchInput.state.value});
   },
   handleDismissBtnClick() {
