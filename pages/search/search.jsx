@@ -98,6 +98,9 @@ export default React.createClass({
   handleDismissBtnClick() {
     this.clearSearch();
   },
+  handleViewMoreClick() {
+    this.setState({displayBatchIndex: this.state.displayBatchIndex+1});
+  },
   render() {
     let projects;
     let showViewMoreBtn;
