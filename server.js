@@ -5,6 +5,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
+import securityHeaders from './js/security-headers';
 
 const app = express();
 
@@ -22,39 +23,6 @@ const PORT = env.PORT || process.env.PORT || defaultPort;
 /**
  * Some app security settings
  */
-
-var securityHeaders = {
-  directives: {
-    defaultSrc: [
-      `\'none\'`
-    ],
-    scriptSrc: [
-      `\'self\'`,
-      `\'unsafe-inline\'`
-    ],
-    fontSrc: [
-      `\'self\'`,
-      `https://code.cdn.mozilla.net`
-    ],
-    styleSrc: [
-      `\'self\'`,
-      `\'unsafe-inline\'`,
-      `https://code.cdn.mozilla.net`
-    ],
-    imgSrc: [
-      `\'self\'`,
-      `\'unsafe-inline\'`,
-      `data:`,
-      `*`
-    ],
-    connectSrc: [
-      `\'self\'`,
-      env.PULSE_API || `https://network-pulse-api-staging.herokuapp.com/`
-    ]
-  },
-  reportOnly: false,
-  browserSniff: false
-};
 
 app.use(helmet.contentSecurityPolicy(securityHeaders));
 
