@@ -1,4 +1,5 @@
 # <img src="https://github.com/mozilla/network-pulse/blob/gh-pages/favicon.png?raw=true" /> Network Pulse
+[![Uses Mofo Standards](https://MozillaFoundation.github.io/mofo-standards/badge.svg)](https://github.com/MozillaFoundation/mofo-standards) [![Build Status](https://travis-ci.org/mozilla/network-pulse.svg?branch=master)](https://travis-ci.org/mozilla/network-pulse)
 
 This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.
 
@@ -29,6 +30,6 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 ## 🔷 Contribute
 
-You can contribute by testing the [prototype](http://mozilla.github.io/network-pulse/) to view or submit a project. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions. 
+You can contribute by testing the [prototype](http://mozilla.github.io/network-pulse/) to view or submit a project. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions.
 
-
+Network Pulse follows the Mozilla Foundation engineering guidelines outlining best practices used by Mozilla Foundation's engineering team. It provides helpful information to first time and veteran contributors alike. Review the guidelines [here](https://github.com/MozillaFoundation/mofo-standards).
