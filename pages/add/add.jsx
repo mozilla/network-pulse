@@ -35,7 +35,7 @@ export default React.createClass({
     return( <div>
               <p>(TODO:FIXME: form for logged in user to be built)</p>
               <p>Hi<span className="user-full-name"> {user.username}</span></p>
-              <p className="log-out-prompt">Not you? <button className="btn btn-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
+              <p className="log-out-prompt">Not you? <button className="btn btn-link inline-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
             </div>);
   },
   getFailurePrompt() {
