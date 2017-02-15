@@ -31,13 +31,13 @@ export default React.createClass({
     user.verify(this.props.router.location, () => this.setState({ user }));
   },
   getContentForLoggedInUser() {
-    return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn-link">Log out</button>.</p>);
+    return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
   },
   getFailurePrompt() {
     return (<p>Only Mozilla staff can login now as we test this new platform. Meanwhile, your favorited projects can still be remembered on this device.</p>);
   },
   getAnonymousContent() {
-    return (<p>Are you Mozilla Staff? <button className="btn btn-link" onClick={this.handleSignInBtnClick}>Sign in</button>.</p>);
+    return (<p>Are you Mozilla Staff? <button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in</button>.</p>);
   },
   getloggedInStatusContent() {
     if (user.loggedin) {

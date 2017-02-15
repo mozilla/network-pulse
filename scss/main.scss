@@ -31,38 +31,17 @@ p {
 }
 
 .btn-link {
-  cursor: pointer;
-  padding: 0;
+  &.inline-link {
+    font-size: inherit;
+    padding: 0;
+  }
 }
 
 .btn {
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
-  display: inline-block;
-  color: $mobile-blue;
-  border: 1px solid $mobile-blue;
+  cursor: pointer;
   padding-top: 7px;
   padding-bottom: 7px;
   border-radius: 3px;
-
-  &:hover,
-  &:active {
-    background: $mobile-blue;
-    color: #fff;
-  }
-}
-
-button {
-  &.btn-link {
-    background: none;
-    border: none;
-
-    &:hover,
-    &:active {
-      color: darken($mobile-blue, 15%);
-      background: none;
-      text-decoration: none;
-    }
-  }
 }
 
 .text-center {
@@ -175,10 +154,6 @@ button[type="submit"] {
     justify-content: center;
     margin-left: -$project-card-side-margin;
     margin-right: -$project-card-side-margin;
-  }
-
-  .view-more {
-    text-align: center;
   }
 }
 
