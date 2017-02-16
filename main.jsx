@@ -11,8 +11,12 @@ import routes from './routes.jsx';
 ReactGA.initialize(`UA-91389561-1`);
 
 function logPageView() {
+  // https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference#set
   ReactGA.set({ page: window.location.pathname });
-  ReactGA.pageview(window.location.pathname);
+  // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#location
+  ReactGA.set({ location: window.location.href });
+
+  ReactGA.pageview(`${window.location.pathname}/${window.location.search}`);
 }
 
 ReactDOM.render((
