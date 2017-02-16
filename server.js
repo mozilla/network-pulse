@@ -20,9 +20,7 @@ import env from "./config/env.generated.json";
 const defaultPort = 3000;
 const PORT = env.PORT || process.env.PORT || defaultPort;
 
-/**
- * Some app security settings
- */
+// Some app security settings
 
 app.use(helmet.contentSecurityPolicy(securityHeaders));
 
