@@ -5,24 +5,15 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
 
-const GA_EVENT_PREFIX = `Entry Card - `;
-
 const Details = React.createClass({
+  propTypes: {
+    createGaEventConfig: React.PropTypes.func.isRequired
+  },
   handleVisitBtnClick() {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Visit Button`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`,
-      transport: `beacon`
-    });
+    ReactGA.event(this.props.createGaEventConfig(`Visit button`, `Clicked`, `beacon`));
   },
   handleGetInvolvedLinkClick() {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Get involved`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`,
-      transport: `beacon`
-    });
+    ReactGA.event(this.props.createGaEventConfig(`Get involved`, `Clicked`, `beacon`));
   },
   render() {
     let props = this.props;
@@ -64,6 +55,19 @@ export default React.createClass({
     contentUrl: React.PropTypes.string,
     onDetailView: React.PropTypes.bool
   },
+  createGaEventConfig(category = ``, action = ``, transport = ``) {
+    let config = {
+      category: `Entry Card - ${category}`,
+      action: action,
+      label: `${this.props.id} - ${this.props.title}`
+    };
+
+    if (transport) {
+      config.transport = transport;
+    }
+
+    return config;
+  },
   componentDidMount() {
     if (this.urlToShare) {
       // TODO:FIXME: not sure if this is the best way to display URL of the current page
@@ -89,20 +93,12 @@ export default React.createClass({
     }
   },
   bookmarkProject(bookmarks) {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Bookmark Button`,
-      action: `Bookmarked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Bookmark button`, `Bookmarked`));
     bookmarks.unshift(this.props.id);
     this.setState({bookmarked: true});
   },
   unbookmarkProject(bookmarks,index) {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Bookmark Button`,
-      action: `Unbookmarked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Bookmark button`, `Unbookmarked`));
     bookmarks.splice(index,1);
     this.setState({bookmarked: false});
   },
@@ -121,33 +117,16 @@ export default React.createClass({
     }
   },
   handleThumbnailClick() {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}thumbnail`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Thumbnail`, `Clicked`));
   },
   handleTitleClick() {
-    console.log(`GA_EVENT_PREFIX`, GA_EVENT_PREFIX);
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}title`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Title`, `Clicked`));
   },
   handleReadMoreClick() {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Read more`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Read more`, `Clicked`));
   },
   handleShareBtnClick() {
-    ReactGA.event({
-      category: `${GA_EVENT_PREFIX}Reveal entry share link`,
-      action: `Clicked`,
-      label: `${this.props.id} - ${this.props.title}`
-    });
+    ReactGA.event(this.createGaEventConfig(`Reveal entry share link`, `Clicked`));
     this.shareBtn.classList.add(`active`);
     this.urlToShare.focus();
     this.urlToShare.select();
@@ -181,7 +160,7 @@ export default React.createClass({
             <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>
             <h3>{creators}{creators && timestamp ? <span className="dot-separator"></span> : null}{timestamp}</h3>
             <p className="description">{this.props.description}</p>
-            <Details {...this.props} />
+            <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
           </div>
           <div className="fade-overlay"></div>
         </div>
