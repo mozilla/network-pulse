@@ -5,7 +5,7 @@ import ReactGA from 'react-ga';
 export default React.createClass({
   handleInternalPageLinkClick() {
     ReactGA.event({
-      category: `Interal page Link`,
+      category: `Nav Link`,
       action: `Clicked`,
       label: `${this.props.to}`, // value has to be a string
     });

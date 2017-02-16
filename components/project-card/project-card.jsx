@@ -5,20 +5,22 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
 
+const GA_EVENT_PREFIX = `Entry Card - `;
+
 const Details = React.createClass({
   handleVisitBtnClick() {
     ReactGA.event({
-      category: `Visit Button`,
+      category: `${GA_EVENT_PREFIX}Visit Button`,
       action: `Clicked`,
-      label: `${this.props.id}`, // value has to be a string,
+      label: `${this.props.id} - ${this.props.title}`,
       transport: `beacon`
     });
   },
   handleGetInvolvedLinkClick() {
     ReactGA.event({
-      category: `Get involved Link`,
+      category: `${GA_EVENT_PREFIX}Get involved`,
       action: `Clicked`,
-      label: `${this.props.id}`, // value has to be a string,
+      label: `${this.props.id} - ${this.props.title}`,
       transport: `beacon`
     });
   },
@@ -88,18 +90,18 @@ export default React.createClass({
   },
   bookmarkProject(bookmarks) {
     ReactGA.event({
-      category: `Bookmark Button`,
+      category: `${GA_EVENT_PREFIX}Bookmark Button`,
       action: `Bookmarked`,
-      label: `${this.props.id}` // value has to be a string
+      label: `${this.props.id} - ${this.props.title}`
     });
     bookmarks.unshift(this.props.id);
     this.setState({bookmarked: true});
   },
   unbookmarkProject(bookmarks,index) {
     ReactGA.event({
-      category: `Bookmark Button`,
+      category: `${GA_EVENT_PREFIX}Bookmark Button`,
       action: `Unbookmarked`,
-      label: `${this.props.id}` // value has to be a string
+      label: `${this.props.id} - ${this.props.title}`
     });
     bookmarks.splice(index,1);
     this.setState({bookmarked: false});
@@ -118,11 +120,33 @@ export default React.createClass({
       saveBookmarks(bookmarks);
     }
   },
+  handleThumbnailClick() {
+    ReactGA.event({
+      category: `${GA_EVENT_PREFIX}thumbnail`,
+      action: `Clicked`,
+      label: `${this.props.id} - ${this.props.title}`
+    });
+  },
+  handleTitleClick() {
+    console.log(`GA_EVENT_PREFIX`, GA_EVENT_PREFIX);
+    ReactGA.event({
+      category: `${GA_EVENT_PREFIX}title`,
+      action: `Clicked`,
+      label: `${this.props.id} - ${this.props.title}`
+    });
+  },
+  handleReadMoreClick() {
+    ReactGA.event({
+      category: `${GA_EVENT_PREFIX}Read more`,
+      action: `Clicked`,
+      label: `${this.props.id} - ${this.props.title}`
+    });
+  },
   handleShareBtnClick() {
     ReactGA.event({
-      category: `Reveal entry link Button`,
+      category: `${GA_EVENT_PREFIX}Reveal entry share link`,
       action: `Clicked`,
-      label: `${this.props.id}` // value has to be a string
+      label: `${this.props.id} - ${this.props.title}`
     });
     this.shareBtn.classList.add(`active`);
     this.urlToShare.focus();
@@ -132,7 +156,7 @@ export default React.createClass({
     let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "bookmarked": this.state.bookmarked});
     let detailViewLink = `/entry/${this.props.id}`;
     let thumbnail = this.props.thumbnailUrl ?
-                    <Link to={detailViewLink} className="thumbnail">
+                    <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
                       <div className="img-container">
                         <img src={this.props.thumbnailUrl} />
                       </div>
@@ -144,7 +168,7 @@ export default React.createClass({
                     <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
                   </div>)
                   : (<div>
-                      <Link to={detailViewLink}>Read more</Link>
+                      <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
                     </div>);
     let creators = this.props.creators ? `By ${this.props.creators.join(`, `)}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
@@ -154,7 +178,7 @@ export default React.createClass({
         <div className="main-content">
           {thumbnail}
           <div className="content">
-            <h2><Link to={detailViewLink}>{this.props.title}</Link></h2>
+            <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>
             <h3>{creators}{creators && timestamp ? <span className="dot-separator"></span> : null}{timestamp}</h3>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} />
