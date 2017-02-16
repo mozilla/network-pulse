@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import classNames from 'classnames';
 import DebounceInput from 'react-debounce-input';
+import ReactGA from 'react-ga';
 import ProjectCard from '../../components/project-card/project-card.jsx';
 import Service from '../../js/service.js';
 import Utility from '../../js/utility.js';
@@ -92,8 +93,16 @@ export default React.createClass({
       });
   },
   handleInputChange() {
+    let keywordsEntered = this.refs.searchInput.state.value;
+
+    ReactGA.event({
+      category: `Search input box`,
+      action: `Keywords entered`,
+      label: `${keywordsEntered}`
+    });
+
     this.updateBrowserHistory();
-    this.fetchData({search: this.refs.searchInput.state.value});
+    this.fetchData({search: keywordsEntered});
   },
   handleDismissBtnClick() {
     this.clearSearch();
