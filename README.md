@@ -2,10 +2,15 @@
 
 This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.
 
+## 🔷 v1, jQuery-based (to be retired soon)
+
+- https://mozilla.github.io/network-pulse/ (to be retired soon)
+- See `v1` branch.
+
 ## 🔷 v2, React-based (upcoming)
 
-- https://pulse-react.herokuapp.com to check out what has been implemented
-- Work is happening in the `react` branch.
+- Staging: https://network-pulse-staging.herokuapp.com
+- Work is happening in the `master` branch.
 - Relevant tickets are marked with the `v2 (upcoming)` label.
 
 ### Requirements for Development
@@ -15,7 +20,7 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 ### Setup for Development
 
-- `git clone -b react https://github.com/mozilla/network-pulse.git`
+- `git clone -b master https://github.com/mozilla/network-pulse.git`
 - `cd network-pulse`
 - `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env)
 - `npm install`
@@ -30,6 +35,6 @@ To set up a local instance of Pulse API, follow instructions on https://github.c
 
 ## 🔷 Contribute
 
-You can contribute by testing https://pulse-react.herokuapp.com. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions. 
+You can contribute by testing https://network-pulse-staging.herokuapp.com. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions. 
 
 
