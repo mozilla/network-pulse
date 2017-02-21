@@ -13,7 +13,9 @@ export default React.createClass({
     return {
       numCreatorFields: 1,
       user,
-      formValues: {}
+      formValues: {},
+      authError: false,
+      serverError: false
     };
   },
   componentDidMount() {
@@ -77,6 +79,9 @@ export default React.createClass({
         callback(nonce);
       })
       .catch((reason) => {
+        this.setState({
+          authError: true
+        });
         console.error(reason);
         callback(false);
       });
@@ -118,11 +123,17 @@ export default React.createClass({
           });
         })
         .catch((reason) => {
+          this.setState({
+            serverError: true
+          });
           console.error(reason);
         });
     });
   },
   getContentForLoggedInUser() {
+    let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
+    let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
+
     return( <div>
               <h1>Share with the Network</h1>
               <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it … at any stage or fidelity.</p>
@@ -139,7 +150,11 @@ export default React.createClass({
                 <Form ref="detailForm" fields={detailInfoFields}
                                         inlineErrors={true}
                                         onUpdate={this.handleFormUpdate} />
-                <button className="btn btn-info" type="submit" onClick={this.handleFormSubmit}>Submit</button>
+                <div className="submit-section">
+                  <button className="btn btn-info" type="submit" onClick={this.handleFormSubmit}>Submit</button>
+                  { authErrorMessage }
+                  { serverErrorMessage }
+                </div>
               </div>
             </div>);
   },
@@ -173,8 +188,10 @@ export default React.createClass({
   },
   render() {
     return (
-      <div className="add-page">
-        { this.getContent() }
+      <div className="add-page row justify-content-center">
+        <div className="col-lg-10">
+          { this.getContent() }
+        </div>
       </div>
     );
   }

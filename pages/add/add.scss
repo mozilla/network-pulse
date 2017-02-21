@@ -1,7 +1,4 @@
 .add-page {
-  max-width: 640px;
-  margin: 0 auto;
-
   h1,
   h2 {
     color: $bikeshed-magenta;
@@ -76,5 +73,17 @@ fieldset.creators {
         top: -10px;
       }
     }
+  }
+}
+
+.submit-section {
+  margin-top: $form-field-vertical-margin;
+
+  button {
+    margin-right: 1rem;
+  }
+
+  button + span {
+    color: $form-error-color;
   }
 }

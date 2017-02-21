@@ -64,7 +64,7 @@
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "habitat": "^3.1.2",
-    "mofo-bootstrap": "^2.0.1",
+    "mofo-bootstrap": "^3.2.0",
     "moment": "^2.17.1",
     "node-sass": "^3.13.0",
     "npm-run-all": "^3.1.1",

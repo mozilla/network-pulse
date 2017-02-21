@@ -18,6 +18,7 @@ body {
   min-height: 100%;
   position: relative;
   font-weight: $font-weight-normal;
+  color: $body-color;
 }
 
 h2 {
@@ -52,10 +53,6 @@ a {
   padding-top: 7px;
   padding-bottom: 7px;
   border-radius: 3px;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .dot-separator {
@@ -111,7 +108,7 @@ a {
 
 form {
   .inline.error {
-    color: #d24735;
+    color: $form-error-color;
     font-style: italic;
     font-size: 0.875rem;
     margin-top: 5px;
@@ -119,8 +116,6 @@ form {
 }
 
 label {
-  width: 100%;
-
   &.required {
     &::after {
       content: "(required)";
@@ -134,9 +129,13 @@ label {
 
 fieldset {
   margin-bottom: $form-field-vertical-margin;
+}
 
-  label {
-    margin-bottom: 0;
+.form-control {
+  color: $body-color;
+
+  &:focus {
+    color: $body-color;
   }
 }
 
@@ -145,10 +144,6 @@ fieldset {
   width: auto;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-}
-
-button[type="submit"] {
-  margin-top: $form-field-vertical-margin;
 }
 
 .form-text {
