@@ -45,7 +45,7 @@ function toQueryString(data) {
  * Make an GET XHR request and return a promise to resolve it.
  * Useful for making a call to an endpoint that does return data.
  * @param  {String} route A route fragment
- * @param  {Object} params A POJO to be serialized as a query string
+ * @param  {Object} params A key-value object to be serialized as a query string
  * @returns {Promise} A promise to resolve an XHR request
  */
 function getDataFromURL(route, params = {}) {
@@ -82,7 +82,7 @@ function getDataFromURL(route, params = {}) {
  * Make an GET XHR request and return a promise to resolve it.
  * Useful for making a call to an endpoint that doesn't return data.
  * @param  {String} route A route fragment
- * @param  {Object} params A POJO to be serialized as a query string
+ * @param  {Object} params A key-value object to be serialized as a query string
  * @returns {Promise} A promise to resolve an XHR request
  */
 function callURL(route, params = {}) {
@@ -96,7 +96,7 @@ function callURL(route, params = {}) {
     request.onload = (event) => {
       let result = event.currentTarget;
 
-      if ( result.status == 200 ) {
+      if ( result.status === 200 ) {
         resolve();
       } else {
         reject(`XHR request failed. Status ${result.status}.`);
@@ -111,10 +111,47 @@ function callURL(route, params = {}) {
   });
 }
 
+/**
+ * Make an POST XHR request and return a promise to resolve it.
+ * @param  {Object} params A key-value object to be posted
+ * @returns {Promise} A promise to resolve an XHR request
+ */
+function postEntry(entryData) {
+  let request = new XMLHttpRequest();
+
+  return new Promise((resolve, reject) => {
+    request.open(`POST`, `${pulseAPI}/entries/`, true);
+
+    request.withCredentials = true;
+    request.onload = (event) => {
+      let result = event.currentTarget;
+
+      if ( result.status === 200 ) {
+        resolve();
+      } else {
+        reject(`XHR request failed. Status ${result.status}.`);
+      }
+    };
+
+    request.onerror = () => {
+      reject(`XHR request failed`);
+    };
+
+    console.log(entryData);
+
+    request.setRequestHeader(`X-CSRFToken`, entryData.csrfmiddlewaretoken);
+    request.setRequestHeader(`Content-Type`,`application/json`);
+    request.send(JSON.stringify(entryData));
+  });
+}
+
 export default {
   entries: {
     get: function(params) {
       return getDataFromURL(`${pulseAPI}/entries/`, params);
+    },
+    post: function(entryData) {
+      return postEntry(entryData);
     }
   },
   entry: {
@@ -127,6 +164,9 @@ export default {
   },
   userstatus: function() {
     return getDataFromURL(`${pulseAPI}/userstatus/`);
+  },
+  nonce: function() {
+    return getDataFromURL(`${pulseAPI}/nonce/`);
   }
   // ... and more Pulse API endpoints to come
 };
