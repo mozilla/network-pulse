@@ -141,8 +141,6 @@ function postEntry(entryData) {
       reject(`XHR request failed`);
     };
 
-    console.log(entryData);
-
     request.setRequestHeader(`X-CSRFToken`, entryData.csrfmiddlewaretoken);
     request.setRequestHeader(`Content-Type`,`application/json`);
     request.send(JSON.stringify(entryData));

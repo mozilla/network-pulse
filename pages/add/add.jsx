@@ -43,7 +43,6 @@ export default React.createClass({
 
     if ( name === `tags` ) {
       value = value.split(`#`).map((tag) => {
-        console.log(`tag`, tag.trim());
         return tag.trim();
       });
     }
@@ -66,8 +65,6 @@ export default React.createClass({
         if (!basicFormIsValid || !detailFormIsValid) {
           return;
         }
-
-        console.log(`yay, we're good to go!`, this.state.formValues);
 
         this.postEntry(this.state.formValues);
       });
@@ -95,13 +92,10 @@ export default React.createClass({
       data.nonce = nonce.nonce;
       data.csrfmiddlewaretoken = nonce.csrf_token;
 
-      // required fields should only be: title and content_url
-      // optional fields: description, interest,get_involved, get_involved_url, thumbnail_url, internal_notes, (user???)
-
       // TODO:FIXME:
-      // temp fix, "tags", "issues", and "creators" are supposed to be an optional fields
+      // Temp fix, "tags", "issues", and "creators" are supposed to be optional fields
       // but currently Pulse API sees them as required fields
-      // ticket has been filed https://github.com/mozilla/network-pulse-api/issues/80
+      // Ticket has been filed https://github.com/mozilla/network-pulse-api/issues/80
       if (!data.tags) {
         data.tags = [];
       }
@@ -117,7 +111,6 @@ export default React.createClass({
       Service.entries
         .post(data)
         .then((response) => {
-          console.log(`response`, response);
           browserHistory.push({
             pathname: `/entry/${response.id}`
           });
