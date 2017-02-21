@@ -93,9 +93,6 @@ export default React.createClass({
       // required fields should only be: title and content_url
       // optional fields: description, interest,get_involved, get_involved_url, thumbnail_url, internal_notes, (user???)
 
-      data.featured = false; // is a required key (which is supposed to be an optional field)
-
-
       // TODO:FIXME:
       // temp fix, "tags", "issues", and "creators" are supposed to be an optional fields
       // but currently Pulse API sees them as required fields
@@ -105,18 +102,20 @@ export default React.createClass({
       }
 
       if (!data.issues) {
-        data.tags = [];
+        data.issues = [];
       }
 
       if (!data.creators) {
-        data.tags = [];
+        data.creators = [];
       }
 
       Service.entries
         .post(data)
         .then((response) => {
           console.log(`response`, response);
-          // TODO: redirects users to the entry page that they just posted
+          browserHistory.push({
+            pathname: `/entry/${response.id}`
+          });
         })
         .catch((reason) => {
           console.error(reason);

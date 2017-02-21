@@ -24,7 +24,7 @@ const Details = React.createClass({
             (<div>
               { props.interest ? <p className="interest">{props.interest}</p> : null }
               { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
-              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-view" onClick={this.handleVisitBtnClick}>Visit</a> : null }
+              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info btn-view" onClick={this.handleVisitBtnClick}>Visit</a> : null }
             </div>) : null;
   }
 });
@@ -149,7 +149,7 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
                     </div>);
-    let creators = this.props.creators ? `By ${this.props.creators.join(`, `)}` : null;
+    let creators = this.props.creators.length > 0 ? `By ${this.props.creators.join(`, `)}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
 
     return (

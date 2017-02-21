@@ -4,12 +4,26 @@ module.exports = {
     label: `Who are the creators? This could be staff, contributors, partners…`,
     placeholder: `Name`,
     fieldClassname: `form-control`,
-    validator: {
-      error: ``
-    },
     multiplicity: 1,
     addLabel: `+ Add another`,
     // optional: true
+  },
+  interest: {
+    type: `text`,
+    label: `Why might this be interesting to other people in our network?`,
+    placeholder: ``,
+    fieldClassname: `form-control`,
+    validator: {
+      error: `Maximum 300 characters.`,
+      validate: function(value) {
+        if (!value) {
+          // this is an optional field, it can be left blank
+          return;
+        }
+
+        return value && value.length > 300; // return true if value fails validation
+      }
+    },
   },
   tags: {
     type: `text`,
@@ -69,7 +83,7 @@ module.exports = {
   'thumbnail_url': {
     type: `text`,
     label: `Link to thumbnail image.`,
-    placeholder: `https://example.com`,
+    placeholder: `https://example.com.png`,
     fieldClassname: `form-control`,
     validator: [
       {

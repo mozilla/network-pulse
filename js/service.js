@@ -126,10 +126,14 @@ function postEntry(entryData) {
     request.onload = (event) => {
       let result = event.currentTarget;
 
-      if ( result.status === 200 ) {
-        resolve();
+      if (result.status >= 200 && result.status < 400) {
+        try {
+          resolve(JSON.parse(result.response));
+        } catch (error) {
+          reject(error);
+        }
       } else {
-        reject(`XHR request failed. Status ${result.status}.`);
+        reject(`XHR request failed, status ${result.status}.`);
       }
     };
 
