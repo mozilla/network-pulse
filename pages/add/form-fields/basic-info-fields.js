@@ -27,9 +27,9 @@ module.exports = {
     labelClassname: `required`,
     fieldClassname: `form-control`,
     validator: {
-      error: `Not a valid URL.`,
+      error: `Not a valid URL. Remember to include protocol (http:// or https://).`,
       validate: function(value) {
-        let r = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
+        let r = new RegExp(/^((http||https):\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 
         if (!r.test(value)) {
           console.error(`content_url is not a valid url`);

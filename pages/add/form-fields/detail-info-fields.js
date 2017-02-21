@@ -63,14 +63,14 @@ module.exports = {
     placeholder: `https://example.com`,
     fieldClassname: `form-control`,
     validator: {
-      error: `Not a valid URL.`,
+      error: `Not a valid URL. Remember to include protocol (http:// or https://).`,
       validate: function(value) {
         if (!value) {
           // this is an optional field, it can be left blank
           return;
         }
 
-        let r = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
+        let r = new RegExp(/^((http||https):\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
 
         if (!r.test(value)) {
           console.error(`get_involved_url is not a valid url`);
@@ -87,14 +87,14 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: [
       {
-        error: `Not a valid image URL. Only JPEG, PNG, GIF, or SVG file is allowed.`,
+        error: `Not a valid image URL. Only JPEG, PNG, GIF, or SVG file is allowed. Remember to include protocol (http:// or https://)`,
         validate: function(value) {
           if (!value) {
             // this is an optional field, it can be left blank
             return;
           }
 
-          let r = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\.(jpg|png|gif|svg)$/);
+          let r = new RegExp(/^((http||https):\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\.(jpg|jpeg|png|gif|svg)$/);
 
           if (!r.test(value)) {
             console.error(`thumbnail_url is not a valid url`);
