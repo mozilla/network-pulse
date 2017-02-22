@@ -14,9 +14,11 @@ html {
 }
 
 body {
-  background: #f1f1f1;
+  background: $off-white;
   min-height: 100%;
   position: relative;
+  font-weight: $font-weight-normal;
+  color: $body-color;
 }
 
 h2 {
@@ -25,12 +27,21 @@ h2 {
   color: $bikeshed-magenta;
 }
 
-p {
-  font-size: 0.9375rem;
-  line-height: 1.333;
+a {
+  color: $link-color;
+
+  @include hover {
+    color: $link-hover-color;
+  }
 }
 
 .btn-link {
+  color: $link-color;
+
+  @include hover-focus {
+    color: $link-hover-color;
+  }
+
   &.inline-link {
     font-size: inherit;
     padding: 0;
@@ -38,14 +49,10 @@ p {
 }
 
 .btn {
-  cursor: pointer;
+  font-weight: $btn-font-weight;
   padding-top: 7px;
   padding-bottom: 7px;
   border-radius: 3px;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .dot-separator {
@@ -97,37 +104,39 @@ p {
   }
 }
 
-.logged-in-status {
-  font-weight: 400;
-}
-
 // Form 
 
 form {
-  font-weight: 400;
+  .inline.error {
+    color: $form-error-color;
+    font-style: italic;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
 }
 
 label {
-  width: 100%;
-  margin-bottom: $form-field-vertical-margin;
-
-  .required {
-    display: inline-block;
-    margin-left: 0.5rem;
-    color: $form-text-light;
+  &.required {
+    &::after {
+      content: "(required)";
+      display: inline-block;
+      font-style: italic;
+      margin-left: 0.5rem;
+      color: $form-text-light;
+    }
   }
 }
 
 fieldset {
   margin-bottom: $form-field-vertical-margin;
-
-  label {
-    margin-bottom: 0;
-  }
 }
 
-legend {
-  font-size: 1rem;
+.form-control {
+  color: $body-color;
+
+  &:focus {
+    color: $body-color;
+  }
 }
 
 .form-control[type="checkbox"] {
@@ -135,10 +144,6 @@ legend {
   width: auto;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-}
-
-button[type="submit"] {
-  margin-top: $form-field-vertical-margin;
 }
 
 .form-text {

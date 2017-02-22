@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
@@ -7,6 +8,7 @@ export default React.createClass({
   getInitialState() {
     return {
       dataLoaded: false,
+      justPostedByUser: false,
       entry: null
     };
   },
@@ -21,15 +23,45 @@ export default React.createClass({
           dataLoaded: true,
           entry: response
         });
+        this.checkIfRedirectedFromFormSubmission();
       })
       .catch((reason) => {
         console.error(reason);
       });
   },
+  checkIfRedirectedFromFormSubmission() {
+    let location = this.props.router.location;
+    let query = location.query;
+    let justPostedByUser;
+
+    if (query && query.justPostedByUser) {
+      justPostedByUser = query.justPostedByUser === `true`;
+
+      // remove 'justPostedByUser' query from URL
+      delete query.justPostedByUser;
+      browserHistory.replace({
+        pathname: location.pathname,
+        query: query
+      });
+    }
+
+    this.setState({
+      justPostedByUser: justPostedByUser
+    });
+  },
   render() {
+    let justPostedByUserMessage;
+    let projectCard;
+
+    if (this.state.dataLoaded) {
+      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting! Here's the entry you just posted.</h5>) : null;
+      projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
+    }
+
     return (
       <div>
-        { this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null }
+        { justPostedByUserMessage }
+        { projectCard }
       </div>
     );
   }

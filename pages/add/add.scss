@@ -1,7 +1,4 @@
 .add-page {
-  max-width: 640px;
-  margin: 0 auto;
-
   h1,
   h2 {
     color: $bikeshed-magenta;
@@ -14,13 +11,17 @@
 
   h2 {
     font-size: 1.5rem;
+    font-weight: 400;
     margin-top: $form-field-vertical-margin;
   }
 }
 
+.new-entry-form {
+  margin-bottom: 3rem;
+}
+
 .posted-by {
   p {
-    font-size: 1rem;
     display: inline-block;
     margin: 0 1rem 1rem 0;
   }
@@ -37,16 +38,52 @@
 }
 
 fieldset.creators {
-  input {
-    margin-bottom: 0.5rem;
+  .row {
+    margin: 0 0 0.5rem;
 
     @media screen and (min-width: $bp-md) {
       display: inline-block;
-      width: calc(50% - 1rem / 2);
+      width: calc(50% - 0.5rem / 2);
+      margin-bottom: 0;
 
       &:nth-child(2n) {
-        margin-right: 1rem;
+        margin-left: 0.5rem;
       }
     }
+  }
+
+  .button.remove-field {
+    display: none;
+  }
+
+  .button.add-field {
+    border: none;
+    background: 0;
+    margin-left: 1rem;
+    color: $link-color;
+    cursor: pointer;
+
+    @include hover-focus {
+      color: $link-hover-color;
+    }
+
+    @media screen and (min-width: $bp-md) {
+      &:nth-child(2n) {
+        position: relative;
+        top: -10px;
+      }
+    }
+  }
+}
+
+.submit-section {
+  margin-top: $form-field-vertical-margin;
+
+  button {
+    margin-right: 1rem;
+  }
+
+  button + span {
+    color: $form-error-color;
   }
 }
