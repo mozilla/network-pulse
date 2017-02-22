@@ -1,16 +1,47 @@
 import React from 'react';
-// import { Link } from 'react-router';
+import { MofoFooter } from 'mofo-ui';
 
-export default React.createClass({
-  render() {
-    return (
-      <footer>
-        <div className="container">
-          <p>Get new projects by email. <a id="sign-up-btn" href="https://groups.google.com/a/mozillafoundation.org/d/forum/pulse-notifications/join">Sign up</a>.</p>
-          <p><a href="https://github.com/mozilla/network-pulse">Contribute</a> to this prototype.</p>
-          <p>Submit an <a href="https://docs.google.com/a/mozillafoundation.org/forms/d/e/1FAIpQLScsZ6NLDIo87YH8Z3guR-9slPampPTavcKgbqOJvLsrnqIVMQ/viewform">Impact Story tip</a>.</p>
-        </div>
-      </footer>
-    );
-  }
-});
+const Footer = () => {
+  const FOOTER_LINKS = [
+    {
+      iconType: `github`,
+      link: `https://github.com/mozilla/network-pulse`,
+      text: `Github`
+    },
+    {
+      iconType: `chat`,
+      link: `https://chat.mozillafoundation.org/mozilla/channels/town-square`,
+      text: `Chat`
+    },
+    {
+      iconType: `email`,
+      link: `https://mzl.la/pulse-contact`,
+      text: `Contact Us`
+    },
+    {
+      iconType: `legal`,
+      link: `https://www.mozilla.org/about/legal/`,
+      text: `Legal`
+    },
+    {
+      iconType: `cc-license`,
+      link: `https://creativecommons.org/licenses/by/4.0/`,
+      text: `License`
+    }
+  ];
+
+  const ORGS = [
+    {
+      name: `mozilla`,
+      link: `https://mozilla.org`,
+      description: (<p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>),
+      className: `mozilla`
+    }
+  ];
+
+  return (
+    <MofoFooter footerLinks={FOOTER_LINKS} orgs={ORGS} />
+  );
+};
+
+export { Footer as default };
