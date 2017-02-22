@@ -60,11 +60,16 @@ function getDataFromURL(route, params = {}) {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
+        let data;
+
         try {
-          resolve(JSON.parse(result.response));
+          data = JSON.parse(result.response);
         } catch (error) {
+          // this error can only have come from JSON parsing
           reject(error);
         }
+
+        resolve(data);
       } else {
         reject(`XHR request failed, status ${result.status}.`);
       }
@@ -127,11 +132,16 @@ function postEntry(entryData) {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
+        let data;
+
         try {
-          resolve(JSON.parse(result.response));
+          data = JSON.parse(result.response);
         } catch (error) {
+          // this error can only have come from JSON parsing
           reject(error);
         }
+
+        resolve(data);
       } else {
         reject(`XHR request failed, status ${result.status}.`);
       }

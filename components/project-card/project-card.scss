@@ -51,11 +51,6 @@
     margin: 0.5rem 0;
   }
 
-  p {
-    font-size: 0.9375rem;
-    line-height: 1.333;
-  }
-
   .thumbnail {
     @include aspect-ratio(1200, 630);
 
