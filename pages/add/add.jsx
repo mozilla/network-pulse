@@ -114,7 +114,10 @@ export default React.createClass({
         .post(data)
         .then((response) => {
           browserHistory.push({
-            pathname: `/entry/${response.id}`
+            pathname: `/entry/${response.id}`,
+            query: {
+              justPostedByUser: true
+            }
           });
         })
         .catch((reason) => {

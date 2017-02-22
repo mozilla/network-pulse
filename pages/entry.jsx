@@ -7,6 +7,7 @@ export default React.createClass({
   getInitialState() {
     return {
       dataLoaded: false,
+      justPostedByUser: false,
       entry: null
     };
   },
@@ -19,7 +20,8 @@ export default React.createClass({
       .then((response) => {
         this.setState({
           dataLoaded: true,
-          entry: response
+          entry: response,
+          justPostedByUser: this.props.router.location.query.justPostedByUser.toLowerCase() === `true`
         });
       })
       .catch((reason) => {
@@ -27,9 +29,18 @@ export default React.createClass({
       });
   },
   render() {
+    let justPostedByUserMessage;
+    let projectCard;
+
+    if (this.state.dataLoaded) {
+      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting! Here's the entry you just posted.</h5>) : null;
+      projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
+    }
+
     return (
       <div>
-        { this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null }
+        { justPostedByUserMessage }
+        { projectCard }
       </div>
     );
   }
