@@ -54,7 +54,7 @@ export default React.createClass({
     let projectCard;
 
     if (this.state.dataLoaded) {
-      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting! Here's the entry you just posted.</h5>) : null;
+      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting!</h5>) : null;
       projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
     }
 
