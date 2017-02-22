@@ -73,19 +73,21 @@ export default React.createClass({
   getNonce(callback) {
     Service.nonce()
       .then((nonce) => {
-        callback(nonce);
+        callback(false, nonce);
       })
       .catch((reason) => {
         this.setState({
           authError: true
         });
-        console.error(reason);
-        callback(false);
+        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
       });
   },
   postEntry(entryData) {
-    this.getNonce((nonce) => {
-      if (!nonce) { return; }
+    this.getNonce((error, nonce) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
 
       let data = Object.assign({}, entryData);
 

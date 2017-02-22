@@ -76,7 +76,7 @@ function getDataFromURL(route, params = {}) {
     };
 
     request.onerror = () => {
-      reject(`XHR request failed`);
+      reject(`XHR request failed.`);
     };
 
     request.send();
@@ -109,7 +109,7 @@ function callURL(route, params = {}) {
     };
 
     request.onerror = () => {
-      reject(`XHR request failed`);
+      reject(`XHR request failed.`);
     };
 
     request.send();
@@ -148,7 +148,7 @@ function postEntry(entryData) {
     };
 
     request.onerror = () => {
-      reject(`XHR request failed`);
+      reject(`XHR request failed.`);
     };
 
     request.setRequestHeader(`X-CSRFToken`, entryData.csrfmiddlewaretoken);
