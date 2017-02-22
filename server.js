@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import helmet from 'helmet';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -17,6 +18,58 @@ import env from "./config/env.generated.json";
 
 const defaultPort = 3000;
 const PORT = env.PORT || process.env.PORT || defaultPort;
+
+/**
+ * Some app security settings
+ */
+
+var securityHeaders = {
+  directives: {
+    defaultSrc: [
+      `\'none\'`
+    ],
+    scriptSrc: [
+      `\'self\'`,
+      `\'unsafe-inline\'`
+    ],
+    fontSrc: [
+      `\'self\'`,
+      `https://code.cdn.mozilla.net`
+    ],
+    styleSrc: [
+      `\'self\'`,
+      `\'unsafe-inline\'`,
+      `https://code.cdn.mozilla.net`
+    ],
+    imgSrc: [
+      `\'self\'`,
+      `\'unsafe-inline\'`,
+      `data:`,
+      `*`
+    ],
+    connectSrc: [
+      `\'self\'`,
+      env.PULSE_API || `https://network-pulse-api-staging.herokuapp.com/`
+    ]
+  },
+  reportOnly: false,
+  browserSniff: false
+};
+
+app.use(helmet.contentSecurityPolicy(securityHeaders));
+
+app.use(helmet.xssFilter({
+  setOnOldIE: true
+}));
+
+// maxAge for HSTS header must be at least 18 weeks (see https://hstspreload.org/)
+app.use(helmet.hsts({
+  maxAge: 60 * 60 * 24 * 7 * 18 // 18 weeks in seconds
+}));
+
+app.use(helmet.ieNoOpen());
+
+app.use(helmet.noSniff());
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
