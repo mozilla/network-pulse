@@ -1,7 +1,7 @@
 import validator from './validator';
 
 module.exports = {
-  title: {
+  title: { // required field
     type: `text`,
     label: `Title of the project`,
     placeholder: `Title`,
@@ -12,7 +12,7 @@ module.exports = {
       validator.maxLengthValidator(140)
     ]
   },
-  'content_url': {
+  'content_url': { // required field
     type: `text`,
     label: `URL`,
     placeholder: `https://example.com`,
@@ -29,6 +29,5 @@ module.exports = {
     placeholder: `Description`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600)
-    // optional: true
   },
 };

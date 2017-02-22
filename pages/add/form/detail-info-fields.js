@@ -7,15 +7,14 @@ module.exports = {
     placeholder: `Name`,
     fieldClassname: `form-control`,
     multiplicity: 1,
-    addLabel: `+ Add another`,
-    // optional: true
+    addLabel: `+ Add another`
   },
   interest: {
     type: `text`,
     label: `Why might this be interesting to other people in our network?`,
     placeholder: ``,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300),
+    validator: validator.maxLengthValidator(300)
   },
   tags: {
     type: `text`,
@@ -28,24 +27,21 @@ module.exports = {
     label: `Check any Key Internet Issues that relate to your project.`,
     options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
     colCount: 1,
-    fieldClassname: `form-control`,
-    // optional: true
+    fieldClassname: `form-control`
   },
   'get_involved': {
     type: `text`,
     label: `Looking for support? Describe how people can do that.`,
     placeholder: `Contribute to the code.`,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300),
-    // optional: true
+    validator: validator.maxLengthValidator(300)
   },
   'get_involved_url': {
     type: `text`,
     label: `Link for people to get involved.`,
     placeholder: `https://example.com`,
     fieldClassname: `form-control`,
-    validator: validator.urlValidator(),
-    // optional: true
+    validator: validator.urlValidator()
   },
   'thumbnail_url': {
     type: `text`,
@@ -55,7 +51,6 @@ module.exports = {
     validator: [
       validator.urlValidator(),
       validator.imageTypeValidator()
-    ],
-    // optional: true
+    ]
   }
 };
