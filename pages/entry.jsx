@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
@@ -20,13 +21,33 @@ export default React.createClass({
       .then((response) => {
         this.setState({
           dataLoaded: true,
-          entry: response,
-          justPostedByUser: this.props.router.location.query.justPostedByUser.toLowerCase() === `true`
+          entry: response
         });
+        this.checkIfRedirectedFromFormSubmission();
       })
       .catch((reason) => {
         console.error(reason);
       });
+  },
+  checkIfRedirectedFromFormSubmission() {
+    let location = this.props.router.location;
+    let query = location.query;
+    let justPostedByUser;
+
+    if (query && query.justPostedByUser) {
+      justPostedByUser = query.justPostedByUser === `true`;
+
+      // remove 'justPostedByUser' query from URL
+      delete query.justPostedByUser;
+      browserHistory.replace({
+        pathname: location.pathname,
+        query: query
+      });
+    }
+
+    this.setState({
+      justPostedByUser: justPostedByUser
+    });
   },
   render() {
     let justPostedByUserMessage;
