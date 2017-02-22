@@ -5,8 +5,8 @@ import HintMessage from '../../components/hint-message/hint-message.jsx';
 import Service from '../../js/service.js';
 import utility from '../../js/utility';
 import user from '../../js/app-user';
-import basicInfoFields from './form-fields/basic-info-fields';
-import detailInfoFields from './form-fields/detail-info-fields';
+import basicInfoFields from './form/basic-info-fields';
+import detailInfoFields from './form/detail-info-fields';
 
 export default React.createClass({
   getInitialState() {

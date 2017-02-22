@@ -149,7 +149,7 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
                     </div>);
-    let creators = this.props.creators.length > 0 ? `By ${this.props.creators.join(`, `)}` : null;
+    let creators = this.props.creators && this.props.creators.length > 0 ? `By ${this.props.creators.join(`, `)}` : null;
     let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
 
     return (
