@@ -49,7 +49,7 @@ const App = React.createClass({
     return (
       <div id="splash" ref="splash">
         <div className="container">
-          <h1><img src="/assets/svg/pulse-wordmark.svg" width="200" height="46" alt="Mozilla Network Pulse" /></h1>
+          <div><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></div>
           <p>A stream of assets from peers across the Mozilla Network.</p>
         </div>
       </div>
