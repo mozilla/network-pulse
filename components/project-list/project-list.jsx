@@ -80,24 +80,33 @@ export default React.createClass({
     this.setState({displayBatchIndex: this.state.displayBatchIndex+1});
   },
   render() {
-    let projects = this.state.dataLoaded ? this.applyFilterToList(this.state.entries,this.props.params) : null;
+    let projects = (<div className="loading my-5 d-flex justify-content-center align-items-center">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>);
+    let moreToShow;
     let showViewMoreBtn;
 
-    if (projects) {
+    if (this.state.dataLoaded) {
+      // get all matching projects
+      projects = this.applyFilterToList(this.state.entries,this.props.params);
       // we only want to show a fixed number of projects at once (this.numProjectsInBatch)
       // first, check to see if there are more projects to show after this batch
-      showViewMoreBtn = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
+      moreToShow = (projects.length/this.numProjectsInBatch) > this.state.displayBatchIndex;
+      showViewMoreBtn = moreToShow ? (<div className="view-more text-center">
+                                        <button type="button" className="btn btn-outline-info" onClick={this.handleViewMoreClick}>View more</button>
+                                      </div>)
+                                   : null;
       // prepare ProjectCards we are going to render in this batch
       projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
         return ( <ProjectCard key={project.id} {...Utility.processEntryData(project)} /> );
       });
     }
 
-    return (
-      <div className="project-list">
-        { projects ? <div className="projects">{projects}</div> : null }
-        { showViewMoreBtn ? <div className="view-more text-center"><button type="button" className="btn btn-outline-info" onClick={this.handleViewMoreClick}>View more</button></div> : null }
-      </div>
-    );
+    return (<div className="project-list">
+              { projects }
+              { showViewMoreBtn }
+            </div>);
   }
 });
