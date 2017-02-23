@@ -3,27 +3,4 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  text-align: center;
-  background: $charcoal;
-  color: fade_out($white, 0.5);
-
-  p {
-    margin: 1rem 0;
-  }
-}
-
-// >= 992px
-@media screen and (min-width: $bp-lg) {
-  footer {
-    p {
-      display: inline-block;
-
-      &:not(:last-child)::after {
-        content: "|";
-        display: inline-block;
-        padding: 0 12px;
-        color: #adadad;
-      }
-    }
-  }
 }
