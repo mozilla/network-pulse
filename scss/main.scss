@@ -48,6 +48,11 @@ a {
   }
 }
 
+.btn,
+button {
+  font-family: inherit;
+}
+
 .btn {
   font-weight: $btn-font-weight;
   padding-top: 7px;
@@ -104,6 +109,8 @@ a {
 // Form 
 
 form {
+  font-family: inherit;
+
   .inline.error {
     color: $form-error-color;
     font-style: italic;
@@ -113,6 +120,8 @@ form {
 }
 
 label {
+  margin-bottom: 5px;
+
   &.required {
     &::after {
       content: "(required)";
@@ -126,6 +135,11 @@ label {
 
 fieldset {
   margin-bottom: $form-field-vertical-margin;
+}
+
+input,
+textarea {
+  font-family: inherit;
 }
 
 .form-control {
