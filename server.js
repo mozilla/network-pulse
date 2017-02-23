@@ -20,7 +20,16 @@ const PORT = env.PORT || process.env.PORT || defaultPort;
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
-app.get(`*`, (req, res) => {
+// make sure that heroku content is always on https
+// (or really, anything that relies on x-forwarded-proto)
+const checkHTTPS = (req, res, next) => {
+  if(req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === "http") {
+    return res.redirect("https://" + req.headers.host + req.url);
+  }
+  next();
+};
+
+app.get(`*`, checkHTTPS, (req, res) => {
   match({ routes: routes, location: req.url }, (err, redirect, props) => {
     if (err) {
       res.status(500).send(err.message);
