@@ -1,19 +1,3 @@
-// Before we load anything: are we in the browser, and do we need to be on https instead?
-if (typeof window !== "undefined" && typeof document !== "undefined") {
-  let loc = window.location;
-  // are we in a context that claims we're on a URL, and is tht URL not on https?
-  if (loc && loc.protocol !== "https") {
-    // are we not doing local development work?
-    switch (loc.hostname) {
-      case "localhost": break;
-      case "test.example.org": break;
-      case "test.example.com": break;
-      // we are not: switch to https instead of whatever we're using now.
-      default: window.location.protocol = "https:";
-    }
-  }
-}
-
 // If we get to this point, we didn't need to switch protocols: load the client App
 import React from 'react';
 import ReactDOM from 'react-dom';
