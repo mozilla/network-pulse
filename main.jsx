@@ -1,4 +1,3 @@
-// If we get to this point, we didn't need to switch protocols: load the client App
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
