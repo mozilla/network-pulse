@@ -15,7 +15,7 @@ export default React.createClass({
         <div className="container">
           <div className="inner">
             <div className="logo">
-              <IndexLink to="/"><img src="/assets/svg/pulse-wordmark.svg" width="160" alt="Mozilla Network Pulse" /></IndexLink>
+              <IndexLink to="/"><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></IndexLink>
             </div>
             <ul>
               <li><NavLink to="/featured" className="text-nav-link">Featured</NavLink></li>
