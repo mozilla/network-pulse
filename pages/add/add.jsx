@@ -187,7 +187,7 @@ export default React.createClass({
   render() {
     return (
       <div className="add-page row justify-content-center">
-        <div className="col-lg-10">
+        <div className="col-lg-8">
           { this.getContent() }
         </div>
       </div>
