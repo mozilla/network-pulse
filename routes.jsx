@@ -50,7 +50,7 @@ const App = React.createClass({
       <div id="splash" ref="splash">
         <div className="container">
           <div><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></div>
-          <p>A stream of assets from peers across the Mozilla Network.</p>
+          <p className="mt-2">A stream of assets from peers across the Mozilla Network.</p>
         </div>
       </div>
     );
