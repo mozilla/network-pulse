@@ -102,6 +102,7 @@ export default React.createClass({
       projects = projects.slice(0,this.state.displayBatchIndex*this.numProjectsInBatch).map((project) => {
         return ( <ProjectCard key={project.id} {...Utility.processEntryData(project)} /> );
       });
+      projects = <div className="projects">{projects}</div>;
     }
 
     return (<div className="project-list">
