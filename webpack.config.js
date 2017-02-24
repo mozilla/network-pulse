@@ -3,11 +3,14 @@ var webpack = require(`webpack`);
 var plugins = [];
 
 if (process.env.NODE_ENV === "PRODUCTION") {
-  plugins.push(new webpack.DefinePlugin({
-    'process.env': {
-       NODE_ENV: JSON.stringify('production')
-    }
-  }));
+  plugins = [
+    new webpack.DefinePlugin({
+      'process.env': {
+         NODE_ENV: JSON.stringify('production')
+        }
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
 }
 
 module.exports = {
