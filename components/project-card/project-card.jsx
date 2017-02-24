@@ -50,7 +50,7 @@ export default React.createClass({
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
     thumbnailUrl: React.PropTypes.string,
-    timestamp: React.PropTypes.string,
+    created: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
     contentUrl: React.PropTypes.string,
     onDetailView: React.PropTypes.bool
@@ -132,7 +132,11 @@ export default React.createClass({
     this.urlToShare.select();
   },
   render() {
-    let classnames = classNames({"project-card": true, "single": this.props.onDetailView, "bookmarked": this.state.bookmarked});
+    let classnames = classNames({
+      "project-card": true,
+      "detail-view": this.props.onDetailView,
+      "bookmarked": this.state.bookmarked
+    });
     let detailViewLink = `/entry/${this.props.id}`;
     let thumbnail = this.props.thumbnailUrl ?
                     <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
@@ -149,8 +153,8 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
                     </div>);
-    let creators = this.props.creators && this.props.creators.length > 0 ? `By ${this.props.creators.join(`, `)}` : null;
-    let timestamp = this.props.timestamp ? `Added ${moment(this.props.timestamp).format(`MMM DD, YYYY`)}` : null;
+    let creators = this.props.creators && this.props.creators.length > 0 ? <small className="creator d-block text-muted">By {this.props.creators.join(`, `)}</small> : null;
+    let timePosted = this.props.created ? <small className="time-posted d-block text-muted">Added {moment(this.props.created).format(`MMM DD, YYYY`)}</small> : null;
 
     return (
       <div className={classnames}>
@@ -158,7 +162,10 @@ export default React.createClass({
           {thumbnail}
           <div className="content">
             <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>
-            <h3>{creators}{creators && timestamp ? <span className="dot-separator"></span> : null}{timestamp}</h3>
+            <div className="mb-2">
+              {creators}
+              {timePosted}
+            </div>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
           </div>

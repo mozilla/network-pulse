@@ -12,12 +12,12 @@
   /* optimize swipe with class and transform. */
   transition: left 0.25s, height 0.25s, padding 0.25s, margin 0.25s;
 
-  &.single {
+  &.detail-view {
     width: 100%;
     margin: 0 auto;
   }
 
-  &:not(.single) {
+  &:not(.detail-view) {
     .main-content {
       position: relative;
       height: 350px;
@@ -43,12 +43,10 @@
     }
   }
 
-  h3 {
-    color: #adadad;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    margin: 0.5rem 0;
+  .creator {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .thumbnail {
@@ -99,7 +97,6 @@
     width: 100%;
     margin-right: 10px;
 
-
     .btn {
       width: 23px;
       height: 19px;
@@ -149,8 +146,14 @@
   .project-card {
     @include project-card-width(3);
 
-    &.single {
+    &.detail-view {
       @include project-card-width(2);
+
+      .creator {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+      }
     }
   }
 }
