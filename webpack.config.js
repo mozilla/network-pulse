@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
       }
     }),
     new webpack.optimize.UglifyJsPlugin()
+  ];
 }
 
 module.exports = {
