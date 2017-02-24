@@ -1,5 +1,15 @@
 var webpack = require(`webpack`);
 
+var plugins = [];
+
+if (process.env.NODE_ENV === "PRODUCTION") {
+  plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+       NODE_ENV: JSON.stringify('production')
+    }
+  }));
+}
+
 module.exports = {
   context: `${__dirname}`,
   entry: `./main.jsx`,
@@ -24,11 +34,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': process.env.NODE_ENV || 'development'
-      }
-    })
-  ]
+  plugins: plugins
 };
