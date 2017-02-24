@@ -1,9 +1,11 @@
 import express from 'express';
 import path from 'path';
+import helmet from 'helmet';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
+import securityHeaders from './js/security-headers';
 
 const app = express();
 
@@ -17,6 +19,23 @@ import env from "./config/env.generated.json";
 
 const defaultPort = 3000;
 const PORT = env.PORT || process.env.PORT || defaultPort;
+
+// Some app security settings
+
+app.use(helmet.contentSecurityPolicy(securityHeaders));
+
+app.use(helmet.xssFilter({
+  setOnOldIE: true
+}));
+
+// maxAge for HSTS header must be at least 18 weeks (see https://hstspreload.org/)
+app.use(helmet.hsts({
+  maxAge: 60 * 60 * 24 * 7 * 18 // 18 weeks in seconds
+}));
+
+app.use(helmet.ieNoOpen());
+
+app.use(helmet.noSniff());
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
