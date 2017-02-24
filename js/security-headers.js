@@ -7,7 +7,8 @@ export default {
     ],
     scriptSrc: [
       `'self'`,
-      `'unsafe-inline'`
+      `'unsafe-inline'`,
+      `https://*.google-analytics.com`
     ],
     fontSrc: [
       `'self'`,
@@ -21,7 +22,8 @@ export default {
     imgSrc: [
       `'self'`,
       `data:`,
-      `*`
+      `https:`,
+      `http:`
     ],
     connectSrc: [
       `'self'`,
