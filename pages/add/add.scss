@@ -16,22 +16,22 @@
   }
 }
 
-.new-entry-form {
-  margin-bottom: 3rem;
+.checkboxGroup {
+  label {
+    @extend .form-check-label;
+
+    margin-left: 0;
+  }
+
+  input {
+    @extend .form-check-input;
+
+    margin-right: 0.5rem;
+  }
 }
 
 .posted-by {
   margin-top: $form-field-vertical-margin / 2;
-
-  p {
-    display: inline-block;
-    margin: 0 1rem 1rem 0;
-  }
-
-  .user-full-name,
-  .log-out-prompt {
-    color: $form-text-light;
-  }
 
   .user-full-name {
     display: inline-block;
@@ -41,12 +41,12 @@
 
 fieldset.creators {
   .row {
+    vertical-align: middle;
     margin: 0 0 0.5rem;
 
     @media screen and (min-width: $bp-md) {
       display: inline-block;
       width: calc(50% - 0.5rem / 2);
-      margin-bottom: 0;
 
       &:nth-child(2n) {
         margin-left: 0.5rem;
@@ -59,31 +59,18 @@ fieldset.creators {
   }
 
   .button.add-field {
-    border: none;
-    background: 0;
+    @extend .btn-link;
+
     margin-left: 1rem;
-    color: $link-color;
-    cursor: pointer;
 
     @include hover-focus {
       color: $link-hover-color;
-    }
-
-    @media screen and (min-width: $bp-md) {
-      &:nth-child(2n) {
-        position: relative;
-        top: -10px;
-      }
     }
   }
 }
 
 .submit-section {
   margin-top: $form-field-vertical-margin;
-
-  button {
-    margin-right: 1rem;
-  }
 
   button + span {
     color: $form-error-color;

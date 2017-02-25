@@ -135,11 +135,11 @@ export default React.createClass({
     return( <div>
               <h1>Share with the Network</h1>
               <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it … at any stage or fidelity.</p>
-              <div className="new-entry-form">
+              <div className="mb-6">
                 <h2>Basic Info</h2>
                 <div className="posted-by">
-                  <p>Posted by: <span className="user-full-name">{user.username}</span></p>
-                  <p className="log-out-prompt">Not you? <button className="btn btn-link inline-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
+                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.username}</span></p>
+                  <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
                                        inlineErrors={true}
@@ -149,7 +149,7 @@ export default React.createClass({
                                         inlineErrors={true}
                                         onUpdate={this.handleFormUpdate} />
                 <div className="submit-section">
-                  <button className="btn btn-info" type="submit" onClick={this.handleFormSubmit}>Submit</button>
+                  <button className="btn btn-info mr-3" type="submit" onClick={this.handleFormSubmit}>Submit</button>
                   { authErrorMessage }
                   { serverErrorMessage }
                 </div>

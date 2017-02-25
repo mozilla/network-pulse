@@ -16,10 +16,14 @@ $form-field-vertical-margin: 30px;
 $form-text-light: #8d8d8d;
 $form-error-color: #d24735;
 
-// override mofo-bootstrap's variables
+// mofo-bootstrap overrides
 
 $body-color: $gray-darker;
 $link-color: $mobile-blue;
 $link-hover-color: darken($mobile-blue, 15%);
 $font-weight-normal: normal;
+$btn-border-radius: 3px;
 $btn-font-weight: $font-weight-normal;
+$btn-info-border: $btn-info-bg;
+$input-color: $body-color;
+$input-color-focus: $input-color;
