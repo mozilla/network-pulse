@@ -18,8 +18,8 @@ module.exports = {
   },
   tags: {
     type: `text`,
-    label: `Keywords to help with search by program, event, campaign, subject …`,
-    placeholder: `#mozfest  #code  #tool`,
+    label: `Tags to help with search by program, event, campaign, subject …`,
+    placeholder: `web literacy, MozFest, IoT, ...`,
     fieldClassname: `form-control`
   },
   issues: {

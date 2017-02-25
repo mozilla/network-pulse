@@ -42,9 +42,7 @@ export default React.createClass({
     let formValues = this.state.formValues;
 
     if ( name === `tags` ) {
-      value = value.split(`#`).map((tag) => {
-        return tag.trim();
-      });
+      value = value.trim().split(/,\s*/);
     }
 
     formValues[name] = value;
