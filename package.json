@@ -50,7 +50,7 @@
   "devDependencies": {
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
-    "document-env-vars": "^1.0.1",
+    "document-env-vars": "^2.0.0",
     "eslint": "^3.11.1",
     "eslint-plugin-react": "^6.7.1",
     "mofo-style": "^2.4.0",
