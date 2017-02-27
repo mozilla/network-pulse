@@ -9,11 +9,11 @@
     "build": "run-s bootstrap build:**",
     "build:config": "node js/build-env-config.js > config/env.generated.json",
     "build:client": "run-s build-client:**",
-    "build-client:js": "webpack --config webpack.config.js --optimize-minimize --display-error-details",
+    "build-client:js": "webpack --config webpack.config.js --optimize-minimize --display-error-details --colors",
     "build-client:scss": "node-sass scss/main.scss dist/css/main.css",
     "build-client:prefix:main": "postcss --use autoprefixer -o dist/css/main.css dist/css/main.css",
     "build-client:static": "run-s copy:**",
-    "build:server": "webpack --config webpack.server.config.js --optimize-minimize --display-error-details",
+    "build:server": "webpack --config webpack.server.config.js --optimize-minimize --display-error-details --colors",
     "copy:styling-dependency": "run-s bootstrap:clean bootstrap:fontawesome bootstrap:prefix",
     "bootstrap:clean": "shx cp -r node_modules/mofo-bootstrap/dest/css dist",
     "bootstrap:fontawesome": "shx cp -r node_modules/font-awesome/css/font-awesome.min.css dist/css && shx cp -r node_modules/font-awesome/fonts dist",
@@ -29,6 +29,9 @@
     "test:js": "eslint --config .eslintrc.yaml 'main.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' --syntax scss",
     "postinstall": "npm run build"
+  },
+  "babel": {
+    "presets": ["es2015", "react"]
   },
   "browserslist": [
     "> 1%",
@@ -47,6 +50,7 @@
   "devDependencies": {
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
+    "document-env-vars": "^1.0.1",
     "eslint": "^3.11.1",
     "eslint-plugin-react": "^6.7.1",
     "mofo-style": "^2.4.0",

@@ -21,7 +21,7 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 - `git clone -b master https://github.com/mozilla/network-pulse.git`
 - `cd network-pulse`
-- `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env)
+- `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env, see [environment variables section](https://github.com/mozilla/network-pulse#environment-variables))
 - `npm install`
 - `npm start`
 
