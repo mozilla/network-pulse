@@ -41,6 +41,10 @@ URL to your local Pulse API instance (if you have one set up). e.g., `PULSE_API=
 
 To set up a local instance of Pulse API, follow instructions on https://github.com/mozilla/network-pulse-api/blob/master/README.md.
 
+#### `ORIGIN` (auto-generated)
+
+Derived variable based on `HOST` and `PORT` - overriding this yourself will do nothing.
+
 ## 🔷 More info
 
  - [Research doc](https://docs.google.com/document/d/1SAAuPgOaVqpQorrbD0vZSnf8wHHYjddPyYrkrFj72kQ/)
