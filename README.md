@@ -11,7 +11,6 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 - Staging: https://network-pulse-staging.herokuapp.com
 - Work is happening in the `master` branch.
-- Relevant tickets are marked with the `v2 (upcoming)` label.
 
 ### Requirements for Development
 
@@ -22,11 +21,29 @@ This is a prototype to test a few ideas on how to gather a stream of things crea
 
 - `git clone -b master https://github.com/mozilla/network-pulse.git`
 - `cd network-pulse`
-- `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env)
+- `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env, see [environment variables section](https://github.com/mozilla/network-pulse#environment-variables))
 - `npm install`
 - `npm start`
 
+### Environment Variables
+
+#### `HOST`
+
+The host you are using. e.g., `HOST=http://localhost`
+
+#### `PORT`
+
+The port number you are using. e.g., `PORT=3000`
+
+#### `PULSE_API` (optional)
+
+URL to your local Pulse API instance (if you have one set up). e.g., `PULSE_API=http://test.example.com:8000`
+
 To set up a local instance of Pulse API, follow instructions on https://github.com/mozilla/network-pulse-api/blob/master/README.md.
+
+#### `ORIGIN` (auto-generated)
+
+Derived variable based on `HOST` and `PORT` - overriding this yourself will do nothing.
 
 ## 🔷 More info
 
@@ -36,5 +53,3 @@ To set up a local instance of Pulse API, follow instructions on https://github.c
 ## 🔷 Contribute
 
 You can contribute by testing https://network-pulse-staging.herokuapp.com. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions. 
-
-
