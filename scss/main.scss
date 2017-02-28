@@ -1,12 +1,16 @@
 // mofo-bootstrap bits
 
 @import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
-@import '../node_modules/bootstrap/scss/_variables.scss';
+@import '../node_modules/bootstrap/scss/variables.scss';
+@import '../node_modules/mofo-bootstrap/src/scss/overrides/variables.scss';
+@import './overrides/variables.scss';
 @import '../node_modules/bootstrap/scss/mixins';
+@import '../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss';
+@import '../node_modules/bootstrap/scss/buttons.scss';
+@import '../node_modules/bootstrap/scss/forms.scss';
 
 // mixins
 
-@import 'variables.scss';
 @import 'mixin.scss';
 
 html {
@@ -36,12 +40,6 @@ a {
 }
 
 .btn-link {
-  color: $link-color;
-
-  @include hover-focus {
-    color: $link-hover-color;
-  }
-
   &.inline-link {
     font-size: inherit;
     padding: 0;
@@ -51,13 +49,7 @@ a {
 .btn,
 button {
   font-family: inherit;
-}
-
-.btn {
-  font-weight: $btn-font-weight;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  border-radius: 3px;
+  cursor: pointer;
 }
 
 #app {
@@ -131,25 +123,6 @@ fieldset {
 input,
 textarea {
   font-family: inherit;
-}
-
-.form-control {
-  color: $body-color;
-
-  &:focus {
-    color: $body-color;
-  }
-}
-
-.form-control[type="checkbox"] {
-  display: inline-block;
-  width: auto;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.form-text {
-  color: $form-text-light;
 }
 
 // project-list
