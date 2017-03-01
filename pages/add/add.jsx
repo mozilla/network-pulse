@@ -19,7 +19,17 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    user.verify(this.props.router.location, () => this.setState({ user }));
+    user.addListener(this);
+    user.verify(this.props.router.location);
+  },
+  componentWillUnmount() {
+    user.removeListener(this);
+  },
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` ) {
+      this.setState({ user });
+    }
   },
   handleSignInBtnClick(event) {
     event.preventDefault();
