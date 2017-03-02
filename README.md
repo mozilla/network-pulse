@@ -2,12 +2,11 @@
 
 This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.
 
-## 🔷 v1, jQuery-based (to be retired soon)
+## 🔷 v1, jQuery-based (now retired)
 
-- https://mozilla.github.io/network-pulse/ (to be retired soon)
 - See `v1` branch.
 
-## 🔷 v2, React-based (upcoming)
+## 🔷 v2, React-based (current)
 
 - Staging: https://network-pulse-staging.herokuapp.com
 - Work is happening in the `master` branch.
@@ -44,6 +43,26 @@ To set up a local instance of Pulse API, follow instructions on https://github.c
 #### `ORIGIN` (auto-generated)
 
 Derived variable based on `HOST` and `PORT` - overriding this yourself will do nothing.
+
+### Deployment
+
+#### Staging
+
+URL: https://network-pulse-staging.herokuapp.com/
+
+Updates to `master` branch automatically triggers staging deployment.
+
+#### Production
+
+URL: https://mzl.la/pulse
+
+Deployment is done manually.
+1. Go to Heroku dashboard.
+2. Find `network-pulse-production` app.
+3. In the "Deploy" tab, scroll down to the "Manual deploy" section.
+4. Deploy `master` branch. (see screencap below)
+<img width="1062" alt="screen shot 2017-03-02 at 10 20 51 am" src="https://cloud.githubusercontent.com/assets/2896608/23521344/68f4d750-ff33-11e6-9ff4-e669ffa938f7.png">
+
 
 ## 🔷 More info
 
