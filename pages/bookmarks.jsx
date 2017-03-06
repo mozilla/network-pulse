@@ -21,14 +21,22 @@ export default React.createClass({
   handleLogOutBtnClick(event) {
     event.preventDefault();
     user.logout();
-    this.setState({ user });
   },
   componentDidMount() {
     // get IDs of user's bookmarked entries
     this.setState({bookmarks: getBookmarks()});
 
-    // let's verify what the logged in status is
-    user.verify(this.props.router.location, () => this.setState({ user }));
+    user.addListener(this);
+    user.verify(this.props.router.location);
+  },
+  componentWillUnmount() {
+    user.removeListener(this);
+  },
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` || event === `logged out`) {
+      this.setState({ user });
+    }
   },
   getContentForLoggedInUser() {
     return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);

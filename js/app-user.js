@@ -76,16 +76,36 @@ const Login = {
  */
 class User {
   constructor() {
-    this.reset();
+    this.listeners = [];
+    this.resetUser();
   }
 
-  reset() {
+  resetUser() {
     this.username = undefined;
     this.loggedin = false;
     this.failedLogin = false;
     // We do not touch the "attemptingLogin" value in localStorage.
     // It is up to the login/verify/logout/update functions to
     // manipulate that value.
+  }
+
+  // register listeners
+  addListener(o) {
+    this.listeners.push(o);
+  }
+
+  // unregister listeners
+  removeListener(o) {
+    this.listeners.splice(this.listeners.indexOf(o),1);
+  }
+
+  // notify all listeners of a change for this user
+  notifyListeners(evtName) {
+    this.listeners.forEach( listener => {
+      if (listener.updateUser) {
+        listener.updateUser(evtName, this);
+      }
+    });
   }
 
   login(redirectUrl) {
@@ -98,20 +118,24 @@ class User {
     window.location = Login.getLoginURL(redirectUrl);
   }
 
-  verify(location,onVerified) {
+  verify(location) {
     Login.isLoggedIn(location, (error, username) => {
-      this.update(error, username, onVerified);
+      this.update(error, username);
     });
   }
 
   logout() {
-    this.reset();
+    this.resetUser();
+
+    // notify listeners that this user has been logged out
+    this.notifyListeners(`logged out`);
+
     Login.logout(error => {
       console.log(`logout error:`, error);
     });
   }
 
-  update(error, username=false, onUpdated) {
+  update(error, username=false) {
     if (error) {
       console.log(`login error:`, error);
     }
@@ -128,9 +152,8 @@ class User {
     this.loggedin = !!username;
     this.username = username;
 
-    // Callback with this user as argument, if
-    // a callback is necessary.
-    if (onUpdated) { onUpdated(this); }
+    // notify listeners that this user logged in state has been verified
+    this.notifyListeners(`verified`);
   }
 
   getLoginURL(redirectUrl) {
