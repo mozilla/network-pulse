@@ -57,6 +57,11 @@ Updates to `master` branch automatically triggers staging deployment.
 URL: https://mzl.la/pulse
 
 Deployment is done manually.
+
+Concretely, we need to do a deployment rather than a "promotion" because there is a client-side bundle that gets built during deploy, and relies on environment variables at build time. As the staging environment and production environment differ in environment variables, we can't build on staging and then promote to production, as that would simply make our staging client "live".
+
+To manually deploy production site:
+
 1. Go to Heroku dashboard.
 2. Find `network-pulse-production` app.
 3. In the "Deploy" tab, scroll down to the "Manual deploy" section.
