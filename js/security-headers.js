@@ -28,6 +28,12 @@ export default {
     connectSrc: [
       `'self'`,
       env.PULSE_API || `https://network-pulse-api-staging.herokuapp.com/`
+    ],
+    childSrc: [
+      `'none'`
+    ],
+    frameAncestors: [
+      `'none'`
     ]
   },
   reportOnly: false,
