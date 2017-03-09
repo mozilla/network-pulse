@@ -15,43 +15,27 @@ export default React.createClass({
     // when window.history.back() or windows.history.forward() is triggered
     // (e.g., clicking on browser's back / forward button)
     // we want to make sure search result gets updated accordingly
-    let searchKeyword = nextProps.location.query.keyword;
-    this.searchByQueryInUrl(searchKeyword);
+    this.setState({ keywordSearched: nextProps.location.query.keyword });
   },
   componentDidMount() {
     let queryKeyword = this.props.location.query.keyword;
-    this.searchByQueryInUrl(queryKeyword);
-  },
-  searchByQueryInUrl(searchQueryInUrl) {
-    let inputBoxValue = this.refs.searchInput.state.value;
-
-    if (searchQueryInUrl !== inputBoxValue) {
-      // make sure input box value is updated with searchQueryInUrl
-      // then use searchQueryInUrl as the search param to fetch data from Pulse API
-      this.refs.searchInput.setState({value: searchQueryInUrl ? decodeURIComponent(searchQueryInUrl) : ``});
-      this.setState({ keywordSearched: searchQueryInUrl });
-    }
+    this.setState({ keywordSearched: queryKeyword });
   },
   updateBrowserHistory() {
-    let query = this.refs.searchInput.state.value;
+    let keywordSearched = this.state.keywordSearched;
     let location = {
       pathname: this.props.router.location.pathname
     };
 
-    if ( query ) {
-      location[`query`] = { keyword: query };
+    if ( keywordSearched ) {
+      location[`query`] = { keyword: keywordSearched };
     }
 
-    // note browserHistory.push() triggers component re-render
     browserHistory.push(location);
   },
-  clearSearch() {
-    this.refs.searchInput.setState({value: ``}, () => {
-      this.updateBrowserHistory();
-    });
-  },
-  handleInputChange() {
-    let keywordsEntered = this.refs.searchInput.state.value;
+  handleInputChange(event) {
+    console.log(`event.target.value`, event.target.value);
+    let keywordsEntered = event.target.value;
 
     ReactGA.event({
       category: `Search input box`,
@@ -59,21 +43,23 @@ export default React.createClass({
       label: `${keywordsEntered}`
     });
 
-    this.updateBrowserHistory();
-
-    this.setState({ keywordSearched: keywordsEntered });
+    this.setState({ keywordSearched: keywordsEntered }, () => {
+      this.updateBrowserHistory();
+    });
   },
   handleDismissBtnClick() {
-    this.clearSearch();
+    this.setState({ keywordSearched: `` }, () => {
+      this.updateBrowserHistory();
+    });
   },
   render() {
     return (
       <div className="search-page">
         <div className={classNames({activated: true, 'search-bar': true})}>
           <DebounceInput id="search-box"
+                          value={this.state.keywordSearched}
                           debounceTimeout={250}
                           type="search"
-                          ref="searchInput"
                           onChange={this.handleInputChange}
                           placeholder="Search keywords, people, tags..." />
           <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
