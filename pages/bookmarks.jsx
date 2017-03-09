@@ -62,9 +62,12 @@ export default React.createClass({
     Service.entries
       .get(params)
       .then((data) => {
+        // sort entries by the time they were bookmarked, from most recently bookmarked
+        let sorter = (a,b) => ids.indexOf(a.id) - ids.indexOf(b.id);
+
         this.setState({
           loadingData: false,
-          entries: this.state.entries.concat(this.sortEntriesByTimeBookmarked(data.results)),
+          entries: this.state.entries.concat(data.results.sort(sorter)),
           batchIndex: this.state.batchIndex+1,
           moreEntriesToFetch: (this.state.batchIndex+1)*PROJECT_BATCH_SIZE < this.state.bookmarkedIds.length
         });
@@ -72,11 +75,6 @@ export default React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
-  },
-  sortEntriesByTimeBookmarked(entries) {
-    return entries.sort((a,b) => {
-      return this.state.bookmarkedIds.indexOf(a.id) > this.state.bookmarkedIds.indexOf(b.id);
-    });
   },
   getContentForLoggedInUser() {
     return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
