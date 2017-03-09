@@ -1,16 +1,23 @@
 import React from 'react';
 import { getBookmarks } from '../js/bookmarks-manager';
+import Service from '../js/service.js';
 import ProjectList from '../components/project-list/project-list.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
-
 import utility from '../js/utility';
 import user from '../js/app-user';
+import env from "../config/env.generated.json";
+
+const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 
 export default React.createClass({
   getInitialState() {
     return {
-      bookmarks: null,
-      user
+      user,
+      bookmarkedIds: [],
+      loadingData: false,
+      batchIndex: 0,
+      entries: [],
+      moreEntriesToFetch: false
     };
   },
   handleSignInBtnClick(event) {
@@ -24,7 +31,9 @@ export default React.createClass({
   },
   componentDidMount() {
     // get IDs of user's bookmarked entries
-    this.setState({bookmarks: getBookmarks()});
+    this.setState({bookmarkedIds: getBookmarks()}, () => {
+      this.fetchData();
+    });
 
     user.addListener(this);
     user.verify(this.props.router.location);
@@ -37,6 +46,37 @@ export default React.createClass({
     if (event === `verified` || event === `logged out`) {
       this.setState({ user });
     }
+  },
+  fetchData() {
+    // We are about to make a new request, set loadingData to true.
+    this.setState({ loadingData: true });
+
+    // find out entry ids in the batch we are going to fetch
+    let ids = this.state.bookmarkedIds.slice(this.state.batchIndex*PROJECT_BATCH_SIZE, (this.state.batchIndex+1)*PROJECT_BATCH_SIZE);
+
+    let params = {
+      ids: ids.join(`,`),
+      page: 1
+    };
+
+    Service.entries
+      .get(params)
+      .then((data) => {
+        this.setState({
+          loadingData: false,
+          entries: this.state.entries.concat(this.sortEntriesByTimeBookmarked(data.results)),
+          batchIndex: this.state.batchIndex+1,
+          moreEntriesToFetch: (this.state.batchIndex+1)*PROJECT_BATCH_SIZE < this.state.bookmarkedIds.length
+        });
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
+  },
+  sortEntriesByTimeBookmarked(entries) {
+    return entries.sort((a,b) => {
+      return this.state.bookmarkedIds.indexOf(a.id) > this.state.bookmarkedIds.indexOf(b.id);
+    });
   },
   getContentForLoggedInUser() {
     return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
@@ -58,25 +98,33 @@ export default React.createClass({
 
     return this.getAnonymousContent();
   },
-  render() {
+  getBookmarkedProjects() {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
     // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
     // For user facing bits like UI labels and URL path we want them to stay as "favorites".
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
     let headerText = `Save your Favs`;
-
-    return (
-      <div>
-        <div className="logged-in-status">{ this.getloggedInStatusContent() }</div>
-        { this.state.bookmarks && this.state.bookmarks.length > 0 ?
-                            <ProjectList params={{ids: this.state.bookmarks.join(`,`)}} />
-                            : <HintMessage imgSrc={`/assets/svg/icon-bookmark-selected.svg`}
+    let bookmarkedProjects = (<HintMessage imgSrc={`/assets/svg/icon-bookmark-selected.svg`}
                                            header={headerText}
                                            internalLink={`/featured`}
                                            linkText={`Explore featured`}>
                                 <p>Tap the heart on any project to save it here.</p>
-                              </HintMessage>
-        }
+                              </HintMessage>);
+
+    if (this.state.bookmarkedIds.length > 0) {
+      bookmarkedProjects = <ProjectList entries={this.state.entries}
+                                        loadingData={this.state.loadingData}
+                                        moreEntriesToFetch={this.state.moreEntriesToFetch}
+                                        fetchData={this.fetchData} />;
+    }
+
+    return bookmarkedProjects;
+  },
+  render() {
+    return (
+      <div>
+        <div className="logged-in-status">{ this.getloggedInStatusContent() }</div>
+        { this.getBookmarkedProjects() }
       </div>
     );
   }

@@ -1,10 +1,6 @@
 import React from 'react';
-import ProjectList from '../components/project-list/project-list.jsx';
+import ProjectLoader from '../components/project-loader/project-loader.jsx';
 
-export default React.createClass({
-  render() {
-    return (
-      <ProjectList />
-    );
-  }
-});
+export default function () {
+  return <div><ProjectLoader/></div>;
+}

@@ -1,11 +1,11 @@
 import env from "../config/env.generated.json";
+import BluebirdPromise from "bluebird";
+
+BluebirdPromise.config({
+  cancellation: true
+});
 
 let pulseAPI = env.PULSE_API;
-let defaultParams = {
-  ordering: `-created`,
-  page_size: 6 * Math.floor(1000/6), // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes. Note that max_page_size on Pulse API is set to 1000.
-  format: `json`,
-};
 
 /**
  * A helper function to process value in a key-value pair into a valid query param value
@@ -50,10 +50,16 @@ function toQueryString(data) {
  */
 function getDataFromURL(route, params = {}) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign({}, defaultParams, params);
+  let defaultParams = {
+    "ordering": `-created`,
+    "page_size": env.PROJECT_BATCH_SIZE,
+    "format": `json`
+  };
 
-  return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
+  Object.assign(params, defaultParams);
+
+  return new BluebirdPromise((resolve, reject, onCancel) => {
+    request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
@@ -80,6 +86,10 @@ function getDataFromURL(route, params = {}) {
     };
 
     request.send();
+
+    onCancel(() => {
+      request.abort();
+    });
   });
 }
 
@@ -90,12 +100,11 @@ function getDataFromURL(route, params = {}) {
  * @param  {Object} params A key-value object to be serialized as a query string
  * @returns {Promise} A promise to resolve an XHR request
  */
-function callURL(route, params = {}) {
+function callURL(route) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign({}, defaultParams, params);
 
   return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
+    request.open(`GET`, route, true);
 
     request.withCredentials = true;
     request.onload = (event) => {

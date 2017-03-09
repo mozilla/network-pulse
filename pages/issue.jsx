@@ -1,12 +1,10 @@
 import React from 'react';
 import IssueSelector from '../components/issue-selector/issue-selector.jsx';
-import ProjectList from '../components/project-list/project-list.jsx';
+import ProjectLoader from '../components/project-loader/project-loader.jsx';
 
 export default React.createClass({
-  getIssueName() {
-    let issue = ``;
-
-    switch(this.props.params.issue) { // the five issues we have
+  encodeIssueAsUri(issue) {
+    switch(issue) { // the five issues we have
       case `online-privacy-and-security`:
         issue = `Online Privacy & Security`;
         break;
@@ -26,13 +24,13 @@ export default React.createClass({
         issue = ``;
     }
 
-    return issue;
+    return encodeURIComponent(issue);
   },
   render() {
     return (
       <div>
         <IssueSelector />
-        <ProjectList params={{issue: encodeURIComponent(this.getIssueName())}} />
+        <ProjectLoader params={{ issue: this.encodeIssueAsUri(this.props.params.issue) }} />
       </div>
     );
   }

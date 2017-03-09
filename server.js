@@ -116,5 +116,9 @@ function renderPage(appHtml) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Network Pulse listening on port ${PORT}...`);
+  console.log(`\n*******************************************`);
+  console.log(`*                                         *`);
+  console.log(`*  Network Pulse listening on port ${PORT}   *`);
+  console.log(`*                                         *`);
+  console.log(`*******************************************\n`);
 });
