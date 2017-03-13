@@ -1,9 +1,4 @@
 import env from "../config/env.generated.json";
-import BluebirdPromise from "bluebird";
-
-BluebirdPromise.config({
-  cancellation: true
-});
 
 let pulseAPI = env.PULSE_API;
 
@@ -46,9 +41,10 @@ function toQueryString(data) {
  * Useful for making a call to an endpoint that does return data.
  * @param  {String} route A route fragment
  * @param  {Object} params A key-value object to be serialized as a query string
+ * @param  {Object} token A token object to be used to trigger abortion of the XHR request
  * @returns {Promise} A promise to resolve an XHR request
  */
-function getDataFromURL(route, params = {}) {
+function getDataFromURL(route, params = {}, token = {}) {
   let request = new XMLHttpRequest();
   let defaultParams = {
     "ordering": `-created`,
@@ -58,7 +54,7 @@ function getDataFromURL(route, params = {}) {
 
   Object.assign(params, defaultParams);
 
-  return new BluebirdPromise((resolve, reject, onCancel) => {
+  return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
@@ -81,15 +77,16 @@ function getDataFromURL(route, params = {}) {
       }
     };
 
+    token.cancel = function() {
+      request.abort();
+      reject(`XHR request cancelled.`);
+    };
+
     request.onerror = () => {
       reject(`XHR request failed.`);
     };
 
     request.send();
-
-    onCancel(() => {
-      request.abort();
-    });
   });
 }
 
@@ -168,8 +165,8 @@ function postEntry(entryData) {
 
 export default {
   entries: {
-    get: function(params) {
-      return getDataFromURL(`${pulseAPI}/entries/`, params);
+    get: function(params,token) {
+      return getDataFromURL(`${pulseAPI}/entries/`, params, token);
     },
     post: function(entryData) {
       return postEntry(entryData);

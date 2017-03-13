@@ -34,7 +34,6 @@ export default React.createClass({
     browserHistory.push(location);
   },
   handleInputChange(event) {
-    console.log(`event.target.value`, event.target.value);
     let keywordsEntered = event.target.value;
 
     ReactGA.event({
@@ -58,7 +57,7 @@ export default React.createClass({
         <div className={classNames({activated: true, 'search-bar': true})}>
           <DebounceInput id="search-box"
                           value={this.state.keywordSearched}
-                          debounceTimeout={250}
+                          debounceTimeout={300}
                           type="search"
                           onChange={this.handleInputChange}
                           placeholder="Search keywords, people, tags..." />

@@ -10,8 +10,7 @@ export default React.createClass({
       entries: [],
       moreEntriesToFetch: false,
       totalMatched: 0,
-      params: {},
-      existingPromise: null
+      tokenOfExistingPromise: null
     };
   },
   getDefaultProps() {
@@ -24,10 +23,10 @@ export default React.createClass({
   },
   componentWillReceiveProps(nextProps) {
     // Reset state before fetching data for the new params.
-    // We want keep existingPromise on record for fetchData
+    // We want to keep existingPromise on record for fetchData
     // to handle it accoringly.
-    let existingPromise = this.state.existingPromise;
-    let newState = Object.assign(this.getInitialState(), {existingPromise: existingPromise});
+    let tokenOfExistingPromise = this.state.tokenOfExistingPromise;
+    let newState = Object.assign(this.getInitialState(), {tokenOfExistingPromise: tokenOfExistingPromise});
 
     this.setState(newState, () => {
       this.fetchData(nextProps.params);
@@ -38,25 +37,28 @@ export default React.createClass({
     // we want to make sure exisiting fetch call is cancelled before we start a new one.
     // This prevents any unfinished request to incorrectly update the component state
     // when it returns.
-    if (this.state.existingPromise && this.state.existingPromise.cancel) {
-      this.state.existingPromise.cancel();
+    if (this.state.tokenOfExistingPromise) {
+      this.state.tokenOfExistingPromise.cancel();
     }
 
-    // We are about to make a new request, set loadingData to true.
-    this.setState({ loadingData: true });
-
     let combinedParams = Object.assign({}, params, { page: this.state.apiPageIndex });
-    let promise = Service.entries
-                      .get(combinedParams)
-                      .then((data) => {
-                        this.updateStateWithNewData(data);
-                      })
-                      .catch((reason) => {
-                        console.error(reason);
-                      });
+    let token = {};
 
-    // regardless of the promise's fate, we want component to know about this promise
-    this.setState({ existingPromise: promise });
+    this.setState({
+      // we are about to make a new request, set loadingData to true.
+      loadingData: true,
+      // we want component to know about the promise returned from the to-be-called Service.entries.get()
+      tokenOfExistingPromise: token
+    });
+
+    Service.entries
+      .get(combinedParams,token)
+      .then((data) => {
+        this.updateStateWithNewData(data);
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
   },
   updateStateWithNewData(data) {
     this.setState({
