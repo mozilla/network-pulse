@@ -3,7 +3,6 @@ import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
 
 export default React.createClass({
-  promiseToken: null,
   getInitialState() {
     return {
       loadingData: false,
@@ -31,24 +30,24 @@ export default React.createClass({
     });
   },
   fetchData(params = this.props) {
-    // Since we are making asynchronous calls to fetch data,
-    // we want to make sure exisiting fetch call is cancelled before we start a new one.
-    // This prevents any unfinished request to incorrectly update the component state
-    // when it returns.
+    let combinedParams = Object.assign({}, params, { page: this.state.apiPageIndex });
+
     if (this.promiseToken) {
+      // Since we are making asynchronous calls to fetch data,
+      // we want to make sure exisiting fetch call is cancelled before we start a new one.
+      // This prevents any unfinished request to incorrectly update the component state
+      // when it returns.
       this.promiseToken.cancel();
     }
 
-    let combinedParams = Object.assign({}, params, { page: this.state.apiPageIndex });
-    let token = {};
+    // "refresh" token before passing it to Service.entries.get()
+    this.promiseToken = {};
 
-    // we want component to know about the promise returned from the to-be-called Service.entries.get()
-    this.promiseToken = token;
     // we are about to make a new request, set loadingData to true.
     this.setState({ loadingData: true });
 
     Service.entries
-      .get(combinedParams,token)
+      .get(combinedParams,this.promiseToken)
       .then((data) => {
         this.updateStateWithNewData(data);
       })
