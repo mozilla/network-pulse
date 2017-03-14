@@ -1,11 +1,6 @@
 import env from "../config/env.generated.json";
 
 let pulseAPI = env.PULSE_API;
-let defaultParams = {
-  ordering: `-created`,
-  page_size: 6 * Math.floor(1000/6), // make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes. Note that max_page_size on Pulse API is set to 1000.
-  format: `json`,
-};
 
 /**
  * A helper function to process value in a key-value pair into a valid query param value
@@ -46,14 +41,19 @@ function toQueryString(data) {
  * Useful for making a call to an endpoint that does return data.
  * @param  {String} route A route fragment
  * @param  {Object} params A key-value object to be serialized as a query string
+ * @param  {Object} token A token object to be used to trigger abortion of the XHR request
  * @returns {Promise} A promise to resolve an XHR request
  */
-function getDataFromURL(route, params = {}) {
+function getDataFromURL(route, params = {}, token = {}) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign({}, defaultParams, params);
+  let defaultParams = {
+    "format": `json`
+  };
+
+  Object.assign(params, defaultParams);
 
   return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
+    request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
@@ -75,6 +75,11 @@ function getDataFromURL(route, params = {}) {
       }
     };
 
+    token.cancel = function() {
+      request.abort();
+      reject(`XHR request cancelled.`);
+    };
+
     request.onerror = () => {
       reject(`XHR request failed.`);
     };
@@ -90,12 +95,11 @@ function getDataFromURL(route, params = {}) {
  * @param  {Object} params A key-value object to be serialized as a query string
  * @returns {Promise} A promise to resolve an XHR request
  */
-function callURL(route, params = {}) {
+function callURL(route) {
   let request = new XMLHttpRequest();
-  let combinedParams = Object.assign({}, defaultParams, params);
 
   return new Promise((resolve, reject) => {
-    request.open(`GET`, `${route}${combinedParams ? toQueryString(combinedParams) : ``}`, true);
+    request.open(`GET`, route, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
@@ -159,8 +163,12 @@ function postEntry(entryData) {
 
 export default {
   entries: {
-    get: function(params) {
-      return getDataFromURL(`${pulseAPI}/entries/`, params);
+    get: function(params,token) {
+      let defaultParams = {
+        "ordering": `-created`,
+        "page_size": env.PROJECT_BATCH_SIZE
+      };
+      return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
       return postEntry(entryData);
