@@ -18,8 +18,7 @@ export default React.createClass({
     this.setState({ keywordSearched: nextProps.location.query.keyword });
   },
   componentDidMount() {
-    let queryKeyword = this.props.location.query.keyword;
-    this.setState({ keywordSearched: queryKeyword });
+    this.setState({ keywordSearched: this.props.location.query.keyword });
   },
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
