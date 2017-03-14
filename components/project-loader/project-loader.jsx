@@ -3,14 +3,14 @@ import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
 
 export default React.createClass({
+  promiseToken: null,
   getInitialState() {
     return {
       loadingData: false,
       apiPageIndex: 1,
       entries: [],
       moreEntriesToFetch: false,
-      totalMatched: 0,
-      tokenOfExistingPromise: null
+      totalMatched: 0
     };
   },
   getDefaultProps() {
@@ -25,10 +25,8 @@ export default React.createClass({
     // Reset state before fetching data for the new params.
     // We want to keep existingPromise on record for fetchData
     // to handle it accoringly.
-    let tokenOfExistingPromise = this.state.tokenOfExistingPromise;
-    let newState = Object.assign(this.getInitialState(), {tokenOfExistingPromise: tokenOfExistingPromise});
 
-    this.setState(newState, () => {
+    this.setState(this.getInitialState(), () => {
       this.fetchData(nextProps.params);
     });
   },
@@ -37,19 +35,17 @@ export default React.createClass({
     // we want to make sure exisiting fetch call is cancelled before we start a new one.
     // This prevents any unfinished request to incorrectly update the component state
     // when it returns.
-    if (this.state.tokenOfExistingPromise) {
-      this.state.tokenOfExistingPromise.cancel();
+    if (this.promiseToken) {
+      this.promiseToken.cancel();
     }
 
     let combinedParams = Object.assign({}, params, { page: this.state.apiPageIndex });
     let token = {};
 
-    this.setState({
-      // we are about to make a new request, set loadingData to true.
-      loadingData: true,
-      // we want component to know about the promise returned from the to-be-called Service.entries.get()
-      tokenOfExistingPromise: token
-    });
+    // we want component to know about the promise returned from the to-be-called Service.entries.get()
+    this.promiseToken = token;
+    // we are about to make a new request, set loadingData to true.
+    this.setState({ loadingData: true });
 
     Service.entries
       .get(combinedParams,token)
@@ -70,8 +66,14 @@ export default React.createClass({
     });
   },
   renderSearchResult() {
-    return (this.props.params.search && !this.state.loadingData ) ?
-      (<p>{this.state.totalMatched} result{this.state.totalMatched > 1 ? `s` : ``} found for ‘{this.props.params.search}’</p>) : null;
+    if (!this.props.params.search || this.state.loadingData) return null;
+
+    let total = this.state.totalMatched,
+      plural = (total === 0 || total > 1), // because "0 results"
+      term = this.props.params.search,
+      searchResultNotice = `${total} result${plural ? `s` : ``} found for ‘${term}’`;
+
+    return <p>{searchResultNotice}</p>;
   },
   render() {
     return (

@@ -14,28 +14,27 @@ export default React.createClass({
     moreEntriesToFetch: React.PropTypes.bool.isRequired,
     fetchData: React.PropTypes.func.isRequired
   },
-  handleViewMoreClick() {
-    this.props.fetchData();
-  },
   renderProjectCards() {
     return this.props.entries.map(project => {
       return <ProjectCard key={project.id} {...Utility.processEntryData(project)} />;
     });
   },
   renderLoadingNotice() {
+    if (!this.props.loadingData ) return null;
+
     // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
-    return this.props.loadingData ?
-      (<div className="loading my-5 d-flex justify-content-center align-items-center">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>) : null;
+    return <div className="loading my-5 d-flex justify-content-center align-items-center">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>;
   },
   renderViewMoreBtn() {
-    return this.props.moreEntriesToFetch ?
-      (<div className="view-more text-center">
-        <button type="button" className="btn btn-outline-info" onClick={this.handleViewMoreClick}>View more</button>
-       </div>) : null;
+    if (!this.props.moreEntriesToFetch) return null;
+
+    return <div className="view-more text-center">
+            <button type="button" className="btn btn-outline-info" onClick={this.props.fetchData}>View more</button>
+           </div>;
   },
   render() {
     return (<div className="project-list">

@@ -48,11 +48,15 @@ export default React.createClass({
     }
   },
   fetchData() {
-    // We are about to make a new request, set loadingData to true.
-    this.setState({ loadingData: true });
-
     // find out entry ids in the batch we are going to fetch
     let ids = this.state.bookmarkedIds.slice(this.state.batchIndex*PROJECT_BATCH_SIZE, (this.state.batchIndex+1)*PROJECT_BATCH_SIZE);
+
+    if ( ids.length === 0 ) {
+      return;
+    }
+
+    // We are about to make a new request, set loadingData to true.
+    this.setState({ loadingData: true });
 
     let params = {
       ids: ids.join(`,`),

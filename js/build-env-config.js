@@ -19,7 +19,7 @@ const CONFIG = {
   HOST,
   PORT,
   ORIGIN,
-  PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`) || 24,
+  PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`, 24),
   PULSE_API: habitat.get(`PULSE_API`)
 };
 

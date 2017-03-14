@@ -47,8 +47,6 @@ function toQueryString(data) {
 function getDataFromURL(route, params = {}, token = {}) {
   let request = new XMLHttpRequest();
   let defaultParams = {
-    "ordering": `-created`,
-    "page_size": env.PROJECT_BATCH_SIZE,
     "format": `json`
   };
 
@@ -166,7 +164,11 @@ function postEntry(entryData) {
 export default {
   entries: {
     get: function(params,token) {
-      return getDataFromURL(`${pulseAPI}/entries/`, params, token);
+      let defaultParams = {
+        "ordering": `-created`,
+        "page_size": env.PROJECT_BATCH_SIZE
+      };
+      return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
       return postEntry(entryData);
