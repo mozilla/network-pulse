@@ -27,10 +27,10 @@ export default React.createClass({
     // to handle it accoringly.
 
     this.setState(this.getInitialState(), () => {
-      this.fetchData(nextProps.params);
+      this.fetchData(nextProps);
     });
   },
-  fetchData(params = this.props.params) {
+  fetchData(params = this.props) {
     // Since we are making asynchronous calls to fetch data,
     // we want to make sure exisiting fetch call is cancelled before we start a new one.
     // This prevents any unfinished request to incorrectly update the component state
@@ -66,11 +66,11 @@ export default React.createClass({
     });
   },
   renderSearchResult() {
-    if (!this.props.params.search || this.state.loadingData) return null;
+    if (!this.props.search || this.state.loadingData) return null;
 
     let total = this.state.totalMatched,
       plural = (total === 0 || total > 1), // because "0 results"
-      term = this.props.params.search,
+      term = this.props.search,
       searchResultNotice = `${total} result${plural ? `s` : ``} found for ‘${term}’`;
 
     return <p>{searchResultNotice}</p>;

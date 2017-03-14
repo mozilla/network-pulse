@@ -29,6 +29,6 @@ export default function (props) {
 
   return <div>
             <IssueSelector />
-            <ProjectLoader params={{ issue: encodeIssueAsUri(props.params.issue) }} />
+            <ProjectLoader issue={encodeIssueAsUri(props.params.issue) } />
           </div>;
 }

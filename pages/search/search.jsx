@@ -62,7 +62,7 @@ export default React.createClass({
                           placeholder="Search keywords, people, tags..." />
           <button className="btn dismiss" onClick={this.handleDismissBtnClick}>&times;</button>
         </div>
-        { this.state.keywordSearched ? <ProjectLoader params={ {search: this.state.keywordSearched} } /> : null }
+        { this.state.keywordSearched ? <ProjectLoader search={this.state.keywordSearched} /> : null }
       </div>
     );
   }

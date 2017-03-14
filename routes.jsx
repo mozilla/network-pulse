@@ -15,7 +15,7 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
-  return <ProjectLoader params={{featured: `True`}} />;
+  return <ProjectLoader featured={`True`} />;
 };
 
 const Latest = () => {
