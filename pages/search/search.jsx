@@ -19,6 +19,9 @@ export default React.createClass({
   },
   componentDidMount() {
     this.setState({ keywordSearched: this.props.location.query.keyword });
+    // to select the <input /> rendered from <DebounceInput /> we have to select it by its id.
+    // this.refs.name_for_debounce_input would reference <DebounceInput /> itself, not <input />
+    document.querySelector(`#search-box`).focus();
   },
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
@@ -48,6 +51,7 @@ export default React.createClass({
   handleDismissBtnClick() {
     this.setState({ keywordSearched: `` }, () => {
       this.updateBrowserHistory();
+      document.querySelector(`#search-box`).focus();
     });
   },
   render() {
