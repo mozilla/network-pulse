@@ -19,6 +19,10 @@ export default React.createClass({
   },
   componentDidMount() {
     this.setState({ keywordSearched: this.props.location.query.keyword });
+    // The focus() function of <input /> isn't exposed by <DebounceInput />
+    // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
+    // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
+    document.querySelector(`#search-box`).focus();
   },
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
@@ -48,6 +52,10 @@ export default React.createClass({
   handleDismissBtnClick() {
     this.setState({ keywordSearched: `` }, () => {
       this.updateBrowserHistory();
+      // The focus() function of <input /> isn't exposed by <DebounceInput />
+      // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
+      // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
+      document.querySelector(`#search-box`).focus();
     });
   },
   render() {
