@@ -36,11 +36,12 @@ const Validator = {
   },
   imageTypeValidator() {
     return {
-      error: `Only JPEG, PNG, GIF, or SVG file is allowed.`,
+      error: `Only JPG, JPEG, PNG, GIF, or SVG file is allowed.`,
       validate: function(value) {
-        if (value) {
-          value = value.split(`.`);
-          let fileExtention = value[value.length-1].toLowerCase();
+        let fileName = value.name;
+        if (fileName) {
+          fileName = fileName.split(`.`);
+          let fileExtention = fileName[fileName.length-1].toLowerCase();
           let allowedExtensions = [
             `jpg`,
             `jpeg`,
@@ -50,6 +51,31 @@ const Validator = {
           ];
 
           return allowedExtensions.indexOf(fileExtention) < 0;
+        }
+      }
+    };
+  },
+  imageSizeValidator() {
+    return {
+      error: `File size is over 2MB.`,
+      validate: function(value) {
+        // there's no file size limit on the backend
+        // but it's still good that we enforce a size limit (2MB) on client side
+        let base64String = value.base64;
+        let sizeLimit = Math.pow(2, 20) * 2; // 2MB in bytes
+        if (base64String && base64String.length > 4/3 * sizeLimit) {
+          return new Error(`File size is over 2MB.`);
+        }
+      }
+    };
+  },
+  imageFilenameValidator() {
+    return {
+      error: `File name is over 2048 characters long.`,
+      validate: function(value) {
+        let fileName = value.name;
+        if (fileName && fileName.length > 2048) {
+          return new Error(`File name is over 2048 characters long.`);
         }
       }
     };

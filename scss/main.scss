@@ -122,6 +122,14 @@ label {
 
 fieldset {
   margin-bottom: $form-field-vertical-margin;
+
+  &.thumbnail {
+    img {
+      display: block;
+      max-width: 250px;
+      margin: 1rem auto;
+    }
+  }
 }
 
 input,

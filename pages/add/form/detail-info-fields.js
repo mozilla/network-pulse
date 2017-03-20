@@ -26,8 +26,7 @@ module.exports = {
     type: `checkboxGroup`,
     label: `Check any Key Internet Issues that relate to your project.`,
     options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
-    colCount: 1,
-    fieldClassname: `form-control`
+    colCount: 1
   },
   'get_involved': {
     type: `text`,
@@ -43,14 +42,14 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: validator.urlValidator()
   },
-  'thumbnail_url': {
-    type: `text`,
-    label: `Link to thumbnail image.`,
-    placeholder: `https://example.com.png`,
+  'thumbnail': {
+    type: `image`,
+    label: `Thumbnail image.`,
     fieldClassname: `form-control`,
     validator: [
-      validator.urlValidator(),
-      validator.imageTypeValidator()
+      validator.imageTypeValidator(),
+      validator.imageSizeValidator(),
+      validator.imageFilenameValidator()
     ]
   }
 };

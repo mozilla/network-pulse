@@ -49,6 +49,7 @@ export default React.createClass({
     getInvolvedUrl: React.PropTypes.string,
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
+    thumbnail: React.PropTypes.string,
     thumbnailUrl: React.PropTypes.string,
     created: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
@@ -138,10 +139,11 @@ export default React.createClass({
       "bookmarked": this.state.bookmarked
     });
     let detailViewLink = `/entry/${this.props.id}`;
-    let thumbnail = this.props.thumbnailUrl ?
+    let thumbnailSource = this.props.thumbnail || this.props.thumbnailUrl;
+    let thumbnail = thumbnailSource ?
                     <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
                       <div className="img-container">
-                        <img src={this.props.thumbnailUrl} />
+                        <img src={thumbnailSource} />
                       </div>
                     </Link>
                     : null;

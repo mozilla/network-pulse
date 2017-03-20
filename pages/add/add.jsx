@@ -118,6 +118,9 @@ export default React.createClass({
         data.creators = [];
       }
 
+
+      console.log(data);
+      
       Service.entries
         .post(data)
         .then((response) => {
