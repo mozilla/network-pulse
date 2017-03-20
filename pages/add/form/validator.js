@@ -38,6 +38,10 @@ const Validator = {
     return {
       error: `Only JPG, JPEG, PNG, GIF, or SVG file is allowed.`,
       validate: function(value) {
+        if (!value) {
+          return;
+        }
+
         let fileName = value.name;
         if (fileName) {
           fileName = fileName.split(`.`);
@@ -59,6 +63,10 @@ const Validator = {
     return {
       error: `File size is over 2MB.`,
       validate: function(value) {
+        if (!value) {
+          return;
+        }
+
         // there's no file size limit on the backend
         // but it's still good that we enforce a size limit (2MB) on client side
         let base64String = value.base64;
@@ -73,6 +81,10 @@ const Validator = {
     return {
       error: `File name is over 2048 characters long.`,
       validate: function(value) {
+        if (!value) {
+          return;
+        }
+
         let fileName = value.name;
         if (fileName && fileName.length > 2048) {
           return new Error(`File name is over 2048 characters long.`);
