@@ -120,7 +120,7 @@ export default React.createClass({
 
 
       console.log(data);
-      
+
       Service.entries
         .post(data)
         .then((response) => {
