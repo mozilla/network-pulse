@@ -36,7 +36,7 @@ const Validator = {
   },
   imageTypeValidator() {
     return {
-      error: `Only JPG, JPEG, PNG, GIF, or SVG file is allowed.`,
+      error: `Only JPG, JPEG, PNG, GIF, or SVG files are accepted.`,
       validate: function(value) {
         if (!value) {
           return;
@@ -44,8 +44,7 @@ const Validator = {
 
         let fileName = value.name;
         if (fileName) {
-          fileName = fileName.split(`.`);
-          let fileExtention = fileName[fileName.length-1].toLowerCase();
+          let extension = fileName.substring(fileName.lastIndexOf(`.`)+1).toLowerCase();
           let allowedExtensions = [
             `jpg`,
             `jpeg`,
@@ -54,7 +53,7 @@ const Validator = {
             `svg`
           ];
 
-          return allowedExtensions.indexOf(fileExtention) < 0;
+          return allowedExtensions.indexOf(extension) < 0;
         }
       }
     };
