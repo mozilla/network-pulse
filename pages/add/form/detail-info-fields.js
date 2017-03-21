@@ -31,7 +31,7 @@ module.exports = {
   'get_involved': {
     type: `text`,
     label: `Looking for support? Describe how people can do that.`,
-    placeholder: `Contribute to the code.`,
+    placeholder: `Help us test the prototype, plan some local events, contribute to the codebase, ...`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(300)
   },
@@ -44,7 +44,8 @@ module.exports = {
   },
   'thumbnail': {
     type: `image`,
-    label: `Thumbnail image.`,
+    label: `Project Image (look best at 1200 x 630px)`,
+    prompt: `Select Image`,
     fieldClassname: `form-control`,
     validator: [
       validator.imageTypeValidator(),
