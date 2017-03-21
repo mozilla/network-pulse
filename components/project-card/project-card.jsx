@@ -49,6 +49,7 @@ export default React.createClass({
     getInvolvedUrl: React.PropTypes.string,
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
+    thumbnail: React.PropTypes.string,
     thumbnailUrl: React.PropTypes.string,
     created: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
@@ -131,21 +132,19 @@ export default React.createClass({
     this.urlToShare.focus();
     this.urlToShare.select();
   },
-  render() {
-    let classnames = classNames({
-      "project-card": true,
-      "detail-view": this.props.onDetailView,
-      "bookmarked": this.state.bookmarked
-    });
-    let detailViewLink = `/entry/${this.props.id}`;
-    let thumbnail = this.props.thumbnailUrl ?
-                    <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
-                      <div className="img-container">
-                        <img src={this.props.thumbnailUrl} />
-                      </div>
-                    </Link>
-                    : null;
-    let actions = this.props.onDetailView ?
+  renderThumbnail(detailViewLink) {
+    let thumbnailSource = this.props.thumbnail || this.props.thumbnailUrl;
+
+    if (!thumbnailSource) return null;
+
+    return <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
+              <div className="img-container">
+                <img src={thumbnailSource} />
+              </div>
+            </Link>;
+  },
+  renderActionPanel(detailViewLink) {
+    let actionPanel = this.props.onDetailView ?
                   (<div className="share">
                     <a className="btn" onClick={this.handleShareBtnClick} ref={(btn) => { this.shareBtn = btn; }}></a>
                     <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
@@ -153,18 +152,41 @@ export default React.createClass({
                   : (<div>
                       <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
                     </div>);
-    let creators = this.props.creators && this.props.creators.length > 0 ? <small className="creator d-block text-muted">By {this.props.creators.join(`, `)}</small> : null;
-    let timePosted = this.props.created ? <small className="time-posted d-block text-muted">Added {moment(this.props.created).format(`MMM DD, YYYY`)}</small> : null;
+    return <div className="action-panel">
+            {actionPanel}
+            <a className="heart" onClick={this.toggleBookmarkedState}></a>
+          </div>;
+  },
+  renderCreatorInfo() {
+    if (this.props.creators.length == 0) return null;
+
+    return <small className="creator d-block text-muted">
+             By {this.props.creators.join(`, `)}
+          </small>;
+  },
+  renderTimePosted() {
+    if (!this.props.created) return null;
+    return <small className="time-posted d-block text-muted">
+            Added {moment(this.props.created).format(`MMM DD, YYYY`)}
+          </small>;
+  },
+  render() {
+    let classnames = classNames({
+      "project-card": true,
+      "detail-view": this.props.onDetailView,
+      "bookmarked": this.state.bookmarked
+    });
+    let detailViewLink = `/entry/${this.props.id}`;
 
     return (
       <div className={classnames}>
         <div className="main-content">
-          {thumbnail}
+          {this.renderThumbnail(detailViewLink)}
           <div className="content">
             <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>
             <div className="mb-2">
-              {creators}
-              {timePosted}
+              {this.renderCreatorInfo()}
+              {this.renderTimePosted()}
             </div>
             <p className="description">{this.props.description}</p>
             <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
@@ -172,10 +194,7 @@ export default React.createClass({
           <div className="fade-overlay"></div>
         </div>
         <div className="project-links">
-          <div className="action-panel">
-            {actions}
-            <a className="heart" onClick={this.toggleBookmarkedState}></a>
-          </div>
+          {this.renderActionPanel(detailViewLink)}
         </div>
       </div>
     );
