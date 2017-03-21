@@ -44,7 +44,7 @@ module.exports = {
   },
   'thumbnail': {
     type: `image`,
-    label: `Project image (look best at 1200 x 630px)`,
+    label: `Project image (look best at 1200px × 630px)`,
     prompt: `Select image`,
     fieldClassname: `form-control`,
     validator: [
