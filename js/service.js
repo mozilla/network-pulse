@@ -176,7 +176,7 @@ export default {
   },
   entry: {
     get: function(entryId) {
-      return getDataFromURL(`${pulseAPI}/entries/${entryId}`);
+      return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
     }
   },
   logout: function() {

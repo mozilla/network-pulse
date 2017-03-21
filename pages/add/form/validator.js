@@ -69,7 +69,7 @@ const Validator = {
         // there's no file size limit on the backend
         // but it's still good that we enforce a size limit (2MB) on client side
         let base64String = value.base64;
-        let sizeLimit = Math.pow(2, 20) * 2; // 2MB in bytes
+        let sizeLimit = 2097152; // 2MB
         if (base64String && base64String.length > 4/3 * sizeLimit) {
           return new Error(`File size is over 2MB.`);
         }
