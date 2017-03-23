@@ -132,6 +132,13 @@ export default React.createClass({
     this.urlToShare.focus();
     this.urlToShare.select();
   },
+  renderTitle(detailViewLink) {
+    let title = this.props.title;
+    if (!this.props.onDetailView) {
+      title = <Link to={detailViewLink} onClick={this.handleTitleClick}>{title}</Link>;
+    }
+    return <h2>{title}</h2>;
+  },
   renderThumbnail(detailViewLink) {
     let thumbnailSource = this.props.thumbnail || this.props.thumbnailUrl;
 
@@ -183,7 +190,7 @@ export default React.createClass({
         <div className="main-content">
           {this.renderThumbnail(detailViewLink)}
           <div className="content">
-            <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>
+            {this.renderTitle(detailViewLink)}
             <div className="mb-2">
               {this.renderCreatorInfo()}
               {this.renderTimePosted()}
