@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectCard from '../project-card/project-card.jsx';
 import Utility from '../../js/utility.js';
+import pageSettings from '../../js/app-page-settings';
 
 export default React.createClass({
   getDefaultProps() {
@@ -13,6 +14,9 @@ export default React.createClass({
     loadingData: React.PropTypes.bool.isRequired,
     moreEntriesToFetch: React.PropTypes.bool.isRequired,
     fetchData: React.PropTypes.func.isRequired
+  },
+  componentDidUpdate() {
+    pageSettings.restoreScrollPosition();
   },
   renderProjectCards() {
     return this.props.entries.map(project => {
@@ -33,7 +37,7 @@ export default React.createClass({
     if (!this.props.moreEntriesToFetch) return null;
 
     return <div className="view-more text-center">
-            <button type="button" className="btn btn-outline-info" onClick={this.props.fetchData}>View more</button>
+            <button type="button" className="btn btn-outline-info" onClick={()=>{ this.props.fetchData(); }}>View more</button>
            </div>;
   },
   render() {

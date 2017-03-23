@@ -1,12 +1,13 @@
 import React from 'react';
 import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
+import pageSettings from '../../js/app-page-settings';
 
 export default React.createClass({
   getInitialState() {
     return {
       loadingData: false,
-      apiPageIndex: 1,
+      nextApiPageIndex: 1,
       entries: [],
       moreEntriesToFetch: false,
       totalMatched: 0
@@ -18,7 +19,12 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    this.fetchData();
+    if (pageSettings.restore) {
+      // restore state back to what is stored in pageSettings
+      this.setState(pageSettings.currentList);
+    } else {
+      this.fetchData();
+    }
   },
   componentWillReceiveProps(nextProps) {
     // Reset state before fetching data for the new params.
@@ -30,7 +36,7 @@ export default React.createClass({
     });
   },
   fetchData(params = this.props) {
-    let combinedParams = Object.assign({}, params, { page: this.state.apiPageIndex });
+    let combinedParams = Object.assign({}, params, { page: this.state.nextApiPageIndex });
 
     if (this.promiseToken) {
       // Since we are making asynchronous calls to fetch data,
@@ -56,13 +62,19 @@ export default React.createClass({
       });
   },
   updateStateWithNewData(data) {
-    this.setState({
-      loadingData: false,
+    let currentListInfo = {
       entries: this.state.entries.concat(data.results),
-      apiPageIndex: data.next ? this.state.apiPageIndex+1 : this.state.apiPageIndex,
+      nextApiPageIndex: data.next ? this.state.nextApiPageIndex+1 : this.state.nextApiPageIndex,
       moreEntriesToFetch: !!data.next,
       totalMatched: data.count
-    });
+    };
+
+    // store current project list's info in pageSettings
+    pageSettings.setCurrentList(currentListInfo);
+
+    // update component's state
+    currentListInfo.loadingData = false;
+    this.setState(currentListInfo);
   },
   renderSearchResult() {
     if (!this.props.search || this.state.loadingData) return null;

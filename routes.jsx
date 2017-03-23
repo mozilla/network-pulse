@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import localstorage from './js/localstorage.js';
+import pageSettings from './js/app-page-settings';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';
@@ -91,7 +92,7 @@ module.exports = (
       <IndexRoute component={Issues} />
       <Route path=":issue" component={Issue} />
     </Route>
-    <Route path="entry/:entryId" component={Entry} />
+    <Route path="entry/:entryId" component={Entry} onEnter={()=>{ pageSettings.setScrollPosition(); }} onLeave={()=>{ pageSettings.setRestore(); }} />
     <Route path="add" component={Add} />
     <Route path="search" component={Search} />
     <Route path="*" component={NotFound}/>
