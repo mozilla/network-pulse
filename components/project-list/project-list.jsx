@@ -4,6 +4,11 @@ import Utility from '../../js/utility.js';
 import pageSettings from '../../js/app-page-settings';
 
 export default React.createClass({
+  getInitialState() {
+    return {
+      inPageUpdate: false
+    };
+  },
   getDefaultProps() {
     return {
       entries: []
@@ -16,9 +21,13 @@ export default React.createClass({
     fetchData: React.PropTypes.func.isRequired
   },
   componentDidUpdate() {
-    if (this.props.restoreScrollPosition) {
+    if (!this.state.inPageUpdate && this.props.restoreScrollPosition) {
       pageSettings.restoreScrollPosition();
     }
+  },
+  handleLoadMoreBtnClick() {
+    this.props.fetchData();
+    this.setState({inPageUpdate: true});
   },
   renderProjectCards() {
     return this.props.entries.map(project => {
@@ -39,7 +48,7 @@ export default React.createClass({
     if (!this.props.moreEntriesToFetch) return null;
 
     return <div className="view-more text-center">
-            <button type="button" className="btn btn-outline-info" onClick={()=>{ this.props.fetchData(); }}>View more</button>
+            <button type="button" className="btn btn-outline-info" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
            </div>;
   },
   render() {
