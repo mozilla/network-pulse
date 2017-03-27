@@ -13,9 +13,22 @@ class PageSettings {
   }
 
   reset() {
+    this.currentPathname = ``;
     this.currentList = {};
     this.currentScrollPosition = 0;
     this.shouldRestore = false;
+  }
+
+  setCurrentPathname(pathname) {
+    // PageSettings is used to preserve a project list view state
+    // if we are on the detail view (i.e., pathname /entry/somenumber), do not update anything
+    if (pathname.split(`/`)[1] === `entry`) return;
+
+    if (this.currentPathname !== pathname) {
+      // we are visiting a new page, reset pageSettings and update currentPathname
+      this.reset();
+      this.currentPathname = pathname;
+    }
   }
 
   setCurrentList(list = {}) {
@@ -38,7 +51,7 @@ class PageSettings {
   restoreScrollPosition() {
     if (typeof window !== `undefined` && this.shouldRestore) {
       window.scrollTo(0, this.currentScrollPosition);
-      this.reset();
+      this.currentScrollPosition = 0;
     }
   }
 }
