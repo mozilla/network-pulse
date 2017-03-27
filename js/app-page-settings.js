@@ -51,7 +51,6 @@ class PageSettings {
   restoreScrollPosition() {
     if (typeof window !== `undefined` && this.shouldRestore) {
       window.scrollTo(0, this.currentScrollPosition);
-      this.currentScrollPosition = 0;
     }
   }
 }

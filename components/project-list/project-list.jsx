@@ -16,7 +16,9 @@ export default React.createClass({
     fetchData: React.PropTypes.func.isRequired
   },
   componentDidUpdate() {
-    pageSettings.restoreScrollPosition();
+    if (this.props.restoreScrollPosition) {
+      pageSettings.restoreScrollPosition();
+    }
   },
   renderProjectCards() {
     return this.props.entries.map(project => {

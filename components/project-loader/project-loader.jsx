@@ -93,7 +93,8 @@ export default React.createClass({
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
-                    fetchData={this.fetchData} />
+                    fetchData={this.fetchData}
+                    restoreScrollPosition={pageSettings.shouldRestore} />
       </div>
     );
   }
