@@ -20,10 +20,6 @@ class PageSettings {
   }
 
   setCurrentPathname(pathname) {
-    // PageSettings is used to preserve a project list view state
-    // if we are on the detail view (i.e., pathname /entry/somenumber), do not update anything
-    if (pathname.split(`/`)[1] === `entry`) return;
-
     if (this.currentPathname !== pathname) {
       // we are visiting a new page, reset pageSettings and update currentPathname
       this.reset();

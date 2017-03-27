@@ -82,19 +82,23 @@ const App = React.createClass({
 // For user facing bits like UI labels and URL path we want them to stay as "favorites".
 // That's why a route like <Route path="favs" component={Bookmarks} /> is seen here.
 // For more info see: https://github.com/mozilla/network-pulse/issues/326
+
+// PageSettings is used to preserve a project list view state.
+// Attach route enter hook pageSettings.setCurrentPathname(evt.location.pathname)
+// *only* to routes that render a list of projects.
 module.exports = (
   <Route path="/" component={App}>
     <IndexRedirect to="/featured" />
-    <Route path="featured" component={Featured} />
-    <Route path="latest" component={Latest} />
-    <Route path="favs" component={Bookmarks} />
+    <Route path="featured" component={Featured} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    <Route path="latest" component={Latest} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    <Route path="favs" component={Bookmarks} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="issues">
       <IndexRoute component={Issues} />
-      <Route path=":issue" component={Issue} />
+      <Route path=":issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
-    <Route path="entry/:entryId" component={Entry} onEnter={evt => pageSettings.setScrollPosition()} onLeave={evt => pageSettings.setRestore(true)} />
+    <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
     <Route path="add" component={Add} />
-    <Route path="search" component={Search} />
+    <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
   </Route>
 );
