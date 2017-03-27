@@ -15,7 +15,7 @@ class PageSettings {
   reset() {
     this.currentList = {};
     this.currentScrollPosition = 0;
-    this.restore = false;
+    this.shouldRestore = false;
   }
 
   setCurrentList(list = {}) {
@@ -29,11 +29,11 @@ class PageSettings {
   }
 
   setRestore() {
-    this.restore = true;
+    this.shouldRestore = true;
   }
 
   restoreScrollPosition() {
-    if (typeof window !== `undefined` && this.restore) {
+    if (typeof window !== `undefined` && this.shouldRestore) {
       window.scrollTo(0, this.currentScrollPosition);
       this.reset();
     }

@@ -92,7 +92,7 @@ module.exports = (
       <IndexRoute component={Issues} />
       <Route path=":issue" component={Issue} />
     </Route>
-    <Route path="entry/:entryId" component={Entry} onEnter={()=>{ pageSettings.setScrollPosition(); }} onLeave={()=>{ pageSettings.setRestore(); }} />
+    <Route path="entry/:entryId" component={Entry} onEnter={evt =>pageSettings.setScrollPosition()} onLeave={evt => pageSettings.setRestore()} />
     <Route path="add" component={Add} />
     <Route path="search" component={Search} />
     <Route path="*" component={NotFound}/>

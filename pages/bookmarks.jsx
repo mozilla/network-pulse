@@ -33,7 +33,7 @@ export default React.createClass({
   componentDidMount() {
     // get IDs of user's bookmarked entries
     this.setState({bookmarkedIds: getBookmarks()}, () => {
-      if (pageSettings.restore) {
+      if (pageSettings.shouldRestore) {
         // restore state back to what is stored in pageSettings
         this.setState(Object.assign({},this.state,pageSettings.currentList));
       } else {

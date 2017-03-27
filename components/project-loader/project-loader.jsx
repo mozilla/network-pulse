@@ -19,7 +19,7 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    if (pageSettings.restore) {
+    if (pageSettings.shouldRestore) {
       // restore state back to what is stored in pageSettings
       this.setState(pageSettings.currentList);
     } else {
