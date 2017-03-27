@@ -35,7 +35,7 @@ export default React.createClass({
     this.setState({bookmarkedIds: getBookmarks()}, () => {
       if (pageSettings.shouldRestore) {
         // restore state back to what is stored in pageSettings
-        this.setState(Object.assign({},this.state,pageSettings.currentList));
+        this.setState(pageSettings.currentList);
       } else {
         this.fetchData();
       }

@@ -24,12 +24,13 @@ class PageSettings {
 
   setScrollPosition() {
     if (typeof window !== `undefined`) {
-      this.currentScrollPosition = window.pageYOffset;
+      this.currentScrollPosition = window.scrollY;
     }
   }
 
-  setRestore() {
-    this.shouldRestore = true;
+  setRestore(value) {
+    value = typeof value === `undefined` ? false : value;
+    this.shouldRestore = value;
   }
 
   restoreScrollPosition() {
