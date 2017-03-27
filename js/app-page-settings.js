@@ -24,6 +24,8 @@ class PageSettings {
 
   setScrollPosition() {
     if (typeof window !== `undefined`) {
+      // window.scrollY returns the value we want only when project cards
+      // are rendered within a container that does not have its own scrollbar
       this.currentScrollPosition = window.scrollY;
     }
   }
