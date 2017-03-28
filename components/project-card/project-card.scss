@@ -137,11 +137,31 @@
     background: url(/assets/svg/icon-bookmark.svg) center center no-repeat;
     background-size: auto 16px;
     cursor: pointer;
+
+    &.beating {
+      animation-name: beating;
+      animation-duration: 0.4s;
+      animation-fill-mode: both;
+    }
   }
 
   &.bookmarked .heart {
     background: url(/assets/svg/icon-bookmark-selected.svg) center center no-repeat;
     background-size: auto 16px;
+  }
+
+  @keyframes beating {
+    0% {
+      transform: scale(1);
+    }
+
+    25% {
+      transform: scale(0.8);
+    }
+
+    75% {
+      transform: scale(1);
+    }
   }
 }
 

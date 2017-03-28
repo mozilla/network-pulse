@@ -104,6 +104,13 @@ export default React.createClass({
     this.setState({bookmarked: false});
   },
   toggleBookmarkedState() {
+    if (document && document.onanimationend !== `undefined`) {
+      this.refs.heart.classList.add(`beating`);
+      this.refs.heart.addEventListener(`animationend`, () => {
+        this.refs.heart.classList.remove(`beating`);
+      });
+    }
+
     let bookmarks = getBookmarks();
     let index;
 
@@ -161,7 +168,7 @@ export default React.createClass({
                     </div>);
     return <div className="action-panel">
             {actionPanel}
-            <a className="heart" onClick={this.toggleBookmarkedState}></a>
+            <a className="heart" ref="heart" onClick={this.toggleBookmarkedState}></a>
           </div>;
   },
   renderCreatorInfo() {
