@@ -19,7 +19,17 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    user.verify(this.props.router.location, () => this.setState({ user }));
+    user.addListener(this);
+    user.verify(this.props.router.location);
+  },
+  componentWillUnmount() {
+    user.removeListener(this);
+  },
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` ) {
+      this.setState({ user });
+    }
   },
   handleSignInBtnClick(event) {
     event.preventDefault();
@@ -91,22 +101,6 @@ export default React.createClass({
 
       data.nonce = nonce.nonce;
       data.csrfmiddlewaretoken = nonce.csrf_token;
-
-      // TODO:FIXME:
-      // Temp fix, "tags", "issues", and "creators" are supposed to be optional fields
-      // but currently Pulse API sees them as required fields
-      // Ticket has been filed https://github.com/mozilla/network-pulse-api/issues/80
-      if (!data.tags) {
-        data.tags = [];
-      }
-
-      if (!data.issues) {
-        data.issues = [];
-      }
-
-      if (!data.creators) {
-        data.creators = [];
-      }
 
       Service.entries
         .post(data)

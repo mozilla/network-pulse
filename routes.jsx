@@ -2,8 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import localstorage from './js/localstorage.js';
 
-import Featured from './pages/featured.jsx';
-import Latest from './pages/latest.jsx';
+import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
@@ -14,6 +13,14 @@ import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
+
+const Featured = () => {
+  return <ProjectLoader featured={`True`} />;
+};
+
+const Latest = () => {
+  return <ProjectLoader />;
+};
 
 const App = React.createClass({
   getInitialState() {

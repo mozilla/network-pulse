@@ -20,6 +20,9 @@ import env from "./config/env.generated.json";
 const defaultPort = 3000;
 const PORT = env.PORT || process.env.PORT || defaultPort;
 
+// disable x-powered-by
+app.disable('x-powered-by');
+
 // Some app security settings
 
 app.use(helmet.contentSecurityPolicy(securityHeaders));
@@ -30,25 +33,38 @@ app.use(helmet.xssFilter({
 
 // maxAge for HSTS header must be at least 18 weeks (see https://hstspreload.org/)
 app.use(helmet.hsts({
-  maxAge: 60 * 60 * 24 * 7 * 18 // 18 weeks in seconds
+  maxAge: 60 * 60 * 24 * 7 * 18, // 18 weeks in seconds
+  setIf: (req, res) => {
+    if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === "https") {
+      return true;
+    }
+
+    return false;
+  },
+  includeSubDomains: true,
+  preload: true
 }));
 
 app.use(helmet.ieNoOpen());
 
 app.use(helmet.noSniff());
 
-app.use(express.static(path.resolve(__dirname, `dist`)));
+app.use(helmet.frameguard({
+  action: 'deny'
+}));
 
 // make sure that heroku content is always on https
 // (or really, anything that relies on x-forwarded-proto)
-const checkHTTPS = (req, res, next) => {
+app.use((req, res, next) => {
   if(req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === "http") {
     return res.redirect("https://" + req.headers.host + req.url);
   }
   next();
-};
+});
 
-app.get(`*`, checkHTTPS, (req, res) => {
+app.use(express.static(path.resolve(__dirname, `dist`)));
+
+app.get(`*`, (req, res) => {
   match({ routes: routes, location: req.url }, (err, redirect, props) => {
     if (err) {
       res.status(500).send(err.message);
@@ -100,5 +116,9 @@ function renderPage(appHtml) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Network Pulse listening on port ${PORT}...`);
+  console.log(`\n*******************************************`);
+  console.log(`*                                         *`);
+  console.log(`*  Network Pulse listening on port ${PORT}   *`);
+  console.log(`*                                         *`);
+  console.log(`*******************************************\n`);
 });

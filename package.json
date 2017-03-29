@@ -31,7 +31,10 @@
     "postinstall": "npm run build"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "browserslist": [
     "> 1%",
@@ -54,7 +57,7 @@
     "eslint-plugin-react": "^6.7.1",
     "mofo-style": "^2.4.0",
     "stylelint": "^7.6.0",
-    "stylelint-config-standard": "^15.0.0"
+    "stylelint-config-standard": "^16.0.0"
   },
   "dependencies": {
     "autoprefixer": "^6.5.3",
@@ -78,7 +81,7 @@
     "react": "^15.4.1",
     "react-debounce-input": "^2.4.2",
     "react-dom": "^15.4.1",
-    "react-formbuilder": "^0.2.1",
+    "react-formbuilder": "^0.3.0",
     "react-ga": "^2.1.2",
     "react-router": "^3.0.0",
     "shx": "^0.2.1",

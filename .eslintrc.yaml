@@ -17,3 +17,4 @@ rules:
   newline-after-var: [0]
   indent: [2, 2, {"SwitchCase": 1}]
   camelcase: [1, properties: "always"]
+  curly: [0]
