@@ -8,6 +8,9 @@ import user from '../../js/app-user';
 import basicInfoFields from './form/basic-info-fields';
 import detailInfoFields from './form/detail-info-fields';
 
+const PRE_SUBMIT_LABEL = "Submit";
+const SUBMITTING_LABEL = "Submitting...";
+
 export default React.createClass({
   getInitialState() {
     return {
@@ -15,7 +18,8 @@ export default React.createClass({
       user,
       formValues: {},
       authError: false,
-      serverError: false
+      serverError: false,
+      submitting: false
     };
   },
   componentDidMount() {
@@ -74,7 +78,9 @@ export default React.createClass({
           return;
         }
 
-        this.postEntry(this.state.formValues);
+        this.setState({
+          submitting: true
+        }, () => this.postEntry(this.state.formValues));
       });
     });
   },
@@ -141,7 +147,12 @@ export default React.createClass({
                                         inlineErrors={true}
                                         onUpdate={this.handleFormUpdate} />
                 <div className="submit-section">
-                  <button className="btn btn-info mr-3" type="submit" onClick={this.handleFormSubmit}>Submit</button>
+                  <button
+                    className="btn btn-info mr-3"
+                    type="submit"
+                    onClick={this.handleFormSubmit}
+                    disabled={this.state.submitting ? "disabled" : null}
+                  >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
                   { serverErrorMessage }
                 </div>
