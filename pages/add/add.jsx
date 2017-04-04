@@ -19,7 +19,7 @@ export default React.createClass({
       formValues: {},
       authError: false,
       serverError: false,
-      submitting: false,
+      submitting: false
     };
   },
   componentDidMount() {
