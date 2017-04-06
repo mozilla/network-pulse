@@ -6,6 +6,10 @@ import routes from './routes.jsx';
 
 Analytics.initialize();
 
+let routerUpdateHandler = function() {
+  Analytics.logPageView();
+};
+
 ReactDOM.render((
-  <Router routes={routes} history={browserHistory} onUpdate={Analytics.logPageView} />
+  <Router routes={routes} history={browserHistory} onUpdate={routerUpdateHandler} />
 ), document.getElementById(`app`));
