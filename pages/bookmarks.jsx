@@ -1,24 +1,16 @@
 import React from 'react';
-import { getBookmarks } from '../js/bookmarks-manager';
-import Service from '../js/service.js';
-import ProjectList from '../components/project-list/project-list.jsx';
+import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
+import { getBookmarks } from '../js/bookmarks-manager';
 import utility from '../js/utility';
 import user from '../js/app-user';
 import pageSettings from '../js/app-page-settings';
-import env from "../config/env.generated.json";
-
-const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 
 export default React.createClass({
   getInitialState() {
     return {
       user,
-      bookmarkedIds: [],
-      loadingData: false,
-      batchIndex: 0,
-      entries: [],
-      moreEntriesToFetch: false
+      bookmarkedIds: []
     };
   },
   handleSignInBtnClick(event) {
@@ -52,44 +44,6 @@ export default React.createClass({
     if (event === `verified` || event === `logged out`) {
       this.setState({ user });
     }
-  },
-  fetchData() {
-    // find out entry ids in the batch we are going to fetch
-    let ids = this.state.bookmarkedIds.slice(this.state.batchIndex*PROJECT_BATCH_SIZE, (this.state.batchIndex+1)*PROJECT_BATCH_SIZE);
-
-    if ( ids.length === 0 ) {
-      return;
-    }
-
-    // We are about to make a new request, set loadingData to true.
-    this.setState({ loadingData: true });
-
-    let params = {
-      ids: ids.join(`,`),
-      page: 1
-    };
-
-    Service.entries
-      .get(params)
-      .then((data) => {
-        // sort entries by the time they were bookmarked, from most recently bookmarked
-        let sorter = (a,b) => ids.indexOf(a.id) - ids.indexOf(b.id);
-        let currentListInfo = {
-          entries: this.state.entries.concat(data.results.sort(sorter)),
-          batchIndex: this.state.batchIndex+1,
-          moreEntriesToFetch: (this.state.batchIndex+1)*PROJECT_BATCH_SIZE < this.state.bookmarkedIds.length
-        };
-
-        // store current project list's info in pageSettings
-        pageSettings.setCurrentList(currentListInfo);
-
-        // update component's state
-        currentListInfo.loadingData = false;
-        this.setState(currentListInfo);
-      })
-      .catch((reason) => {
-        console.error(reason);
-      });
   },
   getContentForLoggedInUser() {
     return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
@@ -125,10 +79,7 @@ export default React.createClass({
                               </HintMessage>);
 
     if (this.state.bookmarkedIds.length > 0) {
-      bookmarkedProjects = <ProjectList entries={this.state.entries}
-                                        loadingData={this.state.loadingData}
-                                        moreEntriesToFetch={this.state.moreEntriesToFetch}
-                                        fetchData={this.fetchData} />;
+      bookmarkedProjects = <ProjectLoader ids={this.state.bookmarkedIds} />;
     }
 
     return bookmarkedProjects;
