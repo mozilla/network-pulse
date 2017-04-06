@@ -34,6 +34,9 @@ export default {
     ],
     frameAncestors: [
       `'none'`
+    ],
+    manifestSrc: [
+      `'self'`
     ]
   },
   reportOnly: false,
