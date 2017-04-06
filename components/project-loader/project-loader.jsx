@@ -2,20 +2,18 @@ import React from 'react';
 import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
 import pageSettings from '../../js/app-page-settings';
+import env from "../../config/env.generated.json";
+
+const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 
 export default React.createClass({
   getInitialState() {
     return {
       loadingData: false,
-      nextApiPageIndex: 1,
+      nextBatchIndex: 1,
       entries: [],
       moreEntriesToFetch: false,
       totalMatched: 0
-    };
-  },
-  getDefaultProps() {
-    return {
-      params: {}
     };
   },
   componentDidMount() {
@@ -35,8 +33,31 @@ export default React.createClass({
       this.fetchData(nextProps);
     });
   },
+  createQueryParams(params) {
+    let combinedParams = Object.assign({},params);
+
+    if (combinedParams.ids) {
+      // We want to display bookmarked projects by the time they were bookmarked.
+      // There are a few steps to make this happen:
+      // 1) first we fetch projects from Pulse API in a batch of size PROJECT_BATCH_SIZE.
+      //    (See next few lines.)
+      // 2) we sort projects based on the order they were stored in localStorage
+      //    and pass the sorted array to <ProjectList> to render projects onto the page.
+      //    (See updateStateWithNewData(data) method.)
+
+      let begin = (this.state.nextBatchIndex-1)*PROJECT_BATCH_SIZE;
+      let end = this.state.nextBatchIndex*PROJECT_BATCH_SIZE;
+      let idsInCurrentBatch = combinedParams.ids.slice(begin,end);
+
+      combinedParams.ids = idsInCurrentBatch.join(`,`);
+
+      return Object.assign(combinedParams, { page: 1 });
+    }
+
+    return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
+  },
   fetchData(params = this.props) {
-    let combinedParams = Object.assign({}, params, { page: this.state.nextApiPageIndex });
+    let combinedParams = this.createQueryParams(params);
 
     if (this.promiseToken) {
       // Since we are making asynchronous calls to fetch data,
@@ -62,10 +83,23 @@ export default React.createClass({
       });
   },
   updateStateWithNewData(data) {
+    let moreEntriesToFetch = !!data.next;
+    let sorter;
+
+    if (this.props.ids) {
+      // sort entries by the time they were bookmarked, from most recently bookmarked
+      let ids = this.props.ids.slice();
+      sorter = (a,b) => ids.indexOf(a.id) - ids.indexOf(b.id);
+      moreEntriesToFetch = (this.state.nextBatchIndex * PROJECT_BATCH_SIZE) < this.props.ids.length;
+    }
+
+    let nextBatchIndex = moreEntriesToFetch ? this.state.nextBatchIndex+1 : this.state.nextBatchIndex;
+    let newEntries = sorter ? data.results.sort(sorter) : data.results;
+
     let currentListInfo = {
-      entries: this.state.entries.concat(data.results),
-      nextApiPageIndex: data.next ? this.state.nextApiPageIndex+1 : this.state.nextApiPageIndex,
-      moreEntriesToFetch: !!data.next,
+      entries: this.state.entries.concat(newEntries),
+      nextBatchIndex: nextBatchIndex,
+      moreEntriesToFetch: moreEntriesToFetch,
       totalMatched: data.count
     };
 
