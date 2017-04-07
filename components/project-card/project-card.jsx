@@ -171,7 +171,7 @@ export default React.createClass({
           </div>;
   },
   renderCreatorInfo() {
-    if (this.props.creators.length == 0) return null;
+    if (this.props.creators.length === 0) return null;
 
     return <small className="creator d-block text-muted">
              By {this.props.creators.join(`, `)}
