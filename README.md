@@ -1,12 +1,24 @@
-# <img src="https://github.com/mozilla/network-pulse/blob/gh-pages/favicon.png?raw=true" /> Network Pulse
+# <img src="https://github.com/mozilla/network-pulse/blob/gh-pages/favicon.png?raw=true" /> Mozilla Pulse
 
-This is a prototype to test a few ideas on how to gather a stream of things created by a network of people and organizations. The goals: keep friction low to maximize input; optimize signal and noise to surface interesting projects. The theory: do this well and more instances of collaboration and innovation will emerge from the network.
+Pulse is a platform that helps the Mozilla Network capture and broadcast its projects and activities. [mozillapulse.org](https://www.mozillapulse.org/featured)
 
-## 🔷 v1, jQuery-based (now retired)
+Around the globe, teachers, engineers, activists, and others collaborate to protect and extend the internet as a public resource. They create amazing apps, art, tools, games, and campaigns. Their impact is tremendous, but decentralized and difficult to track, even within the network.
 
-- See `v1` branch.
+Pulse reveals the network's footprint, it fosters collaboration and amplifies the big wins.
 
-## 🔷 v2, React-based (current)
+
+## Contribute
+
+### Testing
+
+Interested in contributing to this project? A good place to start is by helping with [Quality Tests](https://github.com/mozilla/network-pulse/wiki/Quality-Tests). File a [new issue](https://github.com/mozilla/network-pulse/issues) to say hello and let us know that you're interested.  
+
+### Fix bugs or help with new features 
+
+Browse the [issues](https://github.com/mozilla/network-pulse/issues). Look for the labels [enhancement](https://github.com/mozilla/network-pulse/labels/enhancement), [help wanted](https://github.com/mozilla/network-pulse/labels/help%20wanted), [good first bug](https://github.com/mozilla/network-pulse/labels/good%20first%20bug).
+
+
+## Developmemt
 
 - Staging: https://network-pulse-staging.herokuapp.com
 - Work is happening in the `master` branch.
@@ -76,11 +88,7 @@ To manually deploy production site:
 4. Deploy `master` branch. (see screencap below)
 <img width="1062" alt="screen shot 2017-03-02 at 10 20 51 am" src="https://cloud.githubusercontent.com/assets/2896608/23521344/68f4d750-ff33-11e6-9ff4-e669ffa938f7.png">
 
-## 🔷 More info
 
- - [Research doc](https://docs.google.com/document/d/1SAAuPgOaVqpQorrbD0vZSnf8wHHYjddPyYrkrFj72kQ/)
- - [Priority setting doc](https://docs.google.com/presentation/d/1jwD5I3y1hT3LRwqY5fPlIn54DiJ5whWnuAK5G8OuEIY/)
 
-## 🔷 Contribute
 
-You can contribute by testing https://network-pulse-staging.herokuapp.com. File [issues](https://github.com/mozilla/network-pulse/issues) with bugs or suggestions. 
+
