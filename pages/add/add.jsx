@@ -8,8 +8,8 @@ import user from '../../js/app-user';
 import basicInfoFields from './form/basic-info-fields';
 import detailInfoFields from './form/detail-info-fields';
 
-const PRE_SUBMIT_LABEL = "Submit";
-const SUBMITTING_LABEL = "Submitting...";
+const PRE_SUBMIT_LABEL = `Submit`;
+const SUBMITTING_LABEL = `Submitting...`;
 
 export default React.createClass({
   getInitialState() {
@@ -151,7 +151,7 @@ export default React.createClass({
                     className="btn btn-info mr-3"
                     type="submit"
                     onClick={this.handleFormSubmit}
-                    disabled={this.state.submitting ? "disabled" : null}
+                    disabled={this.state.submitting ? `disabled` : null}
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
                   { serverErrorMessage }
