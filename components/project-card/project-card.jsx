@@ -50,7 +50,7 @@ export default React.createClass({
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
     thumbnail: React.PropTypes.string,
-    thumbnailUrl: React.PropTypes.string,
+                     
     created: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
     contentUrl: React.PropTypes.string,
@@ -147,7 +147,7 @@ export default React.createClass({
     return <h2>{title}</h2>;
   },
   renderThumbnail(detailViewLink) {
-    let thumbnailSource = this.props.thumbnail || this.props.thumbnailUrl;
+    let thumbnailSource = this.props.thumbnail;
 
     if (!thumbnailSource) return null;
 
@@ -172,7 +172,7 @@ export default React.createClass({
           </div>;
   },
   renderCreatorInfo() {
-    if (this.props.creators.length === 0) return null;
+    if (this.props.creators.length == 0) return null;
 
     return <small className="creator d-block text-muted">
              By {this.props.creators.join(`, `)}
