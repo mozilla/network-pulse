@@ -49,8 +49,7 @@ export default React.createClass({
     getInvolvedUrl: React.PropTypes.string,
     interest: React.PropTypes.string,
     issues: React.PropTypes.arrayOf(React.PropTypes.string),
-    thumbnail: React.PropTypes.string,
-                     
+    thumbnail: React.PropTypes.string,                  
     created: React.PropTypes.string,
     title: React.PropTypes.string.isRequired,
     contentUrl: React.PropTypes.string,
