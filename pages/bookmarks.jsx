@@ -52,7 +52,7 @@ export default React.createClass({
     return (<p>Only Mozilla staff can login now as we test this new platform. Meanwhile, your favorited projects can still be remembered on this device.</p>);
   },
   getAnonymousContent() {
-    return (<p>Are you Mozilla Staff? <a href="javascript:void(0)" onClick={this.handleSignInBtnClick}>Sign in</a>.</p>);
+    return (<p>Are you Mozilla Staff? <button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in</button>.</p>);
   },
   getloggedInStatusContent() {
     if (user.loggedin) {
