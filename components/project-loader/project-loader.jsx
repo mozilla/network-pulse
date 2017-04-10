@@ -110,6 +110,11 @@ export default React.createClass({
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
   },
+  renderTagHeader() {
+    if (!this.props.tag) return null;
+
+    return <h2>{`Tag: ${this.props.tag}`}</h2>;
+  },
   renderSearchResult() {
     if (!this.props.search || this.state.loadingData) return null;
 
@@ -123,6 +128,7 @@ export default React.createClass({
   render() {
     return (
       <div>
+        { this.renderTagHeader() }
         { this.renderSearchResult() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}

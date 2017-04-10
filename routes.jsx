@@ -23,6 +23,10 @@ const Latest = () => {
   return <ProjectLoader />;
 };
 
+const Tag = (router) => {
+  return <ProjectLoader tag={router.params.tag} />;
+};
+
 const App = React.createClass({
   getInitialState() {
     return {
@@ -99,6 +103,10 @@ module.exports = (
     <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
     <Route path="add" component={Add} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    <Route path="tags">
+      <IndexRoute component={Tag} />
+      <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    </Route>
     <Route path="*" component={NotFound}/>
   </Route>
 );
