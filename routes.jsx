@@ -104,7 +104,7 @@ module.exports = (
     <Route path="add" component={Add} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="tags">
-      <IndexRoute component={Tag} />
+      <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="*" component={NotFound}/>
