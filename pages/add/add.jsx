@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { Form } from 'react-formbuilder';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 import Service from '../../js/service.js';
@@ -160,19 +160,21 @@ export default React.createClass({
             </div>);
   },
   getFailurePrompt() {
-    return ( <HintMessage imgSrc={`/assets/svg/icon-user.svg`}
+    return ( <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
                           header={`Sign in failed`}
-                          internalLink={`/featured`}
-                          linkText={`Explore featured`}>
+                          linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
               <p>Only Mozilla staff can login now as we test this new platform. Check back soon!</p>
             </HintMessage>);
   },
   getAnonymousContent() {
-    return (<HintMessage imgSrc={`/assets/svg/icon-user.svg`}
+    let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
+                           onClick={this.handleSignInBtnClick}>
+                           Sign in
+                        </a>;
+
+    return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}
                          header={`Please sign in to add a post`}
-                         externalLink={user.getLoginURL(utility.getCurrentURL())}
-                         linkText={`Sign in`}
-                         onClick={this.handleSignInBtnClick}>
+                         linkComponent={linkComponent}>
               <p>Please note, only Mozilla staff can login now as we test this new platform.</p>
             </HintMessage>);
   },

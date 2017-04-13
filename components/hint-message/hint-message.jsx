@@ -1,21 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
-const HintMessage = (props) => {
-  let classnames = classNames(`btn`, `btn-outline-info`);
+class HintMessage extends React.Component {
+  renderLink() {
+    if (!this.props.linkComponent) return null;
 
-  return (
-    <div>
+    return React.cloneElement(this.props.linkComponent, { className: classNames(`btn`, `btn-outline-info`)} );
+  }
+
+  render() {
+    return (
       <div className="hint-message text-center">
-        <h2><img src={props.imgSrc} /></h2>
-        <h2>{props.header}</h2>
-        {props.children}
-        { props.internalLink && props.linkText ? <Link to={props.internalLink} className={classnames} onClick={props.onClick}>{props.linkText}</Link> : null }
-        { props.externalLink && props.linkText ? <a href={props.externalLink} className={classnames} onClick={props.onClick}>{props.linkText}</a> : null }
+        <h2>{ this.props.iconComponent }</h2>
+        <h2>{ this.props.header }</h2>
+        { this.props.children }
+        { this.renderLink() }
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+HintMessage.propTypes = {
+  header: PropTypes.string.isRequired,
+  iconComponent: PropTypes.element.isRequired,
+  linkComponent: PropTypes.element.isRequired
 };
 
 export { HintMessage as default };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 import { getBookmarks } from '../js/bookmarks-manager';
@@ -71,10 +72,9 @@ export default React.createClass({
     // For user facing bits like UI labels and URL path we want them to stay as "favorites".
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
     let headerText = `Save your Favs`;
-    let bookmarkedProjects = (<HintMessage imgSrc={`/assets/svg/icon-bookmark-selected.svg`}
+    let bookmarkedProjects = (<HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
                                            header={headerText}
-                                           internalLink={`/featured`}
-                                           linkText={`Explore featured`}>
+                                           linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
                                 <p>Tap the heart on any project to save it here.</p>
                               </HintMessage>);
 
