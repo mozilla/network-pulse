@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Helmet } from "react-helmet";
 import localstorage from './js/localstorage.js';
 import pageSettings from './js/app-page-settings';
 
@@ -16,18 +17,28 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
-  return <ProjectLoader featured={`True`} />;
+  return <div>
+          <Helmet><title>Featured</title></Helmet>
+          <ProjectLoader featured={`True`} />
+        </div>;
 };
 
 const Latest = () => {
-  return <ProjectLoader />;
+  return <div>
+          <Helmet><title>Latest</title></Helmet>
+          <ProjectLoader />
+        </div>;
 };
 
 const Tag = (router) => {
-  return <ProjectLoader tag={router.params.tag} />;
+  return <div>
+          <Helmet><title>{router.params.tag}</title></Helmet>
+          <ProjectLoader tag={router.params.tag} />
+        </div>;
 };
 
 const App = React.createClass({
+  pageTitle: `Mozilla Network Pulse`,
   getInitialState() {
     return {
       suppressSplashScreen: (localstorage.getItem(`suppressSplashScreen`) === `true`)
@@ -70,6 +81,9 @@ const App = React.createClass({
   render() {
     return (
       <div>
+        <Helmet titleTemplate={`%s - ${this.pageTitle}`}
+                defaultTitle={this.pageTitle}>
+        </Helmet>
         { this.renderWelcomeSplash() }
         <Navbar router={this.props.router}/>
         <div id="main" className="container">
