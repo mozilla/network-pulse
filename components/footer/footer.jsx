@@ -9,24 +9,24 @@ const Footer = () => {
       text: `Github`
     },
     {
-      iconType: `chat`,
-      link: `https://chat.mozillafoundation.org/mozilla/channels/town-square`,
-      text: `Chat`
-    },
-    {
-      iconType: `email`,
-      link: `https://mzl.la/pulse-contact`,
-      text: `Contact Us`
-    },
-    {
       iconType: `legal`,
-      link: `https://www.mozilla.org/about/legal/`,
+      link: `https://www.mozilla.org/about/legal/terms/mozilla/`,
       text: `Legal`
     },
     {
       iconType: `cc-license`,
       link: `https://creativecommons.org/licenses/by/4.0/`,
       text: `License`
+    },
+    {
+    iconType: `privacy`,
+    link: `https://www.mozilla.org/privacy/websites/`,
+    text: `Privacy`
+    },
+    {
+      iconType: `email`,
+      link: `https://mzl.la/pulse-contact`,
+      text: `Contact Us`
     }
   ];
 
