@@ -19,9 +19,9 @@ const Footer = () => {
       text: `License`
     },
     {
-    iconType: `privacy`,
-    link: `https://www.mozilla.org/privacy/websites/`,
-    text: `Privacy`
+      iconType: `privacy`,
+      link: `https://www.mozilla.org/privacy/websites/`,
+      text: `Privacy`
     },
     {
       iconType: `email`,
