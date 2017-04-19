@@ -61,13 +61,13 @@ export default React.createClass({
       projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
     }
 
+    if (docTitle) {
+      docTitle = <Helmet><title>{ docTitle }</title></Helmet>;
+    }
+
     return (
       <div>
-        { docTitle &&
-          <Helmet>
-            <title>{docTitle}</title>
-          </Helmet>
-        }
+        { docTitle }
         { justPostedByUserMessage }
         { projectCard }
       </div>
