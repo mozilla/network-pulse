@@ -68,4 +68,4 @@ ProjectCard.defaultProps = {
   entries: []
 };
 
-export { ProjectList as default };
+export default ProjectList;

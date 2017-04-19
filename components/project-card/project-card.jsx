@@ -221,7 +221,7 @@ ProjectCard.propTypes = {
   getInvolved: PropTypes.string,
   getInvolvedUrl: PropTypes.string,
   interest: PropTypes.string,
-  issues: PropTypes.arrayOf(React.PropTypes.string),
+  issues: PropTypes.arrayOf(PropTypes.string),
   thumbnail: PropTypes.string,
   created: PropTypes.string,
   title: PropTypes.string.isRequired,
@@ -232,4 +232,4 @@ ProjectCard.defaultProps = {
   onDetailView: false
 };
 
-export { ProjectCard as default };
+export default ProjectCard;
