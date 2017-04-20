@@ -44,4 +44,4 @@ const Footer = () => {
   );
 };
 
-export { Footer as default };
+export default Footer;

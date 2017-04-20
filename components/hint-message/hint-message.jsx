@@ -27,4 +27,4 @@ HintMessage.propTypes = {
   linkComponent: PropTypes.element.isRequired
 };
 
-export { HintMessage as default };
+export default HintMessage;
