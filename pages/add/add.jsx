@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory, Link } from 'react-router';
+import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 import Service from '../../js/service.js';
@@ -192,6 +193,7 @@ export default React.createClass({
   render() {
     return (
       <div className="add-page row justify-content-center">
+        <Helmet><title>Add</title></Helmet>
         <div className="col-lg-8">
           { this.getContent() }
         </div>

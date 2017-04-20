@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import helmet from 'helmet';
+import { Helmet as ReactHelmet } from "react-helmet";
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -74,12 +75,13 @@ app.get(`*`, (req, res) => {
       // we've got props!
       // let's match a route and render the corresponding page component
       const appHtml = renderToString(<RouterContext {...props}/>);
+      const reactHelmet = ReactHelmet.renderStatic();
 
       if (props.components[props.components.length-1].displayName === `not-found`) {
         // if route matches the "Not Found" route, let's render the "Not Found" 404 page
-        res.status(404).send(renderPage(appHtml));
+        res.status(404).send(renderPage(appHtml,reactHelmet));
       } else {
-        res.status(200).send(renderPage(appHtml));
+        res.status(200).send(renderPage(appHtml,reactHelmet));
       }
     } else {
       // nothing was matched
@@ -88,7 +90,7 @@ app.get(`*`, (req, res) => {
   });
 });
 
-function renderPage(appHtml) {
+function renderPage(appHtml,reactHelmet) {
   // this is basically the same as what we have in ./index.html,
   // except that we are inserting appHtml as inner DOM of <div id="app"></div>
   return `<!doctype html>
@@ -106,7 +108,7 @@ function renderPage(appHtml) {
                 <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
                 <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
                 <link rel="stylesheet" type="text/css" href="/css/main.css">
-                <title>Mozilla Network Pulse</title>
+                ${reactHelmet.title.toString()}
               </head>
               <body>
                 <div id="app">${appHtml}</div>

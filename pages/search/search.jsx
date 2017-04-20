@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { Helmet } from "react-helmet";
 import classNames from 'classnames';
 import DebounceInput from 'react-debounce-input';
 import ReactGA from 'react-ga';
@@ -61,6 +62,7 @@ export default React.createClass({
   render() {
     return (
       <div className="search-page">
+        <Helmet><title>{this.state.keywordSearched}</title></Helmet>
         <div className={classNames({activated: true, 'search-bar': true})}>
           <DebounceInput id="search-box"
                           value={this.state.keywordSearched}

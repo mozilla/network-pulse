@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { Helmet } from "react-helmet";
 import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
@@ -50,16 +51,23 @@ export default React.createClass({
     });
   },
   render() {
+    let docTitle;
     let justPostedByUserMessage;
     let projectCard;
 
     if (this.state.dataLoaded) {
+      docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting!</h5>) : null;
       projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
     }
 
+    if (docTitle) {
+      docTitle = <Helmet><title>{ docTitle }</title></Helmet>;
+    }
+
     return (
       <div>
+        { docTitle }
         { justPostedByUserMessage }
         { projectCard }
       </div>

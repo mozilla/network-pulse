@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Helmet } from "react-helmet";
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 import { getBookmarks } from '../js/bookmarks-manager';
@@ -87,6 +88,7 @@ export default React.createClass({
   render() {
     return (
       <div>
+        <Helmet><title>Favs</title></Helmet>
         <div className="logged-in-status">{ this.getloggedInStatusContent() }</div>
         { this.getBookmarkedProjects() }
       </div>

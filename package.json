@@ -84,6 +84,7 @@
     "react-dom": "^15.4.1",
     "react-formbuilder": "^0.3.0",
     "react-ga": "^2.1.2",
+    "react-helmet": "^5.0.3",
     "react-router": "^3.0.0",
     "shx": "^0.2.1",
     "superagent": "^3.3.0",
