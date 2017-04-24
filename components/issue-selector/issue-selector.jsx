@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from '../nav-link/nav-link.jsx';
 
-export default React.createClass({
+class IssueSelector extends React.Component{
   render() {
     return (
       <div className="issue-selector">
@@ -13,4 +13,5 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+export default IssueSelector
