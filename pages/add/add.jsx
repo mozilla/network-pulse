@@ -111,15 +111,38 @@ export default React.createClass({
 
       Service.entries
         .post(data)
-        .then((response) => {
-          browserHistory.push({
-            pathname: `/entry/${response.id}`,
-            query: {
-              justPostedByUser: true
+        .then(response => {
+          const entryId = response.id;
+
+          // will the API show this user the new entry?
+          Service.entry
+          .get(entryId)
+          .then(result => {
+            if(result) {
+              browserHistory.push({
+                pathname: `/entry/${response.id}`,
+                query: {
+                  justPostedByUser: true
+                }
+              });
+            } else {
+              browserHistory.push({
+                pathname: `/submitted`,
+                query: { entryId }
+              });
             }
+          })
+          .catch(reason => {
+            // a 404 is yielded as an error by Service.entry
+            console.error(reason);
+            browserHistory.push({
+              pathname: `/submitted`,
+              query: { entryId }
+            });
           });
+
         })
-        .catch((reason) => {
+        .catch(reason => {
           this.setState({
             serverError: true
           });
@@ -193,7 +216,7 @@ export default React.createClass({
   render() {
     return (
       <div className="add-page row justify-content-center">
-        <Helmet><title>Add</title></Helmet>
+        <Helmet><title>Post an entry</title></Helmet>
         <div className="col-lg-8">
           { this.getContent() }
         </div>
