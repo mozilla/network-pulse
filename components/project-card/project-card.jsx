@@ -61,7 +61,6 @@ class ProjectCard extends React.Component {
     }
 
     this.setInitialBookmarkedStatus();
-
   }
 
   setInitialBookmarkedStatus() {
@@ -135,9 +134,11 @@ class ProjectCard extends React.Component {
 
   renderTitle(detailViewLink) {
     let title = this.props.title;
+
     if (!this.props.onDetailView) {
       title = <Link to={detailViewLink} onClick={this.handleTitleClick}>{title}</Link>;
     }
+
     return <h2>{title}</h2>;
   }
 
@@ -146,41 +147,59 @@ class ProjectCard extends React.Component {
 
     if (!thumbnailSource) return null;
 
-    return <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
-              <div className="img-container">
-                <img src={thumbnailSource} />
-              </div>
-            </Link>;
+    return (
+      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
+        <div className="img-container">
+          <img src={thumbnailSource} />
+        </div>
+      </Link>
+    );
   }
 
   renderActionPanel(detailViewLink) {
-    let actionPanel = this.props.onDetailView ?
-                  (<div className="share">
-                    <a className="btn" onClick={this.handleShareBtnClick} ref={(btn) => { this.shareBtn = btn; }}></a>
-                    <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
-                  </div>)
-                  : (<div>
-                      <Link to={detailViewLink} onClick={this.handleReadMoreClick}>Read more</Link>
-                    </div>);
-    return <div className="action-panel">
-            {actionPanel}
-            <a className="heart" ref="heart" onClick={this.toggleBookmarkedState}></a>
-          </div>;
+    let actionPanel = null;
+
+    if (this.props.onDetailView) {
+      actionPanel = (
+        <div className="share">
+          <a className="btn" onClick={evt => this.handleShareBtnClick(evt)} ref={(btn) => { this.shareBtn = btn; }}></a>
+          <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
+        </div>
+      );
+    } else {
+      actionPanel = (
+        <div>
+          <Link to={detailViewLink} onClick={evt => this.handleReadMoreClick(evt) }>Read more</Link>
+        </div>
+      );
+    }
+
+    return (
+      <div className="action-panel">
+        {actionPanel}
+        <a className="heart" ref="heart" onClick={evt => this.toggleBookmarkedState()}></a>
+      </div>
+    );
   }
 
   renderCreatorInfo() {
     if (this.props.creators.length === 0) return null;
 
-    return <small className="creator d-block text-muted">
-             By {this.props.creators.join(`, `)}
-          </small>;
+    return (
+      <small className="creator d-block text-muted">
+         By {this.props.creators.join(`, `)}
+      </small>
+    );
   }
 
   renderTimePosted() {
     if (!this.props.created) return null;
-    return <small className="time-posted d-block text-muted">
-            Added {moment(this.props.created).format(`MMM DD, YYYY`)}
-          </small>;
+
+    return (
+      <small className="time-posted d-block text-muted">
+        Added {moment(this.props.created).format(`MMM DD, YYYY`)}
+      </small>
+    );
   }
 
   render() {
@@ -189,6 +208,7 @@ class ProjectCard extends React.Component {
       "detail-view": this.props.onDetailView,
       "bookmarked": this.state.bookmarked
     });
+
     let detailViewLink = `/entry/${this.props.id}`;
 
     return (
@@ -213,6 +233,7 @@ class ProjectCard extends React.Component {
     );
   }
 }
+
 ProjectCard.propTypes = {
   id: PropTypes.number.isRequired,
   creators: PropTypes.array,
@@ -228,6 +249,7 @@ ProjectCard.propTypes = {
   contentUrl: PropTypes.string,
   onDetailView: PropTypes.bool
 };
+
 ProjectCard.defaultProps = {
   onDetailView: false
 };

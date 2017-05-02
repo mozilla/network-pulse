@@ -30,8 +30,6 @@ export default React.createClass({
       if (pageSettings.shouldRestore) {
         // restore state back to what is stored in pageSettings
         this.setState(pageSettings.currentList);
-      } else {
-        this.fetchData();
       }
     });
 
