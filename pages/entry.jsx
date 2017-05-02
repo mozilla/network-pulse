@@ -5,6 +5,17 @@ import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 
+const NO_ENTRY_TITLE = "Entry unavailable";
+const NO_ENTRY_BLOCK = (
+  <div className="main-content text-center">
+    <div className="content">
+      <p className="description">
+        This entry is not currently available.
+      </p>
+    </div>
+  </div>
+);
+
 export default React.createClass({
   getInitialState() {
     return {
@@ -28,6 +39,9 @@ export default React.createClass({
       })
       .catch((reason) => {
         console.error(reason);
+        this.setState({
+          noData: true
+        });
       });
   },
   checkIfRedirectedFromFormSubmission() {
@@ -52,13 +66,18 @@ export default React.createClass({
   },
   render() {
     let docTitle;
-    let justPostedByUserMessage;
-    let projectCard;
+    let justPostedByUserMessage = null;
+    let content;
 
     if (this.state.dataLoaded) {
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting!</h5>) : null;
-      projectCard = this.state.dataLoaded ? <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} /> : null;
+      content = <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+    }
+
+    if (this.state.noData) {
+      docTitle = NO_ENTRY_TITLE;
+      content = NO_ENTRY_BLOCK;
     }
 
     if (docTitle) {
@@ -69,7 +88,7 @@ export default React.createClass({
       <div>
         { docTitle }
         { justPostedByUserMessage }
-        { projectCard }
+        { content }
       </div>
     );
   }
