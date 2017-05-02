@@ -10,6 +10,7 @@ import Issues from './pages/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';
+import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
 import NotFound from './pages/not-found.jsx';
 
@@ -59,7 +60,7 @@ const App = React.createClass({
     document.querySelector(`#app`).classList.add(`splash-dismissed`);
     this.refs.splash.addEventListener(`transitionend`, () => {
       // wait for CSS animation to finish first before we
-      // set `suppressSplashScreen` in localStorage and 
+      // set `suppressSplashScreen` in localStorage and
       // this.state.suppressSplashScreen to true
       localstorage.setItem(`suppressSplashScreen`, `true`);
       this.setState({ suppressSplashScreen: true });
@@ -116,6 +117,7 @@ module.exports = (
     </Route>
     <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
     <Route path="add" component={Add} />
+    <Route path="submitted" component={Submitted} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="tags">
       <IndexRedirect to="/latest" />

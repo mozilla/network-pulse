@@ -24,7 +24,10 @@ class HintMessage extends React.Component {
 HintMessage.propTypes = {
   header: PropTypes.string.isRequired,
   iconComponent: PropTypes.element.isRequired,
-  linkComponent: PropTypes.element.isRequired
+  linkComponent: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.element
+  ]).isRequired
 };
 
 export default HintMessage;
