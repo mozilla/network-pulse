@@ -118,7 +118,6 @@ export default React.createClass({
           Service.entry
           .get(entryId)
           .then(result => {
-            console.log(result);
             if(result) {
               browserHistory.push({
                 pathname: `/entry/${response.id}`,

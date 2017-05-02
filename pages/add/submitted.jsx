@@ -48,7 +48,7 @@ export default React.createClass({
     const thankYou = (
       <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
                     header={headerText}
-                    linkComponent={!linkText ? false : <Link to={`/entry/${this.state.entryId}`}>{linkText}</Link>}>
+                    linkComponent={linkText ? <Link to={`/entry/${this.state.entryId}`}>{linkText}</Link> : false}>
         <p>We'll be reviewing your submission, and it'll show up in the main feed after approval.</p>
       </HintMessage>
     );
