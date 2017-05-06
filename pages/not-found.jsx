@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 
-class NotFound extends React.Component{
+class NotFound extends React.Component {
   render() {
     return (
       <HintMessage iconComponent={<img src="/assets/svg/icon-404.svg" />}
