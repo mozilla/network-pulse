@@ -2,7 +2,7 @@ import React from 'react';
 import { IndexLink } from 'react-router';
 import NavLink from '../nav-link/nav-link.jsx';
 
-export default React.createClass({
+class NavBar extends React.Component {
   render() {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
     // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
@@ -30,4 +30,5 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+export default NavBar;
