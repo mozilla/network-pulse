@@ -1,10 +1,8 @@
 .project-card {
-  position: relative;
   box-sizing: border-box;
   width: 100%;
   background: $white;
   overflow: hidden;
-  padding-bottom: calc(30px + 1rem * 1.5);
   margin-left: $project-card-side-margin;
   margin-right: $project-card-side-margin;
   margin-bottom: 20px;
@@ -66,26 +64,6 @@
         max-width: 100%;
       }
     }
-  }
-
-  .content,
-  .project-links {
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  .content {
-    margin-top: 15px;
-  }
-
-  .btn-view {
-    margin-bottom: 20px;
-  }
-
-  .project-links {
-    position: absolute;
-    bottom: 15px;
-    width: calc(100% - 15px * 2);
   }
 
   .action-panel {

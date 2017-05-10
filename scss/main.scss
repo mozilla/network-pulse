@@ -52,6 +52,21 @@ button {
   cursor: pointer;
 }
 
+.btn-xs {
+  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-xs, $btn-border-radius-xs);
+}
+
+.btn-tag {
+  color: $white;
+  background: $gray-lighter;
+  margin: 0 4px 4px 0;
+
+  @include hover-focus {
+    color: $white;
+    background: $gray-light;
+  }
+}
+
 #app {
   &.splash-dismissed {
     max-height: 100%;
