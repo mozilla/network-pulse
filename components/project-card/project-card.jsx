@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
+import Utility from '../../js/utility.js';
 
 class Details extends React.Component {
   handleVisitBtnClick() {
@@ -24,7 +25,7 @@ class Details extends React.Component {
             (<div>
               { props.interest ? <p className="interest">{props.interest}</p> : null }
               { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
-              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info btn-view" onClick={this.handleVisitBtnClick}>Visit</a> : null }
+              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info mb-3" onClick={this.handleVisitBtnClick}>Visit</a> : null }
             </div>) : null;
   }
 }
@@ -177,7 +178,7 @@ class ProjectCard extends React.Component {
     return (
       <div className="action-panel">
         {actionPanel}
-        <a className="heart" ref="heart" onClick={evt => this.toggleBookmarkedState()}></a>
+        <a className="heart" ref="heart" onClick={() => this.toggleBookmarkedState()}></a>
       </div>
     );
   }
@@ -202,6 +203,20 @@ class ProjectCard extends React.Component {
     );
   }
 
+  renderIssuesAndTags() {
+    if (!this.props.onDetailView) return null;
+
+    let issues = this.props.issues.map(issue => {
+      return <Link to={`/issues/${Utility.getUriPathFromIssueName(issue)}`} className="btn btn-xs btn-tag" key={issue}>{issue}</Link>;
+    });
+
+    let tags = this.props.tags.map(tag => {
+      return <Link to={`/tags/${encodeURIComponent(tag)}`} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
+    });
+
+    return <div>{issues}{tags}</div>;
+  }
+
   render() {
     let classnames = classNames({
       "project-card": true,
@@ -215,7 +230,7 @@ class ProjectCard extends React.Component {
       <div className={classnames}>
         <div className="main-content">
           {this.renderThumbnail(detailViewLink)}
-          <div className="content">
+          <div className="content m-3">
             {this.renderTitle(detailViewLink)}
             <div className="mb-2">
               {this.renderCreatorInfo()}
@@ -226,8 +241,11 @@ class ProjectCard extends React.Component {
           </div>
           <div className="fade-overlay"></div>
         </div>
-        <div className="project-links">
+        <div className="project-links m-3">
           {this.renderActionPanel(detailViewLink)}
+        </div>
+        <div className="tags mr-3 mb-3 ml-3">
+          {this.renderIssuesAndTags()}
         </div>
       </div>
     );
