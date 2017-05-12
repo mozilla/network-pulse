@@ -205,7 +205,7 @@ export default React.createClass({
             </HintMessage>);
   },
   getContent() {
-    if (!user.loggedin) {
+    if (user.loggedin) {
       return this.getContentForLoggedInUser();
     }
 
