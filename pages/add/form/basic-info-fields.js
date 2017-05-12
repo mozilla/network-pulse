@@ -3,7 +3,7 @@ import validator from './validator';
 module.exports = {
   title: { // required field
     type: `text`,
-    label: `Title of the project`,
+    label: `Title: Keep it simple. Name it, don't describe it.`,
     placeholder: `Title`,
     labelClassname: `required`,
     fieldClassname: `form-control`,
@@ -25,7 +25,7 @@ module.exports = {
   },
   description: {
     type: `textarea`,
-    label: `Describe what you are sharing. Keep it simple and use plain language.`,
+    label: `Description: Simple, brief language works best. No jargon.`,
     placeholder: `Description`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600)

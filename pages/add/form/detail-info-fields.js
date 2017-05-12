@@ -16,17 +16,17 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(300)
   },
-  tags: {
-    type: `text`,
-    label: `Tags to help with search by program, event, campaign, subject …`,
-    placeholder: `web literacy, MozFest, IoT, ...`,
-    fieldClassname: `form-control`
-  },
   issues: {
     type: `checkboxGroup`,
     label: `Check any Key Internet Issues that relate to your project.`,
     options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
     colCount: 1
+  },
+  tags: {
+    type: `text`,
+    label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
+    placeholder: `games, best practice, iot, cape town, code, ...`,
+    fieldClassname: `form-control`
   },
   'get_involved': {
     type: `text`,
@@ -44,8 +44,9 @@ module.exports = {
   },
   'thumbnail': {
     type: `image`,
-    label: `Project image (look best at 1200px × 630px)`,
+    label: `Project image: Only submit images that you have permission to use in this context.`,
     prompt: `Select image`,
+    helpText: `Looks best at 1200px × 630px`,
     fieldClassname: `form-control`,
     validator: [
       validator.imageTypeValidator(),

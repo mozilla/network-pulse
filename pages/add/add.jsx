@@ -156,7 +156,8 @@ export default React.createClass({
 
     return( <div>
               <h1>Share with the Network</h1>
-              <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it … at any stage or fidelity.</p>
+              <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
+              <p>Please keep your language simple and useful for a broad audience. No jargon. Submissions may be lightly edited by our curators for spelling, grammar and style consistency.</p>
               <div className="mb-6">
                 <h2>Basic Info</h2>
                 <div className="posted-by">
@@ -171,6 +172,7 @@ export default React.createClass({
                                         inlineErrors={true}
                                         onUpdate={this.handleFormUpdate} />
                 <div className="submit-section">
+                  <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
                   <button
                     className="btn btn-info mr-3"
                     type="submit"
@@ -203,7 +205,7 @@ export default React.createClass({
             </HintMessage>);
   },
   getContent() {
-    if (user.loggedin) {
+    if (!user.loggedin) {
       return this.getContentForLoggedInUser();
     }
 

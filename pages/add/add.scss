@@ -73,6 +73,13 @@ fieldset.creators {
   }
 }
 
+fieldset.thumbnail {
+  .help-text {
+    margin-left: 1rem;
+    color: $gray-light;
+  }
+}
+
 .submit-section {
   margin-top: $form-field-vertical-margin;
 
