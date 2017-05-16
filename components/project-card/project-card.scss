@@ -74,32 +74,46 @@
   }
 
   .share {
+    .btn {
+      width: 20px;
+      height: 20px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .btn.twitter-share {
+    width: 23px;
+    background-image: url(/assets/svg/icon-twitter.svg);
+    background-size: auto 17px;
+
+    &:hover,
+    &.active {
+      background-image: url(/assets/svg/icon-twitter-selected.svg);
+    }
+  }
+
+  .reveal-url {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-right: 10px;
 
     .btn {
-      width: 23px;
-      height: 19px;
-      background: url(/assets/svg/icon-link.svg) center center no-repeat;
+      background-image: url(/assets/svg/icon-link.svg);
       background-size: auto 18px;
-      border: none;
-      cursor: pointer;
 
       &:hover,
       &.active {
-        background: url(/assets/svg/icon-link-selected.svg) center center no-repeat;
-        background-size: auto 18px;
+        background-image: url(/assets/svg/icon-link-selected.svg);
       }
     }
 
     input {
       visibility: hidden;
-      box-sizing: border-box;
       color: #adadad;
-      width: 100%;
-      padding: 5px;
       border: none;
     }
 

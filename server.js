@@ -98,6 +98,7 @@ function renderPage(appHtml,reactHelmet) {
               <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta charset="utf-8">
+                <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
                 <link rel="icon" type="image/png" sizes="36x36" href="/favicon.png">
                 <link rel="icon" type="image/png" sizes="128x128" href="/assets/favicons/favicon-128x128@2x.png">
                 <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/favicons/touch-icon-ipad.png">
