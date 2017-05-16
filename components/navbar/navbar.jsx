@@ -2,6 +2,14 @@ import React from 'react';
 import { IndexLink } from 'react-router';
 import NavLink from '../nav-link/nav-link.jsx';
 
+class NavListItem extends React.Component {
+  render() {
+    return (
+      <li className="d-inline-block mb-0">{this.props.children}</li>
+    );
+  }
+}
+
 class NavBar extends React.Component {
   render() {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
@@ -13,17 +21,17 @@ class NavBar extends React.Component {
     return (
       <div className="navbar">
         <div className="container">
-          <div className="inner">
-            <div className="logo">
-              <IndexLink to="/"><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></IndexLink>
+          <div className="row">
+            <div className="logo col-md-4 mb-3 mb-sm-0">
+              <IndexLink to="/" className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></IndexLink>
             </div>
-            <ul>
-              <li><NavLink to="/featured" className="text-nav-link">Featured</NavLink></li>
-              <li><NavLink to="/latest" className="text-nav-link">Latest</NavLink></li>
-              <li><NavLink to="/issues" className="text-nav-link">Issues</NavLink></li>
-              <li><NavLink to="/favs" className="text-nav-link bookmarks">Favs</NavLink></li>
-              <li><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></li>
-              <li><NavLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></li>
+            <ul className="nav-link-list col-md-8 mb-0">
+              <NavListItem><NavLink to="/featured" className="text-nav-link">Featured</NavLink></NavListItem>
+              <NavListItem><NavLink to="/latest" className="text-nav-link">Latest</NavLink></NavListItem>
+              <NavListItem><NavLink to="/issues" className="text-nav-link">Issues</NavLink></NavListItem>
+              <NavListItem><NavLink to="/favs" className="text-nav-link bookmarks">Favs</NavLink></NavListItem>
+              <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
+              <NavListItem><NavLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></NavListItem>
             </ul>
           </div>
         </div>

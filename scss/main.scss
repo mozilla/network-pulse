@@ -152,18 +152,6 @@ textarea {
   font-family: inherit;
 }
 
-// project-list
-
-.project-list {
-  .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-left: -$project-card-side-margin;
-    margin-right: -$project-card-side-margin;
-  }
-}
-
 // loading animation
 
 .loading {
