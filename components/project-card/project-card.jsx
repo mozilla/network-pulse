@@ -218,6 +218,12 @@ class ProjectCard extends React.Component {
   }
 
   render() {
+    let wrapperClassnames = classNames({
+      "col-md-6": !this.props.onDetailView,
+      "col-lg-4": !this.props.onDetailView,
+      "col-md-8": this.props.onDetailView
+    });
+
     let classnames = classNames({
       "project-card": true,
       "detail-view": this.props.onDetailView,
@@ -227,25 +233,27 @@ class ProjectCard extends React.Component {
     let detailViewLink = `/entry/${this.props.id}`;
 
     return (
-      <div className={classnames}>
-        <div className="main-content">
-          {this.renderThumbnail(detailViewLink)}
-          <div className="content m-3">
-            {this.renderTitle(detailViewLink)}
-            <div className="mb-2">
-              {this.renderCreatorInfo()}
-              {this.renderTimePosted()}
+      <div className={wrapperClassnames}>
+        <div className={classnames}>
+          <div className="main-content">
+            {this.renderThumbnail(detailViewLink)}
+            <div className="content m-3">
+              {this.renderTitle(detailViewLink)}
+              <div className="mb-2">
+                {this.renderCreatorInfo()}
+                {this.renderTimePosted()}
+              </div>
+              <p className="description">{this.props.description}</p>
+              <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
             </div>
-            <p className="description">{this.props.description}</p>
-            <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
+            <div className="fade-overlay"></div>
           </div>
-          <div className="fade-overlay"></div>
-        </div>
-        <div className="project-links m-3">
-          {this.renderActionPanel(detailViewLink)}
-        </div>
-        <div className="tags mr-3 mb-3 ml-3">
-          {this.renderIssuesAndTags()}
+          <div className="project-links m-3">
+            {this.renderActionPanel(detailViewLink)}
+          </div>
+          <div className="tags mr-3 mb-3 ml-3">
+            {this.renderIssuesAndTags()}
+          </div>
         </div>
       </div>
     );

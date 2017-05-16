@@ -1,17 +1,11 @@
 .project-card {
-  box-sizing: border-box;
-  width: 100%;
+  margin-bottom: 20px;
   background: $white;
   overflow: hidden;
-  margin-left: $project-card-side-margin;
-  margin-right: $project-card-side-margin;
-  margin-bottom: 20px;
-
   /* optimize swipe with class and transform. */
   transition: left 0.25s, height 0.25s, padding 0.25s, margin 0.25s;
 
   &.detail-view {
-    width: 100%;
     margin: 0 auto;
 
     h2 {
@@ -146,23 +140,12 @@
 // >= 768px
 @media screen and (min-width: $bp-md) {
   .project-card {
-    @include project-card-width(3);
-
     &.detail-view {
-      @include project-card-width(2);
-
       .creator {
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
       }
     }
-  }
-}
-
-// >= 992px
-@media screen and (min-width: $bp-lg) {
-  .project-card {
-    @include project-card-width(3);
   }
 }

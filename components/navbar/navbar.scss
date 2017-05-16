@@ -8,28 +8,19 @@
     position: relative;
   }
 
-  .logo {
-    margin-bottom: 1rem;
-  }
+  .nav-link-list {
+    position: static;
+    align-self: center;
 
-  ul {
-    padding: 0;
-    margin: 0;
+    a {
+      color: transparentize($white, 0.5);
+      text-decoration: none;
 
-    li {
-      display: inline-block;
-      margin-bottom: 0;
-
-      a {
-        color: transparentize($white, 0.5);
-        text-decoration: none;
-
-        &.active,
-        &:active,
-        &:hover,
-        &:focus {
-          color: $white;
-        }
+      &.active,
+      &:active,
+      &:hover,
+      &:focus {
+        color: $white;
       }
     }
   }
@@ -43,7 +34,7 @@
   .btn-search {
     position: absolute;
     top: 0;
-    right: 0;
+    right: $grid-gutter-width-base / 2;
   }
 
   .btn-add {
@@ -74,23 +65,8 @@
 
   // >= 768px
   @media screen and (min-width: $bp-md) {
-    .inner {
-      display: flex;
-      align-items: center;
-      margin-left: -10px; // similar treatment as what we have for .project-list
-      margin-right: -10px;
-    }
-
-    .logo {
-      @include project-card-width(3);
-
-      margin-bottom: 0;
-    }
-
-    .logo,
-    ul {
-      margin-left: $project-card-side-margin;
-      margin-right: $project-card-side-margin;
+    .nav-link-list {
+      position: relative;
     }
 
     .text-nav-link {

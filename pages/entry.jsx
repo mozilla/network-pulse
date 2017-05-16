@@ -85,7 +85,7 @@ export default React.createClass({
     }
 
     return (
-      <div>
+      <div className="row justify-content-center">
         { docTitle }
         { justPostedByUserMessage }
         { content }
