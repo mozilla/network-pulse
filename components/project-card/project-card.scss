@@ -141,8 +141,6 @@
 @media screen and (min-width: $bp-md) {
   .project-card {
     &.detail-view {
-      @include make-col(8);
-
       .creator {
         white-space: normal;
         overflow: visible;

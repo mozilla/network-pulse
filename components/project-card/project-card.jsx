@@ -220,7 +220,8 @@ class ProjectCard extends React.Component {
   render() {
     let wrapperClassnames = classNames({
       "col-md-6": !this.props.onDetailView,
-      "col-lg-4": !this.props.onDetailView
+      "col-lg-4": !this.props.onDetailView,
+      "col-md-8": this.props.onDetailView
     });
 
     let classnames = classNames({
