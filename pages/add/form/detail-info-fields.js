@@ -1,6 +1,105 @@
+import React from 'react';
+import ReactTags from 'react-tag-autocomplete';
 import validator from './validator';
+import Service from '../../../js/service';
+
+let Tags = React.createClass({
+  getInitialState() {
+    return {
+      tags: [],
+      suggestions: []
+    };
+  },
+  componentDidMount: function() {
+    Service.tags
+      .get()
+      .then((data) => {
+        console.log(data);
+        let suggestions = data.map((tag,i) => {
+          return { id: i+1, name: tag };
+        });
+        this.setState({ suggestions });
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
+  },
+  handleDelete: function(i) {
+    const tags = this.state.tags.slice(0);
+    tags.splice(i, 1);
+    this.setState({ tags });
+  },
+  handleAddition: function(tag) {
+    const tags = [].concat(this.state.tags, tag);
+    this.setState({ tags });
+  },
+  getFilteredSuggestions: function() {
+    // show suggestions that haven't been selected yet
+    const { tags, suggestions } = this.state;
+    const tagNames = tags.map(tagObj => tagObj.name);
+
+    return suggestions.map((suggestion) => {
+      if (tagNames.indexOf(suggestion.name) > -1) return null;
+
+      return suggestion;
+    }).filter(suggestion => !!suggestion);
+  },
+  render: function() {
+
+    return <ReactTags
+              tags={this.state.tags}
+              suggestions={this.getFilteredSuggestions()}
+              allowNew={true}
+              handleDelete={this.handleDelete}
+              handleAddition={this.handleAddition}
+              handleDrag={this.handleDrag}
+              onChange={this.onChange}
+              classNames={{
+                // root: 'react-tags',
+                root: `react-tags form-control d-flex flex-column flex-sm-row`,
+                rootFocused: 'is-focused',
+                selected: 'react-tags__selected',
+                // selectedTag: 'react-tags__selected-tag',
+                selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
+                selectedTagName: 'react-tags__selected-tag-name',
+                // search: 'react-tags__search',
+                search: `search d-flex`,
+                // searchInput: 'react-tags__search-input',
+                searchInput: `tag-input-field`,
+                suggestions: `suggestions p-2`,
+                suggestionActive: 'is-active',
+                suggestionDisabled: 'is-disabled'
+              }}
+            />;
+  }
+});
+
+let Test = React.createClass({
+  getInitialState() {
+    return {
+      value: null
+    };
+  },
+  onChange: function() {
+    console.log(`hi test onChange`);
+    this.setState({value: 123});
+  },
+  render: function() {
+    return <input onChange={this.onChange} />;
+  }
+});
 
 module.exports = {
+  tagsNew: {
+    type: Tags,
+    label: `Tags (with react-tag-autocomplete)`,
+    fieldClassname: `form-control`
+  },
+  test: {
+    type: Test,
+    label: `test test test`,
+    fieldClassname: `form-control`
+  },
   creators: {
     type: `text`,
     label: `Who are the creators? This could be staff, contributors, partners…`,
