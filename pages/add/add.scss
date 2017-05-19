@@ -87,3 +87,93 @@ fieldset.thumbnail {
     color: $form-error-color;
   }
 }
+
+.tags {
+  .react-tags {
+    position: relative;
+    cursor: text;
+  }
+
+  .react-tags.is-focused {
+    border-color: $gray-lightest;
+  }
+
+  .react-tags__selected {
+    display: inline;
+  }
+
+  .selected-tag {
+    display: inline-block;
+    background: $off-white;
+
+    &::after {
+      content: '\2715';
+      color: $gray;
+      margin-left: 0.5rem;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $gray-lighter;
+    }
+  }
+
+  .search {
+    display: inline-block;
+    max-width: 100%; // prevent autoresize overflowing the container
+
+    input {
+      @extend .form-control;
+
+      max-width: 100%; // prevent autoresize overflowing the container
+      height: 100%;
+      padding: 0;
+      border: 0;
+      outline: none;
+    }
+  }
+
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+    ul {
+      padding: 0;
+      list-style: none;
+      background: $white;
+      border: 1px solid $gray-lighter;
+      border-radius: $btn-border-radius;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    li {
+      border-bottom: 1px solid $gray-lighter;
+      padding: 6px 8px;
+      margin: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &.is-active {
+        background: $gray-lightest;
+      }
+
+      &.is-disabled {
+        opacity: 0.5;
+        cursor: auto;
+      }
+
+      mark {
+        text-decoration: underline;
+        background: none;
+        font-weight: 600;
+        padding-right: 0;
+      }
+    }
+  }
+}
+

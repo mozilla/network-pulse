@@ -179,6 +179,11 @@ export default {
       return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
     }
   },
+  tags: {
+    get: function() {
+      return getDataFromURL(`${pulseAPI}/tags/`);
+    },
+  },
   logout: function() {
     return callURL(`${pulseAPI}/logout/`);
   },

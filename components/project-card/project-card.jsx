@@ -216,6 +216,10 @@ class ProjectCard extends React.Component {
     );
   }
 
+  renderDescription() {
+    return this.props.description.split(`\n`).map(paragraph => <p>{paragraph}</p>);
+  }
+
   renderIssuesAndTags() {
     if (!this.props.onDetailView) return null;
 
@@ -256,7 +260,7 @@ class ProjectCard extends React.Component {
                 {this.renderCreatorInfo()}
                 {this.renderTimePosted()}
               </div>
-              <p className="description">{this.props.description}</p>
+              <div className="description">{this.renderDescription()}</div>
               <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
             </div>
             <div className="fade-overlay"></div>

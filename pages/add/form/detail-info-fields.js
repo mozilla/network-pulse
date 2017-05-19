@@ -1,4 +1,72 @@
+import React from 'react';
+import ReactTags from 'react-tag-autocomplete';
 import validator from './validator';
+import Service from '../../../js/service';
+
+let Tags = React.createClass({
+  getInitialState() {
+    return {
+      tags: [],
+      suggestions: []
+    };
+  },
+  componentDidMount: function() {
+    Service.tags
+      .get()
+      .then((data) => {
+        let suggestions = data.map((tag,i) => {
+          return { id: i+1, name: tag };
+        });
+        this.setState({ suggestions });
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
+  },
+  updateTags: function(tags) {
+    this.setState({ tags }, () => {
+      const tagNames = this.state.tags.slice().map(tagObj => tagObj.name);
+      this.props.onChange(null,tagNames);
+    });
+  },
+  handleDelete: function(i) {
+    const tags = this.state.tags.slice(0);
+    tags.splice(i, 1);
+    this.updateTags(tags);
+  },
+  handleAddition: function(tag) {
+    const tags = [].concat(this.state.tags, tag);
+    this.updateTags(tags);
+  },
+  getFilteredSuggestions: function() {
+    // show only tag suggestions that haven't been selected yet
+    const { tags, suggestions } = this.state;
+    const tagNames = tags.map(tagObj => tagObj.name);
+
+    return suggestions.map((suggestion) => {
+      if (tagNames.indexOf(suggestion.name) > -1) return null;
+
+      return suggestion;
+    }).filter(suggestion => !!suggestion);
+  },
+  render: function() {
+
+    return <ReactTags
+              tags={this.state.tags}
+              suggestions={this.getFilteredSuggestions()}
+              allowNew={true}
+              handleDelete={this.handleDelete}
+              handleAddition={this.handleAddition}
+              classNames={{
+                root: `react-tags form-control d-flex flex-column flex-sm-row`,
+                selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
+                search: `search d-flex`,
+                searchInput: `tag-input-field`,
+                suggestions: `suggestions p-2`
+              }}
+            />;
+  }
+});
 
 module.exports = {
   creators: {
@@ -23,9 +91,8 @@ module.exports = {
     colCount: 1
   },
   tags: {
-    type: `text`,
+    type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
-    placeholder: `games, best practice, iot, cape town, code, ...`,
     fieldClassname: `form-control`
   },
   'get_involved': {
