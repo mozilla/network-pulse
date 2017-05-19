@@ -14,7 +14,6 @@ let Tags = React.createClass({
     Service.tags
       .get()
       .then((data) => {
-        console.log(data);
         let suggestions = data.map((tag,i) => {
           return { id: i+1, name: tag };
         });
@@ -24,17 +23,23 @@ let Tags = React.createClass({
         console.error(reason);
       });
   },
+  updateTags: function(tags) {
+    this.setState({ tags }, () => {
+      const tagNames = this.state.tags.slice().map(tagObj => tagObj.name);
+      this.props.onChange(null,tagNames);
+    });
+  },
   handleDelete: function(i) {
     const tags = this.state.tags.slice(0);
     tags.splice(i, 1);
-    this.setState({ tags });
+    this.updateTags(tags);
   },
   handleAddition: function(tag) {
     const tags = [].concat(this.state.tags, tag);
-    this.setState({ tags });
+    this.updateTags(tags);
   },
   getFilteredSuggestions: function() {
-    // show suggestions that haven't been selected yet
+    // show only tag suggestions that haven't been selected yet
     const { tags, suggestions } = this.state;
     const tagNames = tags.map(tagObj => tagObj.name);
 
@@ -52,54 +57,18 @@ let Tags = React.createClass({
               allowNew={true}
               handleDelete={this.handleDelete}
               handleAddition={this.handleAddition}
-              handleDrag={this.handleDrag}
-              onChange={this.onChange}
               classNames={{
-                // root: 'react-tags',
                 root: `react-tags form-control d-flex flex-column flex-sm-row`,
-                rootFocused: 'is-focused',
-                selected: 'react-tags__selected',
-                // selectedTag: 'react-tags__selected-tag',
                 selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
-                selectedTagName: 'react-tags__selected-tag-name',
-                // search: 'react-tags__search',
                 search: `search d-flex`,
-                // searchInput: 'react-tags__search-input',
                 searchInput: `tag-input-field`,
-                suggestions: `suggestions p-2`,
-                suggestionActive: 'is-active',
-                suggestionDisabled: 'is-disabled'
+                suggestions: `suggestions p-2`
               }}
             />;
   }
 });
 
-let Test = React.createClass({
-  getInitialState() {
-    return {
-      value: null
-    };
-  },
-  onChange: function() {
-    console.log(`hi test onChange`);
-    this.setState({value: 123});
-  },
-  render: function() {
-    return <input onChange={this.onChange} />;
-  }
-});
-
 module.exports = {
-  tagsNew: {
-    type: Tags,
-    label: `Tags (with react-tag-autocomplete)`,
-    fieldClassname: `form-control`
-  },
-  test: {
-    type: Test,
-    label: `test test test`,
-    fieldClassname: `form-control`
-  },
   creators: {
     type: `text`,
     label: `Who are the creators? This could be staff, contributors, partners…`,
@@ -122,9 +91,8 @@ module.exports = {
     colCount: 1
   },
   tags: {
-    type: `text`,
+    type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
-    placeholder: `games, best practice, iot, cape town, code, ...`,
     fieldClassname: `form-control`
   },
   'get_involved': {

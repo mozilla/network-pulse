@@ -88,7 +88,7 @@ fieldset.thumbnail {
   }
 }
 
-.tagsNew {
+.tags {
   .react-tags {
     position: relative;
     cursor: text;
@@ -123,10 +123,13 @@ fieldset.thumbnail {
     max-width: 100%; // prevent autoresize overflowing the container
 
     input {
+      @extend .form-control;
+
       max-width: 100%; // prevent autoresize overflowing the container
+      height: 100%;
+      padding: 0;
       border: 0;
       outline: none;
-      height: 100%;
     }
   }
 

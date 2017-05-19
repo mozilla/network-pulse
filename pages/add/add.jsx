@@ -56,10 +56,6 @@ export default React.createClass({
   handleFormUpdate(evt, name, field, value) {
     let formValues = this.state.formValues;
 
-    if ( name === `tags` ) {
-      value = value.trim().split(/,\s*/);
-    }
-
     formValues[name] = value;
     this.setState({ formValues });
   },
