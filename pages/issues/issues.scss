@@ -1,0 +1,20 @@
+.issues-page {
+  .intro {
+    font-weight: $headings-font-weight;
+    font-size: 1.125rem;
+  }
+
+  .issue-section {
+    margin-top: 0.75rem;
+    margin-bottom: 2.125rem;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+    margin-bottom: 0.75rem;
+
+    a {
+      color: $bikeshed-magenta;
+    }
+  }
+}
