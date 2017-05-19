@@ -115,6 +115,11 @@ export default React.createClass({
 
     return <h2>{`Tag: ${this.props.tag}`}</h2>;
   },
+  renderLearnMoreNotice() {
+    if(!this.props.featured) return null;
+  
+    return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
+  },
   renderSearchResult() {
     if (!this.props.search || this.state.loadingData) return null;
 
@@ -129,6 +134,7 @@ export default React.createClass({
     return (
       <div>
         { this.renderTagHeader() }
+        { this.renderLearnMoreNotice()}
         { this.renderSearchResult() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
