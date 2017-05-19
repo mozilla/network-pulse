@@ -71,7 +71,7 @@ export default React.createClass({
 
     if (this.state.dataLoaded) {
       docTitle = `${this.state.entry.title}`;
-      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="text-center">Thanks for submitting!</h5>) : null;
+      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
       content = <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
     }
 
