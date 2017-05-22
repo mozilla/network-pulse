@@ -185,7 +185,7 @@ export default React.createClass({
     return ( <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
                           header={`Sign in failed`}
                           linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-              <p>Only Mozilla staff can login now as we test this new platform. Check back soon!</p>
+              <p>Sorry, login failed! Please refresh and try again.</p>
             </HintMessage>);
   },
   getAnonymousContent() {
@@ -197,7 +197,6 @@ export default React.createClass({
     return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}
                          header={`Please sign in to add a post`}
                          linkComponent={linkComponent}>
-              <p>Please note, only Mozilla staff can login now as we test this new platform.</p>
             </HintMessage>);
   },
   getContent() {
