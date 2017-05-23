@@ -191,7 +191,7 @@ export default React.createClass({
   getAnonymousContent() {
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
                            onClick={this.handleSignInBtnClick}>
-                           Sign in
+                           Sign in with Google
                         </a>;
 
     return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}

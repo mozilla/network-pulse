@@ -49,10 +49,10 @@ export default React.createClass({
     return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
   },
   getFailurePrompt() {
-    return (<p>Only Mozilla staff can login now as we test this new platform. Meanwhile, your favorited projects can still be remembered on this device.</p>);
+    return (<p>Something went wrong! Please refresh and try again.</p>);
   },
   getAnonymousContent() {
-    return (<p>Are you Mozilla Staff? <button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in</button>.</p>);
+    return (<p><button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in with Google</button>.</p>);
   },
   getloggedInStatusContent() {
     if (user.loggedin) {
