@@ -130,12 +130,23 @@ export default React.createClass({
 
     return <p>{searchResultNotice}</p>;
   },
+  renderIssueCountResult() {
+    if(this.props.latest) return null; 
+    if(this.props.featured || this.props.search || this.state.loadingData) return null;
+    
+    let total = this.state.totalMatched,
+      plural = (total === 0 || total > 1), // because "0 results"
+      issueCountResult = `${total} result${plural ? `s` : ``} found`;
+      
+    return <p>{issueCountResult}</p>;
+  },
   render() {
     return (
       <div>
         { this.renderTagHeader() }
         { this.renderLearnMoreNotice()}
         { this.renderSearchResult() }
+        { this.renderIssueCountResult() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
