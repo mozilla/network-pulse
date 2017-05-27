@@ -130,15 +130,11 @@ export default React.createClass({
 
     return <p>{searchResultNotice}</p>;
   },
-  renderIssueCountResult() {
-    if(this.props.latest) return null; 
-    if(this.props.featured || this.props.search || this.state.loadingData) return null;
+  renderEntryCounter() {
+    if (this.state.loadingData) return null;
+    if (!this.props.issue && !this.props.tag) return null;
     
-    let total = this.state.totalMatched,
-      plural = (total === 0 || total > 1), // because "0 results"
-      issueCountResult = `${total} result${plural ? `s` : ``} found`;
-      
-    return <p>{issueCountResult}</p>;
+    return <p>{this.state.totalMatched} result{this.state.totalMatched > 0 ? `s` : ``} found</p>;
   },
   render() {
     return (
@@ -146,7 +142,7 @@ export default React.createClass({
         { this.renderTagHeader() }
         { this.renderLearnMoreNotice()}
         { this.renderSearchResult() }
-        { this.renderIssueCountResult() }
+        { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
