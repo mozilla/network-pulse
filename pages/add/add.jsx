@@ -20,7 +20,8 @@ export default React.createClass({
       formValues: {},
       authError: false,
       serverError: false,
-      submitting: false
+      submitting: false,
+      formInvalid: false
     };
   },
   componentDidMount() {
@@ -72,10 +73,12 @@ export default React.createClass({
         }
 
         if (!basicFormIsValid || !detailFormIsValid) {
+          this.setState({formInvalid: true});
           return;
         }
 
         this.setState({
+          formInvalid: false,
           submitting: true
         }, () => this.postEntry(this.state.formValues));
       });
@@ -177,6 +180,7 @@ export default React.createClass({
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
                   { serverErrorMessage }
+                  {this.state.formInvalid && <span>Something isn't right. Check your info above.</span>}
                 </div>
               </div>
             </div>);
