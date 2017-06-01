@@ -22,6 +22,31 @@ let Tags = React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
+
+      this.shimTagDelimiter();
+  },
+  shimTagDelimiter: function() {
+    // The ReactTags component for some reason does not
+    // do tag seperation on anything except "enter" which is
+    // not an intuitive key when you're on a single-line input.
+    try {
+      const reactTags = this.reactTags;
+      const reactTagsInput = reactTags.input;
+      const trueInput = reactTagsInput.input;
+      trueInput.addEventListener("keyup", evt => {
+        const key = evt.key;
+        // did we type a comma?
+        if (key === ',') {
+          // remove that and make it an enter, instead
+          const forceKey = reactTags.handleKeyDown.bind(reactTags);
+          const key = code => { keyCode: code, preventDefault: ()=>{} };
+          forceKey(key(20)); // "backspace"
+          forceKey(key(13)); // "enter"
+        }
+      });
+    } catch (e) {
+      console.warning("Could not set up comma-delimiting for tags");
+    }
   },
   updateTags: function(tags) {
     this.setState({ tags }, () => {
@@ -52,11 +77,12 @@ let Tags = React.createClass({
   render: function() {
 
     return <ReactTags
+              ref={e => this.reactTags = e}
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
-              handleDelete={this.handleDelete}
-              handleAddition={this.handleAddition}
+              handleDelete={(...args) => this.handleDelete(...args) }
+              handleAddition={(...args) => this.handleAddition(...args) }
               classNames={{
                 root: `react-tags form-control d-flex flex-column flex-sm-row`,
                 selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
