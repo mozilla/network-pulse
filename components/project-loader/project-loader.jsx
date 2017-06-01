@@ -130,12 +130,19 @@ export default React.createClass({
 
     return <p>{searchResultNotice}</p>;
   },
+  renderEntryCounter() {
+    if (this.state.loadingData) return null;
+    if (!this.props.issue && !this.props.tag) return null;
+    
+    return <p>{this.state.totalMatched} result{this.state.totalMatched > 0 ? `s` : ``} found</p>;
+  },
   render() {
     return (
       <div>
         { this.renderTagHeader() }
         { this.renderLearnMoreNotice()}
         { this.renderSearchResult() }
+        { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
