@@ -29,6 +29,9 @@ let Tags = React.createClass({
     // The ReactTags component for some reason does not
     // do tag seperation on anything except "enter" which is
     // not an intuitive key when you're on a single-line input.
+    // We are adding a hack here to force delimiting on comma.
+    // Ideally, this hack can be taken out again after
+    // https://github.com/i-like-robots/react-tags/issues/76 is addressed.
     try {
       const reactTags = this.reactTags;
       const trueInput = reactTags.input.input;
