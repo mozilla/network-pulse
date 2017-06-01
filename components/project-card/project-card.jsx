@@ -126,11 +126,20 @@ class ProjectCard extends React.Component {
     ReactGA.event(this.createGaEventConfig(`Read more`, `Clicked`));
   }
 
+  handleTwitterShareClick() {
+    ReactGA.event(this.createGaEventConfig(`Twitter Share button`, `Clicked`, `beacon`));
+  }
+
   handleShareBtnClick() {
-    ReactGA.event(this.createGaEventConfig(`Reveal entry share link`, `Clicked`));
-    this.shareBtn.classList.add(`active`);
-    this.urlToShare.focus();
-    this.urlToShare.select();
+    if (this.shareBtn.classList.contains(`active`)) {
+      ReactGA.event(this.createGaEventConfig(`Hide entry share link`, `Clicked`));
+      this.shareBtn.classList.remove(`active`);
+    } else {
+      ReactGA.event(this.createGaEventConfig(`Reveal entry share link`, `Clicked`));
+      this.shareBtn.classList.add(`active`);
+      this.urlToShare.focus();
+      this.urlToShare.select();
+    }
   }
 
   renderTitle(detailViewLink) {
@@ -161,10 +170,14 @@ class ProjectCard extends React.Component {
     let actionPanel = null;
 
     if (this.props.onDetailView) {
+      let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(this.props.title)}&url=${encodeURIComponent(window.location.href)}`;
       actionPanel = (
-        <div className="share">
-          <a className="btn" onClick={evt => this.handleShareBtnClick(evt)} ref={(btn) => { this.shareBtn = btn; }}></a>
-          <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} />
+        <div className="d-flex share">
+          <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mr-3"></a>
+          <div className="reveal-url">
+            <a className="btn" onClick={evt => this.handleShareBtnClick(evt)} ref={(btn) => { this.shareBtn = btn; }}></a>
+            <input creadOnly type="text" ref={(input) => { this.urlToShare = input; }} className="form-control px-2" />
+          </div>
         </div>
       );
     } else {
