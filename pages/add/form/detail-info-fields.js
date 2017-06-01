@@ -40,7 +40,7 @@ let Tags = React.createClass({
         if (key === ',') {
           // remove the comma and type an enter instead
           const { query, selectedIndex } = reactTags.state;
-          reactTags.state.query = query.substring(0, query.length-1);
+          reactTags.state.query = query.substring(0, query.length-1).trim();
           forceKey({ keyCode: 13, preventDefault: ()=>{} });
         }
       });
