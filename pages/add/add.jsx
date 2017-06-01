@@ -21,7 +21,7 @@ export default React.createClass({
       authError: false,
       serverError: false,
       submitting: false,
-      formInvalid: false
+      showFormInvalidNotice: false
     };
   },
   componentDidMount() {
@@ -58,7 +58,12 @@ export default React.createClass({
     let formValues = this.state.formValues;
 
     formValues[name] = value;
-    this.setState({ formValues });
+    this.setState({
+      formValues,
+      // hide notice once user starts typing again
+      // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
+      showFormInvalidNotice: false
+    });
   },
   handleFormSubmit(event) {
     event.preventDefault();
@@ -73,12 +78,12 @@ export default React.createClass({
         }
 
         if (!basicFormIsValid || !detailFormIsValid) {
-          this.setState({formInvalid: true});
+          this.setState({showFormInvalidNotice: true});
           return;
         }
 
         this.setState({
-          formInvalid: false,
+          showFormInvalidNotice: false,
           submitting: true
         }, () => this.postEntry(this.state.formValues));
       });
@@ -180,7 +185,7 @@ export default React.createClass({
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
                   { serverErrorMessage }
-                  {this.state.formInvalid && <span>Something isn't right. Check your info above.</span>}
+                  { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
                 </div>
               </div>
             </div>);
