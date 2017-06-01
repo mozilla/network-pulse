@@ -34,13 +34,6 @@ let Tags = React.createClass({
       const trueInput = reactTags.input.input;
       const forceKey = reactTags.handleKeyDown.bind(reactTags);
 
-      function fakeKeyEvt(code) {
-        return {
-          keyCode: code,
-          preventDefault: ()=>{}
-        };
-      }
-
       trueInput.addEventListener("keyup", evt => {
         // did we type a comma?
         const key = evt.key;
@@ -48,7 +41,7 @@ let Tags = React.createClass({
           // remove the comma and type an enter instead
           const { query, selectedIndex } = reactTags.state;
           reactTags.state.query = query.substring(0, query.length-1);
-          forceKey(fakeKeyEvt(13));
+          forceKey({ keyCode: 13, preventDefault: ()=>{} });
         }
       });
 
