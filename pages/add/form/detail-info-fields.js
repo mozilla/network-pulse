@@ -43,7 +43,7 @@ let Tags = React.createClass({
         if (key === ',') {
           // remove the comma and type an enter instead
           const { query, selectedIndex } = reactTags.state;
-          reactTags.state.query = query.substring(0, query.length-1).trim();
+          reactTags.state.query = query.substring(0, query.length-1);
           forceKey({ keyCode: 13, preventDefault: ()=>{} });
         }
       });
@@ -64,7 +64,7 @@ let Tags = React.createClass({
     this.updateTags(tags);
   },
   handleAddition: function(tag) {
-    const tags = [].concat(this.state.tags, tag);
+    const tags = [].concat(this.state.tags, tag.trim());
     this.updateTags(tags);
   },
   getFilteredSuggestions: function() {
