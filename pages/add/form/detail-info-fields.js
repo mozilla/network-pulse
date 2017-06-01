@@ -31,19 +31,27 @@ let Tags = React.createClass({
     // not an intuitive key when you're on a single-line input.
     try {
       const reactTags = this.reactTags;
-      const reactTagsInput = reactTags.input;
-      const trueInput = reactTagsInput.input;
+      const trueInput = reactTags.input.input;
+      const forceKey = reactTags.handleKeyDown.bind(reactTags);
+
+      function fakeKeyEvt(code) {
+        return {
+          keyCode: code,
+          preventDefault: ()=>{}
+        };
+      }
+
       trueInput.addEventListener("keyup", evt => {
-        const key = evt.key;
         // did we type a comma?
+        const key = evt.key;
         if (key === ',') {
-          // remove that and make it an enter, instead
-          const forceKey = reactTags.handleKeyDown.bind(reactTags);
-          const key = code => { keyCode: code, preventDefault: ()=>{} };
-          forceKey(key(20)); // "backspace"
-          forceKey(key(13)); // "enter"
+          // remove the comma and type an enter instead
+          const { query, selectedIndex } = reactTags.state;
+          reactTags.state.query = query.substring(0, query.length-1);
+          forceKey(fakeKeyEvt(13));
         }
       });
+
     } catch (e) {
       console.warning("Could not set up comma-delimiting for tags");
     }
