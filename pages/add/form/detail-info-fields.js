@@ -64,7 +64,8 @@ let Tags = React.createClass({
     this.updateTags(tags);
   },
   handleAddition: function(tag) {
-    const tags = [].concat(this.state.tags, tag.trim());
+    tag.name.trim();
+    const tags = [].concat(this.state.tags, tag);
     this.updateTags(tags);
   },
   getFilteredSuggestions: function() {
