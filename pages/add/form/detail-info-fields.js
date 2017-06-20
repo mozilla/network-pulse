@@ -88,6 +88,7 @@ let Tags = React.createClass({
               allowNew={true}
               handleDelete={(...args) => this.handleDelete(...args) }
               handleAddition={(...args) => this.handleAddition(...args) }
+              autofocus={false}
               classNames={{
                 root: `react-tags form-control d-flex flex-column flex-sm-row`,
                 selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
