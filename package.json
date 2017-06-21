@@ -22,6 +22,10 @@
     "copy:manifest": "shx cp manifest.json dist",
     "copy:assets": "shx cp favicon.png dist && shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
+    "optimize": "run-p optimize:**",
+    "optimize:svg": "find assets -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
+    "optimize:jpg": "find assets -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
+    "optimize:png": "find assets -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "watch:css": "chokidar 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' -c 'npm run build-client:scss'",
     "watch:html": "chokidar 'index.html' -c 'npm run build-client:static'",
     "watch:js": "chokidar 'main.jsx' 'routes.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'pages/**/*.js' 'webpack.config.js' -c 'npm run build-client:js'",
@@ -55,9 +59,12 @@
     "chokidar-cli": "^1.2.0",
     "eslint": "^3.11.1",
     "eslint-plugin-react": "^6.7.1",
+    "guetzli": "^1.0.1",
     "mofo-style": "^2.4.0",
+    "optipng-bin": "^4.0.0",
     "stylelint": "^7.6.0",
-    "stylelint-config-standard": "^16.0.0"
+    "stylelint-config-standard": "^16.0.0",
+    "svgo": "^0.7.2"
   },
   "dependencies": {
     "autoprefixer": "^6.5.3",
