@@ -67,34 +67,6 @@ button {
   }
 }
 
-#app {
-  &.splash-dismissed {
-    max-height: 100%;
-    overflow: auto;
-  }
-}
-
-#splash {
-  background: $bikeshed-magenta;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10000;
-  color: $white;
-  transition: opacity 0.5s;
-
-  &.dismissed {
-    opacity: 0;
-    z-index: -1;
-  }
-
-  .container {
-    padding-top: 33vh;
-  }
-}
-
 #main {
   padding-top: 30px;
   padding-bottom: 420px;
