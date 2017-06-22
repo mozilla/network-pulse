@@ -40,52 +40,12 @@ const Tag = (router) => {
 
 const App = React.createClass({
   pageTitle: `Mozilla Network Pulse`,
-  getInitialState() {
-    return {
-      suppressSplashScreen: (localstorage.getItem(`suppressSplashScreen`) === `true`)
-    };
-  },
-  getDefaultProps() {
-    return {
-      dismissTimeout: 3000
-    };
-  },
-  componentDidMount() {
-    if (this.refs.splash) {
-      setTimeout(this.dismissSplash, this.props.dismissTimeout);
-    }
-  },
-  dismissSplash() {
-    this.refs.splash.classList.add(`dismissed`);
-    document.querySelector(`#app`).classList.add(`splash-dismissed`);
-    this.refs.splash.addEventListener(`transitionend`, () => {
-      // wait for CSS animation to finish first before we
-      // set `suppressSplashScreen` in localStorage and
-      // this.state.suppressSplashScreen to true
-      localstorage.setItem(`suppressSplashScreen`, `true`);
-      this.setState({ suppressSplashScreen: true });
-    });
-  },
-  renderWelcomeSplash() {
-    if (this.state.suppressSplashScreen) {
-      return null;
-    }
-    return (
-      <div id="splash" ref="splash">
-        <div className="container">
-          <div><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></div>
-          <p className="mt-2">A stream of assets from peers across the Mozilla Network.</p>
-        </div>
-      </div>
-    );
-  },
   render() {
     return (
       <div>
         <Helmet titleTemplate={`%s - ${this.pageTitle}`}
                 defaultTitle={this.pageTitle}>
         </Helmet>
-        { this.renderWelcomeSplash() }
         <Navbar router={this.props.router}/>
         <div id="main" className="container">
           {this.props.children}
