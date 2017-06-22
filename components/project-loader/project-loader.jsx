@@ -117,7 +117,7 @@ export default React.createClass({
   },
   renderLearnMoreNotice() {
     if(!this.props.featured) return null;
-  
+
     return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
   },
   renderSearchResult() {
@@ -133,7 +133,7 @@ export default React.createClass({
   renderEntryCounter() {
     if (this.state.loadingData) return null;
     if (!this.props.issue && !this.props.tag) return null;
-    
+
     return <p>{this.state.totalMatched} result{this.state.totalMatched > 0 ? `s` : ``} found</p>;
   },
   render() {
