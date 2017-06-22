@@ -1,4 +1,6 @@
-# <img src="https://github.com/mozilla/network-pulse/blob/gh-pages/favicon.png?raw=true" /> Mozilla Pulse
+[![Travis Build Status](https://travis-ci.org/mozilla/network-pulse.svg?branch=master)](https://travis-ci.org/mozilla/network-pulse) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mozilla/network-pulse?svg=true)](https://ci.appveyor.com/project/mozillafoundation/network-pulse) [![Dependency Status](https://david-dm.org/mozilla/network-pulse.svg)](https://david-dm.org/mozilla/network-pulse)
+
+# Mozilla Pulse
 
 Pulse is a platform that helps the Mozilla Network capture and broadcast its projects and activities. [mozillapulse.org](https://www.mozillapulse.org/featured)
 
@@ -87,8 +89,3 @@ To manually deploy production site:
 3. In the "Deploy" tab, scroll down to the "Manual deploy" section.
 4. Deploy `master` branch. (see screencap below)
 <img width="1062" alt="screen shot 2017-03-02 at 10 20 51 am" src="https://cloud.githubusercontent.com/assets/2896608/23521344/68f4d750-ff33-11e6-9ff4-e669ffa938f7.png">
-
-
-
-
-
