@@ -5,7 +5,7 @@ import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 
-const NO_ENTRY_TITLE = "Entry unavailable";
+const NO_ENTRY_TITLE = `Entry unavailable`;
 const NO_ENTRY_BLOCK = (
   <div className="main-content text-center">
     <div className="content">

@@ -2,6 +2,7 @@
   margin-bottom: 20px;
   background: $white;
   overflow: hidden;
+
   /* optimize swipe with class and transform. */
   transition: left 0.25s, height 0.25s, padding 0.25s, margin 0.25s;
 
