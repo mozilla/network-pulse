@@ -23,7 +23,7 @@ class NavBar extends React.Component {
         <div className="container">
           <div className="row">
             <div className="logo col-md-4 mb-3 mb-sm-0">
-              <li className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" /></li>
+              <img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" />
             </div>
             <ul className="nav-link-list col-md-8 mb-0">
               <NavListItem><NavLink to="/featured" className="text-nav-link">Featured</NavLink></NavListItem>
