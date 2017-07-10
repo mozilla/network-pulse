@@ -31,7 +31,7 @@ class ProjectList extends React.Component {
 
   renderProjectCards() {
     return this.props.entries.map(project => {
-      return <ProjectCard key={project.id} {...Utility.processEntryData(project)} />;
+      return <ProjectCard key={project.id} onModerationMode={this.props.onModerationMode} {...Utility.processEntryData(project)} />;
     });
   }
 
@@ -68,9 +68,9 @@ ProjectList.propTypes = {
   entries: PropTypes.array.isRequired,
   loadingData: PropTypes.bool.isRequired,
   moreEntriesToFetch: PropTypes.bool.isRequired,
-  fetchData: PropTypes.func.isRequired
+  fetchData: PropTypes.func.isRequired,
 };
-ProjectCard.defaultProps = {
+ProjectList.defaultProps = {
   entries: []
 };
 

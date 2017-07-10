@@ -1,11 +1,94 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
+import Service from '../../js/service.js';
 import Utility from '../../js/utility.js';
+
+class ModerationPanel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      moderationState: this.props.moderationState
+    };
+  }
+
+  getModerationStates(input, callback) {
+    Service.moderationStates
+      .get()
+      .then((data) => {
+        let options = data.map((option) => {
+          return { value: option.id, label: option.name };
+        });
+
+        callback(null, {options});
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
+  }
+
+  getNonce(callback) {
+    Service.nonce()
+      .then((nonce) => {
+        callback(false, nonce);
+      })
+      .catch((reason) => {
+        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
+      });
+  }
+
+  handleModerationStateChange(selected) {
+    this.getNonce((error, nonce) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      let formattedNonce = {
+        nonce: nonce.nonce,
+        csrfmiddlewaretoken: nonce.csrf_token
+      };
+
+      Service.entry
+        .put.moderationState(this.props.id, selected.value, formattedNonce)
+        .then(() => {
+          this.setState({ moderationState: selected });
+        })
+        .catch(reason => {
+          this.setState({
+            serverError: true
+          });
+          console.error(reason);
+        });
+    });
+  }
+
+  render() {
+    return  <div className="moderation-panel p-3">
+              <Select.Async
+                name="form-field-name"
+                value={this.state.moderationState}
+                className="d-block text-left"
+                searchable={false}
+                loadOptions={(input, callback) => this.getModerationStates(input, callback)}
+                onChange={(selected) => this.handleModerationStateChange(selected)}
+                clearable={false}
+              />
+            </div>;
+  }
+}
+
+ModerationPanel.defaultProps = {
+  id: ``,
+  moderationState: ``
+};
+
 
 class Details extends React.Component {
   handleVisitBtnClick() {
@@ -21,7 +104,7 @@ class Details extends React.Component {
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
     let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={this.handleGetInvolvedLinkClick}>Get Involved</a>) : null;
 
-    return props.onDetailView ?
+    return props.onDetailView || props.onModerationMode ?
             (<div>
               { props.interest ? <p className="interest">{props.interest}</p> : null }
               { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
@@ -145,7 +228,7 @@ class ProjectCard extends React.Component {
   renderTitle(detailViewLink) {
     let title = this.props.title;
 
-    if (!this.props.onDetailView) {
+    if (!this.props.onDetailView && !this.props.onModerationMode) {
       title = <Link to={detailViewLink} onClick={this.handleTitleClick}>{title}</Link>;
     }
 
@@ -169,14 +252,14 @@ class ProjectCard extends React.Component {
   renderActionPanel(detailViewLink) {
     let actionPanel = null;
 
-    if (this.props.onDetailView) {
+    if (this.props.onDetailView || this.props.onModerationMode) {
       let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(this.props.title)}&url=${encodeURIComponent(window.location.href)}`;
       actionPanel = (
         <div className="d-flex share">
           <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mr-3"></a>
           <div className="reveal-url">
             <a className="btn" onClick={evt => this.handleShareBtnClick(evt)} ref={(btn) => { this.shareBtn = btn; }}></a>
-            <input creadOnly type="text" ref={(input) => { this.urlToShare = input; }} className="form-control px-2" />
+            <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} className="form-control px-2" />
           </div>
         </div>
       );
@@ -217,11 +300,11 @@ class ProjectCard extends React.Component {
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map(paragraph => <p>{paragraph}</p>);
+    return this.props.description.split(`\n`).map((paragraph, i) => <p key={i}>{paragraph}</p>);
   }
 
   renderIssuesAndTags() {
-    if (!this.props.onDetailView) return null;
+    if (!this.props.onDetailView && !this.props.onModerationMode) return null;
 
     let issues = this.props.issues.map(issue => {
       return <Link to={`/issues/${Utility.getUriPathFromIssueName(issue)}`} className="btn btn-xs btn-tag" key={issue}>{issue}</Link>;
@@ -234,6 +317,12 @@ class ProjectCard extends React.Component {
     return <div>{issues}{tags}</div>;
   }
 
+  renderModerationPanel() {
+    if (!this.props.onModerationMode) return null;
+
+    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} />;
+  }
+
   render() {
     let wrapperClassnames = classNames({
       "col-md-6": !this.props.onDetailView,
@@ -244,6 +333,7 @@ class ProjectCard extends React.Component {
     let classnames = classNames({
       "project-card": true,
       "detail-view": this.props.onDetailView,
+      "moderation-mode": this.props.onModerationMode,
       "bookmarked": this.state.bookmarked
     });
 
@@ -252,6 +342,7 @@ class ProjectCard extends React.Component {
     return (
       <div className={wrapperClassnames}>
         <div className={classnames}>
+          { this.renderModerationPanel() }
           <div className="main-content">
             {this.renderThumbnail(detailViewLink)}
             <div className="content m-3">
@@ -294,7 +385,8 @@ ProjectCard.propTypes = {
 };
 
 ProjectCard.defaultProps = {
-  onDetailView: false
+  onDetailView: false,
+  moderationState: `` // id of the moderation
 };
 
 export default ProjectCard;

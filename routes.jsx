@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import localstorage from './js/localstorage.js';
+import user from './js/app-user';
 import pageSettings from './js/app-page-settings';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
@@ -37,6 +38,35 @@ const Tag = (router) => {
           <ProjectLoader tag={router.params.tag} />
         </div>;
 };
+
+
+class Moderation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    user.addListener(this);
+    user.verify(this.props.router.location);
+  }
+
+  componentWillUnmount() {
+    user.removeListener(this);
+  }
+
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` ) {
+      this.setState({ user });
+    }
+  }
+
+  render() {
+    if (!user.moderator) return <NotFound />;
+
+    return <Search moderation={true} {...this.props} />;
+  }
+}
 
 const App = React.createClass({
   pageTitle: `Mozilla Network Pulse`,
@@ -83,6 +113,7 @@ module.exports = (
       <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
+    <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

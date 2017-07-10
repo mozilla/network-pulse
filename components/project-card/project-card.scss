@@ -14,7 +14,7 @@
     }
   }
 
-  &:not(.detail-view) {
+  &:not(.detail-view):not(.moderation-mode) {
     .main-content {
       position: relative;
       height: 350px;
@@ -149,6 +149,10 @@
     75% {
       transform: scale(1);
     }
+  }
+
+  .moderation-panel {
+    background: $gray-lightest;
   }
 }
 

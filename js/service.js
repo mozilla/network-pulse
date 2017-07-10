@@ -161,6 +161,49 @@ function postEntry(entryData) {
   });
 }
 
+
+/**
+ * Make an PUT XHR request and return a promise to resolve it.
+ * @param  {Object} params A key-value object to be posted
+ * @returns {Promise} A promise to resolve an XHR request
+ */
+function updateEntry(endpointRoute, nonce) {
+  let request = new XMLHttpRequest();
+
+  return new Promise((resolve, reject) => {
+    request.open(`PUT`, endpointRoute, true);
+
+    request.withCredentials = true;
+    request.onload = (event) => {
+      let result = event.currentTarget;
+
+      if (result.status >= 200 && result.status < 400) {
+        let data;
+
+        try {
+          data = JSON.parse(result.response);
+        } catch (error) {
+          // this error can only have come from JSON parsing
+          reject(error);
+        }
+
+        resolve(data);
+      } else {
+        reject(`XHR request failed, status ${result.status}.`);
+      }
+    };
+
+    request.onerror = () => {
+      reject(`XHR request failed.`);
+    };
+
+    request.setRequestHeader(`X-CSRFToken`, nonce.csrfmiddlewaretoken);
+    request.setRequestHeader(`Content-Type`,`application/json`);
+    request.send();
+  });
+}
+
+
 export default {
   entries: {
     get: function(params,token) {
@@ -177,6 +220,16 @@ export default {
   entry: {
     get: function(entryId) {
       return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
+    },
+    put: {
+      moderationState: function(entryId, stateId, nonce) {
+        return updateEntry(`${pulseAPI}/entries/${entryId}/moderate/${stateId}`, nonce);
+      }
+    }
+  },
+  moderationStates: {
+    get: function() {
+      return getDataFromURL(`${pulseAPI}/entries/moderation-states/`);
     }
   },
   issues: {
