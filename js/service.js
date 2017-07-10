@@ -137,6 +137,8 @@ function updateEntry(requestType = ``, endpointRoute, entryData) {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
+        if (result.response.length === 0) resolve();
+
         let data;
 
         try {

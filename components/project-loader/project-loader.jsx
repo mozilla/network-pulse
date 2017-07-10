@@ -128,7 +128,7 @@ export default React.createClass({
   },
   renderEntryCounter() {
     if (this.state.loadingData) return null;
-    if (!this.props.search && !this.props.issue && !this.props.tag) return null;
+    if (!this.props.search && !this.props.moderationState && !this.props.issue && !this.props.tag) return null;
 
     let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 0 ? `s` : ``} found`;
     let searchKeyword = this.props.search;

@@ -8,35 +8,33 @@ import ReactGA from 'react-ga';
 import Service from '../../js/service.js';
 import ProjectLoader from '../../components/project-loader/project-loader.jsx';
 
+const DEFALUT_MODERATION_FILTER = `Pending`;
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      keywordSearched: ``,
-      moderationState: { value: ``, label: `` } // in the format <Select> looks for
-    };
+    this.state = this.getSearchCriteria(props);
   }
 
   componentWillReceiveProps(nextProps) {
     // when window.history.back() or windows.history.forward() is triggered
     // (e.g., clicking on browser's back / forward button)
     // we want to make sure search result gets updated accordingly
-    this.setState({
-      keywordSearched: nextProps.location.query.keyword,
-      moderationState: { value: ``, label: nextProps.location.query.moderationstate }
-    });
+    this.setState(this.getSearchCriteria(nextProps));
   }
 
   componentDidMount() {
-    this.setState({
-      keywordSearched: this.props.location.query.keyword,
-      moderationState: { value: ``, label: this.props.location.query.moderationstate }
-    });
     // The focus() function of <input /> isn't exposed by <DebounceInput />
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
+  }
+
+  getSearchCriteria(theProps) {
+    return {
+      keywordSearched: theProps.location.query.keyword,
+      moderationState: { value: ``, label: theProps.location.query.moderationstate || DEFALUT_MODERATION_FILTER }
+    };
   }
 
   updateBrowserHistory() {
@@ -83,23 +81,33 @@ class Search extends React.Component {
   }
 
   renderSearchBar() {
-    return <div className={classNames({activated: true, 'search-bar': true, 'mb-2': this.props.moderation})}>
-            <DebounceInput id="search-box"
-                            value={this.state.keywordSearched}
-                            debounceTimeout={300}
-                            type="search"
-                            onChange={(event) => this.handleInputChange(event)}
-                            placeholder="Search keywords, people, tags..." />
-            <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
+    let classnames = classNames({activated: true, 'search-bar': true, 'w-100': true, 'mb-0': true});
+    let label;
+
+    if (this.props.moderation) {
+      label = <div className="mr-2">Keywords:</div>;
+    }
+
+    return <div className="d-flex align-items-center">
+            {label}
+            <div className={classnames}>
+              <DebounceInput id="search-box"
+                              value={this.state.keywordSearched}
+                              debounceTimeout={300}
+                              type="search"
+                              onChange={(event) => this.handleInputChange(event)}
+                              placeholder="Search keywords, people, tags..." />
+              <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
+            </div>
           </div>;
   }
 
   getModerationStates(input, callback) {
     Service.moderationStates
       .get()
-      .then((data) => {
-        let options = data.map((option) => {
-          return { value: option.id, label: option.name };
+      .then((mStates) => {
+        let options = mStates.map((mState) => {
+          return { value: mState.id, label: mState.name };
         });
 
         callback(null, {options});
@@ -117,13 +125,15 @@ class Search extends React.Component {
 
   renderStateFilter() {
     return <div className="d-flex align-items-center mb-3">
-              <div>Filter by moderation state: </div>
+              <div className="mr-2">Filter by moderation state:</div>
               <Select.Async
                 name="form-field-name"
                 value={this.state.moderationState}
-                className="state-filter d-inline-block text-left ml-2"
+                className="state-filter d-inline-block text-left"
                 searchable={false}
-                placeholder="Filter by moderation state"
+                clearable={false}
+                cache={false}
+                placeholder="Moderation state"
                 loadOptions={(input, callback) => this.getModerationStates(input, callback)}
                 onChange={(selected) => this.handleFilterChange(selected)}
               />
@@ -132,14 +142,28 @@ class Search extends React.Component {
 
   renderSearchControls() {
     if (this.props.moderation) {
-      return <div className="search-control mb-3">
+      return <div className="moderation-search-controls mb-4 pb-4">
               <h2>Moderation</h2>
-              { this.renderSearchBar() }
-              { this.renderStateFilter() }
+              <div>
+                { this.renderStateFilter() }
+                { this.renderSearchBar() }
+              </div>
              </div>;
     }
 
     return <div>{ this.renderSearchBar() }</div>;
+  }
+
+  renderProjects() {
+    if (!this.state.keywordSearched && !this.props.moderation) return null;
+
+    if (this.props.moderation) {
+      return <ProjectLoader search={this.state.keywordSearched} moderationState={this.state.moderationState} />;
+    }
+
+    if (this.state.keywordSearched) {
+      return <ProjectLoader search={this.state.keywordSearched} />;
+    }
   }
 
   render() {
@@ -147,7 +171,7 @@ class Search extends React.Component {
       <div className="search-page">
         <Helmet><title>{this.state.keywordSearched}</title></Helmet>
         { this.renderSearchControls() }
-        { this.state.keywordSearched ? <ProjectLoader search={this.state.keywordSearched} moderationState={this.state.moderationState} /> : null }
+        { this.renderProjects() }
       </div>
     );
   }

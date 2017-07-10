@@ -70,7 +70,7 @@ class ModerationPanel extends React.Component {
   }
 
   render() {
-    return  <div className="moderation-panel p-3">
+    return <div className="moderation-panel p-3">
               <Select.Async
                 name="form-field-name"
                 value={this.state.moderationState}

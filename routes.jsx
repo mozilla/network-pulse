@@ -13,6 +13,7 @@ import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
+import Moderation from './pages/moderation.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
@@ -38,35 +39,6 @@ const Tag = (router) => {
           <ProjectLoader tag={router.params.tag} />
         </div>;
 };
-
-
-class Moderation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    user.addListener(this);
-    user.verify(this.props.router.location);
-  }
-
-  componentWillUnmount() {
-    user.removeListener(this);
-  }
-
-  updateUser(event) {
-    // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified` ) {
-      this.setState({ user });
-    }
-  }
-
-  render() {
-    if (!user.moderator) return <NotFound />;
-
-    return <Search moderation={true} {...this.props} />;
-  }
-}
 
 const App = React.createClass({
   pageTitle: `Mozilla Network Pulse`,
