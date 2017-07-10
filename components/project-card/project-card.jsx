@@ -300,7 +300,7 @@ class ProjectCard extends React.Component {
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map((paragraph, i) => <p key={i}>{paragraph}</p>);
+    return this.props.description.split(`\n`).map((paragraph) => <p key={paragraph}>{paragraph}</p>);
   }
 
   renderIssuesAndTags() {
@@ -386,7 +386,7 @@ ProjectCard.propTypes = {
 
 ProjectCard.defaultProps = {
   onDetailView: false,
-  moderationState: `` // id of the moderation
+  moderationState: undefined // id of the moderation
 };
 
 export default ProjectCard;

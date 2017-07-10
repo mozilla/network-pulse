@@ -56,6 +56,8 @@ export default React.createClass({
     }
 
     if (combinedParams.moderationState) {
+      // "moderationstate" is the query param the API understands (case sensitive)
+      // and its value should just be the name of the moderation state
       combinedParams.moderationstate = combinedParams.moderationState.label;
       delete combinedParams.moderationState;
     }
