@@ -52,7 +52,7 @@ The port number you are using. e.g., `PORT=3000`
 
 Default: `https://network-pulse-api-staging.herokuapp.com/`
 
-URL to your local Pulse API instance (if you have one set up). e.g., `PULSE_API=http://test.example.com:8000`
+URL to your local Pulse API instance (if you have one set up). e.g., `PULSE_API=http://test.example.com:8000/api/pulse`
 
 To set up a local instance of Pulse API, follow instructions on https://github.com/mozilla/network-pulse-api/blob/master/README.md.
 

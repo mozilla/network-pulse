@@ -121,21 +121,24 @@ function callURL(route) {
 }
 
 /**
- * Make an POST XHR request and return a promise to resolve it.
+ * Make a POST or PUT XHR request and return a promise to resolve it.
  * @param  {Object} params A key-value object to be posted
  * @returns {Promise} A promise to resolve an XHR request
  */
-function postEntry(entryData) {
+function updateEntry(requestType = ``, endpointRoute, entryData) {
+  let dataToSend = requestType === `POST` ? JSON.stringify(entryData) : ``;
   let request = new XMLHttpRequest();
 
   return new Promise((resolve, reject) => {
-    request.open(`POST`, `${pulseAPI}/entries/`, true);
+    request.open(requestType, endpointRoute, true);
 
     request.withCredentials = true;
     request.onload = (event) => {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
+        if (result.response.length === 0) resolve();
+
         let data;
 
         try {
@@ -157,9 +160,10 @@ function postEntry(entryData) {
 
     request.setRequestHeader(`X-CSRFToken`, entryData.csrfmiddlewaretoken);
     request.setRequestHeader(`Content-Type`,`application/json`);
-    request.send(JSON.stringify(entryData));
+    request.send(dataToSend);
   });
 }
+
 
 export default {
   entries: {
@@ -171,12 +175,22 @@ export default {
       return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
-      return postEntry(entryData);
+      return updateEntry(`POST`,`${pulseAPI}/entries/`, entryData);
     }
   },
   entry: {
     get: function(entryId) {
       return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
+    },
+    put: {
+      moderationState: function(entryId, stateId, nonce) {
+        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`, nonce);
+      }
+    }
+  },
+  moderationStates: {
+    get: function() {
+      return getDataFromURL(`${pulseAPI}/entries/moderation-states/`);
     }
   },
   issues: {

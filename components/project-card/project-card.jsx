@@ -4,34 +4,10 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
+import Details from '../details.jsx';
+import ModerationPanel from '../moderation-panel.jsx';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
 import Utility from '../../js/utility.js';
-
-class Details extends React.Component {
-  handleVisitBtnClick() {
-    ReactGA.event(this.props.createGaEventConfig(`Visit button`, `Clicked`, `beacon`));
-  }
-
-  handleGetInvolvedLinkClick() {
-    ReactGA.event(this.props.createGaEventConfig(`Get involved`, `Clicked`, `beacon`));
-  }
-
-  render() {
-    let props = this.props;
-    let getInvolvedText = props.getInvolved ? props.getInvolved : null;
-    let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={this.handleGetInvolvedLinkClick}>Get Involved</a>) : null;
-
-    return props.onDetailView ?
-            (<div>
-              { props.interest ? <p className="interest">{props.interest}</p> : null }
-              { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
-              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info mb-3" onClick={this.handleVisitBtnClick}>Visit</a> : null }
-            </div>) : null;
-  }
-}
-Details.propTypes = {
-  createGaEventConfig: PropTypes.func.isRequired
-};
 
 class ProjectCard extends React.Component {
   constructor(props) {
@@ -145,7 +121,7 @@ class ProjectCard extends React.Component {
   renderTitle(detailViewLink) {
     let title = this.props.title;
 
-    if (!this.props.onDetailView) {
+    if (!this.props.onDetailView && !this.props.onModerationMode) {
       title = <Link to={detailViewLink} onClick={this.handleTitleClick}>{title}</Link>;
     }
 
@@ -153,15 +129,18 @@ class ProjectCard extends React.Component {
   }
 
   renderThumbnail(detailViewLink) {
-    let thumbnailSource = this.props.thumbnail;
+    if (!this.props.thumbnail) return null;
 
-    if (!thumbnailSource) return null;
+    let classnames = `thumbnail`;
+    let thumbnail = <div className="img-container"><img src={this.props.thumbnail} /></div>;
+
+    if (this.props.onDetailView) {
+      return <div className={classnames}>{thumbnail}</div>;
+    }
 
     return (
-      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
-        <div className="img-container">
-          <img src={thumbnailSource} />
-        </div>
+      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className={classnames}>
+        {thumbnail}
       </Link>
     );
   }
@@ -169,14 +148,14 @@ class ProjectCard extends React.Component {
   renderActionPanel(detailViewLink) {
     let actionPanel = null;
 
-    if (this.props.onDetailView) {
+    if (this.props.onDetailView || this.props.onModerationMode) {
       let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(this.props.title)}&url=${encodeURIComponent(window.location.href)}`;
       actionPanel = (
         <div className="d-flex share">
           <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mr-3"></a>
           <div className="reveal-url">
             <a className="btn" onClick={evt => this.handleShareBtnClick(evt)} ref={(btn) => { this.shareBtn = btn; }}></a>
-            <input creadOnly type="text" ref={(input) => { this.urlToShare = input; }} className="form-control px-2" />
+            <input readOnly type="text" ref={(input) => { this.urlToShare = input; }} className="form-control px-2" />
           </div>
         </div>
       );
@@ -217,11 +196,15 @@ class ProjectCard extends React.Component {
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map(paragraph => <p>{paragraph}</p>);
+    return this.props.description.split(`\n`).map((paragraph) => {
+      if (!paragraph) return null;
+
+      return <p key={paragraph}>{paragraph}</p>;
+    });
   }
 
   renderIssuesAndTags() {
-    if (!this.props.onDetailView) return null;
+    if (!this.props.onDetailView && !this.props.onModerationMode) return null;
 
     let issues = this.props.issues.map(issue => {
       return <Link to={`/issues/${Utility.getUriPathFromIssueName(issue)}`} className="btn btn-xs btn-tag" key={issue}>{issue}</Link>;
@@ -234,6 +217,12 @@ class ProjectCard extends React.Component {
     return <div>{issues}{tags}</div>;
   }
 
+  renderModerationPanel() {
+    if (!this.props.onModerationMode) return null;
+
+    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} />;
+  }
+
   render() {
     let wrapperClassnames = classNames({
       "col-md-6": !this.props.onDetailView,
@@ -244,6 +233,7 @@ class ProjectCard extends React.Component {
     let classnames = classNames({
       "project-card": true,
       "detail-view": this.props.onDetailView,
+      "moderation-mode": this.props.onModerationMode,
       "bookmarked": this.state.bookmarked
     });
 
@@ -252,6 +242,7 @@ class ProjectCard extends React.Component {
     return (
       <div className={wrapperClassnames}>
         <div className={classnames}>
+          { this.renderModerationPanel() }
           <div className="main-content">
             {this.renderThumbnail(detailViewLink)}
             <div className="content m-3">
@@ -294,7 +285,8 @@ ProjectCard.propTypes = {
 };
 
 ProjectCard.defaultProps = {
-  onDetailView: false
+  onDetailView: false,
+  moderationState: undefined // id of the moderation
 };
 
 export default ProjectCard;

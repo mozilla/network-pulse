@@ -8,13 +8,9 @@
 
   &.detail-view {
     margin: 0 auto;
-
-    h2 {
-      color: $body-color;
-    }
   }
 
-  &:not(.detail-view) {
+  &:not(.detail-view):not(.moderation-mode) {
     .main-content {
       position: relative;
       height: 350px;
@@ -31,6 +27,7 @@
   }
 
   h2 {
+    color: $body-color;
     font-size: 30px;
     line-height: 1;
     margin: 0 0 10px;
@@ -149,6 +146,10 @@
     75% {
       transform: scale(1);
     }
+  }
+
+  .moderation-panel {
+    background: $gray-lightest;
   }
 }
 

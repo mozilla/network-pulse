@@ -1,3 +1,7 @@
+.moderation-search-controls {
+  border-bottom: 3px solid $gray-lighter;
+}
+
 .search-bar {
   position: relative;
 
@@ -38,5 +42,18 @@
     background: $white;
     border: 0;
     box-sizing: border-box;
+  }
+}
+
+.state-filter {
+  width: 100%;
+
+  @media screen and (min-width: $bp-md) {
+    width: 130px;
+  }
+
+  .Select-control {
+    border: 0;
+    border-radius: 0;
   }
 }

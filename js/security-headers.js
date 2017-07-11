@@ -1,3 +1,4 @@
+import url from 'url';
 import env from "../config/env.generated.json";
 
 export default {
@@ -28,7 +29,7 @@ export default {
     ],
     connectSrc: [
       `'self'`,
-      env.PULSE_API || `https://network-pulse-api-staging.herokuapp.com/`
+      url.parse(env.PULSE_API).host || `https://network-pulse-api-staging.herokuapp.com/`
     ],
     childSrc: [
       `'none'`

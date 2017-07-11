@@ -39,7 +39,7 @@ const Login = {
     // verify user's logged in status with Pulse API
     Service.userstatus()
       .then(response => {
-        setUserData(false, response.username);
+        setUserData(false, response.username, response.moderator);
       })
       .catch(reason => {
         console.error(reason);
@@ -83,6 +83,7 @@ class User {
   resetUser() {
     this.username = undefined;
     this.loggedin = false;
+    this.moderator = false;
     this.failedLogin = false;
     // We do not touch the "attemptingLogin" value in localStorage.
     // It is up to the login/verify/logout/update functions to
@@ -119,8 +120,8 @@ class User {
   }
 
   verify(location) {
-    Login.isLoggedIn(location, (error, username) => {
-      this.update(error, username);
+    Login.isLoggedIn(location, (error, username, moderator) => {
+      this.update(error, username, moderator);
     });
   }
 
@@ -135,7 +136,7 @@ class User {
     });
   }
 
-  update(error, username=false) {
+  update(error, username=false, moderator=false) {
     if (error) {
       console.log(`login error:`, error);
     }
@@ -150,6 +151,7 @@ class User {
 
     // bind the user values
     this.loggedin = !!username;
+    this.moderator = !!moderator;
     this.username = username;
 
     // notify listeners that this user logged in state has been verified

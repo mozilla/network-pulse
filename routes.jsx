@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
-import localstorage from './js/localstorage.js';
 import pageSettings from './js/app-page-settings';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
@@ -12,6 +11,7 @@ import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
+import Moderation from './pages/moderation.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
@@ -83,6 +83,7 @@ module.exports = (
       <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
+    <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

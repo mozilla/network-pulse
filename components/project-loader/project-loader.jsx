@@ -37,6 +37,7 @@ export default React.createClass({
     let combinedParams = Object.assign({},params);
 
     if (combinedParams.ids) {
+      // The `ids` query param is only used on the bookmarks(favs) page
       // We want to display bookmarked projects by the time they were bookmarked.
       // There are a few steps to make this happen:
       // 1) first we fetch projects from Pulse API in a batch of size PROJECT_BATCH_SIZE.
@@ -52,6 +53,13 @@ export default React.createClass({
       combinedParams.ids = idsInCurrentBatch.join(`,`);
 
       return Object.assign(combinedParams, { page: 1 });
+    }
+
+    if (combinedParams.moderationState) {
+      // "moderationstate" is the query param the API understands (case sensitive)
+      // and its value should just be the name of the moderation state
+      combinedParams.moderationstate = combinedParams.moderationState.label;
+      delete combinedParams.moderationState;
     }
 
     return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
@@ -120,34 +128,27 @@ export default React.createClass({
 
     return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
   },
-  renderSearchResult() {
-    if (!this.props.search || this.state.loadingData) return null;
-
-    let total = this.state.totalMatched,
-      plural = (total === 0 || total > 1), // because "0 results"
-      term = this.props.search,
-      searchResultNotice = `${total} result${plural ? `s` : ``} found for ‘${term}’`;
-
-    return <p>{searchResultNotice}</p>;
-  },
   renderEntryCounter() {
     if (this.state.loadingData) return null;
-    if (!this.props.issue && !this.props.tag) return null;
+    if (!this.props.search && !this.props.moderationState && !this.props.issue && !this.props.tag) return null;
 
-    return <p>{this.state.totalMatched} result{this.state.totalMatched > 0 ? `s` : ``} found</p>;
+    let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 0 ? `s` : ``} found`;
+    let searchKeyword = this.props.search;
+
+    return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
   },
   render() {
     return (
       <div>
         { this.renderTagHeader() }
         { this.renderLearnMoreNotice()}
-        { this.renderSearchResult() }
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
                     fetchData={this.fetchData}
-                    restoreScrollPosition={pageSettings.shouldRestore} />
+                    restoreScrollPosition={pageSettings.shouldRestore}
+                    onModerationMode={!!this.props.moderationState} />
       </div>
     );
   }
