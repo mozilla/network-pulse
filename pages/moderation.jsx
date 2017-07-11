@@ -6,6 +6,9 @@ import user from '../js/app-user';
 class Moderation extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user
+    };
   }
 
   componentDidMount() {

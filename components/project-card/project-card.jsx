@@ -236,15 +236,18 @@ class ProjectCard extends React.Component {
   }
 
   renderThumbnail(detailViewLink) {
-    let thumbnailSource = this.props.thumbnail;
+    if (!this.props.thumbnail) return null;
 
-    if (!thumbnailSource) return null;
+    let classnames = `thumbnail`;
+    let thumbnail = <div className="img-container"><img src={this.props.thumbnail} /></div>;
+
+    if (this.props.onDetailView) {
+      return <div className={classnames}>{thumbnail}</div>;
+    }
 
     return (
-      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
-        <div className="img-container">
-          <img src={thumbnailSource} />
-        </div>
+      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className={classnames}>
+        {thumbnail}
       </Link>
     );
   }

@@ -12,6 +12,27 @@ class NavListItem extends React.Component {
 }
 
 class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { user };
+  }
+
+  componentDidMount() {
+    user.addListener(this);
+    user.verify();
+  }
+
+  componentWillUnmount() {
+    user.removeListener(this);
+  }
+
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` ) {
+      this.setState({ user });
+    }
+  }
+
   renderModeratorLink() {
     if (!user.moderator) return null;
 

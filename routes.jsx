@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
-import localstorage from './js/localstorage.js';
-import user from './js/app-user';
 import pageSettings from './js/app-page-settings';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
