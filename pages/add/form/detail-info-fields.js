@@ -3,6 +3,8 @@ import ReactTags from 'react-tag-autocomplete';
 import validator from './validator';
 import Service from '../../../js/service';
 
+const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
+
 let Tags = React.createClass({
   getInitialState() {
     return {
@@ -51,15 +53,13 @@ let Tags = React.createClass({
     }).filter(suggestion => !!suggestion);
   },
   render: function() {
-    let delimiters = [9,13,32,188]; // keycodes for tab,enter,space,comma
-
     return <ReactTags
               ref={e => this.reactTags = e}
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
               autofocus={false}
-              delimiters={delimiters}
+              delimiters={DELIMITERS}
               handleDelete={(...args) => this.handleDelete(...args) }
               handleAddition={(...args) => this.handleAddition(...args) }
               classNames={{
