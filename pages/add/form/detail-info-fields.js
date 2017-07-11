@@ -3,6 +3,8 @@ import ReactTags from 'react-tag-autocomplete';
 import validator from './validator';
 import Service from '../../../js/service';
 
+const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
+
 let Tags = React.createClass({
   getInitialState() {
     return {
@@ -22,35 +24,6 @@ let Tags = React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
-
-      this.shimTagDelimiter();
-  },
-  shimTagDelimiter: function() {
-    // The ReactTags component for some reason does not
-    // do tag seperation on anything except "enter" which is
-    // not an intuitive key when you're on a single-line input.
-    // We are adding a hack here to force delimiting on comma.
-    // Ideally, this hack can be taken out again after
-    // https://github.com/i-like-robots/react-tags/issues/76 is addressed.
-    try {
-      const reactTags = this.reactTags;
-      const trueInput = reactTags.input.input;
-      const forceKey = reactTags.handleKeyDown.bind(reactTags);
-
-      trueInput.addEventListener("keyup", evt => {
-        // did we type a comma?
-        const key = evt.key;
-        if (key === ',') {
-          // remove the comma and type an enter instead
-          const { query, selectedIndex } = reactTags.state;
-          reactTags.state.query = query.substring(0, query.length-1);
-          forceKey({ keyCode: 13, preventDefault: ()=>{} });
-        }
-      });
-
-    } catch (e) {
-      console.warning("Could not set up comma-delimiting for tags");
-    }
   },
   updateTags: function(tags) {
     this.setState({ tags }, () => {
@@ -80,15 +53,15 @@ let Tags = React.createClass({
     }).filter(suggestion => !!suggestion);
   },
   render: function() {
-
     return <ReactTags
               ref={e => this.reactTags = e}
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
+              autofocus={false}
+              delimiters={DELIMITERS}
               handleDelete={(...args) => this.handleDelete(...args) }
               handleAddition={(...args) => this.handleAddition(...args) }
-              autofocus={false}
               classNames={{
                 root: `react-tags form-control d-flex flex-column flex-sm-row`,
                 selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
