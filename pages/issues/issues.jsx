@@ -20,7 +20,7 @@ class Issues extends React.Component {
   getIssues() {
     Service.issues
       .get()
-      .then((issues) => {
+      .then(issues => {
         // sort issues alphabetically by their name
         issues.sort((a,b) => {
           if (a.name > b.name) return 1;
@@ -50,9 +50,7 @@ class Issues extends React.Component {
         <IssueSelector />
         <p className="intro">Mozilla has identified five issues that we believe must be tackled in the current era, to build the open internet we want. Tap above to browse by issue.</p>
         <div className="row">
-          {
-            this.state.issues.map(issue => { return this.renderIssueSection(issue); })
-          }
+          { this.state.issues.map(issue => this.renderIssueSection(issue)) }
         </div>
       </div>
     );
