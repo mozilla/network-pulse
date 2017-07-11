@@ -6,7 +6,7 @@ import pageSettings from './js/app-page-settings';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';
-import Issues from './pages/issues.jsx';
+import Issues from './pages/issues/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
 import Add from './pages/add/add.jsx';

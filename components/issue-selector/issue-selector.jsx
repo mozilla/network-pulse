@@ -1,15 +1,27 @@
 import React from 'react';
 import NavLink from '../nav-link/nav-link.jsx';
+import Utility from '../../js/utility';
+
+const ISSUES = [
+  `Decentralization`,
+  `Digital Inclusion`,
+  `Online Privacy & Security`,
+  `Open Innovation`,
+  `Web Literacy`,
+];
 
 class IssueSelector extends React.Component {
+  renderIssueLinks() {
+    return ISSUES.map((issueName) => {
+      let linkTo = `/issues/${Utility.getUriPathFromIssueName(issueName)}`;
+      return <NavLink className="btn" to={linkTo} key={issueName}>{issueName}</NavLink>;
+    });
+  }
+
   render() {
     return (
       <div className="issue-selector">
-        <NavLink className="btn" to="/issues/online-privacy-and-security">Online Privacy &amp; Security</NavLink>
-        <NavLink className="btn" to="/issues/open-innovation">Open Innovation</NavLink>
-        <NavLink className="btn" to="/issues/decentralization">Decentralization</NavLink>
-        <NavLink className="btn" to="/issues/web-literacy">Web Literacy</NavLink>
-        <NavLink className="btn" to="/issues/digital-inclusion">Digital Inclusion</NavLink>
+        { this.renderIssueLinks() }
       </div>
     );
   }
