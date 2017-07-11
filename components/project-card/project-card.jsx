@@ -1,120 +1,13 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router';
-import Select from 'react-select';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
+import Details from '../details.jsx';
+import ModerationPanel from '../moderation-panel.jsx';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
-import Service from '../../js/service.js';
 import Utility from '../../js/utility.js';
-
-class ModerationPanel extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      moderationState: this.props.moderationState
-    };
-  }
-
-  getModerationStates(input, callback) {
-    Service.moderationStates
-      .get()
-      .then((data) => {
-        let options = data.map((option) => {
-          return { value: option.id, label: option.name };
-        });
-
-        callback(null, {options});
-      })
-      .catch((reason) => {
-        console.error(reason);
-      });
-  }
-
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
-      })
-      .catch((reason) => {
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
-      });
-  }
-
-  handleModerationStateChange(selected) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      let formattedNonce = {
-        nonce: nonce.nonce,
-        csrfmiddlewaretoken: nonce.csrf_token
-      };
-
-      Service.entry
-        .put.moderationState(this.props.id, selected.value, formattedNonce)
-        .then(() => {
-          this.setState({ moderationState: selected });
-        })
-        .catch(reason => {
-          this.setState({
-            serverError: true
-          });
-          console.error(reason);
-        });
-    });
-  }
-
-  render() {
-    return <div className="moderation-panel p-3">
-              <Select.Async
-                name="form-field-name"
-                value={this.state.moderationState}
-                className="d-block text-left"
-                searchable={false}
-                loadOptions={(input, callback) => this.getModerationStates(input, callback)}
-                onChange={(selected) => this.handleModerationStateChange(selected)}
-                clearable={false}
-              />
-            </div>;
-  }
-}
-
-ModerationPanel.defaultProps = {
-  id: ``,
-  moderationState: ``
-};
-
-
-class Details extends React.Component {
-  handleVisitBtnClick() {
-    ReactGA.event(this.props.createGaEventConfig(`Visit button`, `Clicked`, `beacon`));
-  }
-
-  handleGetInvolvedLinkClick() {
-    ReactGA.event(this.props.createGaEventConfig(`Get involved`, `Clicked`, `beacon`));
-  }
-
-  render() {
-    let props = this.props;
-    let getInvolvedText = props.getInvolved ? props.getInvolved : null;
-    let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={this.handleGetInvolvedLinkClick}>Get Involved</a>) : null;
-
-    return props.onDetailView || props.onModerationMode ?
-            (<div>
-              { props.interest ? <p className="interest">{props.interest}</p> : null }
-              { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
-              { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info mb-3" onClick={this.handleVisitBtnClick}>Visit</a> : null }
-            </div>) : null;
-  }
-}
-Details.propTypes = {
-  createGaEventConfig: PropTypes.func.isRequired
-};
 
 class ProjectCard extends React.Component {
   constructor(props) {
@@ -303,7 +196,11 @@ class ProjectCard extends React.Component {
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map((paragraph) => <p key={paragraph}>{paragraph}</p>);
+    return this.props.description.split(`\n`).map((paragraph) => {
+      if (!paragraph) return null;
+
+      return <p key={paragraph}>{paragraph}</p>;
+    });
   }
 
   renderIssuesAndTags() {
