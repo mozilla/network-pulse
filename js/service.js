@@ -232,5 +232,4 @@ let Service = {
   // ... and more Pulse API endpoints to come
 };
 
-
 export default Service;
