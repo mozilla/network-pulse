@@ -126,8 +126,7 @@ class User {
   }
 
   logout() {
-    let justLoggedOut = true;
-    this.resetUser(justLoggedOut);
+    this.resetUser(true);
 
     // notify listeners that this user has been logged out
     this.notifyListeners(`logged out`);
