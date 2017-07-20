@@ -165,13 +165,16 @@ function updateEntry(requestType = ``, endpointRoute, entryData) {
 }
 
 
-export default {
+let Service = {
   entries: {
-    get: function(params,token) {
+    get: function(bookmarkedOnly, params, token) {
       let defaultParams = {
         "ordering": `-created`,
         "page_size": env.PROJECT_BATCH_SIZE
       };
+
+      if (bookmarkedOnly) return Service.bookmarks.get(params,token);
+
       return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
@@ -185,7 +188,21 @@ export default {
     put: {
       moderationState: function(entryId, stateId, nonce) {
         return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`, nonce);
+      },
+      bookmark: function(entryId, nonce) {
+        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`, nonce);
       }
+    }
+  },
+  bookmarks: {
+    get: function(params,token) {
+      let defaultParams = {
+        "page_size": env.PROJECT_BATCH_SIZE
+      };
+      return getDataFromURL(`${pulseAPI}/entries/bookmarks/`, Object.assign(params, defaultParams), token);
+    },
+    post: function(entryIds = [], nonce) {
+      return updateEntry(`POST`,`${pulseAPI}/entries/bookmarks/?ids=${entryIds.join(`,`)}`, nonce);
     }
   },
   moderationStates: {
@@ -214,3 +231,6 @@ export default {
   }
   // ... and more Pulse API endpoints to come
 };
+
+
+export default Service;

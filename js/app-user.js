@@ -80,9 +80,9 @@ class User {
     this.resetUser();
   }
 
-  resetUser() {
+  resetUser(justLoggedOut) {
     this.username = undefined;
-    this.loggedin = false;
+    this.loggedin = justLoggedOut ? false : undefined;
     this.moderator = false;
     this.failedLogin = false;
     // We do not touch the "attemptingLogin" value in localStorage.
@@ -126,7 +126,8 @@ class User {
   }
 
   logout() {
-    this.resetUser();
+    let justLoggedOut = true;
+    this.resetUser(justLoggedOut);
 
     // notify listeners that this user has been logged out
     this.notifyListeners(`logged out`);

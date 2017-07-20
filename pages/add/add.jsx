@@ -190,32 +190,30 @@ export default React.createClass({
               </div>
             </div>);
   },
-  getFailurePrompt() {
-    return ( <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                          header={`Sign in failed`}
-                          linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-              <p>Sorry, login failed! Please refresh and try again.</p>
-            </HintMessage>);
-  },
   getAnonymousContent() {
+    let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
                            onClick={this.handleSignInBtnClick}>
                            Sign in with Google
                         </a>;
-
-    return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={`Please sign in to add a post`}
-                         linkComponent={linkComponent}>
-            </HintMessage>);
-  },
-  getContent() {
-    if (user.loggedin) {
-      return this.getContentForLoggedInUser();
-    }
+    let additionalMessage;
 
     if (user.failedLogin) {
-      return this.getFailurePrompt();
+      header = `Sign in failed`;
+      linkComponent = <Link to={`/featured`}>Explore featured</Link>;
+      additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
     }
+
+    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
+                         header={header}
+                         linkComponent={linkComponent}>
+              {additionalMessage}
+            </HintMessage>;
+  },
+  getContent() {
+    if (user.loggedin === undefined) return null;
+
+    if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
   },

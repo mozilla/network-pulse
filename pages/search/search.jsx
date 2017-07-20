@@ -81,7 +81,7 @@ class Search extends React.Component {
   }
 
   renderSearchBar() {
-    let classnames = classNames({activated: true, 'search-bar': true, 'w-100': true, 'mb-0': true});
+    let classnames = classNames({activated: true, 'search-bar': true, 'w-100': true, 'mb-0': this.props.moderation});
     let label;
 
     if (this.props.moderation) {

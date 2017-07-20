@@ -1,22 +1,38 @@
-export const getBookmarks = function() {
-  try {
-    let bookmarks = localStorage.getItem(`bookmarks`);
+const LS_BOOKMARKS_KEY = `bookmarks`;
 
-    if (!bookmarks) {
-      return [];
+export default {
+  bookmarks: {
+    get: function() {
+      console.log(`getBookmarks`);
+      try {
+        let bookmarks = localStorage.getItem(LS_BOOKMARKS_KEY);
+
+        if (!bookmarks) {
+          return [];
+        }
+        return JSON.parse(bookmarks);
+      } catch (err) {
+        return [];
+      }
+    },
+    set: function(bookmarksArray) {
+      console.log(`saveBookmarks`);
+      try {
+        let bookmarks = JSON.stringify(bookmarksArray);
+
+        localStorage.setItem(LS_BOOKMARKS_KEY, bookmarks);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    delete: function() {
+      console.log(`deleteBookmarks`);
+      try {
+        localStorage.removeItem(LS_BOOKMARKS_KEY);
+      } catch (err) {
+        console.log(err);
+      }
     }
-    return JSON.parse(bookmarks);
-  } catch (err) {
-    return [];
   }
 };
 
-export const saveBookmarks = function(bookmarksArray) {
-  try {
-    let bookmarks = JSON.stringify(bookmarksArray);
-
-    localStorage.setItem(`bookmarks`, bookmarks );
-  } catch (err) {
-    console.log(err);
-  }
-};
