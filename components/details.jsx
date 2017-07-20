@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 class Details extends React.Component {
   handleVisitBtnClick() {
@@ -9,6 +10,20 @@ class Details extends React.Component {
 
   handleGetInvolvedLinkClick() {
     ReactGA.event(this.props.createGaEventConfig(`Get involved`, `Clicked`, `beacon`));
+  }
+
+
+  renderTimePosted() {
+    if (!this.props.created && !this.props.publishedBy) return null;
+
+    let timePosted = this.props.created ? ` ${moment(this.props.created).format(`MMM DD, YYYY`)}` : null;
+    let publishedBy = this.props.publishedBy ? <span> by {this.props.publishedBy}</span> : null;
+
+    return (
+      <p><small className="time-posted d-block text-muted">
+        Added{timePosted}{publishedBy}
+      </small></p>
+    );
   }
 
   render() {
@@ -20,6 +35,7 @@ class Details extends React.Component {
             (<div>
               { props.interest ? <p className="interest">{props.interest}</p> : null }
               { getInvolvedText || getInvolvedLink ? <p className="get-involved">{getInvolvedText} {getInvolvedLink}</p> : null }
+              { this.renderTimePosted() }
               { props.contentUrl ? <a href={props.contentUrl} target="_blank" className="btn btn-block btn-outline-info mb-3" onClick={this.handleVisitBtnClick}>Visit</a> : null }
             </div>) : null;
   }

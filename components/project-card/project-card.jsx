@@ -3,7 +3,6 @@ import ReactGA from 'react-ga';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
 import Details from '../details.jsx';
 import ModerationPanel from '../moderation-panel.jsx';
 import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
@@ -179,19 +178,7 @@ class ProjectCard extends React.Component {
     if (this.props.creators.length === 0) return null;
 
     return (
-      <small className="creator d-block text-muted">
-         By {this.props.creators.join(`, `)}
-      </small>
-    );
-  }
-
-  renderTimePosted() {
-    if (!this.props.created) return null;
-
-    return (
-      <small className="time-posted d-block text-muted">
-        Added {moment(this.props.created).format(`MMM DD, YYYY`)}
-      </small>
+      <small className="creator d-block text-muted">{this.props.creators.join(`, `)}</small>
     );
   }
 
@@ -249,7 +236,6 @@ class ProjectCard extends React.Component {
               {this.renderTitle(detailViewLink)}
               <div className="mb-2">
                 {this.renderCreatorInfo()}
-                {this.renderTimePosted()}
               </div>
               <div className="description">{this.renderDescription()}</div>
               <Details {...this.props} createGaEventConfig={this.createGaEventConfig} />
