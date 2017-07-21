@@ -60,24 +60,24 @@ class ProjectCard extends React.Component {
     }
   }
 
-  bookmarkProjectOnLs(bookmarks) {
+  bookmarkToLocalStorage(bookmarks) {
     bookmarks.unshift(this.props.id);
     this.setState({bookmarked: true});
   }
 
-  unbookmarkProjectOnLs(bookmarks) {
+  unbookmarkToLocalStorage(bookmarks) {
     bookmarks.splice(bookmarks.indexOf(this.props.id), 1);
     this.setState({bookmarked: false});
   }
 
-  toggleBookmarkedStateOnLs() {
+  updateBookmarkOnLocalStorage() {
     let bookmarks = bookmarkManager.bookmarks.get();
 
     if (bookmarks) {
       if (this.state.bookmarked) {
-        this.unbookmarkProjectOnLs(bookmarks);
+        this.unbookmarkToLocalStorage(bookmarks);
       } else {
-        this.bookmarkProjectOnLs(bookmarks);
+        this.bookmarkToLocalStorage(bookmarks);
       }
       bookmarkManager.bookmarks.set(bookmarks);
     }
@@ -93,7 +93,7 @@ class ProjectCard extends React.Component {
       });
   }
 
-  toggleBookmarkedStateOnDb(callback) {
+  toggleBookmark(callback) {
     this.getNonce((error, nonce) => {
       if (error) {
         console.error(error);
@@ -117,7 +117,7 @@ class ProjectCard extends React.Component {
     });
   }
 
-  toggleBookmarkedState() {
+  handleBookmarkClick() {
     if (document && document.onanimationend !== `undefined`) {
       this.refs.heart.classList.add(`beating`);
       this.refs.heart.addEventListener(`animationend`, () => {
@@ -128,7 +128,7 @@ class ProjectCard extends React.Component {
     ReactGA.event(this.createGaEventConfig(`Bookmark button`, this.state.bookmarked ? `Unbookmarked` : `Bookmarked`));
 
     if (user.loggedin) {
-      this.toggleBookmarkedStateOnDb((error) => {
+      this.toggleBookmark((error) => {
         if (error) return;
 
         this.setState({
@@ -139,7 +139,7 @@ class ProjectCard extends React.Component {
       return;
     }
 
-    this.toggleBookmarkedStateOnLs();
+    this.updateBookmarkOnLocalStorage();
   }
 
   handleThumbnailClick() {
@@ -222,7 +222,7 @@ class ProjectCard extends React.Component {
     return (
       <div className="action-panel">
         {actionPanel}
-        <a className="heart" ref="heart" onClick={() => this.toggleBookmarkedState()}></a>
+        <a className="heart" ref="heart" onClick={() => this.handleBookmarkClick()}></a>
       </div>
     );
   }
