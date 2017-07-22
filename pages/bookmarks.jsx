@@ -48,41 +48,20 @@ export default React.createClass({
       this.setState({ user });
     }
   },
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
+  bulkBookmark(entryIds, onError) {
+    Service.bookmarks
+      .post(entryIds)
+      .then(() => {
+        onError(null);
       })
-      .catch((reason) => {
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
+      .catch(reason => {
+        onError(reason);
       });
-  },
-  bulkBookmarkOnDb(entryIds, onError) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      let formattedNonce = {
-        nonce: nonce.nonce,
-        csrfmiddlewaretoken: nonce.csrf_token
-      };
-
-      Service.bookmarks
-        .post(entryIds, formattedNonce)
-        .then(() => {
-          onError(null);
-        })
-        .catch(reason => {
-          onError(reason);
-        });
-    });
   },
   handleImportBookmarksClick() {
     console.log(`handleImportBookmarksClick`);
     // import
-    this.bulkBookmarkOnDb(this.state.lsBookmarkedIds, (error) => {
+    this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
       if (error) {
         console.error(error);
       } else {

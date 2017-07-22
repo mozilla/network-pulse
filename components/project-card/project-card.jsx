@@ -83,38 +83,16 @@ class ProjectCard extends React.Component {
     }
   }
 
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
-      })
-      .catch((reason) => {
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
-      });
-  }
-
   toggleBookmark(callback) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      let formattedNonce = {
-        nonce: nonce.nonce,
-        csrfmiddlewaretoken: nonce.csrf_token
-      };
-
-      Service.entry
-        .put.bookmark(this.props.id, formattedNonce)
-        .then(() => {
-          callback(null);
-        })
-        .catch(reason => {
-          console.error(reason);
-          callback(reason);
-        });
-    });
+    Service.entry
+      .put.bookmark(this.props.id)
+      .then(() => {
+        callback(null);
+      })
+      .catch(reason => {
+        console.error(reason);
+        callback(reason);
+      });
   }
 
   handleBookmarkClick() {

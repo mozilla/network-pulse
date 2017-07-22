@@ -26,40 +26,18 @@ class ModerationPanel extends React.Component {
       });
   }
 
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
-      })
-      .catch((reason) => {
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
-      });
-  }
-
   handleModerationStateChange(selected) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      let formattedNonce = {
-        nonce: nonce.nonce,
-        csrfmiddlewaretoken: nonce.csrf_token
-      };
-
-      Service.entry
-        .put.moderationState(this.props.id, selected.value, formattedNonce)
-        .then(() => {
-          this.setState({ moderationState: selected });
-        })
-        .catch(reason => {
-          this.setState({
-            serverError: true
-          });
-          console.error(reason);
+    Service.entry
+      .put.moderationState(this.props.id, selected.value)
+      .then(() => {
+        this.setState({ moderationState: selected });
+      })
+      .catch(reason => {
+        this.setState({
+          serverError: true
         });
-    });
+        console.error(reason);
+      });
   }
 
   render() {
