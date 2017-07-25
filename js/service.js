@@ -125,53 +125,65 @@ function callURL(route) {
  * @param  {Object} params A key-value object to be posted
  * @returns {Promise} A promise to resolve an XHR request
  */
-function updateEntry(requestType = ``, endpointRoute, entryData) {
-  let dataToSend = requestType === `POST` ? JSON.stringify(entryData) : ``;
-  let request = new XMLHttpRequest();
-
+function updateEntry(requestType = ``, endpointRoute, data = {}) {
   return new Promise((resolve, reject) => {
-    request.open(requestType, endpointRoute, true);
+    getDataFromURL(`${pulseAPI}/nonce/`)
+      .then((nonce) => {
+        data.nonce = nonce.nonce,
+        data.csrfmiddlewaretoken = nonce.csrf_token;
 
-    request.withCredentials = true;
-    request.onload = (event) => {
-      let result = event.currentTarget;
+        let dataToSend = requestType === `POST` ? JSON.stringify(data) : ``;
+        let request = new XMLHttpRequest();
 
-      if (result.status >= 200 && result.status < 400) {
-        if (result.response.length === 0) resolve();
+        request.open(requestType, endpointRoute, true);
 
-        let data;
+        request.withCredentials = true;
+        request.onload = (event) => {
+          let result = event.currentTarget;
 
-        try {
-          data = JSON.parse(result.response);
-        } catch (error) {
-          // this error can only have come from JSON parsing
-          reject(error);
-        }
+          if (result.status >= 200 && result.status < 400) {
+            if (result.response.length === 0) resolve();
 
-        resolve(data);
-      } else {
-        reject(`XHR request failed, status ${result.status}.`);
-      }
-    };
+            let response;
 
-    request.onerror = () => {
-      reject(`XHR request failed.`);
-    };
+            try {
+              response = JSON.parse(result.response);
+            } catch (error) {
+              // this error can only have come from JSON parsing
+              reject(error);
+            }
 
-    request.setRequestHeader(`X-CSRFToken`, entryData.csrfmiddlewaretoken);
-    request.setRequestHeader(`Content-Type`,`application/json`);
-    request.send(dataToSend);
+            resolve(response);
+          } else {
+            reject(`XHR request failed, status ${result.status}.`);
+          }
+        };
+
+        request.onerror = () => {
+          reject(`XHR request failed.`);
+        };
+
+        request.setRequestHeader(`X-CSRFToken`, data.csrfmiddlewaretoken);
+        request.setRequestHeader(`Content-Type`,`application/json`);
+        request.send(dataToSend);
+      })
+      .catch((reason) => {
+        console.error(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
+      });
+
   });
 }
 
-
-export default {
+let Service = {
   entries: {
-    get: function(params,token) {
+    get: function(bookmarkedOnly, params, token) {
       let defaultParams = {
         "ordering": `-created`,
         "page_size": env.PROJECT_BATCH_SIZE
       };
+
+      if (bookmarkedOnly) return Service.bookmarks.get(params,token);
+
       return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
@@ -183,9 +195,23 @@ export default {
       return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
     },
     put: {
-      moderationState: function(entryId, stateId, nonce) {
-        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`, nonce);
+      moderationState: function(entryId, stateId) {
+        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`);
+      },
+      bookmark: function(entryId) {
+        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`);
       }
+    }
+  },
+  bookmarks: {
+    get: function(params,token) {
+      let defaultParams = {
+        "page_size": env.PROJECT_BATCH_SIZE
+      };
+      return getDataFromURL(`${pulseAPI}/entries/bookmarks/`, Object.assign(params, defaultParams), token);
+    },
+    post: function(entryIds = []) {
+      return updateEntry(`POST`,`${pulseAPI}/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
     }
   },
   moderationStates: {
@@ -214,3 +240,5 @@ export default {
   }
   // ... and more Pulse API endpoints to come
 };
+
+export default Service;

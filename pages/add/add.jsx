@@ -89,70 +89,46 @@ export default React.createClass({
       });
     });
   },
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
-      })
-      .catch((reason) => {
-        this.setState({
-          authError: true
-        });
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
-      });
-  },
   postEntry(entryData) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
+    Service.entries
+      .post(entryData)
+      .then(response => {
+        const entryId = response.id;
 
-      let data = Object.assign({}, entryData);
-
-      data.nonce = nonce.nonce;
-      data.csrfmiddlewaretoken = nonce.csrf_token;
-
-      Service.entries
-        .post(data)
-        .then(response => {
-          const entryId = response.id;
-
-          // will the API show this user the new entry?
-          Service.entry
-          .get(entryId)
-          .then(result => {
-            if(result) {
-              browserHistory.push({
-                pathname: `/entry/${response.id}`,
-                query: {
-                  justPostedByUser: true
-                }
-              });
-            } else {
-              browserHistory.push({
-                pathname: `/submitted`,
-                query: { entryId }
-              });
-            }
-          })
-          .catch(reason => {
-            // a 404 is yielded as an error by Service.entry
-            console.error(reason);
+        // will the API show this user the new entry?
+        Service.entry
+        .get(entryId)
+        .then(result => {
+          if(result) {
+            browserHistory.push({
+              pathname: `/entry/${response.id}`,
+              query: {
+                justPostedByUser: true
+              }
+            });
+          } else {
             browserHistory.push({
               pathname: `/submitted`,
               query: { entryId }
             });
-          });
-
+          }
         })
         .catch(reason => {
-          this.setState({
-            serverError: true
-          });
+          // a 404 is yielded as an error by Service.entry
           console.error(reason);
+          browserHistory.push({
+            pathname: `/submitted`,
+            query: { entryId }
+          });
         });
-    });
+
+      })
+      .catch(reason => {
+        this.setState({
+          serverError: true
+        });
+        console.error(reason);
+      });
   },
   getContentForLoggedInUser() {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
@@ -190,32 +166,30 @@ export default React.createClass({
               </div>
             </div>);
   },
-  getFailurePrompt() {
-    return ( <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                          header={`Sign in failed`}
-                          linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-              <p>Sorry, login failed! Please refresh and try again.</p>
-            </HintMessage>);
-  },
   getAnonymousContent() {
+    let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
                            onClick={this.handleSignInBtnClick}>
                            Sign in with Google
                         </a>;
-
-    return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={`Please sign in to add a post`}
-                         linkComponent={linkComponent}>
-            </HintMessage>);
-  },
-  getContent() {
-    if (user.loggedin) {
-      return this.getContentForLoggedInUser();
-    }
+    let additionalMessage;
 
     if (user.failedLogin) {
-      return this.getFailurePrompt();
+      header = `Sign in failed`;
+      linkComponent = <Link to={`/featured`}>Explore featured</Link>;
+      additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
     }
+
+    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
+                         header={header}
+                         linkComponent={linkComponent}>
+              {additionalMessage}
+            </HintMessage>;
+  },
+  getContent() {
+    if (user.loggedin === undefined) return null;
+
+    if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
   },

@@ -30,11 +30,11 @@ export default React.createClass({
     // to handle it accoringly.
 
     this.setState(this.getInitialState(), () => {
-      this.fetchData(nextProps);
+      this.fetchData(this.props.bookmarkedOnly, nextProps);
     });
   },
   createQueryParams(params) {
-    let combinedParams = Object.assign({},params);
+    let combinedParams = Object.assign({}, params);
 
     if (combinedParams.ids) {
       // The `ids` query param is only used on the bookmarks(favs) page
@@ -62,9 +62,15 @@ export default React.createClass({
       delete combinedParams.moderationState;
     }
 
+    if (combinedParams.bookmarkedOnly) {
+      // bookmarkedOnly is not a query param the API supports
+      delete combinedParams.bookmarkedOnly;
+    }
+
+
     return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
   },
-  fetchData(params = this.props) {
+  fetchData(bookmarkedOnly = !!this.props.bookmarkedOnly, params = this.props) {
     let combinedParams = this.createQueryParams(params);
 
     if (this.promiseToken) {
@@ -82,7 +88,7 @@ export default React.createClass({
     this.setState({ loadingData: true });
 
     Service.entries
-      .get(combinedParams,this.promiseToken)
+      .get(bookmarkedOnly, combinedParams, this.promiseToken)
       .then((data) => {
         this.updateStateWithNewData(data);
       })
