@@ -20,14 +20,14 @@ export default {
 
         localStorage.setItem(LS_BOOKMARKS_KEY, bookmarks);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     },
     delete: function() {
       try {
         localStorage.removeItem(LS_BOOKMARKS_KEY);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
   }

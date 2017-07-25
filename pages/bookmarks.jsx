@@ -59,7 +59,6 @@ export default React.createClass({
       });
   },
   handleImportBookmarksClick() {
-    console.log(`handleImportBookmarksClick`);
     // import
     this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
       if (error) {
@@ -72,11 +71,8 @@ export default React.createClass({
         });
       }
     });
-
-    // and clear ls bookmarks
   },
   getContentForLoggedInUser() {
-    // console.log(`> getContentForLoggedInUser`);
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
@@ -98,7 +94,6 @@ export default React.createClass({
           </div>;
   },
   getAnonymousContent() {
-    // console.log(`> getAnonymousContent`);
     let signInPrompt = <p><button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in with Google</button>.</p>;
     let bookmarkedProjects = this.renderHintMessage();
 
