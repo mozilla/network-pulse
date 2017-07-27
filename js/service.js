@@ -224,6 +224,11 @@ let Service = {
       return getDataFromURL(`${pulseAPI}/issues/`);
     }
   },
+  helpTypes: {
+    get: function() {
+      return getDataFromURL(`${pulseAPI}/helptypes/`);
+    }
+  },
   tags: {
     get: function() {
       return getDataFromURL(`${pulseAPI}/tags/`);
