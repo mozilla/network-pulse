@@ -53,20 +53,8 @@ class DetailedProjectCard extends React.Component {
     }
   }
 
-  updateBookmarkedState(isBookmarked) {
+  updateCardBookmarkedState(isBookmarked) {
     this.setState({ bookmarked: isBookmarked });
-  }
-
-  handleThumbnailClick() {
-    ReactGA.event(this.createGaEventConfig(`Thumbnail`, `Clicked`));
-  }
-
-  handleTitleClick() {
-    ReactGA.event(this.createGaEventConfig(`Title`, `Clicked`));
-  }
-
-  handleReadMoreClick() {
-    ReactGA.event(this.createGaEventConfig(`Read more`, `Clicked`));
   }
 
   handleTwitterShareClick() {
@@ -98,11 +86,15 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map((paragraph) => {
+    let paragraphs = this.props.description.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;
     });
+
+    if (paragraphs.length < 1) return null;
+
+    return <div className="description mt-3">{paragraphs}</div>;
   }
 
   renderIssuesAndTags() {
@@ -149,7 +141,7 @@ class DetailedProjectCard extends React.Component {
           <BookmarkControl id={this.props.id}
                            title={this.props.title}
                            isBookmarked={this.props.isBookmarked}
-                           updateBookmarkedState={(bookmarked) => { this.updateBookmarkedState(bookmarked); }} />
+                           updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }} />
           <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mx-3"></a>
         </div>
       </div>
@@ -196,7 +188,7 @@ class DetailedProjectCard extends React.Component {
     return <div className={wrapperClassnames}>
               { this.renderThumbnail() }
               { this.renderVisitButton() }
-              <div className="description mt-3">{ this.renderDescription() }</div>
+              { this.renderDescription() }
               { this.props.interest && <p className="interest">{this.props.interest}</p> }
               { this.renderTimePosted() }
               <div className="tags">

@@ -51,15 +51,15 @@ class BookmarkControl extends React.Component {
 
   bookmarkToLocalStorage(bookmarks) {
     bookmarks.unshift(this.props.id);
-    this.setState({bookmarked: true}, () => {
-      this.props.updateBookmarkedState(this.state.bookmarked);
+    this.setState({ bookmarked: true }, () => {
+      this.props.updateCardBookmarkedState(this.state.bookmarked);
     });
   }
 
   unbookmarkToLocalStorage(bookmarks) {
     bookmarks.splice(bookmarks.indexOf(this.props.id), 1);
-    this.setState({bookmarked: false}, () => {
-      this.props.updateBookmarkedState(this.state.bookmarked);
+    this.setState({ bookmarked: false }, () => {
+      this.props.updateCardBookmarkedState(this.state.bookmarked);
     });
   }
 
@@ -103,7 +103,7 @@ class BookmarkControl extends React.Component {
         if (error) return;
 
         this.setState({ bookmarked: !this.state.bookmarked }, () => {
-          this.props.updateBookmarkedState(this.state.bookmarked);
+          this.props.updateCardBookmarkedState(this.state.bookmarked);
         });
       });
 
@@ -114,7 +114,6 @@ class BookmarkControl extends React.Component {
   }
 
   render() {
-
     return (
       <a className="heart" ref="heart" onClick={() => this.handleBookmarkClick()}></a>
     );
@@ -125,12 +124,7 @@ BookmarkControl.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isBookmarked: PropTypes.bool.isRequired,
-  updateBookmarkedState: PropTypes.func.isRequired,
-  onDetailView: PropTypes.bool
-};
-
-BookmarkControl.defaultProps = {
-  onDetailView: true
+  updateCardBookmarkedState: PropTypes.func.isRequired
 };
 
 export default BookmarkControl;

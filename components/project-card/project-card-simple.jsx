@@ -52,7 +52,7 @@ class ProjectCard extends React.Component {
     }
   }
 
-  updateBookmarkedState(isBookmarked) {
+  updateCardBookmarkedState(isBookmarked) {
     this.setState({ bookmarked: isBookmarked });
   }
 
@@ -68,12 +68,8 @@ class ProjectCard extends React.Component {
     ReactGA.event(this.createGaEventConfig(`Read more`, `Clicked`));
   }
 
-  handleTwitterShareClick() {
-    ReactGA.event(this.createGaEventConfig(`Twitter Share button`, `Clicked`, `beacon`));
-  }
-
   renderTitle(detailViewLink) {
-    return <h2><Link to={detailViewLink} onClick={this.handleTitleClick}>{this.props.title}</Link></h2>;
+    return <h2><Link to={detailViewLink} onClick={() => this.handleTitleClick() }>{this.props.title}</Link></h2>;
   }
 
   renderThumbnail(detailViewLink) {
@@ -95,7 +91,7 @@ class ProjectCard extends React.Component {
         <BookmarkControl id={this.props.id}
                          title={this.props.title}
                          isBookmarked={this.props.isBookmarked}
-                         updateBookmarkedState={(bookmarked) => { this.updateBookmarkedState(bookmarked); }} />
+                         updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }} />
       </div>
     );
   }
@@ -104,16 +100,22 @@ class ProjectCard extends React.Component {
     if (this.props.creators.length === 0) return null;
 
     return (
-      <small className="creator d-block text-muted">{this.props.creators.join(`, `)}</small>
+      <div className="mb-2">
+        <small className="creator d-block text-muted">{this.props.creators.join(`, `)}</small>
+      </div>
     );
   }
 
   renderDescription() {
-    return this.props.description.split(`\n`).map((paragraph) => {
+    let paragraphs = this.props.description.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;
     });
+
+    if (paragraphs.length < 1) return null;
+
+    return <div className="description">{paragraphs}</div>;
   }
 
   renderModerationPanel() {
@@ -141,18 +143,16 @@ class ProjectCard extends React.Component {
         <div className={classnames}>
           { this.renderModerationPanel() }
           <div className="summary-content">
-            {this.renderThumbnail(detailViewLink)}
+            { this.renderThumbnail(detailViewLink) }
             <div className="content m-3">
-              {this.renderTitle(detailViewLink)}
-              <div className="mb-2">
-                {this.renderCreatorInfo()}
-              </div>
-              <div className="description">{this.renderDescription()}</div>
+              { this.renderTitle(detailViewLink) }
+              { this.renderCreatorInfo() }
+              { this.renderDescription() }
             </div>
             <div className="fade-overlay"></div>
           </div>
           <div className="m-3">
-            {this.renderActionPanel(detailViewLink)}
+            { this.renderActionPanel(detailViewLink) }
           </div>
         </div>
       </div>
