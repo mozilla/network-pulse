@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ModerationPanel from '../moderation-panel.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
-import Utility from '../../js/utility.js';
 import Service from '../../js/service.js';
 import user from '../../js/app-user.js';
 
@@ -177,7 +176,6 @@ class ProjectCard extends React.Component {
   }
 
   render() {
-    console.log(this.props.moderationState);
     let wrapperClassnames = classNames({
       "col-md-6": true,
       "col-lg-4": true

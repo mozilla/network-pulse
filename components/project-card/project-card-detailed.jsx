@@ -4,8 +4,10 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
-import { getBookmarks, saveBookmarks } from '../../js/bookmarks-manager';
+import bookmarkManager from '../../js/bookmarks-manager';
 import Utility from '../../js/utility.js';
+import Service from '../../js/service.js';
+import user from '../../js/app-user.js';
 
 class DetailedProjectCard extends React.Component {
   constructor(props) {
@@ -34,34 +36,59 @@ class DetailedProjectCard extends React.Component {
   }
 
   setInitialBookmarkedStatus() {
-    let bookmarks = getBookmarks();
+    if (user.loggedin) {
+      this.setState({
+        bookmarked: this.props.isBookmarked
+      });
+
+      return;
+    }
+
+    let bookmarks = bookmarkManager.bookmarks.get();
     let bookmarked;
-    let index;
 
     if (bookmarks) {
-      index = bookmarks.indexOf(this.props.id);
-      if (index > -1) {
-        bookmarked = true;
-      } else {
-        bookmarked = false;
-      }
+      bookmarked = bookmarks.indexOf(this.props.id) > -1;
       this.setState({bookmarked: bookmarked});
     }
   }
 
-  bookmarkProject(bookmarks) {
-    ReactGA.event(this.createGaEventConfig(`Bookmark button`, `Bookmarked`));
+  bookmarkToLocalStorage(bookmarks) {
     bookmarks.unshift(this.props.id);
     this.setState({bookmarked: true});
   }
 
-  unbookmarkProject(bookmarks,index) {
-    ReactGA.event(this.createGaEventConfig(`Bookmark button`, `Unbookmarked`));
-    bookmarks.splice(index,1);
+  unbookmarkToLocalStorage(bookmarks) {
+    bookmarks.splice(bookmarks.indexOf(this.props.id), 1);
     this.setState({bookmarked: false});
   }
 
-  toggleBookmarkedState() {
+  updateBookmarkOnLocalStorage() {
+    let bookmarks = bookmarkManager.bookmarks.get();
+
+    if (bookmarks) {
+      if (this.state.bookmarked) {
+        this.unbookmarkToLocalStorage(bookmarks);
+      } else {
+        this.bookmarkToLocalStorage(bookmarks);
+      }
+      bookmarkManager.bookmarks.set(bookmarks);
+    }
+  }
+
+  toggleBookmark(callback) {
+    Service.entry
+      .put.bookmark(this.props.id)
+      .then(() => {
+        callback(null);
+      })
+      .catch(reason => {
+        console.error(reason);
+        callback(reason);
+      });
+  }
+
+  handleBookmarkClick() {
     if (document && document.onanimationend !== `undefined`) {
       this.refs.heart.classList.add(`beating`);
       this.refs.heart.addEventListener(`animationend`, () => {
@@ -69,19 +96,23 @@ class DetailedProjectCard extends React.Component {
       });
     }
 
-    let bookmarks = getBookmarks();
-    let index;
+    ReactGA.event(this.createGaEventConfig(`Bookmark button`, this.state.bookmarked ? `Unbookmarked` : `Bookmarked`));
 
-    if (bookmarks) {
-      index = bookmarks.indexOf(this.props.id);
-      if (index > -1) {
-        this.unbookmarkProject(bookmarks,index);
-      } else {
-        this.bookmarkProject(bookmarks);
-      }
-      saveBookmarks(bookmarks);
+    if (user.loggedin) {
+      this.toggleBookmark((error) => {
+        if (error) return;
+
+        this.setState({
+          bookmarked: !this.state.bookmarked
+        });
+      });
+
+      return;
     }
+
+    this.updateBookmarkOnLocalStorage();
   }
+
 
   handleThumbnailClick() {
     ReactGA.event(this.createGaEventConfig(`Thumbnail`, `Clicked`));
@@ -172,7 +203,7 @@ class DetailedProjectCard extends React.Component {
     return (
       <div className="action-panel pb-3 mb-3">
         <div className="d-flex share">
-          <a className="heart mr-3" ref="heart" onClick={() => this.toggleBookmarkedState()}></a>
+          <a className="heart mr-3" ref="heart" onClick={() => this.handleBookmarkClick()}></a>
           <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mr-3"></a>
         </div>
       </div>
