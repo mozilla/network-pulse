@@ -8,6 +8,7 @@ import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
+import TagTypyPage from './pages/tag-typy-page.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
@@ -31,18 +32,14 @@ const Latest = () => {
         </div>;
 };
 
-const Tag = (router) => {
-  return <div>
-          <Helmet><title>{router.params.tag}</title></Helmet>
-          <ProjectLoader tag={encodeURIComponent(router.params.tag)} />
-        </div>;
+const Help = (router) => {
+  let searchParam = { key: `help_type`, value: router.params.helpType };
+  return <TagTypyPage searchParam={searchParam} headerLabel="Help" />;
 };
 
-const Help = (router) => {
-  return <div>
-          <Helmet><title>{router.params.helpType}</title></Helmet>
-          <ProjectLoader helpType={encodeURIComponent(router.params.helpType)} />
-        </div>;
+const Tag = (router) => {
+  let searchParam = { key: `tag`, value: router.params.tag };
+  return <TagTypyPage searchParam={searchParam} headerLabel="Tag" />;
 };
 
 const App = React.createClass({
