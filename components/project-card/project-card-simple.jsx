@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ModerationPanel from '../moderation-panel.jsx';
+import BookmarkControl from '../bookmark-control.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
-import Service from '../../js/service.js';
 import user from '../../js/app-user.js';
 
 class ProjectCard extends React.Component {
@@ -52,64 +52,8 @@ class ProjectCard extends React.Component {
     }
   }
 
-  bookmarkToLocalStorage(bookmarks) {
-    bookmarks.unshift(this.props.id);
-    this.setState({bookmarked: true});
-  }
-
-  unbookmarkToLocalStorage(bookmarks) {
-    bookmarks.splice(bookmarks.indexOf(this.props.id), 1);
-    this.setState({bookmarked: false});
-  }
-
-  updateBookmarkOnLocalStorage() {
-    let bookmarks = bookmarkManager.bookmarks.get();
-
-    if (bookmarks) {
-      if (this.state.bookmarked) {
-        this.unbookmarkToLocalStorage(bookmarks);
-      } else {
-        this.bookmarkToLocalStorage(bookmarks);
-      }
-      bookmarkManager.bookmarks.set(bookmarks);
-    }
-  }
-
-  toggleBookmark(callback) {
-    Service.entry
-      .put.bookmark(this.props.id)
-      .then(() => {
-        callback(null);
-      })
-      .catch(reason => {
-        console.error(reason);
-        callback(reason);
-      });
-  }
-
-  handleBookmarkClick() {
-    if (document && document.onanimationend !== `undefined`) {
-      this.refs.heart.classList.add(`beating`);
-      this.refs.heart.addEventListener(`animationend`, () => {
-        this.refs.heart.classList.remove(`beating`);
-      });
-    }
-
-    ReactGA.event(this.createGaEventConfig(`Bookmark button`, this.state.bookmarked ? `Unbookmarked` : `Bookmarked`));
-
-    if (user.loggedin) {
-      this.toggleBookmark((error) => {
-        if (error) return;
-
-        this.setState({
-          bookmarked: !this.state.bookmarked
-        });
-      });
-
-      return;
-    }
-
-    this.updateBookmarkOnLocalStorage();
+  updateBookmarkedState(isBookmarked) {
+    this.setState({ bookmarked: isBookmarked });
   }
 
   handleThumbnailClick() {
@@ -148,7 +92,10 @@ class ProjectCard extends React.Component {
         <div>
           <Link to={detailViewLink} onClick={evt => this.handleReadMoreClick(evt) }>Read more</Link>
         </div>
-        <a className="heart" ref="heart" onClick={() => this.handleBookmarkClick()}></a>
+        <BookmarkControl id={this.props.id}
+                         title={this.props.title}
+                         isBookmarked={this.props.isBookmarked}
+                         updateBookmarkedState={(bookmarked) => { this.updateBookmarkedState(bookmarked); }} />
       </div>
     );
   }
@@ -218,7 +165,8 @@ ProjectCard.propTypes = {
   creators: PropTypes.array,
   description: PropTypes.string.isRequired,
   thumbnail: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  isBookmarked: PropTypes.bool
 };
 
 ProjectCard.defaultProps = {
