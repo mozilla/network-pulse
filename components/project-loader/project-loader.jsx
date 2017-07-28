@@ -55,6 +55,13 @@ export default React.createClass({
       return Object.assign(combinedParams, { page: 1 });
     }
 
+    if (combinedParams.helpType) {
+      // 'helpType' is not a query param the API supports
+      // 'help_type' is
+      combinedParams.help_type = combinedParams.helpType;
+      delete combinedParams.bookmarkedOnly;
+    }
+
     if (combinedParams.moderationState) {
       // "moderationstate" is the query param the API understands (case sensitive)
       // and its value should just be the name of the moderation state
@@ -127,7 +134,19 @@ export default React.createClass({
   renderTagHeader() {
     if (!this.props.tag) return null;
 
-    return <h2>{`Tag: ${this.props.tag}`}</h2>;
+    return <h2>{`Tag: ${decodeURIComponent(this.props.tag)}`}</h2>;
+  },
+  renderHelpHeader() {
+    if (!this.props.helpType) return null;
+
+    return <h2>{`Help: ${decodeURIComponent(this.props.helpType)} `}</h2>;
+  },
+  renderHeader() {
+    if (!this.props.tag && !this.props.helpType) return null;
+
+    if (this.props.tag) return this.renderTagHeader();
+
+    return this.renderHelpHeader();
   },
   renderLearnMoreNotice() {
     if(!this.props.featured) return null;
@@ -146,7 +165,7 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.renderTagHeader() }
+        { this.renderHeader() }
         { this.renderLearnMoreNotice()}
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}

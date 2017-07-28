@@ -34,7 +34,14 @@ const Latest = () => {
 const Tag = (router) => {
   return <div>
           <Helmet><title>{router.params.tag}</title></Helmet>
-          <ProjectLoader tag={router.params.tag} />
+          <ProjectLoader tag={encodeURIComponent(router.params.tag)} />
+        </div>;
+};
+
+const Help = (router) => {
+  return <div>
+          <Helmet><title>{router.params.helpType}</title></Helmet>
+          <ProjectLoader helpType={encodeURIComponent(router.params.helpType)} />
         </div>;
 };
 
@@ -82,6 +89,10 @@ module.exports = (
     <Route path="tags">
       <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    </Route>
+    <Route path="help">
+      <IndexRedirect to="/latest" />
+      <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>

@@ -40,7 +40,8 @@ export default React.createClass({
       .catch((reason) => {
         console.error(reason);
         this.setState({
-          noData: true
+          dataLoaded: true,
+          errorLoadingData: true
         });
       });
   },
@@ -73,28 +74,21 @@ export default React.createClass({
             </div>;
   },
   renderEntry() {
-    let docTitle;
-    let justPostedByUserMessage = null;
-    let content;
+    if (!this.state.dataLoaded) return null;
 
-    if (this.state.dataLoaded) {
+    let justPostedByUserMessage = null;
+    let content = NO_ENTRY_BLOCK;
+    let docTitle = NO_ENTRY_TITLE; // html doc title
+
+    if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
       content = <ProjectCardDetialed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
     }
 
-    if (this.state.noData) {
-      docTitle = NO_ENTRY_TITLE;
-      content = NO_ENTRY_BLOCK;
-    }
-
-    if (docTitle) {
-      docTitle = <Helmet><title>{ docTitle }</title></Helmet>;
-    }
-
     return (
-      <div>
-        { docTitle }
+      <div className="w-100">
+        <Helmet><title>{ docTitle }</title></Helmet>
         { justPostedByUserMessage }
         { content }
       </div>
