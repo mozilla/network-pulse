@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
+import Creators from './creators.jsx';
+import Thumbnail from './thumbnail.jsx';
+import Title from './title.jsx';
+import Description from './description.jsx';
+import WhyInteresting from './why-interesting.jsx';
+import IssuesAndTags from './issues-and-tags.jsx';
+import GetInvolved from './get-involved.jsx';
 import BookmarkControl from '../bookmark-control.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
-import Utility from '../../js/utility.js';
 import user from '../../js/app-user.js';
 
 class DetailedProjectCard extends React.Component {
@@ -65,50 +70,6 @@ class DetailedProjectCard extends React.Component {
     ReactGA.event(this.props.createGaEventConfig(`Visit button`, `Clicked`, `beacon`));
   }
 
-  renderTitle() {
-    return <h2>{this.props.title}</h2>;
-  }
-
-  renderThumbnail() {
-    if (!this.props.thumbnail) return null;
-
-    return <div className="thumbnail">
-              <div className="img-container"><img src={this.props.thumbnail} /></div>
-           </div>;
-  }
-
-  renderCreatorInfo() {
-    if (this.props.creators.length === 0) return null;
-
-    return (
-      <small className="creator d-block">Created by {this.props.creators.join(`, `)}</small>
-    );
-  }
-
-  renderDescription() {
-    let paragraphs = this.props.description.split(`\n`).map((paragraph) => {
-      if (!paragraph) return null;
-
-      return <p key={paragraph}>{paragraph}</p>;
-    });
-
-    if (paragraphs.length < 1) return null;
-
-    return <div className="description mt-3">{paragraphs}</div>;
-  }
-
-  renderIssuesAndTags() {
-    let issues = this.props.issues.map(issue => {
-      return <Link to={`/issues/${Utility.getUriPathFromIssueName(issue)}`} className="btn btn-xs btn-tag" key={issue}>{issue}</Link>;
-    });
-
-    let tags = this.props.tags.map(tag => {
-      return <Link to={`/tags/${encodeURIComponent(tag)}`} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
-    });
-
-    return <div>{issues}{tags}</div>;
-  }
-
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
@@ -148,34 +109,12 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderHelpLabels() {
-    if (!this.props.helpTypes) return null;
-
-    return this.props.helpTypes.map(helpType => {
-      return <Link to={`/help/${encodeURIComponent(helpType)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
-    });
-  }
-
-  renderGetInvolved() {
-    let props = this.props;
-    let getInvolvedText = props.getInvolved ? props.getInvolved : null;
-    let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={this.handleGetInvolvedLinkClick}>Get Involved</a>) : null;
-
-    if (!getInvolvedText && !getInvolvedLink) return null;
-
-    return <div className="get-involved pb-3 mb-3">
-            <h2>Get involved</h2>
-            <p>{getInvolvedText} {getInvolvedLink}</p>
-            { this.renderHelpLabels() }
-           </div>;
-  }
-
   renderTopHeader() {
     return <div className="col-12 mb-3">
             <div className="row">
               <div className="col-12 col-sm-8">
-                { this.renderTitle() }
-                { this.renderCreatorInfo() }
+                <Title title={this.props.title} />
+                <Creators creators={this.props.creators} showLabelText={true} />
               </div>
             </div>
           </div>;
@@ -188,14 +127,12 @@ class DetailedProjectCard extends React.Component {
     });
 
     return <div className={wrapperClassnames}>
-              { this.renderThumbnail() }
+              <Thumbnail thumbnail={this.props.thumbnail} />
               { this.renderVisitButton() }
-              { this.renderDescription() }
-              { this.props.interest && <p className="interest">{this.props.interest}</p> }
+              <Description description={this.props.description} className="mt-3" />
+              <WhyInteresting interest={this.props.interest} />
               { this.renderTimePosted() }
-              <div className="tags">
-                { this.renderIssuesAndTags() }
-              </div>
+              <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
             </div>;
   }
 
@@ -206,10 +143,11 @@ class DetailedProjectCard extends React.Component {
     });
 
     return <div className={wrapperClassnames}>
-              <div>
-                { this.renderActionPanel() }
-                { this.renderGetInvolved() }
-              </div>
+              { this.renderActionPanel() }
+              <GetInvolved getInvolved={this.props.getInvolved}
+                           getInvolvedUrl={this.props.getInvolvedUrl}
+                           helpTypes={this.props.helpTypes}
+                           sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
             </div>;
   }
 

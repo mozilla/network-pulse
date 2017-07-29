@@ -3,21 +3,6 @@
   background: $white;
   overflow: hidden;
 
-  // to make summary content fade away in summary/list view
-  .summary-content {
-    position: relative;
-    height: 350px;
-    overflow: hidden;
-  }
-
-  .fade-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0);
-  }
-
   h2 {
     color: $body-color;
     font-size: 30px;
@@ -55,6 +40,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .get-involved,
+  &.moderation-mode .issues-and-tags,
+  &.detail-view .action-panel {
+    border-bottom: 1px solid $gray-lighter;
   }
 
   .share {
@@ -119,6 +110,31 @@
   }
 }
 
+.project-card.regular-list-mode {
+  // to make summary content fade away in summary/list view
+  .summary-content {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+  }
+
+  .fade-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0);
+  }
+}
+
+.project-card.moderation-mode {
+  .get-involved {
+    h2 {
+      font-size: inherit;
+    }
+  }
+}
+
 // Detailed view styling
 .project-card.detail-view {
   background: inherit;
@@ -134,11 +150,6 @@
 
   .btn-visit {
     border-radius: 0;
-  }
-
-  .action-panel,
-  .get-involved {
-    border-bottom: 1px solid $gray-lighter;
   }
 
   // >= 768px

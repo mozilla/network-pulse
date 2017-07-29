@@ -4,6 +4,13 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ModerationPanel from '../moderation-panel.jsx';
+import Creators from './creators.jsx';
+import Thumbnail from './thumbnail.jsx';
+import Title from './title.jsx';
+import Description from './description.jsx';
+import GetInvolved from './get-involved.jsx';
+import WhyInteresting from './why-interesting.jsx';
+import IssuesAndTags from './issues-and-tags.jsx';
 import BookmarkControl from '../bookmark-control.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
 import user from '../../js/app-user.js';
@@ -16,7 +23,7 @@ class ProjectCard extends React.Component {
     };
   }
 
-  createGaEventConfig(category = ``, action = ``, transport = ``) {
+  sendGaEvent(category = ``, action = ``, transport = ``) {
     let config = {
       category: `Entry Card - ${category}`,
       action: action,
@@ -27,7 +34,7 @@ class ProjectCard extends React.Component {
       config.transport = transport;
     }
 
-    return config;
+    ReactGA.event(config);
   }
 
   componentDidMount() {
@@ -56,37 +63,17 @@ class ProjectCard extends React.Component {
     this.setState({ bookmarked: isBookmarked });
   }
 
-  handleThumbnailClick() {
-    ReactGA.event(this.createGaEventConfig(`Thumbnail`, `Clicked`));
-  }
-
-  handleTitleClick() {
-    ReactGA.event(this.createGaEventConfig(`Title`, `Clicked`));
-  }
-
   handleReadMoreClick() {
-    ReactGA.event(this.createGaEventConfig(`Read more`, `Clicked`));
-  }
-
-  renderTitle(detailViewLink) {
-    return <h2><Link to={detailViewLink} onClick={() => this.handleTitleClick() }>{this.props.title}</Link></h2>;
-  }
-
-  renderThumbnail(detailViewLink) {
-    if (!this.props.thumbnail) return null;
-
-    return (
-      <Link to={detailViewLink} onClick={this.handleThumbnailClick} className="thumbnail">
-        <div className="img-container"><img src={this.props.thumbnail} /></div>
-      </Link>
-    );
+    this.sendGaEvent(`Read more`, `Clicked`);
   }
 
   renderActionPanel(detailViewLink) {
+    if (this.props.onModerationMode) return null;
+
     return (
       <div className="action-panel">
         <div>
-          <Link to={detailViewLink} onClick={evt => this.handleReadMoreClick(evt) }>Read more</Link>
+          <Link to={detailViewLink} onClick={() => this.handleReadMoreClick() }>Read more</Link>
         </div>
         <BookmarkControl id={this.props.id}
                          title={this.props.title}
@@ -96,32 +83,21 @@ class ProjectCard extends React.Component {
     );
   }
 
-  renderCreatorInfo() {
-    if (this.props.creators.length === 0) return null;
-
-    return (
-      <div className="mb-2">
-        <small className="creator d-block text-muted">{this.props.creators.join(`, `)}</small>
-      </div>
-    );
-  }
-
-  renderDescription() {
-    let paragraphs = this.props.description.split(`\n`).map((paragraph) => {
-      if (!paragraph) return null;
-
-      return <p key={paragraph}>{paragraph}</p>;
-    });
-
-    if (paragraphs.length < 1) return null;
-
-    return <div className="description">{paragraphs}</div>;
-  }
-
   renderModerationPanel() {
+    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} />;
+  }
+
+  renderExtraMeta() {
     if (!this.props.onModerationMode) return null;
 
-    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} />;
+    return <div>
+              <WhyInteresting interest={this.props.interest} />
+              <IssuesAndTags issues={this.props.issues} tags={this.props.tags} className={`pb-3 mb-3`} />
+              <GetInvolved getInvolved={this.props.getInvolved}
+                           getInvolvedUrl={this.props.getInvolvedUrl}
+                           helpTypes={this.props.helpTypes}
+                           sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+          </div>;
   }
 
   render() {
@@ -132,6 +108,7 @@ class ProjectCard extends React.Component {
 
     let classnames = classNames({
       "project-card": true,
+      "regular-list-mode": !this.props.onModerationMode,
       "moderation-mode": this.props.onModerationMode,
       "bookmarked": this.state.bookmarked
     });
@@ -143,11 +120,16 @@ class ProjectCard extends React.Component {
         <div className={classnames}>
           { this.renderModerationPanel() }
           <div className="summary-content">
-            { this.renderThumbnail(detailViewLink) }
+            <Thumbnail thumbnail={this.props.thumbnail}
+                       link={detailViewLink ? !this.props.onModerationMode : ``}
+                       sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
             <div className="content m-3">
-              { this.renderTitle(detailViewLink) }
-              { this.renderCreatorInfo() }
-              { this.renderDescription() }
+              <Title title={this.props.title}
+                     link={detailViewLink ? !this.props.onModerationMode : ``}
+                     sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+              <Creators creators={this.props.creators} className="text-muted" />
+              <Description description={this.props.description} />
+              { this.renderExtraMeta() }
             </div>
             <div className="fade-overlay"></div>
           </div>
