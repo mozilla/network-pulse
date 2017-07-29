@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Utility from '../../js/utility.js';
+import Utility from '../../../js/utility.js';
 
 const IssuesAndTags = (props) => {
   let issues = props.issues.map(issue => {

@@ -3,13 +3,13 @@ import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
-import Creators from './creators.jsx';
-import Thumbnail from './thumbnail.jsx';
-import Title from './title.jsx';
-import Description from './description.jsx';
-import WhyInteresting from './why-interesting.jsx';
-import IssuesAndTags from './issues-and-tags.jsx';
-import GetInvolved from './get-involved.jsx';
+import Creators from './meta/creators.jsx';
+import Thumbnail from './meta/thumbnail.jsx';
+import Title from './meta/title.jsx';
+import Description from './meta/description.jsx';
+import WhyInteresting from './meta/why-interesting.jsx';
+import IssuesAndTags from './meta/issues-and-tags.jsx';
+import GetInvolved from './meta/get-involved.jsx';
 import BookmarkControl from '../bookmark-control.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
 import user from '../../js/app-user.js';
@@ -22,7 +22,7 @@ class DetailedProjectCard extends React.Component {
     };
   }
 
-  createGaEventConfig(category = ``, action = ``, transport = ``) {
+  sendGaEvent(category = ``, action = ``, transport = ``) {
     let config = {
       category: `Entry Card - ${category}`,
       action: action,
@@ -33,7 +33,7 @@ class DetailedProjectCard extends React.Component {
       config.transport = transport;
     }
 
-    return config;
+    ReactGA.event(config);
   }
 
   componentDidMount() {
@@ -63,11 +63,11 @@ class DetailedProjectCard extends React.Component {
   }
 
   handleTwitterShareClick() {
-    ReactGA.event(this.createGaEventConfig(`Twitter Share button`, `Clicked`, `beacon`));
+    this.sendGaEvent(`Twitter Share button`, `Clicked`, `beacon`);
   }
 
   handleVisitBtnClick() {
-    ReactGA.event(this.props.createGaEventConfig(`Visit button`, `Clicked`, `beacon`));
+    this.sendGaEvent(`Visit button`, `Clicked`, `beacon`);
   }
 
   renderVisitButton() {

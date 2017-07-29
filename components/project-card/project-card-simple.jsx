@@ -4,13 +4,13 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ModerationPanel from '../moderation-panel.jsx';
-import Creators from './creators.jsx';
-import Thumbnail from './thumbnail.jsx';
-import Title from './title.jsx';
-import Description from './description.jsx';
-import GetInvolved from './get-involved.jsx';
-import WhyInteresting from './why-interesting.jsx';
-import IssuesAndTags from './issues-and-tags.jsx';
+import Creators from './meta/creators.jsx';
+import Thumbnail from './meta/thumbnail.jsx';
+import Title from './meta/title.jsx';
+import Description from './meta/description.jsx';
+import GetInvolved from './meta/get-involved.jsx';
+import WhyInteresting from './meta/why-interesting.jsx';
+import IssuesAndTags from './meta/issues-and-tags.jsx';
 import BookmarkControl from '../bookmark-control.jsx';
 import bookmarkManager from '../../js/bookmarks-manager';
 import user from '../../js/app-user.js';
@@ -121,11 +121,11 @@ class ProjectCard extends React.Component {
           { this.renderModerationPanel() }
           <div className="summary-content">
             <Thumbnail thumbnail={this.props.thumbnail}
-                       link={detailViewLink ? !this.props.onModerationMode : ``}
+                       link={!this.props.onModerationMode ? detailViewLink : ``}
                        sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
             <div className="content m-3">
               <Title title={this.props.title}
-                     link={detailViewLink ? !this.props.onModerationMode : ``}
+                     link={!this.props.onModerationMode ? detailViewLink : ``}
                      sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
               <Creators creators={this.props.creators} className="text-muted" />
               <Description description={this.props.description} />
