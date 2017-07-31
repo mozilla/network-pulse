@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 class GetInvolved extends React.Component {
   constructor(props) {
@@ -25,7 +24,9 @@ class GetInvolved extends React.Component {
     if (!this.props.helpTypes) return null;
 
     return this.props.helpTypes.map(helpType => {
-      return <Link to={`/help/${encodeURIComponent(helpType)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
+      // TODO:FIXME: links to `/help/${encodeURIComponent(helpType)}`
+      // to be added in a followup PR
+      return <a className="btn btn-xs btn-tag" key={helpType}>{helpType}</a>;
     });
   }
 

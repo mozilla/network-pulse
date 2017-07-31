@@ -8,7 +8,6 @@ import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
-import TagTypyPage from './pages/tag-typy-page.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
@@ -32,14 +31,11 @@ const Latest = () => {
         </div>;
 };
 
-const Help = (router) => {
-  let searchParam = { key: `help_type`, value: router.params.helpType };
-  return <TagTypyPage searchParam={searchParam} headerLabel="Help" />;
-};
-
 const Tag = (router) => {
-  let searchParam = { key: `tag`, value: router.params.tag };
-  return <TagTypyPage searchParam={searchParam} headerLabel="Tag" />;
+  return <div>
+          <Helmet><title>{router.params.tag}</title></Helmet>
+          <ProjectLoader tag={router.params.tag} />
+        </div>;
 };
 
 const App = React.createClass({
@@ -86,10 +82,6 @@ module.exports = (
     <Route path="tags">
       <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    </Route>
-    <Route path="help">
-      <IndexRedirect to="/latest" />
-      <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>

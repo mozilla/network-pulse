@@ -158,11 +158,11 @@ class Search extends React.Component {
     if (!this.state.keywordSearched && !this.props.moderation) return null;
 
     if (this.props.moderation) {
-      return <ProjectLoader search={this.state.keywordSearched} moderationState={this.state.moderationState} showCounter={true} />;
+      return <ProjectLoader search={this.state.keywordSearched} moderationState={this.state.moderationState} />;
     }
 
     if (this.state.keywordSearched) {
-      return <ProjectLoader search={this.state.keywordSearched} showCounter={true} />;
+      return <ProjectLoader search={this.state.keywordSearched} />;
     }
   }
 
