@@ -25,7 +25,8 @@ class GetInvolved extends React.Component {
 
     return this.props.helpTypes.map(helpType => {
       // TODO:FIXME: links to `/help/${encodeURIComponent(helpType)}`
-      // to be added in a followup PR
+      // To be added in a followup PR.
+      // See https://github.com/mozilla/network-pulse/issues/537 for details.
       return <a className="btn btn-xs btn-tag" key={helpType}>{helpType}</a>;
     });
   }

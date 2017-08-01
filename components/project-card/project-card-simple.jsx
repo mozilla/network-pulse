@@ -51,11 +51,10 @@ class ProjectCard extends React.Component {
     }
 
     let bookmarks = bookmarkManager.bookmarks.get();
-    let bookmarked;
 
     if (bookmarks) {
-      bookmarked = bookmarks.indexOf(this.props.id) > -1;
-      this.setState({bookmarked: bookmarked});
+      let bookmarked = bookmarks.indexOf(this.props.id) > -1;
+      this.setState({ bookmarked });
     }
   }
 
@@ -103,13 +102,9 @@ class ProjectCard extends React.Component {
   }
 
   render() {
-    let wrapperClassnames = classNames({
-      "col-md-6": true,
-      "col-lg-4": true
-    });
+    let wrapperClassnames = classNames(`col-md-6 col-lg-4`);
 
-    let classnames = classNames({
-      "project-card": true,
+    let classnames = classNames(`project-card`, {
       "regular-list-mode": !this.props.onModerationMode,
       "moderation-mode": this.props.onModerationMode,
       "bookmarked": this.state.bookmarked

@@ -50,11 +50,10 @@ class DetailedProjectCard extends React.Component {
     }
 
     let bookmarks = bookmarkManager.bookmarks.get();
-    let bookmarked;
 
     if (bookmarks) {
-      bookmarked = bookmarks.indexOf(this.props.id) > -1;
-      this.setState({bookmarked: bookmarked});
+      let bookmarked = bookmarks.indexOf(this.props.id) > -1;
+      this.setState({ bookmarked });
     }
   }
 
@@ -121,10 +120,7 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderLeftColumn() {
-    let wrapperClassnames = classNames({
-      "col-12": true,
-      "col-md-8": true
-    });
+    let wrapperClassnames = classNames(`col-12 col-md-8`);
 
     return <div className={wrapperClassnames}>
               <Thumbnail thumbnail={this.props.thumbnail} />
@@ -137,10 +133,7 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderRightColumn() {
-    let wrapperClassnames = classNames({
-      "col-12": true,
-      "col-md-4": true
-    });
+    let wrapperClassnames = classNames(`col-12 col-md-4 mt-3 mt-md-0`);
 
     return <div className={wrapperClassnames}>
               { this.renderActionPanel() }
@@ -152,11 +145,7 @@ class DetailedProjectCard extends React.Component {
   }
 
   render() {
-    let wrapperClassnames = classNames({
-      "col-12": true,
-      "pt-3": true,
-      "project-card": true,
-      "detail-view": true,
+    let wrapperClassnames = classNames(`col-12 pt-3 project-card detail-view`, {
       "bookmarked": this.state.bookmarked
     });
 
