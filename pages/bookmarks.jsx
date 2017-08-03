@@ -76,7 +76,7 @@ export default React.createClass({
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
-      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browswer.</span>;
+      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browser.</span>;
     }
 
     if (this.state.bookmarksImported) {
