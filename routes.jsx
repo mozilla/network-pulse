@@ -8,7 +8,7 @@ import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
-import TagTypyPage from './pages/tag-typy-page.jsx';
+import SingleFilterCriteriaPage from './pages/single-filter-criteria-page.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
@@ -34,12 +34,12 @@ const Latest = () => {
 
 const Help = (router) => {
   let searchParam = { key: `help_type`, value: router.params.helpType };
-  return <TagTypyPage searchParam={searchParam} headerLabel="Help" />;
+  return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Help" />;
 };
 
 const Tag = (router) => {
   let searchParam = { key: `tag`, value: router.params.tag };
-  return <TagTypyPage searchParam={searchParam} headerLabel="Tag" />;
+  return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
 
 const App = React.createClass({

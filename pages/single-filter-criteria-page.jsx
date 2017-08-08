@@ -5,7 +5,7 @@ import ProjectLoader from '../components/project-loader/project-loader.jsx';
 
 // For pages that display a list of entries based on single param search in the API call
 // e.g., 'tag', 'help_type', ...etc
-class TagTypyPage extends React.Component {
+class SingleFilterCriteriaPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -23,14 +23,14 @@ class TagTypyPage extends React.Component {
   }
 }
 
-TagTypyPage.propTypes = {
+SingleFilterCriteriaPage.propTypes = {
   searchParam: PropTypes.object.isRequired,
   headerLabel: PropTypes.string.isRequired,
 };
 
-TagTypyPage.defaultProps = {
+SingleFilterCriteriaPage.defaultProps = {
   searchParam: { key: ``, value: ``},
   headerLabel: ``
 };
 
-export default TagTypyPage;
+export default SingleFilterCriteriaPage;
