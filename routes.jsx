@@ -15,6 +15,7 @@ import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
 import Moderation from './pages/moderation.jsx';
+import Profile from './pages/profile.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
@@ -110,6 +111,7 @@ module.exports = (
       <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    <Route path="profile" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
   </Route>
 );
