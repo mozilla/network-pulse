@@ -48,6 +48,10 @@
     border-bottom: 1px solid $gray-lighter;
   }
 
+  &.detail-view .report-correction {
+    border-top: 1px solid $gray-lighter;
+  }
+
   .share {
     .btn {
       width: 20px;

@@ -158,6 +158,11 @@ class DetailedProjectCard extends React.Component {
           { this.renderLeftColumn() }
           { this.renderRightColumn() }
         </div>
+        <div className="row">
+          <div className="col-12 col-md-8">
+            <p className="report-correction mt-3 pt-3"><small>Correction? <a href="https://mzl.la/pulse-contact">Contact us</a>.</small></p>
+          </div>
+        </div>
       </div>
     );
   }
