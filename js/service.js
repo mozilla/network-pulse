@@ -20,7 +20,7 @@ function toQueryPair(key, data) {
   switch(type) {
     case `object`: return false;
     case `function`: return false;
-    default: return `${key}=${val.toString()}`;
+    default: return `${key}=${encodeURIComponent(val.toString())}`;
   }
 }
 
@@ -51,6 +51,8 @@ function getDataFromURL(route, params = {}, token = {}) {
   };
 
   Object.assign(params, defaultParams);
+
+  console.log(`params`, params);
 
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
