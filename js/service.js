@@ -52,8 +52,6 @@ function getDataFromURL(route, params = {}, token = {}) {
 
   Object.assign(params, defaultParams);
 
-  console.log(`params`, params);
-
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
