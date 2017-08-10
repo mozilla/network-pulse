@@ -21,6 +21,7 @@ import Footer from './components/footer/footer.jsx';
 const Featured = () => {
   return <div>
           <Helmet><title>Featured</title></Helmet>
+          <p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p>
           <ProjectLoader featured={`True`} />
         </div>;
 };
