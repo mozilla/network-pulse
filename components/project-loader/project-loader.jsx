@@ -124,19 +124,13 @@ export default React.createClass({
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
   },
-  renderTagHeader() {
-    if (!this.props.tag) return null;
-
-    return <h2>{`Tag: ${this.props.tag}`}</h2>;
-  },
   renderLearnMoreNotice() {
     if(!this.props.featured) return null;
 
     return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
   },
   renderEntryCounter() {
-    if (this.state.loadingData) return null;
-    if (!this.props.search && !this.props.moderationState && !this.props.issue && !this.props.tag) return null;
+    if (this.state.loadingData || !this.props.showCounter) return null;
 
     let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 0 ? `s` : ``} found`;
     let searchKeyword = this.props.search;
@@ -146,7 +140,6 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.renderTagHeader() }
         { this.renderLearnMoreNotice()}
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}

@@ -20,7 +20,7 @@ function toQueryPair(key, data) {
   switch(type) {
     case `object`: return false;
     case `function`: return false;
-    default: return `${key}=${val.toString()}`;
+    default: return `${key}=${encodeURIComponent(val.toString())}`;
   }
 }
 
