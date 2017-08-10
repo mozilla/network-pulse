@@ -61,10 +61,12 @@ class Search extends React.Component {
     }
 
     if ( moderationState ) {
+      // we want moderationState.label (name of the state) here and not moderationState.value (id of the state)
       query.moderationstate = moderationState.label;
     }
 
     if ( featured && featured.value ) {
+      // we want featured.value (True/False) here and not the labels shown in dropdown (Featured/Not featured)
       query.featured = featured.value;
     }
 

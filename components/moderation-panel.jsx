@@ -39,10 +39,12 @@ class ModerationPanel extends React.Component {
   }
 
   handleFeatureToggleClick(event) {
+    let featured = event.target.checked;
+
     Service.entry
       .put.feature(this.props.id)
       .then(() => {
-        this.setState({ featured: event.target.checked });
+        this.setState({ featured: featured });
       })
       .catch(reason => {
         console.error(reason);
