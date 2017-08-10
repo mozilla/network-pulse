@@ -3,14 +3,15 @@ import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 
-const headerText = `Thanks for the submission!`;
+const HEADER_TEXT = `Thanks for the submission!`;
 
-export default React.createClass({
-  getInitialState() {
-    return {
+export default class Submitted extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       entryId: false
     };
-  },
+  }
 
   componentDidMount() {
     let location = this.props.router.location;
@@ -36,7 +37,7 @@ export default React.createClass({
         entryId: entryId
       });
     }
-  },
+  }
 
   render() {
     var linkText = false;
@@ -47,7 +48,7 @@ export default React.createClass({
 
     const thankYou = (
       <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
-                    header={headerText}
+                    header={HEADER_TEXT}
                     linkComponent={linkText ? <Link to={`/entry/${this.state.entryId}`}>{linkText}</Link> : false}>
         <p>We'll be reviewing your submission, and it'll show up in the main feed after approval.</p>
       </HintMessage>
@@ -60,4 +61,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

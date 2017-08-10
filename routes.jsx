@@ -42,8 +42,13 @@ const Tag = (router) => {
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
 
-const App = React.createClass({
-  pageTitle: `Mozilla Network Pulse`,
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.pageTitle = `Mozilla Network Pulse`;
+  }
+
   render() {
     return (
       <div>
@@ -58,7 +63,7 @@ const App = React.createClass({
       </div>
     );
   }
-});
+}
 
 // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
 // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
