@@ -66,6 +66,7 @@ export default React.createClass({
   },
   render() {
     let docTitle;
+    let description;
     let justPostedByUserMessage = null;
     let content;
 
@@ -73,15 +74,20 @@ export default React.createClass({
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
       content = <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      description = `${this.state.entry.description}`;
     }
 
     if (this.state.noData) {
       docTitle = NO_ENTRY_TITLE;
       content = NO_ENTRY_BLOCK;
+      description = '';
     }
 
     if (docTitle) {
-      docTitle = <Helmet><title>{ docTitle }</title></Helmet>;
+      docTitle = <Helmet>
+      <meta property="og:title" content= "{ `${this.state.entry.title}` }" />
+      <meta property="og:description"  content="{ `${this.state.entry.description}` }" />   
+      </Helmet>;
     }
 
     return (
