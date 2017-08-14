@@ -38,8 +38,20 @@ let Tags = React.createClass({
   },
   handleAddition: function(tag) {
     tag.name = tag.name.trim();
-    const tags = [].concat(this.state.tags, tag);
+    const tags = [].concat(this.state.tags, this.fixTagLettercase(tag));
     this.updateTags(tags);
+  },
+  fixTagLettercase(tag) {
+    for (let t of this.state.suggestions) {
+      // We don't want to have duplicated tags in the database.
+      // If the user-defined tag is a known tag,
+      // fix the lettercase so it mataches the known tag we have in the database.
+      if (t.name.toLowerCase() === tag.name.toLowerCase()) {
+        tag = t;
+        break;
+      }
+    }
+    return tag;
   },
   getFilteredSuggestions: function() {
     // show only tag suggestions that haven't been selected yet
