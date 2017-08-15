@@ -63,12 +63,12 @@ class ModerationPanel extends React.Component {
                 clearable={false}
               />
               <div className="col-sm-4">
-                <label className="mb-0">
-                  Featured
+                <label className="mb-0 mt-2 mt-sm-0">
                   <input type="checkbox"
-                         className="d-inline-block ml-2 mt-2 mt-sm-0"
+                         className="d-inline-block mr-2"
                          onChange={(event) => this.handleFeatureToggleClick(event)}
                          checked={this.state.featured} />
+                  Featured
                 </label>
               </div>
             </div>;

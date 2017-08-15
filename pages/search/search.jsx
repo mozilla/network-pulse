@@ -8,13 +8,7 @@ import ReactGA from 'react-ga';
 import Service from '../../js/service.js';
 import ProjectLoader from '../../components/project-loader/project-loader.jsx';
 
-const DEFALUT_MODERATION_FILTER = `Pending`;
-const DEFALUT_FEATURED_FILTER = `---`;
-const FEATURE_FILTER_OPTIONS = [
-  { value: `True`, label: `Featured` },
-  { value: `False`, label: `Not featured` },
-  { value: ``, label: DEFALUT_FEATURED_FILTER }
-];
+const DEFAULT_MODERATION_FILTER = `Pending`;
 
 class Search extends React.Component {
   constructor(props) {
@@ -37,14 +31,10 @@ class Search extends React.Component {
   }
 
   getSearchCriteria(props) {
-    let featured = FEATURE_FILTER_OPTIONS.filter(option => {
-      return props.location.query.featured === option.value;
-    })[0];
-
     return {
       keywordSearched: props.location.query.keyword,
-      moderationState: { value: ``, label: props.location.query.moderationstate || DEFALUT_MODERATION_FILTER },
-      featured: featured || { value: ``, label: DEFALUT_FEATURED_FILTER }
+      moderationState: { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER },
+      featured: props.location.query.featured || ``
     };
   }
 
@@ -65,9 +55,8 @@ class Search extends React.Component {
       query.moderationstate = moderationState.label;
     }
 
-    if ( featured && featured.value ) {
-      // we want featured.value (True/False) here and not the labels shown in dropdown (Featured/Not featured)
-      query.featured = featured.value;
+    if ( featured === `True` ) {
+      query.featured = featured;
     }
 
     location.query = query;
@@ -139,8 +128,9 @@ class Search extends React.Component {
     });
   }
 
-  handleFeaturedFilterChange(selected) {
-    this.setState({ featured: selected }, () => {
+  handleFeaturedFilterChange(event) {
+    let featured = event.target.checked ? `True`: `False`;
+    this.setState({ featured: featured }, () => {
       this.updateBrowserHistory();
     });
   }
@@ -149,7 +139,7 @@ class Search extends React.Component {
     return <Select.Async
             name="state-filter"
             value={this.state.moderationState}
-            className="state-filter d-block d-sm-inline-block text-left"
+            className="state-filter text-left"
             searchable={false}
             clearable={false}
             cache={false}
@@ -160,15 +150,13 @@ class Search extends React.Component {
   }
 
   renderFeaturedFilter() {
-    return <Select
-              name="feature-filter"
-              value={this.state.featured}
-              className="featured-filter d-block d-sm-inline-block"
-              searchable={false}
-              clearable={false}
-              options={FEATURE_FILTER_OPTIONS}
-              onChange={(selected) => this.handleFeaturedFilterChange(selected)}
-            />;
+    return <label className="featured-filter d-flex align-items-center mb-0">
+              <input type="checkbox"
+                     className="d-inline-block mr-2"
+                     onChange={(event) => this.handleFeaturedFilterChange(event)}
+                     checked={this.state.featured === `True`} />
+              Featured only
+            </label>;
   }
 
   renderSearchControls() {
@@ -177,8 +165,8 @@ class Search extends React.Component {
               <h2>Moderation</h2>
               <div className="row">
                 <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderStateFilter() }</div>
-                <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderFeaturedFilter() }</div>
                 <div className="col-sm-12 col-md-6 mb-2 mb-sm-0">{ this.renderSearchBar() }</div>
+                <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderFeaturedFilter() }</div>
               </div>
              </div>;
     }
@@ -192,7 +180,7 @@ class Search extends React.Component {
     if (this.props.moderation) {
       return <ProjectLoader search={this.state.keywordSearched}
                             moderationState={this.state.moderationState}
-                            featured={this.state.featured.value}
+                            featured={this.state.featured}
                             showCounter={true} />;
     }
 
