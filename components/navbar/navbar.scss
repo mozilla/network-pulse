@@ -25,12 +25,6 @@
     }
   }
 
-  .text-nav-link {
-    &:not(.bookmarks) {
-      margin-right: 1.9rem;
-    }
-  }
-
   .btn-search {
     position: absolute;
     top: 0;
@@ -67,14 +61,6 @@
   @media screen and (min-width: $bp-md) {
     .nav-link-list {
       position: relative;
-    }
-
-    .text-nav-link {
-      margin-right: 2.4rem;
-
-      &:not(.bookmarks) {
-        margin-right: 2.4rem;
-      }
     }
 
     .btn-search {
