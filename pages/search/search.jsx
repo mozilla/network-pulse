@@ -36,14 +36,14 @@ class Search extends React.Component {
     document.querySelector(`#search-box`).focus();
   }
 
-  getSearchCriteria(theProps) {
+  getSearchCriteria(props) {
     let featured = FEATURE_FILTER_OPTIONS.filter(option => {
-      return theProps.location.query.featured === option.value;
+      return props.location.query.featured === option.value;
     })[0];
 
     return {
-      keywordSearched: theProps.location.query.keyword,
-      moderationState: { value: ``, label: theProps.location.query.moderationstate || DEFALUT_MODERATION_FILTER },
+      keywordSearched: props.location.query.keyword,
+      moderationState: { value: ``, label: props.location.query.moderationstate || DEFALUT_MODERATION_FILTER },
       featured: featured || { value: ``, label: DEFALUT_FEATURED_FILTER }
     };
   }
@@ -111,7 +111,8 @@ class Search extends React.Component {
                               type="search"
                               onChange={(event) => this.handleInputChange(event)}
                               placeholder="Search keywords, people, tags..."
-                              className="form-control" />
+                              className="form-control"
+              />
               <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
             </div>
           </div>;

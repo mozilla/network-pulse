@@ -48,6 +48,10 @@ The host you are using. e.g., `HOST=http://localhost`
 
 The port number you are using. e.g., `PORT=3000`
 
+#### `LEARN_MORE_LINK`
+
+Link to learn more about what Pulse project is about. e.g., `LEARN_MORE_LINK=https://www.mozillapulse.org/entry/120`
+
 #### `PULSE_API` (optional)
 
 Default: `https://network-pulse-api-staging.herokuapp.com/`
