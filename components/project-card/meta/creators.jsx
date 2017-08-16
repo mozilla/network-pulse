@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Creators = (props) => {
-  if (!props.creators) return null;
+  if (props.creators.length === 0) return null;
 
   let classnames = classNames(`creator d-block`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
