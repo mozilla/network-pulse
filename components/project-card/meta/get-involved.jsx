@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
+const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
+
 class GetInvolved extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,7 @@ class GetInvolved extends React.Component {
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
     let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={() => this.handleGetInvolvedLinkClick()}>Get Involved</a>) : null;
 
-    if (!getInvolvedText && !getInvolvedLink) return null;
+    if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return <p>{getInvolvedText} {getInvolvedLink}</p>;
   }
@@ -30,6 +32,8 @@ class GetInvolved extends React.Component {
   }
 
   render() {
+    if (!this.props.getInvolved && !this.props.getInvolvedUrl && !this.props.helpTypes.length > 0) return null;
+
     return <div className="get-involved pb-3 mb-3">
             <h2>Get involved</h2>
             { this.renderGetInvolvedText() }
