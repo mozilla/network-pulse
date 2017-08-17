@@ -85,7 +85,7 @@ class ProjectCard extends React.Component {
   renderModerationPanel() {
     if (!this.props.onModerationMode) return null;
 
-    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} />;
+    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} featured={this.props.featured} />;
   }
 
   renderExtraMeta() {

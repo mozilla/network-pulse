@@ -198,6 +198,9 @@ let Service = {
       moderationState: function(entryId, stateId) {
         return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`);
       },
+      feature: function(entryId) {
+        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/feature/`);
+      },
       bookmark: function(entryId) {
         return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`);
       }

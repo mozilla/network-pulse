@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import pageSettings from './js/app-page-settings';
+import env from "./config/env.generated.json";
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';
@@ -19,8 +20,11 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
+  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK}>Learn more</a>.</span> : null;
+
   return <div>
           <Helmet><title>Featured</title></Helmet>
+          <p>Discover & collaborate on projects for a healthy internet. {learnMore}</p>
           <ProjectLoader featured={`True`} />
         </div>;
 };

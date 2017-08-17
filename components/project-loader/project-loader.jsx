@@ -123,11 +123,6 @@ export default React.createClass({
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
   },
-  renderLearnMoreNotice() {
-    if(!this.props.featured) return null;
-
-    return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
-  },
   renderEntryCounter() {
     if (this.state.loadingData || !this.props.showCounter) return null;
 
@@ -139,7 +134,6 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.renderLearnMoreNotice()}
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}

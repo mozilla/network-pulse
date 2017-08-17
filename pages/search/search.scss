@@ -15,8 +15,8 @@
 
   .dismiss {
     position: absolute;
-    top: 0.7rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -37,23 +37,21 @@
   }
 
   input {
-    width: 100%;
-    padding: 0.5rem 1rem;
     background: $white;
     border: 0;
+    border-radius: 0;
     box-sizing: border-box;
   }
 }
 
-.state-filter {
+.state-filter,
+.featured-filter {
   width: 100%;
-
-  @media screen and (min-width: $bp-md) {
-    width: 130px;
-  }
+  height: 100%;
 
   .Select-control {
     border: 0;
     border-radius: 0;
   }
 }
+
