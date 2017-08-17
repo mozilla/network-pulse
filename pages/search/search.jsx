@@ -31,11 +31,16 @@ class Search extends React.Component {
   }
 
   getSearchCriteria(props) {
-    return {
-      keywordSearched: props.location.query.keyword,
-      moderationState: { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER },
-      featured: props.location.query.featured || ``
+    let criteria = {
+      keywordSearched: props.location.query.keyword
     };
+
+    if (this.props.moderation) {
+      if (props.location.query.featured === `True`) criteria.featured = props.location.query.featured;
+      criteria.moderationState = { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER };
+    }
+
+    return criteria;
   }
 
   updateBrowserHistory() {
@@ -44,7 +49,6 @@ class Search extends React.Component {
     let featured = this.state.featured;
     let location = { pathname: this.props.router.location.pathname };
     let query = {};
-
 
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
