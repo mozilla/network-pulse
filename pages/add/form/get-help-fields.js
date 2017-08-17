@@ -50,7 +50,7 @@ class HelpTypes extends React.Component {
 
   renderCheckbox(helpType) {
     return <div key={helpType}><label>
-                <input type="checkbox" value={helpType} onChange={(event) => this.handleCheckboxChange(event)} /> {helpType}
+                <input type="checkbox" value={helpType} onChange={event => this.handleCheckboxChange(event)} /> {helpType}
              </label></div>;
   }
 
