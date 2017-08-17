@@ -67,6 +67,10 @@ export default React.createClass({
       delete combinedParams.bookmarkedOnly;
     }
 
+    if (combinedParams.showCounter) {
+      // showCounter is not a query param the API supports
+      delete combinedParams.showCounter;
+    }
 
     return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
   },
