@@ -84,6 +84,16 @@ let Tags = React.createClass({
   }
 });
 
+let IssuesLabel = React.createClass({
+  render() {
+    return(
+      <div>
+        Check any <a href="https://network.mofoprod.net/about#internet-health">Key Internet Issues</a> that relate to your project.
+      </div>
+    )
+  }
+})
+
 module.exports = {
   creators: {
     type: `text`,
@@ -102,7 +112,7 @@ module.exports = {
   },
   issues: {
     type: `checkboxGroup`,
-    label: `Check any Key Internet Issues that relate to your project.`,
+    label: <IssuesLabel/>,
     options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
     colCount: 1
   },
