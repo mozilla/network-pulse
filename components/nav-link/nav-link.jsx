@@ -4,9 +4,8 @@ import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 
 class NavLink extends React.Component {
-  constructor() {
-    super();
-    this.handleInternalPageLinkClick = this.handleInternalPageLinkClick.bind(this);
+  constructor(props) {
+    super(props);
   }
 
   handleInternalPageLinkClick() {
@@ -19,7 +18,7 @@ class NavLink extends React.Component {
 
   render() {
     return (
-      <Link {...this.props} activeClassName="active" onClick={this.handleInternalPageLinkClick} />
+      <Link {...this.props} activeClassName="active" onClick={() => this.handleInternalPageLinkClick()} />
     );
   }
 }

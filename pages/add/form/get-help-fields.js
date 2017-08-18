@@ -3,8 +3,8 @@ import validator from './validator';
 import Service from '../../../js/service';
 
 class HelpTypes extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       helpTypes: [],
       selected: []

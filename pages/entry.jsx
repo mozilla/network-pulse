@@ -17,8 +17,8 @@ const NO_ENTRY_BLOCK = (
 );
 
 class Entry extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       dataLoaded: false,
       justPostedByUser: false,
