@@ -39,7 +39,7 @@
     &::before {
       font-family: "FontAwesome";
       display: inline-block;
-      margin-right: 0.5rem;
+      margin-right: 0.4rem;
     }
 
     &.location {
@@ -62,7 +62,7 @@
 
     &.link {
       &::before {
-        content: "\f2be";
+        content: "\f0ac";
       }
     }
   }
