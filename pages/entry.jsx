@@ -1,14 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
-import ProjectCard from '../components/project-card/project-card.jsx';
+import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 
 const NO_ENTRY_OG_TITLE = `Entry unavailable`;
 const NO_ENTRY_OG_DESCRIPTION = `Description for this entry is currently unavailable`;
 const NO_ENTRY_BLOCK = (
-  <div className="main-content text-center">
+  <div className="text-center">
     <div className="content">
       <p className="description">
         This entry is not currently available.
@@ -41,7 +41,8 @@ export default React.createClass({
       .catch((reason) => {
         console.error(reason);
         this.setState({
-          noData: true
+          dataLoaded: true,
+          errorLoadingData: true
         });
       });
   },
@@ -65,40 +66,45 @@ export default React.createClass({
       justPostedByUser: justPostedByUser
     });
   },
-  render() {
-    let docTitle;
-    let description;
-    let justPostedByUserMessage = null;
-    let content;
+  renderLoadingNotice() {
+    // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
+    return <div className="loading my-5 d-flex justify-content-center align-items-center">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>;
+  },
+  renderEntry() {
+    if (!this.state.dataLoaded) return null;
 
-    if (this.state.dataLoaded) {
+    let justPostedByUserMessage = null;
+    let content = NO_ENTRY_BLOCK;
+    let docTitle = NO_ENTRY_OG_TITLE; // html doc title
+    let description = NO_ENTRY_OG_DESCRIPTION;
+
+    if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
-      content = <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      content = <ProjectCardDetialed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
       description = this.state.entry.description;
     }
 
-    if (this.state.noData) {
-      docTitle = NO_ENTRY_OG_TITLE;
-      content = NO_ENTRY_BLOCK;
-      description = NO_ENTRY_OG_DESCRIPTION;
-    }
-
-    if (docTitle) {
-      docTitle = (
-       <Helmet>
-        <title>{ docTitle }</title>
-        <meta property="og:title" content={ docTitle }/>
-        <meta property="og:description" content={ description }/>
-       </Helmet>
-      );
-    }
-
     return (
-      <div className="row justify-content-center">
-        { docTitle }
+      <div className="w-100">
+        <Helmet>
+         <title>{ docTitle }</title>
+         <meta property="og:title" content={ docTitle }/>
+         <meta property="og:description" content={ description }/>
+        </Helmet>
         { justPostedByUserMessage }
         { content }
+      </div>
+    );
+  },
+  render() {
+    return (
+      <div className="row justify-content-center">
+        { !this.state.dataLoaded ? this.renderLoadingNotice() : this.renderEntry() }
       </div>
     );
   }
