@@ -24,7 +24,8 @@ const SomeUser = {
   ],
   language: [ `English` ],
   storyLink: `https://example.com/story`,
-  link: `https://example.com/link`
+  link: `https://example.com/link`,
+  bio: `Mom, PhD, Academic, Educator, loves myAfrica, has a passion for inclusive tech, #ict4d #mobilelearning #edutech #egovernance #womenintech`
 };
 
 

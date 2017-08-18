@@ -9,10 +9,21 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-color: $gray;
   }
 
   .name {
     font-size: 1.75rem;
     font-weight: 500;
+  }
+
+  .other-meta {
+    font-family: "Open Sans";
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .blurb {
+    font-size: 1.25rem;
   }
 }
