@@ -5,7 +5,8 @@ import ProjectCard from '../components/project-card/project-card.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 
-const NO_ENTRY_TITLE = `Entry unavailable`;
+const NO_ENTRY_OG_TITLE = `Entry unavailable`;
+const NO_ENTRY_OG_DESCRIPTION = `Description for this entry is currently unavailable`;
 const NO_ENTRY_BLOCK = (
   <div className="main-content text-center">
     <div className="content">
@@ -74,20 +75,23 @@ export default React.createClass({
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
       content = <ProjectCard {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
-      description = `${this.state.entry.description}`;
+      description = this.state.entry.description;
     }
 
     if (this.state.noData) {
-      docTitle = NO_ENTRY_TITLE;
+      docTitle = NO_ENTRY_OG_TITLE;
       content = NO_ENTRY_BLOCK;
-      description = '';
+      description = NO_ENTRY_OG_DESCRIPTION;
     }
 
     if (docTitle) {
-      docTitle = <Helmet>
-      <meta property="og:title" content= "{ `${this.state.entry.title}` }" />
-      <meta property="og:description"  content="{ `${this.state.entry.description}` }" />   
-      </Helmet>;
+      docTitle = (
+       <Helmet>
+        <title>{ docTitle }</title>
+        <meta property="og:title" content={ docTitle }/>
+        <meta property="og:description" content={ description }/>
+       </Helmet>
+      );
     }
 
     return (
