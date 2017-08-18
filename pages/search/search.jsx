@@ -37,8 +37,13 @@ class Search extends React.Component {
 
     if (this.props.moderation) {
       // the following states are only useful on moderation mode
-      if (props.location.query.featured === `True`) criteria.featured = props.location.query.featured;
-      criteria.moderationState = { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER };
+      if (props.location.query.featured === `True`) {
+        criteria.featured = props.location.query.featured;
+      }
+      criteria.moderationState = {
+        value: ``,
+        label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER
+      };
     }
 
     return criteria;
@@ -57,7 +62,9 @@ class Search extends React.Component {
 
     if ( this.props.moderation ) {
       // the following params are only useful on moderation mode
-      if ( featured === `True` ) query.featured = featured;
+      if ( featured === `True` ) {
+        query.featured = featured;
+      }
       // we want moderationState.label (name of the state) here and not moderationState.value (id of the state)
       query.moderationstate = moderationState.label;
     }
