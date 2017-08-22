@@ -9,7 +9,7 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: [
       validator.emptyValueValidator(),
-      validator.maxLengthValidator(140)
+      validator.maxLengthValidator(80)
     ]
   },
   'content_url': { // required field

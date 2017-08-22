@@ -2,12 +2,14 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import pageSettings from './js/app-page-settings';
+import env from "./config/env.generated.json";
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';
 import Issues from './pages/issues/issues.jsx';
 import Issue from './pages/issue.jsx';
 import Entry from './pages/entry.jsx';
+import SingleFilterCriteriaPage from './pages/single-filter-criteria-page.jsx';
 import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
@@ -18,8 +20,11 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
+  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK}>Learn more</a>.</span> : null;
+
   return <div>
           <Helmet><title>Featured</title></Helmet>
+          <p>Discover & collaborate on projects for a healthy internet. {learnMore}</p>
           <ProjectLoader featured={`True`} />
         </div>;
 };
@@ -31,15 +36,23 @@ const Latest = () => {
         </div>;
 };
 
-const Tag = (router) => {
-  return <div>
-          <Helmet><title>{router.params.tag}</title></Helmet>
-          <ProjectLoader tag={router.params.tag} />
-        </div>;
+const Help = (router) => {
+  let searchParam = { key: `help_type`, value: router.params.helpType };
+  return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Help" />;
 };
 
-const App = React.createClass({
-  pageTitle: `Mozilla Network Pulse`,
+const Tag = (router) => {
+  let searchParam = { key: `tag`, value: router.params.tag };
+  return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
+};
+
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.pageTitle = `Mozilla Network Pulse`;
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +67,7 @@ const App = React.createClass({
       </div>
     );
   }
-});
+}
 
 // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
 // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
@@ -82,6 +95,10 @@ module.exports = (
     <Route path="tags">
       <IndexRedirect to="/latest" />
       <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    </Route>
+    <Route path="help">
+      <IndexRedirect to="/latest" />
+      <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>

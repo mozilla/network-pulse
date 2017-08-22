@@ -8,7 +8,7 @@ import ReactGA from 'react-ga';
 import Service from '../../js/service.js';
 import ProjectLoader from '../../components/project-loader/project-loader.jsx';
 
-const DEFALUT_MODERATION_FILTER = `Pending`;
+const DEFAULT_MODERATION_FILTER = `Pending`;
 
 class Search extends React.Component {
   constructor(props) {
@@ -30,16 +30,18 @@ class Search extends React.Component {
     document.querySelector(`#search-box`).focus();
   }
 
-  getSearchCriteria(theProps) {
+  getSearchCriteria(props) {
     return {
-      keywordSearched: theProps.location.query.keyword,
-      moderationState: { value: ``, label: theProps.location.query.moderationstate || DEFALUT_MODERATION_FILTER }
+      keywordSearched: props.location.query.keyword,
+      moderationState: { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER },
+      featured: props.location.query.featured || ``
     };
   }
 
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
     let moderationState = this.state.moderationState;
+    let featured = this.state.featured;
     let location = { pathname: this.props.router.location.pathname };
     let query = {};
 
@@ -49,7 +51,12 @@ class Search extends React.Component {
     }
 
     if ( moderationState ) {
+      // we want moderationState.label (name of the state) here and not moderationState.value (id of the state)
       query.moderationstate = moderationState.label;
+    }
+
+    if ( featured === `True` ) {
+      query.featured = featured;
     }
 
     location.query = query;
@@ -81,22 +88,20 @@ class Search extends React.Component {
   }
 
   renderSearchBar() {
-    let classnames = classNames({activated: true, 'search-bar': true, 'w-100': true, 'mb-0': true});
-    let label;
-
-    if (this.props.moderation) {
-      label = <div className="mr-2">Keywords:</div>;
-    }
+    let classnames = classNames(`activated search-bar w-100`, {
+      'mb-0': this.props.moderation
+    });
 
     return <div className="d-flex align-items-center">
-            {label}
             <div className={classnames}>
               <DebounceInput id="search-box"
                               value={this.state.keywordSearched}
                               debounceTimeout={300}
                               type="search"
                               onChange={(event) => this.handleInputChange(event)}
-                              placeholder="Search keywords, people, tags..." />
+                              placeholder="Search keywords, people, tags..."
+                              className="form-control"
+              />
               <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
             </div>
           </div>;
@@ -117,36 +122,51 @@ class Search extends React.Component {
       });
   }
 
-  handleFilterChange(selected) {
+  handleStateFilterChange(selected) {
     this.setState({ moderationState: selected }, () => {
       this.updateBrowserHistory();
     });
   }
 
+  handleFeaturedFilterChange(event) {
+    let featured = event.target.checked ? `True`: `False`;
+    this.setState({ featured: featured }, () => {
+      this.updateBrowserHistory();
+    });
+  }
+
   renderStateFilter() {
-    return <div className="d-flex align-items-center mb-3">
-              <div className="mr-2">Filter by moderation state:</div>
-              <Select.Async
-                name="form-field-name"
-                value={this.state.moderationState}
-                className="state-filter d-inline-block text-left"
-                searchable={false}
-                clearable={false}
-                cache={false}
-                placeholder="Moderation state"
-                loadOptions={(input, callback) => this.getModerationStates(input, callback)}
-                onChange={(selected) => this.handleFilterChange(selected)}
-              />
-            </div>;
+    return <Select.Async
+            name="state-filter"
+            value={this.state.moderationState}
+            className="state-filter text-left"
+            searchable={false}
+            clearable={false}
+            cache={false}
+            placeholder="Moderation state"
+            loadOptions={(input, callback) => this.getModerationStates(input, callback)}
+            onChange={(selected) => this.handleStateFilterChange(selected)}
+          />;
+  }
+
+  renderFeaturedFilter() {
+    return <label className="featured-filter d-flex align-items-center mb-0">
+              <input type="checkbox"
+                     className="d-inline-block mr-2"
+                     onChange={(event) => this.handleFeaturedFilterChange(event)}
+                     checked={this.state.featured === `True`} />
+              Featured only
+            </label>;
   }
 
   renderSearchControls() {
     if (this.props.moderation) {
       return <div className="moderation-search-controls mb-4 pb-4">
               <h2>Moderation</h2>
-              <div>
-                { this.renderStateFilter() }
-                { this.renderSearchBar() }
+              <div className="row">
+                <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderStateFilter() }</div>
+                <div className="col-sm-12 col-md-6 mb-2 mb-sm-0">{ this.renderSearchBar() }</div>
+                <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderFeaturedFilter() }</div>
               </div>
              </div>;
     }
@@ -158,11 +178,14 @@ class Search extends React.Component {
     if (!this.state.keywordSearched && !this.props.moderation) return null;
 
     if (this.props.moderation) {
-      return <ProjectLoader search={this.state.keywordSearched} moderationState={this.state.moderationState} />;
+      return <ProjectLoader search={this.state.keywordSearched}
+                            moderationState={this.state.moderationState}
+                            featured={this.state.featured}
+                            showCounter={true} />;
     }
 
     if (this.state.keywordSearched) {
-      return <ProjectLoader search={this.state.keywordSearched} />;
+      return <ProjectLoader search={this.state.keywordSearched} showCounter={true} />;
     }
   }
 

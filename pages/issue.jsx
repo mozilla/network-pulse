@@ -10,6 +10,6 @@ export default function (props) {
   return <div>
             <Helmet><title>{issueName}</title></Helmet>
             <IssueSelector />
-            <ProjectLoader issue={encodeURIComponent(issueName)} />
+            <ProjectLoader issue={issueName} showCounter={true} />
           </div>;
 }

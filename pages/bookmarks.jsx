@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Helmet } from "react-helmet";
+import classNames from 'classnames';
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
-import { getBookmarks } from '../js/bookmarks-manager';
+import Service from '../js/service.js';
+import bookmarkManager from '../js/bookmarks-manager';
 import utility from '../js/utility';
 import user from '../js/app-user';
 import pageSettings from '../js/app-page-settings';
@@ -12,7 +14,8 @@ export default React.createClass({
   getInitialState() {
     return {
       user,
-      bookmarkedIds: []
+      lsBookmarkedIds: [], // localStorage bookmarked entry ids,
+      bookmarksImported: false
     };
   },
   handleSignInBtnClick(event) {
@@ -26,7 +29,7 @@ export default React.createClass({
   },
   componentDidMount() {
     // get IDs of user's bookmarked entries
-    this.setState({bookmarkedIds: getBookmarks()}, () => {
+    this.setState({lsBookmarkedIds: bookmarkManager.bookmarks.get()}, () => {
       if (pageSettings.shouldRestore) {
         // restore state back to what is stored in pageSettings
         this.setState(pageSettings.currentList);
@@ -45,50 +48,87 @@ export default React.createClass({
       this.setState({ user });
     }
   },
+  bulkBookmark(entryIds, onError) {
+    Service.bookmarks
+      .post(entryIds)
+      .then(() => {
+        onError(null);
+      })
+      .catch(reason => {
+        onError(reason);
+      });
+  },
+  handleImportBookmarksClick() {
+    // import
+    this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
+      if (error) {
+        console.error(error);
+      } else {
+        bookmarkManager.bookmarks.delete();
+        this.setState({
+          lsBookmarkedIds: [],
+          bookmarksImported: true
+        });
+      }
+    });
+  },
   getContentForLoggedInUser() {
-    return(<p>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>);
-  },
-  getFailurePrompt() {
-    return (<p>Something went wrong! Please refresh and try again.</p>);
-  },
-  getAnonymousContent() {
-    return (<p><button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in with Google</button>.</p>);
-  },
-  getloggedInStatusContent() {
-    if (user.loggedin) {
-      return this.getContentForLoggedInUser();
+    let importHint;
+
+    if (this.state.lsBookmarkedIds.length > 0) {
+      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browser.</span>;
     }
 
-    if (user.failedLogin) {
-      return this.getFailurePrompt();
+    if (this.state.bookmarksImported) {
+      importHint = <span>Your favs have been imported.</span>;
     }
+
+    if (importHint) {
+      importHint = <p><small className="text-muted">{importHint}</small></p>;
+    }
+
+    return <div>
+            <p className={classNames({'mb-0': !!importHint})}>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>
+            {importHint}
+            <ProjectLoader bookmarkedOnly={true} />
+          </div>;
+  },
+  getAnonymousContent() {
+    let signInPrompt = <p><button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in with Google</button>.</p>;
+    let bookmarkedProjects = this.renderHintMessage();
+
+    if (user.failedLogin) {
+      signInPrompt = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
+    }
+
+    if (this.state.lsBookmarkedIds.length > 0) {
+      bookmarkedProjects = <ProjectLoader ids={this.state.lsBookmarkedIds} />;
+    }
+
+    return <div>
+            {signInPrompt}
+            {bookmarkedProjects}
+          </div>;
+  },
+  renderContent() {
+    if (user.loggedin === undefined) return null;
+
+    if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
   },
-  getBookmarkedProjects() {
-    // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
-    // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
-    // For user facing bits like UI labels and URL path we want them to stay as "favorites".
-    // For more info see: https://github.com/mozilla/network-pulse/issues/326
-    let headerText = `Save your Favs`;
-    let bookmarkedProjects = (<HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
-                                           header={headerText}
-                                           linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-                                <p>Tap the heart on any project to save it here.</p>
-                              </HintMessage>);
-
-    if (this.state.bookmarkedIds.length > 0) {
-      bookmarkedProjects = <ProjectLoader ids={this.state.bookmarkedIds} />;
-    }
-
-    return bookmarkedProjects;
+  renderHintMessage() {
+    return <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
+                       header="Save your Favs"
+                       linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
+            <p>Tap the heart on any project to save it here.</p>
+          </HintMessage>;
   },
   render() {
     return (
       <div>
         <Helmet><title>Favs</title></Helmet>
-        <div className="logged-in-status">{ this.getloggedInStatusContent() }</div>
-        { this.getBookmarkedProjects() }
+        { this.renderContent() }
       </div>
     );
   }

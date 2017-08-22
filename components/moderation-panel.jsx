@@ -7,7 +7,8 @@ class ModerationPanel extends React.Component {
     super(props);
 
     this.state = {
-      moderationState: this.props.moderationState
+      moderationState: this.props.moderationState,
+      featured: this.props.featured
     };
   }
 
@@ -26,53 +27,50 @@ class ModerationPanel extends React.Component {
       });
   }
 
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
+  handleModerationStateChange(selected) {
+    Service.entry
+      .put.moderationState(this.props.id, selected.value)
+      .then(() => {
+        this.setState({ moderationState: selected });
       })
-      .catch((reason) => {
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
+      .catch(reason => {
+        console.error(reason);
       });
   }
 
-  handleModerationStateChange(selected) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
+  handleFeatureToggleClick(event) {
+    let featured = event.target.checked;
 
-      let formattedNonce = {
-        nonce: nonce.nonce,
-        csrfmiddlewaretoken: nonce.csrf_token
-      };
-
-      Service.entry
-        .put.moderationState(this.props.id, selected.value, formattedNonce)
-        .then(() => {
-          this.setState({ moderationState: selected });
-        })
-        .catch(reason => {
-          this.setState({
-            serverError: true
-          });
-          console.error(reason);
-        });
-    });
+    Service.entry
+      .put.feature(this.props.id)
+      .then(() => {
+        this.setState({ featured: featured });
+      })
+      .catch(reason => {
+        console.error(reason);
+      });
   }
 
   render() {
-    return <div className="moderation-panel p-3">
+    return <div className="moderation-panel row justify-content-center align-items-center p-3 mb-3">
               <Select.Async
                 name="form-field-name"
                 value={this.state.moderationState}
-                className="d-block text-left"
+                className="col-sm-8 d-block text-left"
                 searchable={false}
                 loadOptions={(input, callback) => this.getModerationStates(input, callback)}
                 onChange={(selected) => this.handleModerationStateChange(selected)}
                 clearable={false}
               />
+              <div className="col-sm-4">
+                <label className="mb-0 mt-2 mt-sm-0">
+                  <input type="checkbox"
+                         className="d-inline-block mr-2"
+                         onChange={(event) => this.handleFeatureToggleClick(event)}
+                         checked={this.state.featured} />
+                  Featured
+                </label>
+              </div>
             </div>;
   }
 }

@@ -30,11 +30,11 @@ export default React.createClass({
     // to handle it accoringly.
 
     this.setState(this.getInitialState(), () => {
-      this.fetchData(nextProps);
+      this.fetchData(this.props.bookmarkedOnly, nextProps);
     });
   },
   createQueryParams(params) {
-    let combinedParams = Object.assign({},params);
+    let combinedParams = Object.assign({}, params);
 
     if (combinedParams.ids) {
       // The `ids` query param is only used on the bookmarks(favs) page
@@ -62,9 +62,14 @@ export default React.createClass({
       delete combinedParams.moderationState;
     }
 
+    if (combinedParams.bookmarkedOnly) {
+      // bookmarkedOnly is not a query param the API supports
+      delete combinedParams.bookmarkedOnly;
+    }
+
     return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
   },
-  fetchData(params = this.props) {
+  fetchData(bookmarkedOnly = !!this.props.bookmarkedOnly, params = this.props) {
     let combinedParams = this.createQueryParams(params);
 
     if (this.promiseToken) {
@@ -82,7 +87,7 @@ export default React.createClass({
     this.setState({ loadingData: true });
 
     Service.entries
-      .get(combinedParams,this.promiseToken)
+      .get(bookmarkedOnly, combinedParams, this.promiseToken)
       .then((data) => {
         this.updateStateWithNewData(data);
       })
@@ -118,19 +123,8 @@ export default React.createClass({
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
   },
-  renderTagHeader() {
-    if (!this.props.tag) return null;
-
-    return <h2>{`Tag: ${this.props.tag}`}</h2>;
-  },
-  renderLearnMoreNotice() {
-    if(!this.props.featured) return null;
-
-    return <div><p>Discover & collaborate on projects for a healthy internet. <a href="https://www.mozillapulse.org/entry/120">Learn more</a>.</p></div>;
-  },
   renderEntryCounter() {
-    if (this.state.loadingData) return null;
-    if (!this.props.search && !this.props.moderationState && !this.props.issue && !this.props.tag) return null;
+    if (this.state.loadingData || !this.props.showCounter) return null;
 
     let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 0 ? `s` : ``} found`;
     let searchKeyword = this.props.search;
@@ -140,8 +134,6 @@ export default React.createClass({
   render() {
     return (
       <div>
-        { this.renderTagHeader() }
-        { this.renderLearnMoreNotice()}
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}

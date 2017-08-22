@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
-import ProjectCard from '../project-card/project-card.jsx';
+import ProjectCardSimple from '../project-card/project-card-simple.jsx';
 import Utility from '../../js/utility.js';
 import pageSettings from '../../js/app-page-settings';
 
@@ -31,7 +31,7 @@ class ProjectList extends React.Component {
 
   renderProjectCards() {
     return this.props.entries.map(project => {
-      return <ProjectCard key={project.id} onModerationMode={this.props.onModerationMode} {...Utility.processEntryData(project)} />;
+      return <ProjectCardSimple key={project.id} onModerationMode={this.props.onModerationMode} {...Utility.processEntryData(project)} />;
     });
   }
 

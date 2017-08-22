@@ -8,6 +8,7 @@ import utility from '../../js/utility';
 import user from '../../js/app-user';
 import basicInfoFields from './form/basic-info-fields';
 import detailInfoFields from './form/detail-info-fields';
+import getHelpFields from './form/get-help-fields';
 
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
@@ -67,92 +68,75 @@ export default React.createClass({
   },
   handleFormSubmit(event) {
     event.preventDefault();
+
     this.refs.basicForm.validates(basicFormIsValid => {
       this.refs.detailForm.validates(detailFormIsValid => {
-        if (!basicFormIsValid) {
-          console.error(`basic form does not pass validation!`);
-        }
+        this.refs.getHelpForm.validates(getHelpFormIsValid => {
+          if (!basicFormIsValid) {
+            console.error(`basic form does not pass validation!`);
+          }
 
-        if (!detailFormIsValid) {
-          console.error(`detail form does not pass validation!`);
-        }
+          if (!detailFormIsValid) {
+            console.error(`detail form does not pass validation!`);
+          }
 
-        if (!basicFormIsValid || !detailFormIsValid) {
-          this.setState({showFormInvalidNotice: true});
-          return;
-        }
+          if (!getHelpFormIsValid) {
+            console.error(`get help form does not pass validation!`);
+          }
 
-        this.setState({
-          showFormInvalidNotice: false,
-          submitting: true
-        }, () => this.postEntry(this.state.formValues));
+          if (!basicFormIsValid || !detailFormIsValid || !getHelpFormIsValid) {
+            this.setState({ showFormInvalidNotice: true });
+            return;
+          }
+
+          this.setState({
+            showFormInvalidNotice: false,
+            submitting: true
+          }, () => this.postEntry(this.state.formValues));
+        });
       });
     });
   },
-  getNonce(callback) {
-    Service.nonce()
-      .then((nonce) => {
-        callback(false, nonce);
-      })
-      .catch((reason) => {
-        this.setState({
-          authError: true
-        });
-        callback(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
-      });
-  },
   postEntry(entryData) {
-    this.getNonce((error, nonce) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
+    Service.entries
+      .post(entryData)
+      .then(response => {
+        const entryId = response.id;
 
-      let data = Object.assign({}, entryData);
-
-      data.nonce = nonce.nonce;
-      data.csrfmiddlewaretoken = nonce.csrf_token;
-
-      Service.entries
-        .post(data)
-        .then(response => {
-          const entryId = response.id;
-
-          // will the API show this user the new entry?
-          Service.entry
-          .get(entryId)
-          .then(result => {
-            if(result) {
-              browserHistory.push({
-                pathname: `/entry/${response.id}`,
-                query: {
-                  justPostedByUser: true
-                }
-              });
-            } else {
-              browserHistory.push({
-                pathname: `/submitted`,
-                query: { entryId }
-              });
-            }
-          })
-          .catch(reason => {
-            // a 404 is yielded as an error by Service.entry
-            console.error(reason);
+        // will the API show this user the new entry?
+        Service.entry
+        .get(entryId)
+        .then(result => {
+          if(result) {
+            browserHistory.push({
+              pathname: `/entry/${response.id}`,
+              query: {
+                justPostedByUser: true
+              }
+            });
+          } else {
             browserHistory.push({
               pathname: `/submitted`,
               query: { entryId }
             });
-          });
-
+          }
         })
         .catch(reason => {
-          this.setState({
-            serverError: true
-          });
+          // a 404 is yielded as an error by Service.entry
           console.error(reason);
+          browserHistory.push({
+            pathname: `/submitted`,
+            query: { entryId }
+          });
         });
-    });
+
+      })
+      .catch(reason => {
+        this.setState({
+          serverError: true
+        });
+        console.error(reason);
+      });
   },
   getContentForLoggedInUser() {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
@@ -162,7 +146,7 @@ export default React.createClass({
               <h1>Share with the Network</h1>
               <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
               <p>Please keep your language simple and useful for a broad audience. No jargon. Submissions may be lightly edited by our curators for spelling, grammar and style consistency.</p>
-              <div className="mb-6">
+              <div className="mb-4">
                 <h2>Basic Info</h2>
                 <div className="posted-by">
                   <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.username}</span></p>
@@ -173,6 +157,10 @@ export default React.createClass({
                                        onUpdate={this.handleFormUpdate} />
                 <h2>Optional Details</h2>
                 <Form ref="detailForm" fields={detailInfoFields}
+                                        inlineErrors={true}
+                                        onUpdate={this.handleFormUpdate} />
+                <h2>Get Help</h2>
+                <Form ref="getHelpForm" fields={getHelpFields}
                                         inlineErrors={true}
                                         onUpdate={this.handleFormUpdate} />
                 <div className="submit-section">
@@ -190,32 +178,30 @@ export default React.createClass({
               </div>
             </div>);
   },
-  getFailurePrompt() {
-    return ( <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                          header={`Sign in failed`}
-                          linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-              <p>Sorry, login failed! Please refresh and try again.</p>
-            </HintMessage>);
-  },
   getAnonymousContent() {
+    let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
                            onClick={this.handleSignInBtnClick}>
                            Sign in with Google
                         </a>;
-
-    return (<HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={`Please sign in to add a post`}
-                         linkComponent={linkComponent}>
-            </HintMessage>);
-  },
-  getContent() {
-    if (user.loggedin) {
-      return this.getContentForLoggedInUser();
-    }
+    let additionalMessage;
 
     if (user.failedLogin) {
-      return this.getFailurePrompt();
+      header = `Sign in failed`;
+      linkComponent = <Link to={`/featured`}>Explore featured</Link>;
+      additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
     }
+
+    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
+                         header={header}
+                         linkComponent={linkComponent}>
+              {additionalMessage}
+            </HintMessage>;
+  },
+  getContent() {
+    if (user.loggedin === undefined) return null;
+
+    if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
   },

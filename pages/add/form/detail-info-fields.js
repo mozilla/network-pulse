@@ -38,8 +38,20 @@ let Tags = React.createClass({
   },
   handleAddition: function(tag) {
     tag.name = tag.name.trim();
-    const tags = [].concat(this.state.tags, tag);
+    const tags = [].concat(this.state.tags, this.fixTagLettercase(tag));
     this.updateTags(tags);
+  },
+  fixTagLettercase(tag) {
+    for (let t of this.state.suggestions) {
+      // We don't want to have duplicated tags in the database.
+      // If the user-defined tag is a known tag,
+      // fix the lettercase so it mataches the known tag we have in the database.
+      if (t.name.toLowerCase() === tag.name.toLowerCase()) {
+        tag = t;
+        break;
+      }
+    }
+    return tag;
   },
   getFilteredSuggestions: function() {
     // show only tag suggestions that haven't been selected yet
@@ -54,7 +66,6 @@ let Tags = React.createClass({
   },
   render: function() {
     return <ReactTags
-              ref={e => this.reactTags = e}
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
@@ -99,20 +110,6 @@ module.exports = {
     type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
     fieldClassname: `form-control`
-  },
-  'get_involved': {
-    type: `text`,
-    label: `Looking for support? Describe how people can do that.`,
-    placeholder: `Help us test the prototype, plan some local events, contribute to the codebase, ...`,
-    fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300)
-  },
-  'get_involved_url': {
-    type: `text`,
-    label: `Link for people to get involved.`,
-    placeholder: `https://example.com`,
-    fieldClassname: `form-control`,
-    validator: validator.urlValidator()
   },
   'thumbnail': {
     type: `image`,

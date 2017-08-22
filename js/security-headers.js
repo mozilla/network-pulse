@@ -8,7 +8,6 @@ export default {
     ],
     scriptSrc: [
       `'self'`,
-      `'unsafe-inline'`,
       `https://*.google-analytics.com`,
       `https://platform.twitter.com/widgets.js`
     ],
