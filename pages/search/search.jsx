@@ -31,11 +31,22 @@ class Search extends React.Component {
   }
 
   getSearchCriteria(props) {
-    return {
-      keywordSearched: props.location.query.keyword,
-      moderationState: { value: ``, label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER },
-      featured: props.location.query.featured || ``
+    let criteria = {
+      keywordSearched: props.location.query.keyword
     };
+
+    if (this.props.moderation) {
+      // the following states are only useful on moderation mode
+      if (props.location.query.featured === `True`) {
+        criteria.featured = props.location.query.featured;
+      }
+      criteria.moderationState = {
+        value: ``,
+        label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER
+      };
+    }
+
+    return criteria;
   }
 
   updateBrowserHistory() {
@@ -45,18 +56,17 @@ class Search extends React.Component {
     let location = { pathname: this.props.router.location.pathname };
     let query = {};
 
-
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
     }
 
-    if ( moderationState ) {
+    if ( this.props.moderation ) {
+      // the following params are only useful on moderation mode
+      if ( featured === `True` ) {
+        query.featured = featured;
+      }
       // we want moderationState.label (name of the state) here and not moderationState.value (id of the state)
       query.moderationstate = moderationState.label;
-    }
-
-    if ( featured === `True` ) {
-      query.featured = featured;
     }
 
     location.query = query;
