@@ -16,17 +16,20 @@ const NO_ENTRY_BLOCK = (
   </div>
 );
 
-export default React.createClass({
-  getInitialState() {
-    return {
+class Entry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       dataLoaded: false,
       justPostedByUser: false,
       entry: null
     };
-  },
+  }
+
   componentDidMount() {
     this.fetchData(this.props.params.entryId);
-  },
+  }
+
   fetchData(entryId = ``) {
     Service.entry
       .get(entryId)
@@ -44,7 +47,8 @@ export default React.createClass({
           errorLoadingData: true
         });
       });
-  },
+  }
+
   checkIfRedirectedFromFormSubmission() {
     let location = this.props.router.location;
     let query = location.query;
@@ -64,7 +68,8 @@ export default React.createClass({
     this.setState({
       justPostedByUser: justPostedByUser
     });
-  },
+  }
+
   renderLoadingNotice() {
     // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
     return <div className="loading my-5 d-flex justify-content-center align-items-center">
@@ -72,7 +77,8 @@ export default React.createClass({
               <div></div>
               <div></div>
             </div>;
-  },
+  }
+
   renderEntry() {
     if (!this.state.dataLoaded) return null;
 
@@ -93,7 +99,8 @@ export default React.createClass({
         { content }
       </div>
     );
-  },
+  }
+
   render() {
     return (
       <div className="row justify-content-center">
@@ -101,4 +108,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Entry;

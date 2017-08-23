@@ -48,8 +48,8 @@ const Tag = (router) => {
 
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.pageTitle = `Mozilla Network Pulse`;
   }
 

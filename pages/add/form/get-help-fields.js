@@ -2,14 +2,16 @@ import React from 'react';
 import validator from './validator';
 import Service from '../../../js/service';
 
-let HelpTypes = React.createClass({
-  getInitialState() {
-    return {
+class HelpTypes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       helpTypes: [],
       selected: []
     };
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     Service.helpTypes
       .get()
       .then(helpTypes => {
@@ -20,13 +22,15 @@ let HelpTypes = React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
-  },
-  updateSelected: function(selected) {
+  }
+
+  updateSelected(selected) {
     this.setState({ selected }, () => {
       this.props.onChange(null,selected);
     });
-  },
-  handleCheckboxChange: function(event) {
+  }
+
+  handleCheckboxChange(event) {
     let value = event.target.value;
     let currentlySelected = this.state.selected;
 
@@ -42,31 +46,34 @@ let HelpTypes = React.createClass({
     }
 
     this.updateSelected(currentlySelected);
-  },
+  }
+
   renderCheckbox(helpType) {
     return <div key={helpType}><label>
-                <input type="checkbox" value={helpType} onChange={this.handleCheckboxChange} /> {helpType}
+                <input type="checkbox" value={helpType} onChange={event => this.handleCheckboxChange(event)} /> {helpType}
              </label></div>;
-  },
+  }
+
   renderCheckboxes() {
     if (this.state.helpTypes.length < 1) return null;
 
     let helpTypes = [].concat(this.state.helpTypes);
-    let numOfCheckboxes = helpTypes.length;
+    let renderHelpType = (helpType) => this.renderCheckbox(helpType);
 
     // we want to show this long list of checkboxes in 2-column layout
-    let firstGroup = helpTypes.splice(0, Math.ceil(numOfCheckboxes / 2)).map(this.renderCheckbox);
-    let secondGroup = helpTypes.map(this.renderCheckbox);
+    let firstGroup = helpTypes.splice(0, Math.ceil(helpTypes.length / 2)).map(renderHelpType);
+    let secondGroup = helpTypes.map(renderHelpType);
 
     return <div className="row">
             <div className="col-sm-6">{firstGroup}</div>
             <div className="col-sm-6">{secondGroup}</div>
           </div>;
-  },
-  render: function() {
+  }
+
+  render() {
     return <div className="checkboxGroup">{this.renderCheckboxes()}</div>;
   }
-});
+}
 
 let fields = {
   'get_involved': {
@@ -89,4 +96,4 @@ let fields = {
   }
 };
 
-module.exports = fields;
+export default fields;

@@ -6,8 +6,8 @@ import HintMessage from '../../components/hint-message/hint-message.jsx';
 const HEADER_TEXT = `Thanks for the submission!`;
 
 export default class Submitted extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       entryId: false
     };
