@@ -1,16 +1,32 @@
 import React from 'react';
 
+// real schema
+/*
+{
+    "user_bio": "",
+    "custom_name": "",
+    "is_group": false,
+    "thumbnail": null,
+    "issues": [],
+    "twitter": "",
+    "linkedin": "",
+    "github": "",
+    "website": ""
+}
+*/
+
+
 class Bio extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  renderPic() {
+  renderThumbnail() {
     let style = {
-      backgroundImage: `url(${this.props.pic})`,
+      backgroundImage: `url(${this.props.thumbnail})`,
     };
 
-    return <div className="pic mx-auto" style={style}></div>;
+    return <div className="thumbnail mx-auto" style={style}></div>;
   }
 
   renderName() {
@@ -18,20 +34,22 @@ class Bio extends React.Component {
   }
 
   renderSocialMedia() {
-    if (!this.props.socialMedia || this.props.socialMedia.length < 1) return null;
+    let list = [ `twitter`, `linkedin`, `github` ].map(type => this.renderSocialMediaLink(type, this.props[type]) );
 
-    let platforms = this.props.socialMedia.map(platform => {
-      return <a href={platform.link} target="_blank" className="d-inline-block mr-3" key={platform.type}>{platform.type}</a>;
-    });
-
-    return <div className="d-inline-block">{platforms}</div>;
+    return <div className="d-inline-block">{list}</div>;
   }
 
-  renderMeta(type, text, icon, link) {
+  renderSocialMediaLink(type, link) {
+    if (!link) return null;
+
+    return <a href={link} target="_blank" className="d-inline-block mr-3 social-media default-text-color-link" key={type}><span className={`fa fa-${type}`}></span></a>;
+  }
+
+  renderMeta(type, text, link) {
     let meta = text;
 
     if (link) {
-      meta = <a href={link}>{text}</a>;
+      meta = <a href={link} className="default-text-color-link">{text}</a>;
     }
 
     return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;
@@ -41,14 +59,14 @@ class Bio extends React.Component {
     let org = this.props.org ? this.renderMeta(`org`, this.props.org) : null;
     let location = this.props.location ? this.renderMeta(`location`, this.props.location) : null;
     let language = this.props.language ? this.renderMeta(`language`, this.props.language.join(` ,`)) : null;
-    let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, ``, this.props.storyLink) : null;
-    let link = this.props.link ? this.renderMeta(`link`, this.props.link) : null;
+    let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, this.props.storyLink) : null;
+    let website = this.props.website ? this.renderMeta(`website`, this.props.website, this.props.website) : null;
 
-    return <div className="other-meta open-sans mb-2">{org}{location}{language}{story}{link}</div>;
+    return <div className="other-meta open-sans mb-2">{org}{location}{language}{story}{website}</div>;
   }
 
   renderBlurb() {
-    let paragraphs = this.props.bio.split(`\n`).map((paragraph) => {
+    let paragraphs = this.props.user_bio.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;
@@ -85,7 +103,7 @@ class Bio extends React.Component {
       <div className="bio pb-5 mb-5">
         <div className="row">
           <div className="col-sm-4 col-md-2">
-            { this.renderPic() }
+            { this.renderThumbnail() }
           </div>
           <div className="col-sm-8 col-md-10">
             { this.renderName() }

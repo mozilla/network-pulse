@@ -5,29 +5,39 @@ import Bio from '../components/bio/bio.jsx';
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 
 
+// real schema
+/*
+{
+    "user_bio": "",
+    "custom_name": "",
+    "is_group": false,
+    "thumbnail": null,
+    "issues": [],
+    "twitter": "",
+    "linkedin": "",
+    "github": "",
+    "website": ""
+}
+*/
+
+
 const SomeUser = {
+  thumbnail: `/assets/temp-profile-pic-4.png`,
+  twitter: `https://example.com/twitter`,
+  linkedin: `https://example.com/linkedin`,
+  github: `https://example.com/github`,
+  website: `https://example.com/website`,
+  "user_bio": `Mom, PhD, Academic, Educator, loves myAfrica, has a passion for inclusive tech, #ict4d #mobilelearning #edutech #egovernance #womenintech`,
+
   firstname: `Mmaki`,
   lastname: `Jantjies`,
-  pic: `/assets/temp-profile-pic-4.png`,
   org: `Mozilla Tech Policy Fellow`,
   orgIcon: ``,
   location: `Washington, DC, USA`,
-  socialMedia: [
-    {
-      'type': `twitter`,
-      'link': ``
-    },
-    {
-      'type': `linkedin`,
-      'link': ``
-    }
-  ],
   language: [
     `English`
   ],
   storyLink: `https://example.com/story`,
-  link: `https://example.com/link`,
-  bio: `Mom, PhD, Academic, Educator, loves myAfrica, has a passion for inclusive tech, #ict4d #mobilelearning #edutech #egovernance #womenintech`,
   interest: [
     `web literacy`,
     `digital inclusion`

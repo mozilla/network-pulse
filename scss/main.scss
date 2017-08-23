@@ -40,6 +40,14 @@ a {
   }
 }
 
+a.default-text-color-link {
+  color: inherit;
+  text-decoration: underline;
+  @include hover {
+    color: $link-hover-color;
+  }
+}
+
 .btn-link {
   &.inline-link {
     font-family: inherit;
