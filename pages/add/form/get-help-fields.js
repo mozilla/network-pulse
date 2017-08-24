@@ -1,79 +1,14 @@
 import React from 'react';
 import validator from './validator';
+import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkbox-group.jsx';
 import Service from '../../../js/service';
 
-class HelpTypes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      helpTypes: [],
-      selected: []
-    };
-  }
-
-  componentDidMount() {
-    Service.helpTypes
-      .get()
-      .then(helpTypes => {
-        this.setState({
-          helpTypes: helpTypes.map(type => type.name)
-        });
-      })
-      .catch((reason) => {
-        console.error(reason);
-      });
-  }
-
-  updateSelected(selected) {
-    this.setState({ selected }, () => {
-      this.props.onChange(null,selected);
-    });
-  }
-
-  handleCheckboxChange(event) {
-    let value = event.target.value;
-    let currentlySelected = this.state.selected;
-
-    if (event.target.checked) {
-      if (currentlySelected.indexOf(value) < 0) {
-        currentlySelected.push(value);
-      }
-    } else {
-      let index = currentlySelected.indexOf(value);
-      if (index > 0) {
-        currentlySelected.splice(index, 1);
-      }
-    }
-
-    this.updateSelected(currentlySelected);
-  }
-
-  renderCheckbox(helpType) {
-    return <div key={helpType}><label>
-                <input type="checkbox" value={helpType} onChange={event => this.handleCheckboxChange(event)} /> {helpType}
-             </label></div>;
-  }
-
-  renderCheckboxes() {
-    if (this.state.helpTypes.length < 1) return null;
-
-    let helpTypes = [].concat(this.state.helpTypes);
-    let renderHelpType = (helpType) => this.renderCheckbox(helpType);
-
-    // we want to show this long list of checkboxes in 2-column layout
-    let firstGroup = helpTypes.splice(0, Math.ceil(helpTypes.length / 2)).map(renderHelpType);
-    let secondGroup = helpTypes.map(renderHelpType);
-
-    return <div className="row">
-            <div className="col-sm-6">{firstGroup}</div>
-            <div className="col-sm-6">{secondGroup}</div>
-          </div>;
-  }
-
-  render() {
-    return <div className="checkboxGroup">{this.renderCheckboxes()}</div>;
-  }
-}
+let HelpTypes = (props) => {
+  return <DynamicCheckboxGroup funcToFetchOptions={Service.helpTypes.get}
+                               colNum={2}
+                               onChange={props.onChange}
+         />;
+};
 
 let fields = {
   'get_involved': {

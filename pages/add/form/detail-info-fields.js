@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactTags from 'react-tag-autocomplete';
+import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkbox-group.jsx';
 import validator from './validator';
 import Service from '../../../js/service';
 
 const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
+
+let Issues = (props) => {
+  return <DynamicCheckboxGroup funcToFetchOptions={Service.issues.get} onChange={props.onChange} />;
+};
 
 let Tags = React.createClass({
   getInitialState() {
@@ -101,9 +106,8 @@ module.exports = {
     validator: validator.maxLengthValidator(300)
   },
   issues: {
-    type: `checkboxGroup`,
+    type: Issues,
     label: `Check any Key Internet Issues that relate to your project.`,
-    options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
     colCount: 1
   },
   tags: {
