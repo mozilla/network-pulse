@@ -23,11 +23,11 @@ class ProjectCard extends React.Component {
     };
   }
 
-  sendGaEvent(category = ``, action = ``, transport = ``) {
+  sendGaEvent(action = ``, transport = ``) {
     let config = {
-      category: `Entry Card - ${category}`,
+      category: `Entry`,
       action: action,
-      label: `${this.props.id} - ${this.props.title}`
+      label: this.props.title
     };
 
     if (transport) {
@@ -63,7 +63,7 @@ class ProjectCard extends React.Component {
   }
 
   handleReadMoreClick() {
-    this.sendGaEvent(`Read more`, `Clicked`);
+    this.sendGaEvent(`Read More`);
   }
 
   renderActionPanel(detailViewLink) {
@@ -97,7 +97,7 @@ class ProjectCard extends React.Component {
               <GetInvolved getInvolved={this.props.getInvolved}
                            getInvolvedUrl={this.props.getInvolvedUrl}
                            helpTypes={this.props.helpTypes}
-                           sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+                           sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
           </div>;
   }
 
@@ -119,11 +119,11 @@ class ProjectCard extends React.Component {
           <div className="summary-content">
             <Thumbnail thumbnail={this.props.thumbnail}
                        link={!this.props.onModerationMode ? detailViewLink : ``}
-                       sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+                       sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
             <div className="content m-3">
               <Title title={this.props.title}
                      link={!this.props.onModerationMode ? detailViewLink : ``}
-                     sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+                     sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
               <Creators creators={this.props.creators} className="text-muted" />
               <Description description={this.props.description} />
               { this.renderExtraMeta() }

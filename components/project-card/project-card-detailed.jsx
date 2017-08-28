@@ -22,11 +22,11 @@ class DetailedProjectCard extends React.Component {
     };
   }
 
-  sendGaEvent(category = ``, action = ``, transport = ``) {
+  sendGaEvent(action = ``, transport = ``) {
     let config = {
-      category: `Entry Card - ${category}`,
+      category: `Entry`,
       action: action,
-      label: `${this.props.id} - ${this.props.title}`
+      label: this.props.title
     };
 
     if (transport) {
@@ -62,11 +62,11 @@ class DetailedProjectCard extends React.Component {
   }
 
   handleTwitterShareClick() {
-    this.sendGaEvent(`Twitter Share button`, `Clicked`, `beacon`);
+    this.sendGaEvent(`Twitter share tap`, `beacon`);
   }
 
   handleVisitBtnClick() {
-    this.sendGaEvent(`Visit button`, `Clicked`, `beacon`);
+    this.sendGaEvent(`Visit button tap`, `beacon`);
   }
 
   renderVisitButton() {
@@ -140,7 +140,7 @@ class DetailedProjectCard extends React.Component {
               <GetInvolved getInvolved={this.props.getInvolved}
                            getInvolvedUrl={this.props.getInvolvedUrl}
                            helpTypes={this.props.helpTypes}
-                           sendGaEvent={(category, action, transport) => this.sendGaEvent(category, action, transport)} />
+                           sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
             </div>;
   }
 

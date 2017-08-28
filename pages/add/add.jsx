@@ -181,7 +181,7 @@ export default React.createClass({
   getAnonymousContent() {
     let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
-                           onClick={this.handleSignInBtnClick}>
+                           onClick={(event) => this.handleSignInBtnClick(event)}>
                            Sign in with Google
                         </a>;
     let additionalMessage;

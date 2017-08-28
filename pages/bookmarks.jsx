@@ -94,7 +94,7 @@ export default React.createClass({
           </div>;
   },
   getAnonymousContent() {
-    let signInPrompt = <p><button className="btn btn-link inline-link" onClick={this.handleSignInBtnClick}>Sign in with Google</button>.</p>;
+    let signInPrompt = <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Sign in with Google</button>.</p>;
     let bookmarkedProjects = this.renderHintMessage();
 
     if (user.failedLogin) {
