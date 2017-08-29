@@ -104,14 +104,16 @@ class Search extends React.Component {
 
     return <div className="d-flex align-items-center">
             <div className={classnames}>
-              <DebounceInput id="search-box"
-                              value={this.state.keywordSearched}
-                              debounceTimeout={300}
-                              type="search"
-                              onChange={(event) => this.handleInputChange(event)}
-                              placeholder="Search keywords, people, tags..."
-                              className="form-control"
-              />
+              <form action="for-search-key-to-show-on-mobile-keyboard" role="search">
+                <DebounceInput id="search-box"
+                                value={this.state.keywordSearched}
+                                debounceTimeout={300}
+                                type="search"
+                                onChange={(event) => this.handleInputChange(event)}
+                                placeholder="Search keywords, people, tags..."
+                                className="form-control"
+                />
+              </form>
               <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
             </div>
           </div>;
