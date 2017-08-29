@@ -104,7 +104,7 @@ class Search extends React.Component {
 
     return <div className="d-flex align-items-center">
             <div className={classnames}>
-              <form action="for-search-key-to-show-on-mobile-keyboard">
+              <form action="for-search-key-to-show-on-mobile-keyboard" role="search">
                 <DebounceInput id="search-box"
                                 value={this.state.keywordSearched}
                                 debounceTimeout={300}
