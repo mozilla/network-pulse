@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
@@ -41,10 +42,23 @@ export default React.createClass({
   handleSignInBtnClick(event) {
     event.preventDefault();
 
+    ReactGA.event({
+      category: `Account`,
+      action: `Login`,
+      label: window.location.pathname,
+      transport: `beacon`
+    });
+
     user.login(utility.getCurrentURL());
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
+
+    ReactGA.event({
+      category: `Account`,
+      action: `Logout`,
+      label: window.location.pathname,
+    });
 
     user.logout();
     browserHistory.push({
@@ -97,39 +111,45 @@ export default React.createClass({
       });
     });
   },
+  handlePostSuccess(entryId) {
+    ReactGA.event({
+      category: `Add new`,
+      action: `Submit success`
+    });
+
+    // will the API show this user the new entry?
+    Service.entry
+    .get(entryId)
+    .then(result => {
+      if(result) {
+        browserHistory.push({
+          pathname: `/entry/${entryId}`,
+          query: {
+            justPostedByUser: true
+          }
+        });
+      } else {
+        browserHistory.push({
+          pathname: `/submitted`,
+          query: { entryId }
+        });
+      }
+    })
+    .catch(reason => {
+      // a 404 is yielded as an error by Service.entry
+      console.error(reason);
+      browserHistory.push({
+        pathname: `/submitted`,
+        query: { entryId }
+      });
+    });
+
+  },
   postEntry(entryData) {
     Service.entries
       .post(entryData)
       .then(response => {
-        const entryId = response.id;
-
-        // will the API show this user the new entry?
-        Service.entry
-        .get(entryId)
-        .then(result => {
-          if(result) {
-            browserHistory.push({
-              pathname: `/entry/${response.id}`,
-              query: {
-                justPostedByUser: true
-              }
-            });
-          } else {
-            browserHistory.push({
-              pathname: `/submitted`,
-              query: { entryId }
-            });
-          }
-        })
-        .catch(reason => {
-          // a 404 is yielded as an error by Service.entry
-          console.error(reason);
-          browserHistory.push({
-            pathname: `/submitted`,
-            query: { entryId }
-          });
-        });
-
+        this.handlePostSuccess(response.id);
       })
       .catch(reason => {
         this.setState({
@@ -150,7 +170,7 @@ export default React.createClass({
                 <h2>Basic Info</h2>
                 <div className="posted-by">
                   <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.username}</span></p>
-                  <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={this.handleLogOutBtnClick}>Sign out</button>.</p>
+                  <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button>.</p>
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
                                        inlineErrors={true}

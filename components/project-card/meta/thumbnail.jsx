@@ -8,7 +8,7 @@ class Thumbnail extends React.Component {
   }
 
   handleThumbnailClick() {
-    this.props.sendGaEvent(`Thumbnail tap`);
+    this.props.sendGaEvent();
   }
 
   render() {

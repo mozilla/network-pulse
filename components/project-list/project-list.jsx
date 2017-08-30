@@ -23,7 +23,7 @@ class ProjectList extends React.Component {
     ReactGA.event({
       category: `Broswe`,
       action: `View more tap`,
-      label: `${window.location.pathname}`
+      label: window.location.pathname
     });
     this.props.fetchData();
     this.setState({inPageUpdate: true});

@@ -17,7 +17,7 @@ class BookmarkControl extends React.Component {
     let config = {
       category: `Entry`,
       action: action,
-      label: `${this.props.id} - ${this.props.title}`
+      label: this.props.title
     };
 
     if (transport) {

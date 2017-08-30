@@ -119,11 +119,11 @@ class ProjectCard extends React.Component {
           <div className="summary-content">
             <Thumbnail thumbnail={this.props.thumbnail}
                        link={!this.props.onModerationMode ? detailViewLink : ``}
-                       sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
+                       sendGaEvent={() => this.handleReadMoreClick()} />
             <div className="content m-3">
               <Title title={this.props.title}
                      link={!this.props.onModerationMode ? detailViewLink : ``}
-                     sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
+                     sendGaEvent={() => this.handleReadMoreClick()} />
               <Creators creators={this.props.creators} className="text-muted" />
               <Description description={this.props.description} />
               { this.renderExtraMeta() }

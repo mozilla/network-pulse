@@ -8,7 +8,7 @@ class Title extends React.Component {
   }
 
   handleTitleClick() {
-    this.props.sendGaEvent(`Title tap`);
+    this.props.sendGaEvent();
   }
 
   render() {

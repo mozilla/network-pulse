@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import classNames from 'classnames';
@@ -21,10 +22,24 @@ export default React.createClass({
   handleSignInBtnClick(event) {
     event.preventDefault();
 
+    ReactGA.event({
+      category: `Account`,
+      action: `Login`,
+      label: window.location.pathname,
+      transport: `beacon`
+    });
+
     user.login(utility.getCurrentURL());
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
+
+    ReactGA.event({
+      category: `Account`,
+      action: `Logout`,
+      label: window.location.pathname
+    });
+
     user.logout();
   },
   componentDidMount() {
@@ -88,7 +103,7 @@ export default React.createClass({
     }
 
     return <div>
-            <p className={classNames({'mb-0': !!importHint})}>Hi {user.username}! <button onClick={this.handleLogOutBtnClick} className="btn btn-link inline-link">Log out</button>.</p>
+            <p className={classNames({'mb-0': !!importHint})}>Hi {user.username}! <button onClick={(event) => this.handleLogOutBtnClick(event)} className="btn btn-link inline-link">Log out</button>.</p>
             {importHint}
             <ProjectLoader bookmarkedOnly={true} />
           </div>;
