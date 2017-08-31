@@ -4,10 +4,11 @@ import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkb
 import Service from '../../../js/service';
 
 let HelpTypes = (props) => {
-  return <DynamicCheckboxGroup funcToFetchOptions={Service.helpTypes.get}
-                               colNum={2}
-                               onChange={props.onChange}
-         />;
+  return <DynamicCheckboxGroup
+    funcToFetchOptions={Service.helpTypes.get}
+     colNum={2}
+     onChange={props.onChange}
+   />;
 };
 
 let fields = {

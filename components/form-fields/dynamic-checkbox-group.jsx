@@ -11,15 +11,14 @@ class DynamicCheckboxGroup extends React.Component {
   }
 
   componentDidMount() {
-    this.props.funcToFetchOptions()
-      .then(options => {
-        this.setState({
-          options: options.map(type => type.name)
-        });
-      })
-      .catch((reason) => {
-        console.error(reason);
+    this.props.funcToFetchOptions().then(options => {
+      this.setState({
+        options: options.map(type => type.name)
       });
+    })
+    .catch((reason) => {
+      console.error(reason);
+    });
   }
 
   updateSelected(selected) {
