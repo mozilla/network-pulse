@@ -91,9 +91,9 @@ let IssuesLabel = React.createClass({
       <div>
         Check any <Link to="/issues">Key Internet Issues</Link> that relate to your project.
       </div>
-    )
+    );
   }
-})
+});
 
 module.exports = {
   creators: {
