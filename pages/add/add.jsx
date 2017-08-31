@@ -26,6 +26,14 @@ export default React.createClass({
       showFormInvalidNotice: false
     };
   },
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.showFormInvalidNotice) {
+      ReactGA.event({
+        category: `Add new`,
+        action: `Submit error`
+      });
+    }
+  },
   componentDidMount() {
     user.addListener(this);
     user.verify(this.props.router.location);
@@ -45,7 +53,7 @@ export default React.createClass({
     ReactGA.event({
       category: `Account`,
       action: `Login`,
-      label: window.location.pathname,
+      label: `Login ${window.location.pathname}`,
       transport: `beacon`
     });
 
@@ -57,7 +65,7 @@ export default React.createClass({
     ReactGA.event({
       category: `Account`,
       action: `Logout`,
-      label: window.location.pathname,
+      label: `Logout ${window.location.pathname}`,
     });
 
     user.logout();

@@ -25,7 +25,7 @@ export default React.createClass({
     ReactGA.event({
       category: `Account`,
       action: `Login`,
-      label: window.location.pathname,
+      label: `Login ${window.location.pathname}`,
       transport: `beacon`
     });
 
@@ -37,7 +37,7 @@ export default React.createClass({
     ReactGA.event({
       category: `Account`,
       action: `Logout`,
-      label: window.location.pathname
+      label: `Logout ${window.location.pathname}`,
     });
 
     user.logout();
