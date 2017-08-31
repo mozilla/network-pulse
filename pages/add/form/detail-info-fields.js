@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTags from 'react-tag-autocomplete';
+import { Link } from 'react-router';
 import validator from './validator';
 import Service from '../../../js/service';
 
@@ -88,7 +89,7 @@ let IssuesLabel = React.createClass({
   render() {
     return(
       <div>
-        Check any <a href="https://network.mofoprod.net/about#internet-health">Key Internet Issues</a> that relate to your project.
+        Check any <Link to="/issues">Key Internet Issues</Link> that relate to your project.
       </div>
     )
   }
