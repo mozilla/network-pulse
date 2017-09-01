@@ -12,7 +12,7 @@ class NavLink extends React.Component {
     ReactGA.event({
       category: `Nav Link`,
       action: `Clicked`,
-      label: `${this.props.to}`
+      label: this.props.to
     });
   }
 

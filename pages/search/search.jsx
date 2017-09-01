@@ -77,9 +77,9 @@ class Search extends React.Component {
     let keywordsEntered = event.target.value;
 
     ReactGA.event({
-      category: `Search input box`,
+      category: `Search`,
       action: `Keywords entered`,
-      label: `${keywordsEntered}`
+      label: keywordsEntered
     });
 
     this.setState({ keywordSearched: keywordsEntered }, () => {

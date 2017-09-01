@@ -13,11 +13,11 @@ class BookmarkControl extends React.Component {
     };
   }
 
-  createGaEventConfig(category = ``, action = ``, transport = ``) {
+  createGaEventConfig(action = ``, transport = ``) {
     let config = {
-      category: `Entry Card - ${category}`,
+      category: `Entry`,
       action: action,
-      label: `${this.props.id} - ${this.props.title}`
+      label: this.props.title
     };
 
     if (transport) {
@@ -96,7 +96,7 @@ class BookmarkControl extends React.Component {
       });
     }
 
-    ReactGA.event(this.createGaEventConfig(`Bookmark button`, this.state.bookmarked ? `Unbookmarked` : `Bookmarked`));
+    ReactGA.event(this.createGaEventConfig(this.state.bookmarked ? `Remove fav` : `Add fav`));
 
     if (user.loggedin) {
       this.toggleBookmark((error) => {
