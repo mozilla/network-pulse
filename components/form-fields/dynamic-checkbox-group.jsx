@@ -5,20 +5,8 @@ class DynamicCheckboxGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [],
       selected: []
     };
-  }
-
-  componentDidMount() {
-    this.props.funcToFetchOptions().then(options => {
-      this.setState({
-        options: options.map(type => type.name)
-      });
-    })
-    .catch((reason) => {
-      console.error(reason);
-    });
   }
 
   updateSelected(selected) {
@@ -56,9 +44,9 @@ class DynamicCheckboxGroup extends React.Component {
   }
 
   renderCheckboxes() {
-    if (this.state.options.length < 1) return null;
+    if (this.props.options.length < 1) return null;
 
-    let options = this.state.options.map((option) => this.renderCheckbox(option));
+    let options = this.props.options.map((option) => this.renderCheckbox(option));
 
     return <div className="options" style={{"columnCount": this.props.colNum}}>{options}</div>;
   }
@@ -69,13 +57,13 @@ class DynamicCheckboxGroup extends React.Component {
 }
 
 DynamicCheckboxGroup.propTypes = {
-  funcToFetchOptions: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   colNum: PropTypes.number
 };
 
 DynamicCheckboxGroup.defaultProps = {
-  colNum: 1
+  colNum: 1,
+  options: []
 };
 
 export default DynamicCheckboxGroup;

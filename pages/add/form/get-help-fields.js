@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import validator from './validator';
 import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkbox-group.jsx';
 import Service from '../../../js/service';
 
-let HelpTypes = (props) => {
-  return <DynamicCheckboxGroup
-    funcToFetchOptions={Service.helpTypes.get}
-     colNum={2}
-     onChange={props.onChange}
-   />;
-};
+class HelpTypes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { options: [] };
+  }
+  componentWillMount() {
+    Service.helpTypes.get().then(options => {
+      this.setState({ options: options.map(option => option.name) });
+    });
+  }
+  render() {
+    return <DynamicCheckboxGroup options={this.state.options} onChange={this.props.onChange} colNum={2} />;
+  }
+}
 
 let fields = {
   'get_involved': {
