@@ -85,15 +85,11 @@ let Tags = React.createClass({
   }
 });
 
-let IssuesLabel = React.createClass({
-  render() {
-    return(
-      <div>
-        Check any <Link to="/issues">Key Internet Issues</Link> that relate to your project.
-      </div>
-    );
-  }
-});
+const IssuesLabel = function() {
+  return (
+    <div>Check any <Link to="/issues" target="_blank">Key Internet Issues</Link> that relate to your project.</div>
+  );
+};
 
 module.exports = {
   creators: {
