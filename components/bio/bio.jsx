@@ -27,24 +27,24 @@ class Bio extends React.Component {
     return <div className="d-inline-block">{platforms}</div>;
   }
 
-  renderMeta(text,icon,link) {
+  renderMeta(type, text, icon, link) {
     let meta = text;
 
     if (link) {
       meta = <a href={link}>{text}</a>;
     }
 
-    return <div className="d-inline-block mr-4">{meta}</div>;
+    return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;
   }
 
   renderOtherMeta() {
-    let org = this.props.org ? this.renderMeta(this.props.org) : null;
-    let location = this.props.location ? this.renderMeta(this.props.location) : null;
-    let language = this.props.language ? this.renderMeta(this.props.language.join(` ,`)) : null;
-    let story = this.props.storyLink ? this.renderMeta(`Read Story`, ``, this.props.storyLink) : null;
-    let link = this.props.link ? this.renderMeta(this.props.link) : null;
+    let org = this.props.org ? this.renderMeta(`org`, this.props.org) : null;
+    let location = this.props.location ? this.renderMeta(`location`, this.props.location) : null;
+    let language = this.props.language ? this.renderMeta(`language`, this.props.language.join(` ,`)) : null;
+    let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, ``, this.props.storyLink) : null;
+    let link = this.props.link ? this.renderMeta(`link`, this.props.link) : null;
 
-    return <div className="other-meta mb-2">{org}{location}{language}{story}{link}</div>;
+    return <div className="other-meta open-sans mb-2">{org}{location}{language}{story}{link}</div>;
   }
 
   renderBlurb() {
@@ -59,8 +59,24 @@ class Bio extends React.Component {
     return <div className="blurb">{paragraphs}</div>;
   }
 
-  renderProjects() {
-    return <div className="col-12"><ProjectLoader /></div>;
+  renderTags(type = ``, tags = []) {
+    if (!type || tags.length < 1) { return null; }
+
+    return <div className="tags mb-1">
+              <span className="open-sans text-uppercase">{type}: </span>{tags.join(`, `)}
+            </div>;
+  }
+
+  renderInterest() {
+    if (!this.props.interest) { return null; }
+
+    return this.renderTags(`interests`, this.props.interest);
+  }
+
+  renderHelpWith() {
+    if (!this.props.help_with) { return null; }
+
+    return this.renderTags(`can help with`, this.props.help_with);
   }
 
   render() {
@@ -68,14 +84,16 @@ class Bio extends React.Component {
     return (
       <div className="bio pb-5 mb-5">
         <div className="row">
-          <div className="col-sm-4">
+          <div className="col-sm-4 col-md-2">
             { this.renderPic() }
           </div>
-          <div className="col-sm-8">
+          <div className="col-sm-8 col-md-10">
             { this.renderName() }
             { this.renderSocialMedia() }
             { this.renderOtherMeta() }
             { this.renderBlurb() }
+            { this.renderInterest() }
+            { this.renderHelpWith() }
           </div>
         </div>
       </div>

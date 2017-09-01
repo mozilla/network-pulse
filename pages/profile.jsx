@@ -22,10 +22,20 @@ const SomeUser = {
       'link': ``
     }
   ],
-  language: [ `English` ],
+  language: [
+    `English`
+  ],
   storyLink: `https://example.com/story`,
   link: `https://example.com/link`,
-  bio: `Mom, PhD, Academic, Educator, loves myAfrica, has a passion for inclusive tech, #ict4d #mobilelearning #edutech #egovernance #womenintech`
+  bio: `Mom, PhD, Academic, Educator, loves myAfrica, has a passion for inclusive tech, #ict4d #mobilelearning #edutech #egovernance #womenintech`,
+  interest: [
+    `web literacy`,
+    `digital inclusion`
+  ],
+  "help_with": [
+    `create content`,
+    `fundraise`
+  ]
 };
 
 

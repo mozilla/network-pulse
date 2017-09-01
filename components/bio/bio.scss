@@ -18,12 +18,52 @@
   }
 
   .other-meta {
-    font-family: "Open Sans";
     font-size: 0.75rem;
     font-weight: 600;
   }
 
+  .tags {
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    .open-sans {
+      font-size: 0.625rem;
+    }
+  }
+
   .blurb {
     font-size: 1.25rem;
+  }
+
+  .meta-with-icon {
+    &::before {
+      font-family: "FontAwesome";
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    &.location {
+      &::before {
+        content: "\f041";
+      }
+    }
+
+    &.language {
+      &::before {
+        content: "\f075";
+      }
+    }
+
+    &.story {
+      &::before {
+        content: "\f10d";
+      }
+    }
+
+    &.link {
+      &::before {
+        content: "\f2be";
+      }
+    }
   }
 }
