@@ -1,6 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
+import HintMessage from '../../components/hint-message/hint-message.jsx';
 import utility from '../../js/utility';
 import user from '../../js/app-user';
 import fields from './form/fields';
@@ -29,13 +31,17 @@ export default React.createClass({
   },
   handleSignInBtnClick(event) {
     event.preventDefault();
-    // TODO:FIXME
-    // placeholder event handler
+
+    user.login(utility.getCurrentURL());
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
     // TODO:FIXME
     // placeholder event handler
+    user.logout();
+    browserHistory.push({
+      pathname: `/featured`
+    });
   },
   handleFormUpdate() {
     // TODO:FIXME
@@ -47,9 +53,6 @@ export default React.createClass({
     // placeholder event handler
   },
   getContentForLoggedInUser() {
-    let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
-    let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
-
     return( <div className="row">
               <div className="col-12">
                 <h1>Your profile</h1>
@@ -60,7 +63,7 @@ export default React.createClass({
                     <span>Email <em>(email won't be displayed or shared)</em></span>
                     <div className="text-muted">
                       <span>{user.email}</span>
-                      <span className="d-block d-sm-inline-block ml-0 ml-sm-4"><button className="btn btn-link inline-link" onClick={this.handleLogOutBtnClick}>Sign out</button></span>
+                      <span className="d-block d-sm-inline-block ml-0 ml-sm-4"><button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></span>
                     </div>
                   </div>
                   <div className="mb-3">
@@ -81,9 +84,6 @@ export default React.createClass({
                     onClick={this.handleFormSubmit}
                     disabled={this.state.submitting ? `disabled` : null}
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
-                  { authErrorMessage }
-                  { serverErrorMessage }
-                  { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
                 </div>
               </div>
             </div>);
