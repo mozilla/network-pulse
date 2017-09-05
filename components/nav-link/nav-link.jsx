@@ -19,7 +19,7 @@ class NavLink extends React.Component {
   render() {
     return (
       <Link {...this.props}
-        className="open-sans"
+        className={`open-sans ${this.props.className}`}
         activeClassName="active"
         onClick={() => this.handleInternalPageLinkClick()}
       />
