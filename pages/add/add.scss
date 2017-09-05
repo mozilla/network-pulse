@@ -28,6 +28,14 @@
 
     margin-right: 0.5rem;
   }
+
+  .options {
+    column-width: $bp-sm;
+
+    @media screen and (min-width: $bp-md) {
+      column-width: calc(#{$bp-sm} / 2);
+    }
+  }
 }
 
 .posted-by {
