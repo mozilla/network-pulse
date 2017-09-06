@@ -37,7 +37,6 @@ class Profile extends React.Component {
     if (this.state.userProfileLoaded && this.state.userProfile.published_entries.length < 1) return null;
 
     return <div className="col-12">
-      <div className="subhead open-sans text-uppercase font-weight-bold mb-5">Projects</div>
       <ProjectList entries={this.state.userProfile.published_entries}
         loadingData={false}
         moreEntriesToFetch={false}

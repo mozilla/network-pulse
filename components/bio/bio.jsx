@@ -89,9 +89,8 @@ class Bio extends React.Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
-      <div className="bio pb-5 mb-5">
+      <div className="bio mb-5">
         <div className="row">
           <div className="col-sm-4 col-md-2 text-center">
             { this.renderThumbnail() }
