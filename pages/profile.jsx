@@ -2,12 +2,15 @@ import React from 'react';
 import { Helmet } from "react-helmet";
 import Service from '../js/service.js';
 import Bio from '../components/bio/bio.jsx';
+import ProjectList from '../components/project-list/project-list.jsx';
+import pageSettings from '../js/app-page-settings';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userProfile: null
+      userProfile: null,
+      userProfileLoaded: false
     };
   }
 
@@ -15,7 +18,7 @@ class Profile extends React.Component {
     Service.profileMe()
       .then(userProfile => {
         console.log(userProfile);
-        this.setState({ userProfile });
+        this.setState({ userProfile, userProfileLoaded: true });
       })
       .catch(reason => {
         console.error(reason);
@@ -24,13 +27,25 @@ class Profile extends React.Component {
   }
 
   renderProfile() {
-    if (!this.state.userProfile) return null;
+    if (!this.state.userProfileLoaded) return null;
 
     return <div className="col-12"><Bio {...this.state.userProfile} /></div>;
   }
 
   renderProjects() {
-    return null;
+    if (!this.state.userProfileLoaded) return null;
+    if (this.state.userProfileLoaded && this.state.userProfile.published_entries.length < 1) return null;
+
+    return <div className="col-12">
+      <div className="subhead open-sans text-uppercase font-weight-bold mb-5">Projects</div>
+      <ProjectList entries={this.state.userProfile.published_entries}
+        loadingData={false}
+        moreEntriesToFetch={false}
+        fetchData={()=>{}}
+        restoreScrollPosition={pageSettings.shouldRestore}
+        onModerationMode={false}
+      />
+    </div>;
   }
 
   render() {

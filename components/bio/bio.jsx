@@ -16,7 +16,7 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3"><Link to="/">edit profile</Link></div>;
+    return <div className="mt-3"><Link to="/myprofile">edit profile</Link></div>;
   }
 
   renderName() {

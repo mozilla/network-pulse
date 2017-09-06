@@ -56,7 +56,6 @@ const Tag = (router) => {
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -78,6 +77,10 @@ class App extends React.Component {
     );
   }
 }
+
+// TODO:FIXME:
+const TempEditProfile = () => <div><h1>Edit Profile Page</h1><p>to be built in another PR...</p></div>;
+
 
 // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
 // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
@@ -111,6 +114,7 @@ module.exports = (
       <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+    <Route path="myprofile" component={TempEditProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="profile">
       <Route path="me" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
