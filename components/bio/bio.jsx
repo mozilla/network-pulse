@@ -1,20 +1,6 @@
 import React from 'react';
-
-// real schema
-/*
-{
-    "user_bio": "",
-    "custom_name": "",
-    "is_group": false,
-    "thumbnail": null,
-    "issues": [],
-    "twitter": "",
-    "linkedin": "",
-    "github": "",
-    "website": ""
-}
-*/
-
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 class Bio extends React.Component {
   constructor(props) {
@@ -22,15 +8,19 @@ class Bio extends React.Component {
   }
 
   renderThumbnail() {
-    let style = {
-      backgroundImage: `url(${this.props.thumbnail})`,
-    };
+    return <div className="thumbnail">
+            { this.props.thumbnail && <img src={this.props.thumbnail} className="img-fluid" /> }
+          </div>;
+  }
 
-    return <div className="thumbnail mx-auto" style={style}></div>;
+  renderEditLink() {
+    if (!this.props.my_profile) return null;
+
+    return <div className="mt-3"><Link to="/">edit profile</Link></div>;
   }
 
   renderName() {
-    return <div className="name d-inline-block mb-2 mr-4">{this.props.firstname} {this.props.lastname}</div>;
+    return <div className="name d-inline-block mb-2 mr-4">{this.props.custom_name || this.props.name}</div>;
   }
 
   renderSocialMedia() {
@@ -77,33 +67,33 @@ class Bio extends React.Component {
     return <div className="blurb">{paragraphs}</div>;
   }
 
-  renderTags(type = ``, tags = []) {
+  renderTags(label = ``, type = ``, tags = []) {
     if (!type || tags.length < 1) { return null; }
 
+    tags = tags.map(tag => {
+      return <Link to={`/${type}/${encodeURIComponent(tag)}`} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
+    });
+
     return <div className="tags mb-1">
-              <span className="open-sans text-uppercase">{type}: </span>{tags.join(`, `)}
+              <span className="open-sans text-uppercase">{label}: </span>
+              {tags}
             </div>;
   }
 
   renderInterest() {
-    if (!this.props.interest) { return null; }
+    if (!this.props.issues) { return null; }
 
-    return this.renderTags(`interests`, this.props.interest);
-  }
-
-  renderHelpWith() {
-    if (!this.props.help_with) { return null; }
-
-    return this.renderTags(`can help with`, this.props.help_with);
+    return this.renderTags(`interests`, `issues`, this.props.issues);
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="bio pb-5 mb-5">
         <div className="row">
-          <div className="col-sm-4 col-md-2">
+          <div className="col-sm-4 col-md-2 text-center">
             { this.renderThumbnail() }
+            { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
             { this.renderName() }
@@ -111,11 +101,29 @@ class Bio extends React.Component {
             { this.renderOtherMeta() }
             { this.renderBlurb() }
             { this.renderInterest() }
-            { this.renderHelpWith() }
           </div>
         </div>
       </div>
     );
   }
 }
+
+
+Bio.propTypes = {
+  name: PropTypes.string.isRequired,
+  "custom_name": PropTypes.string.isRequired,
+  "is_group": PropTypes.bool.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  issues: PropTypes.array.isRequired,
+  twitter: PropTypes.string.isRequired,
+  linkedin: PropTypes.string.isRequired,
+  github: PropTypes.string.isRequired,
+  website: PropTypes.string.isRequired,
+  "my_profile": PropTypes.bool.isRequired
+};
+
+Bio.defaultProps = {
+
+};
+
 export default Bio;

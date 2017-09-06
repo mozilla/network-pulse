@@ -112,7 +112,7 @@ module.exports = (
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="profile">
-      <Route path=":profile" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="me" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="*" component={NotFound}/>
   </Route>

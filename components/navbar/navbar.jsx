@@ -43,10 +43,7 @@ class NavBar extends React.Component {
     if (!user.loggedin) return null;
     console.log(user);
 
-    // FIXME
-    user.id = `123`;
-
-    return <NavListItem><NavLink to={`/profile/${user.id}`} className="hi-username">Hi, {user.username}</NavLink></NavListItem>;
+    return <NavListItem><NavLink to="/profile/me" className="hi-username">Hi, {user.username}</NavLink></NavListItem>;
   }
 
   render() {
