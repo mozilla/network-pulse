@@ -8,7 +8,7 @@ class Bio extends React.Component {
   }
 
   renderThumbnail() {
-    return <div className="thumbnail">
+    return <div className="thumbnail mx-auto">
             { this.props.thumbnail && <img src={this.props.thumbnail} className="img-fluid" /> }
           </div>;
   }
@@ -20,13 +20,15 @@ class Bio extends React.Component {
   }
 
   renderName() {
-    return <div className="name d-inline-block mb-2 mr-4">{this.props.custom_name || this.props.name}</div>;
+    return <div className="name d-block d-sm-inline-block mb-2 mr-sm-4 text-center text-sm-left">
+      {this.props.custom_name || this.props.name}
+    </div>;
   }
 
   renderSocialMedia() {
     let list = [ `twitter`, `linkedin`, `github` ].map(type => this.renderSocialMediaLink(type, this.props[type]) );
 
-    return <div className="d-inline-block">{list}</div>;
+    return <div className="d-block d-sm-inline-block text-center text-sm-left mb-4 mb-sm-0">{list}</div>;
   }
 
   renderSocialMediaLink(type, link) {
@@ -75,7 +77,7 @@ class Bio extends React.Component {
     });
 
     return <div className="tags mb-1">
-              <span className="open-sans text-uppercase">{label}: </span>
+              <div className="d-inline-block mr-2 open-sans text-uppercase">{label}:</div>
               {tags}
             </div>;
   }
