@@ -22,7 +22,6 @@ class Profile extends React.Component {
       })
       .catch(reason => {
         console.error(reason);
-
       });
   }
 
@@ -37,6 +36,7 @@ class Profile extends React.Component {
     if (this.state.userProfileLoaded && this.state.userProfile.published_entries.length < 1) return null;
 
     return <div className="col-12">
+      {/* TODO:FIXME: for now let's just render all entries at once. (no 'view more' button) I will file another PR to refine this. */}
       <ProjectList entries={this.state.userProfile.published_entries}
         loadingData={false}
         moreEntriesToFetch={false}
