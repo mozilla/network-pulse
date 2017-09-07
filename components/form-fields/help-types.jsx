@@ -2,7 +2,7 @@ import React from 'react';
 import DynamicCheckboxGroup from './dynamic-checkbox-group.jsx';
 import Service from '../../js/service';
 
-class HelpTypes extends React.Component {
+class HelpTypesField extends React.Component {
   constructor(props) {
     super(props);
     this.state = { options: [] };
@@ -17,4 +17,4 @@ class HelpTypes extends React.Component {
   }
 }
 
-export default HelpTypes;
+export default HelpTypesField;

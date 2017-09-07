@@ -2,7 +2,7 @@ import React from 'react';
 import DynamicCheckboxGroup from './dynamic-checkbox-group.jsx';
 import Service from '../../js/service';
 
-class Issues extends React.Component {
+class IssuesField extends React.Component {
   constructor(props) {
     super(props);
     this.state = { options: [] };
@@ -17,4 +17,4 @@ class Issues extends React.Component {
   }
 }
 
-export default Issues;
+export default IssuesField;
