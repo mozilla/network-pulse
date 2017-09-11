@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
+import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkbox-group.jsx';
 import { Link } from 'react-router';
 import validator from './validator';
 import Service from '../../../js/service';
 
 const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
+
+class Issues extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { options: [] };
+  }
+  componentWillMount() {
+    Service.issues.get().then(options => {
+      this.setState({ options: options.map(option => option.name) });
+    });
+  }
+  render() {
+    return <DynamicCheckboxGroup options={this.state.options} onChange={this.props.onChange} />;
+  }
+}
 
 let Tags = React.createClass({
   getInitialState() {
@@ -108,9 +124,8 @@ module.exports = {
     validator: validator.maxLengthValidator(300)
   },
   issues: {
-    type: `checkboxGroup`,
+    type: Issues,
     label: <IssuesLabel/>,
-    options: [ `Online Privacy & Security`, `Open Innovation`, `Decentralization`, `Web Literacy`, `Digital Inclusion` ],
     colCount: 1
   },
   tags: {

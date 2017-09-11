@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import pageSettings from './js/app-page-settings';
@@ -20,7 +21,15 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
-  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK}>Learn more</a>.</span> : null;
+  let handleOnClick = function() {
+    ReactGA.event({
+      category: `Browse`,
+      action: `About learn more tap`,
+      label: `Tagline learn more link`
+    });
+  };
+
+  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
 
   return <div>
           <Helmet><title>Featured</title></Helmet>

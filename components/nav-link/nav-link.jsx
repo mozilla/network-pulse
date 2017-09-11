@@ -12,14 +12,14 @@ class NavLink extends React.Component {
     ReactGA.event({
       category: `Nav Link`,
       action: `Clicked`,
-      label: `${this.props.to}`
+      label: this.props.to
     });
   }
 
   render() {
     return (
       <Link {...this.props}
-        className="open-sans"
+        className={`open-sans ${this.props.className}`}
         activeClassName="active"
         onClick={() => this.handleInternalPageLinkClick()}
       />
