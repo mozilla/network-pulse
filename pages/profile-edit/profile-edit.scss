@@ -1,0 +1,13 @@
+.profile-edit-page {
+  fieldset {
+    @extend .fieldset-full-width;
+  }
+
+  fieldset.city_country,
+  fieldset.languages,
+  fieldset.twitter,
+  fieldset.linkedin,
+  fieldset.github {
+    @extend .fieldset-half-width;
+  }
+}
