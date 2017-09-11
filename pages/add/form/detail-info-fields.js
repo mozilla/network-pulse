@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
 import DynamicCheckboxGroup from '../../../components/form-fields/dynamic-checkbox-group.jsx';
+import { Link } from 'react-router';
 import validator from './validator';
 import Service from '../../../js/service';
 
@@ -100,6 +101,12 @@ let Tags = React.createClass({
   }
 });
 
+const IssuesLabel = function() {
+  return (
+    <div>Check any <Link to="/issues" target="_blank">Key Internet Issues</Link> that relate to your project.</div>
+  );
+};
+
 module.exports = {
   creators: {
     type: `text`,
@@ -118,7 +125,7 @@ module.exports = {
   },
   issues: {
     type: Issues,
-    label: `Check any Key Internet Issues that relate to your project.`,
+    label: <IssuesLabel/>,
     colCount: 1
   },
   tags: {
