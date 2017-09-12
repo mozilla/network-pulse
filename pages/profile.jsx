@@ -17,7 +17,6 @@ class Profile extends React.Component {
   componentDidMount() {
     Service.profileMe()
       .then(userProfile => {
-        console.log(userProfile);
         this.setState({ userProfile, userProfileLoaded: true });
       })
       .catch(reason => {
