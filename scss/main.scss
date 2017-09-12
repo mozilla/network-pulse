@@ -39,6 +39,15 @@ a {
   }
 }
 
+a.default-text-color-link {
+  color: inherit;
+  text-decoration: underline;
+
+  @include hover {
+    color: $link-hover-color;
+  }
+}
+
 .btn-link {
   &.inline-link {
     font-family: inherit;
@@ -181,6 +190,7 @@ textarea {
 @import '../components/footer/footer';
 @import '../components/issue-selector/issue-selector';
 @import '../components/hint-message/hint-message';
+@import '../components/bio/bio';
 
 // Pages
 
