@@ -1,0 +1,62 @@
+.bio {
+  .thumbnail {
+    overflow: hidden;
+    border-radius: 50%;
+    max-width: 150px;
+  }
+
+  .name {
+    font-size: 1.75rem;
+    font-weight: 500;
+  }
+
+  .other-meta {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tags {
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    .open-sans {
+      font-size: 0.625rem;
+    }
+  }
+
+  .blurb {
+    font-size: 1.25rem;
+  }
+
+  .meta-with-icon {
+    &::before {
+      font-family: "FontAwesome";
+      display: inline-block;
+      margin-right: 0.4rem;
+    }
+
+    &.location {
+      &::before {
+        content: "\f041";
+      }
+    }
+
+    &.language {
+      &::before {
+        content: "\f075";
+      }
+    }
+
+    &.story {
+      &::before {
+        content: "\f10d";
+      }
+    }
+
+    &.website {
+      &::before {
+        content: "\f0ac";
+      }
+    }
+  }
+}

@@ -25,9 +25,9 @@
     }
   }
 
-  .btn-search {
+  .hi-username {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: $grid-gutter-width-base / 2;
   }
 
@@ -57,16 +57,14 @@
     }
   }
 
-  // >= 768px
-  @media screen and (min-width: $bp-md) {
+  @media screen and (min-width: $bp-lg) {
     .nav-link-list {
       position: relative;
     }
 
-    .btn-search {
-      position: static;
+    .hi-username {
       top: 0;
-      right: 0;
+      right: 5.5rem;
     }
 
     .btn-add {
