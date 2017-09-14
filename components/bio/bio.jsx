@@ -8,9 +8,18 @@ class Bio extends React.Component {
   }
 
   renderThumbnail() {
-    return <div className="thumbnail mx-auto">
-            { this.props.thumbnail && <img src={this.props.thumbnail} className="img-fluid" /> }
-          </div>;
+    let style = {};
+
+    if (this.props.thumbnail) {
+      style = {
+        backgroundImage: `url(${this.props.thumbnail})`,
+        backgroundSize: `cover`,
+        backgroundRepat: `no-repeat`,
+        backgroundPosition: `center center`
+      };
+    }
+
+    return <div className="thumbnail mx-auto" style={style}></div>;
   }
 
   renderEditLink() {
