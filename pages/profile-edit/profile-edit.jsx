@@ -23,7 +23,22 @@ export default React.createClass({
       showFormInvalidNotice: false
     };
   },
-  componentWillMount() {
+  componentDidMount() {
+    user.addListener(this);
+    user.verify(this.props.router.location);
+
+    this.loadCurrentProfile();
+  },
+  componentWillUnmount() {
+    user.removeListener(this);
+  },
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified` ) {
+      this.setState({ user });
+    }
+  },
+  loadCurrentProfile() {
     // get current profile data and load it into form
     Service.myProfile.get().then(profile => {
       console.log(`currently stored profile`, profile);
@@ -48,19 +63,6 @@ export default React.createClass({
         currentProfileLoaded: true
       });
     });
-  },
-  componentDidMount() {
-    user.addListener(this);
-    user.verify(this.props.router.location);
-  },
-  componentWillUnmount() {
-    user.removeListener(this);
-  },
-  updateUser(event) {
-    // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified` ) {
-      this.setState({ user });
-    }
   },
   handleSignInBtnClick(event) {
     event.preventDefault();
