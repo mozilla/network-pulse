@@ -243,8 +243,11 @@ let Service = {
   userstatus: function() {
     return getDataFromURL(`${pulseAPI}/userstatus/`);
   },
-  profileMe: function () {
+  profileMe: function() {
     return getDataFromURL(`${pulseAPI}/profiles/me/`);
+  },
+  profile: function(id) {
+    return getDataFromURL(`${pulseAPI}/profiles/${id}/`);
   },
   nonce: function() {
     return getDataFromURL(`${pulseAPI}/nonce/`);
