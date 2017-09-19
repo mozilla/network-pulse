@@ -121,7 +121,7 @@ class Bio extends React.Component {
 Bio.propTypes = {
   name: PropTypes.string.isRequired,
   "custom_name": PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
   issues: PropTypes.array.isRequired,
   twitter: PropTypes.string.isRequired,
   linkedin: PropTypes.string.isRequired,

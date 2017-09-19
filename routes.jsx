@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import pageSettings from './js/app-page-settings';
+import Service from './js/service.js';
 import env from "./config/env.generated.json";
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
@@ -56,6 +57,52 @@ const Tag = (router) => {
   let searchParam = { key: `tag`, value: router.params.tag };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
+
+class MyProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userProfile: null
+    };
+  }
+
+  componentDidMount() {
+    Service.profileMe()
+      .then(userProfile => {
+        this.setState({ userProfile });
+      })
+      .catch(reason => {
+        console.error(reason);
+      });
+  }
+
+  render() {
+    return <Profile profile={this.state.userProfile} />;
+  }
+}
+
+class PublicProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userProfile: null
+    };
+  }
+
+  componentDidMount() {
+    Service.profile(this.props.params.id)
+      .then(userProfile => {
+        this.setState({ userProfile });
+      })
+      .catch(reason => {
+        console.error(reason);
+      });
+  }
+
+  render() {
+    return <Profile profile={this.state.userProfile} />;
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -112,7 +159,8 @@ module.exports = (
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="profile">
-      <Route path="me" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="me" component={MyProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path=":id" component={PublicProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="myprofile" component={ProfileEdit} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
