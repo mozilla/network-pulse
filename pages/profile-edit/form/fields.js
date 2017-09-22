@@ -17,7 +17,7 @@ module.exports = {
     placeholder: ``,
     fieldClassname: `form-control`,
     validator: [
-      validator.emptyValueValidator()
+      validator.maxLengthValidator(70)
     ]
   },
   // TODO:FIXME: backend currently doesn't have this field

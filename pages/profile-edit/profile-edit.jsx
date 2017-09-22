@@ -46,13 +46,11 @@ export default React.createClass({
       let values = {};
 
       Object.keys(formFields).forEach(name => {
-        if (fields[name].type === `image`) {
-          fields[name].defaultImagePath = profile[name];
+        fields[name].defaultValue = profile[name];
+        if (fields[name].type !== `image`) {
           // profile[name] is just the path to the current profile pic
           // and not the object that contains name of the file and its base64 data
           // therefore, no need to add it to the values object
-        } else {
-          fields[name].value = profile[name];
           values[name] = profile[name];
         }
       });
@@ -106,10 +104,6 @@ export default React.createClass({
     });
   },
   updateProfile(profile) {
-    // TODO:FIXME:
-    // is_group seems to be a required field?????
-    profile.is_group = false;
-
     Service.myProfile
       .put(profile)
       .then(response => {
@@ -132,6 +126,7 @@ export default React.createClass({
 
     return <Form ref="form" fields={this.state.fields}
       inlineErrors={true}
+      onMount={() => {}}
       onUpdate={(event, name, field, value) => this.handleFormUpdate(event, name, field, value)}
       className="row" />;
   },
@@ -143,7 +138,7 @@ export default React.createClass({
               <div className="col-12">
                 <h1>Your profile</h1>
                 <p>[FIXME] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere a magna a vulputate. Morbi vel odio tincidunt sem pulvinar dapibus ut at odio <span style={{color: `red`}}>link to legal</span>.</p>
-                <p>All fields are optional. <span style={{color: `red`}}>(is this still true??? "custom_name" seems to be required on backend)</span></p>
+                <p>All fields are optional.</p>
                 <div className="mb-4">
                   <div className="mb-3">
                     <span>Email <em>(email won't be displayed or shared)</em></span>
