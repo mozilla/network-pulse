@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import validator from '../../../js/form-validator';
 import IssuesField from '../../../components/form-fields/issues.jsx';
-// import HelpTypesField from '../../../components/form-fields/help-types.jsx';
 
 // TODO:FIXME: field names are subject to changes. Once we figure out what fields backend is accepting.
 
