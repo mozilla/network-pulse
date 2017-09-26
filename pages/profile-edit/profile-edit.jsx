@@ -109,10 +109,9 @@ export default React.createClass({
       .then(response => {
         console.log(`[updated!] response`, response);
 
-        // TODO:FIXME: redirect route to be determined
-        // browserHistory.push({
-        //   pathname: `/profile/id`,
-        // });
+        browserHistory.push({
+          pathname: `/profile/me`,
+        });
       })
       .catch(reason => {
         this.setState({
@@ -126,7 +125,6 @@ export default React.createClass({
 
     return <Form ref="form" fields={this.state.fields}
       inlineErrors={true}
-      onMount={() => {}}
       onUpdate={(event, name, field, value) => this.handleFormUpdate(event, name, field, value)}
       className="row" />;
   },
