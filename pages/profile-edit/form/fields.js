@@ -17,25 +17,6 @@ module.exports = {
       validator.maxLengthValidator(70)
     ]
   },
-
-  // TODO:FIXME: backend currently doesn't have this field
-  // "city_country": {
-  //   type: `text`,
-  //   label: `City, Country`,
-  //   placeholder: `Vancouver, Canada`,
-  //   fieldClassname: `form-control`,
-  //   validator: []
-  // },
-
-  // TODO:FIXME: backend currently doesn't have this field
-  // "languages": {
-  //   type: `text`,
-  //   label: `Languages`,
-  //   placeholder: `English, Türkçe`,
-  //   fieldClassname: `form-control`,
-  //   validator: []
-  // },
-
   "user_bio": {
     type: `textarea`,
     label: `Bio`,
@@ -95,19 +76,5 @@ module.exports = {
     type: IssuesField,
     label: <IssuesLabel />,
     colCount: 1
-  },
-
-  // TODO:FIXME: backend currently doesn't have this field
-  // "help_types": {
-  //   type: HelpTypesField,
-  //   label: `You can help other people with.`,
-  // },
-
-  // TODO:FIXME: backend currently doesn't have this field
-  // "show_fav": {
-  //   type: `checkboxGroup`,
-  //   label: `Allow anyone to see a list of posts I have favoritied.`,
-  //   options: [ `Yes, please show my favs` ],
-  //   colCount: 1
-  // }
+  }
 };
