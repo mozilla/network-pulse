@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 import validator from '../../../js/form-validator';
 import IssuesField from '../../../components/form-fields/issues.jsx';
 
-// TODO:FIXME: field names are subject to changes. Once we figure out what fields backend is accepting.
-
 let IssuesLabel = () => {
   return <div>Your <Link to="/issues" target="_blank">Key Internet Issues</Link> interest.</div>;
 };
@@ -19,6 +17,7 @@ module.exports = {
       validator.maxLengthValidator(70)
     ]
   },
+
   // TODO:FIXME: backend currently doesn't have this field
   // "city_country": {
   //   type: `text`,
@@ -53,8 +52,7 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: [
       validator.urlValidator(`Twitter`)
-    ],
-    value: `aaa`
+    ]
   },
   "linkedin": {
     type: `text`,
@@ -85,7 +83,6 @@ module.exports = {
   },
   "thumbnail": {
     type: `image`,
-    label: `Profile pic`,
     prompt: `Select image`,
     fieldClassname: `form-control`,
     validator: [

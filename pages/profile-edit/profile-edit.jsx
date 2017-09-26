@@ -41,23 +41,15 @@ export default React.createClass({
   loadCurrentProfile() {
     // get current profile data and load it into form
     Service.myProfile.get().then(profile => {
-      console.log(`currently stored profile`, profile);
       let fields = formFields;
-      let values = {};
 
-      Object.keys(formFields).forEach(name => {
+      Object.keys(fields).forEach(name => {
+        // load current profile to form fields
         fields[name].defaultValue = profile[name];
-        if (fields[name].type !== `image`) {
-          // profile[name] is just the path to the current profile pic
-          // and not the object that contains name of the file and its base64 data
-          // therefore, no need to add it to the values object
-          values[name] = profile[name];
-        }
       });
 
       this.setState({
         fields,
-        formValues: values,
         currentProfileLoaded: true
       });
     });
@@ -78,20 +70,23 @@ export default React.createClass({
   handleFormUpdate(event, name, field, value) {
     let formValues = this.state.formValues;
 
-    formValues[name] = value;
-    this.setState({
-      formValues,
-      // hide notice once user starts typing again
-      // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
-      showFormInvalidNotice: false
-    });
+    // if value of an image field is a link, we don't wanna include it in the formValues state
+    // as the link is just for previewing user's current profile and not the image object we are
+    // sending to backend
+    if (field.type !== `image` || (field.type === `image` && typeof value !== `string`)) {
+      formValues[name] = value;
+      this.setState({
+        formValues,
+        // hide notice once user starts typing again
+        // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
+        showFormInvalidNotice: false
+      });
+    }
   },
   handleFormSubmit(event) {
     event.preventDefault();
 
     this.refs.form.validates(formIsValid => {
-      console.log(`this.state.formValues`, this.state.formValues);
-
       if (!formIsValid) {
         this.setState({ showFormInvalidNotice: true });
         return;
@@ -107,8 +102,6 @@ export default React.createClass({
     Service.myProfile
       .put(profile)
       .then(response => {
-        console.log(`[updated!] response`, response);
-
         browserHistory.push({
           pathname: `/profile/me`,
         });
