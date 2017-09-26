@@ -101,7 +101,7 @@ export default React.createClass({
   updateProfile(profile) {
     Service.myProfile
       .put(profile)
-      .then(response => {
+      .then(() => {
         browserHistory.push({
           pathname: `/profile/me`,
         });
