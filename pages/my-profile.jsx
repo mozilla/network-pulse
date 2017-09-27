@@ -80,7 +80,7 @@ class MyProfile extends React.Component {
   }
 
   getAnonymousContent() {
-    return <NotFound header="You do not have access to this page" linkComponent={null}>
+    return <NotFound header="You do not have access to this page" linkComponent={false}>
       <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Log in</button> or see <Link to="/featured">Featured projects</Link></p>
     </NotFound>;
   }

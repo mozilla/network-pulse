@@ -15,7 +15,10 @@ const NotFound = (props) => {
 
 NotFound.propTypes = {
   header: PropTypes.string,
-  linkComponent: PropTypes.element,
+  linkComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.bool,
+  ]),
   children: PropTypes.element
 };
 
