@@ -24,7 +24,7 @@ class PublicProfile extends React.Component {
     .then(userProfile => {
       response({
         userProfile,
-        showLoadingNotice: true
+        showLoadingNotice: false
       });
     })
     .catch(reason => {
