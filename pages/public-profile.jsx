@@ -2,6 +2,7 @@ import React from 'react';
 import NotFound from './not-found.jsx';
 import Service from '../js/service';
 import Profile from './profile.jsx';
+import LoadingNotice from '../components/loading-notice.jsx';
 
 class PublicProfile extends React.Component {
   constructor(props) {
@@ -40,17 +41,8 @@ class PublicProfile extends React.Component {
     return <Profile profile={this.state.userProfile} />;
   }
 
-  renderLoadingNotice() {
-    // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
-    return <div className="loading my-5 d-flex justify-content-center align-items-center">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>;
-  }
-
   render() {
-    return this.state.showLoadingNotice ? this.renderLoadingNotice() : this.renderProfile();
+    return this.state.showLoadingNotice ? <LoadingNotice /> : this.renderProfile();
   }
 }
 
