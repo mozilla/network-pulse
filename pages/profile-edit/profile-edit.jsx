@@ -128,8 +128,7 @@ export default React.createClass({
     return( <div className="row">
               <div className="col-12">
                 <h1>Your profile</h1>
-                <p>[FIXME] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere a magna a vulputate. Morbi vel odio tincidunt sem pulvinar dapibus ut at odio <span style={{color: `red`}}>link to legal</span>.</p>
-                <p>All fields are optional.</p>
+                <p>Tell everyone about yourself, so we can connect and collaborate!</p>
                 <div className="mb-4">
                   <div className="mb-3">
                     <span>Email <em>(email won't be displayed or shared)</em></span>
@@ -139,16 +138,19 @@ export default React.createClass({
                     </div>
                   </div>
                   <div className="mb-3">
-                    <span>User name</span>
+                    <span>Name</span>
                     <div className="text-muted">
                       <span>{user.username}</span>
                     </div>
                   </div>
                 </div>
+                <p>All fields below are optional.</p>
                 { this.renderForm() }
                 <div className="submit-section">
+                  <p className="mb-0">By submitting your profile, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>.</p>
+                  <p>Please <a href="https://mzl.la/pulse-contact" target="_blank">contact us</a> if you have any questions or concerns.</p>
                   <button
-                    className="btn btn-info mr-3"
+                    className="btn btn-info mr-3 mt-4"
                     type="submit"
                     onClick={(event) => this.handleFormSubmit(event)}
                     disabled={this.state.submitting ? `disabled` : null}
