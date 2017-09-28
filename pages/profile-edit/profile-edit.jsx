@@ -5,7 +5,8 @@ import { Form } from 'react-formbuilder';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 import utility from '../../js/utility';
 import user from '../../js/app-user';
-import fields from './form/fields';
+import Service from '../../js/service';
+import formFields from './form/fields';
 
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
@@ -13,12 +14,20 @@ const SUBMITTING_LABEL = `Submitting...`;
 export default React.createClass({
   getInitialState() {
     return {
-      user
+      user,
+      currentProfileLoaded: false,
+      fields: {},
+      formValues: {},
+      serverError: false,
+      submitting: false,
+      showFormInvalidNotice: false
     };
   },
   componentDidMount() {
     user.addListener(this);
     user.verify(this.props.router.location);
+
+    this.loadCurrentProfile();
   },
   componentWillUnmount() {
     user.removeListener(this);
@@ -29,6 +38,22 @@ export default React.createClass({
       this.setState({ user });
     }
   },
+  loadCurrentProfile() {
+    // get current profile data and load it into form
+    Service.myProfile.get().then(profile => {
+      let fields = formFields;
+
+      Object.keys(fields).forEach(name => {
+        // load current profile to form fields
+        fields[name].defaultValue = profile[name];
+      });
+
+      this.setState({
+        fields,
+        currentProfileLoaded: true
+      });
+    });
+  },
   handleSignInBtnClick(event) {
     event.preventDefault();
 
@@ -36,23 +61,70 @@ export default React.createClass({
   },
   handleLogOutBtnClick(event) {
     event.preventDefault();
-    // TODO:FIXME
-    // placeholder event handler
+
     user.logout();
     browserHistory.push({
       pathname: `/featured`
     });
   },
-  handleFormUpdate() {
-    // TODO:FIXME
-    // placeholder event handler
+  handleFormUpdate(event, name, field, value) {
+    let formValues = this.state.formValues;
+
+    // if value of an image field is a link, we don't wanna include it in the formValues state
+    // as the link is just for previewing user's current profile and not the image object we are
+    // sending to backend
+    if (field.type !== `image` || (field.type === `image` && typeof value !== `string`)) {
+      formValues[name] = value;
+      this.setState({
+        formValues,
+        // hide notice once user starts typing again
+        // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
+        showFormInvalidNotice: false
+      });
+    }
   },
   handleFormSubmit(event) {
     event.preventDefault();
-    // TODO:FIXME
-    // placeholder event handler
+
+    this.refs.form.validates(formIsValid => {
+      if (!formIsValid) {
+        this.setState({ showFormInvalidNotice: true });
+        return;
+      }
+
+      this.setState({
+        showFormInvalidNotice: false,
+        submitting: true
+      }, () => this.updateProfile(this.state.formValues));
+    });
+  },
+  updateProfile(profile) {
+    Service.myProfile
+      .put(profile)
+      .then(() => {
+        browserHistory.push({
+          pathname: `/profile/me`,
+        });
+      })
+      .catch(reason => {
+        this.setState({
+          serverError: true
+        });
+        console.error(reason);
+      });
+  },
+  renderForm() {
+    if (!this.state.currentProfileLoaded) return null;
+
+    return <Form ref="form" fields={this.state.fields}
+      inlineErrors={true}
+      onUpdate={(event, name, field, value) => this.handleFormUpdate(event, name, field, value)}
+      className="row" />;
   },
   getContentForLoggedInUser() {
+    let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
+    let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
+
     return( <div className="row">
               <div className="col-12">
                 <h1>Your profile</h1>
@@ -73,17 +145,17 @@ export default React.createClass({
                     </div>
                   </div>
                 </div>
-                <Form ref="form" fields={fields}
-                                   inlineErrors={true}
-                                   onUpdate={(event) => this.handleFormUpdate(event)}
-                                   className="row" />
+                { this.renderForm() }
                 <div className="submit-section">
                   <button
                     className="btn btn-info mr-3"
                     type="submit"
-                    onClick={this.handleFormSubmit}
+                    onClick={(event) => this.handleFormSubmit(event)}
                     disabled={this.state.submitting ? `disabled` : null}
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
+                  { authErrorMessage }
+                  { serverErrorMessage }
+                  { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
                 </div>
               </div>
             </div>);
