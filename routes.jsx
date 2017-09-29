@@ -16,6 +16,8 @@ import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
 import Moderation from './pages/moderation.jsx';
+import PublicProfile from './pages/public-profile.jsx';
+import MyProfile from './pages/my-profile.jsx';
 import Profile from './pages/profile.jsx';
 import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
@@ -57,52 +59,6 @@ const Tag = (router) => {
   let searchParam = { key: `tag`, value: router.params.tag };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
-
-class MyProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userProfile: null
-    };
-  }
-
-  componentDidMount() {
-    Service.profileMe()
-      .then(userProfile => {
-        this.setState({ userProfile });
-      })
-      .catch(reason => {
-        console.error(reason);
-      });
-  }
-
-  render() {
-    return <Profile profile={this.state.userProfile} />;
-  }
-}
-
-class PublicProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userProfile: null
-    };
-  }
-
-  componentDidMount() {
-    Service.profile(this.props.params.id)
-      .then(userProfile => {
-        this.setState({ userProfile });
-      })
-      .catch(reason => {
-        console.error(reason);
-      });
-  }
-
-  render() {
-    return <Profile profile={this.state.userProfile} />;
-  }
-}
 
 class App extends React.Component {
   constructor(props) {

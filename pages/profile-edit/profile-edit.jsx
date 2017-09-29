@@ -1,8 +1,8 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
-import HintMessage from '../../components/hint-message/hint-message.jsx';
+import NotFound from '../not-found.jsx';
 import utility from '../../js/utility';
 import user from '../../js/app-user';
 import Service from '../../js/service';
@@ -163,24 +163,9 @@ export default React.createClass({
             </div>);
   },
   getAnonymousContent() {
-    let header = `Please sign in to edit your profile.`;
-    let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
-                           onClick={(event) => this.handleSignInBtnClick(event)}>
-                           Sign in with Google
-                        </a>;
-    let additionalMessage;
-
-    if (user.failedLogin) {
-      header = `Sign in failed`;
-      linkComponent = <Link to={`/featured`}>Explore featured</Link>;
-      additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
-    }
-
-    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={header}
-                         linkComponent={linkComponent}>
-              {additionalMessage}
-            </HintMessage>;
+    return <NotFound header="You do not have access to this page" linkComponent={false}>
+      <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Log in</button> or see <Link to="/featured">Featured projects</Link></p>
+    </NotFound>;
   },
   getContent() {
     if (user.loggedin === undefined) return null;
