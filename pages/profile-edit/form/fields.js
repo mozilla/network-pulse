@@ -19,7 +19,7 @@ module.exports = {
   },
   "user_bio": {
     type: `textarea`,
-    label: `Bio`,
+    label: <div>Bio <em>(don't not include any personal information)</em></div>,
     placeholder: `About you`,
     fieldClassname: `form-control`,
     validator: [
@@ -64,6 +64,7 @@ module.exports = {
   },
   "thumbnail": {
     type: `image`,
+    label: <div>Profile pic <em>(only submit photos you have permission to use in this context)</em></div>,
     prompt: `Select image`,
     fieldClassname: `form-control`,
     validator: [
