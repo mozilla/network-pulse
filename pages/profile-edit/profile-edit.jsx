@@ -137,27 +137,22 @@ export default React.createClass({
                       <span className="d-block d-sm-inline-block ml-0 ml-sm-4"><button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></span>
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <span>Name</span>
-                    <div className="text-muted">
-                      <span>{user.username}</span>
-                    </div>
-                  </div>
                 </div>
-                <p>All fields below are optional.</p>
                 { this.renderForm() }
                 <div className="submit-section">
                   <p className="mb-0">By submitting your profile, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>.</p>
                   <p>Please <a href="https://mzl.la/pulse-contact" target="_blank">contact us</a> if you have any questions or concerns.</p>
-                  <button
-                    className="btn btn-info mr-3 mt-4"
-                    type="submit"
-                    onClick={(event) => this.handleFormSubmit(event)}
-                    disabled={this.state.submitting ? `disabled` : null}
-                  >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
-                  { authErrorMessage }
-                  { serverErrorMessage }
-                  { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
+                  <div className="mt-4">
+                    <button
+                      className="btn btn-info mr-3"
+                      type="submit"
+                      onClick={(event) => this.handleFormSubmit(event)}
+                      disabled={this.state.submitting ? `disabled` : null}
+                    >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
+                    { authErrorMessage }
+                    { serverErrorMessage }
+                    { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
+                  </div>
                 </div>
               </div>
             </div>);
