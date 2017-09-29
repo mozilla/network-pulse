@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import LoadingNotice from '../loading-notice.jsx';
 import ProjectCardSimple from '../project-card/project-card-simple.jsx';
 import Utility from '../../js/utility.js';
 import pageSettings from '../../js/app-page-settings';
@@ -38,12 +39,7 @@ class ProjectList extends React.Component {
   renderLoadingNotice() {
     if (!this.props.loadingData ) return null;
 
-    // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
-    return <div className="loading my-5 d-flex justify-content-center align-items-center">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>;
+    return <LoadingNotice />;
   }
 
   renderViewMoreBtn() {

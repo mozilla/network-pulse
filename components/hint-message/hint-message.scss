@@ -1,6 +1,11 @@
 .hint-message {
   margin-top: 2rem;
 
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
   @media screen and (min-width: $bp-md) {
     margin-top: 5rem;
   }
