@@ -10,16 +10,17 @@ let IssuesLabel = () => {
 module.exports = {
   "custom_name": {
     type: `text`,
-    label: `Public name`,
+    label: <div>Name <em>(*required field)</em></div>,
     placeholder: ``,
     fieldClassname: `form-control`,
     validator: [
+      validator.emptyValueValidator(),
       validator.maxLengthValidator(70)
     ]
   },
   "user_bio": {
     type: `textarea`,
-    label: <div>Bio <em>(don't not include any personal information)</em></div>,
+    label: <div>Bio <em>(do not include any personal information)</em></div>,
     placeholder: `About you`,
     fieldClassname: `form-control`,
     validator: [
