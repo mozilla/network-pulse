@@ -88,7 +88,7 @@ button {
   }
 }
 
-// Form 
+// Form
 
 form {
   font-family: inherit;
@@ -188,3 +188,9 @@ textarea {
 @import '../pages/add/add';
 @import '../pages/search/search';
 @import '../pages/issues/issues';
+
+// Forms
+
+input.published-by-creator {
+  margin-right: 0.5em;
+}

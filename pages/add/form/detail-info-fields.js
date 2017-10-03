@@ -108,6 +108,11 @@ const IssuesLabel = function() {
 };
 
 module.exports = {
+  published_by_creator: {
+    type: 'checkbox',
+    label: 'I am one of the creators.',
+    fieldClassname: `published-by-creator`
+  },
   creators: {
     type: `text`,
     label: `Who are the creators? This could be staff, contributors, partners…`,
