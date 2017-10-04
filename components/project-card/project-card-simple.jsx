@@ -128,7 +128,7 @@ class ProjectCard extends React.Component {
                   { this.renderActionPanel() }
                 </div>
               </div>
-              <Creators creators={this.props.creators} className="text-muted" />
+              <Creators creators={this.props.creators} />
               { this.props.onModerationMode && <Description description={this.props.description} /> }
               { this.renderExtraMeta() }
             </div>

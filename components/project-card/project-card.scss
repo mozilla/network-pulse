@@ -6,17 +6,11 @@
   h2 {
     color: $body-color;
     font-size: 1.625rem;
-    line-height: 1;
+    line-height: 1.07;
 
     a {
       color: inherit;
     }
-  }
-
-  .creator {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .thumbnail {
@@ -114,10 +108,11 @@
 }
 
 .project-card.regular-list-mode {
-  // to make summary content fade away in summary/list view
+  min-height: 200px;
+  margin-bottom: 3rem;
+
   .summary-content {
     position: relative;
-    height: 350px;
     overflow: hidden;
   }
 }
@@ -145,14 +140,5 @@
 
   .btn-visit {
     border-radius: 0;
-  }
-
-  // >= 768px
-  @media screen and (min-width: $bp-md) {
-    .creator {
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-    }
   }
 }
