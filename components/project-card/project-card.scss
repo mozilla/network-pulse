@@ -1,8 +1,4 @@
 .project-card {
-  margin-bottom: 20px;
-  background: $white;
-  overflow: hidden;
-
   h2 {
     color: $body-color;
     font-size: 1.625rem;
@@ -108,7 +104,6 @@
 }
 
 .project-card.regular-list-mode {
-  min-height: 200px;
   margin-bottom: 3rem;
 
   .summary-content {

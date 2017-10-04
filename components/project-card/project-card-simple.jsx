@@ -116,15 +116,15 @@ class ProjectCard extends React.Component {
             <Thumbnail thumbnail={this.props.thumbnail}
                        link={!this.props.onModerationMode ? detailViewLink : ``}
                        sendGaEvent={() => this.handleReadMoreClick()} />
-            <div className="content mx-3 mt-2">
+            <div className="content mt-2">
               <div className="row">
-                <div className="col-8">
+                <div className="col-10">
                   <Title title={this.props.title}
                    link={!this.props.onModerationMode ? detailViewLink : ``}
                    sendGaEvent={() => this.handleReadMoreClick()}
                   />
                 </div>
-                <div className="col-4 text-right">
+                <div className="col-2 text-right">
                   { this.renderActionPanel() }
                 </div>
               </div>

@@ -72,11 +72,7 @@ class DetailedProjectCard extends React.Component {
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
-    let classnames = classNames(`btn btn-block btn-info btn-visit text-capitalize`, {
-      "mt-3": this.props.thumbnail
-    });
-
-    return <a href={this.props.contentUrl} target="_blank" className={classnames} onClick={() => this.handleVisitBtnClick()}>Visit</a>;
+    return <a href={this.props.contentUrl} target="_blank" className="btn btn-block btn-info btn-visit text-capitalize mt-3" onClick={() => this.handleVisitBtnClick()}>Visit</a>;
   }
 
   renderTimePosted() {

@@ -12,9 +12,8 @@ class Thumbnail extends React.Component {
   }
 
   render() {
-    if (!this.props.thumbnail) return null;
-
-    let thumbnail = <div className="img-container"><img src={this.props.thumbnail} /></div>;
+    let imgSrc = this.props.thumbnail ? this.props.thumbnail : `/assets/placeholder-thumbnail.png`;
+    let thumbnail = <div className="img-container"><img src={imgSrc} /></div>;
     let classnames = `thumbnail`;
 
     if (this.props.link) {
@@ -34,7 +33,6 @@ Thumbnail.propTypes = {
 };
 
 Thumbnail.defaultProps = {
-  thumbnail: ``,
   link: ``,
   sendGaEvent: function() {}
 };
