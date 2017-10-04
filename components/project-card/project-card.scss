@@ -65,8 +65,6 @@
   }
 
   .heart {
-    position: relative;
-    top: 5px;
     display: inline-block;
     width: 23px;
     height: 19px;
@@ -111,6 +109,11 @@
   .summary-content {
     position: relative;
     overflow: hidden;
+  }
+
+  .heart {
+    position: relative;
+    top: 5px;
   }
 }
 
