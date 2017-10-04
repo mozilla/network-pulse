@@ -65,11 +65,13 @@
   }
 
   .heart {
+    position: relative;
+    top: 5px;
     display: inline-block;
     width: 23px;
     height: 19px;
     background: url(/assets/svg/icon-bookmark.svg) center center no-repeat;
-    background-size: auto 16px;
+    background-size: auto 19px;
     cursor: pointer;
 
     &.beating {

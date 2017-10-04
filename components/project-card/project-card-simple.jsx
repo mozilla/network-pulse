@@ -117,16 +117,13 @@ class ProjectCard extends React.Component {
                        link={!this.props.onModerationMode ? detailViewLink : ``}
                        sendGaEvent={() => this.handleReadMoreClick()} />
             <div className="content mt-2">
-              <div className="row">
-                <div className="col-10">
-                  <Title title={this.props.title}
-                   link={!this.props.onModerationMode ? detailViewLink : ``}
-                   sendGaEvent={() => this.handleReadMoreClick()}
-                  />
-                </div>
-                <div className="col-2 text-right">
-                  { this.renderActionPanel() }
-                </div>
+              <div className="d-flex">
+                <Title title={this.props.title}
+                 link={!this.props.onModerationMode ? detailViewLink : ``}
+                 sendGaEvent={() => this.handleReadMoreClick()}
+                 className="mr-auto pr-2"
+                />
+                { this.renderActionPanel() }
               </div>
               <Creators creators={this.props.creators} />
               { this.props.onModerationMode && <Description description={this.props.description} /> }
