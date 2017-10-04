@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import bookmarkManager from '../js/bookmarks-manager';
 import Service from '../js/service.js';
 import user from '../js/app-user.js';
+import classNames from 'classnames';
 
 class BookmarkControl extends React.Component {
   constructor(props) {
@@ -114,8 +115,10 @@ class BookmarkControl extends React.Component {
   }
 
   render() {
+    let classnames = classNames(`heart`, this.props.className);
+
     return (
-      <a className="heart" ref="heart" onClick={() => this.handleBookmarkClick()}></a>
+      <a className={classnames} ref="heart" onClick={() => this.handleBookmarkClick()}></a>
     );
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ModerationPanel from '../moderation-panel.jsx';
@@ -66,19 +65,16 @@ class ProjectCard extends React.Component {
     this.sendGaEvent(`Read More`);
   }
 
-  renderActionPanel(detailViewLink) {
+  renderActionPanel() {
     if (this.props.onModerationMode) return null;
 
     return (
-      <div className="action-panel">
-        <div>
-          <Link to={detailViewLink} onClick={() => this.handleReadMoreClick() }>Read more</Link>
-        </div>
-        <BookmarkControl id={this.props.id}
-                         title={this.props.title}
-                         isBookmarked={this.props.isBookmarked}
-                         updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }} />
-      </div>
+      <BookmarkControl id={this.props.id}
+       title={this.props.title}
+       isBookmarked={this.props.isBookmarked}
+       updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }}
+       className="align-middle"
+      />
     );
   }
 
@@ -120,18 +116,22 @@ class ProjectCard extends React.Component {
             <Thumbnail thumbnail={this.props.thumbnail}
                        link={!this.props.onModerationMode ? detailViewLink : ``}
                        sendGaEvent={() => this.handleReadMoreClick()} />
-            <div className="content m-3">
-              <Title title={this.props.title}
-                     link={!this.props.onModerationMode ? detailViewLink : ``}
-                     sendGaEvent={() => this.handleReadMoreClick()} />
+            <div className="content mx-3 mt-2">
+              <div className="row">
+                <div className="col-8">
+                  <Title title={this.props.title}
+                   link={!this.props.onModerationMode ? detailViewLink : ``}
+                   sendGaEvent={() => this.handleReadMoreClick()}
+                  />
+                </div>
+                <div className="col-4 text-right">
+                  { this.renderActionPanel() }
+                </div>
+              </div>
               <Creators creators={this.props.creators} className="text-muted" />
-              <Description description={this.props.description} />
+              { this.props.onModerationMode && <Description description={this.props.description} /> }
               { this.renderExtraMeta() }
             </div>
-            <div className="fade-overlay"></div>
-          </div>
-          <div className="m-3">
-            { this.renderActionPanel(detailViewLink) }
           </div>
         </div>
       </div>
