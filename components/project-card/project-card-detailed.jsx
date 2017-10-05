@@ -73,11 +73,7 @@ class DetailedProjectCard extends React.Component {
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
-    let classnames = classNames(`btn btn-block btn-info btn-visit text-capitalize`, {
-      "mt-3": this.props.thumbnail
-    });
-
-    return <a href={this.props.contentUrl} target="_blank" className={classnames} onClick={() => this.handleVisitBtnClick()}>Visit</a>;
+    return <a href={this.props.contentUrl} target="_blank" className="btn btn-block btn-info btn-visit text-capitalize mt-3" onClick={() => this.handleVisitBtnClick()}>Visit</a>;
   }
 
   renderTimePosted() {
@@ -113,7 +109,7 @@ class DetailedProjectCard extends React.Component {
     return <div className="col-12 mb-3">
             <div className="row">
               <div className="col-12 col-sm-8">
-                <Title title={this.props.title} />
+                <Title title={this.props.title} className="mb-1" />
                 <Creators creators={this.props.creators} showLabelText={true} />
               </div>
             </div>
