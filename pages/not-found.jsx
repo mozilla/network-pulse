@@ -8,7 +8,7 @@ const NotFound = (props) => {
     <HintMessage iconComponent={<img src="/assets/svg/icon-404.svg" />}
                  header={props.header}
                  linkComponent={props.linkComponent}>
-      { props.children }
+      { props.children || <p>Check your URL or try a search. Still no luck? <a href="https://github.com/mozilla/network-pulse/issues/new">Let us know</a>.</p> }
     </HintMessage>
   );
 };
@@ -24,8 +24,7 @@ NotFound.propTypes = {
 
 NotFound.defaultProps = {
   header: `Something's wrong`,
-  linkComponent: <Link to={`/featured`}>Explore featured</Link>,
-  children: <p>Check your URL or try a search. Still no luck? <a href="https://github.com/mozilla/network-pulse/issues/new">Let us know</a>.</p>
+  linkComponent: <Link to={`/featured`}>Explore featured</Link>
 };
 
 export default NotFound;
