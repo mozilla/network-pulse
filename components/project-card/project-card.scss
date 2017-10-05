@@ -1,23 +1,12 @@
 .project-card {
-  margin-bottom: 20px;
-  background: $white;
-  overflow: hidden;
-
   h2 {
     color: $body-color;
     font-size: 1.625rem;
-    line-height: 1;
-    margin: 0 0 10px;
+    line-height: 1.07;
 
     a {
-      color: $bikeshed-magenta;
+      color: inherit;
     }
-  }
-
-  .creator {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .thumbnail {
@@ -80,7 +69,7 @@
     width: 23px;
     height: 19px;
     background: url(/assets/svg/icon-bookmark.svg) center center no-repeat;
-    background-size: auto 16px;
+    background-size: auto 19px;
     cursor: pointer;
 
     &.beating {
@@ -115,19 +104,16 @@
 }
 
 .project-card.regular-list-mode {
-  // to make summary content fade away in summary/list view
+  margin-bottom: 3rem;
+
   .summary-content {
     position: relative;
-    height: 350px;
     overflow: hidden;
   }
 
-  .fade-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0);
+  .heart {
+    position: relative;
+    top: 5px;
   }
 }
 
@@ -154,14 +140,5 @@
 
   .btn-visit {
     border-radius: 0;
-  }
-
-  // >= 768px
-  @media screen and (min-width: $bp-md) {
-    .creator {
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-    }
   }
 }
