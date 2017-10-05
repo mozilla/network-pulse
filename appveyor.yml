@@ -2,6 +2,8 @@ version: "{build}"
 
 environment:
   nodejs_version: "6"
+  SNYK_TOKEN:
+    secure: 2HH1+J++C/e7GSlklkVgJJhL+2EMiqq73aDu/PyU7O5EECduDRxm9qFfrZFf9HmH
 
 install:
   - ps: Install-Product node $env:nodejs_version
