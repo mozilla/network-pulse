@@ -22,14 +22,18 @@ class Issues extends Component {
   }
 }
 
-let Tags = React.createClass({
+class Tags extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialState();
+  }
   getInitialState() {
     return {
       tags: [],
       suggestions: []
     };
-  },
-  componentDidMount: function() {
+  }
+  componentDidMount() {
     Service.tags
       .get()
       .then((data) => {
@@ -41,23 +45,23 @@ let Tags = React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
-  },
-  updateTags: function(tags) {
+  }
+  updateTags(tags) {
     this.setState({ tags }, () => {
       const tagNames = this.state.tags.slice().map(tagObj => tagObj.name);
       this.props.onChange(null,tagNames);
     });
-  },
-  handleDelete: function(i) {
+  }
+  handleDelete(i) {
     const tags = this.state.tags.slice(0);
     tags.splice(i, 1);
     this.updateTags(tags);
-  },
-  handleAddition: function(tag) {
+  }
+  handleAddition(tag) {
     tag.name = tag.name.trim();
     const tags = [].concat(this.state.tags, this.fixTagLettercase(tag));
     this.updateTags(tags);
-  },
+  }
   fixTagLettercase(tag) {
     for (let t of this.state.suggestions) {
       // We don't want to have duplicated tags in the database.
@@ -69,8 +73,8 @@ let Tags = React.createClass({
       }
     }
     return tag;
-  },
-  getFilteredSuggestions: function() {
+  }
+  getFilteredSuggestions() {
     // show only tag suggestions that haven't been selected yet
     const { tags, suggestions } = this.state;
     const tagNames = tags.map(tagObj => tagObj.name);
@@ -80,8 +84,8 @@ let Tags = React.createClass({
 
       return suggestion;
     }).filter(suggestion => !!suggestion);
-  },
-  render: function() {
+  }
+  render() {
     return <ReactTags
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
@@ -99,7 +103,7 @@ let Tags = React.createClass({
               }}
             />;
   }
-});
+}
 
 const IssuesLabel = function() {
   return (
@@ -107,15 +111,17 @@ const IssuesLabel = function() {
   );
 };
 
+
 module.exports = {
   published_by_creator: {
     type: 'checkbox',
     label: 'I am one of the creators.',
-    fieldClassname: `published-by-creator`
+    fieldClassname: `published-by-creator`,
+    guideText: 'Are you one of the creators?'
   },
   creators: {
     type: `text`,
-    label: `Who are the creators? This could be staff, contributors, partners…`,
+    label: `Name any other creators. This could be staff, contributors, partners…`,
     placeholder: `Name`,
     fieldClassname: `form-control`,
     multiplicity: 1,
