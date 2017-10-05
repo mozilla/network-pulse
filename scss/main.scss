@@ -189,8 +189,6 @@ textarea {
 @import '../pages/search/search';
 @import '../pages/issues/issues';
 
-// Forms
+// React-formbuilder Forms
 
-input.published-by-creator {
-  margin-right: 0.5em;
-}
+@import 'react-formbuilder'
