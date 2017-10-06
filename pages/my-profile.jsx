@@ -72,7 +72,7 @@ class MyProfile extends React.Component {
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
-    return <Profile profile={this.state.userProfile} />;
+    return <Profile profile={this.state.userProfile} user={this.state.user} />;
   }
 
   getContentForLoggedInUser() {
