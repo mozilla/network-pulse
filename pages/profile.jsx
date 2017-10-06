@@ -12,7 +12,7 @@ class Profile extends React.Component {
   renderProfile() {
     if (!this.props.profile) return null;
 
-    return <div className="col-12"><Bio {...this.props.profile} /></div>;
+    return <div className="col-12"><Bio {...this.props.profile} user={this.props.user} /></div>;
   }
 
   renderProjects() {

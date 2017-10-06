@@ -40,7 +40,8 @@ a {
   }
 }
 
-a.default-text-color-link {
+a.default-text-color-link,
+.btn-link.default-text-color-link {
   color: inherit;
   text-decoration: underline;
 

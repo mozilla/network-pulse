@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import ReactGA from 'react-ga';
+import { browserHistory, Link } from 'react-router';
+import classNames from 'classnames';
 
 class Bio extends React.Component {
   constructor(props) {
@@ -25,25 +27,48 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3"><Link to="/myprofile">edit profile</Link></div>;
+    return <div className="mt-3"><Link to="/myprofile" className="default-text-color-link">Edit your profile</Link></div>;
   }
 
   renderName() {
-    return <div className="name d-block d-sm-inline-block mb-2 mr-sm-4 text-center text-sm-left">
+    return <div className="name mr-sm-4 text-truncate mw-100">
       {this.props.custom_name || this.props.name}
     </div>;
   }
 
   renderSocialMedia() {
-    let list = [ `twitter`, `linkedin`, `github` ].map(type => this.renderSocialMediaLink(type, this.props[type]) );
+    let list = [ `twitter`, `linkedin`, `github` ];
+    list = list.map((type, i) => {
+      let link = this.props[type];
+      let classname = classNames(`d-inline-block social-media default-text-color-link`, {
+        "mr-3" : i !== list.length-1
+      });
 
-    return <div className="d-block d-sm-inline-block text-center text-sm-left mb-4 mb-sm-0">{list}</div>;
+      return <a href={link} target="_blank" className={classname} key={type}><span className={`fa fa-${type}`}></span></a>;
+    });
+
+    return <div>{list}</div>;
   }
 
-  renderSocialMediaLink(type, link) {
-    if (!link) return null;
+  renderSignOut() {
+    if (!this.props.my_profile) return null;
 
-    return <a href={link} target="_blank" className="d-inline-block mr-3 social-media default-text-color-link" key={type}><span className={`fa fa-${type}`}></span></a>;
+    return <div className="ml-sm-3"><button className="btn btn-link inline-link default-text-color-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></div>;
+  }
+
+  handleLogOutBtnClick(event) {
+    event.preventDefault();
+
+    ReactGA.event({
+      category: `Account`,
+      action: `Logout`,
+      label: `Logout ${window.location.pathname}`,
+    });
+
+    this.props.user.logout();
+    browserHistory.push({
+      pathname: `/featured`
+    });
   }
 
   renderMeta(type, text, link) {
@@ -63,7 +88,7 @@ class Bio extends React.Component {
     let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, this.props.storyLink) : null;
     let website = this.props.website ? this.renderMeta(`website`, this.props.website, this.props.website) : null;
 
-    return <div className="other-meta open-sans mb-2">{org}{location}{language}{story}{website}</div>;
+    return <div className="other-meta open-sans mb-3">{org}{location}{language}{story}{website}</div>;
   }
 
   renderBlurb() {
@@ -106,8 +131,11 @@ class Bio extends React.Component {
             { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
-            { this.renderName() }
-            { this.renderSocialMedia() }
+            <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3">
+              { this.renderName() }
+              { this.renderSocialMedia() }
+              { this.renderSignOut() }
+            </div>
             { this.renderOtherMeta() }
             { this.renderBlurb() }
             { this.renderInterest() }
@@ -127,7 +155,8 @@ Bio.propTypes = {
   linkedin: PropTypes.string.isRequired,
   github: PropTypes.string.isRequired,
   website: PropTypes.string.isRequired,
-  "my_profile": PropTypes.bool.isRequired
+  "my_profile": PropTypes.bool.isRequired,
+  user: PropTypes.object
 };
 
 export default Bio;
