@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { IndexLink } from 'react-router';
 import NavLink from '../nav-link/nav-link.jsx';
 import user from '../../js/app-user';
+import utility from '../../js/utility';
 
 class NavListItem extends React.Component {
   render() {
@@ -40,9 +42,30 @@ class NavBar extends React.Component {
   }
 
   renderUsername() {
-    if (!user.loggedin) return null;
+    // don't show anything until we verify this user's loggedin status
+    if (user.loggedin === undefined) return null;
 
-    return <NavListItem><NavLink to="/profile/me" className="hi-username">Hi, {user.username}</NavLink></NavListItem>;
+    let classname = `signupin-user`;
+    let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)} className={`${classname} open-sans`}>Signup / Signin</a>;
+
+    if (user.loggedin) {
+      link = <NavLink to="/profile/me" className={classname}>Hi, {user.username}</NavLink>;
+    }
+
+    return <NavListItem>{link}</NavListItem>;
+  }
+
+  handleSignInBtnClick(event) {
+    event.preventDefault();
+
+    ReactGA.event({
+      category: `Account`,
+      action: `Login`,
+      label: `Login ${window.location.pathname}`,
+      transport: `beacon`
+    });
+
+    user.login(utility.getCurrentURL());
   }
 
   render() {
