@@ -14,6 +14,16 @@
     font-weight: 400;
     margin-top: $form-field-vertical-margin;
   }
+
+  /* react-formbuilding fields */
+
+  input.published-by-creator {
+    margin-right: 0.5em;
+  }
+
+  p.guide-text {
+    margin-bottom: 0;
+  }
 }
 
 .checkboxGroup {
