@@ -52,7 +52,7 @@ class ModerationPanel extends React.Component {
   }
 
   render() {
-    return <div className="moderation-panel row justify-content-center align-items-center p-3 mb-3">
+    return <div className="moderation-panel row mx-0 justify-content-center align-items-center py-3">
               <Select.Async
                 name="form-field-name"
                 value={this.state.moderationState}
