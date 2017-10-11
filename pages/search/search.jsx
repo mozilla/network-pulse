@@ -108,13 +108,28 @@ class Search extends React.Component {
                               value={this.state.keywordSearched}
                               debounceTimeout={300}
                               type="search"
-                              onChange={(event) => this.handleInputChange(event)}
+                              onChange={ event => this.handleInputChange(event) }
+                              inputRef={ ref => this.setDebounceInput(ref) }
                               placeholder="Search keywords, people, tags..."
                               className="form-control"
               />
               <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
             </div>
           </div>;
+  }
+
+  setDebounceInput(ref) {
+    if (this.debounceInputElement || !ref) {
+      return;
+    }
+    this.debounceInputElement = ref;
+    // Set up bindings so that when this input
+    // receives an "enter", we remove focus.
+    this.debounceInputElement.addEventListener(`keyup`, evt => {
+      if (evt.key === `Enter`) {
+        this.debounceInputElement.blur();
+      }
+    });
   }
 
   getModerationStates(input, callback) {
