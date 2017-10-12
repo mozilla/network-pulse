@@ -10,7 +10,8 @@ module.exports = {
     validator: [
       validator.emptyValueValidator(),
       validator.maxLengthValidator(80)
-    ]
+    ],
+    charLimit: 140
   },
   'content_url': { // required field
     type: `text`,
