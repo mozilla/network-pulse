@@ -11,7 +11,7 @@ module.exports = {
       validator.emptyValueValidator(),
       validator.maxLengthValidator(80)
     ],
-    charLimit: 140,
+    charLimit: 80,
     charLimitText: function(charCount, charLimit) {
       // show a twitter-style "characters remainig" count
       return charLimit - charCount;
