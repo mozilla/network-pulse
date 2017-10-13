@@ -29,11 +29,12 @@
     text-align: right;
     width: 100%;
     display: inline-block;
+    color: $form-text-light;
   }
 
   .over-char-limit {
     span.char-limit {
-      color: red;
+      color: $form-error-color;
     }
   }
 }
