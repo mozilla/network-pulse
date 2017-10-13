@@ -128,11 +128,14 @@ module.exports = {
     addLabel: `+ Add another`
   },
   interest: {
-    type: `text`,
+    type: `textarea`,
     label: `Why might this be interesting to other people in our network?`,
     placeholder: ``,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300)
+    charLimit: 300,
+    charLimitText: function(charCount, charLimit) {
+      return charLimit - charCount;
+    }
   },
   issues: {
     type: Issues,

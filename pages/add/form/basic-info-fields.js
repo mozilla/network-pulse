@@ -1,5 +1,10 @@
 import validator from './validator';
 
+let getRemainingCount = (charCount, charLimit) => {
+  // show a twitter-style "characters remainig" count
+  return charLimit - charCount;
+};
+
 module.exports = {
   title: { // required field
     type: `text`,
@@ -8,14 +13,10 @@ module.exports = {
     labelClassname: `required`,
     fieldClassname: `form-control`,
     validator: [
-      validator.emptyValueValidator(),
-      validator.maxLengthValidator(80)
+      validator.emptyValueValidator()
     ],
     charLimit: 80,
-    charLimitText: function(charCount, charLimit) {
-      // show a twitter-style "characters remainig" count
-      return charLimit - charCount;
-    }
+    charLimitText: getRemainingCount
   },
   'content_url': { // required field
     type: `text`,
@@ -33,6 +34,7 @@ module.exports = {
     label: `Description: Simple, brief language works best. No jargon.`,
     placeholder: `Description`,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(600)
+    charLimit: 600,
+    charLimitText: getRemainingCount
   },
 };
