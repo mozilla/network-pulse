@@ -22,6 +22,7 @@
     "copy:manifest": "shx cp manifest.json dist",
     "copy:assets": "shx cp favicon.png dist && shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
+    "snyk-protect": "snyk protect",
     "optimize": "run-p optimize:**",
     "optimize:svg": "find assets -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
@@ -32,7 +33,6 @@
     "test:js": "eslint --config .eslintrc.yaml main.jsx \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
     "postinstall": "npm run build",
-    "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
   "babel": {
