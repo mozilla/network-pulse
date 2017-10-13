@@ -4,6 +4,6 @@ version: v1.7.1
 ignore:
   'npm:shelljs:20140723':
     - shx > shelljs:
-        reason: None given
-        expires: '2017-11-12T16:20:13.968Z'
+        reason: only used to run npm scripts
+        expires: '2018-12-31T00:00:00.000Z'
 patch: {}
