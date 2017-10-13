@@ -33,7 +33,13 @@ class ProjectLoader extends React.Component {
     // We want to keep existingPromise on record for fetchData
     // to handle it accoringly.
 
-    this.setState(this.getInitialState(), () => {
+    this.setState({
+      loadingData: false,
+      nextBatchIndex: 1,
+      entries: [],
+      moreEntriesToFetch: false,
+      totalMatched: 0
+    }, () => {
       this.fetchData(this.props.bookmarkedOnly, nextProps);
     });
   }
