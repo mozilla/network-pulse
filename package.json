@@ -94,7 +94,6 @@
     "react-select": "^1.0.0-rc.5",
     "react-tag-autocomplete": "^5.4.0",
     "shx": "^0.2.1",
-    "superagent": "^3.3.0",
     "url": "^0.11.0",
     "webpack": "^2.2.1"
   },
