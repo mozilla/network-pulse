@@ -101,7 +101,7 @@ class Bookmarks extends React.Component{
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
-      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browser.</span>;
+      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={(event) => this.handleImportBookmarksClick(event)}>import favs</button> from this browser.</span>;
     }
 
     if (this.state.bookmarksImported) {
