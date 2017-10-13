@@ -1,6 +1,8 @@
 version: "{build}"
 
 environment:
+  SNYK_TOKEN:
+    secure: 2HH1+J++C/e7GSlklkVgJJhL+2EMiqq73aDu/PyU7O5EECduDRxm9qFfrZFf9HmH
   nodejs_version: "6"
 
 install:
