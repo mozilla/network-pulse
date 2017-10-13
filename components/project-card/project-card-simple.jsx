@@ -121,7 +121,7 @@ class ProjectCard extends React.Component {
                 <Title title={this.props.title}
                  link={!this.props.onModerationMode ? detailViewLink : ``}
                  sendGaEvent={() => this.handleReadMoreClick()}
-                 className="mr-auto pr-2"
+                 className="pr-2"
                 />
                 { this.renderActionPanel() }
               </div>

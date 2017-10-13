@@ -13,7 +13,7 @@ class Title extends React.Component {
   }
 
   render() {
-    let classnames = classNames(`mb-0`, this.props.className);
+    let classnames = classNames(`title mb-0`, this.props.className);
     let title = this.props.title;
 
     if (this.props.link) {

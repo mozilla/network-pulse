@@ -66,10 +66,11 @@
 
   .heart {
     display: inline-block;
-    width: 23px;
-    height: 19px;
-    background: url(/assets/svg/icon-bookmark.svg) center center no-repeat;
-    background-size: auto 19px;
+    width: 22px;
+    height: 20px;
+    background-image: url(/assets/svg/icon-bookmark.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
     cursor: pointer;
 
     &.beating {
@@ -80,8 +81,7 @@
   }
 
   &.bookmarked .heart {
-    background: url(/assets/svg/icon-bookmark-selected.svg) center center no-repeat;
-    background-size: auto 16px;
+    background-image: url(/assets/svg/icon-bookmark-selected.svg);
   }
 
   @keyframes beating {
@@ -114,6 +114,11 @@
   .heart {
     position: relative;
     top: 5px;
+  }
+
+  .title {
+    flex-basis: 0;
+    flex-grow: 1;
   }
 }
 
