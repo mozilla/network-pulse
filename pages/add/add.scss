@@ -24,6 +24,19 @@
   p.guide-text {
     margin-bottom: 0;
   }
+
+  span.char-limit {
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+    color: $form-text-light;
+  }
+
+  .over-char-limit {
+    span.char-limit {
+      color: $form-error-color;
+    }
+  }
 }
 
 .checkboxGroup {
