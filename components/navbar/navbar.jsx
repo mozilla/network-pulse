@@ -61,7 +61,7 @@ class NavBar extends React.Component {
               <NavListItem><NavLink to="/favs" className="bookmarks">Favs</NavLink></NavListItem>
               { this.renderModeratorLink() }
               <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
-              <NavListItem><NavLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></NavListItem>
+              <NavListItem><NavLink to="/login" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></NavListItem>
             </ul>
           </div>
         </div>

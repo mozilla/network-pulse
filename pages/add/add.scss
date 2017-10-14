@@ -15,6 +15,10 @@
     margin-top: $form-field-vertical-margin;
   }
 
+  p {
+    text-align: left;
+  }
+
   /* react-formbuilding fields */
 
   input.published-by-creator {
@@ -207,4 +211,3 @@ fieldset.thumbnail {
     }
   }
 }
-
