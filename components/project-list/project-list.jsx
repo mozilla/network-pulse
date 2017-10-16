@@ -21,7 +21,7 @@ class ProjectList extends React.Component {
 
   handleLoadMoreBtnClick() {
     ReactGA.event({
-      category: `Broswe`,
+      category: `Browse`,
       action: `View more tap`,
       label: window.location.pathname
     });
