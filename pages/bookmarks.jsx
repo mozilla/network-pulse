@@ -15,7 +15,11 @@ import pageSettings from '../js/app-page-settings';
 class Bookmarks extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  getInitialState() {
+    return {
       user,
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
       bookmarksImported: false
@@ -101,7 +105,7 @@ class Bookmarks extends React.Component{
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
-      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={(event) => this.handleImportBookmarksClick(event)}>import favs</button> from this browser.</span>;
+      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browser.</span>;
     }
 
     if (this.state.bookmarksImported) {

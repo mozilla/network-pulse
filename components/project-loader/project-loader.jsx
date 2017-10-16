@@ -10,7 +10,11 @@ const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 class ProjectLoader extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  getInitialState() {
+    return {
       loadingData: false,
       nextBatchIndex: 1,
       entries: [],
@@ -33,13 +37,7 @@ class ProjectLoader extends React.Component {
     // We want to keep existingPromise on record for fetchData
     // to handle it accoringly.
 
-    this.setState({
-      loadingData: false,
-      nextBatchIndex: 1,
-      entries: [],
-      moreEntriesToFetch: false,
-      totalMatched: 0
-    }, () => {
+    this.setState(this.getInitialState(), () => {
       this.fetchData(this.props.bookmarkedOnly, nextProps);
     });
   }

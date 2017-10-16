@@ -17,7 +17,11 @@ const SUBMITTING_LABEL = `Submitting...`;
 class Add extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  getInitialState() {
+    return {
       numCreatorFields: 1,
       user,
       formValues: {},
