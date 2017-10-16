@@ -14,9 +14,10 @@ import getHelpFields from './form/get-help-fields';
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
 
-export default React.createClass({
-  getInitialState() {
-    return {
+class Add extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       numCreatorFields: 1,
       user,
       formValues: {},
@@ -25,7 +26,8 @@ export default React.createClass({
       submitting: false,
       showFormInvalidNotice: false
     };
-  },
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (nextState.showFormInvalidNotice) {
       ReactGA.event({
@@ -33,20 +35,24 @@ export default React.createClass({
         action: `Submit error`
       });
     }
-  },
+  }
+
   componentDidMount() {
     user.addListener(this);
     user.verify(this.props.router.location);
-  },
+  }
+
   componentWillUnmount() {
     user.removeListener(this);
-  },
+  }
+
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified` ) {
       this.setState({ user });
     }
-  },
+  }
+
   handleSignInBtnClick(event) {
     event.preventDefault();
 
@@ -58,7 +64,8 @@ export default React.createClass({
     });
 
     user.login(utility.getCurrentURL());
-  },
+  }
+
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
@@ -72,11 +79,13 @@ export default React.createClass({
     browserHistory.push({
       pathname: `/featured`
     });
-  },
+  }
+
   handleCreatorClick(event) {
     event.preventDefault();
     this.setState({numCreatorFields: this.state.numCreatorFields+1});
-  },
+  }
+
   handleFormUpdate(evt, name, field, value) {
     let formValues = this.state.formValues;
 
@@ -87,7 +96,8 @@ export default React.createClass({
       // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
       showFormInvalidNotice: false
     });
-  },
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
 
@@ -118,7 +128,8 @@ export default React.createClass({
         });
       });
     });
-  },
+  }
+
   handlePostSuccess(entryId) {
     ReactGA.event({
       category: `Add new`,
@@ -151,8 +162,8 @@ export default React.createClass({
         query: { entryId }
       });
     });
+  }
 
-  },
   postEntry(entryData) {
     Service.entries
       .post(entryData)
@@ -165,7 +176,8 @@ export default React.createClass({
         });
         console.error(reason);
       });
-  },
+  }
+
   getContentForLoggedInUser() {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
     let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
@@ -205,7 +217,8 @@ export default React.createClass({
                 </div>
               </div>
             </div>);
-  },
+  }
+
   getAnonymousContent() {
     let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
@@ -225,14 +238,16 @@ export default React.createClass({
                          linkComponent={linkComponent}>
               {additionalMessage}
             </HintMessage>;
-  },
+  }
+
   getContent() {
     if (user.loggedin === undefined) return null;
 
     if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
-  },
+  }
+
   render() {
     return (
       <div className="add-page row justify-content-center">
@@ -243,4 +258,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Add;
