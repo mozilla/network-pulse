@@ -46,6 +46,14 @@ class ProjectLoader extends React.Component {
     let combinedParams = Object.assign({}, params);
 
     if (combinedParams.ids) {
+      // The `ids` query param is only used on the bookmarks(favs) page
+      // We want to display bookmarked projects by the time they were bookmarked.
+      // There are a few steps to make this happen:
+      // 1) first we fetch projects from Pulse API in a batch of size PROJECT_BATCH_SIZE.
+      //    (See next few lines.)
+      // 2) we sort projects based on the order they were stored in localStorage
+      //    and pass the sorted array to <ProjectList> to render projects onto the page.
+      //    (See updateStateWithNewData(data) method.)
       let begin = (this.state.nextBatchIndex-1)*PROJECT_BATCH_SIZE;
       let end = this.state.nextBatchIndex*PROJECT_BATCH_SIZE;
       let idsInCurrentBatch = combinedParams.ids.slice(begin,end);
@@ -56,11 +64,14 @@ class ProjectLoader extends React.Component {
     }
 
     if (combinedParams.moderationState) {
+      // "moderationstate" is the query param the API understands (case sensitive)
+      // and its value should just be the name of the moderation state
       combinedParams.moderationstate = combinedParams.moderationState.label;
       delete combinedParams.moderationState;
     }
 
     if (combinedParams.bookmarkedOnly) {
+      // bookmarkedOnly is not a query param the API supports
       delete combinedParams.bookmarkedOnly;
     }
 
