@@ -104,7 +104,7 @@ module.exports = {
     fieldClassname: `published-by-creator`,
     guideText: 'Are you one of the creators?'
   },
-  creators: {
+  related_creators: {
     type: `text`,
     label: `Name any other creators. This could be staff, contributors, partners…`,
     placeholder: `Name`,
