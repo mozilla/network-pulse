@@ -7,8 +7,22 @@ const Creators = (props) => {
 
   let classnames = classNames(`creator d-block open-sans`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
+  let joinedCreators;
 
-  return <p className="my-2"><small className={classnames}>{labelText}{props.creators.join(`, `)}</small></p>;
+  if (typeof props.creators[0] === `string` ) {
+    joinedCreators = props.creators.join(`, `);
+  } else {
+    let creators = [];
+    for (let creator of props.creators){
+      creators.push(<a href={creator.profile_id}>{creator.name}</a>);
+    }
+    // Because react doesn't like to render comma separated JSX objects easily
+    joinedCreators = creators.slice(1).reduce(function(prev, current) {
+      return prev.concat([`, `, current]);
+    }, [creators[0]]);
+
+  }
+  return <p className="my-2"><small className={classnames}>{labelText}{joinedCreators}</small></p>;
 };
 
 Creators.propTypes = {

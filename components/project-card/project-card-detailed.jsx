@@ -110,7 +110,7 @@ class DetailedProjectCard extends React.Component {
             <div className="row">
               <div className="col-12 col-sm-8">
                 <Title title={this.props.title} className="mb-1" />
-                <Creators creators={this.props.creators} showLabelText={true} />
+                <Creators creators={this.props.creatorsWithProfiles} showLabelText={true} />
               </div>
             </div>
           </div>;

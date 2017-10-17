@@ -15,12 +15,12 @@ class Profile extends React.Component {
     return <div className="col-12"><Bio {...this.props.profile} user={this.props.user} /></div>;
   }
 
-  renderProjects() {
-    if (!this.props.profile || this.props.profile.published_entries.length < 1) return null;
+  renderProjects(entries) {
+    if (!this.props.profile || entries.length < 1) return null;
 
     return <div className="col-12">
       {/* TODO:FIXME: for now let's just render all entries at once. (no 'view more' button) I will file another PR to refine this. */}
-      <ProjectList entries={this.props.profile.published_entries}
+      <ProjectList entries={entries}
         loadingData={false}
         moreEntriesToFetch={false}
         fetchData={()=>{}}
@@ -38,7 +38,12 @@ class Profile extends React.Component {
           { this.renderProfile() }
         </div>
         <div className="row">
-          { this.renderProjects() }
+          <h2 className="h2">Published Projects</h2>
+          { this.renderProjects(this.props.profile.published_entries) }
+        </div>
+        <div className="row">
+          <h2 className="h2">Created Projects</h2>
+          { this.renderProjects(this.props.profile.created_entries) }
         </div>
       </div>
     );
