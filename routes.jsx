@@ -16,6 +16,7 @@ import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
 import Moderation from './pages/moderation.jsx';
 import Profile from './pages/profile.jsx';
+import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
@@ -78,10 +79,6 @@ class App extends React.Component {
   }
 }
 
-// TODO:FIXME:
-const TempEditProfile = () => <div><h1>Edit Profile Page</h1><p>to be built in another PR...</p></div>;
-
-
 // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
 // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
 // For user facing bits like UI labels and URL path we want them to stay as "favorites".
@@ -114,10 +111,10 @@ module.exports = (
       <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="myprofile" component={TempEditProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="profile">
       <Route path="me" component={Profile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
+    <Route path="myprofile" component={ProfileEdit} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

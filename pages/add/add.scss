@@ -1,210 +1,143 @@
 .add-page {
-  h1,
-  h2 {
-    color: $bikeshed-magenta;
-    margin-bottom: 0.5rem;
+  .posted-by {
+    margin-top: $form-field-vertical-margin / 2;
   }
 
-  h1 {
-    font-size: 2.25rem;
+  fieldset.creators {
+    .row {
+      vertical-align: middle;
+      margin: 0 0 0.5rem;
+
+      @media screen and (min-width: $bp-md) {
+        display: inline-block;
+        width: calc(50% - 0.5rem / 2);
+
+        &:nth-child(2n) {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    .button {
+      outline: none;
+    }
+
+    .button.remove-field {
+      display: none;
+    }
+
+    .button.add-field {
+      @extend .btn-link;
+
+      margin-left: 1rem;
+
+      @include hover-focus {
+        color: $link-hover-color;
+      }
+    }
   }
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 400;
+  fieldset.thumbnail {
+    .help-text {
+      margin-left: 1rem;
+      color: $gray-light;
+    }
+  }
+
+  .submit-section {
     margin-top: $form-field-vertical-margin;
-  }
 
-  /* react-formbuilding fields */
-
-  input.published-by-creator {
-    margin-right: 0.5em;
-  }
-
-  p.guide-text {
-    margin-bottom: 0;
-  }
-
-  span.char-limit {
-    text-align: right;
-    width: 100%;
-    display: inline-block;
-    color: $form-text-light;
-  }
-
-  .over-char-limit {
-    span.char-limit {
+    button + span {
       color: $form-error-color;
     }
   }
-}
 
-.checkboxGroup {
-  label {
-    @extend .form-check-label;
-
-    margin-left: 0;
-  }
-
-  input {
-    @extend .form-check-input;
-
-    margin-right: 0.5rem;
-  }
-
-  .options {
-    column-width: $bp-sm;
-
-    @media screen and (min-width: $bp-md) {
-      column-width: calc(#{$bp-sm} / 2);
+  .tags {
+    .react-tags {
+      position: relative;
+      cursor: text;
     }
-  }
-}
 
-.posted-by {
-  margin-top: $form-field-vertical-margin / 2;
+    .react-tags.is-focused {
+      border-color: $gray-lightest;
+    }
 
-  .user-full-name {
-    display: inline-block;
-    margin-left: 5px;
-  }
-}
+    .react-tags__selected {
+      display: inline;
+    }
 
-fieldset.creators {
-  .row {
-    vertical-align: middle;
-    margin: 0 0 0.5rem;
-
-    @media screen and (min-width: $bp-md) {
+    .selected-tag {
       display: inline-block;
-      width: calc(50% - 0.5rem / 2);
+      background: $off-white;
 
-      &:nth-child(2n) {
+      &::after {
+        content: '\2715';
+        color: $gray;
         margin-left: 0.5rem;
-      }
-    }
-  }
-
-  .button {
-    outline: none;
-  }
-
-  .button.remove-field {
-    display: none;
-  }
-
-  .button.add-field {
-    @extend .btn-link;
-
-    margin-left: 1rem;
-
-    @include hover-focus {
-      color: $link-hover-color;
-    }
-  }
-}
-
-fieldset.thumbnail {
-  .help-text {
-    margin-left: 1rem;
-    color: $gray-light;
-  }
-}
-
-.submit-section {
-  margin-top: $form-field-vertical-margin;
-
-  button + span {
-    color: $form-error-color;
-  }
-}
-
-.tags {
-  .react-tags {
-    position: relative;
-    cursor: text;
-  }
-
-  .react-tags.is-focused {
-    border-color: $gray-lightest;
-  }
-
-  .react-tags__selected {
-    display: inline;
-  }
-
-  .selected-tag {
-    display: inline-block;
-    background: $off-white;
-
-    &::after {
-      content: '\2715';
-      color: $gray;
-      margin-left: 0.5rem;
-    }
-
-    &:hover,
-    &:focus {
-      border-color: $gray-lighter;
-    }
-  }
-
-  .search {
-    display: inline-block;
-    max-width: 100%; // prevent autoresize overflowing the container
-
-    input {
-      @extend .form-control;
-
-      max-width: 100%; // prevent autoresize overflowing the container
-      height: 100%;
-      padding: 0;
-      border: 0;
-      outline: none;
-    }
-  }
-
-  .suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-
-    ul {
-      padding: 0;
-      list-style: none;
-      background: $white;
-      border: 1px solid $gray-lighter;
-      border-radius: $btn-border-radius;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    li {
-      border-bottom: 1px solid $gray-lighter;
-      padding: 6px 8px;
-      margin: 0;
-
-      &:hover {
-        cursor: pointer;
       }
 
       &:hover,
-      &.is-active {
-        background: $gray-lightest;
+      &:focus {
+        border-color: $gray-lighter;
+      }
+    }
+
+    .search {
+      display: inline-block;
+      max-width: 100%; // prevent autoresize overflowing the container
+
+      input {
+        @extend .form-control;
+
+        max-width: 100%; // prevent autoresize overflowing the container
+        height: 100%;
+        padding: 0;
+        border: 0;
+        outline: none;
+      }
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+
+      ul {
+        padding: 0;
+        list-style: none;
+        background: $white;
+        border: 1px solid $gray-lighter;
+        border-radius: $btn-border-radius;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       }
 
-      &.is-disabled {
-        opacity: 0.5;
-        cursor: auto;
-      }
+      li {
+        border-bottom: 1px solid $gray-lighter;
+        padding: 6px 8px;
+        margin: 0;
 
-      mark {
-        text-decoration: underline;
-        background: none;
-        font-weight: 600;
-        padding-right: 0;
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:hover,
+        &.is-active {
+          background: $gray-lightest;
+        }
+
+        &.is-disabled {
+          opacity: 0.5;
+          cursor: auto;
+        }
+
+        mark {
+          text-decoration: underline;
+          background: none;
+          font-weight: 600;
+          padding-right: 0;
+        }
       }
     }
   }
 }
-

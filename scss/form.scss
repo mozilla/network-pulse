@@ -1,0 +1,23 @@
+// most of the following CSS rules are to style form elements created by the "react-formbuilder" library
+
+.checkboxGroup {
+  label {
+    @extend .form-check-label;
+
+    margin-left: 0;
+  }
+
+  input {
+    @extend .form-check-input;
+
+    margin-right: 0.5rem;
+  }
+}
+
+.fieldset-full-width {
+  @extend .col-12;
+}
+
+.fieldset-half-width {
+  @extend .col-md-6;
+}
