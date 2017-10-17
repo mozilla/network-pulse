@@ -3,6 +3,12 @@
     margin-top: $form-field-vertical-margin / 2;
   }
 
+  fieldset.published_by_creator {
+    input {
+      margin-right: 0.5rem;
+    }
+  }
+
   fieldset.creators {
     .row {
       vertical-align: middle;
