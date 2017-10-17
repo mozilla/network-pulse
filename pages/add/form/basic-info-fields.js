@@ -10,7 +10,12 @@ module.exports = {
     validator: [
       validator.emptyValueValidator(),
       validator.maxLengthValidator(80)
-    ]
+    ],
+    charLimit: 80,
+    charLimitText: function(charCount, charLimit) {
+      // show a twitter-style "characters remainig" count
+      return charLimit - charCount;
+    }
   },
   'content_url': { // required field
     type: `text`,
