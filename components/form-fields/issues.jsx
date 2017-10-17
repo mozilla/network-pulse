@@ -5,7 +5,10 @@ import Service from '../../js/service';
 class IssuesField extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { options: [] };
+    this.state = {
+      options: [],
+      selectedOptions: this.props.value
+    };
   }
   componentWillMount() {
     Service.issues.get().then(options => {
@@ -13,7 +16,11 @@ class IssuesField extends React.Component {
     });
   }
   render() {
-    return <DynamicCheckboxGroup options={this.state.options} onChange={this.props.onChange} />;
+    return <DynamicCheckboxGroup
+      options={this.state.options}
+      selectedOptions={this.props.value}
+      onChange={this.props.onChange}
+    />;
   }
 }
 
