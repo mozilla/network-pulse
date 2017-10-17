@@ -22,6 +22,7 @@
     "copy:manifest": "shx cp manifest.json dist",
     "copy:assets": "shx cp favicon.png dist && shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
+    "snyk-protect": "snyk protect",
     "optimize": "run-p optimize:**",
     "optimize:svg": "find assets -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
@@ -31,7 +32,8 @@
     "test": "run-s test:**",
     "test:js": "eslint --config .eslintrc.yaml main.jsx \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "prepare": "npm run snyk-protect"
   },
   "babel": {
     "presets": [
@@ -94,11 +96,13 @@
     "react-select": "^1.0.0-rc.5",
     "react-tag-autocomplete": "^5.4.0",
     "shx": "^0.2.1",
+    "snyk": "^1.42.7",
     "url": "^0.11.0",
     "webpack": "^2.2.1"
   },
   "engines": {
     "node": "^8.1.4",
     "npm": "^5.0.0"
-  }
+  },
+  "snyk": true
 }
