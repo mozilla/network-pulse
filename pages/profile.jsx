@@ -15,19 +15,27 @@ class Profile extends React.Component {
     return <div className="col-12"><Bio {...this.props.profile} user={this.props.user} /></div>;
   }
 
-  renderProjects(entries) {
+  renderProjects(entries, label) {
     if (!this.props.profile || entries.length < 1) return null;
 
-    return <div className="col-12">
-      {/* TODO:FIXME: for now let's just render all entries at once. (no 'view more' button) I will file another PR to refine this. */}
-      <ProjectList entries={entries}
-        loadingData={false}
-        moreEntriesToFetch={false}
-        fetchData={()=>{}}
-        restoreScrollPosition={pageSettings.shouldRestore}
-        onModerationMode={false}
-      />
-    </div>;
+    return <div className="row">
+      <div className="col">
+        <h2 className="h4">
+          {label}
+        </h2>
+      </div>
+      <div className="col-12">
+        {/* TODO:FIXME: for now let's just render all entries at once. (no 'view more' button) I will file another PR to refine this. */}
+        <ProjectList entries={entries}
+          loadingData={false}
+          moreEntriesToFetch={false}
+          fetchData={()=>{}}
+          restoreScrollPosition={pageSettings.shouldRestore}
+          onModerationMode={false}
+        />
+      </div>
+    </div>
+    ;
   }
 
   render() {
@@ -37,14 +45,8 @@ class Profile extends React.Component {
         <div className="row">
           { this.renderProfile() }
         </div>
-        <div className="row">
-          <h2 className="h2">Published Projects</h2>
-          { this.renderProjects(this.props.profile.published_entries) }
-        </div>
-        <div className="row">
-          <h2 className="h2">Created Projects</h2>
-          { this.renderProjects(this.props.profile.created_entries) }
-        </div>
+        { this.renderProjects(this.props.profile.published_entries, `Published Projects`) }
+        { this.renderProjects(this.props.profile.created_entries, `Created Projects`) }
       </div>
     );
   }

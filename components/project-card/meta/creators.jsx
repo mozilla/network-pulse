@@ -14,7 +14,12 @@ const Creators = (props) => {
   } else {
     let creators = [];
     for (let creator of props.creators){
-      creators.push(<a href={creator.profile_id}>{creator.name}</a>);
+      // So that creators which are without a profile aren't links
+      let url = null;
+      if(typeof creator.profile_id === "number") {
+        url = `/profile/${creator.profile_id}`;
+      }
+      creators.push(<a key={creators.length} href={url}>{creator.name}</a>);
     }
     // Because react doesn't like to render comma separated JSX objects easily
     joinedCreators = creators.slice(1).reduce(function(prev, current) {
