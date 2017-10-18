@@ -114,10 +114,10 @@ const IssuesLabel = function() {
 
 module.exports = {
   published_by_creator: {
-    type: 'checkbox',
-    label: 'I am one of the creators.',
+    type: `checkbox`,
+    label: `I am one of the creators.`,
     fieldClassname: `published-by-creator`,
-    guideText: 'Are you one of the creators?'
+    guideText: `Are you one of the creators?`
   },
   creators: {
     type: `text`,
