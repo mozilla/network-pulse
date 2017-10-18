@@ -224,12 +224,15 @@ class Add extends React.Component {
   }
 
   getAnonymousContent() {
-    let header = `Please sign in to add a post`;
+    let header;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
                            onClick={(event) => this.handleSignInBtnClick(event)}>
-                           Sign in with Google
+                           Google Signin
                         </a>;
-    let additionalMessage;
+    let additionalMessage = <div>
+                              <p>Signup or signin to post your projects and connect with others who carte about a healthy internet. We automatically create a public profile for you that you will be able to edit.</p>
+                              <p>By signing in, you agree that your use of Pulse will be bound by the <a href="https://www.mozilla.org/en-US/about/legal/terms/mozilla/">Mozilla Terms of Use</a> and <a href="https://www.mozilla.org/en-US/privacy/websites/">Privacy Policy</a>.</p>
+                            </div>;
 
     if (user.failedLogin) {
       header = `Sign in failed`;
@@ -237,9 +240,8 @@ class Add extends React.Component {
       additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
     }
 
-    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={header}
-                         linkComponent={linkComponent}>
+    return <HintMessage header={header}
+                        linkComponent={linkComponent}>
               {additionalMessage}
             </HintMessage>;
   }

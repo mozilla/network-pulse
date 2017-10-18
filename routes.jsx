@@ -98,7 +98,7 @@ module.exports = (
       <Route path=":issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
-    <Route path="add" component={Add} />
+    <Route path="login" component={Add} />
     <Route path="submitted" component={Submitted} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="tags">
