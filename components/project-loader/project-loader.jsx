@@ -159,7 +159,11 @@ class ProjectLoader extends React.Component {
 }
 
 ProjectLoader.propTypes = {
-  featured: PropTypes.string.isRequired
+  featured: PropTypes.string,
+  showCounter: PropTypes.bool,
+  moderationState: PropTypes.object,
+  bookmarkedOnly: PropTypes.bool,
+  ids: PropTypes.array
 };
 
 export default ProjectLoader;

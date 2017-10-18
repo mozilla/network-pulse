@@ -168,12 +168,9 @@ class Bookmarks extends React.Component{
 }
 
 Bookmarks.propTypes = {
-  location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
-  routeParams: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
+  router: PropTypes.shape({
+    location: PropTypes.object
+  }).isRequired
 };
 
 export default Bookmarks;
