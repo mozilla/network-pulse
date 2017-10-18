@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
 import pageSettings from '../../js/app-page-settings';
@@ -6,7 +7,12 @@ import env from "../../config/env.generated.json";
 
 const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 
-export default React.createClass({
+class ProjectLoader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialState();
+  }
+
   getInitialState() {
     return {
       loadingData: false,
@@ -15,7 +21,8 @@ export default React.createClass({
       moreEntriesToFetch: false,
       totalMatched: 0
     };
-  },
+  }
+
   componentDidMount() {
     if (pageSettings.shouldRestore) {
       // restore state back to what is stored in pageSettings
@@ -23,7 +30,8 @@ export default React.createClass({
     } else {
       this.fetchData();
     }
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     // Reset state before fetching data for the new params.
     // We want to keep existingPromise on record for fetchData
@@ -32,7 +40,8 @@ export default React.createClass({
     this.setState(this.getInitialState(), () => {
       this.fetchData(this.props.bookmarkedOnly, nextProps);
     });
-  },
+  }
+
   createQueryParams(params) {
     let combinedParams = Object.assign({}, params);
 
@@ -45,7 +54,6 @@ export default React.createClass({
       // 2) we sort projects based on the order they were stored in localStorage
       //    and pass the sorted array to <ProjectList> to render projects onto the page.
       //    (See updateStateWithNewData(data) method.)
-
       let begin = (this.state.nextBatchIndex-1)*PROJECT_BATCH_SIZE;
       let end = this.state.nextBatchIndex*PROJECT_BATCH_SIZE;
       let idsInCurrentBatch = combinedParams.ids.slice(begin,end);
@@ -68,7 +76,8 @@ export default React.createClass({
     }
 
     return Object.assign(combinedParams, { page: this.state.nextBatchIndex });
-  },
+  }
+
   fetchData(bookmarkedOnly = !!this.props.bookmarkedOnly, params = this.props) {
     let combinedParams = this.createQueryParams(params);
 
@@ -94,7 +103,8 @@ export default React.createClass({
       .catch((reason) => {
         console.error(reason);
       });
-  },
+  }
+
   updateStateWithNewData(data) {
     let moreEntriesToFetch = !!data.next;
     let sorter;
@@ -122,7 +132,8 @@ export default React.createClass({
     // update component's state
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
-  },
+  }
+
   renderEntryCounter() {
     if (this.state.loadingData || !this.props.showCounter) return null;
 
@@ -130,7 +141,8 @@ export default React.createClass({
     let searchKeyword = this.props.search;
 
     return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
-  },
+  }
+
   render() {
     return (
       <div>
@@ -144,4 +156,14 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+ProjectLoader.propTypes = {
+  featured: PropTypes.string,
+  showCounter: PropTypes.bool,
+  moderationState: PropTypes.object,
+  bookmarkedOnly: PropTypes.bool,
+  ids: PropTypes.array
+};
+
+export default ProjectLoader;

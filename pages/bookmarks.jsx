@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import classNames from 'classnames';
@@ -11,14 +12,20 @@ import utility from '../js/utility';
 import user from '../js/app-user';
 import pageSettings from '../js/app-page-settings';
 
-export default React.createClass({
+class Bookmarks extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialState();
+  }
+
   getInitialState() {
     return {
       user,
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
       bookmarksImported: false
     };
-  },
+  }
+
   handleSignInBtnClick(event) {
     event.preventDefault();
 
@@ -30,7 +37,8 @@ export default React.createClass({
     });
 
     user.login(utility.getCurrentURL());
-  },
+  }
+
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
@@ -41,7 +49,8 @@ export default React.createClass({
     });
 
     user.logout();
-  },
+  }
+
   componentDidMount() {
     // get IDs of user's bookmarked entries
     this.setState({lsBookmarkedIds: bookmarkManager.bookmarks.get()}, () => {
@@ -53,16 +62,19 @@ export default React.createClass({
 
     user.addListener(this);
     user.verify(this.props.router.location);
-  },
+  }
+
   componentWillUnmount() {
     user.removeListener(this);
-  },
+  }
+
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified` || event === `logged out`) {
       this.setState({ user });
     }
-  },
+  }
+
   bulkBookmark(entryIds, onError) {
     Service.bookmarks
       .post(entryIds)
@@ -72,7 +84,8 @@ export default React.createClass({
       .catch(reason => {
         onError(reason);
       });
-  },
+  }
+
   handleImportBookmarksClick() {
     // import
     this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
@@ -86,7 +99,8 @@ export default React.createClass({
         });
       }
     });
-  },
+  }
+
   getContentForLoggedInUser() {
     let importHint;
 
@@ -107,7 +121,8 @@ export default React.createClass({
             {importHint}
             <ProjectLoader bookmarkedOnly={true} />
           </div>;
-  },
+  }
+
   getAnonymousContent() {
     let signInPrompt = <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Sign in with Google</button>.</p>;
     let bookmarkedProjects = this.renderHintMessage();
@@ -124,21 +139,24 @@ export default React.createClass({
             {signInPrompt}
             {bookmarkedProjects}
           </div>;
-  },
+  }
+
   renderContent() {
     if (user.loggedin === undefined) return null;
 
     if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
-  },
+  }
+
   renderHintMessage() {
     return <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
                        header="Save your Favs"
                        linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
             <p>Tap the heart on any project to save it here.</p>
           </HintMessage>;
-  },
+  }
+
   render() {
     return (
       <div>
@@ -147,4 +165,12 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+Bookmarks.propTypes = {
+  router: PropTypes.shape({
+    location: PropTypes.object
+  }).isRequired
+};
+
+export default Bookmarks;
