@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -79,7 +80,7 @@ class DetailedProjectCard extends React.Component {
     if (!this.props.created && !this.props.publishedBy) return null;
 
     let timePosted = this.props.created ? ` ${moment(this.props.created).format(`MMM DD, YYYY`)}` : null;
-    let publishedBy = this.props.publishedBy ? <span> by {this.props.publishedBy}</span> : null;
+    let publishedBy = this.props.publishedBy ? <span> by <Link to={`/profile/${this.props.submitterProfileId}`}>{this.props.publishedBy}</Link></span> : null;
 
     return (
       <p><small className="time-posted d-block">
