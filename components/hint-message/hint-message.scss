@@ -3,6 +3,8 @@
 
   h2 {
     color: $bikeshed-magenta;
+    font-size: 1.25rem;
+    font-weight: 500;
   }
 
   @media screen and (min-width: $bp-md) {
