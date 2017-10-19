@@ -235,7 +235,12 @@ let Service = {
   tags: {
     get: function() {
       return getDataFromURL(`${pulseAPI}/tags/`);
-    },
+    }
+  },
+  creators: {
+    get: function(fragment) {
+      return getDataFromURL(`${pulseAPI}/creators/`, {name: fragment});
+    }
   },
   logout: function() {
     return callURL(`${pulseAPI}/logout/`);
