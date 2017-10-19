@@ -125,7 +125,7 @@ class ProjectCard extends React.Component {
                 />
                 { this.renderActionPanel() }
               </div>
-              <Creators creators={this.props.creatorsWithProfiles} />
+              <Creators creators={this.props.relatedCreators} makeLink={false} />
               { this.props.onModerationMode && <Description description={this.props.description} /> }
               { this.renderExtraMeta() }
             </div>

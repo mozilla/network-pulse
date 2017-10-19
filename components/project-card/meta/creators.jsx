@@ -16,7 +16,7 @@ const Creators = (props) => {
     for (let creator of props.creators){
       // So that creators which are without a profile aren't links
       let url = null;
-      if(typeof creator.profile_id === `number`) {
+      if(typeof creator.profile_id === `number` && props.makeLink) {
         url = `/profile/${creator.profile_id}`;
       }
       creators.push(<a key={creators.length} href={url}>{creator.name}</a>);
@@ -32,12 +32,14 @@ const Creators = (props) => {
 
 Creators.propTypes = {
   creators: PropTypes.array.isRequired,
-  showLabelText: PropTypes.bool
+  showLabelText: PropTypes.bool,
+  makeLink: PropTypes.bool
 };
 
 Creators.defaultProps = {
   creators: [],
-  showLabelText: false
+  showLabelText: false,
+  makeLink: true
 };
 
 export default Creators;
