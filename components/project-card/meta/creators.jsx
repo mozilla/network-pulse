@@ -16,13 +16,13 @@ const Creators = (props) => {
     for (let creator of props.creators){
       // So that creators which are without a profile aren't links
       let url = null;
-      if(typeof creator.profile_id === "number") {
+      if(typeof creator.profile_id === `number`) {
         url = `/profile/${creator.profile_id}`;
       }
       creators.push(<a key={creators.length} href={url}>{creator.name}</a>);
     }
     // Because react doesn't like to render comma separated JSX objects easily
-    joinedCreators = creators.slice(1).reduce(function(prev, current) {
+    joinedCreators = creators.slice(1).reduce((prev, current)=>{
       return prev.concat([`, `, current]);
     }, [creators[0]]);
 

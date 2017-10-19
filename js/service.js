@@ -122,7 +122,9 @@ function callURL(route) {
 
 /**
  * Make a POST or PUT XHR request and return a promise to resolve it.
- * @param  {Object} params A key-value object to be posted
+ * @param {String} requestType An HTTP Request type string, defaults to `POST`
+ * @param {String} endpointRoute A route fragment
+ * @param  {Object} data A key-value object to be posted
  * @returns {Promise} A promise to resolve an XHR request
  */
 function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
