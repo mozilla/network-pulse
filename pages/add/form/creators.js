@@ -32,9 +32,20 @@ export default class Creators extends Component {
   }
   updateTags(tags) {
     this.setState({ tags }, () => {
-      const tagNames = this.state.tags.slice().map(tagObj => tagObj.name);
-      console.log(tagNames);
-      this.props.onChange(null,{a:1,b:1});
+      let relatedCreators = this.state.tags.map((creator) => {
+        // Model data thusly:
+        //
+        // "related_creators": [{
+        //   "creator_id": number | <id of the creator autocompleted. Will be null if the creator was not autocompleted and was manually typed in>,
+        //   "name": string | <name of the creator typed in, not autocompleted. Will be null if the creator was autocompleted>
+        // }, ...]
+        return {
+          creator_id: creator.id ? creator.id : null,
+          name: creator.id ? null : creator.name
+        };
+      });
+
+      this.props.onChange(null, relatedCreators);
     });
   }
   handleDelete(i) {
