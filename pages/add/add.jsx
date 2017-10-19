@@ -186,6 +186,8 @@ class Add extends React.Component {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
     let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
 
+    let updateCallback = (evt, name, field, value) => this.handleFormUpdate(evt, name, field, value);
+
     return( <div>
               <h1>Share with the Network</h1>
               <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
@@ -198,21 +200,21 @@ class Add extends React.Component {
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
                                        inlineErrors={true}
-                                       onUpdate={this.handleFormUpdate} />
+                                       onUpdate={updateCallback} />
                 <h2>Optional Details</h2>
                 <Form ref="detailForm" fields={detailInfoFields}
                                         inlineErrors={true}
-                                        onUpdate={this.handleFormUpdate} />
+                                        onUpdate={updateCallback} />
                 <h2>Get Help</h2>
                 <Form ref="getHelpForm" fields={getHelpFields}
                                         inlineErrors={true}
-                                        onUpdate={this.handleFormUpdate} />
+                                        onUpdate={updateCallback} />
                 <div className="submit-section">
                   <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
                   <button
                     className="btn btn-info mr-3"
                     type="submit"
-                    onClick={this.handleFormSubmit}
+                    onClick={(evt) => this.handleFormSubmit(evt)}
                     disabled={this.state.submitting ? `disabled` : null}
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
