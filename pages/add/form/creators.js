@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
-import { Link } from 'react-router';
-import IssuesField from '../../../components/form-fields/issues.jsx';
-import validator from './validator';
 import Service from '../../../js/service';
-import Creators from './creators.js';
 
 const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
 
-class Tags extends Component {
+export default class Creators extends Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -19,12 +15,14 @@ class Tags extends Component {
       suggestions: []
     };
   }
-  componentDidMount() {
-    Service.tags
-      .get()
+  componentDidMount() {}
+  fetchCompletions(fragment) {
+    Service.creators
+      .get(fragment)
       .then((data) => {
-        let suggestions = data.map((tag,i) => {
-          return { id: i+1, name: tag };
+        console.log(data);
+        let suggestions = data.results.map((creator) => {
+          return { id: creator.creator_id, name: creator.name };
         });
         this.setState({ suggestions });
       })
@@ -35,7 +33,8 @@ class Tags extends Component {
   updateTags(tags) {
     this.setState({ tags }, () => {
       const tagNames = this.state.tags.slice().map(tagObj => tagObj.name);
-      this.props.onChange(null,tagNames);
+      console.log(tagNames);
+      this.props.onChange(null,{a:1,b:1});
     });
   }
   handleDelete(i) {
@@ -71,8 +70,15 @@ class Tags extends Component {
       return suggestion;
     }).filter(suggestion => !!suggestion);
   }
+  handleInputChange(input) {
+    console.log(`onChange`, input);
+    if (input.length >= 3) {
+      this.fetchCompletions(input);
+    }
+  }
   render() {
     return <ReactTags
+              handleInputChange={(...args) => this.handleInputChange(...args)}
               tags={this.state.tags}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
@@ -90,54 +96,3 @@ class Tags extends Component {
             />;
   }
 }
-
-
-const IssuesLabel = function() {
-  return (
-    <div>Check any <Link to="/issues" target="_blank">Key Internet Issues</Link> that relate to your project.</div>
-  );
-};
-
-
-module.exports = {
-  published_by_creator: {
-    type: 'checkbox',
-    label: 'I am one of the creators.',
-    fieldClassname: `published-by-creator`,
-    guideText: 'Are you one of the creators?'
-  },
-  related_creators: {
-    type: Creators,
-    label: `Name any other creators. This could be staff, contributors, partners…`,
-    fieldClassname: `form-control`
-  },
-  interest: {
-    type: `text`,
-    label: `Why might this be interesting to other people in our network?`,
-    placeholder: ``,
-    fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300)
-  },
-  issues: {
-    type: IssuesField,
-    label: <IssuesLabel/>,
-    colCount: 1
-  },
-  tags: {
-    type: Tags,
-    label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
-    fieldClassname: `form-control`
-  },
-  'thumbnail': {
-    type: `image`,
-    label: `Project image: Only submit images that you have permission to use in this context.`,
-    prompt: `Select image`,
-    helpText: `Looks best at 1200px × 630px`,
-    fieldClassname: `form-control`,
-    validator: [
-      validator.imageTypeValidator(),
-      validator.imageSizeValidator(),
-      validator.imageFilenameValidator()
-    ]
-  }
-};
