@@ -11,7 +11,7 @@ export default class Creators extends Component {
   }
   getInitialState() {
     return {
-      tags: [],
+      creators: [],
       suggestions: []
     };
   }
@@ -30,9 +30,9 @@ export default class Creators extends Component {
         console.error(reason);
       });
   }
-  updateTags(tags) {
-    this.setState({ tags }, () => {
-      let relatedCreators = this.state.tags.map((creator) => {
+  updateCreators(creators) {
+    this.setState({ creators }, () => {
+      let relatedCreators = this.state.creators.map((creator) => {
         // Model data thusly:
         //
         // "related_creators": [{
@@ -49,34 +49,34 @@ export default class Creators extends Component {
     });
   }
   handleDelete(i) {
-    const tags = this.state.tags.slice(0);
-    tags.splice(i, 1);
-    this.updateTags(tags);
+    const creators = this.state.creators.slice(0);
+    creators.splice(i, 1);
+    this.updateCreators(creators);
   }
-  handleAddition(tag) {
-    tag.name = tag.name.trim();
-    const tags = [].concat(this.state.tags, this.fixTagLettercase(tag));
-    this.updateTags(tags);
+  handleAddition(creator) {
+    creator.name = creator.name.trim();
+    const creators = [].concat(this.state.creators, this.fixTagLettercase(creator));
+    this.updateCreators(creators);
   }
-  fixTagLettercase(tag) {
+  fixTagLettercase(creator) {
     for (let t of this.state.suggestions) {
       // We don't want to have duplicated tags in the database.
       // If the user-defined tag is a known tag,
       // fix the lettercase so it mataches the known tag we have in the database.
-      if (t.name.toLowerCase() === tag.name.toLowerCase()) {
-        tag = t;
+      if (t.name.toLowerCase() === creator.name.toLowerCase()) {
+        creator = t;
         break;
       }
     }
-    return tag;
+    return creator;
   }
   getFilteredSuggestions() {
     // show only tag suggestions that haven't been selected yet
-    const { tags, suggestions } = this.state;
-    const tagNames = tags.map(tagObj => tagObj.name);
+    const { creators, suggestions } = this.state;
+    const creatorNames = creators.map(creatorObj => creatorObj.name);
 
     return suggestions.map((suggestion) => {
-      if (tagNames.indexOf(suggestion.name) > -1) return null;
+      if (creatorNames.indexOf(suggestion.name) > -1) return null;
 
       return suggestion;
     }).filter(suggestion => !!suggestion);
@@ -90,7 +90,8 @@ export default class Creators extends Component {
   render() {
     return <ReactTags
               handleInputChange={(...args) => this.handleInputChange(...args)}
-              tags={this.state.tags}
+              tags={this.state.creators}
+              placeholder={`Add new creator`}
               suggestions={this.getFilteredSuggestions()}
               allowNew={true}
               autofocus={false}
