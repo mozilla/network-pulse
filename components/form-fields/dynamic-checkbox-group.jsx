@@ -6,7 +6,7 @@ class DynamicCheckboxGroup extends React.Component {
     super(props);
 
     this.state = {
-      selected: props.selectedOptions
+      selected: props.selectedOptions || []
     };
   }
 
