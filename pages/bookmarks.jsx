@@ -1,14 +1,11 @@
 import React from 'react';
-import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Helmet } from "react-helmet";
-import classNames from 'classnames';
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
 import Service from '../js/service.js';
 import bookmarkManager from '../js/bookmarks-manager';
-import utility from '../js/utility';
 import user from '../js/app-user';
 import pageSettings from '../js/app-page-settings';
 
@@ -24,31 +21,6 @@ class Bookmarks extends React.Component{
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
       bookmarksImported: false
     };
-  }
-
-  handleSignInBtnClick(event) {
-    event.preventDefault();
-
-    ReactGA.event({
-      category: `Account`,
-      action: `Login`,
-      label: `Login ${window.location.pathname}`,
-      transport: `beacon`
-    });
-
-    user.login(utility.getCurrentURL());
-  }
-
-  handleLogOutBtnClick(event) {
-    event.preventDefault();
-
-    ReactGA.event({
-      category: `Account`,
-      action: `Logout`,
-      label: `Logout ${window.location.pathname}`,
-    });
-
-    user.logout();
   }
 
   componentDidMount() {
@@ -117,28 +89,19 @@ class Bookmarks extends React.Component{
     }
 
     return <div>
-            <p className={classNames({'mb-0': !!importHint})}>Hi {user.username}! <button onClick={(event) => this.handleLogOutBtnClick(event)} className="btn btn-link inline-link">Log out</button>.</p>
             {importHint}
             <ProjectLoader bookmarkedOnly={true} />
           </div>;
   }
 
   getAnonymousContent() {
-    let signInPrompt = <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Sign in with Google</button>.</p>;
     let bookmarkedProjects = this.renderHintMessage();
-
-    if (user.failedLogin) {
-      signInPrompt = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
-    }
 
     if (this.state.lsBookmarkedIds.length > 0) {
       bookmarkedProjects = <ProjectLoader ids={this.state.lsBookmarkedIds} />;
     }
 
-    return <div>
-            {signInPrompt}
-            {bookmarkedProjects}
-          </div>;
+    return bookmarkedProjects;
   }
 
   renderContent() {
@@ -168,12 +131,9 @@ class Bookmarks extends React.Component{
 }
 
 Bookmarks.propTypes = {
-  location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
-  routeParams: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
+  router: PropTypes.shape({
+    location: PropTypes.object
+  }).isRequired
 };
 
 export default Bookmarks;

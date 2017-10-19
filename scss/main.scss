@@ -8,6 +8,7 @@
 @import '../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss';
 @import '../node_modules/bootstrap/scss/buttons.scss';
 @import '../node_modules/bootstrap/scss/forms.scss';
+@import '../node_modules/bootstrap/scss/grid.scss';
 @import '../node_modules/react-select/scss/default.scss';
 
 // mixins
@@ -33,6 +34,16 @@ h2 {
 
 a {
   color: $link-color;
+
+  @include hover {
+    color: $link-hover-color;
+  }
+}
+
+a.default-text-color-link,
+.btn-link.default-text-color-link {
+  color: inherit;
+  text-decoration: underline;
 
   @include hover {
     color: $link-hover-color;
@@ -174,6 +185,27 @@ textarea {
   }
 }
 
+.add-page,
+.profile-edit-page {
+  h1,
+  h2 {
+    color: $bikeshed-magenta;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: $form-field-vertical-margin;
+  }
+}
+
+@import 'form';
+
 // Components
 
 @import '../components/navbar/navbar';
@@ -181,9 +213,11 @@ textarea {
 @import '../components/footer/footer';
 @import '../components/issue-selector/issue-selector';
 @import '../components/hint-message/hint-message';
+@import '../components/bio/bio';
 
 // Pages
 
 @import '../pages/add/add';
 @import '../pages/search/search';
 @import '../pages/issues/issues';
+@import '../pages/profile-edit/profile-edit';
