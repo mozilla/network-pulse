@@ -7,15 +7,21 @@ const Creators = (props) => {
 
   let classnames = classNames(`creator d-block open-sans`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
+  let creators = [];
 
-  let creators = props.creators.map((creator)=>{
-      // So that creators which are without a profile aren't links
+  props.creators.forEach((creator)=>{
+    // Link to creators with a profile, plain text name if without.
     let url = null;
     if(typeof creator.profile_id === `number` && props.makeLink) {
       url = `/profile/${creator.profile_id}`;
     }
-    return <a key={creator.name} href={url}>{creator.name}</a>;
-  }).reduce((prev, curr) => [prev, `, `, curr]);
+    creators.push( <a key={creator.name} href={url}>{creator.name}</a> );
+    creators.push( `, `);
+  });
+
+  if (creators.length) {
+    creators.pop();
+  }
 
   return <p className="my-2"><small className={classnames}>{labelText}{creators}</small></p>;
 };
