@@ -7,31 +7,21 @@ const Creators = (props) => {
 
   let classnames = classNames(`creator d-block open-sans`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
-  let joinedCreators;
 
-  if (typeof props.creators[0] === `string` ) {
-    joinedCreators = props.creators.join(`, `);
-  } else {
-    let creators = [];
-    for (let creator of props.creators){
+  let creators = props.creators.map((creator)=>{
       // So that creators which are without a profile aren't links
-      let url = null;
-      if(typeof creator.profile_id === `number` && props.makeLink) {
-        url = `/profile/${creator.profile_id}`;
-      }
-      creators.push(<a key={creators.length} href={url}>{creator.name}</a>);
+    let url = null;
+    if(typeof creator.profile_id === `number` && props.makeLink) {
+      url = `/profile/${creator.profile_id}`;
     }
-    // Because react doesn't like to render comma separated JSX objects easily
-    joinedCreators = creators.slice(1).reduce((prev, current)=>{
-      return prev.concat([`, `, current]);
-    }, [creators[0]]);
+    return <a key={creator.name} href={url}>{creator.name}</a>;
+  }).reduce((prev, curr) => [prev, `, `, curr]);
 
-  }
-  return <p className="my-2"><small className={classnames}>{labelText}{joinedCreators}</small></p>;
+  return <p className="my-2"><small className={classnames}>{labelText}{creators}</small></p>;
 };
 
 Creators.propTypes = {
-  creators: PropTypes.array.isRequired,
+  creators: PropTypes.arrayOf(PropTypes.object).isRequired,
   showLabelText: PropTypes.bool,
   makeLink: PropTypes.bool
 };
