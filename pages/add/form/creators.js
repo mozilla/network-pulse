@@ -21,6 +21,7 @@ export default class Creators extends Component {
       .get(fragment)
       .then((data) => {
         let suggestions = data.results.map((creator) => {
+          if(creator.profile_id){ creator.name = `👤 ${creator.name}`; }
           return { id: creator.creator_id, name: creator.name };
         });
         this.setState({ suggestions });
