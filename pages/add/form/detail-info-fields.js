@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import IssuesField from '../../../components/form-fields/issues.jsx';
 import validator from './validator';
 import Service from '../../../js/service';
+import Creators from './creators.js';
 
 const DELIMITERS = [9,13,188]; // keycodes for tab,enter,comma
 
@@ -90,6 +91,7 @@ class Tags extends Component {
   }
 }
 
+
 const IssuesLabel = function() {
   return (
     <div>Check any <Link to="/issues" target="_blank">Key Internet Issues</Link> that relate to your project.</div>
@@ -104,13 +106,10 @@ module.exports = {
     fieldClassname: `published-by-creator`,
     guideText: 'Are you one of the creators?'
   },
-  creators: {
-    type: `text`,
+  related_creators: {
+    type: Creators,
     label: `Name any other creators. This could be staff, contributors, partners…`,
-    placeholder: `Name`,
-    fieldClassname: `form-control`,
-    multiplicity: 1,
-    addLabel: `+ Add another`
+    fieldClassname: `form-control`
   },
   interest: {
     type: `text`,
