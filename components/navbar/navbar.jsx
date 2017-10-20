@@ -41,7 +41,7 @@ class NavBar extends React.Component {
     return <NavListItem><NavLink to="/moderation">Moderation</NavLink></NavListItem>;
   }
 
-  renderUsername() {
+  renderName() {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
 
@@ -49,7 +49,7 @@ class NavBar extends React.Component {
     let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)} className={`${classname} open-sans`}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me" className={classname}>Hi, {user.username}</NavLink>;
+      link = <NavLink to="/profile/me" className={classname}>Hi, {user.name}</NavLink>;
     }
 
     return <NavListItem>{link}</NavListItem>;
@@ -89,7 +89,7 @@ class NavBar extends React.Component {
               <NavListItem><NavLink to="/favs" className="bookmarks">Favs</NavLink></NavListItem>
               <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
               { this.renderModeratorLink() }
-              { this.renderUsername() }
+              { this.renderName() }
               <NavListItem><NavLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></NavListItem>
             </ul>
           </div>
