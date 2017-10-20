@@ -20,7 +20,6 @@ export default class Creators extends Component {
     Service.creators
       .get(fragment)
       .then((data) => {
-        console.log(data);
         let suggestions = data.results.map((creator) => {
           return { id: creator.creator_id, name: creator.name };
         });
@@ -82,7 +81,6 @@ export default class Creators extends Component {
     }).filter(suggestion => !!suggestion);
   }
   handleInputChange(input) {
-    console.log(`onChange`, input);
     if (input.length >= 3) {
       this.fetchCompletions(input);
     }
