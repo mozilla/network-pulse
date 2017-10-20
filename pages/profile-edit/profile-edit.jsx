@@ -43,9 +43,10 @@ export default React.createClass({
     Service.myProfile.get().then(profile => {
       let fields = formFields;
 
-      Object.keys(fields).forEach(name => {
+      Object.keys(fields).forEach(key => {
         // load current profile to form fields
-        fields[name].defaultValue = profile[name];
+        let defaultValue = key === `custom_name` ? user.name : profile[key];
+        fields[key].defaultValue = defaultValue;
       });
 
       this.setState({

@@ -195,7 +195,7 @@ class Add extends React.Component {
               <div className="mb-4">
                 <h2>Basic Info</h2>
                 <div className="posted-by">
-                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.username}</span></p>
+                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
                   <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button>.</p>
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
