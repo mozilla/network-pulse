@@ -54,14 +54,14 @@ export default class Creators extends Component {
   }
   handleAddition(creator) {
     creator.name = creator.name.trim();
-    const creators = [].concat(this.state.creators, this.fixTagLettercase(creator));
+    const creators = [].concat(this.state.creators, this.fixCreatorLettercase(creator));
     this.updateCreators(creators);
   }
-  fixTagLettercase(creator) {
+  fixCreatorLettercase(creator) {
     for (let t of this.state.suggestions) {
-      // We don't want to have duplicated tags in the database.
-      // If the user-defined tag is a known tag,
-      // fix the lettercase so it mataches the known tag we have in the database.
+      // We don't want to have duplicated creators in the database.
+      // If the user-defined creator is a known creator,
+      // fix the lettercase so it mataches the known creator we have in the database.
       if (t.name.toLowerCase() === creator.name.toLowerCase()) {
         creator = t;
         break;
@@ -70,7 +70,7 @@ export default class Creators extends Component {
     return creator;
   }
   getFilteredSuggestions() {
-    // show only tag suggestions that haven't been selected yet
+    // show only creator suggestions that haven't been selected yet
     const { creators, suggestions } = this.state;
     const creatorNames = creators.map(creatorObj => creatorObj.name);
 
