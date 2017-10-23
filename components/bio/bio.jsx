@@ -40,6 +40,8 @@ class Bio extends React.Component {
     let list = [ `twitter`, `linkedin`, `github` ];
     list = list.map((type, i) => {
       let link = this.props[type];
+      if (!link) { return; }
+
       let classname = classNames(`d-inline-block social-media default-text-color-link`, {
         "mr-3" : i !== list.length-1
       });
