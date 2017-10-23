@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ReactGA from 'react-ga';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 class NavLink extends React.Component {
@@ -17,9 +18,11 @@ class NavLink extends React.Component {
   }
 
   render() {
+    let classes = classNames(`open-sans`, this.props.className);
+
     return (
       <Link {...this.props}
-        className={`open-sans ${this.props.className}`}
+        className={classes}
         activeClassName="active"
         onClick={() => this.handleInternalPageLinkClick()}
       />

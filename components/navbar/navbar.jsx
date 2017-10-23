@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import { IndexLink } from 'react-router';
+import classNames from 'classnames';
 import NavLink from '../nav-link/nav-link.jsx';
 import user from '../../js/app-user';
 import utility from '../../js/utility';
@@ -8,7 +9,7 @@ import utility from '../../js/utility';
 class NavListItem extends React.Component {
   render() {
     return (
-      <li className="d-inline-block mb-0 mr-4">{this.props.children}</li>
+      <li className={classNames(`d-inline-block mb-0 mr-4`, this.props.className)}>{this.props.children}</li>
     );
   }
 }
@@ -45,14 +46,13 @@ class NavBar extends React.Component {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
 
-    let classname = `signupin-user`;
-    let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)} className={`${classname} open-sans`}>Signup / Signin</a>;
+    let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me" className={classname}>Hi, {user.name}</NavLink>;
+      link = <NavLink to="/profile/me">Hi, {user.name}</NavLink>;
     }
 
-    return <NavListItem>{link}</NavListItem>;
+    return <NavListItem className="signupin-user">{link}</NavListItem>;
   }
 
   handleSignInBtnClick(event) {
@@ -79,10 +79,10 @@ class NavBar extends React.Component {
       <div className="navbar">
         <div className="container">
           <div className="row">
-            <div className="col-sm-12 col-md-3 mb-3 mb-sm-0">
-              <IndexLink to="/" className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" width="204" height="34" alt="Mozilla Pulse" className="img-fluid" /></IndexLink>
+            <div className="col-md-12 col-lg-3">
+              <IndexLink to="/" className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" alt="Mozilla Pulse" className="img-fluid logo" /></IndexLink>
             </div>
-            <ul className="nav-link-list col-sm-12 col-md-9 mt-3 mt-md-0 mb-0">
+            <ul className="nav-link-list col-md-12 col-lg-9 mt-3 mt-lg-0 mb-0">
               <NavListItem><NavLink to="/featured">Featured</NavLink></NavListItem>
               <NavListItem><NavLink to="/latest">Latest</NavLink></NavListItem>
               <NavListItem><NavLink to="/issues">Issues</NavLink></NavListItem>
