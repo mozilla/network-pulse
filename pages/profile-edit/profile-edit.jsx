@@ -11,7 +11,12 @@ import formFields from './form/fields';
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
 
-export default React.createClass({
+class ProfileEdit extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = getInitialState();
+  }
+
   getInitialState() {
     return {
       user,
@@ -22,22 +27,26 @@ export default React.createClass({
       submitting: false,
       showFormInvalidNotice: false
     };
-  },
+  }
+
   componentDidMount() {
     user.addListener(this);
     user.verify(this.props.router.location);
 
     this.loadCurrentProfile();
-  },
+  }
+
   componentWillUnmount() {
     user.removeListener(this);
-  },
+  }
+
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified` ) {
       this.setState({ user });
     }
-  },
+  }
+
   loadCurrentProfile() {
     // get current profile data and load it into form
     Service.myProfile.get().then(profile => {
@@ -54,12 +63,14 @@ export default React.createClass({
         currentProfileLoaded: true
       });
     });
-  },
+  }
+
   handleSignInBtnClick(event) {
     event.preventDefault();
 
     user.login(utility.getCurrentURL());
-  },
+  }
+
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
@@ -67,7 +78,8 @@ export default React.createClass({
     browserHistory.push({
       pathname: `/featured`
     });
-  },
+  }
+
   handleFormUpdate(event, name, field, value) {
     let formValues = this.state.formValues;
 
@@ -83,7 +95,8 @@ export default React.createClass({
         showFormInvalidNotice: false
       });
     }
-  },
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
 
@@ -98,7 +111,8 @@ export default React.createClass({
         submitting: true
       }, () => this.updateProfile(this.state.formValues));
     });
-  },
+  }
+
   updateProfile(profile) {
     Service.myProfile
       .put(profile)
@@ -113,7 +127,8 @@ export default React.createClass({
         });
         console.error(reason);
       });
-  },
+  }
+
   renderForm() {
     if (!this.state.currentProfileLoaded) return null;
 
@@ -121,7 +136,8 @@ export default React.createClass({
       inlineErrors={true}
       onUpdate={(event, name, field, value) => this.handleFormUpdate(event, name, field, value)}
       className="row" />;
-  },
+  }
+
   getContentForLoggedInUser() {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
     let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
@@ -157,19 +173,22 @@ export default React.createClass({
                 </div>
               </div>
             </div>);
-  },
+  }
+
   getAnonymousContent() {
     return <NotFound header="You do not have access to this page" linkComponent={false}>
       <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Log in</button> or see <Link to="/featured">Featured projects</Link></p>
     </NotFound>;
-  },
+  }
+
   getContent() {
     if (user.loggedin === undefined) return null;
 
     if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
-  },
+  }
+
   render() {
     return (
       <div className="profile-edit-page row justify-content-center">
@@ -180,4 +199,12 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+ProfileEdit.propTypes = {
+  router: PropTypes.shape({
+    location: PropTypes.object
+  }).isRequired
+};
+
+export default ProfileEdit;
