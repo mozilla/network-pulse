@@ -9,14 +9,6 @@ const Validator = {
       }
     };
   },
-  maxLengthValidator(maxCharLength) {
-    return {
-      error: `Maximum ${maxCharLength} characters.`,
-      validate: function(value) {
-        return value && value.length > maxCharLength;
-      }
-    };
-  },
   urlValidator() {
     return {
       error: `Not a valid URL. Remember to include protocol (http:// or https://).`,
