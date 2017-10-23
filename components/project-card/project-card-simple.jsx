@@ -107,7 +107,7 @@ class ProjectCard extends React.Component {
       return url.link && <li>{url.label}: <a href={url.link} target="_blank">{url.link}</a></li>;
     });
 
-    return urls && <ul className="list-unstyled">{urls}</ul>;
+    return <ul className="list-unstyled">{urls}</ul>;
   }
 
   render() {
