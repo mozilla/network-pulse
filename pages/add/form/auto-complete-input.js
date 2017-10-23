@@ -64,9 +64,9 @@ export default class AutoCompleteInput extends Component {
     return field;
   }
   getFilteredSuggestions() {
-    // show only tag suggestions that haven't been selected yet
+    // show only suggestions that haven't already been selected.
     const { data, suggestions } = this.state;
-    const names = data.map(tagObj => tagObj.name);
+    const names = data.map(field => field.name);
 
     return suggestions.map((suggestion) => {
       if (names.indexOf(suggestion.name) > -1) return null;
