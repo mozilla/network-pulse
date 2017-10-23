@@ -108,7 +108,7 @@ module.exports = {
   },
   related_creators: {
     type: Creators,
-    label: `Name any other creators. This could be staff, contributors, partners…`,
+    label: `Name any creators, contributors, partners. Comma separated.`,
     fieldClassname: `form-control`
   },
   interest: {
