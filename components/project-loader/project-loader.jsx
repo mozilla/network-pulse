@@ -137,7 +137,7 @@ class ProjectLoader extends React.Component {
   renderEntryCounter() {
     if (this.state.loadingData || !this.props.showCounter) return null;
 
-    let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 0 ? `s` : ``} found`;
+    let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 1 ? `s` : ``} found`;
     let searchKeyword = this.props.search;
 
     return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
