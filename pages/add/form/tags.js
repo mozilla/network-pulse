@@ -17,6 +17,7 @@ export default class Tags extends AutoCompleteInput {
         console.error(reason);
       });
   }
+
   /**
    * Add any tag that the user wrote before
    * they clicked away as a tag to this entry.
@@ -24,6 +25,7 @@ export default class Tags extends AutoCompleteInput {
   handlePendingInput(input) {
     this.save(input);
   }
+
   render() {
     return super.render({ placeholder: `Add new tag` });
   }
