@@ -17,9 +17,11 @@ export default class Tags extends AutoCompleteInput {
         console.error(reason);
       });
   }
+  /**
+   * Add any tag that the user wrote before
+   * they clicked away as a tag to this entry.
+   */
   handlePendingInput(input) {
-    // Add any tag that the user wrote before
-    // they clicked away as a tag to this entry.
     this.save(input);
   }
   render() {

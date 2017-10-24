@@ -3,66 +3,100 @@ import ReactTags from 'react-tag-autocomplete';
 import Service from '../../../js/service';
 import { DELIMITERS } from './tag-delimiters';
 
-function findReactComponent(dom) {
-  for (var key in dom) {
-    if (key.startsWith("__reactInternalInstance$")) {
-      var compInternals = dom[key]._currentElement;
-      var compWrapper = compInternals._owner;
-      var comp = compWrapper._instance;
-      return comp;
-    }
-  }
-  return null;
-}
-
+/**
+ * This is a superclass for components that require
+ * autocompletion and capturing strings as discrete
+ * "chunks", with terms packed into an array, and
+ * each term taking the form:
+ *
+ *  { name: <string> }
+ *
+ * This class is built up around react-tags-autocomplete
+ * and subclasses are responsible for filling in the
+ * "data" and "suggestions" state variables.
+ *
+ * Current subclasses are the Tags and Creators classes,
+ * which are good examples of how to write a subclass
+ * that needs autocompletion as well as custom logic
+ * for handling initial data setup and subsequent
+ * capture of terms.
+ *
+ */
 export default class AutoCompleteInput extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState();
-  }
-  getInitialState() {
-    return {
+    this.state = {
       data: [],
       suggestions: []
-    }
+    };
   }
+
   componentDidMount() {
-    // this is to be specified by extending components
+    // does nothing in the superclass
   }
+
   update(data) {
     this.setState({ data }, () => {
       const mappedData = this.state.data.map(field => this.toSchema(field));
       this.props.onChange(null, mappedData);
     });
   }
+
+  /**
+   * This function is responsible for converting term
+   * objects to whatever form they need to be for the
+   * parent to do something with. For instance, if the
+   * parent requires the standard term format, but with
+   * all terms in upper case, a subclass can override
+   * this function to be:
+   *
+   *   toSchema(record) {
+   *     return {
+   *       name: record.name.toUpperCase()
+   *     };
+   *   }
+   *
+   * @param record Term record object
+   */
   toSchema(record) {
     return record.name;
   }
-  handleDelete(i) {
+
+  handleDelete(pos) {
     const data = this.state.data;
-    data.splice(i, 1);
+    data.splice(pos, 1);
     this.update(data);
   }
+
   handleAddition(field) {
-    field.name = field.name.trim();
+    if (field.name) {
+      field.name = field.name.trim()
+    }
     const data = [].concat(this.state.data, this.fixLettercase(field));
     this.update(data);
   }
+
   handleInputChange(input) {
     // does nothing in the superclass
   }
+
+  /**
+   * Helper function to ensure that if some field is identical
+   * to an already-known field, but uses a different case, the
+   * known case gets used instead of what the user typed.
+   */
   fixLettercase(field) {
-    // Ensure that if some field is identical to an already-known
-    // field, but uses a different case, the known case gets used
-    // instead of what the user typed.
-    for (let t of this.state.suggestions) {
-      if (t.name.toLowerCase() === field.name.toLowerCase()) {
-        field = t;
-        break;
+    if (field.name) {
+      for (let t of this.state.suggestions) {
+        if (t.name.toLowerCase() === field.name.toLowerCase()) {
+          field = t;
+          break;
+        }
       }
     }
     return field;
   }
+
   getFilteredSuggestions() {
     // show only suggestions that haven't already been selected.
     const { data, suggestions } = this.state;
@@ -74,6 +108,7 @@ export default class AutoCompleteInput extends Component {
       return suggestion;
     }).filter(suggestion => !!suggestion);
   }
+
   handleBlur(e) {
     let input = this.reactTags.state.query.trim();
     if (input) {
@@ -81,14 +116,35 @@ export default class AutoCompleteInput extends Component {
       this.reactTags.setState({ query: '' });
     }
   }
-  handlePendingInput() {
-    console.warn("handlePendingData should be implemented in subclass.");
+
+  handlePendingInput(input) {
+    // does nothing in the superclass
   }
+
+  /**
+   * Helper function that subclasses can call in order
+   * to explicitly add get a term string correctly saved
+   * into the list of know terms.
+   *
+   * @param input string or term object
+   */
   save(input) {
-    this.handleAddition({
-      name: input
-    });
+    if (typeof input === 'string') {
+      input = { name: input };
+    }
+    this.handleAddition(input);
   }
+
+  /**
+   * The superclass render function can take an object
+   * representing additional properties that are to be used
+   * during render. Currently, properties supported are:
+   *
+   * {
+   *   placeholder: <string to be used as input field placeholder text>
+   * }
+   *
+   */
   render(props={}) {
     let placeholder = props.placeholder || `Add new tag`;
     return <div onBlur={e => this.handleBlur(e)} ref={e => this.div=e} tabIndex={0}>
