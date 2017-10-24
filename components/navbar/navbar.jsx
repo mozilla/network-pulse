@@ -78,7 +78,7 @@ class NavBar extends React.Component {
     return (
       <div className="navbar">
         <div className="container">
-          <div className="row">
+          <div className="row open-sans">
             <div className="col-md-12 col-lg-3">
               <IndexLink to="/" className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" alt="Mozilla Pulse" className="img-fluid logo" /></IndexLink>
             </div>
