@@ -31,10 +31,6 @@ export default class AutoCompleteInput extends Component {
     };
   }
 
-  componentDidMount() {
-    // does nothing in the superclass
-  }
-
   update(data) {
     this.setState({ data }, () => {
       const mappedData = this.state.data.map(field => this.toSchema(field));
