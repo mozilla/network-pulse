@@ -1,3 +1,6 @@
+$logo-width-small: 170px;
+$logo-width-regular: 204px;
+
 .navbar {
   display: block;
   background: $bikeshed-magenta;
@@ -6,6 +9,10 @@
 
   .inner {
     position: relative;
+  }
+
+  .logo {
+    width: $logo-width-small;
   }
 
   .nav-link-list {
@@ -25,10 +32,15 @@
     }
   }
 
-  .signupin-user {
+  .signupin-user a {
     position: absolute;
     top: 5px;
     right: $grid-gutter-width-base / 2;
+    max-width: calc(100% - #{$logo-width-small + $grid-gutter-width-base*2});
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: 0 !important;
   }
 
   .btn-add {
@@ -62,7 +74,12 @@
       position: relative;
     }
 
-    .signupin-user {
+    .logo {
+      width: $logo-width-regular;
+    }
+
+    .signupin-user a {
+      max-width: 150px;
       top: 0;
       right: 5.5rem;
     }
@@ -71,6 +88,12 @@
       position: absolute;
       bottom: -30px;
       right: 15px;
+    }
+  }
+
+  @media screen and (min-width: $bp-xl) {
+    .signupin-user a {
+      max-width: 300px;
     }
   }
 }
