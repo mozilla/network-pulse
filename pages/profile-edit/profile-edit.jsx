@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
@@ -14,7 +15,7 @@ const SUBMITTING_LABEL = `Submitting...`;
 class ProfileEdit extends React.Component{
   constructor(props) {
     super(props);
-    this.state = getInitialState();
+    this.state = this.getInitialState();
   }
 
   getInitialState() {
