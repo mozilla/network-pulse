@@ -2,7 +2,7 @@
   "short_name": "Pulse",
   "name": "Mozilla Network Pulse",
   "version": "2.0.0",
-  "display": "fullscreen",
+  "display": "minimal-ui",
   "background_color": "white",
   "icons": [
     {
