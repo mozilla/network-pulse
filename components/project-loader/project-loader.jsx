@@ -150,7 +150,7 @@ class ProjectLoader extends React.Component {
         <ProjectList entries={this.state.entries}
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
-                    fetchData={this.fetchData}
+                    fetchData={() => this.fetchData()}
                     restoreScrollPosition={pageSettings.shouldRestore}
                     onModerationMode={!!this.props.moderationState} />
       </div>
