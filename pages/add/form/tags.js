@@ -1,4 +1,3 @@
-// import React from 'react';
 import Service from '../../../js/service';
 import AutoCompleteInput from './auto-complete-input';
 
