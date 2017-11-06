@@ -19,7 +19,7 @@ module.exports = {
     type: 'checkbox',
     label: 'Yes',
     fieldClassname: `published-by-creator`,
-    guideText: 'Are you one of the creators?'
+    guideText: `Are you one of the creators?`
   },
   related_creators: {
     type: Creators,
