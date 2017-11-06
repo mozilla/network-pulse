@@ -1,6 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
+import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
@@ -70,15 +71,6 @@ class Entry extends React.Component {
     });
   }
 
-  renderLoadingNotice() {
-    // 3 empty <div></div> here are for the loading animation dots (done in CSS) to show.
-    return <div className="loading my-5 d-flex justify-content-center align-items-center">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>;
-  }
-
   renderEntry() {
     if (!this.state.dataLoaded) return null;
 
@@ -104,7 +96,7 @@ class Entry extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        { !this.state.dataLoaded ? this.renderLoadingNotice() : this.renderEntry() }
+        { !this.state.dataLoaded ? <LoadingNotice /> : this.renderEntry() }
       </div>
     );
   }

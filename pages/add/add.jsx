@@ -14,7 +14,12 @@ import getHelpFields from './form/get-help-fields';
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
 
-export default React.createClass({
+class Add extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialState();
+  }
+
   getInitialState() {
     return {
       numCreatorFields: 1,
@@ -25,7 +30,8 @@ export default React.createClass({
       submitting: false,
       showFormInvalidNotice: false
     };
-  },
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (nextState.showFormInvalidNotice) {
       ReactGA.event({
@@ -33,20 +39,24 @@ export default React.createClass({
         action: `Submit error`
       });
     }
-  },
+  }
+
   componentDidMount() {
     user.addListener(this);
     user.verify(this.props.router.location);
-  },
+  }
+
   componentWillUnmount() {
     user.removeListener(this);
-  },
+  }
+
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified` ) {
       this.setState({ user });
     }
-  },
+  }
+
   handleSignInBtnClick(event) {
     event.preventDefault();
 
@@ -58,7 +68,8 @@ export default React.createClass({
     });
 
     user.login(utility.getCurrentURL());
-  },
+  }
+
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
@@ -72,11 +83,13 @@ export default React.createClass({
     browserHistory.push({
       pathname: `/featured`
     });
-  },
+  }
+
   handleCreatorClick(event) {
     event.preventDefault();
     this.setState({numCreatorFields: this.state.numCreatorFields+1});
-  },
+  }
+
   handleFormUpdate(evt, name, field, value) {
     let formValues = this.state.formValues;
 
@@ -87,7 +100,8 @@ export default React.createClass({
       // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
       showFormInvalidNotice: false
     });
-  },
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
 
@@ -118,7 +132,8 @@ export default React.createClass({
         });
       });
     });
-  },
+  }
+
   handlePostSuccess(entryId) {
     ReactGA.event({
       category: `Add new`,
@@ -151,8 +166,8 @@ export default React.createClass({
         query: { entryId }
       });
     });
+  }
 
-  },
   postEntry(entryData) {
     Service.entries
       .post(entryData)
@@ -165,10 +180,13 @@ export default React.createClass({
         });
         console.error(reason);
       });
-  },
+  }
+
   getContentForLoggedInUser() {
     let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
     let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
+
+    let updateCallback = (evt, name, field, value) => this.handleFormUpdate(evt, name, field, value);
 
     return( <div>
               <h1>Share with the Network</h1>
@@ -177,26 +195,26 @@ export default React.createClass({
               <div className="mb-4">
                 <h2>Basic Info</h2>
                 <div className="posted-by">
-                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.username}</span></p>
+                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
                   <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button>.</p>
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
                                        inlineErrors={true}
-                                       onUpdate={this.handleFormUpdate} />
+                                       onUpdate={updateCallback} />
                 <h2>Optional Details</h2>
                 <Form ref="detailForm" fields={detailInfoFields}
                                         inlineErrors={true}
-                                        onUpdate={this.handleFormUpdate} />
+                                        onUpdate={updateCallback} />
                 <h2>Get Help</h2>
                 <Form ref="getHelpForm" fields={getHelpFields}
                                         inlineErrors={true}
-                                        onUpdate={this.handleFormUpdate} />
+                                        onUpdate={updateCallback} />
                 <div className="submit-section">
                   <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
                   <button
                     className="btn btn-info mr-3"
                     type="submit"
-                    onClick={this.handleFormSubmit}
+                    onClick={(evt) => this.handleFormSubmit(evt)}
                     disabled={this.state.submitting ? `disabled` : null}
                   >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
                   { authErrorMessage }
@@ -205,7 +223,8 @@ export default React.createClass({
                 </div>
               </div>
             </div>);
-  },
+  }
+
   getAnonymousContent() {
     let header = `Please sign in to add a post`;
     let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
@@ -225,14 +244,16 @@ export default React.createClass({
                          linkComponent={linkComponent}>
               {additionalMessage}
             </HintMessage>;
-  },
+  }
+
   getContent() {
     if (user.loggedin === undefined) return null;
 
     if (user.loggedin) return this.getContentForLoggedInUser();
 
     return this.getAnonymousContent();
-  },
+  }
+
   render() {
     return (
       <div className="add-page row justify-content-center">
@@ -243,4 +264,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Add;

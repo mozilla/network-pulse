@@ -97,6 +97,19 @@ class ProjectCard extends React.Component {
           </div>;
   }
 
+  renderFullUrlSection() {
+    if (!this.props.onModerationMode) return null;
+
+    let urls = [
+      { label: `Link`, link: this.props.contentUrl },
+      { label: `Help`, link: this.props.getInvolvedUrl }
+    ].map(url => {
+      return url.link && <li>{url.label}: <a href={url.link} target="_blank">{url.link}</a></li>;
+    });
+
+    return <ul className="list-unstyled">{urls}</ul>;
+  }
+
   render() {
     let wrapperClassnames = classNames(`col-md-6 col-lg-4`);
 
@@ -125,9 +138,10 @@ class ProjectCard extends React.Component {
                 />
                 { this.renderActionPanel() }
               </div>
-              <Creators creators={this.props.creators} />
+              <Creators creators={this.props.relatedCreators} />
               { this.props.onModerationMode && <Description description={this.props.description} /> }
               { this.renderExtraMeta() }
+              { this.renderFullUrlSection() }
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 
-const HEADER_TEXT = `Thanks for the submission!`;
+const HEADER_TEXT = `Thanks!`;
 
 export default class Submitted extends React.Component {
   constructor(props) {
@@ -43,14 +43,14 @@ export default class Submitted extends React.Component {
     var linkText = false;
 
     if (this.state.entryId) {
-      linkText = `You will be able to see to your entry via this link once approved.`;
+      linkText = `Edit your profile`;
     }
 
     const thankYou = (
       <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
                     header={HEADER_TEXT}
-                    linkComponent={linkText ? <Link to={`/entry/${this.state.entryId}`}>{linkText}</Link> : false}>
-        <p>We'll be reviewing your submission, and it'll show up in the main feed after approval.</p>
+                    linkComponent={linkText ? <Link to={`/myprofile`}>{linkText}</Link> : false}>
+        <p>After moderation, you can find your entry on your profile.</p>
       </HintMessage>
     );
 

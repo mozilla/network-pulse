@@ -122,17 +122,19 @@ function callURL(route) {
 
 /**
  * Make a POST or PUT XHR request and return a promise to resolve it.
- * @param  {Object} params A key-value object to be posted
+ * @param {String} requestType An HTTP Request type string, defaults to `POST`
+ * @param {String} endpointRoute A route fragment
+ * @param  {Object} data A key-value object to be posted
  * @returns {Promise} A promise to resolve an XHR request
  */
-function updateEntry(requestType = ``, endpointRoute, data = {}) {
+function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
   return new Promise((resolve, reject) => {
     getDataFromURL(`${pulseAPI}/nonce/`)
       .then((nonce) => {
         data.nonce = nonce.nonce,
         data.csrfmiddlewaretoken = nonce.csrf_token;
 
-        let dataToSend = requestType === `POST` ? JSON.stringify(data) : ``;
+        let dataToSend = JSON.stringify(data);
         let request = new XMLHttpRequest();
 
         request.open(requestType, endpointRoute, true);
@@ -187,7 +189,7 @@ let Service = {
       return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
-      return updateEntry(`POST`,`${pulseAPI}/entries/`, entryData);
+      return updateStoredData(`POST`,`${pulseAPI}/entries/`, entryData);
     }
   },
   entry: {
@@ -196,13 +198,13 @@ let Service = {
     },
     put: {
       moderationState: function(entryId, stateId) {
-        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`);
+        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`);
       },
       feature: function(entryId) {
-        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/feature/`);
+        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/feature/`);
       },
       bookmark: function(entryId) {
-        return updateEntry(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`);
+        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`);
       }
     }
   },
@@ -214,7 +216,7 @@ let Service = {
       return getDataFromURL(`${pulseAPI}/entries/bookmarks/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryIds = []) {
-      return updateEntry(`POST`,`${pulseAPI}/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
+      return updateStoredData(`POST`,`${pulseAPI}/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
     }
   },
   moderationStates: {
@@ -235,7 +237,12 @@ let Service = {
   tags: {
     get: function() {
       return getDataFromURL(`${pulseAPI}/tags/`);
-    },
+    }
+  },
+  creators: {
+    get: function(fragment) {
+      return getDataFromURL(`${pulseAPI}/creators/`, {name: fragment});
+    }
   },
   logout: function() {
     return callURL(`${pulseAPI}/logout/`);
@@ -243,8 +250,22 @@ let Service = {
   userstatus: function() {
     return getDataFromURL(`${pulseAPI}/userstatus/`);
   },
+  profileMe: function() {
+    return getDataFromURL(`${pulseAPI}/profiles/me/`);
+  },
+  profile: function(id) {
+    return getDataFromURL(`${pulseAPI}/profiles/${id}/`);
+  },
   nonce: function() {
     return getDataFromURL(`${pulseAPI}/nonce/`);
+  },
+  myProfile: {
+    get: function() {
+      return getDataFromURL(`${pulseAPI}/myprofile/`);
+    },
+    put: function(updatedProfile) {
+      return updateStoredData(`PUT`, `${pulseAPI}/myprofile/`, updatedProfile);
+    }
   }
   // ... and more Pulse API endpoints to come
 };
