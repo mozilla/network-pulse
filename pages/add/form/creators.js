@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import ReactTags from 'react-tag-autocomplete';
+// import React from 'react';
 import Service from '../../../js/service';
 import AutoCompleteInput from './auto-complete-input';
 
-const PROFILE_PREFIX = '👤 ';
+const PROFILE_PREFIX = `👤 `;
 
 export default class Creators extends AutoCompleteInput {
   /**
@@ -63,7 +62,7 @@ export default class Creators extends AutoCompleteInput {
    * clicked away as a creator-by-name for this entry.
    */
   handlePendingInput(input) {
-    this.save(input)
+    this.save(input);
   }
 
   render() {

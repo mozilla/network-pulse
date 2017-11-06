@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
-import Service from '../../../js/service';
 import { DELIMITERS } from './tag-delimiters';
 
 /**
@@ -66,13 +65,13 @@ export default class AutoCompleteInput extends Component {
 
   handleAddition(field) {
     if (field.name) {
-      field.name = field.name.trim()
+      field.name = field.name.trim();
     }
     const data = [].concat(this.state.data, this.fixLettercase(field));
     this.update(data);
   }
 
-  handleInputChange(input) {
+  handleInputChange() {
     // does nothing in the superclass
   }
 
@@ -105,15 +104,15 @@ export default class AutoCompleteInput extends Component {
     }).filter(suggestion => !!suggestion);
   }
 
-  handleBlur(e) {
+  handleBlur() {
     let input = this.reactTags.state.query.trim();
     if (input) {
       this.handlePendingInput(input);
-      this.reactTags.setState({ query: '' });
+      this.reactTags.setState({ query: `` });
     }
   }
 
-  handlePendingInput(input) {
+  handlePendingInput() {
     // does nothing in the superclass
   }
 
@@ -125,7 +124,7 @@ export default class AutoCompleteInput extends Component {
    * @param input string or term object
    */
   save(input) {
-    if (typeof input === 'string') {
+    if (typeof input === `string`) {
       input = { name: input };
     }
     this.handleAddition(input);
@@ -143,9 +142,9 @@ export default class AutoCompleteInput extends Component {
    */
   render(props={}) {
     let placeholder = props.placeholder || `Add new tag`;
-    return <div onBlur={e => this.handleBlur(e)} ref={e => this.div=e} tabIndex={0}>
+    return <div onBlur={e => this.handleBlur(e)} ref={e => { this.div = e; }} tabIndex={0}>
               <ReactTags
-                ref={e => this.reactTags=e}
+                ref={e => { this.reactTags = e; }}
                 tags={this.state.data}
                 suggestions={this.getFilteredSuggestions()}
                 allowNew={true}

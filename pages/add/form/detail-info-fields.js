@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import ReactTags from 'react-tag-autocomplete';
+import React from 'react';
 import { Link } from 'react-router';
 import IssuesField from '../../../components/form-fields/issues.jsx';
 import validator from './validator';
-import Service from '../../../js/service';
 import Creators from './creators';
 import Tags from './tags';
 
@@ -16,8 +14,8 @@ const IssuesLabel = function() {
 
 module.exports = {
   published_by_creator: {
-    type: 'checkbox',
-    label: 'Yes',
+    type: `checkbox`,
+    label: `Yes`,
     fieldClassname: `published-by-creator`,
     guideText: `Are you one of the creators?`
   },
