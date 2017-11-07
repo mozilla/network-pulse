@@ -30,7 +30,7 @@
     "watch:html": "chokidar 'index.html' -c 'npm run build-client:static'",
     "watch:js": "chokidar 'main.jsx' 'routes.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'pages/**/*.js' 'webpack.config.js' -c 'npm run build-client:js'",
     "test": "run-s test:**",
-    "test:js": "eslint --config .eslintrc.yaml main.jsx \"js/**/*.js\" \"*.jsx\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
+    "test:js": "eslint --config .eslintrc.yaml \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
     "postinstall": "npm run build",
     "prepare": "npm run snyk-protect"
