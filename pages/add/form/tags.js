@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-import ReactTags from 'react-tag-autocomplete';
 import Service from '../../../js/service';
 import AutoCompleteInput from './auto-complete-input';
 

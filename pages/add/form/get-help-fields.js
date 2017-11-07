@@ -1,4 +1,3 @@
-import React from 'react';
 import validator from './validator';
 import HelpTypesField from '../../../components/form-fields/help-types.jsx';
 
