@@ -3,7 +3,6 @@ import ReactGA from 'react-ga';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import { Helmet } from "react-helmet";
 import pageSettings from './js/app-page-settings';
-import Service from './js/service.js';
 import env from "./config/env.generated.json";
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
@@ -18,7 +17,6 @@ import Search from './pages/search/search.jsx';
 import Moderation from './pages/moderation.jsx';
 import PublicProfile from './pages/public-profile.jsx';
 import MyProfile from './pages/my-profile.jsx';
-import Profile from './pages/profile.jsx';
 import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
 
@@ -102,7 +100,7 @@ module.exports = (
       <Route path=":issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
-    <Route path="add" component={Add} />
+    <Route path="add" component={Add} onEnter={() => { window.scroll(0, 0); }} />
     <Route path="submitted" component={Submitted} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="tags">
