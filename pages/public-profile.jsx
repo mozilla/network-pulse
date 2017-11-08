@@ -3,20 +3,29 @@ import NotFound from './not-found.jsx';
 import Service from '../js/service';
 import Profile from './profile.jsx';
 import LoadingNotice from '../components/loading-notice.jsx';
+import user from '../js/app-user';
 
 class PublicProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user,
       userProfile: null,
       showLoadingNotice: true
     };
   }
 
   componentDidMount() {
+    user.addListener(this);
+    user.verify(this.props.router.location);
+
     this.fetchProfile(this.props.params.id, newState => {
       this.setState(newState);
     });
+  }
+
+  componentWillUnmount() {
+    user.removeListener(this);
   }
 
   fetchProfile(profileId, response) {
@@ -38,7 +47,7 @@ class PublicProfile extends React.Component {
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
-    return <Profile profile={this.state.userProfile} />;
+    return <Profile profile={this.state.userProfile} user={this.state.user} />;
   }
 
   render() {
