@@ -19,7 +19,8 @@ class Bookmarks extends React.Component{
     return {
       user,
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
-      bookmarksImported: false
+      bookmarksImported: false,
+      showBookmarkPrompt: false
     };
   }
 
@@ -73,6 +74,12 @@ class Bookmarks extends React.Component{
     });
   }
 
+  showBookmarkPrompt(show = false) {
+    if (this.state.showBookmarkPrompt !== show) {
+      this.setState({ showBookmarkPrompt: show });
+    }
+  }
+
   getContentForLoggedInUser() {
     let importHint;
 
@@ -90,7 +97,7 @@ class Bookmarks extends React.Component{
 
     return <div>
             {importHint}
-            <ProjectLoader bookmarkedOnly={true} />
+            {this.state.showBookmarkPrompt ? this.renderHintMessage() : <ProjectLoader bookmarkedOnly={true} showBookmarkPrompt={(show) => this.showBookmarkPrompt(show)} /> }
           </div>;
   }
 
