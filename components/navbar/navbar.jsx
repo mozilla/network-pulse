@@ -49,7 +49,7 @@ class NavBar extends React.Component {
     let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me">Hi, {user.name}</NavLink>;
+      link = <NavLink to="/profile/me">Hi {user.name}</NavLink>;
     }
 
     return <NavListItem className="signupin-user">{link}</NavListItem>;
@@ -90,8 +90,11 @@ class NavBar extends React.Component {
               <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
               { this.renderModeratorLink() }
               { this.renderName() }
-              <NavListItem><NavLink to="/add" className="btn-add"><img src="/assets/svg/icon-plus.svg" /></NavLink></NavListItem>
+              <NavListItem><NavLink to="/add" className="btn-add"><span className="sr-only">Add</span></NavLink></NavListItem>
             </ul>
+            <div className="col-12">
+              <hr className="hr-gradient"></hr>
+            </div>
           </div>
         </div>
       </div>

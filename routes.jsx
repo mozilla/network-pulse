@@ -36,7 +36,7 @@ const Featured = () => {
 
   return <div>
           <Helmet><title>Featured</title></Helmet>
-          <p>Discover & collaborate on projects for a healthy internet. {learnMore}</p>
+          <p className="mb-5">Discover & collaborate on projects for a healthy internet. {learnMore}</p>
           <ProjectLoader featured={`True`} />
         </div>;
 };
@@ -100,7 +100,7 @@ module.exports = (
       <Route path=":issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     </Route>
     <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
-    <Route path="add" component={Add} onEnter={() => { window.scroll(0, 0); }} />
+    <Route path="add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
     <Route path="submitted" component={Submitted} />
     <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
     <Route path="tags">

@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 // mofo-bootstrap bits
 
 @import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
@@ -86,7 +88,7 @@ button {
 }
 
 #main {
-  padding-top: 30px;
+  // padding-top: 30px;
   padding-bottom: 420px;
 
   @media screen and (min-width: $bp-sm) {
@@ -96,6 +98,13 @@ button {
   @media screen and (min-width: $bp-md) {
     padding-bottom: 250px;
   }
+}
+
+hr.hr-gradient {
+  height: 4px;
+  background: linear-gradient(to right, $pulse-pink, $pulse-purple);
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 
 // Form

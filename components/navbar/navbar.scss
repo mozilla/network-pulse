@@ -1,10 +1,18 @@
 $logo-width-small: 170px;
 $logo-width-regular: 204px;
 
+#burger {
+  cursor: pointer;
+  margin-left: 2em;
+  border: 0;
+  background: url(/assets/svg/hamburger.svg) no-repeat;
+  width: 31px;
+  height: 39px;
+}
+
 .navbar {
   display: block;
-  background: $bikeshed-magenta;
-  padding: 1rem 0;
+  padding: 30px 0 0;
   border-radius: 0;
 
   .inner {
@@ -20,15 +28,8 @@ $logo-width-regular: 204px;
     align-self: center;
 
     a {
-      color: transparentize($white, 0.5);
-      text-decoration: none;
-
-      &.active,
-      &:active,
-      &:hover,
-      &:focus {
-        color: $white;
-      }
+      color: $body-color;
+      font-weight: 700;
     }
   }
 
@@ -41,32 +42,44 @@ $logo-width-regular: 204px;
     white-space: nowrap;
     overflow: hidden;
     margin-right: 0 !important;
+    color: $pulse-purple;
+    font-weight: 600;
   }
 
   .btn-add {
-    position: fixed;
-    bottom: $grid-gutter-width-base;
-    right: $grid-gutter-width-base / 2;
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
     font-weight: 300;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    transition: transform 0.5s, color 0.25s, background 0.25s;
-    text-align: center;
+    height: 40px;
+    width: 40px;
     z-index: 1000;
-    background: $black center center no-repeat;
-    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: $pulse-purple;
+    background-image: url(/assets/svg/icon-add.svg);
+    background-size: 15px 15px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-shadow: 2px 2px black;
+    border: 2px solid black;
     cursor: pointer;
 
     &:hover,
     &:active,
     &:focus {
-      background: $link-color;
+      box-shadow: 6px 6px black;
+      transform: translate(-3px, -3px);
     }
 
     &.active {
-      display: none;
+      background-color: black;
+      background-image: url(/assets/svg/icon-add-gray.svg);
+      box-shadow: none;
+      pointer-events: none;
     }
+  }
+
+  hr {
+    margin-top: 34px;
   }
 
   @media screen and (min-width: $bp-lg) {
@@ -82,12 +95,6 @@ $logo-width-regular: 204px;
       max-width: 150px;
       top: 0;
       right: 5.5rem;
-    }
-
-    .btn-add {
-      position: absolute;
-      bottom: -30px;
-      right: 15px;
     }
   }
 
