@@ -8,8 +8,13 @@ import utility from '../../js/utility';
 
 class NavListItem extends React.Component {
   render() {
+    let classes = classNames(`d-inline-block mb-0`, this.props.className, {
+      "mr-0": this.props.noRightMargin,
+      "mr-4": !this.props.noRightMargin
+    });
+
     return (
-      <li className={classNames(`d-inline-block mb-0 mr-4`, this.props.className)}>{this.props.children}</li>
+      <li className={classes}>{this.props.children}</li>
     );
   }
 }
@@ -79,19 +84,28 @@ class NavBar extends React.Component {
       <div className="navbar">
         <div className="container">
           <div className="row open-sans">
-            <div className="col-md-12 col-lg-3">
-              <IndexLink to="/" className="d-inline-block"><img src="/assets/svg/pulse-wordmark.svg" alt="Mozilla Pulse" className="img-fluid logo" /></IndexLink>
+            <div className="col-12 col-lg-9 d-flex flex-column flex-lg-row">
+              <div>
+                <IndexLink to="/" className="d-inline-block">
+                  <img src="/assets/svg/pulse-logo-mobile.svg" alt="Mozilla Pulse" className="logo hidden-md-up" width="30" />
+                  <img src="/assets/svg/pulse-logo.svg" alt="Mozilla Pulse" className="logo hidden-sm-down" width="160" />
+                </IndexLink>
+              </div>
+              <ul className="nav-link-list list-unstyled ml-lg-4 mt-3 mt-lg-0 mb-0">
+                <NavListItem><NavLink to="/featured">Featured</NavLink></NavListItem>
+                <NavListItem><NavLink to="/latest">Latest</NavLink></NavListItem>
+                <NavListItem><NavLink to="/issues">Issues</NavLink></NavListItem>
+                <NavListItem><NavLink to="/favs" className="bookmarks">Favs</NavLink></NavListItem>
+                <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
+                { this.renderModeratorLink() }
+              </ul>
             </div>
-            <ul className="nav-link-list col-md-12 col-lg-9 mt-3 mt-lg-0 mb-0">
-              <NavListItem><NavLink to="/featured">Featured</NavLink></NavListItem>
-              <NavListItem><NavLink to="/latest">Latest</NavLink></NavListItem>
-              <NavListItem><NavLink to="/issues">Issues</NavLink></NavListItem>
-              <NavListItem><NavLink to="/favs" className="bookmarks">Favs</NavLink></NavListItem>
-              <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
-              { this.renderModeratorLink() }
-              { this.renderName() }
-              <NavListItem><NavLink to="/add" className="btn-add"><span className="sr-only">Add</span></NavLink></NavListItem>
-            </ul>
+            <div className="pinned col-12 col-lg-3">
+              <ul className="list-unstyled d-flex justify-content-end mb-0">
+                { this.renderName() }
+                <NavListItem noRightMargin={true}><NavLink to="/add" className="btn-add d-inline-block"><span className="sr-only">Add</span></NavLink></NavListItem>
+              </ul>
+            </div>
             <div className="col-12">
               <hr className="hr-gradient"></hr>
             </div>
