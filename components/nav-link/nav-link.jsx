@@ -9,6 +9,13 @@ class NavLink extends React.Component {
     super(props);
   }
 
+  handleClick() {
+    this.handleInternalPageLinkClick();
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
+  }
+
   handleInternalPageLinkClick() {
     ReactGA.event({
       category: `Nav Link`,
@@ -24,14 +31,15 @@ class NavLink extends React.Component {
       <Link {...this.props}
         className={classes}
         activeClassName="active"
-        onClick={() => this.handleInternalPageLinkClick()}
+        onClick={() => this.handleClick()}
       />
     );
   }
 }
 
 NavLink.propTypes = {
-  to: PropTypes.string.isRequired
+  to: PropTypes.string.isRequired,
+  onClick: PropTypes.func
 };
 
 export default NavLink;

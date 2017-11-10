@@ -43,12 +43,6 @@ class NavBar extends React.Component {
     }
   }
 
-  renderModeratorLink() {
-    if (!user.moderator) return null;
-
-    return <NavListItem><NavLink to="/moderation">Moderation</NavLink></NavListItem>;
-  }
-
   renderName(classes) {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
@@ -84,23 +78,34 @@ class NavBar extends React.Component {
     });
   }
 
+  handleMobileNavLink() {
+    if (this.state.burgerActive) {
+      // make sure the full screen nav menu is hidden after a nav link has been selected
+      this.setState({ burgerActive: false });
+    }
+  }
+
   renderNavList() {
     let classes = classNames(`nav-link-list list-unstyled ml-lg-4 mt-md-3 mt-lg-0 mb-0`, {
       "d-flex": this.state.burgerActive,
       "flex-column": this.state.burgerActive
     });
 
+    let MainNavLink = (props) => <NavLink {...props} onClick={() => this.handleMobileNavLink()}>{props.children}</NavLink>;
+
+    let moderatorLink = user.moderator ? <NavListItem><NavLink to="/moderation">Moderation</NavLink></NavListItem> : null;
+
     return <ul className={classes}>
       <div className="d-flex justify-content-end mb-2 hidden-md-up">
         <button className="btn btn-link" id="btn-dismiss" onClick={() => this.handleBurgerClick()}><img src="/assets/svg/x.svg" width="23" /></button>
       </div>
       { this.renderName(`hidden-md-up`) }
-      <NavListItem><NavLink to="/featured">Featured</NavLink></NavListItem>
-      <NavListItem><NavLink to="/latest">Latest</NavLink></NavListItem>
-      <NavListItem><NavLink to="/issues">Issues</NavLink></NavListItem>
-      <NavListItem><NavLink to="/favs" className="bookmarks">Favs</NavLink></NavListItem>
-      <NavListItem><NavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></NavLink></NavListItem>
-      { this.renderModeratorLink() }
+      <NavListItem><MainNavLink to="/featured">Featured</MainNavLink></NavListItem>
+      <NavListItem><MainNavLink to="/latest">Latest</MainNavLink></NavListItem>
+      <NavListItem><MainNavLink to="/issues">Issues</MainNavLink></NavListItem>
+      <NavListItem><MainNavLink to="/favs" className="bookmarks">Favs</MainNavLink></NavListItem>
+      <NavListItem><MainNavLink to="/search" className="btn-search"><i className="fa fa-search"/><span className="sr-only">Search</span></MainNavLink></NavListItem>
+      { moderatorLink }
     </ul>;
   }
 
