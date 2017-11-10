@@ -50,7 +50,7 @@ class NavBar extends React.Component {
     let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me">Hi {user.name}</NavLink>;
+      link = <NavLink to="/profile/me" onClick={() => this.handleMobileNavLink()}>{user.name}</NavLink>;
     }
 
     return <NavListItem className={classNames(`signupin-user`, classes)}>{link}</NavListItem>;
@@ -97,7 +97,7 @@ class NavBar extends React.Component {
 
     let MainNavLink = (props) => <NavLink {...props} onClick={() => this.handleMobileNavLink()}>{props.children}</NavLink>;
 
-    let moderatorLink = user.moderator ? <NavListItem><NavLink to="/moderation">Moderation</NavLink></NavListItem> : null;
+    let moderatorLink = user.moderator ? <NavListItem><MainNavLink to="/moderation">Moderation</MainNavLink></NavListItem> : null;
 
     return <ul className={classes}>
       <div className="d-flex justify-content-end mb-2 hidden-md-up">
