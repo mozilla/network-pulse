@@ -79,9 +79,13 @@ class NavBar extends React.Component {
   }
 
   handleMobileNavLink() {
+    // FIXME? Probably not the best way to do this but we currently rely on
+    // this.state.burgerActive to tell if mobile nav menu is active or not
+    // (this.state.burgerActive is toggled by clicking on the "burger" icon.
+    // This icon is visible on mobile devices only.)
     if (this.state.burgerActive) {
       // make sure the full screen nav menu is hidden after a nav link has been selected
-      this.setState({ burgerActive: false });
+      this.handleBurgerClick();
     }
   }
 
