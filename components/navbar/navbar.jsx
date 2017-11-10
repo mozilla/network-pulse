@@ -50,7 +50,7 @@ class NavBar extends React.Component {
     let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me" onClick={() => this.handleMobileNavLink()}>{user.name}</NavLink>;
+      link = <NavLink to="/profile/me" onClick={() => this.handleMobileNavLinkClick()}>{user.name}</NavLink>;
     }
 
     return <NavListItem className={classNames(`signupin-user`, classes)}>{link}</NavListItem>;
@@ -78,7 +78,7 @@ class NavBar extends React.Component {
     });
   }
 
-  handleMobileNavLink() {
+  handleMobileNavLinkClick() {
     // FIXME? Probably not the best way to do this but we currently rely on
     // this.state.burgerActive to tell if mobile nav menu is active or not
     // (this.state.burgerActive is toggled by clicking on the "burger" icon.
@@ -95,7 +95,7 @@ class NavBar extends React.Component {
       "flex-column": this.state.burgerActive
     });
 
-    let MainNavLink = (props) => <NavLink {...props} onClick={() => this.handleMobileNavLink()}>{props.children}</NavLink>;
+    let MainNavLink = (props) => <NavLink {...props} onClick={() => this.handleMobileNavLinkClick()}>{props.children}</NavLink>;
 
     let moderatorLink = user.moderator ? <NavListItem><MainNavLink to="/moderation">Moderation</MainNavLink></NavListItem> : null;
 
