@@ -20,7 +20,7 @@ class Bookmarks extends React.Component{
       user,
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
       bookmarksImported: false,
-      showBookmarkPrompt: false
+      displayBookmarkPrompt: false // false because we don't know if there's any bookmarked entry yet
     };
   }
 
@@ -68,19 +68,22 @@ class Bookmarks extends React.Component{
         bookmarkManager.bookmarks.delete();
         this.setState({
           lsBookmarkedIds: [],
-          bookmarksImported: true
+          bookmarksImported: true,
+          displayBookmarkPrompt: false
         });
       }
     });
   }
 
-  showBookmarkPrompt(show = false) {
-    if (this.state.showBookmarkPrompt !== show) {
-      this.setState({ showBookmarkPrompt: show });
-    }
+  showBookmarkPrompt() {
+    this.setState({ displayBookmarkPrompt: true });
   }
 
   getContentForLoggedInUser() {
+    let projects = this.state.displayBookmarkPrompt ? this.renderBookmarkPrompt() : <ProjectLoader
+      bookmarkedOnly={true}
+      showBookmarkPrompt={() => this.showBookmarkPrompt()}
+    />;
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
@@ -96,13 +99,13 @@ class Bookmarks extends React.Component{
     }
 
     return <div>
-            {importHint}
-            {this.state.showBookmarkPrompt ? this.renderHintMessage() : <ProjectLoader bookmarkedOnly={true} showBookmarkPrompt={(show) => this.showBookmarkPrompt(show)} /> }
-          </div>;
+      { importHint }
+      { projects }
+    </div>;
   }
 
   getAnonymousContent() {
-    let bookmarkedProjects = this.renderHintMessage();
+    let bookmarkedProjects = this.renderBookmarkPrompt();
 
     if (this.state.lsBookmarkedIds.length > 0) {
       bookmarkedProjects = <ProjectLoader ids={this.state.lsBookmarkedIds} />;
@@ -119,7 +122,7 @@ class Bookmarks extends React.Component{
     return this.getAnonymousContent();
   }
 
-  renderHintMessage() {
+  renderBookmarkPrompt() {
     return <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
                        header="Save your Favs"
                        linkComponent={<Link to={`/featured`}>Explore featured</Link>}>

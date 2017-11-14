@@ -134,8 +134,8 @@ class ProjectLoader extends React.Component {
     this.setState(currentListInfo);
 
     // show bookmark prompt when needed
-    if (this.props.bookmarkedOnly) {
-      this.props.showBookmarkPrompt(currentListInfo.entries.length === 0);
+    if (this.props.bookmarkedOnly && currentListInfo.entries.length === 0) {
+      this.props.showBookmarkPrompt();
     }
   }
 
