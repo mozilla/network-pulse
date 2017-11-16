@@ -42,8 +42,8 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`d-inline-block social-media default-text-color-link`, {
-        "mr-3" : i !== list.length-1
+      let classname = classNames(`d-inline-block social-media default-text-color-link px-2 px-sm-0`, {
+        "mr-sm-3" : i !== list.length-1
       });
 
       return <a href={link} target="_blank" className={classname} key={type}><span className={`fa fa-${type}`}></span></a>;
