@@ -14,7 +14,7 @@
 
 .navbar {
   display: block;
-  padding: 30px 0 0;
+  padding: 24px 0 0;
   border-radius: 0;
 
   .inner {
@@ -31,11 +31,18 @@
     background: rgba(0, 0, 0, 0.9);
     z-index: 1000000;
     padding: 1rem $grid-gutter-width-base/2;
+    overflow: auto;
 
     a {
       color: white;
       font-weight: 600;
       font-size: 26px;
+    }
+
+    a.active,
+    a.active > i.fa,
+    a:hover > i.fa {
+      text-decoration: underline;
     }
   }
 
@@ -70,11 +77,14 @@
     box-shadow: 2px 2px black;
     border: 2px solid black;
     cursor: pointer;
+    position: relative;
+    top: 3px;
+    transition: all 0.25s ease;
 
     &:hover,
     &:active,
     &:focus {
-      box-shadow: 6px 6px black;
+      box-shadow: 5px 5px black;
       transform: translate(-3px, -3px);
     }
 
@@ -87,7 +97,8 @@
   }
 
   hr {
-    margin-top: 34px;
+    margin-top: 25px;
+    margin-bottom: 25px;
   }
 
   @media screen and (min-width: $bp-md) {

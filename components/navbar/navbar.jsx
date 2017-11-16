@@ -131,7 +131,7 @@ class NavBar extends React.Component {
               </IndexLink>
               { this.renderNavList() }
             </div>
-            <div className="pinned col-12 col-lg-3">
+            <div className="pinned col-6 col-lg-3">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 { this.renderName(`hidden-sm-down`) }
                 <NavListItem noMargin={true}><NavLink to="/add" className="btn-add d-inline-block"><span className="sr-only">Add</span></NavLink></NavListItem>
