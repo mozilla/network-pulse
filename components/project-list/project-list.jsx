@@ -52,7 +52,7 @@ class ProjectList extends React.Component {
 
   render() {
     return (<div className="project-list">
-              <div className="projects row justify-content-center">
+              <div className="projects row">
                 { this.renderProjectCards() }
               </div>
               { this.renderLoadingNotice() }
