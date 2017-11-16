@@ -17,7 +17,7 @@ export default {
 
     if (_dntStatus !== `Enabled`){
       // if user doesn't have Do Not Track turned on, initialize GA script
-      ReactGA.initialize(`UA-87658599-4`);
+      ReactGA.initialize(`UA-87658599-4`, {debug: true});
     }
   },
   logPageView: function() {
