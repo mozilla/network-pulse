@@ -99,11 +99,9 @@ function renderPage(appHtml,reactHelmet) {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta charset="utf-8">
                 <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
-                <link rel="icon" type="image/png" sizes="36x36" href="/favicon.png">
-                <link rel="icon" type="image/png" sizes="128x128" href="/assets/favicons/favicon-128x128@2x.png">
-                <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/favicons/touch-icon-ipad.png">
-                <link rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/favicons/touch-icon-ipad-retina.png">
-                <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/touch-icon-iphone-retina.png">
+                <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
+                <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
+                <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
                 <link rel="manifest" href="/manifest.json">
                 <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
                 <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
