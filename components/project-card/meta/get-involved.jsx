@@ -10,7 +10,10 @@ class GetInvolved extends React.Component {
   }
 
   handleGetInvolvedLinkClick() {
-    this.props.sendGaEvent(`Get involved link tap`, `beacon`);
+    this.props.sendGaEvent({
+      action: `Get involved link tap`,
+      transport: `beacon`
+    });
   }
 
   renderGetInvolvedText() {

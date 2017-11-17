@@ -7,6 +7,7 @@ import classNames from 'classnames';
 class Bio extends React.Component {
   constructor(props) {
     super(props);
+    this.profileOwnerName = props.custom_name || props.name;
   }
 
   renderThumbnail() {
@@ -31,9 +32,7 @@ class Bio extends React.Component {
   }
 
   renderName() {
-    return <div className="name mr-sm-4 text-truncate mw-100">
-      {this.props.custom_name || this.props.name}
-    </div>;
+    return <div className="name mr-sm-4 text-truncate mw-100">{this.profileOwnerName}</div>;
   }
 
   renderSocialMedia() {
@@ -46,7 +45,7 @@ class Bio extends React.Component {
         "mr-sm-3" : i !== list.length-1
       });
 
-      return <a href={link} target="_blank" className={classname} key={type}><span className={`fa fa-${type}`}></span></a>;
+      return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}><span className={`fa fa-${type}`}></span></a>;
     });
 
     return <div>{list}</div>;
@@ -56,6 +55,15 @@ class Bio extends React.Component {
     if (!this.props.my_profile) return null;
 
     return <div className="ml-sm-3"><button className="btn btn-link inline-link default-text-color-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></div>;
+  }
+
+  handleSocialMediaClick(event, type) {
+    ReactGA.event({
+      category: `Profile`,
+      action: `Social link tap`,
+      label: `${this.profileOwnerName} - ${type}`,
+      transport: `beacon`
+    });
   }
 
   handleLogOutBtnClick(event) {

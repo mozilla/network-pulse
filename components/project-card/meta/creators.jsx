@@ -11,11 +11,12 @@ const Creators = (props) => {
 
   props.creators.forEach((creator)=>{
     // Link to creators with a profile, plain text name if without.
+    let name = creator.name;
     let url = null;
     if(typeof creator.profile_id === `number` && props.makeLink) {
       url = `/profile/${creator.profile_id}`;
     }
-    creators.push( <a key={creator.name} href={url}>{creator.name}</a> );
+    creators.push( <a key={name} href={url} onClick={(event) => props.creatorClickHandler(event, name)}>{name}</a> );
     creators.push( `, `);
   });
 
@@ -29,7 +30,8 @@ const Creators = (props) => {
 Creators.propTypes = {
   creators: PropTypes.arrayOf(PropTypes.object).isRequired,
   showLabelText: PropTypes.bool,
-  makeLink: PropTypes.bool
+  makeLink: PropTypes.bool,
+  creatorClickHandler: PropTypes.func.isRequired
 };
 
 Creators.defaultProps = {
