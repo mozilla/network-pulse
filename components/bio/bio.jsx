@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
 import { browserHistory, Link } from 'react-router';
 import classNames from 'classnames';
+import Utility from '../../js/utility.js';
 
 class Bio extends React.Component {
   constructor(props) {
@@ -109,7 +110,9 @@ class Bio extends React.Component {
     if (!type || tags.length < 1) { return null; }
 
     tags = tags.map(tag => {
-      return <Link to={`/${type}/${encodeURIComponent(tag)}`} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
+      let link = `/${type}/${type === `issues` ? Utility.getUriPathFromIssueName(tag) : encodeURIComponent(tag)}`;
+
+      return <Link to={link} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
     });
 
     return <div className="tags mb-1">
