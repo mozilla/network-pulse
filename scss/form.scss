@@ -1,5 +1,24 @@
 // most of the following CSS rules are to style form elements created by the "react-formbuilder" library
 
+.inline.error {
+  &::before {
+    font-family: "FontAwesome";
+    content: "\f00d";
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-style: normal;
+  }
+}
+
+.error.form-control {
+  border-color: $form-error-color;
+
+  + .char-limit,
+  + .word-limit {
+    color: $form-error-color;
+  }
+}
+
 .checkboxGroup {
   label {
     @extend .form-check-label;
