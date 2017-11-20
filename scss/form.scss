@@ -1,10 +1,13 @@
+$field-hint-top-spacing: 5px;
+$field-hint-font-size: 0.875rem;
+
 // most of the following CSS rules are to style form elements created by the "react-formbuilder" library
 
 .inline.error {
   color: $form-error-color;
   font-style: italic;
-  font-size: 0.875rem;
-  margin-top: 5px;
+  font-size: $field-hint-font-size;
+  margin-top: $field-hint-top-spacing;
 
   &::before {
     font-family: "FontAwesome";
@@ -60,8 +63,8 @@ span.char-limit {
   position: absolute;
   right: $grid-gutter-width-base/2;
   color: $form-text-light;
-  font-size: 0.875rem;
-  padding-top: 5px;
+  font-size: $field-hint-font-size;
+  padding-top: $field-hint-top-spacing;
 }
 
 .over-char-limit {
