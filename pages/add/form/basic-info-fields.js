@@ -13,7 +13,8 @@ module.exports = {
     ],
     charLimit: 80,
     charLimitText: function(charCount, charLimit) {
-      return `${charCount}/${charLimit}`;
+      // show a twitter-style "characters remainig" count
+      return charLimit - charCount;
     }
   },
   'content_url': { // required field

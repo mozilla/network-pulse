@@ -1,6 +1,11 @@
 // most of the following CSS rules are to style form elements created by the "react-formbuilder" library
 
 .inline.error {
+  color: $form-error-color;
+  font-style: italic;
+  font-size: 0.875rem;
+  margin-top: 5px;
+
   &::before {
     font-family: "FontAwesome";
     content: "\f00d";
@@ -52,10 +57,11 @@ p.guide-text {
 }
 
 span.char-limit {
-  text-align: right;
-  width: 100%;
-  display: inline-block;
+  position: absolute;
+  right: $grid-gutter-width-base/2;
   color: $form-text-light;
+  font-size: 0.875rem;
+  padding-top: 5px;
 }
 
 .over-char-limit {
