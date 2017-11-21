@@ -85,7 +85,7 @@ class Bio extends React.Component {
     let meta = text;
 
     if (link) {
-      meta = <a href={link} className="default-text-color-link">{text}</a>;
+      meta = <a href={link} className="default-text-color-link" onClick={(event) => this.handleSocialMediaClick(event, type)}>{text}</a>;
     }
 
     return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;
