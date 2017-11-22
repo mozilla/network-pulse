@@ -157,7 +157,7 @@ class DetailedProjectCard extends React.Component {
         </div>
         <div className="row">
           <div className="col-12 col-md-8">
-            <p className="report-correction mt-3 pt-3"><small>Correction? <a href="https://mzl.la/pulse-contact">Contact us</a>.</small></p>
+            <p className="report-correction mt-md-3 pt-md-3"><small>Correction? <a href="https://mzl.la/pulse-contact">Contact us</a>.</small></p>
           </div>
         </div>
       </div>
