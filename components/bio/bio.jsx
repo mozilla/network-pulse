@@ -28,7 +28,7 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3"><Link to="/myprofile" className="default-text-color-link">Edit your profile</Link></div>;
+    return <div className="mt-3"><Link to="/myprofile">Edit your profile</Link></div>;
   }
 
   renderName() {
@@ -43,7 +43,7 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`d-inline-block social-media default-text-color-link px-2 px-sm-0`, {
+      let classname = classNames(`d-inline-block social-media px-2 px-sm-0`, {
         "mr-sm-3" : i !== list.length-1
       });
 
@@ -56,7 +56,7 @@ class Bio extends React.Component {
   renderSignOut() {
     if (!this.props.my_profile) return null;
 
-    return <div className="ml-sm-3"><button className="btn btn-link inline-link default-text-color-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></div>;
+    return <div className="ml-sm-3"><button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></div>;
   }
 
   handleLogOutBtnClick(event) {
@@ -78,7 +78,7 @@ class Bio extends React.Component {
     let meta = text;
 
     if (link) {
-      meta = <a href={link} className="default-text-color-link">{text}</a>;
+      meta = <a href={link}>{text}</a>;
     }
 
     return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;

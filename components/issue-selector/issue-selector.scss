@@ -8,11 +8,11 @@
     margin-bottom: 10px;
 
     &.active,
-    &:hover {
+    &:active,
+    &:hover,
+    &:focus {
       color: $bikeshed-magenta;
       border-color: $bikeshed-magenta;
-      text-decoration: none;
-      background: none;
     }
   }
 }

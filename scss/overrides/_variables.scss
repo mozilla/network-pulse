@@ -19,8 +19,9 @@ $form-error-color: #d24735;
 // mofo-bootstrap overrides
 
 $body-color: $black;
-$link-color: $mobile-blue;
+$link-color: inherit;
 $link-hover-color: darken($mobile-blue, 15%);
+$link-decoration: underline;
 $font-weight-normal: normal;
 $btn-border-radius: 4px;
 $btn-border-radius-sm: $btn-border-radius;

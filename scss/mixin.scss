@@ -17,3 +17,11 @@
     bottom: 0;
   }
 }
+
+@mixin link-text-decoration($normal-state: $link-decoration, $hover-state: $link-decoration) {
+  text-decoration: $normal-state;
+
+  @include hover-focus-active {
+    text-decoration: $hover-state;
+  }
+}

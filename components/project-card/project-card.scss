@@ -25,6 +25,12 @@
     }
   }
 
+  .title {
+    a {
+      @include link-text-decoration(none);
+    }
+  }
+
   .action-panel {
     display: flex;
     flex-direction: row;
