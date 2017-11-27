@@ -23,17 +23,15 @@ class DetailedProjectCard extends React.Component {
     };
   }
 
-  sendGaEvent(action = ``, transport = ``) {
-    let config = {
+  sendGaEvent(config) {
+    config = Object.assign({
       category: `Entry`,
-      action: action,
+      action: ``,
       label: this.props.title
-    };
+    }, config);
 
-    if (transport) {
-      config.transport = transport;
-    }
-
+    // config usually contains the following properties:
+    // category, action, label, transport
     ReactGA.event(config);
   }
 
@@ -62,12 +60,32 @@ class DetailedProjectCard extends React.Component {
     this.setState({ bookmarked: isBookmarked });
   }
 
+  handleCreatorClick(event, creator) {
+    this.sendGaEvent({
+      action: `Creator tap`,
+      label: `${this.props.title} - ${creator}`
+    });
+  }
+
+  handlePublisherClick(event, publisher) {
+    this.sendGaEvent({
+      action: `Submitter tap`,
+      label: `${this.props.title} - ${publisher}`
+    });
+  }
+
   handleTwitterShareClick() {
-    this.sendGaEvent(`Twitter share tap`, `beacon`);
+    this.sendGaEvent({
+      action: `Twitter share tap`,
+      transport: `beacon`
+    });
   }
 
   handleVisitBtnClick() {
-    this.sendGaEvent(`Visit button tap`, `beacon`);
+    this.sendGaEvent({
+      action: `Visit button tap`,
+      transport: `beacon`
+    });
   }
 
   renderVisitButton() {
@@ -80,7 +98,7 @@ class DetailedProjectCard extends React.Component {
     if (!this.props.created && !this.props.publishedBy) return null;
 
     let timePosted = this.props.created ? ` ${moment(this.props.created).format(`MMM DD, YYYY`)}` : null;
-    let publishedBy = this.props.publishedBy ? <span> by <Link to={`/profile/${this.props.submitterProfileId}`}>{this.props.publishedBy}</Link></span> : null;
+    let publishedBy = this.props.publishedBy ? <span> by <Link to={`/profile/${this.props.submitterProfileId}`} onClick={(event) => this.handlePublisherClick(event,this.props.publishedBy)}>{this.props.publishedBy}</Link></span> : null;
 
     return (
       <p><small className="time-posted d-block">
@@ -110,7 +128,11 @@ class DetailedProjectCard extends React.Component {
             <div className="row">
               <div className="col-12 col-sm-8">
                 <Title title={this.props.title} className="mb-1" />
-                <Creators creators={this.props.relatedCreators} showLabelText={true} />
+                <Creators
+                  creators={this.props.relatedCreators}
+                  showLabelText={true}
+                  creatorClickHandler={(event, name) => this.handleCreatorClick(event, name)}
+                />
               </div>
             </div>
           </div>;
@@ -137,7 +159,7 @@ class DetailedProjectCard extends React.Component {
               <GetInvolved getInvolved={this.props.getInvolved}
                            getInvolvedUrl={this.props.getInvolvedUrl}
                            helpTypes={this.props.helpTypes}
-                           sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
+                           sendGaEvent={(config) => this.sendGaEvent(config)} />
             </div>;
   }
 
