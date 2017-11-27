@@ -1,4 +1,31 @@
+$field-hint-top-spacing: 5px;
+$field-hint-font-size: 0.875rem;
+
 // most of the following CSS rules are to style form elements created by the "react-formbuilder" library
+
+.inline.error {
+  color: $form-error-color;
+  font-style: italic;
+  font-size: $field-hint-font-size;
+  margin-top: $field-hint-top-spacing;
+
+  &::before {
+    font-family: "FontAwesome";
+    content: "\f00d";
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-style: normal;
+  }
+}
+
+.error.form-control {
+  border-color: $form-error-color;
+
+  + .char-limit,
+  + .word-limit {
+    color: $form-error-color;
+  }
+}
 
 .checkboxGroup {
   label {
@@ -33,10 +60,11 @@ p.guide-text {
 }
 
 span.char-limit {
-  text-align: right;
-  width: 100%;
-  display: inline-block;
+  position: absolute;
+  right: $grid-gutter-width-base/2;
   color: $form-text-light;
+  font-size: $field-hint-font-size;
+  padding-top: $field-hint-top-spacing;
 }
 
 .over-char-limit {

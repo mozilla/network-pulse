@@ -22,19 +22,18 @@ class ProjectCard extends React.Component {
     };
   }
 
-  sendGaEvent(action = ``, transport = ``) {
-    let config = {
+  sendGaEvent(config) {
+    config = Object.assign({
       category: `Entry`,
-      action: action,
+      action: ``,
       label: this.props.title
-    };
+    }, config);
 
-    if (transport) {
-      config.transport = transport;
-    }
-
+    // config usually contains the following properties:
+    // category, action, label, transport
     ReactGA.event(config);
   }
+
 
   componentDidMount() {
     this.setInitialBookmarkedStatus();
@@ -61,8 +60,17 @@ class ProjectCard extends React.Component {
     this.setState({ bookmarked: isBookmarked });
   }
 
+  handleCreatorClick(event, creator) {
+    this.sendGaEvent({
+      action: `Creator tap`,
+      label: `${this.props.title} - ${creator}`
+    });
+  }
+
   handleReadMoreClick() {
-    this.sendGaEvent(`Read More`);
+    this.sendGaEvent({
+      action: `Read More`,
+    });
   }
 
   renderActionPanel() {
@@ -93,7 +101,7 @@ class ProjectCard extends React.Component {
               <GetInvolved getInvolved={this.props.getInvolved}
                            getInvolvedUrl={this.props.getInvolvedUrl}
                            helpTypes={this.props.helpTypes}
-                           sendGaEvent={(action, transport) => this.sendGaEvent(action, transport)} />
+                           sendGaEvent={(config) => this.sendGaEvent(config)} />
           </div>;
   }
 
@@ -104,7 +112,7 @@ class ProjectCard extends React.Component {
       { label: `Link`, link: this.props.contentUrl },
       { label: `Help`, link: this.props.getInvolvedUrl }
     ].map(url => {
-      return url.link && <li>{url.label}: <a href={url.link} target="_blank">{url.link}</a></li>;
+      return url.link && <li key={url.label}>{url.label}: <a href={url.link} target="_blank">{url.link}</a></li>;
     });
 
     return <ul className="list-unstyled">{urls}</ul>;
@@ -138,7 +146,10 @@ class ProjectCard extends React.Component {
                 />
                 { this.renderActionPanel() }
               </div>
-              <Creators creators={this.props.relatedCreators} />
+              <Creators
+                creators={this.props.relatedCreators}
+                creatorClickHandler={(event, name) => this.handleCreatorClick(event, name)}
+              />
               { this.props.onModerationMode && <Description description={this.props.description} /> }
               { this.renderExtraMeta() }
               { this.renderFullUrlSection() }
