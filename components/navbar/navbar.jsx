@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { IndexLink } from 'react-router';
+import { NavLink as ReactRouterNavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import NavLink from '../nav-link/nav-link.jsx';
 import user from '../../js/app-user';
 import utility from '../../js/utility';
+
 
 class NavListItem extends React.Component {
   render() {
@@ -125,10 +126,10 @@ class NavBar extends React.Component {
         <div className="container">
           <div className="row open-sans align-items-center">
             <div className="col-12 col-lg-9 d-flex flex-column flex-lg-row" id="main-nav-wrapper">
-              <IndexLink to="/" className="d-inline-block">
+              <ReactRouterNavLink to="/" className="d-inline-block">
                 <img src="/assets/svg/pulse-logo-mobile.svg" alt="Mozilla Pulse" className="logo hidden-md-up" width="40" />
                 <img src="/assets/svg/pulse-logo.svg" alt="Mozilla Pulse" className="logo hidden-sm-down" width="187" />
-              </IndexLink>
+              </ReactRouterNavLink>
               { this.renderNavList() }
             </div>
             <div className="pinned col-6 col-lg-3">

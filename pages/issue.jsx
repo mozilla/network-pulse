@@ -5,7 +5,7 @@ import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import Utility from '../js/utility.js';
 
 export default function (props) {
-  const issueName = Utility.getIssueNameFromUriPath(props.params.issue);
+  const issueName = Utility.getIssueNameFromUriPath(props.match.params.issue);
 
   return <div>
             <Helmet><title>{issueName}</title></Helmet>

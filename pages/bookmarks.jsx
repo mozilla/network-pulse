@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import HintMessage from '../components/hint-message/hint-message.jsx';
@@ -34,7 +34,7 @@ class Bookmarks extends React.Component{
     });
 
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
   }
 
   componentWillUnmount() {
@@ -141,9 +141,7 @@ class Bookmarks extends React.Component{
 }
 
 Bookmarks.propTypes = {
-  router: PropTypes.shape({
-    location: PropTypes.object
-  }).isRequired
+  location: PropTypes.object
 };
 
 export default Bookmarks;

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import Analytics from './js/analytics.js';
 import pageSettings from './js/app-page-settings';
 import env from "./config/env.generated.json";
 
@@ -49,19 +50,53 @@ const Latest = () => {
 };
 
 const Help = (router) => {
-  let searchParam = { key: `help_type`, value: router.params.helpType };
+  let searchParam = { key: `help_type`, value: router.match.params.helpType };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Help" />;
 };
 
 const Tag = (router) => {
-  let searchParam = { key: `tag`, value: router.params.tag };
+  let searchParam = { key: `tag`, value: router.match.params.tag };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
+
+const Main = () => (
+    <Switch>
+      <Route exact path="/" render={() => <Redirect to="/featured"/>} />
+      <Route path="/featured" component={Featured} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/latest" component={Latest} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/favs" component={Bookmarks} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route exact path="/issues" component={Issues} />
+      <Route path="/issues/:issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
+      <Route path="/add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
+      <Route path="/submitted" component={Submitted} />
+      <Route path="/search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
+      <Route path="/tags/:tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
+      <Route path="/help/:helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/profile/me" component={MyProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/profile/:id" component={PublicProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/myprofile" component={ProfileEdit} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="*" component={NotFound}/>
+
+    </Switch>
+);
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.pageTitle = `Mozilla Network Pulse`;
+  }
+
+  componentDidMount() {
+    Analytics.logPageView();
+  }
+
+  componentDidUpdate() {
+    console.log(`>>>>>`, window.location.href, document.title);
+    Analytics.logPageView();
   }
 
   render() {
@@ -70,15 +105,16 @@ class App extends React.Component {
         <Helmet titleTemplate={`%s - ${this.pageTitle}`}
                 defaultTitle={this.pageTitle}>
         </Helmet>
-        <Navbar router={this.props.router}/>
+        <Navbar />
         <div id="main" className="container">
-          {this.props.children}
+          <Main />
         </div>
         <Footer/>
       </div>
     );
   }
 }
+
 
 // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
 // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
@@ -89,34 +125,4 @@ class App extends React.Component {
 // PageSettings is used to preserve a project list view state.
 // Attach route enter hook pageSettings.setCurrentPathname(evt.location.pathname)
 // *only* to routes that render a list of projects.
-module.exports = (
-  <Route path="/" component={App}>
-    <IndexRedirect to="/featured" />
-    <Route path="featured" component={Featured} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="latest" component={Latest} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="favs" component={Bookmarks} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="issues">
-      <IndexRoute component={Issues} />
-      <Route path=":issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    </Route>
-    <Route path="entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
-    <Route path="add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
-    <Route path="submitted" component={Submitted} />
-    <Route path="search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="tags">
-      <IndexRedirect to="/latest" />
-      <Route path=":tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    </Route>
-    <Route path="help">
-      <IndexRedirect to="/latest" />
-      <Route path=":helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    </Route>
-    <Route path="moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="profile">
-      <Route path="me" component={MyProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path=":id" component={PublicProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    </Route>
-    <Route path="myprofile" component={ProfileEdit} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-    <Route path="*" component={NotFound}/>
-  </Route>
-);
+export default App;

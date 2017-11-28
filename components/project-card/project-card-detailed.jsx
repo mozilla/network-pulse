@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';

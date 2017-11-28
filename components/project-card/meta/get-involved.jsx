@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
 

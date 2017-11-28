@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import IssueSelector from '../../components/issue-selector/issue-selector.jsx';
 import Service from '../../js/service';
 import Utility from '../../js/utility';

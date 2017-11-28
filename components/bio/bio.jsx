@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactGA from 'react-ga';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import Utility from '../../js/utility.js';
+import SignOutButton from '../sign-out-button.jsx';
 
 class Bio extends React.Component {
   constructor(props) {
@@ -55,31 +55,7 @@ class Bio extends React.Component {
   renderSignOut() {
     if (!this.props.my_profile) return null;
 
-    return <div className="ml-sm-3"><button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></div>;
-  }
-
-  handleSocialMediaClick(event, type) {
-    ReactGA.event({
-      category: `Profile`,
-      action: `Social link tap`,
-      label: `${this.profileOwnerName} - ${type}`,
-      transport: `beacon`
-    });
-  }
-
-  handleLogOutBtnClick(event) {
-    event.preventDefault();
-
-    ReactGA.event({
-      category: `Account`,
-      action: `Logout`,
-      label: `Logout ${window.location.pathname}`,
-    });
-
-    this.props.user.logout();
-    browserHistory.push({
-      pathname: `/featured`
-    });
+    return <div className="ml-sm-3"><SignOutButton user={this.props.user} history={this.props.history} /></div>;
   }
 
   renderMeta(type, text, link) {

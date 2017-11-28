@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import NotFound from './not-found.jsx';
 import Service from '../js/service';
@@ -20,7 +20,7 @@ class MyProfile extends React.Component {
 
   componentDidMount() {
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
   }
 
   componentWillUnmount() {
@@ -32,7 +32,7 @@ class MyProfile extends React.Component {
     if (event === `verified` ) {
       this.setState({ user }, () => {
         if (this.state.user.loggedin) {
-          this.fetchProfile(this.props.params.id, newState => {
+          this.fetchProfile(this.props.match.params.id, newState => {
             this.setState(newState);
           });
         }
@@ -72,7 +72,7 @@ class MyProfile extends React.Component {
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
-    return <Profile profile={this.state.userProfile} user={this.state.user} />;
+    return <Profile profile={this.state.userProfile} user={this.state.user} history={this.props.history} />;
   }
 
   getContentForLoggedInUser() {

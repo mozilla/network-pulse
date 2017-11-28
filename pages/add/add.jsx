@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
+import SignOutButton from '../../components/sign-out-button.jsx';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 import Service from '../../js/service.js';
 import utility from '../../js/utility';
@@ -43,7 +44,7 @@ class Add extends React.Component {
 
   componentDidMount() {
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
   }
 
   componentWillUnmount() {
@@ -68,21 +69,6 @@ class Add extends React.Component {
     });
 
     user.login(utility.getCurrentURL());
-  }
-
-  handleLogOutBtnClick(event) {
-    event.preventDefault();
-
-    ReactGA.event({
-      category: `Account`,
-      action: `Logout`,
-      label: `Logout ${window.location.pathname}`,
-    });
-
-    user.logout();
-    browserHistory.push({
-      pathname: `/featured`
-    });
   }
 
   handleCreatorClick(event) {
@@ -145,14 +131,14 @@ class Add extends React.Component {
     .get(entryId)
     .then(result => {
       if(result) {
-        browserHistory.push({
+        this.props.history.push({
           pathname: `/entry/${entryId}`,
           query: {
             justPostedByUser: true
           }
         });
       } else {
-        browserHistory.push({
+        this.props.history.push({
           pathname: `/submitted`,
           query: { entryId }
         });
@@ -161,7 +147,7 @@ class Add extends React.Component {
     .catch(reason => {
       // a 404 is yielded as an error by Service.entry
       console.error(reason);
-      browserHistory.push({
+      this.props.history.push({
         pathname: `/submitted`,
         query: { entryId }
       });
@@ -196,7 +182,7 @@ class Add extends React.Component {
                 <h2>Basic Info</h2>
                 <div className="posted-by">
                   <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
-                  <p className="d-inline-block text-muted">Not you? <button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button>.</p>
+                  <p className="d-inline-block text-muted">Not you? <SignOutButton user={user} history={this.props.history} />.</p>
                 </div>
                 <Form ref="basicForm" fields={basicInfoFields}
                                        inlineErrors={true}

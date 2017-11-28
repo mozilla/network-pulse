@@ -2,6 +2,7 @@ import ReactGA from 'react-ga';
 
 export default {
   initialize: function() {
+    console.log(`[APP] 123`);
     var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
     var fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/);
     var ie10Match = navigator.userAgent.match(/MSIE 10/i);
@@ -24,7 +25,7 @@ export default {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference#set
     ReactGA.set({ page: window.location.pathname });
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#location
-    ReactGA.set({ location: window.location.href });
+    ReactGA.set({ location: window.location.href, title: window.title });
 
     ReactGA.pageview(`${window.location.pathname}/${window.location.search}`);
   }

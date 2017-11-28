@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Analytics from './js/analytics.js';
-import routes from './routes.jsx';
+import App from './routes.jsx';
 
 Analytics.initialize();
 
-let routerUpdateHandler = function() {
-  Analytics.logPageView();
-};
-
 ReactDOM.render((
-  <Router routes={routes} history={browserHistory} onUpdate={routerUpdateHandler} />
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 ), document.getElementById(`app`));

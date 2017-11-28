@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
 import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
@@ -28,7 +27,7 @@ class Entry extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(this.props.params.entryId);
+    this.fetchData(this.props.match.params.entryId);
   }
 
   fetchData(entryId = ``) {
@@ -51,7 +50,7 @@ class Entry extends React.Component {
   }
 
   checkIfRedirectedFromFormSubmission() {
-    let location = this.props.router.location;
+    let location = this.props.location;
     let query = location.query;
     let justPostedByUser;
 
@@ -60,7 +59,7 @@ class Entry extends React.Component {
 
       // remove 'justPostedByUser' query from URL
       delete query.justPostedByUser;
-      browserHistory.replace({
+      this.props.history.replace({
         pathname: location.pathname,
         query: query
       });

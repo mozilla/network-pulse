@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import IssuesField from '../../../components/form-fields/issues.jsx';
 import validator from './validator';
 import Creators from './creators';
