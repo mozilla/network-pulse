@@ -8,6 +8,7 @@
 @import './overrides/variables.scss';
 @import '../node_modules/bootstrap/scss/mixins';
 @import '../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss';
+@import '../node_modules/bootstrap/scss/reboot.scss';
 @import '../node_modules/bootstrap/scss/buttons.scss';
 @import '../node_modules/bootstrap/scss/forms.scss';
 @import '../node_modules/bootstrap/scss/grid.scss';
@@ -34,24 +35,6 @@ h2 {
   font-weight: 500;
 }
 
-a {
-  color: $link-color;
-
-  @include hover {
-    color: $link-hover-color;
-  }
-}
-
-a.default-text-color-link,
-.btn-link.default-text-color-link {
-  color: inherit;
-  text-decoration: underline;
-
-  @include hover {
-    color: $link-hover-color;
-  }
-}
-
 .btn-link {
   &.inline-link {
     font-family: inherit;
@@ -60,12 +43,14 @@ a.default-text-color-link,
     vertical-align: inherit;
     padding: 0;
     border: 0;
+
+    @include link-text-decoration;
   }
 }
 
 .btn,
 button {
-  cursor: pointer;
+  @include link-text-decoration(none, none);
 }
 
 .btn-xs {

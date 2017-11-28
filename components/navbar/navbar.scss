@@ -1,5 +1,4 @@
 #burger {
-  cursor: pointer;
   margin-left: 1rem;
   border: 0;
   background: url(/assets/svg/hamburger.svg) no-repeat;
@@ -19,6 +18,10 @@
 
   .inner {
     position: relative;
+  }
+
+  a {
+    @include link-text-decoration(none);
   }
 
   .nav-link-list {
@@ -116,7 +119,6 @@
 
       a {
         color: $body-color;
-        font-weight: 600;
         font-size: inherit;
       }
     }
