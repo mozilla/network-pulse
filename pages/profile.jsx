@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Helmet } from "react-helmet";
 import Bio from '../components/bio/bio.jsx';
 import ProjectList from '../components/project-list/project-list.jsx';
-import pageSettings from '../js/app-page-settings';
 
 class Profile extends React.Component {
   constructor(props) {

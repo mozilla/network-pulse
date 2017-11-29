@@ -3,7 +3,6 @@ import ReactGA from 'react-ga';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Analytics from './js/analytics.js';
-import pageSettings from './js/app-page-settings';
 import env from "./config/env.generated.json";
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
