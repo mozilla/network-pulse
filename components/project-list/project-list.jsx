@@ -14,7 +14,7 @@ class ProjectList extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     pageSettings.setCurrentPathname(window.location.pathname);
   }
 
