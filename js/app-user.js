@@ -29,11 +29,9 @@ const Login = {
       let query = qs.parse(location.search.substring(1));
 
       if (query.loggedin) {
-        delete location.query.loggedin;
-        history.replace({
-          pathname: location.pathname,
-          query: query
-        });
+        delete query.loggedin;
+        location.search = `?${qs.stringify(query)}`;
+        history.replace(location);
       }
     }
 
@@ -121,7 +119,7 @@ class User {
     window.location = Login.getLoginURL(redirectUrl);
   }
 
-  verify(location) {
+  verify(location, history) {
     Login.isLoggedIn(location, history, (error, username, customName, email, moderator) => {
       this.update(error, username, customName, email, moderator);
     });

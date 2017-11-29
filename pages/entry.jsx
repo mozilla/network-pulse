@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
+import qs from 'qs';
 import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
@@ -56,7 +57,7 @@ class Entry extends React.Component {
 
   checkIfRedirectedFromFormSubmission() {
     let location = this.props.location;
-    let query = location.query;
+    let query = qs.parse(location.search.substring(1));
     let justPostedByUser;
 
     if (query && query.justPostedByUser) {

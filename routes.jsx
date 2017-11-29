@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import { withRouter } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Analytics from './js/analytics.js';
@@ -82,6 +83,8 @@ const Main = () => (
     </Switch>
 );
 
+const NavbarWithRouter = withRouter(Navbar);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +106,7 @@ class App extends React.Component {
         <Helmet titleTemplate={`%s - ${this.pageTitle}`}
                 defaultTitle={this.pageTitle}>
         </Helmet>
-        <Navbar />
+        <NavbarWithRouter />
         <div id="main" className="container">
           <Main />
         </div>
