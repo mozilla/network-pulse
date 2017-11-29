@@ -31,7 +31,6 @@ class Profile extends React.Component {
           loadingData={false}
           moreEntriesToFetch={false}
           fetchData={()=>{}}
-          restoreScrollPosition={pageSettings.shouldRestore}
           onModerationMode={false}
         />
       </div>

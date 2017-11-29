@@ -2,7 +2,6 @@ import ReactGA from 'react-ga';
 
 export default {
   initialize: function() {
-    console.log(`[APP] 123`);
     var _dntStatus = navigator.doNotTrack || navigator.msDoNotTrack;
     var fxMatch = navigator.userAgent.match(/Firefox\/(\d+)/);
     var ie10Match = navigator.userAgent.match(/MSIE 10/i);

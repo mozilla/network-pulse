@@ -62,25 +62,24 @@ const Tag = (router) => {
 const Main = () => (
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/featured"/>} />
-      <Route path="/featured" component={Featured} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/latest" component={Latest} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/favs" component={Bookmarks} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/featured" component={Featured} />
+      <Route path="/latest" component={Latest} />
+      <Route path="/favs" component={Bookmarks} />
       <Route exact path="/issues" component={Issues} />
-      <Route path="/issues/:issue" component={Issue} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/entry/:entryId" component={Entry} onEnter={() => pageSettings.setScrollPosition()} onLeave={() => pageSettings.setRestore(true)} />
+      <Route path="/issues/:issue" component={Issue} />
+      <Route path="/entry/:entryId" component={Entry} />
       <Route path="/add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
       <Route path="/submitted" component={Submitted} />
-      <Route path="/search" component={Search} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/search" component={Search} />
       <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
-      <Route path="/tags/:tag" component={Tag} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/tags/:tag" component={Tag} />
       <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
-      <Route path="/help/:helpType" component={Help} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/moderation" component={Moderation} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/profile/me" component={MyProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/profile/:id" component={PublicProfile} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
-      <Route path="/myprofile" component={ProfileEdit} onEnter={evt => pageSettings.setCurrentPathname(evt.location.pathname)} />
+      <Route path="/help/:helpType" component={Help} />
+      <Route path="/moderation" component={Moderation} />
+      <Route path="/profile/me" component={MyProfile} />
+      <Route path="/profile/:id" component={PublicProfile} />
+      <Route path="/myprofile" component={ProfileEdit} />
       <Route path="*" component={NotFound}/>
-
     </Switch>
 );
 
@@ -95,8 +94,8 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(`>>>>>`, window.location.href, document.title);
     Analytics.logPageView();
+    window.scrollTo(0, 0);
   }
 
   render() {

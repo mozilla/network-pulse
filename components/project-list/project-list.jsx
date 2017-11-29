@@ -14,10 +14,18 @@ class ProjectList extends React.Component {
     };
   }
 
+  componentWillMount() {
+    pageSettings.setCurrentPathname(window.location.pathname);
+  }
+
   componentDidUpdate() {
-    if (!this.state.inPageUpdate && this.props.restoreScrollPosition) {
+    if (!this.state.inPageUpdate) {
       pageSettings.restoreScrollPosition();
     }
+  }
+
+  componentWillUnmount() {
+    pageSettings.setScrollPosition();
   }
 
   handleLoadMoreBtnClick() {

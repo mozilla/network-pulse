@@ -28,11 +28,8 @@ const Login = {
       // bookmarks etc.
       let query = qs.parse(location.search.substring(1));
 
-
-      console.log(`query`, query);
       if (query.loggedin) {
         delete location.query.loggedin;
-        console.log(`history`,history);
         history.replace({
           pathname: location.pathname,
           query: query

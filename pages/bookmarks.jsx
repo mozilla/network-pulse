@@ -7,7 +7,6 @@ import HintMessage from '../components/hint-message/hint-message.jsx';
 import Service from '../js/service.js';
 import bookmarkManager from '../js/bookmarks-manager';
 import user from '../js/app-user';
-import pageSettings from '../js/app-page-settings';
 
 class Bookmarks extends React.Component{
   constructor(props) {
@@ -26,12 +25,7 @@ class Bookmarks extends React.Component{
 
   componentDidMount() {
     // get IDs of user's bookmarked entries
-    this.setState({lsBookmarkedIds: bookmarkManager.bookmarks.get()}, () => {
-      if (pageSettings.shouldRestore) {
-        // restore state back to what is stored in pageSettings
-        this.setState(pageSettings.currentList);
-      }
-    });
+    this.setState({lsBookmarkedIds: bookmarkManager.bookmarks.get()});
 
     user.addListener(this);
     user.verify(this.props.location, this.props.history);

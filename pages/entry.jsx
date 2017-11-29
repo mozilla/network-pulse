@@ -4,6 +4,7 @@ import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
+import pageSettings from '../js/app-page-settings.js';
 
 const NO_ENTRY_TITLE = `Entry unavailable`;
 const NO_ENTRY_BLOCK = (
@@ -28,6 +29,10 @@ class Entry extends React.Component {
 
   componentDidMount() {
     this.fetchData(this.props.match.params.entryId);
+  }
+
+  componentWillUnmount() {
+    pageSettings.setRestore(true);
   }
 
   fetchData(entryId = ``) {
