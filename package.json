@@ -64,7 +64,7 @@
     "optipng-bin": "^4.0.0",
     "stylelint": "^7.13.0",
     "stylelint-config-standard": "^16.0.0",
-    "svgo": "^0.7.2"
+    "svgo": "^1.0.3"
   },
   "dependencies": {
     "autoprefixer": "^6.5.3",
