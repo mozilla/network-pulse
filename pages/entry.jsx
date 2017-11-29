@@ -1,8 +1,9 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { Helmet } from "react-helmet";
 import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
+import HintMessage from '../components/hint-message/hint-message.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 
@@ -80,7 +81,14 @@ class Entry extends React.Component {
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
-      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
+      justPostedByUserMessage = this.state.justPostedByUser &&
+        <HintMessage
+          iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
+          header="Thanks!"
+          linkComponent={<Link to={`/myprofile`}>Edit profile</Link>}
+        >
+          <p>Submission was added to <Link to="/profile/me">your profile</Link>.</p>
+        </HintMessage>;
       content = <ProjectCardDetialed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
     }
 
