@@ -1,7 +1,7 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
 import classNames from 'classnames';
+import qs from "qs";
 import DebounceInput from 'react-debounce-input';
 import Select from 'react-select';
 import ReactGA from 'react-ga';
@@ -31,18 +31,19 @@ class Search extends React.Component {
   }
 
   getSearchCriteria(props) {
+    let query = qs.parse(props.location.search.substring(1));
     let criteria = {
-      keywordSearched: props.location.query.keyword
+      keywordSearched: query.keyword
     };
 
     if (this.props.moderation) {
       // the following states are only useful on moderation mode
-      if (props.location.query.featured === `True`) {
-        criteria.featured = props.location.query.featured;
+      if (query.featured === `True`) {
+        criteria.featured = query.featured;
       }
       criteria.moderationState = {
         value: ``,
-        label: props.location.query.moderationstate || DEFAULT_MODERATION_FILTER
+        label: query.moderationstate || DEFAULT_MODERATION_FILTER
       };
     }
 
@@ -53,7 +54,7 @@ class Search extends React.Component {
     let keywordSearched = this.state.keywordSearched;
     let moderationState = this.state.moderationState;
     let featured = this.state.featured;
-    let location = { pathname: this.props.router.location.pathname };
+    let location = { pathname: this.props.location.pathname };
     let query = {};
 
     if ( keywordSearched ) {
@@ -69,8 +70,8 @@ class Search extends React.Component {
       query.moderationstate = moderationState.label;
     }
 
-    location.query = query;
-    browserHistory.push(location);
+    location.search = `?${qs.stringify(query)}`;
+    this.props.history.push(location);
   }
 
   handleInputChange(event) {

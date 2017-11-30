@@ -4,8 +4,8 @@ import helmet from 'helmet';
 import { Helmet as ReactHelmet } from "react-helmet";
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import routes from './routes.jsx';
+import { StaticRouter } from 'react-router';
+import Main from './routes.jsx';
 import securityHeaders from './js/security-headers';
 
 const app = express();
@@ -66,28 +66,21 @@ app.use((req, res, next) => {
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
 app.get(`*`, (req, res) => {
-  match({ routes: routes, location: req.url }, (err, redirect, props) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirect) {
-      res.redirect(302, redirect.pathname + redirect.search);
-    } else if (props) {
-      // we've got props!
-      // let's match a route and render the corresponding page component
-      const appHtml = renderToString(<RouterContext {...props}/>);
-      const reactHelmet = ReactHelmet.renderStatic();
+  const reactHelmet = ReactHelmet.renderStatic();
+  const context = {}; // context object contains the results of the render
 
-      if (props.components[props.components.length-1].displayName === `not-found`) {
-        // if route matches the "Not Found" route, let's render the "Not Found" 404 page
-        res.status(404).send(renderPage(appHtml,reactHelmet));
-      } else {
-        res.status(200).send(renderPage(appHtml,reactHelmet));
-      }
-    } else {
-      // nothing was matched
-      res.status(404).send(`Not Found`);
-    }
-  });
+  const appHtml = renderToString(
+    <StaticRouter location={req.url} context={context}>
+      <Main />
+    </StaticRouter>
+  );
+
+  if (context.url) {
+    // Somewhere a `<Redirect>` was rendered
+    res.redirect(301, context.url);
+  } else {
+    res.status(context.pageNotFound ? 404 : 200).send(renderPage(appHtml, reactHelmet));
+  }
 });
 
 function renderPage(appHtml,reactHelmet) {

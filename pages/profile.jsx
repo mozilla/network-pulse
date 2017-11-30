@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from "react-helmet";
 import Bio from '../components/bio/bio.jsx';
 import ProjectList from '../components/project-list/project-list.jsx';
-import pageSettings from '../js/app-page-settings';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Profile extends React.Component {
   renderProfile() {
     if (!this.props.profile) return null;
 
-    return <div className="col-12"><Bio {...this.props.profile} user={this.props.user} /></div>;
+    return <div className="col-12"><Bio {...this.props.profile} user={this.props.user} history={this.props.history} /></div>;
   }
 
   renderProjects(entries, label) {
@@ -30,7 +30,6 @@ class Profile extends React.Component {
           loadingData={false}
           moreEntriesToFetch={false}
           fetchData={()=>{}}
-          restoreScrollPosition={pageSettings.shouldRestore}
           onModerationMode={false}
         />
       </div>
@@ -51,4 +50,10 @@ class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
+
 export default Profile;

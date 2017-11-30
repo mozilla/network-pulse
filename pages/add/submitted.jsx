@@ -1,5 +1,6 @@
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import qs from 'qs';
 import { Helmet } from "react-helmet";
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 
@@ -14,8 +15,8 @@ export default class Submitted extends React.Component {
   }
 
   componentDidMount() {
-    let location = this.props.router.location;
-    let query = location.query;
+    let location = this.props.location;
+    let query = qs.parse(this.props.location.search.substring(1));
 
     if (query && query.entryId) {
       let entryId = parseInt(query.entryId, 10);
@@ -28,7 +29,7 @@ export default class Submitted extends React.Component {
 
       // remove 'entryId' query from URL
       delete query.entryId;
-      browserHistory.replace({
+      this.props.history.replace({
         pathname: location.pathname,
         query: query
       });

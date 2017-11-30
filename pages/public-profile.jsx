@@ -17,9 +17,9 @@ class PublicProfile extends React.Component {
 
   componentDidMount() {
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
 
-    this.fetchProfile(this.props.params.id, newState => {
+    this.fetchProfile(this.props.match.params.id, newState => {
       this.setState(newState);
     });
   }
@@ -47,7 +47,7 @@ class PublicProfile extends React.Component {
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
-    return <Profile profile={this.state.userProfile} user={this.state.user} />;
+    return <Profile profile={this.state.userProfile} user={this.state.user} history={this.props.history} />;
   }
 
   render() {

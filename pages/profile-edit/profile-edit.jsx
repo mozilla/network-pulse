@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
 import NotFound from '../not-found.jsx';
@@ -32,7 +32,7 @@ class ProfileEdit extends React.Component{
 
   componentDidMount() {
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
 
     this.loadCurrentProfile();
   }
@@ -76,7 +76,7 @@ class ProfileEdit extends React.Component{
     event.preventDefault();
 
     user.logout();
-    browserHistory.push({
+    this.props.history.push({
       pathname: `/featured`
     });
   }
@@ -118,7 +118,7 @@ class ProfileEdit extends React.Component{
     Service.myProfile
       .put(profile)
       .then(() => {
-        browserHistory.push({
+        this.props.history.push({
           pathname: `/profile/me`,
         });
       })
@@ -203,9 +203,7 @@ class ProfileEdit extends React.Component{
 }
 
 ProfileEdit.propTypes = {
-  router: PropTypes.shape({
-    location: PropTypes.object
-  }).isRequired
+  location: PropTypes.object
 };
 
 export default ProfileEdit;

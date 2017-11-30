@@ -1,10 +1,11 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { Helmet } from "react-helmet";
+import qs from 'qs';
 import LoadingNotice from '../components/loading-notice.jsx';
 import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
+import pageSettings from '../js/app-page-settings.js';
 
 const NO_ENTRY_TITLE = `Entry unavailable`;
 const NO_ENTRY_BLOCK = (
@@ -28,7 +29,11 @@ class Entry extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(this.props.params.entryId);
+    this.fetchData(this.props.match.params.entryId);
+  }
+
+  componentWillUnmount() {
+    pageSettings.setRestore(true);
   }
 
   fetchData(entryId = ``) {
@@ -51,8 +56,8 @@ class Entry extends React.Component {
   }
 
   checkIfRedirectedFromFormSubmission() {
-    let location = this.props.router.location;
-    let query = location.query;
+    let location = this.props.location;
+    let query = qs.parse(location.search.substring(1));
     let justPostedByUser;
 
     if (query && query.justPostedByUser) {
@@ -60,7 +65,7 @@ class Entry extends React.Component {
 
       // remove 'justPostedByUser' query from URL
       delete query.justPostedByUser;
-      browserHistory.replace({
+      this.props.history.replace({
         pathname: location.pathname,
         query: query
       });

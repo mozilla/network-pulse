@@ -13,7 +13,7 @@ class Moderation extends React.Component {
 
   componentDidMount() {
     user.addListener(this);
-    user.verify(this.props.router.location);
+    user.verify(this.props.location, this.props.history);
   }
 
   componentWillUnmount() {

@@ -156,7 +156,6 @@ class ProjectLoader extends React.Component {
                     loadingData={this.state.loadingData}
                     moreEntriesToFetch={this.state.moreEntriesToFetch}
                     fetchData={() => this.fetchData()}
-                    restoreScrollPosition={pageSettings.shouldRestore}
                     onModerationMode={!!this.props.moderationState} />
       </div>
     );

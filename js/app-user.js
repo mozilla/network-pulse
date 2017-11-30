@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import qs from "qs";
 import env from "../config/env.generated.json";
 import localstorage from './localstorage.js';
 import Service from './service.js';
@@ -21,18 +21,17 @@ const Login = {
    * setUserData(error, username). If the user is not logged in
    * the username will be falsey.
    */
-  isLoggedIn(location, setUserData) {
+  isLoggedIn(location, history, setUserData) {
     if (location) {
       // Make sure that oauth loggedin=True/False query parameters are
       // removed from the current URL, as they should not end up in
       // bookmarks etc.
-      const query = location.query;
+      let query = qs.parse(location.search.substring(1));
+
       if (query.loggedin) {
-        delete location.query.loggedin;
-        browserHistory.replace({
-          pathname: location.pathname,
-          query: query
-        });
+        delete query.loggedin;
+        location.search = `?${qs.stringify(query)}`;
+        history.replace(location);
       }
     }
 
@@ -120,8 +119,8 @@ class User {
     window.location = Login.getLoginURL(redirectUrl);
   }
 
-  verify(location) {
-    Login.isLoggedIn(location, (error, username, customName, email, moderator) => {
+  verify(location, history) {
+    Login.isLoggedIn(location, history, (error, username, customName, email, moderator) => {
       this.update(error, username, customName, email, moderator);
     });
   }
