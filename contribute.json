@@ -1,0 +1,37 @@
+{
+  "name": "Mozilla Network Pulse",
+  "description": "A platform for discovering and collaborating on projects for a healthy internet.",
+  "repository": {
+    "url": "https://github.com/mozilla/network-pulse",
+    "license": "MPL2",
+    "tests": "https://travis-ci.org/mozilla/network-pulse"
+  },
+  "participate": {
+    "home": "https://github.com/mozilla/network-pulse",
+    "docs": "https://github.com/mozilla/network-pulse",
+    "irc": "irc://irc.mozilla.org/#foundation",
+    "irc-contacts": [
+      "cade",
+      "alanmoo",
+      "mattheww",
+      "Pomax",
+      "mavis"
+    ]
+  },
+  "bugs": {
+    "list": "https://github.com/mozilla/network-pulse/issues",
+    "report": "https://github.com/mozilla/network-pulse/issues/new"
+  },
+  "urls": {
+    "prod": "network-pulse-staging.herokuapp.com",
+    "staging": "network-pulse-staging.herokuapp.com"
+  },
+  "keywords": [
+    "JavaScript",
+    "HTML",
+    "NodeJS",
+    "CSS",
+    "Sass",
+    "ReactJS"
+  ]
+}
