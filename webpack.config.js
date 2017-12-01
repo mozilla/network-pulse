@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === `production`) {
 
 module.exports = {
   context: `${__dirname}`,
-  entry: `./main.jsx`,
+  entry: `./app.jsx`,
   output: {
     path: `${__dirname}/dist`,
     filename: `bundle.js`,

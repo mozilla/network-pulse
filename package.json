@@ -28,7 +28,7 @@
     "optimize:png": "find assets -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "watch:css": "chokidar 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' -c 'npm run build-client:scss'",
     "watch:html": "chokidar 'index.html' -c 'npm run build-client:static'",
-    "watch:js": "chokidar 'main.jsx' 'routes.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'pages/**/*.js' 'webpack.config.js' -c 'npm run build-client:js'",
+    "watch:js": "chokidar 'app.jsx' 'main.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'pages/**/*.js' 'webpack.config.js' -c 'npm run build-client:js'",
     "test": "run-s test:**",
     "test:js": "eslint --config .eslintrc.yaml \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
