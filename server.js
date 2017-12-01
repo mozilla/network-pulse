@@ -5,7 +5,7 @@ import { Helmet as ReactHelmet } from "react-helmet";
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
-import Main from './routes.jsx';
+import Main from './main.jsx';
 import securityHeaders from './js/security-headers';
 
 const app = express();
