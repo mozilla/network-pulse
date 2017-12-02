@@ -68,7 +68,7 @@ const Routes = () => (
       <Route exact path="/issues" component={Issues} />
       <Route path="/issues/:issue" component={Issue} />
       <Route path="/entry/:entryId" component={Entry} />
-      <Route path="/add" component={Add} />
+      <Route path="/add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
       <Route path="/submitted" component={Submitted} />
       <Route path="/search" component={Search} />
       <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
