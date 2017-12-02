@@ -68,7 +68,7 @@ const Routes = () => (
       <Route exact path="/issues" component={Issues} />
       <Route path="/issues/:issue" component={Issue} />
       <Route path="/entry/:entryId" component={Entry} />
-      <Route path="/add" component={Add} onEnter={() => { if (typeof window !== `undefined`) { window.scroll(0, 0); } }} />
+      <Route path="/add" component={Add} />
       <Route path="/submitted" component={Submitted} />
       <Route path="/search" component={Search} />
       <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
@@ -116,14 +116,4 @@ class Main extends React.Component {
   }
 }
 
-
-// We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
-// This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
-// For user facing bits like UI labels and URL path we want them to stay as "favorites".
-// That's why a route like <Route path="favs" component={Bookmarks} /> is seen here.
-// For more info see: https://github.com/mozilla/network-pulse/issues/326
-
-// PageSettings is used to preserve a project list view state.
-// Attach route enter hook pageSettings.setCurrentPathname(evt.location.pathname)
-// *only* to routes that render a list of projects.
 export default Main;
