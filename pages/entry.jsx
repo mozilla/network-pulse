@@ -7,7 +7,8 @@ import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 import pageSettings from '../js/app-page-settings.js';
 
-const NO_ENTRY_TITLE = `Entry unavailable`;
+const NO_ENTRY_OG_TITLE = `Entry unavailable`;
+const NO_ENTRY_OG_DESCRIPTION = `Description for this entry is currently unavailable`;
 const NO_ENTRY_BLOCK = (
   <div className="text-center">
     <div className="content">
@@ -81,17 +82,23 @@ class Entry extends React.Component {
 
     let justPostedByUserMessage = null;
     let content = NO_ENTRY_BLOCK;
-    let docTitle = NO_ENTRY_TITLE; // html doc title
+    let docTitle = NO_ENTRY_OG_TITLE; // html doc title
+    let description = NO_ENTRY_OG_DESCRIPTION;
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
       content = <ProjectCardDetialed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      description = this.state.entry.description;
     }
 
     return (
       <div className="w-100">
-        <Helmet><title>{ docTitle }</title></Helmet>
+        <Helmet>
+         <title>{ docTitle }</title>
+         <meta property="og:title" content={ docTitle }/>
+         <meta property="og:description" content={ description }/>
+        </Helmet>
         { justPostedByUserMessage }
         { content }
       </div>
