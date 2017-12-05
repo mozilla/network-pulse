@@ -99,7 +99,6 @@ class BookmarkControl extends React.Component {
   }
 
   handleBookmarkClick() {
-    console.log(`handleBookmarkClick`);
     if (document && document.onanimationend !== `undefined`) {
       this.refs.heart.classList.add(`beating`);
       this.refs.heart.addEventListener(`animationend`, () => {
