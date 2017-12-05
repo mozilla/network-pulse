@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
+import { Link } from 'react-router-dom';
 import qs from 'qs';
 import LoadingNotice from '../components/loading-notice.jsx';
-import ProjectCardDetialed from '../components/project-card/project-card-detailed.jsx';
+import NotificationBar from '../components/notification-bar/notification-bar.jsx';
+import ProjectCardDetailed from '../components/project-card/project-card-detailed.jsx';
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 import pageSettings from '../js/app-page-settings.js';
@@ -58,26 +60,24 @@ class Entry extends React.Component {
   checkIfRedirectedFromFormSubmission() {
     let location = this.props.location;
     let query = qs.parse(location.search.substring(1));
-    let justPostedByUser;
+    let justPostedByUser = false;
 
-    if (query && query.justPostedByUser) {
+    if (query.justPostedByUser) {
       justPostedByUser = query.justPostedByUser === `true`;
 
       // remove 'justPostedByUser' query from URL
       delete query.justPostedByUser;
       this.props.history.replace({
         pathname: location.pathname,
-        query: query
+        search: `?${qs.stringify(query)}`
       });
     }
 
-    this.setState({
-      justPostedByUser: justPostedByUser
-    });
+    this.setState({ justPostedByUser });
   }
 
   renderEntry() {
-    if (!this.state.dataLoaded) return null;
+    if (!this.state.dataLoaded) return <LoadingNotice />;
 
     let justPostedByUserMessage = null;
     let content = NO_ENTRY_BLOCK;
@@ -85,8 +85,8 @@ class Entry extends React.Component {
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
-      justPostedByUserMessage = this.state.justPostedByUser ? (<h5 className="col-12 text-center">Thanks for submitting!</h5>) : null;
-      content = <ProjectCardDetialed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      justPostedByUserMessage = this.state.justPostedByUser && <div className="col-12 my-3"><NotificationBar>Thanks! Submission was added to <Link to="/profile/me">your profile</Link>.</NotificationBar></div>;
+      content = <ProjectCardDetailed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
     }
 
     return (
@@ -101,7 +101,7 @@ class Entry extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        { !this.state.dataLoaded ? <LoadingNotice /> : this.renderEntry() }
+        { this.renderEntry() }
       </div>
     );
   }

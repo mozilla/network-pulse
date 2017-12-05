@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { Form } from 'react-formbuilder';
+import qs from 'qs';
 import SignOutButton from '../../components/sign-out-button.jsx';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
 import Service from '../../js/service.js';
@@ -126,31 +127,35 @@ class Add extends React.Component {
       action: `Submit success`
     });
 
-    // will the API show this user the new entry?
-    Service.entry
-    .get(entryId)
-    .then(result => {
-      if(result) {
-        this.props.history.push({
-          pathname: `/entry/${entryId}`,
-          query: {
-            justPostedByUser: true
-          }
-        });
-      } else {
-        this.props.history.push({
-          pathname: `/submitted`,
-          query: { entryId }
-        });
+    let pathname = `/submitted`;
+    let query = qs.parse(this.props.location.search.substring(1));
+
+    this.getSubmittedEntry(entryId, (approved) => {
+      if (approved) {
+        pathname = `/entry/${entryId}`;
+        query.justPostedByUser = true;
       }
-    })
-    .catch(reason => {
-      // a 404 is yielded as an error by Service.entry
-      console.error(reason);
-      this.props.history.push({
-        pathname: `/submitted`,
-        query: { entryId }
+
+      this.updateHistory(pathname, query);
+    });
+  }
+
+  getSubmittedEntry(entryId, sendApprovedStatus) {
+    Service.entry
+      .get(entryId)
+      .then(() => {
+        sendApprovedStatus(true);
+      })
+      .catch(reason => {
+        console.error(reason);
+        sendApprovedStatus(false);
       });
+  }
+
+  updateHistory(pathname, query) {
+    this.props.history.push({
+      pathname,
+      search: `?${qs.stringify(query)}`
     });
   }
 

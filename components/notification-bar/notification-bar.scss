@@ -1,0 +1,6 @@
+.notification-bar {
+  @extend .open-sans;
+
+  font-weight: 600;
+  background: rgba($pulse-purple, 0.2);
+}
