@@ -23,8 +23,8 @@
     "report": "https://github.com/mozilla/network-pulse/issues/new"
   },
   "urls": {
-    "prod": "network-pulse-staging.herokuapp.com",
-    "staging": "network-pulse-staging.herokuapp.com"
+    "prod": "https://www.mozillapulse.org",
+    "staging": "https://network-pulse-staging.herokuapp.com"
   },
   "keywords": [
     "JavaScript",
