@@ -6,7 +6,7 @@ import ProjectLoader from '../components/project-loader/project-loader.jsx';
 import Utility from '../js/utility.js';
 
 export default function (props) {
-  const issueParam = props.match.params.issue;
+  const issueParam = decodeURIComponent(props.match.params.issue);
   let issueName = Utility.getIssueNameFromUriPath(issueParam);
 
   // render page if issueName is one of the 5 hyphenated all lowercase routes we want to serve
