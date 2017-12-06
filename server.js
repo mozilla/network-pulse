@@ -32,9 +32,10 @@ app.use(helmet.xssFilter({
   setOnOldIE: true
 }));
 
-// maxAge for HSTS header must be at least 18 weeks (see https://hstspreload.org/)
+// maxAge for HSTS header must be at least 6 months
+// (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
 app.use(helmet.hsts({
-  maxAge: 60 * 60 * 24 * 7 * 18, // 18 weeks in seconds
+  maxAge: 15768000*2, // 12 months in seconds
   setIf: (req, res) => {
     if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === "https") {
       return true;
