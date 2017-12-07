@@ -89,12 +89,16 @@ class BookmarkControl extends React.Component {
     Service.entry
       .put.bookmark(this.props.id)
       .then(() => {
-        callback(null);
+        if (callback) {
+          callback(null);
+        }
       })
       .catch(reason => {
         console.error(reason);
         toggleUI(); // Toggle UI back since changes weren't persisted to server
-        callback(reason);
+        if (callback) {
+          callback(reason);
+        }
       });
   }
 
