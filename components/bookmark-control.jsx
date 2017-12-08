@@ -78,14 +78,27 @@ class BookmarkControl extends React.Component {
   }
 
   toggleBookmark(callback) {
+    const toggleUI = () => {
+      this.setState({ bookmarked: !this.state.bookmarked }, () => {
+        this.props.updateCardBookmarkedState(this.state.bookmarked);
+      });
+    };
+
+    toggleUI(); // Immediately update UI (assume success)
+
     Service.entry
       .put.bookmark(this.props.id)
       .then(() => {
-        callback(null);
+        if (callback) {
+          callback(null);
+        }
       })
       .catch(reason => {
         console.error(reason);
-        callback(reason);
+        toggleUI(); // Toggle UI back since changes weren't persisted to server
+        if (callback) {
+          callback(reason);
+        }
       });
   }
 
@@ -100,15 +113,7 @@ class BookmarkControl extends React.Component {
     ReactGA.event(this.createGaEventConfig(this.state.bookmarked ? `Remove fav` : `Add fav`));
 
     if (user.loggedin) {
-      this.toggleBookmark((error) => {
-        if (error) return;
-
-        this.setState({ bookmarked: !this.state.bookmarked }, () => {
-          this.props.updateCardBookmarkedState(this.state.bookmarked);
-        });
-      });
-
-      return;
+      this.toggleBookmark();
     }
 
     this.updateBookmarkOnLocalStorage();
