@@ -18,8 +18,7 @@ const app = express();
 
 import env from "./config/env.generated.json";
 
-const defaultPort = 3000;
-const PORT = env.PORT || process.env.PORT || defaultPort;
+const PORT = process.env.PORT || env.PORT;
 
 // disable x-powered-by
 app.disable('x-powered-by');

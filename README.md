@@ -1,13 +1,12 @@
-[![Travis Build Status](https://travis-ci.org/mozilla/network-pulse.svg?branch=master)](https://travis-ci.org/mozilla/network-pulse) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mozilla/network-pulse?svg=true)](https://ci.appveyor.com/project/mozillafoundation/network-pulse) [![Dependency Status](https://david-dm.org/mozilla/network-pulse.svg)](https://david-dm.org/mozilla/network-pulse) [![Dev Dependency Status](https://david-dm.org/mozilla/network-pulse/dev-status.svg)](https://david-dm.org/mozilla/network-pulse/?type=dev)
-
 # Mozilla Pulse
+
+[![Travis Build Status](https://travis-ci.org/mozilla/network-pulse.svg?branch=master)](https://travis-ci.org/mozilla/network-pulse) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mozilla/network-pulse?svg=true)](https://ci.appveyor.com/project/mozillafoundation/network-pulse) [![Dependency Status](https://david-dm.org/mozilla/network-pulse.svg)](https://david-dm.org/mozilla/network-pulse) [![Dev Dependency Status](https://david-dm.org/mozilla/network-pulse/dev-status.svg)](https://david-dm.org/mozilla/network-pulse/?type=dev)
 
 Pulse is a platform that helps the Mozilla Network capture and broadcast its projects and activities. [mozillapulse.org](https://www.mozillapulse.org/featured)
 
 Around the globe, teachers, engineers, activists, and others collaborate to protect and extend the internet as a public resource. They create amazing apps, art, tools, games, and campaigns. Their impact is tremendous, but decentralized and difficult to track, even within the network.
 
 Pulse reveals the network's footprint, it fosters collaboration and amplifies the big wins.
-
 
 ## Contribute
 
@@ -19,56 +18,42 @@ Interested in contributing to this project? A good place to start is by helping 
 
 Browse the [issues](https://github.com/mozilla/network-pulse/issues). Look for the labels [enhancement](https://github.com/mozilla/network-pulse/labels/enhancement), [help wanted](https://github.com/mozilla/network-pulse/labels/help%20wanted), [good first issue](https://github.com/mozilla/network-pulse/labels/good%20first%20issue).
 
-
 ## Development
 
-- Staging: https://network-pulse-staging.herokuapp.com
-- Work is happening in the `master` branch.
-
-### Requirements for Development
+### Requirements
 
 - `node`
 - `npm`
 
-### Setup for Development
+### Setup
 
-- `git clone -b master https://github.com/mozilla/network-pulse.git`
-- `cd network-pulse`
-- `cp sample.env .env` (and modify values in sample.env so they match what you use for your local development env, see [environment variables section](https://github.com/mozilla/network-pulse#environment-variables))
-- `npm install`
-- `npm start`
+```bash
+$> git clone -b master https://github.com/mozilla/network-pulse.git
+$> cd network-pulse
+$> npm install
+```
 
-### Environment Variables
+If you would like to override default environment variables... create a `.env` file on the root directory and set your env vars there. See [environment variables section](https://github.com/mozilla/network-pulse#environment-variables) for details.
 
-#### `HOST`
+### Key scripts to run
 
-The host you are using. e.g., `HOST=http://localhost`
+#### `npm start`
+This starts server in development mode. See [environment variables section](https://github.com/mozilla/network-pulse#environment-variables) for `PORT` number.
 
-#### `PORT`
+#### `npm test`
+This starts a few test scripts. Don't forget to run this command and fix errors (if any) before you git push your changes.
 
-The port number you are using. e.g., `PORT=3000`
+#### `npm optimize` 
+This starts a few image optimization scripts.
 
-#### `LEARN_MORE_LINK`
+### Environment variables
 
-Link to learn more about what Pulse project is about. e.g., `LEARN_MORE_LINK=https://www.mozillapulse.org/entry/120`
-
-#### `PULSE_API` (optional)
-
-Default: `https://network-pulse-api-staging.herokuapp.com/`
-
-URL to your local Pulse API instance (if you have one set up). e.g., `PULSE_API=http://test.example.com:8000/api/pulse`
-
-To set up a local instance of Pulse API, follow instructions on https://github.com/mozilla/network-pulse-api/blob/master/README.md.
-
-#### `ORIGIN` (auto-generated)
-
-Derived variable based on `HOST` and `PORT` - overriding this yourself will do nothing.
-
-#### `PROJECT_BATCH_SIZE` (optional)
-
-Default: `24`
-
-Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
+   Name | Description
+------------------|---------------------------------------------
+`PORT` | Default: `process.env.PORT`(falls back to `3000` if `process.env.PORT` cannot be found)<br><br>The port number you are running the server on.
+`PULSE_API` | Default: `https://network-pulse-api-staging.herokuapp.com/`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
+`PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
+`LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
 
 ### Deployment
 

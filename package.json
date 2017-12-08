@@ -21,7 +21,7 @@
     "copy:index": "shx cp index.html dist/index.html",
     "copy:manifest": "shx cp manifest.json dist",
     "copy:contributejson": "shx cp contribute.json dist",
-    "copy:assets": "shx cp favicon.png dist && shx cp -r assets dist",
+    "copy:assets": "shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
     "snyk-protect": "snyk protect",
     "optimize": "run-p optimize:**",

@@ -12,14 +12,10 @@ if (environment !== `PRODUCTION`) {
   habitat.load(`config/default.env`);
 }
 
-const HOST = habitat.get(`HOST`);
 const PORT = habitat.get(`PORT`);
 const LEARN_MORE_LINK = habitat.get(`LEARN_MORE_LINK`);
-const ORIGIN = HOST + (PORT ? `:${PORT}` : ``);
 const CONFIG = {
-  HOST,
   PORT,
-  ORIGIN,
   LEARN_MORE_LINK,
   PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`, 24),
   PULSE_API: habitat.get(`PULSE_API`)
