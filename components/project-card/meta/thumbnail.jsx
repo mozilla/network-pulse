@@ -18,8 +18,8 @@ class Thumbnail extends React.Component {
 
     if (this.props.link) {
       return <Link to={this.props.link} onClick={()=>this.handleThumbnailClick()} className={classnames}>
-              {thumbnail}
-            </Link>;
+        {thumbnail}
+      </Link>;
     }
 
     return <div className={classnames}>{thumbnail}</div>;

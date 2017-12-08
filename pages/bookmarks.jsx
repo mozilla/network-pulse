@@ -117,11 +117,13 @@ class Bookmarks extends React.Component{
   }
 
   renderBookmarkPrompt() {
-    return <HintMessage iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
-                       header="Save your Favs"
-                       linkComponent={<Link to={`/featured`}>Explore featured</Link>}>
-            <p>Tap the heart on any project to save it here.</p>
-          </HintMessage>;
+    return <HintMessage
+      iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
+      header="Save your Favs"
+      linkComponent={<Link to={`/featured`}>Explore featured</Link>}
+    >
+      <p>Tap the heart on any project to save it here.</p>
+    </HintMessage>;
   }
 
   render() {

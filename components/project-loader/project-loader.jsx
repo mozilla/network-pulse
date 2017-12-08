@@ -153,10 +153,10 @@ class ProjectLoader extends React.Component {
       <div>
         { this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
-                    loadingData={this.state.loadingData}
-                    moreEntriesToFetch={this.state.moreEntriesToFetch}
-                    fetchData={() => this.fetchData()}
-                    onModerationMode={!!this.props.moderationState} />
+          loadingData={this.state.loadingData}
+          moreEntriesToFetch={this.state.moreEntriesToFetch}
+          fetchData={() => this.fetchData()}
+          onModerationMode={!!this.props.moderationState} />
       </div>
     );
   }

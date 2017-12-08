@@ -14,8 +14,9 @@ class NotFound extends React.Component {
   render() {
     return (
       <HintMessage iconComponent={<img src="/assets/svg/icon-404.svg" />}
-                   header={this.props.header}
-                   linkComponent={this.props.linkComponent}>
+        header={this.props.header}
+        linkComponent={this.props.linkComponent}
+      >
         { this.props.children || <p>Check your URL or try a search. Still no luck? <a href="https://github.com/mozilla/network-pulse/issues/new">Let us know</a>.</p> }
       </HintMessage>
     );

@@ -53,25 +53,25 @@ class ModerationPanel extends React.Component {
 
   render() {
     return <div className="moderation-panel row mx-0 justify-content-center align-items-center py-3">
-              <Select.Async
-                name="form-field-name"
-                value={this.state.moderationState}
-                className="col-sm-8 d-block text-left"
-                searchable={false}
-                loadOptions={(input, callback) => this.getModerationStates(input, callback)}
-                onChange={(selected) => this.handleModerationStateChange(selected)}
-                clearable={false}
-              />
-              <div className="col-sm-4">
-                <label className="mb-0 mt-2 mt-sm-0">
-                  <input type="checkbox"
-                         className="d-inline-block mr-2"
-                         onChange={(event) => this.handleFeatureToggleClick(event)}
-                         checked={this.state.featured} />
-                  Featured
-                </label>
-              </div>
-            </div>;
+      <Select.Async
+        name="form-field-name"
+        value={this.state.moderationState}
+        className="col-sm-8 d-block text-left"
+        searchable={false}
+        loadOptions={(input, callback) => this.getModerationStates(input, callback)}
+        onChange={(selected) => this.handleModerationStateChange(selected)}
+        clearable={false}
+      />
+      <div className="col-sm-4">
+        <label className="mb-0 mt-2 mt-sm-0">
+          <input type="checkbox"
+            className="d-inline-block mr-2"
+            onChange={(event) => this.handleFeatureToggleClick(event)}
+            checked={this.state.featured} />
+          Featured
+        </label>
+      </div>
+    </div>;
   }
 }
 

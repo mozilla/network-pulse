@@ -13,10 +13,10 @@ export default function (props) {
   // e.g., digital-inclusion, open-innovation
   if (issueName) {
     return <div>
-              <Helmet><title>{issueName}</title></Helmet>
-              <IssueSelector />
-              <ProjectLoader issue={issueName} showCounter={true} />
-            </div>;
+      <Helmet><title>{issueName}</title></Helmet>
+      <IssueSelector />
+      <ProjectLoader issue={issueName} showCounter={true} />
+    </div>;
   }
 
   issueName = Utility.getUriPathFromIssueName(issueParam);

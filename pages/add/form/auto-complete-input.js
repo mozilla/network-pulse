@@ -143,25 +143,25 @@ export default class AutoCompleteInput extends Component {
   render(props={}) {
     let placeholder = props.placeholder || `Add new tag`;
     return <div onBlur={e => this.handleBlur(e)} ref={e => { this.div = e; }} tabIndex={0}>
-              <ReactTags
-                ref={e => { this.reactTags = e; }}
-                tags={this.state.data}
-                suggestions={this.getFilteredSuggestions()}
-                allowNew={true}
-                autofocus={false}
-                delimiters={DELIMITERS}
-                handleDelete={(...args) => this.handleDelete(...args) }
-                handleAddition={(...args) => this.handleAddition(...args) }
-                handleInputChange={(...args) => this.handleInputChange(...args)}
-                placeholder={placeholder}
-                classNames={{
-                  root: `react-tags form-control d-flex flex-column flex-sm-row`,
-                  selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
-                  search: `search d-flex`,
-                  searchInput: `tag-input-field`,
-                  suggestions: `suggestions p-2`
-                }}
-              />
-            </div>;
+      <ReactTags
+        ref={e => { this.reactTags = e; }}
+        tags={this.state.data}
+        suggestions={this.getFilteredSuggestions()}
+        allowNew={true}
+        autofocus={false}
+        delimiters={DELIMITERS}
+        handleDelete={(...args) => this.handleDelete(...args) }
+        handleAddition={(...args) => this.handleAddition(...args) }
+        handleInputChange={(...args) => this.handleInputChange(...args)}
+        placeholder={placeholder}
+        classNames={{
+          root: `react-tags form-control d-flex flex-column flex-sm-row`,
+          selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
+          search: `search d-flex`,
+          searchInput: `tag-input-field`,
+          suggestions: `suggestions p-2`
+        }}
+      />
+    </div>;
   }
 }

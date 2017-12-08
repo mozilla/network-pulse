@@ -180,48 +180,48 @@ class Add extends React.Component {
     let updateCallback = (evt, name, field, value) => this.handleFormUpdate(evt, name, field, value);
 
     return( <div>
-              <h1>Share with the Network</h1>
-              <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
-              <p>Please keep your language simple and useful for a broad audience. No jargon. Submissions may be lightly edited by our curators for spelling, grammar and style consistency.</p>
-              <div className="mb-4">
-                <h2>Basic Info</h2>
-                <div className="posted-by">
-                  <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
-                  <p className="d-inline-block text-muted">Not you? <SignOutButton user={user} history={this.props.history} />.</p>
-                </div>
-                <Form ref="basicForm" fields={basicInfoFields}
-                                       inlineErrors={true}
-                                       onUpdate={updateCallback} />
-                <h2>Optional Details</h2>
-                <Form ref="detailForm" fields={detailInfoFields}
-                                        inlineErrors={true}
-                                        onUpdate={updateCallback} />
-                <h2>Get Help</h2>
-                <Form ref="getHelpForm" fields={getHelpFields}
-                                        inlineErrors={true}
-                                        onUpdate={updateCallback} />
-                <div className="submit-section">
-                  <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
-                  <button
-                    className="btn btn-info mr-3"
-                    type="submit"
-                    onClick={(evt) => this.handleFormSubmit(evt)}
-                    disabled={this.state.submitting ? `disabled` : null}
-                  >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
-                  { authErrorMessage }
-                  { serverErrorMessage }
-                  { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
-                </div>
-              </div>
-            </div>);
+      <h1>Share with the Network</h1>
+      <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
+      <p>Please keep your language simple and useful for a broad audience. No jargon. Submissions may be lightly edited by our curators for spelling, grammar and style consistency.</p>
+      <div className="mb-4">
+        <h2>Basic Info</h2>
+        <div className="posted-by">
+          <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
+          <p className="d-inline-block text-muted">Not you? <SignOutButton user={user} history={this.props.history} />.</p>
+        </div>
+        <Form ref="basicForm"
+          fields={basicInfoFields}
+          inlineErrors={true}
+          onUpdate={updateCallback} />
+        <h2>Optional Details</h2>
+        <Form ref="detailForm"
+          fields={detailInfoFields}
+          inlineErrors={true}
+          onUpdate={updateCallback} />
+        <h2>Get Help</h2>
+        <Form ref="getHelpForm"
+          fields={getHelpFields}
+          inlineErrors={true}
+          onUpdate={updateCallback} />
+        <div className="submit-section">
+          <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
+          <button
+            className="btn btn-info mr-3"
+            type="submit"
+            onClick={(evt) => this.handleFormSubmit(evt)}
+            disabled={this.state.submitting ? `disabled` : null}
+          >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
+          { authErrorMessage }
+          { serverErrorMessage }
+          { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
+        </div>
+      </div>
+    </div>);
   }
 
   getAnonymousContent() {
     let header = `Please sign in to add a post`;
-    let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())}
-                           onClick={(event) => this.handleSignInBtnClick(event)}>
-                           Sign in with Google
-                        </a>;
+    let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Sign in with Google</a>;
     let additionalMessage;
 
     if (user.failedLogin) {
@@ -230,11 +230,13 @@ class Add extends React.Component {
       additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
     }
 
-    return <HintMessage iconComponent={<span className={`fa fa-user`}></span>}
-                         header={header}
-                         linkComponent={linkComponent}>
-              {additionalMessage}
-            </HintMessage>;
+    return <HintMessage
+      iconComponent={<span className={`fa fa-user`}></span>}
+      header={header}
+      linkComponent={linkComponent}
+    >
+      {additionalMessage}
+    </HintMessage>;
   }
 
   getContent() {
