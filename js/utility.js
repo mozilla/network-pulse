@@ -1,5 +1,3 @@
-import env from "../config/env.generated.json";
-
 const ISSUE_MAPPING = {
   "online-privacy-and-security": `Online Privacy & Security`,
   "open-innovation": `Open Innovation`,
