@@ -55,15 +55,15 @@ This starts a few image optimization scripts.
 `PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
 `LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
 
-### Deployment
+## Deployment
 
-#### Staging
+### Staging
 
 URL: https://network-pulse-staging.herokuapp.com/
 
 Updates to `master` branch automatically triggers staging deployment.
 
-#### Production
+### Production
 
 URL: https://mzl.la/pulse
 
