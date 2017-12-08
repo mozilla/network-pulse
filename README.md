@@ -20,7 +20,7 @@ Interested in contributing to this project? A good place to start is by helping 
 Browse the [issues](https://github.com/mozilla/network-pulse/issues). Look for the labels [enhancement](https://github.com/mozilla/network-pulse/labels/enhancement), [help wanted](https://github.com/mozilla/network-pulse/labels/help%20wanted), [good first issue](https://github.com/mozilla/network-pulse/labels/good%20first%20issue).
 
 
-## Developmemt
+## Development
 
 - Staging: https://network-pulse-staging.herokuapp.com
 - Work is happening in the `master` branch.
