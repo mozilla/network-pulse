@@ -17,7 +17,7 @@ const LEARN_MORE_LINK = habitat.get(`LEARN_MORE_LINK`);
 const CONFIG = {
   PORT,
   LEARN_MORE_LINK,
-  PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`, 24),
+  PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`),
   PULSE_API: habitat.get(`PULSE_API`)
 };
 

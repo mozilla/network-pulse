@@ -28,7 +28,7 @@ Browse the [issues](https://github.com/mozilla/network-pulse/issues). Look for t
 ### Setup
 
 ```bash
-$> git clone -b master https://github.com/mozilla/network-pulse.git
+$> git clone https://github.com/mozilla/network-pulse.git
 $> cd network-pulse
 $> npm install
 ```
