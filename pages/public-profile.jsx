@@ -30,18 +30,18 @@ class PublicProfile extends React.Component {
 
   fetchProfile(profileId, response) {
     Service.profile(profileId)
-    .then(userProfile => {
-      response({
-        userProfile,
-        showLoadingNotice: false
+      .then(userProfile => {
+        response({
+          userProfile,
+          showLoadingNotice: false
+        });
+      })
+      .catch(reason => {
+        console.error(reason);
+        response({
+          showLoadingNotice: false
+        });
       });
-    })
-    .catch(reason => {
-      console.error(reason);
-      response({
-        showLoadingNotice: false
-      });
-    });
   }
 
   renderProfile() {

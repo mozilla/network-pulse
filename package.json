@@ -59,8 +59,8 @@
   "devDependencies": {
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
-    "eslint": "^3.11.1",
-    "eslint-plugin-react": "^6.7.1",
+    "eslint": "^4.13.0",
+    "eslint-plugin-react": "^7.5.1",
     "mofo-style": "^2.4.0",
     "optipng-bin": "^4.0.0",
     "stylelint": "^7.13.0",

@@ -54,18 +54,18 @@ class ProjectList extends React.Component {
     if (!this.props.moreEntriesToFetch) return null;
 
     return <div className="view-more text-center">
-            <button type="button" className="btn btn-outline-info" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
-           </div>;
+      <button type="button" className="btn btn-outline-info" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
+    </div>;
   }
 
   render() {
     return (<div className="project-list">
-              <div className="projects row">
-                { this.renderProjectCards() }
-              </div>
-              { this.renderLoadingNotice() }
-              { this.renderViewMoreBtn() }
-            </div>);
+      <div className="projects row">
+        { this.renderProjectCards() }
+      </div>
+      { this.renderLoadingNotice() }
+      { this.renderViewMoreBtn() }
+    </div>);
   }
 }
 ProjectList.propTypes = {

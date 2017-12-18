@@ -38,13 +38,13 @@ class DynamicCheckboxGroup extends React.Component {
     let checked = this.state.selected.indexOf(option) > -1;
 
     return <div key={option}>
-            <label>
-              <input type="checkbox"
-                     value={option}
-                     checked={checked}
-                     onChange={event => this.handleCheckboxChange(event)} />{option}
-            </label>
-          </div>;
+      <label>
+        <input type="checkbox"
+          value={option}
+          checked={checked}
+          onChange={event => this.handleCheckboxChange(event)} />{option}
+      </label>
+    </div>;
   }
 
   renderCheckboxes() {

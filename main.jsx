@@ -36,17 +36,17 @@ const Featured = () => {
   let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
 
   return <div>
-          <Helmet><title>Featured</title></Helmet>
-          <p className="mb-4">Discover & collaborate on projects for a healthy internet. {learnMore}</p>
-          <ProjectLoader featured={`True`} />
-        </div>;
+    <Helmet><title>Featured</title></Helmet>
+    <p className="mb-4">Discover & collaborate on projects for a healthy internet. {learnMore}</p>
+    <ProjectLoader featured={`True`} />
+  </div>;
 };
 
 const Latest = () => {
   return <div>
-          <Helmet><title>Latest</title></Helmet>
-          <ProjectLoader />
-        </div>;
+    <Helmet><title>Latest</title></Helmet>
+    <ProjectLoader />
+  </div>;
 };
 
 const Help = (router) => {
@@ -60,27 +60,27 @@ const Tag = (router) => {
 };
 
 const Routes = () => (
-    <Switch>
-      <Route exact path="/" render={() => <Redirect to="/featured"/>} />
-      <Route path="/featured" component={Featured} />
-      <Route path="/latest" component={Latest} />
-      <Route path="/favs" component={Bookmarks} />
-      <Route exact path="/issues" component={Issues} />
-      <Route path="/issues/:issue" component={Issue} />
-      <Route path="/entry/:entryId" component={Entry} />
-      <Route path="/add" component={Add} />
-      <Route path="/submitted" component={Submitted} />
-      <Route path="/search" component={Search} />
-      <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
-      <Route path="/tags/:tag" component={Tag} />
-      <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
-      <Route path="/help/:helpType" component={Help} />
-      <Route path="/moderation" component={Moderation} />
-      <Route path="/profile/me" component={MyProfile} />
-      <Route path="/profile/:id" component={PublicProfile} />
-      <Route path="/myprofile" component={ProfileEdit} />
-      <Route path="*" component={NotFound}/>
-    </Switch>
+  <Switch>
+    <Route exact path="/" render={() => <Redirect to="/featured"/>} />
+    <Route path="/featured" component={Featured} />
+    <Route path="/latest" component={Latest} />
+    <Route path="/favs" component={Bookmarks} />
+    <Route exact path="/issues" component={Issues} />
+    <Route path="/issues/:issue" component={Issue} />
+    <Route path="/entry/:entryId" component={Entry} />
+    <Route path="/add" component={Add} />
+    <Route path="/submitted" component={Submitted} />
+    <Route path="/search" component={Search} />
+    <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
+    <Route path="/tags/:tag" component={Tag} />
+    <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
+    <Route path="/help/:helpType" component={Help} />
+    <Route path="/moderation" component={Moderation} />
+    <Route path="/profile/me" component={MyProfile} />
+    <Route path="/profile/:id" component={PublicProfile} />
+    <Route path="/myprofile" component={ProfileEdit} />
+    <Route path="*" component={NotFound}/>
+  </Switch>
 );
 
 const NavbarWithRouter = withRouter(Navbar);
@@ -103,9 +103,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Helmet titleTemplate={`%s - ${this.pageTitle}`}
-                defaultTitle={this.pageTitle}>
-        </Helmet>
+        <Helmet titleTemplate={`%s - ${this.pageTitle}`} defaultTitle={this.pageTitle}></Helmet>
         <NavbarWithRouter />
         <div id="main" className="container">
           <Routes />

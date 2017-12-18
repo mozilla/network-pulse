@@ -38,10 +38,10 @@ class GetInvolved extends React.Component {
     if (!this.props.getInvolved && !this.props.getInvolvedUrl && !this.props.helpTypes.length > 0) return null;
 
     return <div className="get-involved pb-3 mb-3">
-            <h2>Get involved</h2>
-            { this.renderGetInvolvedText() }
-            { this.renderHelpLabels() }
-           </div>;
+      <h2>Get involved</h2>
+      { this.renderGetInvolvedText() }
+      { this.renderHelpLabels() }
+    </div>;
   }
 }
 

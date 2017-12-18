@@ -42,18 +42,18 @@ class MyProfile extends React.Component {
 
   fetchProfile(profileId, response) {
     Service.profileMe()
-    .then(userProfile => {
-      response({
-        userProfile,
-        showLoadingNotice: false
+      .then(userProfile => {
+        response({
+          userProfile,
+          showLoadingNotice: false
+        });
+      })
+      .catch(reason => {
+        console.error(reason);
+        response({
+          showLoadingNotice: false
+        });
       });
-    })
-    .catch(reason => {
-      console.error(reason);
-      response({
-        showLoadingNotice: false
-      });
-    });
   }
 
   handleSignInBtnClick(event) {

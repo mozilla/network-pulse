@@ -78,10 +78,10 @@ class ProjectCard extends React.Component {
 
     return (
       <BookmarkControl id={this.props.id}
-       title={this.props.title}
-       isBookmarked={this.props.isBookmarked}
-       updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }}
-       className="align-middle"
+        title={this.props.title}
+        isBookmarked={this.props.isBookmarked}
+        updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }}
+        className="align-middle"
       />
     );
   }
@@ -96,13 +96,13 @@ class ProjectCard extends React.Component {
     if (!this.props.onModerationMode) return null;
 
     return <div>
-              <WhyInteresting interest={this.props.interest} />
-              <IssuesAndTags issues={this.props.issues} tags={this.props.tags} className={`pb-3 mb-3`} />
-              <GetInvolved getInvolved={this.props.getInvolved}
-                           getInvolvedUrl={this.props.getInvolvedUrl}
-                           helpTypes={this.props.helpTypes}
-                           sendGaEvent={(config) => this.sendGaEvent(config)} />
-          </div>;
+      <WhyInteresting interest={this.props.interest} />
+      <IssuesAndTags issues={this.props.issues} tags={this.props.tags} className={`pb-3 mb-3`} />
+      <GetInvolved getInvolved={this.props.getInvolved}
+        getInvolvedUrl={this.props.getInvolvedUrl}
+        helpTypes={this.props.helpTypes}
+        sendGaEvent={(config) => this.sendGaEvent(config)} />
+    </div>;
   }
 
   renderFullUrlSection() {
@@ -135,14 +135,14 @@ class ProjectCard extends React.Component {
           { this.renderModerationPanel() }
           <div className="summary-content">
             <Thumbnail thumbnail={this.props.thumbnail}
-                       link={!this.props.onModerationMode ? detailViewLink : ``}
-                       sendGaEvent={() => this.handleReadMoreClick()} />
+              link={!this.props.onModerationMode ? detailViewLink : ``}
+              sendGaEvent={() => this.handleReadMoreClick()} />
             <div className="content mt-2">
               <div className="d-flex">
                 <Title title={this.props.title}
-                 link={!this.props.onModerationMode ? detailViewLink : ``}
-                 sendGaEvent={() => this.handleReadMoreClick()}
-                 className="pr-2"
+                  link={!this.props.onModerationMode ? detailViewLink : ``}
+                  sendGaEvent={() => this.handleReadMoreClick()}
+                  className="pr-2"
                 />
                 { this.renderActionPanel() }
               </div>

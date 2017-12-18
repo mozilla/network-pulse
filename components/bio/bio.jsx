@@ -100,9 +100,9 @@ class Bio extends React.Component {
     });
 
     return <div className="tags mb-1">
-              <div className="d-inline-block mr-2 open-sans text-uppercase">{label}:</div>
-              {tags}
-            </div>;
+      <div className="d-inline-block mr-2 open-sans text-uppercase">{label}:</div>
+      {tags}
+    </div>;
   }
 
   renderInterest() {
