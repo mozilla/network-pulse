@@ -7,6 +7,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Main from './main.jsx';
 import securityHeaders from './js/security-headers';
+import env from "./config/env.generated.json";
 
 const app = express();
 
@@ -15,11 +16,7 @@ const app = express();
 // bundle compilation will have taken place on a different
 // dyno from where the code actually runs, but is available
 // at runtime as a PORT environment variable
-
-import env from "./config/env.generated.json";
-
-const defaultPort = 3000;
-const PORT = env.PORT || process.env.PORT || defaultPort;
+const PORT = process.env.PORT || env.PORT;
 
 // disable x-powered-by
 app.disable('x-powered-by');

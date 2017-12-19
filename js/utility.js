@@ -1,5 +1,3 @@
-import env from "../config/env.generated.json";
-
 const ISSUE_MAPPING = {
   "online-privacy-and-security": `Online Privacy & Security`,
   "open-innovation": `Open Innovation`,
@@ -21,14 +19,11 @@ const Utils = {
     return out;
   },
 
-  getCurrentURL(router=false) {
+  getCurrentURL() {
     if (typeof window !== `undefined`) {
       return window.location.toString();
     }
-    if (router) {
-      return `${env.ORIGIN}${router.getCurrentLocation().pathname}`;
-    }
-    return console.error(`No router or window available to get the current url!`);
+    return console.error(`No window available to get the current url!`);
   },
 
   getIssueNameFromUriPath(path) {
