@@ -1,14 +1,10 @@
 var dotenv = require(`dotenv`);
 
-// load default.env
-dotenv.config({path: `config/default.env`});
+// load .env
+dotenv.config();
 
-// load overrides
-if (process.env.NODE_ENV !== `production`) {
-  dotenv.config({path: `./.env`});
-} else {
-  dotenv.config();
-}
+// load default.env so that anything didn't get set in .env will fallback to its default value
+dotenv.config({path: `config/default.env`});
 
 const CONFIG = {
   PORT: process.env.PORT,
