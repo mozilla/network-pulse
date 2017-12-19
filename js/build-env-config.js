@@ -1,22 +1,20 @@
-var habitat = require(`habitat`);
+var dotenv = require(`dotenv`);
 
-// Local environment in .env overwrites everything else
-habitat.load(`.env`);
+// load default.env
+dotenv.config({path: `config/default.env`});
 
-var environment = habitat.get(`NODE_ENV`);
-
-if (environment !== `PRODUCTION`) {
-  // note that if you have any env var that is in both .env and default.env,
-  // the value in .env will always have the highest priority
-  // (i.e., it will override the value of the var you have in default.env)
-  habitat.load(`config/default.env`);
+// load overrides
+if (process.env.NODE_ENV !== `production`) {
+  dotenv.config({path: `./.env`});
+} else {
+  dotenv.config();
 }
 
 const CONFIG = {
-  PORT: habitat.get(`PORT`),
-  LEARN_MORE_LINK: habitat.get(`LEARN_MORE_LINK`),
-  PROJECT_BATCH_SIZE: habitat.get(`PROJECT_BATCH_SIZE`),
-  PULSE_API: habitat.get(`PULSE_API`)
+  PORT: process.env.PORT,
+  LEARN_MORE_LINK: process.env.LEARN_MORE_LINK,
+  PROJECT_BATCH_SIZE: process.env.PROJECT_BATCH_SIZE,
+  PULSE_API: process.env.PULSE_API,
 };
 
 process.stdout.write(
