@@ -7,7 +7,33 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Main from './main.jsx';
 import securityHeaders from './js/security-headers';
-import env from "./config/env.generated.json";
+import dotenv from 'dotenv';
+
+// TODO - modularize 13 - 35
+
+// load .env (process.env keys that are already set via the host environment (eg: Heroku) won't be changed)
+dotenv.config();
+
+// load default.env so that anything didn't get set in .env will get a default value
+dotenv.config({path: `config/default.env`});
+
+function serializeEnvAsObject() {
+  console.log(`serializeEnvAsObject()`);
+
+  //
+  // WARNING! Only put variables safe for public consumption here! This is emitted on the client side!
+  //
+  // NEVER PUT PRIVATE KEYS HERE!!!
+  //
+  const config = {
+    PORT: process.env.PORT,
+    LEARN_MORE_LINK: process.env.LEARN_MORE_LINK,
+    PROJECT_BATCH_SIZE: process.env.PROJECT_BATCH_SIZE,
+    PULSE_API: process.env.PULSE_API
+  };
+
+  return config;
+}
 
 const app = express();
 
@@ -16,7 +42,7 @@ const app = express();
 // bundle compilation will have taken place on a different
 // dyno from where the code actually runs, but is available
 // at runtime as a PORT environment variable
-const PORT = process.env.PORT || env.PORT;
+const PORT = process.env.PORT;
 
 // disable x-powered-by
 app.disable('x-powered-by');
@@ -81,6 +107,7 @@ app.get(`*`, (req, res) => {
   }
 });
 
+
 function renderPage(appHtml,reactHelmet) {
   // this is basically the same as what we have in ./index.html,
   // except that we are inserting appHtml as inner DOM of <div id="app"></div>
@@ -102,6 +129,7 @@ function renderPage(appHtml,reactHelmet) {
               </head>
               <body>
                 <div id="app">${appHtml}</div>
+                <script type="application/json" id="environment-variables">${JSON.stringify(serializeEnvAsObject())}</script>
                 <script src="/bundle.js"></script>
               </body>
             </html>`;
