@@ -103,7 +103,7 @@ function renderPage(appHtml,reactHelmet) {
               </head>
               <body>
                 <div id="app">${appHtml}</div>
-                <script type="application/json" id="environment-variables">${env.serializeEnvAsJSON()}</script>
+                <script type="application/json" id="environment-variables">${env.serializeSafeEnvAsJSON()}</script>
                 <script src="/bundle.js"></script>
               </body>
             </html>`;

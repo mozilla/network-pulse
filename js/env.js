@@ -1,13 +1,15 @@
 import dotenv from 'dotenv';
 
+// Augument process.env with local .env or project defaults:
+
 // load .env (process.env keys that are already set via the host environment (eg: Heroku) won't be changed)
 dotenv.config();
 
-// load default.env so that anything didn't get set in .env will get a default value
+// load default.env so that anything didn't get set in .env or the host environment will get a default value
 dotenv.config({path: `config/default.env`});
 
 export default {
-  serializeEnvAsJSON: () => {
+  serializeSafeEnvAsJSON: () => {
     //
     // WARNING! Only put variables safe for public consumption here! This is emitted on the client side!
     //
