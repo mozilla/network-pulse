@@ -8,7 +8,7 @@ dotenv.config();
 // load default.env so that anything didn't get set in .env or the host environment will get a default value
 dotenv.config({path: `config/default.env`});
 
-export default {
+let envUtilities= {
   serializeSafeEnvAsJSON: () => {
     //
     // WARNING! Only put variables safe for public consumption here! This is emitted on the client side!
@@ -25,3 +25,7 @@ export default {
     return JSON.stringify(config);
   }
 };
+
+let env = process.env;
+
+export { envUtilities, env };

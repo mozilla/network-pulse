@@ -7,7 +7,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Main from './main.jsx';
 import securityHeaders from './js/security-headers';
-import env from './js/env';
+import {envUtilities, env } from './js/env-server';
 
 const app = express();
 
@@ -16,7 +16,7 @@ const app = express();
 // bundle compilation will have taken place on a different
 // dyno from where the code actually runs, but is available
 // at runtime as a PORT environment variable
-const PORT = process.env.PORT;
+const PORT = env.PORT;
 
 // disable x-powered-by
 app.disable('x-powered-by');
@@ -103,7 +103,7 @@ function renderPage(appHtml,reactHelmet) {
               </head>
               <body>
                 <div id="app">${appHtml}</div>
-                <script type="application/json" id="environment-variables">${env.serializeSafeEnvAsJSON()}</script>
+                <script type="application/json" id="environment-variables">${envUtilities.serializeSafeEnvAsJSON()}</script>
                 <script src="/bundle.js"></script>
               </body>
             </html>`;
