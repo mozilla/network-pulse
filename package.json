@@ -4,10 +4,9 @@
   "description": "",
   "main": "dist/server.bundle.js",
   "scripts": {
-    "bootstrap": "shx rm -rf dist && shx mkdir dist && shx rm -f config/env.generated.json",
+    "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build && run-p server watch:**",
     "build": "run-s bootstrap build:**",
-    "build:config": "node js/build-env-config.js > config/env.generated.json",
     "build:client": "run-s build-client:**",
     "build-client:js": "webpack --config webpack.config.js --display-error-details --colors",
     "build-client:scss": "node-sass scss/main.scss dist/css/main.css",
