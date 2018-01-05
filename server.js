@@ -7,33 +7,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Main from './main.jsx';
 import securityHeaders from './js/security-headers';
-import dotenv from 'dotenv';
-
-// TODO - modularize 13 - 35
-
-// load .env (process.env keys that are already set via the host environment (eg: Heroku) won't be changed)
-dotenv.config();
-
-// load default.env so that anything didn't get set in .env will get a default value
-dotenv.config({path: `config/default.env`});
-
-function serializeEnvAsObject() {
-  console.log(`serializeEnvAsObject()`);
-
-  //
-  // WARNING! Only put variables safe for public consumption here! This is emitted on the client side!
-  //
-  // NEVER PUT PRIVATE KEYS HERE!!!
-  //
-  const config = {
-    PORT: process.env.PORT,
-    LEARN_MORE_LINK: process.env.LEARN_MORE_LINK,
-    PROJECT_BATCH_SIZE: process.env.PROJECT_BATCH_SIZE,
-    PULSE_API: process.env.PULSE_API
-  };
-
-  return config;
-}
+import env from './js/env';
 
 const app = express();
 
@@ -129,7 +103,7 @@ function renderPage(appHtml,reactHelmet) {
               </head>
               <body>
                 <div id="app">${appHtml}</div>
-                <script type="application/json" id="environment-variables">${JSON.stringify(serializeEnvAsObject())}</script>
+                <script type="application/json" id="environment-variables">${env.serializeEnvAsJSON()}</script>
                 <script src="/bundle.js"></script>
               </body>
             </html>`;
