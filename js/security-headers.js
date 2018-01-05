@@ -1,5 +1,5 @@
 import url from 'url';
-import env from "../config/env.generated.json";
+import { env } from './env-server';
 
 export default {
   directives: {

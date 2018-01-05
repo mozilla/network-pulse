@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Analytics from './js/analytics.js';
-import env from "./config/env.generated.json";
+import env from './js/env-client';
 
 import ProjectLoader from './components/project-loader/project-loader.jsx';
 import Bookmarks from './pages/bookmarks.jsx';

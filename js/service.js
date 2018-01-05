@@ -1,4 +1,4 @@
-import env from "../config/env.generated.json";
+import env from './env-client';
 
 let pulseAPI = env.PULSE_API;
 
