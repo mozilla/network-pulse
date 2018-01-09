@@ -50,12 +50,12 @@ const Latest = () => {
 };
 
 const Help = (router) => {
-  let searchParam = { key: `help_type`, value: router.match.params.helpType };
+  let searchParam = { key: `help_type`, value: decodeURIComponent(router.match.params.helpType) };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Help" />;
 };
 
 const Tag = (router) => {
-  let searchParam = { key: `tag`, value: router.match.params.tag };
+  let searchParam = { key: `tag`, value: decodeURIComponent(router.match.params.tag) };
   return <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />;
 };
 
