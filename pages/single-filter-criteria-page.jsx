@@ -17,7 +17,7 @@ class SingleFilterCriteriaPage extends React.Component {
 
     return <div>
       <Helmet><title>{searchParam.value}</title></Helmet>
-      <h2>{`${this.props.headerLabel}: ${decodeURIComponent(searchParam.value)} `}</h2>
+      <h2>{`${this.props.headerLabel}: ${searchParam.value} `}</h2>
       <ProjectLoader {...params} showCounter={true} />
     </div>;
   }
