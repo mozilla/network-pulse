@@ -83,8 +83,6 @@ app.get(`*`, (req, res) => {
 
 
 function renderPage(appHtml,reactHelmet) {
-  // this is basically the same as what we have in ./index.html,
-  // except that we are inserting appHtml as inner DOM of <div id="app"></div>
   return `<!doctype html>
             <html>
               <head>
