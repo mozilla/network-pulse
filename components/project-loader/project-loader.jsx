@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
 import pageSettings from '../../js/app-page-settings';
-import env from "../../config/env.generated.json";
+import env from '../../js/env-client';
 
 const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 

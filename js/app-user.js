@@ -1,5 +1,5 @@
 import qs from "qs";
-import env from "../config/env.generated.json";
+import env from './env-client';
 import localstorage from './localstorage.js';
 import Service from './service.js';
 
