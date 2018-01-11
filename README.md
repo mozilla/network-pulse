@@ -43,7 +43,7 @@ This starts server in development mode. See [environment variables section](http
 #### `npm test`
 This starts a few test scripts. Don't forget to run this command and fix errors (if any) before you git push your changes.
 
-#### `npm optimize` 
+#### `npm optimize`
 This starts a few image optimization scripts.
 
 ### Environment variables
@@ -65,16 +65,6 @@ Updates to `master` branch automatically triggers staging deployment.
 
 ### Production
 
-URL: https://mzl.la/pulse
+URL: https://mozillapulse.org
 
-Deployment is done manually.
-
-Concretely, we need to do a deployment rather than a "promotion" because there is a client-side bundle that gets built during deploy, and relies on environment variables at build time. As the staging environment and production environment differ in environment variables, we can't build on staging and then promote to production, as that would simply make our staging client "live".
-
-To manually deploy production site:
-
-1. Go to Heroku dashboard.
-2. Find `network-pulse-production` app.
-3. In the "Deploy" tab, scroll down to the "Manual deploy" section.
-4. Deploy `master` branch. (see screencap below)
-<img width="1062" alt="screen shot 2017-03-02 at 10 20 51 am" src="https://cloud.githubusercontent.com/assets/2896608/23521344/68f4d750-ff33-11e6-9ff4-e669ffa938f7.png">
+Deployment is done using the Heroku pipeline. Simply click "Promote To Production".
