@@ -204,7 +204,7 @@ class Add extends React.Component {
           inlineErrors={true}
           onUpdate={updateCallback} />
         <div className="submit-section">
-          <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
+          <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Use</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
           <button
             className="btn btn-info mr-3"
             type="submit"
