@@ -37,7 +37,7 @@ export default class AutoCompleteInput extends Component {
     });
   }
 
-  /**
+  /*
    * This function is responsible for converting term
    * objects to whatever form they need to be for the
    * parent to do something with. For instance, if the
@@ -75,7 +75,7 @@ export default class AutoCompleteInput extends Component {
     // does nothing in the superclass
   }
 
-  /**
+  /*
    * Helper function to ensure that if some field is identical
    * to an already-known field, but uses a different case, the
    * known case gets used instead of what the user typed.
@@ -116,7 +116,7 @@ export default class AutoCompleteInput extends Component {
     // does nothing in the superclass
   }
 
-  /**
+  /*
    * Helper function that subclasses can call in order
    * to explicitly add get a term string correctly saved
    * into the list of know terms.
@@ -130,7 +130,7 @@ export default class AutoCompleteInput extends Component {
     this.handleAddition(input);
   }
 
-  /**
+  /*
    * The superclass render function can take an object
    * representing additional properties that are to be used
    * during render. Currently, properties supported are:

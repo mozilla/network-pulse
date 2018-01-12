@@ -1,4 +1,3 @@
-var webpack = require(`webpack`);
 var fs = require(`fs`);
 var path = require(`path`);
 
@@ -14,7 +13,7 @@ module.exports = {
   // keep node_module paths out of the bundle
   // copied from https://github.com/reactjs/react-router-tutorial/tree/master/lessons/13-server-rendering
   externals: fs.readdirSync(path.resolve(__dirname, `node_modules`)).concat([
-    `react-dom/server`, `react/addons`,
+    `react-dom/server`, `react/addons`
   ]).reduce((ext, mod) => {
     ext[mod] = `commonjs ` + mod;
     return ext;

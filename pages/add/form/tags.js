@@ -16,7 +16,7 @@ export default class Tags extends AutoCompleteInput {
       });
   }
 
-  /**
+  /*
    * Add any tag that the user wrote before
    * they clicked away as a tag to this entry.
    */

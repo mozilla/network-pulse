@@ -4,7 +4,7 @@ import AutoCompleteInput from './auto-complete-input';
 const PROFILE_PREFIX = `👤 `;
 
 export default class Creators extends AutoCompleteInput {
-  /**
+  /*
    * Custom toSchema function to ensure the parent
    * is presented with a list of Creator models,
    * using the following schema:
@@ -20,7 +20,7 @@ export default class Creators extends AutoCompleteInput {
    */
   toSchema(field) {
     return {
-      creator_id: field.id ? field.id : null,
+      "creator_id": field.id ? field.id : null,
       name: field.id ? null : field.name
     };
     // Note: we do not need to strip the profile prefix
@@ -56,7 +56,7 @@ export default class Creators extends AutoCompleteInput {
     }
   }
 
-  /**
+  /*
    * Add any creator that the user wrote before they
    * clicked away as a creator-by-name for this entry.
    */
