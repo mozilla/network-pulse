@@ -2,7 +2,7 @@ import env from './env-client';
 
 let pulseAPI = env.PULSE_API;
 
-/**
+/*
  * A helper function to process value in a key-value pair into a valid query param value
  * @param  {String} key The key of the key-value pair we are going to process
  * @param  {Object} data Object that contains all keys and unprocessed values

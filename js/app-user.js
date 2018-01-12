@@ -9,14 +9,14 @@ import Service from './service.js';
  * only be used by User objects.
  */
 const Login = {
-  /**
+  /*
    * Generates the oauth url for logging a user in, with a redirect-when-finished URL
    */
   getLoginURL(redirectUrl) {
     return `${env.PULSE_API}/login?original_url=${encodeURIComponent(redirectUrl)}`;
   },
 
-  /**
+  /*
    * Check to see whether a user is logged in, with a callback
    * setUserData(error, username). If the user is not logged in
    * the username will be falsey.
@@ -46,7 +46,7 @@ const Login = {
       });
   },
 
-  /**
+  /*
    * Log a user out, with a callback onLogout(error).
    *
    * Note that callers should *immediately* treat users

@@ -13,13 +13,13 @@ const IssuesLabel = function() {
 
 
 module.exports = {
-  published_by_creator: {
+  "published_by_creator": {
     type: `checkbox`,
     label: `Yes`,
     fieldClassname: `published-by-creator`,
     guideText: `Are you one of the creators?`
   },
-  related_creators: {
+  "related_creators": {
     type: Creators,
     label: `Name any creators, contributors, partners. Comma separated.`,
     fieldClassname: `form-control`
@@ -41,7 +41,7 @@ module.exports = {
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
     fieldClassname: `form-control`
   },
-  'thumbnail': {
+  thumbnail: {
     type: `image`,
     label: `Project image: Only submit images that you have permission to use in this context.`,
     prompt: `Select image`,
