@@ -40,7 +40,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="profile-page">
-        <Helmet><title>Profile</title></Helmet>
+        <Helmet><title>{this.props.profile.name}</title></Helmet>
         <div className="row">
           { this.renderProfile() }
         </div>
