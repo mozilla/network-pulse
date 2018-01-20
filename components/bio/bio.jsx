@@ -42,7 +42,7 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`d-inline-block social-media px-2 px-sm-0`, {
+      let classname = classNames(`d-inline-block social-media`, {
         "mr-sm-3" : i !== list.length-1
       });
 
