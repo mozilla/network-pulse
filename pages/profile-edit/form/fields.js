@@ -25,7 +25,11 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: [
       validator.maxLengthValidator(140)
-    ]
+    ],
+    charLimit: 140,
+    charLimitText: function (charCount, charLimit) {
+      return charLimit - charCount;
+    }
   },
   "twitter": {
     type: `text`,
