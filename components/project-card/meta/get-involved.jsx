@@ -20,7 +20,6 @@ class GetInvolved extends React.Component {
     let props = this.props;
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
     let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={() => this.handleGetInvolvedLinkClick()}>Get Involved</a>) : null;
-
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return <p>{getInvolvedText} {getInvolvedLink}</p>;
@@ -30,7 +29,7 @@ class GetInvolved extends React.Component {
     if (!this.props.helpTypes) return null;
 
     return this.props.helpTypes.map(helpType => {
-      return <Link to={`/help/${encodeURIComponent(helpType)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
+      return <Link to={`/help/${helpType.split(` `).join(`-`).split(`&`).join(`and`)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
     });
   }
 

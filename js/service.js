@@ -51,8 +51,10 @@ function getDataFromURL(route, params = {}, token = {}) {
   };
 
   Object.assign(params, defaultParams);
-
   return new Promise((resolve, reject) => {
+    if(params.help_type) {
+      params.help_type = params.help_type.split(`-`).join(` `).split(` and `).join(` & `);
+    }
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
@@ -97,7 +99,6 @@ function getDataFromURL(route, params = {}, token = {}) {
  */
 function callURL(route) {
   let request = new XMLHttpRequest();
-
   return new Promise((resolve, reject) => {
     request.open(`GET`, route, true);
 
