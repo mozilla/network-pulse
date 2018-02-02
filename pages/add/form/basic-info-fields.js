@@ -33,6 +33,10 @@ module.exports = {
     label: `Description: Simple, brief language works best. No jargon.`,
     placeholder: `Description`,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(600)
+    validator: validator.maxLengthValidator(600),
+    charLimit: 600,
+    charLimitText: function (charCount, charLimit) {
+      return charLimit - charCount;
+    }
   },
 };
