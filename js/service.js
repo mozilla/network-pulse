@@ -52,9 +52,6 @@ function getDataFromURL(route, params = {}, token = {}) {
 
   Object.assign(params, defaultParams);
   return new Promise((resolve, reject) => {
-    if(params.help_type) {
-      params.help_type = params.help_type.split(`-`).join(` `).split(` and `).join(` & `);
-    }
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;

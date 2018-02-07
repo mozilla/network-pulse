@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Utility from '../../../js/utility';
 
 const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
 
@@ -29,7 +30,7 @@ class GetInvolved extends React.Component {
     if (!this.props.helpTypes) return null;
 
     return this.props.helpTypes.map(helpType => {
-      return <Link to={`/help/${helpType.split(` `).join(`-`).split(`&`).join(`and`)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
+      return <Link to={`/help/${Utility.getSlugFromHelpTag(helpType)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
     });
   }
 
