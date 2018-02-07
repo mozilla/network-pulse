@@ -36,6 +36,24 @@ const Utils = {
     }
 
     return ``;
+  },
+
+  getSlugFromHelpTag(helpTag) {
+    // this function turns help type into a prettier string so we can use it as slug
+    // e.g., "Plan & organize" becomes "plan-and-organize"
+
+    return helpTag.split(` `)
+      .map(word => encodeURIComponent(word.replace(/&/g, `and`)).toLowerCase())
+      .join(`-`);
+  },
+
+  getHelpTagFromSlug(slug) {
+    // this function turns help type slug into a string Pulse API recognizes as helpType
+    // e.g., "plan-and-organize" becomes "plan & organize"
+
+    return slug.split(`-`)
+      .map(word => decodeURIComponent(word.replace(/and/g, `&`)))
+      .join(` `);
   }
 };
 
