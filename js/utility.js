@@ -39,7 +39,7 @@ const Utils = {
   },
 
   getSlugFromHelpTag(helpTag) {
-    // this function turns help type into a prettier string so we can use it as slug
+    // turns help type into a prettier string so we can use it as slug
     // e.g., "Plan & organize" becomes "plan-and-organize"
 
     return helpTag.split(` `)
@@ -48,7 +48,7 @@ const Utils = {
   },
 
   getHelpTagFromSlug(slug) {
-    // this function turns help type slug into a string Pulse API recognizes as helpType
+    // turns help type slug into a string Pulse API recognizes as helpType
     // e.g., "plan-and-organize" becomes "plan & organize"
 
     return slug.split(`-`)
