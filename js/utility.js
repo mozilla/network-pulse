@@ -52,7 +52,7 @@ const Utils = {
     // e.g., "plan-and-organize" becomes "plan & organize"
 
     return slug.split(`-`)
-      .map(word => decodeURIComponent(word.replace(/and/g, `&`)))
+      .map(word => decodeURIComponent(word.replace(/\band\b/g, `&`)))
       .join(` `);
   }
 };
