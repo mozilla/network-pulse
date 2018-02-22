@@ -19,7 +19,7 @@ class ProjectLoader extends React.Component {
       nextBatchIndex: 1,
       entries: [],
       moreEntriesToFetch: false,
-      totalMatched: 0
+      totalMatched: null
     };
   }
 
@@ -140,7 +140,7 @@ class ProjectLoader extends React.Component {
   }
 
   renderEntryCounter() {
-    if (this.state.loadingData || !this.props.showCounter) return null;
+    if (this.state.totalMatched === null || !this.props.showCounter) return null;
 
     let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 1 ? `s` : ``} found`;
     let searchKeyword = this.props.search;
