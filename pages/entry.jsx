@@ -8,6 +8,7 @@ import ProjectCardDetailed from '../components/project-card/project-card-detaile
 import Service from '../js/service.js';
 import Utility from '../js/utility.js';
 import pageSettings from '../js/app-page-settings.js';
+import user from '../js/app-user';
 
 const NO_ENTRY_TITLE = `Entry unavailable`;
 const NO_ENTRY_BLOCK = (
@@ -24,6 +25,7 @@ class Entry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user,
       dataLoaded: false,
       justPostedByUser: false,
       entry: null
@@ -85,7 +87,7 @@ class Entry extends React.Component {
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
-      justPostedByUserMessage = this.state.justPostedByUser && <div className="col-12 my-3"><NotificationBar>Thanks! Submission was added to <Link to="/profile/me">your profile</Link>.</NotificationBar></div>;
+      justPostedByUserMessage = this.state.justPostedByUser && <div className="col-12 my-3"><NotificationBar>Thanks! Submission was added to <Link to={ `/profile/${this.state.user.profileid}` }>your profile</Link>.</NotificationBar></div>;
       content = <ProjectCardDetailed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
     }
 

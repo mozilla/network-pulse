@@ -38,7 +38,7 @@ const Login = {
     // verify user's logged in status with Pulse API
     Service.userstatus()
       .then(response => {
-        setUserData(false, response.username, response.profileid, response.customname, response.email, response.loggedin, response.moderator);
+        setUserData(false, response);
       })
       .catch(reason => {
         console.error(reason);
@@ -77,6 +77,14 @@ class User {
   constructor() {
     this.listeners = [];
     this.resetUser();
+    this.defaultUserData = {
+      username: false,
+      profileid: false,
+      customName: false,
+      email: false,
+      loggedin: false,
+      moderator: false
+    };
   }
 
   resetUser(justLoggedOut) {
@@ -121,8 +129,8 @@ class User {
   }
 
   verify(location, history) {
-    Login.isLoggedIn(location, history, (error, username, profileId, customName, email, loggedIn, moderator) => {
-      this.update(error, username, profileId, customName, email, loggedIn, moderator);
+    Login.isLoggedIn(location, history, (error, userData) => {
+      this.update(error, userData);
     });
   }
 
@@ -137,7 +145,7 @@ class User {
     });
   }
 
-  update(error, username=false, profileId=false, customName=false, email=false, loggedIn=false, moderator=false) {
+  update(error, userData = this.defaultUserData) {
     if (error) {
       console.log(`login error:`, error);
     }
@@ -145,17 +153,17 @@ class User {
     // Is this a failed login attempt?
     let attemptingLogin = !!localStorage[`pulse:user:attemptingLogin`];
 
-    if (attemptingLogin && !username) {
+    if (attemptingLogin && !userData.username) {
       this.failedLogin = true;
     }
     localstorage.removeItem(`pulse:user:attemptingLogin`);
 
     // bind the user values
-    this.loggedin = !!loggedIn;
-    this.moderator = !!moderator;
-    this.name = customName || username; // use user's custom name if it exists. otherwise fall back to user's user name
-    this.email = email;
-    this.profileid = profileId;
+    this.loggedin = !!userData.loggedin;
+    this.moderator = !!userData.moderator;
+    this.name = userData.customName || userData.username; // use user's custom name if it exists. otherwise fall back to user's user name
+    this.email = userData.email;
+    this.profileid = userData.profileid;
     // notify listeners that this user logged in state has been verified
     this.notifyListeners(`verified`);
   }

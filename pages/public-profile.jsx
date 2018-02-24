@@ -44,6 +44,12 @@ class PublicProfile extends React.Component {
       });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.fetchProfile(nextProps.match.params.id, newState => {
+      this.setState(newState);
+    });
+  }
+
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
