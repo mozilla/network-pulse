@@ -25,7 +25,7 @@ import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const TITLE = `Mozilla Network Pulse`;
-const DESCRIPTION = `Discover & collaborate on projects for a healthy internet`;
+const DESCRIPTION = `Discover & collaborate on projects for a healthy internet.`;
 
 const Featured = () => {
   let handleOnClick = function() {
