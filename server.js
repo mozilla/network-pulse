@@ -35,6 +35,7 @@ function renderPage(appHtml,reactHelmet) {
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         ${reactHelmet.title.toString()}
+        ${reactHelmet.meta.toString()}
       </head>
       <body>
         <div id="app">${appHtml}</div>
