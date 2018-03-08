@@ -2,7 +2,8 @@
   .thumbnail {
     overflow: hidden;
     border-radius: 50%;
-    background: $gray;
+    background: url("/assets/profile-pic.jpg") no-repeat center;
+    background-size: cover;
 
     &::after {
       content: "";
