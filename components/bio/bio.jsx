@@ -16,10 +16,7 @@ class Bio extends React.Component {
 
     if (this.props.thumbnail) {
       style = {
-        backgroundImage: `url(${this.props.thumbnail})`,
-        backgroundSize: `cover`,
-        backgroundRepat: `no-repeat`,
-        backgroundPosition: `center center`
+        backgroundImage: `url(${this.props.thumbnail})`
       };
     }
 
