@@ -77,14 +77,6 @@ class User {
   constructor() {
     this.listeners = [];
     this.resetUser();
-    this.defaultUserData = {
-      username: false,
-      profileid: false,
-      customName: false,
-      email: false,
-      loggedin: false,
-      moderator: false
-    };
   }
 
   resetUser(justLoggedOut) {
@@ -145,7 +137,7 @@ class User {
     });
   }
 
-  update(error, userData = this.defaultUserData) {
+  update(error, userData = this.resetUser()) {
     if (error) {
       console.log(`login error:`, error);
     }
@@ -164,6 +156,7 @@ class User {
     this.name = userData.customName || userData.username; // use user's custom name if it exists. otherwise fall back to user's user name
     this.email = userData.email;
     this.profileid = userData.profileid;
+
     // notify listeners that this user logged in state has been verified
     this.notifyListeners(`verified`);
   }

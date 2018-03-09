@@ -8,7 +8,6 @@ import SignOutButton from '../sign-out-button.jsx';
 class Bio extends React.Component {
   constructor(props) {
     super(props);
-    this.profileOwnerName = props.custom_name || props.name;
   }
 
   renderThumbnail() {
@@ -33,7 +32,10 @@ class Bio extends React.Component {
   }
 
   renderName() {
-    return <div className="name mr-sm-4 text-truncate mw-100">{this.profileOwnerName}</div>;
+    // we prefer to show custom name if presented, otherwise fall back to name
+    let profileOwnerName = this.props.custom_name || this.props.name;
+
+    return <div className="name mr-sm-4 text-truncate mw-100">{profileOwnerName}</div>;
   }
 
   renderSocialMedia() {
