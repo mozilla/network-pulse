@@ -82,16 +82,23 @@ class Entry extends React.Component {
     let justPostedByUserMessage = null;
     let content = NO_ENTRY_BLOCK;
     let docTitle = NO_ENTRY_TITLE; // html doc title
+    let projectMeta = Utility.processEntryData(this.state.entry);
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
       justPostedByUserMessage = this.state.justPostedByUser && <div className="col-12 my-3"><NotificationBar>Thanks! Submission was added to <Link to="/profile/me">your profile</Link>.</NotificationBar></div>;
-      content = <ProjectCardDetailed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      content = <ProjectCardDetailed {...projectMeta} onDetailView={true} />;
     }
 
     return (
       <div className="w-100">
-        <Helmet><title>{ docTitle }</title></Helmet>
+        <Helmet>
+          <title>{docTitle}</title>
+          <meta property="og:title" content={docTitle}/>
+          { projectMeta.description && <meta name="description" content={projectMeta.description} /> }
+          { projectMeta.description && <meta property="og:description" content={projectMeta.description} /> }
+          { projectMeta.thumbnail && <meta property="og:image" content={projectMeta.thumbnail} /> }
+        </Helmet>
         { justPostedByUserMessage }
         { content }
       </div>

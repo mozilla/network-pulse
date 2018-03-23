@@ -24,6 +24,9 @@ import NotFound from './pages/not-found.jsx';
 import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
 
+const TITLE = `Mozilla Network Pulse`;
+const DESCRIPTION = `Discover & collaborate on projects for a healthy internet.`;
+
 const Featured = () => {
   let handleOnClick = function() {
     ReactGA.event({
@@ -88,7 +91,6 @@ const NavbarWithRouter = withRouter(Navbar);
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.pageTitle = `Mozilla Network Pulse`;
   }
 
   componentDidMount() {
@@ -103,7 +105,9 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Helmet titleTemplate={`%s - ${this.pageTitle}`} defaultTitle={this.pageTitle}></Helmet>
+        <Helmet titleTemplate={`%s - ${TITLE}`} defaultTitle={TITLE}>
+          <meta name="description" content={DESCRIPTION} />
+        </Helmet>
         <NavbarWithRouter />
         <div id="main" className="container">
           <Routes />

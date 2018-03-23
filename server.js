@@ -35,6 +35,7 @@ function renderPage(appHtml,reactHelmet) {
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         ${reactHelmet.title.toString()}
+        ${reactHelmet.meta.toString()}
       </head>
       <body>
         <div id="app">${appHtml}</div>
@@ -90,14 +91,13 @@ app.use((req, res, next) => {
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
 app.get(`*`, (req, res) => {
-  const reactHelmet = ReactHelmet.renderStatic();
   const context = {}; // context object contains the results of the render
-
   const appHtml = renderToString(
     <StaticRouter location={req.url} context={context}>
       <Main />
     </StaticRouter>
   );
+  const reactHelmet = ReactHelmet.renderStatic();
 
   if (context.url) {
     // Somewhere a `<Redirect>` was rendered
