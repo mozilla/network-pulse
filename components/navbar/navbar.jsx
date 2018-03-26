@@ -51,7 +51,7 @@ class NavBar extends React.Component {
     let link = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Signup / Signin</a>;
 
     if (user.loggedin) {
-      link = <NavLink to="/profile/me" onClick={() => this.handleMobileNavLinkClick()}>{user.name}</NavLink>;
+      link = <NavLink to={ `/profile/${user.profileid}` } onClick={() => this.handleMobileNavLinkClick()}>{user.name}</NavLink>;
     }
 
     return <NavListItem className={classNames(`signupin-user`, classes)}>{link}</NavListItem>;
