@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -8,6 +9,26 @@ import SignOutButton from '../sign-out-button.jsx';
 class Bio extends React.Component {
   constructor(props) {
     super(props);
+
+    this.profileOwnerName = this.getProfileOwnerName(props);
+  }
+
+  getProfileOwnerName(props) {
+    // we prefer to show custom name if presented, otherwise fall back to name
+    return props.custom_name || props.name;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.profileOwnerName = this.getProfileOwnerName(nextProps);
+  }
+
+  handleSocialMediaClick(event, type) {
+    ReactGA.event({
+      category: `Profile`,
+      action: `Social link tap`,
+      label: `${this.profileOwnerName} - ${type}`,
+      transport: `beacon`
+    });
   }
 
   renderThumbnail() {
@@ -26,13 +47,6 @@ class Bio extends React.Component {
     if (!this.props.my_profile) return null;
 
     return <div className="mt-3"><Link to="/myprofile">Edit your profile</Link></div>;
-  }
-
-  renderName() {
-    // we prefer to show custom name if presented, otherwise fall back to name
-    let profileOwnerName = this.props.custom_name || this.props.name;
-
-    return <div className="name mr-sm-4 text-truncate mw-100">{profileOwnerName}</div>;
   }
 
   renderSocialMedia() {
@@ -120,7 +134,7 @@ class Bio extends React.Component {
           </div>
           <div className="col-sm-8 col-md-10">
             <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3">
-              { this.renderName() }
+              <div className="name mr-sm-4 text-truncate mw-100">{this.profileOwnerName}</div>
               { this.renderSocialMedia() }
               { this.renderSignOut() }
             </div>
