@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 const Creators = (props) => {
@@ -12,12 +13,18 @@ const Creators = (props) => {
   props.creators.forEach((creator)=>{
     // Link to creators with a profile, plain text name if without.
     let name = creator.name;
-    let url = null;
-    if(typeof creator.profile_id === `number` && props.makeLink) {
-      url = `/profile/${creator.profile_id}`;
+    let creatorLabel = name;
+
+    if (typeof creator.profile_id === `number` && props.makeLink) {
+      creatorLabel = <Link key={name}
+        to={`/profile/${creator.profile_id}`}
+        onClick={(event) => props.creatorClickHandler(event, name)}
+      >
+        {name}
+      </Link>;
     }
-    creators.push( <a key={name} href={url} onClick={(event) => props.creatorClickHandler(event, name)}>{name}</a> );
-    creators.push( `, `);
+    creators.push(creatorLabel);
+    creators.push(`, `);
   });
 
   if (creators.length) {
