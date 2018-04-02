@@ -34,6 +34,7 @@ function renderPage(appHtml,reactHelmet) {
         <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace('api/pulse','')}rss/latest">
         ${reactHelmet.title.toString()}
       </head>
       <body>
