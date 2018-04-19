@@ -50,10 +50,7 @@ class ProfileTabGroup extends React.Component {
     // [1] viewing your own profile: show all tabs
     // [2] viewing other people's profile: show tab only if there are entries in that category
     return this.props.myProfile ? Object.keys(TABS) : Object.keys(TABS).filter(tab => {
-      return TABS[tab].some(type => {
-        console.log(tab, type, entries[type] && entries[type].length > 0);
-        return entries[type] && entries[type].length > 0;
-      });
+      return TABS[tab].some(type => entries[type] && entries[type].length > 0);
     });
   }
 
@@ -64,13 +61,9 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTabControls() {
-    let tabNames = this.props.myProfile ? Object.keys(TABS) : Object.keys(TABS).filter(tab => {
-      return TABS[tab].some(type => {
-        return this.state.entries[type] && this.state.entries[type].length > 0;
-      });
-    });
+    if (!this.state.visibleTabs) return null;
 
-    let tabControls = tabNames.map(tab => {
+    let tabControls = this.state.visibleTabs.map(tab => {
       let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
         active: this.state.activeTab === tab
       });
