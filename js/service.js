@@ -254,6 +254,9 @@ let Service = {
   profile: function(id) {
     return getDataFromURL(`${pulseAPI}/profiles/${id}/`);
   },
+  profileEntries: function(id) {
+    return getDataFromURL(`${pulseAPI}/profiles/${id}/entries/?created=true&published=true&favorited=true`);
+  },
   nonce: function() {
     return getDataFromURL(`${pulseAPI}/nonce/`);
   },
