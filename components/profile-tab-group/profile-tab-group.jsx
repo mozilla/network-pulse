@@ -23,25 +23,26 @@ class ProfileTabGroup extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchProfileEntries(this.props.profileId, profileEntries => {
-      let visibleTabs = this.getVisibleTabs(profileEntries);
-
-      this.setState({
-        entries: profileEntries,
-        visibleTabs,
-        activeTab: visibleTabs[0]
-      });
-    });
+    this.fetchProfileEntries(this.props.profileId);
   }
 
-  fetchProfileEntries(profileId, response) {
+  componentWillReceiveProps(nextProps) {
+    this.fetchProfileEntries(nextProps.profileId);
+  }
+
+  fetchProfileEntries(profileId) {
     Service.profileEntries(profileId)
-      .then(entries => {
-        response(entries);
+      .then(profileEntries => {
+        let visibleTabs = this.getVisibleTabs(profileEntries);
+
+        this.setState({
+          entries: profileEntries,
+          visibleTabs,
+          activeTab: visibleTabs[0]
+        });
       })
       .catch(reason => {
         console.error(reason);
-        response({});
       });
   }
 
@@ -71,7 +72,7 @@ class ProfileTabGroup extends React.Component {
       return <button key={tab} className={classnames} onClick={(event) => this.handleTabClick(event, tab)}>{tab}</button>;
     });
 
-    return <div className="my-5">
+    return <div className="tab-control-container">
       { tabControls }
     </div>;
   }
@@ -90,7 +91,7 @@ class ProfileTabGroup extends React.Component {
 
     return <div className="row my-5">
       <div className="col-12">
-        <h2 className="h4">
+        <h2 className="h6 text-uppercase">
           {label}
         </h2>
       </div>
