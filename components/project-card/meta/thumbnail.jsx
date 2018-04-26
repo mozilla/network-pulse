@@ -13,7 +13,7 @@ class Thumbnail extends React.Component {
 
   render() {
     let imgSrc = this.props.thumbnail ? this.props.thumbnail : `/assets/placeholder-thumbnail.png`;
-    let thumbnail = <div className="img-container"><img src={imgSrc} /></div>;
+    let thumbnail = <div className="img-container" style={{backgroundImage: `url(${imgSrc})`}}></div>;
     let classnames = `thumbnail`;
 
     if (this.props.link) {
