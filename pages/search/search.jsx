@@ -9,6 +9,10 @@ import Service from '../../js/service.js';
 import ProjectLoader from '../../components/project-loader/project-loader.jsx';
 
 const DEFAULT_MODERATION_FILTER = `Pending`;
+const TRENDING_TERMS = [
+  { label: `iot`, link: `/search?keyword=iot` },
+  { label: `promote`, link: `/help/promote` }
+];
 
 class Search extends React.Component {
   constructor(props) {
@@ -33,7 +37,8 @@ class Search extends React.Component {
   getSearchCriteria(props) {
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
-      keywordSearched: query.keyword
+      keywordSearched: query.keyword,
+      showTrending: !query.keyword // show trending links only if there's no search term presented
     };
 
     if (this.props.moderation) {
@@ -83,7 +88,10 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState({ keywordSearched: keywordsEntered }, () => {
+    this.setState({
+      keywordSearched: keywordsEntered,
+      showTrending: !event.target.value // show trending links only if there's no search term presented
+    }, () => {
       this.updateBrowserHistory();
     });
   }
@@ -200,6 +208,21 @@ class Search extends React.Component {
     return <div>{ this.renderSearchBar() }</div>;
   }
 
+  renderTrendingTerms() {
+    if (this.props.moderation || !this.state.showTrending) return null;
+
+    let links = TRENDING_TERMS.map(term =>
+      <a href={term.link} className="btn btn-link inline-link">{term.label}</a>
+    ).reduce((prev, curr) => [prev, `, `, curr]);
+
+    return <div className="trending">
+      <div className="d-inline-block mr-1">Trending:</div>
+      <div className="d-inline-block">
+        {links}
+      </div>
+    </div>
+  }
+
   renderProjects() {
     if (!this.state.keywordSearched && !this.props.moderation) return null;
 
@@ -220,6 +243,7 @@ class Search extends React.Component {
       <div className="search-page">
         <Helmet><title>{this.state.keywordSearched}</title></Helmet>
         { this.renderSearchControls() }
+        { this.renderTrendingTerms() }
         { this.renderProjects() }
       </div>
     );
