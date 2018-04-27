@@ -37,8 +37,7 @@ class Search extends React.Component {
   getSearchCriteria(props) {
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
-      keywordSearched: query.keyword,
-      showTrending: !query.keyword // show trending links only if there's no search term presented
+      keywordSearched: query.keyword
     };
 
     if (this.props.moderation) {
@@ -88,10 +87,7 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState({
-      keywordSearched: keywordsEntered,
-      showTrending: !event.target.value // show trending links only if there's no search term presented
-    }, () => {
+    this.setState({ keywordSearched: keywordsEntered }, () => {
       this.updateBrowserHistory();
     });
   }
@@ -209,10 +205,10 @@ class Search extends React.Component {
   }
 
   renderTrendingTerms() {
-    if (this.props.moderation || !this.state.showTrending) return null;
+    if (this.props.moderation || this.state.keywordSearched) return null;
 
     let links = TRENDING_TERMS.map(term =>
-      <a href={term.link} className="btn btn-link inline-link">{term.label}</a>
+      <a href={term.link} className="btn btn-link inline-link" key={term.label}>{term.label}</a>
     ).reduce((prev, curr) => [prev, `, `, curr]);
 
     return <div className="trending">
