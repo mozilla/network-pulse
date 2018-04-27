@@ -16,12 +16,11 @@
     overflow: hidden;
 
     .img-container {
-      text-align: center;
       background-color: #eee;
-
-      img {
-        max-width: 100%;
-      }
+      background-blend-mode: multiply;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top center;
     }
   }
 
