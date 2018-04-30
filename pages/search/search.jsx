@@ -10,8 +10,11 @@ import ProjectLoader from '../../components/project-loader/project-loader.jsx';
 
 const DEFAULT_MODERATION_FILTER = `Pending`;
 const TRENDING_TERMS = [
-  { label: `iot`, link: `/search?keyword=iot` },
-  { label: `promote`, link: `/help/promote` }
+  { label: `mozsprint`, link: `/tags/mozsprint` },
+  { label: `artists open web`, link: `/tags/Artists%20Open%20Web` },
+  { label: `inclusion`, link: `/issues/digital-inclusion` },
+  { label: `help code`, link: `/help/code` },
+  { label: `help with feedback`, link: `/help/test-and-feedback` }
 ];
 
 class Search extends React.Component {
