@@ -216,7 +216,7 @@ class Search extends React.Component {
       <div className="d-inline-block">
         {links}
       </div>
-    </div>
+    </div>;
   }
 
   renderProjects() {
