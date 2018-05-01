@@ -216,9 +216,7 @@ class Search extends React.Component {
 
     return <div className="trending">
       <div className="d-inline-block mr-1">Trending:</div>
-      <div className="d-inline-block">
-        {links}
-      </div>
+      {links}
     </div>;
   }
 
