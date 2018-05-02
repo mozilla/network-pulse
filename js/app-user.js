@@ -137,7 +137,7 @@ class User {
     });
   }
 
-  update(error, userData = this.resetUser()) {
+  update(error, userData = {}) {
     if (error) {
       console.log(`login error:`, error);
     }
@@ -153,7 +153,7 @@ class User {
     // bind the user values
     this.loggedin = !!userData.loggedin;
     this.moderator = !!userData.moderator;
-    this.name = userData.customName || userData.username; // use user's custom name if it exists. otherwise fall back to user's user name
+    this.name = userData.customname || userData.username; // use user's custom name if it exists. otherwise fall back to user's user name
     this.email = userData.email;
     this.profileid = userData.profileid;
 
