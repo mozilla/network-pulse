@@ -31,7 +31,8 @@ export default {
       url.parse(env.PULSE_API).host || `https://network-pulse-api-staging.herokuapp.com/`
     ],
     childSrc: [
-      `'none'`
+      `https://syndication.twitter.com`,
+      `https://platform.twitter.com`
     ],
     frameAncestors: [
       `'none'`
