@@ -68,6 +68,22 @@ button {
   }
 }
 
+.btn-tab {
+  color: $mobile-blue;
+  font-weight: 600;
+  padding: 0;
+  margin-right: 2rem;
+
+  @include hover-focus-active {
+    color: $mobile-blue;
+    text-decoration: underline;
+  }
+
+  &.active {
+    text-decoration: underline;
+  }
+}
+
 .open-sans {
   font-family: 'Open Sans', X-LocaleSpecific, sans-serif;
 }
@@ -201,6 +217,7 @@ textarea {
 @import '../components/hint-message/hint-message';
 @import '../components/bio/bio';
 @import '../components/notification-bar/notification-bar';
+@import '../components/profile-tab-group/profile-tab-group';
 
 // Pages
 
