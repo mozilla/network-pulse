@@ -8,6 +8,7 @@ import HintMessage from '../../components/hint-message/hint-message.jsx';
 import ProjectList from '../../components/project-list/project-list.jsx';
 
 const TABS = {
+  // tab name: [ `project type 1`, `project type 2`, ... ]
   projects: [ `published`, `created` ],
   favs: [ `favorited` ]
 };
@@ -38,7 +39,7 @@ class ProfileTabGroup extends React.Component {
         this.setState({
           entries: profileEntries,
           visibleTabs,
-          activeTab: visibleTabs[0]
+          activeTab: visibleTabs.length > 0 ? visibleTabs[0] : null
         });
       })
       .catch(reason => {
@@ -77,8 +78,12 @@ class ProfileTabGroup extends React.Component {
     </div>;
   }
 
-  renderProjects(label, entries, prompt) {
-    let content = <div className="mb-5">{prompt}</div>;
+  renderProjects(headerText, entries, prompt) {
+    let content;
+
+    if (prompt) {
+      content = <div className="mb-5">{prompt}</div>;
+    }
 
     if (entries && entries.length > 0) {
       content = <ProjectList entries={entries}
@@ -90,26 +95,38 @@ class ProfileTabGroup extends React.Component {
     }
 
     return <div className="row my-5">
+      { headerText && content &&
       <div className="col-12">
         <h2 className="h6 text-uppercase">
-          {label}
+          {headerText}
         </h2>
       </div>
+      }
+      { content &&
       <div className="col-12">
         {content}
       </div>
+      }
     </div>
     ;
   }
 
   renderProjectsTab() {
+    let prompt;
+
     // show prompt only if user is viewing his/her own profile
-    let prompt = this.props.myProfile ? <HintMessage
-      header="Do you have something to share?"
-      linkComponent={<Link to={`/add`}>Add entry</Link>}
-    >
-      <p>If it might be useful to someone in our network, share it here.</p>
-    </HintMessage> : null;
+    if (this.props.myProfile) {
+      prompt = <HintMessage
+        header="Do you have something to share?"
+        linkComponent={<Link to={`/add`}>Add entry</Link>}
+      >
+        <p>If it might be useful to someone in our network, share it here.</p>
+      </HintMessage>;
+
+      if (this.state.entries.published.length === 0 && this.state.entries.created.length === 0) {
+        return this.renderProjects(``, [], prompt);
+      }
+    }
 
     return <div>
       { this.renderProjects(`Published Projects`, this.state.entries.published, prompt) }
@@ -126,7 +143,15 @@ class ProfileTabGroup extends React.Component {
       <p>Tap the heart on any project to save it here.</p>
     </HintMessage> : null;
 
-    return this.renderProjects(`Favs`, this.state.entries.favorited, prompt);
+    return this.renderProjects(``, this.state.entries.favorited, prompt);
+  }
+
+  renderTab() {
+    if (!this.state.activeTab) {
+      return null;
+    }
+
+    return this.state.activeTab === `favs` ? this.renderFavsTab() : this.renderProjectsTab();
   }
 
   render() {
@@ -135,7 +160,7 @@ class ProfileTabGroup extends React.Component {
         { !this.state.entries ? <LoadingNotice /> :
           <div>
             { this.renderTabControls() }
-            { this.state.activeTab === `favs` ? this.renderFavsTab() : this.renderProjectsTab() }
+            { this.renderTab() }
           </div>
         }
       </div>
