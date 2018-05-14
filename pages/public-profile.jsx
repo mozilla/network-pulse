@@ -1,7 +1,9 @@
 import React from 'react';
 import NotFound from './not-found.jsx';
 import Service from '../js/service';
-import Profile from './profile.jsx';
+import { Helmet } from "react-helmet";
+import Bio from '../components/bio/bio.jsx';
+import ProfileTabGroup from '../components/profile-tab-group/profile-tab-group.jsx';
 import LoadingNotice from '../components/loading-notice.jsx';
 import user from '../js/app-user';
 
@@ -53,11 +55,24 @@ class PublicProfile extends React.Component {
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
-    return <Profile profile={this.state.userProfile} user={this.state.user} history={this.props.history} />;
+    let userProfile = this.state.userProfile;
+
+    return <div>
+      <Helmet><title>{userProfile.name}</title></Helmet>
+      <div className="row">
+        <div className="col-12">
+          <Bio {...userProfile} user={this.state.user} history={this.props.history} />
+        </div>
+      </div>
+      <hr />
+      <ProfileTabGroup profileId={userProfile.profile_id} myProfile={userProfile.my_profile} />
+    </div>;
   }
 
   render() {
-    return this.state.showLoadingNotice ? <LoadingNotice /> : this.renderProfile();
+    return <div className="profile-page">
+      { this.state.showLoadingNotice ? <LoadingNotice /> : this.renderProfile() }
+    </div>;
   }
 }
 
