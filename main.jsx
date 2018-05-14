@@ -16,7 +16,7 @@ import Add from './pages/add/add.jsx';
 import Submitted from './pages/add/submitted.jsx';
 import Search from './pages/search/search.jsx';
 import Moderation from './pages/moderation.jsx';
-import PublicProfile from './pages/public-profile.jsx';
+import Profile from './pages/profile.jsx';
 import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
 
@@ -75,7 +75,7 @@ const Routes = () => (
     <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
     <Route path="/help/:helpType" component={Help} />
     <Route path="/moderation" component={Moderation} />
-    <Route path="/profile/:id" component={PublicProfile} />
+    <Route path="/profile/:id" component={Profile} />
     <Route path="/myprofile" component={ProfileEdit} />
     <Route path="*" component={NotFound}/>
   </Switch>
