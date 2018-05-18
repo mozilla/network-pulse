@@ -60,13 +60,14 @@
     "eslint-plugin-react": "^7.5.1",
     "mofo-style": "^2.4.0",
     "optipng-bin": "^4.0.0",
-    "stylelint": "^7.13.0",
+    "stylelint": "^9.2.1",
     "stylelint-config-standard": "^16.0.0",
-    "svgo": "^1.0.3"
+    "svgo": "^1.0.3",
+    "webpack-cli": "^2.1.3"
   },
   "dependencies": {
     "autoprefixer": "^8.3.0",
-    "babel-core": "^6.26.2",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
@@ -77,10 +78,11 @@
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",
     "helmet": "^3.9.0",
+    "lodash": "^4.17.10",
     "mofo-bootstrap": "4.0.1",
     "mofo-ui": "^1.7.0",
     "moment": "^2.19.3",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.7.0",
     "npm-run-all": "^4.1.2",
     "postcss-cli-simple": "^1.0.3",
     "prop-types": "^15.6.1",
@@ -96,9 +98,9 @@
     "react-select": "^1.2.1",
     "react-tag-autocomplete": "^5.5.1",
     "shx": "^0.2.1",
-    "snyk": "^1.73.0",
+    "snyk": "^1.80.1",
     "url": "^0.11.0",
-    "webpack": "^2.7.0"
+    "webpack": "^4.8.3"
   },
   "engines": {
     "node": "^8.9.0",
