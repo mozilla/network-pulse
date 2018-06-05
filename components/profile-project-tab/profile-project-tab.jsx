@@ -84,12 +84,16 @@ class ProfileProjectTab extends React.Component {
   }
 
   renderProjectsTab() {
-    let prompt = <HintMessage
-      header="Do you have something to share?"
-      linkComponent={<Link to={`/add`}>Add entry</Link>}
-    >
-      <p>If it might be useful to someone in our network, share it here.</p>
-    </HintMessage>;
+    let prompt;
+
+    if (this.props.myProfile) {
+      prompt = <HintMessage
+        header="Do you have something to share?"
+        linkComponent={<Link to={`/add`}>Add entry</Link>}
+      >
+        <p>If it might be useful to someone in our network, share it here.</p>
+      </HintMessage>;
+    }
 
     if (this.state.entries.published.length === 0 && this.state.entries.created.length === 0) {
       return this.renderProjects(``, [], prompt);
@@ -102,12 +106,16 @@ class ProfileProjectTab extends React.Component {
   }
 
   renderFavsTab() {
-    let prompt = <HintMessage
-      header="Save your Favs"
-      linkComponent={<Link to={`/featured`}>Explore featured</Link>}
-    >
-      <p>Tap the heart on any project to save it here.</p>
-    </HintMessage>;
+    let prompt;
+
+    if (this.props.myProfile) {
+      prompt = <HintMessage
+        header="Save your Favs"
+        linkComponent={<Link to={`/featured`}>Explore featured</Link>}
+      >
+        <p>Tap the heart on any project to save it here.</p>
+      </HintMessage>;
+    }
 
     return this.renderProjects(``, this.state.entries.favorited, prompt);
   }
@@ -123,6 +131,7 @@ class ProfileProjectTab extends React.Component {
 
 ProfileProjectTab.propTypes = {
   profileId: PropTypes.number.isRequired,
+  myProfile: PropTypes.bool.isRequired,
   tabName: PropTypes.string.isRequired,
   projectTypes: PropTypes.array.isRequired
 };

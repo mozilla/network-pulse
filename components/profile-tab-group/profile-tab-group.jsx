@@ -17,30 +17,33 @@ class ProfileTabGroup extends React.Component {
   }
 
   getInitialState(props) {
-    let visibleTabs = this.getVisibleTabs(props);
+    let visibleTabs = this.getAvailableTabs(props);
     let activeTab;
-
-    if (visibleTabs.indexOf(props.activeTab) >= 0) {
-      activeTab = props.activeTab;
-    }
-
-    if (!props.activeTab) {
-      activeTab = visibleTabs[0];
-    }
-
-    return {
+    let states = {
       activeTab,
       visibleTabs
     };
+
+    if (visibleTabs.length === 0) return states;
+
+    if (visibleTabs.indexOf(props.activeTab) >= 0) {
+      states.activeTab = props.activeTab;
+    }
+
+    if (!props.activeTab) {
+      states.activeTab = visibleTabs[0];
+    }
+
+    return states;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activeTab !== this.state.activeTab || (!nextProps.activeTab && !this.state.activeTab)) {
+    if (nextProps.activeTab !== this.state.activeTab) {
       this.setState(this.getInitialState(nextProps));
     }
   }
 
-  getVisibleTabs(props) {
+  getAvailableTabs(props) {
     // 2 scenarios
     // [1] viewing your own profile: show all tabs
     // [2] viewing other people's profile: show tab only if there are entries in that category
@@ -74,10 +77,18 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTab() {
-    if (!this.state.activeTab) return <Redirect to={`/profile/${this.props.profileId}`} />;
+    if (!this.state.activeTab) {
+      if (this.props.doNotRedirectAgain) return null;
+
+      return <Redirect to={{
+        pathname: `/profile/${this.props.profileId}`,
+        state: { doNotRedirectAgain: true }
+      }} />;
+    }
 
     return <ProfileProjectTab
       profileId={this.props.profileId}
+      myProfile={this.props.myProfile}
       tabName={this.state.activeTab}
       projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
     />;

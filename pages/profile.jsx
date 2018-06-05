@@ -86,6 +86,7 @@ class Profile extends React.Component {
         myProfile={userProfile.my_profile}
         entryCount={userProfile.entry_count}
         activeTab={this.props.match.params.tab}
+        doNotRedirectAgain={this.props.location.state ? this.props.location.state.doNotRedirectAgain : false}
       />
     </div>;
   }
