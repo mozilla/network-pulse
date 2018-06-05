@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Service from '../../js/service';
 import LoadingNotice from '../../components/loading-notice.jsx';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
@@ -84,20 +84,15 @@ class ProfileProjectTab extends React.Component {
   }
 
   renderProjectsTab() {
-    let prompt;
+    let prompt = <HintMessage
+      header="Do you have something to share?"
+      linkComponent={<Link to={`/add`}>Add entry</Link>}
+    >
+      <p>If it might be useful to someone in our network, share it here.</p>
+    </HintMessage>;
 
-    // show prompt only if user is viewing his/her own profile
-    if (this.props.myProfile) {
-      prompt = <HintMessage
-        header="Do you have something to share?"
-        linkComponent={<Link to={`/add`}>Add entry</Link>}
-      >
-        <p>If it might be useful to someone in our network, share it here.</p>
-      </HintMessage>;
-
-      if (this.state.entries.published.length === 0 && this.state.entries.created.length === 0) {
-        return this.renderProjects(``, [], prompt);
-      }
+    if (this.state.entries.published.length === 0 && this.state.entries.created.length === 0) {
+      return this.renderProjects(``, [], prompt);
     }
 
     return <div>
@@ -107,17 +102,12 @@ class ProfileProjectTab extends React.Component {
   }
 
   renderFavsTab() {
-    if (!this.props.myProfile && this.state.entries.favorited && this.state.entries.favorited < 1 ) {
-      return <Redirect to={`/profile/${this.state.profileId}`} />;
-    }
-
-    // show prompt only if user is viewing his/her own profile
-    let prompt = this.props.myProfile ? <HintMessage
+    let prompt = <HintMessage
       header="Save your Favs"
       linkComponent={<Link to={`/featured`}>Explore featured</Link>}
     >
       <p>Tap the heart on any project to save it here.</p>
-    </HintMessage> : null;
+    </HintMessage>;
 
     return this.renderProjects(``, this.state.entries.favorited, prompt);
   }
@@ -133,7 +123,6 @@ class ProfileProjectTab extends React.Component {
 
 ProfileProjectTab.propTypes = {
   profileId: PropTypes.number.isRequired,
-  myProfile: PropTypes.bool.isRequired,
   tabName: PropTypes.string.isRequired,
   projectTypes: PropTypes.array.isRequired
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ProfileProjectTab from '../../components/profile-project-tab/profile-project-tab.jsx';
 
 const PROJECT_TYPES_BY_TAB_NAME = {
@@ -35,7 +35,7 @@ class ProfileTabGroup extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activeTab !== this.state.activeTab) {
+    if (nextProps.activeTab !== this.state.activeTab || (!nextProps.activeTab && !this.state.activeTab)) {
       this.setState(this.getInitialState(nextProps));
     }
   }
@@ -74,9 +74,10 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTab() {
+    if (!this.state.activeTab) return <Redirect to={`/profile/${this.props.profileId}`} />;
+
     return <ProfileProjectTab
       profileId={this.props.profileId}
-      myProfile={this.props.myProfile}
       tabName={this.state.activeTab}
       projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
     />;
@@ -86,7 +87,7 @@ class ProfileTabGroup extends React.Component {
     return (
       <div>
         { this.renderTabControls() }
-        { this.state.activeTab && this.renderTab() }
+        { this.renderTab() }
       </div>
     );
   }
