@@ -7,13 +7,18 @@ import ProfileTabGroup from '../components/profile-tab-group/profile-tab-group.j
 import LoadingNotice from '../components/loading-notice.jsx';
 import user from '../js/app-user';
 
-class PublicProfile extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState(props);
+  }
+
+  getInitialState(props) {
+    return {
       user,
       userProfile: null,
-      showLoadingNotice: true
+      showLoadingNotice: true,
+      activeTab: props.match.params.tab
     };
   }
 
@@ -24,6 +29,23 @@ class PublicProfile extends React.Component {
     this.fetchProfile(this.props.match.params.id, newState => {
       this.setState(newState);
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let diffProfile = nextProps.match.params.id !== this.props.match.params.id;
+    let diffTab = nextProps.match.params.tab !== this.props.match.params.tab;
+
+    if (!diffProfile && diffTab) {
+      this.setState({ activeTab: nextProps.match.params.tab });
+    }
+
+    if (diffProfile) {
+      this.setState(this.getInitialState(nextProps), () => {
+        this.fetchProfile(nextProps.match.params.id, newState => {
+          this.setState(newState);
+        });
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -46,12 +68,6 @@ class PublicProfile extends React.Component {
       });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.fetchProfile(nextProps.match.params.id, newState => {
-      this.setState(newState);
-    });
-  }
-
   renderProfile() {
     if (!this.state.userProfile) return <NotFound header="Profile not found" />;
 
@@ -65,7 +81,12 @@ class PublicProfile extends React.Component {
         </div>
       </div>
       <hr />
-      <ProfileTabGroup profileId={userProfile.profile_id} myProfile={userProfile.my_profile} />
+      <ProfileTabGroup
+        profileId={userProfile.profile_id}
+        myProfile={userProfile.my_profile}
+        entryCount={userProfile.entry_count}
+        activeTab={this.props.match.params.tab}
+      />
     </div>;
   }
 
@@ -76,4 +97,4 @@ class PublicProfile extends React.Component {
   }
 }
 
-export default PublicProfile;
+export default Profile;

@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import Service from '../../js/service';
-import LoadingNotice from '../../components/loading-notice.jsx';
-import HintMessage from '../../components/hint-message/hint-message.jsx';
-import ProjectList from '../../components/project-list/project-list.jsx';
+import ProfileProjectTab from '../../components/profile-project-tab/profile-project-tab.jsx';
 
-const TABS = {
-  // tab name: [ `project type 1`, `project type 2`, ... ]
+const PROJECT_TYPES_BY_TAB_NAME = {
   projects: [ `published`, `created` ],
   favs: [ `favorited` ]
 };
@@ -17,60 +13,59 @@ class ProfileTabGroup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeTab: null,
-      entries: null
+    this.state = this.getInitialState(props);
+  }
+
+  getInitialState(props) {
+    let visibleTabs = this.getVisibleTabs(props);
+    let activeTab;
+
+    if (visibleTabs.indexOf(props.activeTab) >= 0) {
+      activeTab = props.activeTab;
+    }
+
+    if (!props.activeTab) {
+      activeTab = visibleTabs[0];
+    }
+
+    return {
+      activeTab,
+      visibleTabs
     };
   }
 
-  componentDidMount() {
-    this.fetchProfileEntries(this.props.profileId);
-  }
-
   componentWillReceiveProps(nextProps) {
-    this.fetchProfileEntries(nextProps.profileId);
+    if (nextProps.activeTab !== this.state.activeTab) {
+      this.setState(this.getInitialState(nextProps));
+    }
   }
 
-  fetchProfileEntries(profileId) {
-    Service.profileEntries(profileId)
-      .then(profileEntries => {
-        let visibleTabs = this.getVisibleTabs(profileEntries);
-
-        this.setState({
-          entries: profileEntries,
-          visibleTabs,
-          activeTab: visibleTabs.length > 0 ? visibleTabs[0] : null
-        });
-      })
-      .catch(reason => {
-        console.error(reason);
-      });
-  }
-
-  getVisibleTabs(entries) {
+  getVisibleTabs(props) {
     // 2 scenarios
     // [1] viewing your own profile: show all tabs
     // [2] viewing other people's profile: show tab only if there are entries in that category
-    return this.props.myProfile ? Object.keys(TABS) : Object.keys(TABS).filter(tab => {
-      return TABS[tab].some(type => entries[type] && entries[type].length > 0);
-    });
-  }
+    const TAB_NAMES = Object.keys(PROJECT_TYPES_BY_TAB_NAME);
 
-  handleTabClick(event, type) {
-    this.setState({
-      activeTab: type
+    return props.myProfile ? TAB_NAMES : TAB_NAMES.filter(tab => {
+      return PROJECT_TYPES_BY_TAB_NAME[tab].some(type => props.entryCount[type] && props.entryCount[type] > 0);
     });
   }
 
   renderTabControls() {
     if (!this.state.visibleTabs) return null;
 
-    let tabControls = this.state.visibleTabs.map(tab => {
+    let tabControls = this.state.visibleTabs.map(tabName => {
       let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
-        active: this.state.activeTab === tab
+        active: this.state.activeTab === tabName
       });
 
-      return <button key={tab} className={classnames} onClick={(event) => this.handleTabClick(event, tab)}>{tab}</button>;
+      return <Link
+        key={tabName}
+        className={classnames}
+        to={`/profile/${this.props.profileId}/${tabName}`}
+      >
+        {tabName}
+      </Link>;
     });
 
     return <div className="tab-control-container">
@@ -78,91 +73,20 @@ class ProfileTabGroup extends React.Component {
     </div>;
   }
 
-  renderProjects(headerText, entries, prompt) {
-    let content;
-
-    if (prompt) {
-      content = <div className="mb-5">{prompt}</div>;
-    }
-
-    if (entries && entries.length > 0) {
-      content = <ProjectList entries={entries}
-        loadingData={false}
-        moreEntriesToFetch={false}
-        fetchData={()=>{}}
-        onModerationMode={false}
-      />;
-    }
-
-    return <div className="row my-5">
-      { headerText && content &&
-      <div className="col-12">
-        <h2 className="h6 text-uppercase">
-          {headerText}
-        </h2>
-      </div>
-      }
-      { content &&
-      <div className="col-12">
-        {content}
-      </div>
-      }
-    </div>
-    ;
-  }
-
-  renderProjectsTab() {
-    let prompt;
-
-    // show prompt only if user is viewing his/her own profile
-    if (this.props.myProfile) {
-      prompt = <HintMessage
-        header="Do you have something to share?"
-        linkComponent={<Link to={`/add`}>Add entry</Link>}
-      >
-        <p>If it might be useful to someone in our network, share it here.</p>
-      </HintMessage>;
-
-      if (this.state.entries.published.length === 0 && this.state.entries.created.length === 0) {
-        return this.renderProjects(``, [], prompt);
-      }
-    }
-
-    return <div>
-      { this.renderProjects(`Published Projects`, this.state.entries.published, prompt) }
-      { this.renderProjects(`Created Projects`, this.state.entries.created, prompt) }
-    </div>;
-  }
-
-  renderFavsTab() {
-    // show prompt only if user is viewing his/her own profile
-    let prompt = this.props.myProfile ? <HintMessage
-      header="Save your Favs"
-      linkComponent={<Link to={`/featured`}>Explore featured</Link>}
-    >
-      <p>Tap the heart on any project to save it here.</p>
-    </HintMessage> : null;
-
-    return this.renderProjects(``, this.state.entries.favorited, prompt);
-  }
-
   renderTab() {
-    if (!this.state.activeTab) {
-      return null;
-    }
-
-    return this.state.activeTab === `favs` ? this.renderFavsTab() : this.renderProjectsTab();
+    return <ProfileProjectTab
+      profileId={this.props.profileId}
+      myProfile={this.props.myProfile}
+      tabName={this.state.activeTab}
+      projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
+    />;
   }
 
   render() {
     return (
       <div>
-        { !this.state.entries ? <LoadingNotice /> :
-          <div>
-            { this.renderTabControls() }
-            { this.renderTab() }
-          </div>
-        }
+        { this.renderTabControls() }
+        { this.state.activeTab && this.renderTab() }
       </div>
     );
   }
@@ -170,7 +94,9 @@ class ProfileTabGroup extends React.Component {
 
 ProfileTabGroup.propTypes = {
   profileId: PropTypes.number.isRequired,
-  myProfile: PropTypes.bool.isRequired
+  myProfile: PropTypes.bool.isRequired,
+  entryCount: PropTypes.object.isRequired,
+  activeTab: PropTypes.string
 };
 
 

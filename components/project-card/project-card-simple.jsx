@@ -164,7 +164,7 @@ class ProjectCard extends React.Component {
 ProjectCard.propTypes = {
   id: PropTypes.number.isRequired,
   creators: PropTypes.array,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   thumbnail: PropTypes.string,
   title: PropTypes.string.isRequired,
   isBookmarked: PropTypes.bool
