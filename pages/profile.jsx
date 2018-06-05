@@ -69,9 +69,14 @@ class Profile extends React.Component {
   }
 
   renderProfile() {
-    if (!this.state.userProfile) return <NotFound header="Profile not found" />;
-
     let userProfile = this.state.userProfile;
+    let activeTab = this.props.match.params.tab;
+
+    if (!userProfile) return <NotFound header="Profile not found" />;
+
+    if (this.props.location.state) {
+      activeTab = this.props.location.state.activeTab;
+    }
 
     return <div>
       <Helmet><title>{userProfile.name}</title></Helmet>
@@ -85,8 +90,7 @@ class Profile extends React.Component {
         profileId={userProfile.profile_id}
         myProfile={userProfile.my_profile}
         entryCount={userProfile.entry_count}
-        activeTab={this.props.match.params.tab}
-        doNotRedirectAgain={this.props.location.state ? this.props.location.state.doNotRedirectAgain : false}
+        activeTab={activeTab}
       />
     </div>;
   }

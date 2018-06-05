@@ -55,8 +55,6 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTabControls() {
-    if (!this.state.visibleTabs) return null;
-
     let tabControls = this.state.visibleTabs.map(tabName => {
       let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
         active: this.state.activeTab === tabName
@@ -78,11 +76,9 @@ class ProfileTabGroup extends React.Component {
 
   renderTab() {
     if (!this.state.activeTab) {
-      if (this.props.doNotRedirectAgain) return null;
-
       return <Redirect to={{
         pathname: `/profile/${this.props.profileId}`,
-        state: { doNotRedirectAgain: true }
+        state: { activeTab: this.state.visibleTabs[0] }
       }} />;
     }
 
@@ -95,6 +91,14 @@ class ProfileTabGroup extends React.Component {
   }
 
   render() {
+    if (this.state.visibleTabs.length === 0) {
+      if (this.props.activeTab) {
+        return <Redirect to={`/profile/${this.props.profileId}`} />;
+      }
+
+      return null;
+    }
+
     return (
       <div>
         { this.renderTabControls() }
