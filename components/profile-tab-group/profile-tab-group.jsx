@@ -17,21 +17,25 @@ class ProfileTabGroup extends React.Component {
   }
 
   getInitialState(props) {
-    let visibleTabs = this.getAvailableTabs(props);
+    let availableTabs = this.getAvailableTabs(props);
     let activeTab;
     let states = {
       activeTab,
-      visibleTabs
+      availableTabs
     };
 
-    if (visibleTabs.length === 0) return states;
+    // this profile doesn't have any available tabs to show
+    if (availableTabs.length === 0) return states;
 
-    if (visibleTabs.indexOf(props.activeTab) >= 0) {
+    // the tab we are trying to load has content and can be rendered
+    if (availableTabs.indexOf(props.activeTab) >= 0) {
       states.activeTab = props.activeTab;
     }
 
+    // we are trying to load the base profile page (e.g., without specifying which tab)
+    // set states.activeTab to be the default tab (first tab in availableTabs)
     if (!props.activeTab) {
-      states.activeTab = visibleTabs[0];
+      states.activeTab = availableTabs[0];
     }
 
     return states;
@@ -55,7 +59,7 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTabControls() {
-    let tabControls = this.state.visibleTabs.map(tabName => {
+    let tabControls = this.state.availableTabs.map(tabName => {
       let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
         active: this.state.activeTab === tabName
       });
@@ -75,10 +79,11 @@ class ProfileTabGroup extends React.Component {
   }
 
   renderTab() {
+    // if activeTab isn't set, redirect to base profile route and show the default tab
     if (!this.state.activeTab) {
       return <Redirect to={{
         pathname: `/profile/${this.props.profileId}`,
-        state: { activeTab: this.state.visibleTabs[0] }
+        state: { activeTab: this.state.availableTabs[0] }
       }} />;
     }
 
@@ -91,11 +96,14 @@ class ProfileTabGroup extends React.Component {
   }
 
   render() {
-    if (this.state.visibleTabs.length === 0) {
+    // when this profile has no available tabs to show
+    if (this.state.availableTabs.length === 0) {
+      // redirect users to base profile route if they are trying to view a specific profile tab
       if (this.props.activeTab) {
         return <Redirect to={`/profile/${this.props.profileId}`} />;
       }
 
+      // show nothing if nothing is available to show on the base profile route
       return null;
     }
 

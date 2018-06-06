@@ -27,7 +27,7 @@ class ProfileProjectTab extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.tabName !== this.props.tabName) {
       this.setState(this.getInitialState(nextProps), () => {
-        this.fetchProfileEntries(this.state.profileId);
+        this.fetchProfileEntries();
       });
     }
   }
