@@ -75,7 +75,8 @@ const Routes = () => (
     <Route exact path="/help" render={() => <Redirect to="/latest"/>} />
     <Route path="/help/:helpType" component={Help} />
     <Route path="/moderation" component={Moderation} />
-    <Route path="/profile/:id" component={Profile} />
+    <Route exact path="/profile/:id" component={Profile} />
+    <Route path="/profile/:id/:tab" component={Profile} />
     <Route path="/myprofile" component={ProfileEdit} />
     <Route path="*" component={NotFound}/>
   </Switch>
