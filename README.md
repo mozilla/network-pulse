@@ -12,7 +12,7 @@ Pulse reveals the network's footprint, it fosters collaboration and amplifies th
 
 ### Testing
 
-Interested in contributing to this project? A good place to start is by helping with [Quality Tests](https://github.com/mozilla/network-pulse/wiki/Quality-Tests). File a [new issue](https://github.com/mozilla/network-pulse/issues) to say hello and let us know that you're interested.  
+Interested in contributing to this project? A good place to start is by helping with [Quality Tests](https://github.com/mozilla/network-pulse/wiki/Quality-Tests). File a [new issue](https://github.com/mozilla/network-pulse/issues) to say hello and let us know that you're interested.
 
 ### Fix bugs or help with new features
 
@@ -51,7 +51,7 @@ This starts a few image optimization scripts.
    Name | Description
 ------------------|---------------------------------------------
 `PORT` | Default: `process.env.PORT`(falls back to `3000` if `process.env.PORT` cannot be found)<br><br>The port number you are running the server on.
-`PULSE_API` | Default: `https://pulse-api.mofostaging.net/api/pulse`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
+`PULSE_API` | Default: `https://pulse-api.mofostaging.net/api/pulse/v2`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
 `PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
 `LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
 
