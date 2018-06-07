@@ -123,5 +123,8 @@ ProfileTabGroup.propTypes = {
   activeTab: PropTypes.string
 };
 
+ProfileTabGroup.defaultProps = {
+  entryCount: {}
+};
 
 export default ProfileTabGroup;
