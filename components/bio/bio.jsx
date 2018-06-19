@@ -127,8 +127,8 @@ class Bio extends React.Component {
   render() {
     return (
       <div className="bio mb-5">
-        <div className="row">
-          <div className="col-sm-4 col-md-2 text-center">
+        <div className="row justify-content-center">
+          <div className="col-6 col-sm-4 col-md-2 text-center">
             { this.renderThumbnail() }
             { this.renderEditLink() }
           </div>

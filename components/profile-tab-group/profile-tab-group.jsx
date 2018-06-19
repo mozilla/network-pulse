@@ -56,7 +56,7 @@ class ProfileTabGroup extends React.Component {
     const TAB_NAMES = Object.keys(PROJECT_TYPES_BY_TAB_NAME);
 
     return props.myProfile ? TAB_NAMES : TAB_NAMES.filter(tab => {
-      if (name === `story`) {
+      if (tab === `story`) {
         return !!props.userBioLong;
       }
 
@@ -66,7 +66,7 @@ class ProfileTabGroup extends React.Component {
 
   renderTabControls() {
     let tabControls = this.state.availableTabs.map(tabName => {
-      let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
+      let classnames = classNames(`btn btn-tab open-sans text-uppercase`, {
         active: this.state.activeTab === tabName
       });
 
