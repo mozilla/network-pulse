@@ -85,13 +85,22 @@ class Profile extends React.Component {
           <Bio {...userProfile} user={this.state.user} history={this.props.history} />
         </div>
       </div>
-      <hr />
-      <ProfileTabGroup
-        profileId={userProfile.profile_id}
-        myProfile={userProfile.my_profile}
-        entryCount={userProfile.entry_count}
-        activeTab={activeTab}
-      />
+      <div className="row">
+        <div className="col-12">
+          <hr />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <ProfileTabGroup
+            profileId={userProfile.profile_id}
+            myProfile={userProfile.my_profile}
+            entryCount={userProfile.entry_count}
+            userBioLong={userProfile.user_bio_long}
+            activeTab={activeTab}
+          />
+        </div>
+      </div>
     </div>;
   }
 
