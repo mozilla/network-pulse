@@ -2,30 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 
-class ProfileStoryTab extends React.Component {
+class ProfileAboutTab extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    return <div className="profile-story-tab row justify-content-center mb-5">
-      <div className="col-sm-10">
+    return <div className="profile-about-tab row justify-content-center mb-5">
+      <div className="col">
         { this.props.longBio &&
-        <div className="quote my-5">
           <ReactMarkdown
             source={this.props.longBio.replace(/\\n/g, `\n`)}
             escapeHtml={true}
             skipHtml={true}
           />
-        </div>
         }
       </div>
     </div>;
   }
 }
 
-ProfileStoryTab.propTypes = {
+ProfileAboutTab.propTypes = {
   longBio: PropTypes.string.isRequired
 };
 
-export default ProfileStoryTab;
+export default ProfileAboutTab;

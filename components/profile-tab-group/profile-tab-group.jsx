@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
-import ProfileStoryTab from '../../components/profile-story-tab/profile-story-tab.jsx';
+import ProfileAboutTab from '../../components/profile-about-tab/profile-about-tab.jsx';
 import ProfileProjectTab from '../../components/profile-project-tab/profile-project-tab.jsx';
 
 const PROJECT_TYPES_BY_TAB_NAME = {
-  story: [ ], // a tab to show user's long bio
+  about: [ ], // a tab to show user's long bio
   projects: [ `published`, `created` ], // a tab to show projects
   favs: [ `favorited` ] // a tab to show user's favourited projects
 };
@@ -56,7 +56,7 @@ class ProfileTabGroup extends React.Component {
     const TAB_NAMES = Object.keys(PROJECT_TYPES_BY_TAB_NAME);
 
     return props.myProfile ? TAB_NAMES : TAB_NAMES.filter(tab => {
-      if (tab === `story`) {
+      if (tab === `about`) {
         return !!props.userBioLong;
       }
 
@@ -100,8 +100,8 @@ class ProfileTabGroup extends React.Component {
       projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
     />;
 
-    if (this.state.activeTab === `story`) {
-      tab = <ProfileStoryTab longBio={this.props.userBioLong} />;
+    if (this.state.activeTab === `about`) {
+      tab = <ProfileAboutTab longBio={this.props.userBioLong} />;
     }
 
     return tab;
