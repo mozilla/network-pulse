@@ -83,10 +83,6 @@ class Profile extends React.Component {
       <div className="row">
         <div className="col-12">
           <Bio {...userProfile} user={this.state.user} history={this.props.history} />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
           <hr />
         </div>
       </div>
