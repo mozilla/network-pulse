@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
+import ProfileAboutTab from '../../components/profile-about-tab/profile-about-tab.jsx';
 import ProfileProjectTab from '../../components/profile-project-tab/profile-project-tab.jsx';
 
 const PROJECT_TYPES_BY_TAB_NAME = {
-  projects: [ `published`, `created` ],
-  favs: [ `favorited` ]
+  about: [ ], // a tab to show user's long bio
+  projects: [ `published`, `created` ], // a tab to show projects
+  favs: [ `favorited` ] // a tab to show user's favourited projects
 };
 
 class ProfileTabGroup extends React.Component {
@@ -50,17 +52,21 @@ class ProfileTabGroup extends React.Component {
   getAvailableTabs(props) {
     // 2 scenarios
     // [1] viewing your own profile: show all tabs
-    // [2] viewing other people's profile: show tab only if there are entries in that category
+    // [2] viewing other people's profile: show tab only if there is content to show
     const TAB_NAMES = Object.keys(PROJECT_TYPES_BY_TAB_NAME);
 
     return props.myProfile ? TAB_NAMES : TAB_NAMES.filter(tab => {
+      if (tab === `about`) {
+        return !!props.userBioLong;
+      }
+
       return PROJECT_TYPES_BY_TAB_NAME[tab].some(type => props.entryCount[type] && props.entryCount[type] > 0);
     });
   }
 
   renderTabControls() {
     let tabControls = this.state.availableTabs.map(tabName => {
-      let classnames = classNames(`btn btn-link btn-tab open-sans text-capitalize`, {
+      let classnames = classNames(`btn btn-tab open-sans text-uppercase`, {
         active: this.state.activeTab === tabName
       });
 
@@ -87,12 +93,18 @@ class ProfileTabGroup extends React.Component {
       }} />;
     }
 
-    return <ProfileProjectTab
+    let tab = <ProfileProjectTab
       profileId={this.props.profileId}
       myProfile={this.props.myProfile}
       tabName={this.state.activeTab}
       projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
     />;
+
+    if (this.state.activeTab === `about`) {
+      tab = <ProfileAboutTab longBio={this.props.userBioLong} />;
+    }
+
+    return tab;
   }
 
   render() {
@@ -120,6 +132,7 @@ ProfileTabGroup.propTypes = {
   profileId: PropTypes.number.isRequired,
   myProfile: PropTypes.bool.isRequired,
   entryCount: PropTypes.object.isRequired,
+  userBioLong: PropTypes.string,
   activeTab: PropTypes.string
 };
 
