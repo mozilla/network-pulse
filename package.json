@@ -99,7 +99,7 @@
     "react-select": "^1.2.1",
     "react-tag-autocomplete": "^5.5.1",
     "shx": "^0.2.1",
-    "snyk": "^1.80.1",
+    "snyk": "^1.85.0",
     "url": "^0.11.0",
     "webpack": "^2.7.0"
   },

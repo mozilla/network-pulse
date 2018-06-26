@@ -38,4 +38,8 @@ ignore:
     - node-sass > request > tunnel-agent:
         reason: None given
         expires: '2018-06-17T17:45:47.989Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:tunnel-agent:20170305':
+    - node-sass > request > tunnel-agent:
+        patched: '2018-06-26T06:04:04.920Z'
