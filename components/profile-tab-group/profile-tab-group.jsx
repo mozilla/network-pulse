@@ -50,17 +50,19 @@ class ProfileTabGroup extends React.Component {
   }
 
   getAvailableTabs(props) {
-    // 2 scenarios
-    // [1] viewing your own profile: show all tabs
-    // [2] viewing other people's profile: show tab only if there is content to show
-    const TAB_NAMES = Object.keys(PROJECT_TYPES_BY_TAB_NAME);
+    // returns a list of names of the tabs that are available for this profile
 
-    return props.myProfile ? TAB_NAMES : TAB_NAMES.filter(tab => {
+    return Object.keys(PROJECT_TYPES_BY_TAB_NAME).filter(tab => {
+      // show "about" tab only when there's long bio to available to show
       if (tab === `about`) {
         return !!props.userBioLong;
       }
 
-      return PROJECT_TYPES_BY_TAB_NAME[tab].some(type => props.entryCount[type] && props.entryCount[type] > 0);
+      // for rest of the tabs (project based tabs) like "projects" and "favs"...
+      // 2 scenarios
+      // [1] viewing your own profile: always show tab
+      // [2] viewing other people's profile: show tab only if there is content to show
+      return props.myProfile || PROJECT_TYPES_BY_TAB_NAME[tab].some(type => props.entryCount[type] && props.entryCount[type] > 0);
     });
   }
 
