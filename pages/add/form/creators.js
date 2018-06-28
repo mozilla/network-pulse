@@ -33,8 +33,8 @@ export default class Creators extends AutoCompleteInput {
   fetchCompletions(fragment) {
     Service.creators
       .get(fragment)
-      .then((data) => {
-        let suggestions = data.results.map((creator) => {
+      .then(profiles => {
+        let suggestions = profiles.map(creator => {
           if(creator.profile_id) {
             creator.name = PROFILE_PREFIX + creator.name;
           }
@@ -43,6 +43,7 @@ export default class Creators extends AutoCompleteInput {
             name: creator.name
           };
         });
+
         this.setState({ suggestions });
       })
       .catch((reason) => {
