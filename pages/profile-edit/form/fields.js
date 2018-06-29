@@ -89,7 +89,7 @@ module.exports = function(showLongBio) {
   if (showLongBio) {
     fields.user_bio_long = {
       type: `textarea`,
-      label: <div>About you<div className="text-muted">The following markdown syntax are supported in this field: *bold* _italics_ [link](url)</div></div>,
+      label: `About you`,
       placeholder: `Tell us more about youself, your goals, or where you come from. Do not include any private information!`,
       fieldClassname: `form-control`,
       validator: [
