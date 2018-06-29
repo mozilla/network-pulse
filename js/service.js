@@ -239,7 +239,7 @@ let Service = {
   },
   creators: {
     get: function(fragment) {
-      return getDataFromURL(`${pulseAPI}/creators/`, {name: fragment});
+      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment});
     }
   },
   logout: function() {
