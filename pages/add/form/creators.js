@@ -10,7 +10,7 @@ export default class Creators extends AutoCompleteInput {
    * using the following schema:
    *
    *   {
-   *     creator_id: number | <id of the creator autocompleted. Will be null
+   *     profile_id: number | <id of the creator autocompleted. Will be null
    *                           if the creator was not autocompleted and was
    *                           manually typed in>,
    *     name: string | <name of the creator typed in, not autocompleted.
