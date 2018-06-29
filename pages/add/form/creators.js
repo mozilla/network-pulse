@@ -10,7 +10,7 @@ export default class Creators extends AutoCompleteInput {
    * using the following schema:
    *
    *   {
-   *     creator_id: number | <id of the creator autocompleted. Will be null
+   *     profile_id: number | <id of the creator autocompleted. Will be null
    *                           if the creator was not autocompleted and was
    *                           manually typed in>,
    *     name: string | <name of the creator typed in, not autocompleted.
@@ -20,7 +20,7 @@ export default class Creators extends AutoCompleteInput {
    */
   toSchema(field) {
     return {
-      "creator_id": field.id ? field.id : null,
+      "profile_id": field.id ? field.id : null,
       name: field.id ? null : field.name
     };
     // Note: we do not need to strip the profile prefix
@@ -38,8 +38,9 @@ export default class Creators extends AutoCompleteInput {
           if(creator.profile_id) {
             creator.name = PROFILE_PREFIX + creator.name;
           }
+
           return {
-            id: creator.creator_id,
+            id: creator.profile_id,
             name: creator.name
           };
         });
