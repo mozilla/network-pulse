@@ -89,8 +89,8 @@ module.exports = function(showLongBio) {
   if (showLongBio) {
     fields.user_bio_long = {
       type: `textarea`,
-      label: `About you`,
-      placeholder: `Tell us more about youself, your goals, or where you come from. Do not include any private information!`,
+      label: `Tell your story`,
+      placeholder: `Let others know about yourself.\nWhat are your goals? Where do you come from? What are you most passionate about?\nBe careful not to include any private information!`,
       fieldClassname: `form-control`,
       validator: [
         validator.maxLengthValidator(4096)
