@@ -7,7 +7,7 @@ import NotFound from '../not-found.jsx';
 import utility from '../../js/utility';
 import user from '../../js/app-user';
 import Service from '../../js/service';
-import formFields from './form/fields';
+import createFormFields from './form/fields';
 
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
@@ -51,7 +51,7 @@ class ProfileEdit extends React.Component{
   loadCurrentProfile() {
     // get current profile data and load it into form
     Service.myProfile.get().then(profile => {
-      let fields = formFields;
+      let fields = createFormFields(profile.hasOwnProperty(`user_bio_long`));
 
       Object.keys(fields).forEach(key => {
         // load current profile to form fields
