@@ -7,16 +7,23 @@ class ProfileAboutTab extends React.Component {
     super(props);
   }
 
+  renderLongBio() {
+    if (!this.props.longBio) return null;
+
+    return this.props.longBio.split(`\n`).map(line => {
+      return <ReactMarkdown
+        key={line}
+        source={line}
+        escapeHtml={true}
+        skipHtml={true}
+      />;
+    });
+  }
+
   render() {
     return <div className="profile-about-tab row justify-content-center mb-5">
       <div className="col">
-        { this.props.longBio &&
-          <ReactMarkdown
-            source={this.props.longBio.replace(/\\n/g, `\n`)}
-            escapeHtml={true}
-            skipHtml={true}
-          />
-        }
+        { this.renderLongBio() }
       </div>
     </div>;
   }
