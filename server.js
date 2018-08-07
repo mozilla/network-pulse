@@ -18,6 +18,12 @@ const app = express();
 // at runtime as a PORT environment variable
 const PORT = env.PORT;
 
+// Define the host that the app expects to serve
+const APP_HOST = env.APP_HOST;
+
+// what environment are we running in
+const NODE_ENV = env.NODE_ENV;
+
 function renderPage(appHtml,reactHelmet) {
   return `
     <!doctype html>
@@ -49,7 +55,6 @@ function renderPage(appHtml,reactHelmet) {
 app.disable(`x-powered-by`);
 
 // Some app security settings
-
 app.use(helmet.contentSecurityPolicy(securityHeaders));
 
 app.use(helmet.xssFilter({
@@ -60,13 +65,7 @@ app.use(helmet.xssFilter({
 // (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
 app.use(helmet.hsts({
   maxAge: 15768000*2, // 12 months in seconds
-  setIf: (req) => {
-    if (req.headers[`x-forwarded-proto`] && req.headers[`x-forwarded-proto`] === `https`) {
-      return true;
-    }
-
-    return false;
-  },
+  setIf: req => req.protocol === `https`,
   includeSubDomains: true,
   preload: true
 }));
@@ -79,14 +78,20 @@ app.use(helmet.frameguard({
   action: `deny`
 }));
 
-// make sure that heroku content is always on https
-// (or really, anything that relies on x-forwarded-proto)
-app.use((req, res, next) => {
-  if(req.headers[`x-forwarded-proto`] && req.headers[`x-forwarded-proto`] === `http`) {
-    return res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-  next();
-});
+// production specific configuration and middleware
+if (NODE_ENV === `production`) {
+  // trust x-forwarded-proto headers in production
+  app.enable(`trust proxy`);
+
+  // Redirect to the configured hostname & make sure that content is served via on https in production
+  app.use((req, res, next) => {
+    if (req.headers.host === APP_HOST && req.protocol === `https`) {
+      return next();
+    }
+
+    return res.redirect(`https://${APP_HOST}${req.url}`);
+  });
+}
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 

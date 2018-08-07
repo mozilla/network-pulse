@@ -54,7 +54,8 @@ This starts a few image optimization scripts.
 `PULSE_API` | Default: `https://pulse-api.mofostaging.net/api/pulse`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
 `PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
 `LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
-
+`NODE_ENV` | Default: `development`<br><br>When this is set to `production`, it enables production specific express settings and middleware
+`APP_HOST` | Default: `localhost`<br><br>The domain which this app should serve. It's only used when `NODE_ENV` is set to `production`
 ## Deployment
 
 ### Staging
