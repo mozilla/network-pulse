@@ -10,4 +10,10 @@
   fieldset.github {
     @extend .fieldset-half-width;
   }
+
+  fieldset.user_bio_long {
+    textarea {
+      height: 10rem;
+    }
+  }
 }

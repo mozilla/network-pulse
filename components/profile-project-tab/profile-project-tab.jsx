@@ -37,6 +37,10 @@ class ProfileProjectTab extends React.Component {
 
     this.props.projectTypes.forEach(type => {
       params[type] = true;
+
+      if (type === `favorited`) {
+        params.favorited_ordering = `-id`;
+      }
     });
 
     Service.profileEntries(this.state.profileId, params)

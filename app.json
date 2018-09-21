@@ -4,6 +4,7 @@
   "scripts": {
   },
   "env": {
+    "NODE_ENV": "development"
   },
   "formation": {
   },
