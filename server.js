@@ -96,10 +96,12 @@ if (NODE_ENV === `production`) {
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
 
-app.get(`/admin`, (req, res) => {
-  let pulseHost = url.parse(env.PULSE_API);
-  res.redirect(`${pulseHost.protocol}//${pulseHost.host}/admin`);
-});
+if (NODE_ENV !== `development`) {
+  app.get(`/admin`, (req, res) => {
+    let pulseHost = url.parse(env.PULSE_API);
+    res.redirect(`${pulseHost.protocol}//${pulseHost.host}/admin`);
+  });
+}
 
 app.get(`*`, (req, res) => {
   const reactHelmet = ReactHelmet.renderStatic();
