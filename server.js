@@ -1,3 +1,4 @@
+import url from 'url';
 import express from 'express';
 import path from 'path';
 import helmet from 'helmet';
@@ -94,6 +95,13 @@ if (NODE_ENV === `production`) {
 }
 
 app.use(express.static(path.resolve(__dirname, `dist`)));
+
+if (NODE_ENV !== `development`) {
+  app.get(`/admin`, (req, res) => {
+    let pulseHost = url.parse(env.PULSE_API);
+    res.redirect(`${pulseHost.protocol}//${pulseHost.host}/admin`);
+  });
+}
 
 app.get(`*`, (req, res) => {
   const reactHelmet = ReactHelmet.renderStatic();
