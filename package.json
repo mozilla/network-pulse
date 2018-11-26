@@ -75,6 +75,7 @@
     "classnames": "^2.2.5",
     "document-env-vars": "^2.1.0",
     "dotenv": "^4.0.0",
+    "event-stream": "3.3.4",
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",
     "helmet": "^3.9.0",
