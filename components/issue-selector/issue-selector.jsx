@@ -5,7 +5,7 @@ import Utility from '../../js/utility';
 const ISSUES = [
   `Decentralization`,
   `Digital Inclusion`,
-  `Online Privacy & Security`,
+  `Privacy & Security`,
   `Open Innovation`,
   `Web Literacy`,
 ];

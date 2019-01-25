@@ -1,5 +1,5 @@
 const ISSUE_MAPPING = {
-  "online-privacy-and-security": `Online Privacy & Security`,
+  "privacy-and-security": `Privacy & Security`,
   "open-innovation": `Open Innovation`,
   "decentralization": `Decentralization`,
   "web-literacy": `Web Literacy`,
