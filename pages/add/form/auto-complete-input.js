@@ -1,3 +1,4 @@
+import utility from '../../../js/utility';
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
 import { DELIMITERS } from './tag-delimiters';
@@ -28,6 +29,24 @@ export default class AutoCompleteInput extends Component {
       data: [],
       suggestions: []
     };
+  }
+
+  /**
+   * Set up automatic tag support through URL queries,
+   * e.g: https://my.domain.com/add?tags=...,...
+   */
+  componentDidMount() {
+    let map = utility.getCurrentURLQuery();
+    if (map.tags) {
+      let list = map.tags.replace(/\s+/g,'').split(',');
+      let data = list.map(function(name,id) {
+        if(!name.trim()) {
+          return false;
+        }
+        return { name, id };
+      }).filter(v => v);
+      this.setState({ data });
+    }
   }
 
   update(data) {
