@@ -26,22 +26,6 @@ const Utils = {
     return console.error(`No window available to get the current url!`);
   },
 
-  getCurrentURLQuery() {
-    if (typeof window !== `undefined`) {
-      let map = {};
-      window.location.search.replace('?','').split('&').forEach(pair => {
-        let keyValue = pair.split('=');
-        if (keyValue[1]) {
-          let key = decodeURIComponent(keyValue[0]);
-          let value = decodeURIComponent(keyValue[1]);
-          map[key]=value;
-        }
-      });
-      return map;
-    }
-    return console.error(`No window available to get the current url!`);
-  },
-
   getIssueNameFromUriPath(path) {
     return ISSUE_MAPPING[path] || ``;
   },
