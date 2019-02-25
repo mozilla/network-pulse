@@ -1,4 +1,3 @@
-import utility from '../../../js/utility';
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
 import { DELIMITERS } from './tag-delimiters';
