@@ -24,9 +24,11 @@ export default class Tags extends AutoCompleteInput {
       .get()
       .then(suggestions => {
         suggestions = suggestions.map((name,id) => ({ id: id + idOffset, name }));
-        this.setState({ data, suggestions },
-        // make sure our parent's onchange handler gets called, too
-        () => this.update(this.state.data));
+        this.setState(
+          { data, suggestions },
+          // make sure our parent's onchange handler gets called, too
+          () => this.update(this.state.data)
+        );
       })
       .catch((reason) => {
         console.error(reason);
