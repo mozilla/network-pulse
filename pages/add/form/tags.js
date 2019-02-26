@@ -9,7 +9,7 @@ export default class Tags extends AutoCompleteInput {
 
     // Prefill tags if specified via URL query
     let map = new URLSearchParams(window.location.search);
-    let tags = (map.get(`tags`) || ``)
+    let data = (map.get(`tags`) || ``)
       .replace(/\s+/g,``)
       .split(`,`)
       .map((name,id) => name.trim() ? { id: id + idOffset, name } : false)
@@ -17,17 +17,16 @@ export default class Tags extends AutoCompleteInput {
 
     // Update the idOffset so that we don't have conflicting
     // tag ids when we process the suggestions from the server:
-    idOffset += tags.length;
+    idOffset += data.length;
 
     // Load known tags from the server for tag suggestion filtering
     Service.tags
       .get()
-      .then((data) => {
-        let suggestions = data.map((name,id) => ({ id: id + idOffset, name }));
-        this.setState({
-          data: tags,
-          suggestions
-        });
+      .then(suggestions => {
+        suggestions = suggestions.map((name,id) => ({ id: id + idOffset, name }));
+        this.setState({ data, suggestions },
+        // make sure our parent's onchange handler gets called, too
+        () => this.update(this.state.data));
       })
       .catch((reason) => {
         console.error(reason);
