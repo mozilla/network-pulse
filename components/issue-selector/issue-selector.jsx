@@ -6,7 +6,7 @@ const ISSUES = [
   `Decentralization`,
   `Digital Inclusion`,
   `Privacy & Security`,
-  `Open Innovation`,
+  `Openness`,
   `Web Literacy`,
 ];
 

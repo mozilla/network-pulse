@@ -10,7 +10,7 @@ export default function (props) {
   let issueName = Utility.getIssueNameFromUriPath(issueParam);
 
   // render page if issueName is one of the 5 hyphenated all lowercase routes we want to serve
-  // e.g., digital-inclusion, open-innovation
+  // e.g., digital-inclusion, web-literacy
   if (issueName) {
     return <div>
       <Helmet><title>{issueName}</title></Helmet>
@@ -22,7 +22,7 @@ export default function (props) {
   issueName = Utility.getUriPathFromIssueName(issueParam);
 
   // redirect to the corresponding matching route if issueName is a known "issue"
-  // e.g., "Digital Inclusion", "Open Innovation"
+  // e.g., "Digital Inclusion", "Web Literacy"
   if (issueName) {
     return <Redirect to={`/issues/${issueName}`} />;
   }
