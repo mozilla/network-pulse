@@ -22,11 +22,6 @@ const Footer = () => {
       iconType: `privacy`,
       link: `https://www.mozilla.org/privacy/websites/`,
       text: `Privacy`
-    },
-    {
-      iconType: `email`,
-      link: `https://mzl.la/pulse-contact`,
-      text: `Contact Us`
     }
   ];
 
