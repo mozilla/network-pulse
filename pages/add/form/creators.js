@@ -35,12 +35,12 @@ export default class Creators extends AutoCompleteInput {
       .get(fragment)
       .then(profiles => {
         let suggestions = profiles.map(creator => {
-          if(creator.profile_id) {
+          if(creator.is_active) {
             creator.name = PROFILE_PREFIX + creator.name;
           }
 
           return {
-            id: creator.profile_id,
+            id: creator.id,
             name: creator.name
           };
         });
