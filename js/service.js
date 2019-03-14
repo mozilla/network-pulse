@@ -240,7 +240,7 @@ let Service = {
   },
   creators: {
     get: function(fragment) {
-      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment});
+      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment, basic: true});
     }
   },
   logout: function() {
