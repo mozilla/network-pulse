@@ -109,6 +109,5 @@
     "node": "^8.9.0",
     "npm": "^6.0.0"
   },
-  "snyk": true,
-  "heroku-run-build-script": true
+  "snyk": true
 }
