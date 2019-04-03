@@ -1,6 +1,7 @@
 import env from './env-client';
 
 let pulseAPI = env.PULSE_API;
+let pulseAPILogout = env.PULSE_LOGOUT_URL;
 
 /*
  * A helper function to process value in a key-value pair into a valid query param value
@@ -239,11 +240,11 @@ let Service = {
   },
   creators: {
     get: function(fragment) {
-      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment});
+      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment, basic: true});
     }
   },
   logout: function() {
-    return callURL(`${pulseAPI}/logout/`);
+    return callURL(pulseAPILogout);
   },
   userstatus: function() {
     return getDataFromURL(`${pulseAPI}/userstatus/`);

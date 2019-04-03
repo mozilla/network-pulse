@@ -3,6 +3,8 @@ import env from './env-client';
 import localstorage from './localstorage.js';
 import Service from './service.js';
 
+const loginUrl = env.PULSE_LOGIN_URL;
+
 /**
  * A set of helper functions for fascilitating login and logout
  * for users. This object should never be used directly, it should
@@ -13,7 +15,7 @@ const Login = {
    * Generates the oauth url for logging a user in, with a redirect-when-finished URL
    */
   getLoginURL(redirectUrl) {
-    return `${env.PULSE_API}/login?original_url=${encodeURIComponent(redirectUrl)}`;
+    return `${loginUrl}?next=${encodeURIComponent(redirectUrl)}`;
   },
 
   /*
@@ -133,6 +135,7 @@ class User {
     this.notifyListeners(`logged out`);
 
     Login.logout(error => {
+      alert(`Sorry, we encountered an error while logging you out!`);
       console.log(`logout error:`, error);
     });
   }
