@@ -122,13 +122,13 @@ class ProfileLoader extends React.Component {
   }
 
   renderProfileBlurb(bio = ``) {
+    if (!bio) return null;
+
     let paragraphs = bio.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;
     });
-
-    if (paragraphs.length < 1) return null;
 
     return <div className="blurb">{paragraphs}</div>;
   }
@@ -147,7 +147,7 @@ class ProfileLoader extends React.Component {
             { this.renderProfileBlurb(item.user_bio) }
           </div>
         </div>
-      </div>
+      </div>;
     });
   }
 
