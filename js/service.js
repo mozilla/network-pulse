@@ -16,6 +16,10 @@ function toQueryPair(key, data) {
     return false;
   }
 
+  if (Array.isArray(val)) {
+    return `${key}=${encodeURIComponent(val)}`;
+  }
+
   let type = typeof val;
 
   switch(type) {
@@ -52,6 +56,7 @@ function getDataFromURL(route, params = {}, token = {}) {
   };
 
   Object.assign(params, defaultParams);
+
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
@@ -257,6 +262,19 @@ let Service = {
   },
   profileEntries: function(id, params) {
     return getDataFromURL(`${pulseAPI}/profiles/${id}/entries/`, params);
+  },
+  profiles: {
+    get: function(params, token) {
+
+      // [TODO] FIXME when pagination on Pulse API profile search is working
+      let defaultParams = {
+        // "ordering": `-created`,
+        // "page_size": env.PROJECT_BATCH_SIZE
+        // ids: [1,2,3,4,5,6,7,8,9,10]
+      };
+
+      return getDataFromURL(`${pulseAPI}/profiles/`, Object.assign(params, defaultParams), token);
+    }
   },
   nonce: function() {
     return getDataFromURL(`${pulseAPI}/nonce/`);

@@ -69,7 +69,8 @@ const Routes = () => (
     <Route path="/entry/:entryId" component={Entry} />
     <Route path="/add" component={Add} />
     <Route path="/submitted" component={Submitted} />
-    <Route path="/search" component={Search} />
+    <Route exact path="/search" component={Search} />
+    <Route path="/search/:tab" component={Search} />
     <Route exact path="/tags" render={() => <Redirect to="/latest"/>} />
     <Route path="/tags/:tag" component={Tag} />
     <Route exact path="/help" render={() => <Redirect to="/latest"/>} />

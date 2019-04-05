@@ -216,6 +216,7 @@ textarea {
   }
 }
 
+@import 'shared';
 @import 'form';
 
 // Components
@@ -228,10 +229,12 @@ textarea {
 @import '../components/bio/bio';
 @import '../components/notification-bar/notification-bar';
 @import '../components/profile-tab-group/profile-tab-group';
+@import '../components/search-tab-group/search-tab-group';
 
 // Pages
 
 @import '../pages/add/add';
 @import '../pages/search/search';
+@import '../pages/moderation-search/moderation-search';
 @import '../pages/issues/issues';
 @import '../pages/profile-edit/profile-edit';
