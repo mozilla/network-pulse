@@ -268,9 +268,8 @@ let Service = {
 
       // [TODO] FIXME when pagination on Pulse API profile search is working
       let defaultParams = {
-        // "ordering": `-created`,
-        // "page_size": env.PROJECT_BATCH_SIZE
-        // ids: [1,2,3,4,5,6,7,8,9,10]
+        "ordering": `id`,
+        // "page_size": env.PROFILE_BATCH_SIZE
       };
 
       return getDataFromURL(`${pulseAPI}/profiles/`, Object.assign(params, defaultParams), token);

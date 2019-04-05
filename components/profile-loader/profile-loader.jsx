@@ -4,6 +4,8 @@ import Service from '../../js/service.js';
 // import ProfileList from '../project-list/project-list.jsx';
 import pageSettings from '../../js/app-page-settings';
 // import env from '../../js/env-client';
+
+import SearchResultCounter from '../../components/search-result-counter.jsx';
 import LoadingNotice from '../../components/loading-notice.jsx';
 
 // const PROFILE_BATCH_SIZE = env.PROFILE_BATCH_SIZE;
@@ -95,30 +97,57 @@ class ProfileLoader extends React.Component {
     // store current project list's info in pageSettings
     pageSettings.setCurrentList(currentListInfo);
 
-    console.log(`currentListInfo`, currentListInfo);
-
     // update component's state
     currentListInfo.loadingData = false;
     this.setState(currentListInfo);
   }
 
   renderCounter() {
-    console.log(this.state);
-    if (this.state.totalMatched === null || !this.props.showCounter) return null;
+    return <SearchResultCounter
+      searchKeyword={this.props.search}
+      totalMatched={this.state.totalMatched}
+    />;
+  }
 
-    let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 1 ? `s` : ``} found`;
-    let searchKeyword = this.props.search;
+  renderThumbnail(thumbnail = ``) {
+    let style = {};
 
-    return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
+    if (thumbnail) {
+      style = {
+        backgroundImage: `url(${thumbnail})`
+      };
+    }
+
+    return <div className="thumbnail mx-auto" style={style}></div>;
+  }
+
+  renderProfileBlurb(bio = ``) {
+    let paragraphs = bio.split(`\n`).map((paragraph) => {
+      if (!paragraph) return null;
+
+      return <p key={paragraph}>{paragraph}</p>;
+    });
+
+    if (paragraphs.length < 1) return null;
+
+    return <div className="blurb">{paragraphs}</div>;
   }
 
   renderProfileCards() {
     // [TODO] FIXME when pagination on Pulse API profile search is working
     return this.state.items.map(item => {
-      return <div className="profile-card col-md-8 mb-3" key={item.profile_id}>
-        <h4 className="mb-0">{item.profile_id}, {item.custom_name}</h4>
-        <div>{item.location}</div>
-      </div>;
+      console.log(item);
+      return <div className="profile-card bio col-md-8 my-5" key={item.profile_id}>
+        <div className="row">
+          <div className="col-6 offset-3 col-md-3 offset-md-0 mb-4 mb-md-0">
+            { this.renderThumbnail(item.thumbnail) }
+          </div>
+          <div className="col-md-9">
+            <h4 className="name">({item.profile_id}) {item.custom_name}</h4>
+            { this.renderProfileBlurb(item.user_bio) }
+          </div>
+        </div>
+      </div>
     });
   }
 
@@ -133,7 +162,7 @@ class ProfileLoader extends React.Component {
 
     return (
       <div>
-        { this.renderCounter() }
+        { this.props.showCounter && this.renderCounter() }
         { this.state.items &&
             <div className="row">{this.renderProfileCards()}</div>
         }

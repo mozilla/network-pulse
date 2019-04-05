@@ -9,7 +9,7 @@ class SearchProfilesTab extends React.Component {
   render() {
     return <div className="search-profiles-tab">
       <ProfileLoader
-        ids={this.props.keywordSearched}
+        search={this.props.keywordSearched}
         showCounter={true}
       />
     </div>;

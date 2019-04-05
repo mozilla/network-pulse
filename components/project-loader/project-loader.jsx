@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Service from '../../js/service.js';
 import ProjectList from '../project-list/project-list.jsx';
+import SearchResultCounter from '../search-result-counter.jsx';
 import pageSettings from '../../js/app-page-settings';
 import env from '../../js/env-client';
 
@@ -140,18 +141,16 @@ class ProjectLoader extends React.Component {
   }
 
   renderEntryCounter() {
-    if (this.state.totalMatched === null || !this.props.showCounter) return null;
-
-    let counterText = `${this.state.totalMatched} result${this.state.totalMatched > 1 ? `s` : ``} found`;
-    let searchKeyword = this.props.search;
-
-    return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
+    return <SearchResultCounter
+      searchKeyword={this.props.search}
+      totalMatched={this.state.totalMatched}
+    />;
   }
 
   render() {
     return (
       <div>
-        { this.renderEntryCounter() }
+        { this.props.showCounter && this.renderEntryCounter() }
         <ProjectList entries={this.state.entries}
           loadingData={this.state.loadingData}
           moreEntriesToFetch={this.state.moreEntriesToFetch}

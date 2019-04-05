@@ -66,7 +66,7 @@ class SearchTabGroup extends React.Component {
       </Link>;
     });
 
-    return <div className="tab-control-container">
+    return <div className="tab-control-container mb-4">
       { tabControls }
     </div>;
   }
