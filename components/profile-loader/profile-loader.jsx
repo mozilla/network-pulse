@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Service from '../../js/service.js';
 import ItemList from '../item-list/item-list.jsx';
-import pageSettings from '../../js/app-page-settings';
-// import env from '../../js/env-client';
-
 import SearchResultCounter from '../../components/search-result-counter.jsx';
+import pageSettings from '../../js/app-page-settings';
 
 class ProfileLoader extends React.Component {
   constructor(props) {
@@ -79,8 +77,6 @@ class ProfileLoader extends React.Component {
 
     let nextBatchIndex = moreItemsToFetch ? this.state.nextBatchIndex+1 : this.state.nextBatchIndex;
 
-    // [TODO] FIXME when pagination on Pulse API profile search is working
-    // let newItems = sorter ? data.results.sort(sorter) : data.results;
     let newItems = sorter ? data.results.sort(sorter) : data.results;
 
     let currentListInfo = {

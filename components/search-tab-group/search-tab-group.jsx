@@ -84,18 +84,13 @@ class SearchTabGroup extends React.Component {
       keywordSearched={this.props.keywordSearched}
     />;
 
-    // let tab = <h1>hello</h1>;
-
     if (this.state.activeTab === `projects`) {
       tab = <SearchProjectsTab
         keywordSearched={this.props.keywordSearched}
       />;
-      // tab = <h1>world</h1>;
     }
 
     return tab;
-
-    // return null;
   }
 
   render() {

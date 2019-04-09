@@ -265,8 +265,6 @@ let Service = {
   },
   profiles: {
     get: function(params, token) {
-
-      // [TODO] FIXME when pagination on Pulse API profile search is working
       let defaultParams = {
         "ordering": `id`,
         "page_size": env.PROFILE_BATCH_SIZE
