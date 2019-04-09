@@ -205,6 +205,7 @@ let Service = {
         return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/moderate/${stateId}`);
       },
       feature: function(entryId) {
+        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/feature/`);
       },
       bookmark: function(entryId) {
         return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/bookmark/`);

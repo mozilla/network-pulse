@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Service from '../../js/service.js';
-import ProjectList from '../project-list/project-list.jsx';
+import ItemList from '../item-list/item-list.jsx';
 import SearchResultCounter from '../search-result-counter.jsx';
 import pageSettings from '../../js/app-page-settings';
 import env from '../../js/env-client';
@@ -53,7 +53,7 @@ class ProjectLoader extends React.Component {
       // 1) first we fetch projects from Pulse API in a batch of size PROJECT_BATCH_SIZE.
       //    (See next few lines.)
       // 2) we sort projects based on the order they were stored in localStorage
-      //    and pass the sorted array to <ProjectList> to render projects onto the page.
+      //    and pass the sorted array to <ItemList> to render projects onto the page.
       //    (See updateStateWithNewData(data) method.)
       let begin = (this.state.nextBatchIndex-1)*PROJECT_BATCH_SIZE;
       let end = this.state.nextBatchIndex*PROJECT_BATCH_SIZE;
@@ -151,11 +151,13 @@ class ProjectLoader extends React.Component {
     return (
       <div>
         { this.props.showCounter && this.renderEntryCounter() }
-        <ProjectList entries={this.state.entries}
+        <ItemList
+          items={this.state.entries}
           loadingData={this.state.loadingData}
-          moreEntriesToFetch={this.state.moreEntriesToFetch}
+          moreItemsToFetch={this.state.moreEntriesToFetch}
           fetchData={() => this.fetchData()}
-          onModerationMode={!!this.props.moderationState} />
+          onModerationMode={!!this.props.moderationState}
+        />
       </div>
     );
   }
