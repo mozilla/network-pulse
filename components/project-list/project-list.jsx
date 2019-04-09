@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
 import LoadingNotice from '../loading-notice.jsx';
 import ProjectCardSimple from '../project-card/project-card-simple.jsx';
+import ProfileCard from '../profile-card.jsx';
 import Utility from '../../js/utility.js';
 import pageSettings from '../../js/app-page-settings';
 
-class ProjectList extends React.Component {
+class ItemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +40,14 @@ class ProjectList extends React.Component {
   }
 
   renderProjectCards() {
-    return this.props.entries.map(project => {
-      return <ProjectCardSimple key={project.id} onModerationMode={this.props.onModerationMode} {...Utility.processEntryData(project)} />;
+    return this.props.items.map(item => {
+      return <ProjectCardSimple key={item.id} onModerationMode={this.props.onModerationMode} {...Utility.processEntryData(item)} />;
+    });
+  }
+
+  renderProfileCards() {
+    return this.props.items.map(item => {
+      return <ProfileCard key={item.id} {...item} />;
     });
   }
 
@@ -51,7 +58,7 @@ class ProjectList extends React.Component {
   }
 
   renderViewMoreBtn() {
-    if (!this.props.moreEntriesToFetch) return null;
+    if (!this.props.moreItemsToFetch) return null;
 
     return <div className="view-more text-center">
       <button type="button" className="btn btn-outline-info" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
@@ -59,23 +66,26 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    return (<div className="project-list">
-      <div className="projects row">
-        { this.renderProjectCards() }
+    return <div className="item-list">
+      <div className="row">
+        { this.props.type === `profile` ? this.renderProfileCards() : this.renderProjectCards() }
       </div>
       { this.renderLoadingNotice() }
       { this.renderViewMoreBtn() }
-    </div>);
+    </div>;
   }
 }
-ProjectList.propTypes = {
-  entries: PropTypes.array.isRequired,
+
+ItemList.propTypes = {
+  type: PropTypes.string,
+  items: PropTypes.array.isRequired,
   loadingData: PropTypes.bool.isRequired,
-  moreEntriesToFetch: PropTypes.bool.isRequired,
+  moreItemsToFetch: PropTypes.bool.isRequired,
   fetchData: PropTypes.func.isRequired,
 };
-ProjectList.defaultProps = {
-  entries: []
+
+ItemList.defaultProps = {
+  items: []
 };
 
-export default ProjectList;
+export default ItemList;
