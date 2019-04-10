@@ -26,7 +26,6 @@ class Search extends React.Component {
   }
 
   getSearchCriteria(props) {
-    console.log(`props`,props);
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
       keywordSearched: query.keyword,

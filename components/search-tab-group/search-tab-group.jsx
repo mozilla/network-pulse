@@ -94,8 +94,6 @@ class SearchTabGroup extends React.Component {
   }
 
   render() {
-    console.log(`SearchTabGroup props`, this.props);
-
     return (
       <div>
         { this.renderTabControls() }

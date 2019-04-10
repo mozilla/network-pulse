@@ -102,8 +102,6 @@ class ProfileLoader extends React.Component {
   }
 
   render() {
-    console.log(`this.state.items`, this.state.items);
-
     return (
       <div>
         { this.props.showCounter && this.renderCounter() }

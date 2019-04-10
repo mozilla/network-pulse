@@ -223,6 +223,7 @@ textarea {
 
 @import '../components/navbar/navbar';
 @import '../components/project-card/project-card';
+@import '../components/profile-card/profile-card';
 @import '../components/footer/footer';
 @import '../components/issue-selector/issue-selector';
 @import '../components/hint-message/hint-message';
@@ -234,7 +235,6 @@ textarea {
 // Pages
 
 @import '../pages/add/add';
-@import '../pages/search/search';
 @import '../pages/moderation-search/moderation-search';
 @import '../pages/issues/issues';
 @import '../pages/profile-edit/profile-edit';

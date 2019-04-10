@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
 import LoadingNotice from '../loading-notice.jsx';
 import ProjectCardSimple from '../project-card/project-card-simple.jsx';
-import ProfileCard from '../profile-card.jsx';
+import ProfileCard from '../profile-card/profile-card.jsx';
 import Utility from '../../js/utility.js';
 import pageSettings from '../../js/app-page-settings';
 
