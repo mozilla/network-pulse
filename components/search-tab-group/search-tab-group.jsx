@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import SearchProfilesTab from './search-profiles-tab.jsx';
 import SearchProjectsTab from './search-projects-tab.jsx';
 
-const TAB_NAMES = [ `profiles`, `projects` ];
+const TAB_NAMES = [ `people`, `projects` ];
 const DEFAULT_TAB_NAME = `projects`;
 
 class SearchTabGroup extends React.Component {

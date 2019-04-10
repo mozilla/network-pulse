@@ -31,13 +31,13 @@ export default (props) => {
     return <div className="blurb">{paragraphs}</div>;
   };
 
-  return <div className="profile-card bio col-md-8 my-5 my-md-3">
+  return <div className="profile-card bio col-md-8 my-5 my-sm-3">
     <div className="row">
-      <div className="col-6 offset-3 col-md-3 offset-md-0 mb-2 mb-md-0">
+      <div className="col-6 offset-3 col-sm-3 offset-sm-0 mb-2 mb-sm-0">
         { renderThumbnail(props.thumbnail) }
       </div>
-      <div className="col-md-9">
-        <h2 className="name text-center text-md-left">
+      <div className="col-sm-9">
+        <h2 className="name text-center text-sm-left">
           <Link
             to={`/profile/${props.id}`}
             onClick={(event) => props.creatorClickHandler(event, name)}
