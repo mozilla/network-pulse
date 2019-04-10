@@ -81,7 +81,7 @@ class Search extends React.Component {
           type="search"
           onChange={ event => this.handleInputChange(event) }
           inputRef={ ref => this.setDebounceInput(ref) }
-          placeholder="Search keywords, people, tags..."
+          placeholder="Search name, keyword, location..."
           className="form-control"
         />
         <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
