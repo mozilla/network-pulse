@@ -1,0 +1,16 @@
+.profile-card {
+  .name {
+    color: $body-color;
+    font-size: 1.625rem;
+    line-height: 1.07;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      @include hover-focus-active {
+        text-decoration: underline;
+      }
+    }
+  }
+}

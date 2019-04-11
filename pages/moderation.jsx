@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from './search/search.jsx';
+import ModerationSearch from './moderation-search/moderation-search.jsx';
 import NotFound from './not-found.jsx';
 import user from '../js/app-user';
 
@@ -30,7 +30,7 @@ class Moderation extends React.Component {
   render() {
     if (!user.moderator) return <NotFound />;
 
-    return <Search moderation={true} {...this.props} />;
+    return <ModerationSearch moderation={true} {...this.props} />;
   }
 }
 

@@ -1,13 +1,7 @@
-.moderation-search-controls {
-  border-bottom: 3px solid $gray-lighter;
-}
-
 .search-bar {
   position: relative;
 
   &.activated {
-    margin-bottom: 20px;
-
     .dismiss {
       opacity: 1;
     }
@@ -36,18 +30,3 @@
     }
   }
 }
-
-.state-filter,
-.featured-filter {
-  width: 100%;
-  height: 100%;
-
-  .Select-control {
-    border-color: $input-border-color;
-  }
-}
-
-.trending {
-  color: $gray-light;
-}
-

@@ -1,7 +1,7 @@
 import env from './env-client';
 
-let pulseAPI = env.PULSE_API;
-let pulseAPILogout = env.PULSE_LOGOUT_URL;
+const PULSE_API = env.PULSE_API;
+const PULSE_API_LOGOUT = env.PULSE_LOGOUT_URL;
 
 /*
  * A helper function to process value in a key-value pair into a valid query param value
@@ -14,6 +14,10 @@ function toQueryPair(key, data) {
 
   if (val === undefined || val === null) {
     return false;
+  }
+
+  if (Array.isArray(val)) {
+    return `${key}=${encodeURIComponent(val)}`;
   }
 
   let type = typeof val;
@@ -52,6 +56,7 @@ function getDataFromURL(route, params = {}, token = {}) {
   };
 
   Object.assign(params, defaultParams);
+
   return new Promise((resolve, reject) => {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
@@ -128,7 +133,7 @@ function callURL(route) {
  */
 function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
   return new Promise((resolve, reject) => {
-    getDataFromURL(`${pulseAPI}/nonce/`)
+    getDataFromURL(`${PULSE_API}/v2/nonce/`)
       .then((nonce) => {
         data.nonce = nonce.nonce,
         data.csrfmiddlewaretoken = nonce.csrf_token;
@@ -185,25 +190,25 @@ let Service = {
 
       if (bookmarkedOnly) return Service.bookmarks.get(params,token);
 
-      return getDataFromURL(`${pulseAPI}/entries/`, Object.assign(params, defaultParams), token);
+      return getDataFromURL(`${PULSE_API}/v2/entries/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryData) {
-      return updateStoredData(`POST`,`${pulseAPI}/entries/`, entryData);
+      return updateStoredData(`POST`,`${PULSE_API}/v2/entries/`, entryData);
     }
   },
   entry: {
     get: function(entryId) {
-      return getDataFromURL(`${pulseAPI}/entries/${entryId}/`);
+      return getDataFromURL(`${PULSE_API}/v2/entries/${entryId}/`);
     },
     put: {
       moderationState: function(entryId, stateId) {
-        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/moderate/${stateId}`);
+        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/moderate/${stateId}`);
       },
       feature: function(entryId) {
-        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/feature/`);
+        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/feature/`);
       },
       bookmark: function(entryId) {
-        return updateStoredData(`PUT`,`${pulseAPI}/entries/${entryId}/bookmark/`);
+        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/bookmark/`);
       }
     }
   },
@@ -212,61 +217,71 @@ let Service = {
       let defaultParams = {
         "page_size": env.PROJECT_BATCH_SIZE
       };
-      return getDataFromURL(`${pulseAPI}/entries/bookmarks/`, Object.assign(params, defaultParams), token);
+      return getDataFromURL(`${PULSE_API}/v2/entries/bookmarks/`, Object.assign(params, defaultParams), token);
     },
     post: function(entryIds = []) {
-      return updateStoredData(`POST`,`${pulseAPI}/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
+      return updateStoredData(`POST`,`${PULSE_API}/v2/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
     }
   },
   moderationStates: {
     get: function() {
-      return getDataFromURL(`${pulseAPI}/entries/moderation-states/`);
+      return getDataFromURL(`${PULSE_API}/v2/entries/moderation-states/`);
     }
   },
   issues: {
     get: function() {
-      return getDataFromURL(`${pulseAPI}/issues/`);
+      return getDataFromURL(`${PULSE_API}/v2/issues/`);
     }
   },
   helpTypes: {
     get: function() {
-      return getDataFromURL(`${pulseAPI}/helptypes/`);
+      return getDataFromURL(`${PULSE_API}/v2/helptypes/`);
     }
   },
   tags: {
     get: function() {
-      return getDataFromURL(`${pulseAPI}/tags/`);
+      return getDataFromURL(`${PULSE_API}/v2/tags/`);
     }
   },
   creators: {
     get: function(fragment) {
-      return getDataFromURL(`${pulseAPI}/profiles/`, {name: fragment, basic: true});
+      return getDataFromURL(`${PULSE_API}/v2/profiles/`, {name: fragment, basic: true});
     }
   },
   logout: function() {
-    return callURL(pulseAPILogout);
+    return callURL(PULSE_API_LOGOUT);
   },
   userstatus: function() {
-    return getDataFromURL(`${pulseAPI}/userstatus/`);
+    return getDataFromURL(`${PULSE_API}/v2/userstatus/`);
   },
   profileMe: function() {
-    return getDataFromURL(`${pulseAPI}/profiles/me/`);
+    return getDataFromURL(`${PULSE_API}/v2/profiles/me/`);
   },
   profile: function(id) {
-    return getDataFromURL(`${pulseAPI}/profiles/${id}/`);
+    return getDataFromURL(`${PULSE_API}/v2/profiles/${id}/`);
   },
   profileEntries: function(id, params) {
-    return getDataFromURL(`${pulseAPI}/profiles/${id}/entries/`, params);
+    return getDataFromURL(`${PULSE_API}/v2/profiles/${id}/entries/`, params);
+  },
+  profiles: {
+    get: function(params, token) {
+      let defaultParams = {
+        "ordering": `id`,
+        "page_size": env.PROFILE_BATCH_SIZE
+      };
+
+      return getDataFromURL(`${PULSE_API}/v3/profiles/`, Object.assign(params, defaultParams), token);
+    }
   },
   nonce: function() {
-    return getDataFromURL(`${pulseAPI}/nonce/`);
+    return getDataFromURL(`${PULSE_API}/v2/nonce/`);
   },
   myProfile: {
     get: function() {
-      return getDataFromURL(`${pulseAPI}/myprofile/`);
+      return getDataFromURL(`${PULSE_API}/v2/myprofile/`);
     },
     put: function(updatedProfile) {
-      return updateStoredData(`PUT`, `${pulseAPI}/myprofile/`, updatedProfile);
+      return updateStoredData(`PUT`, `${PULSE_API}/v2/myprofile/`, updatedProfile);
     }
   }
   // ... and more Pulse API endpoints to come

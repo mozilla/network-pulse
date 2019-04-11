@@ -19,7 +19,8 @@ let envUtilities= {
       PORT: process.env.PORT,
       LEARN_MORE_LINK: process.env.LEARN_MORE_LINK,
       PROJECT_BATCH_SIZE: process.env.PROJECT_BATCH_SIZE,
-      PULSE_API: `${process.env.PULSE_API}/v2`,
+      PROFILE_BATCH_SIZE: process.env.PROFILE_BATCH_SIZE,
+      PULSE_API: process.env.PULSE_API,
       PULSE_LOGIN_URL: process.env.PULSE_LOGIN_URL,
       PULSE_LOGOUT_URL: process.env.PULSE_LOGOUT_URL
     };

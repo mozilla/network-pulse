@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Service from '../../js/service';
 import LoadingNotice from '../../components/loading-notice.jsx';
 import HintMessage from '../../components/hint-message/hint-message.jsx';
-import ProjectList from '../../components/project-list/project-list.jsx';
+import ItemList from '../../components/item-list/item-list.jsx';
 
 class ProfileProjectTab extends React.Component {
   constructor(props) {
@@ -62,9 +62,10 @@ class ProfileProjectTab extends React.Component {
     }
 
     if (entries && entries.length > 0) {
-      content = <ProjectList entries={entries}
+      content = <ItemList
+        items={entries}
         loadingData={false}
-        moreEntriesToFetch={false}
+        moreItemsToFetch={false}
         fetchData={()=>{}}
         onModerationMode={false}
       />;
