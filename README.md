@@ -55,7 +55,7 @@ This starts a few image optimization scripts.
 `PULSE_LOGIN_URL` | Default: `https://pulse-api.mofostaging.net/accounts/login/`<br><br>URL to use to login to Pulse. This needs to be a Pulse API login url.
 `PULSE_LOGOUT_URL` | Default: `https://pulse-api.mofostaging.net/accounts/logout/`<br><br>URL to use to logout of Pulse. This needs to be a Pulse API logout url.
 `PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
-`PROFILE_BATCH_SIZE`| Default: `24`<br><br>Number of profiles you want to display as a batch.
+`PROFILE_BATCH_SIZE`| Default: `10`<br><br>Number of profiles you want to display as a batch.
 `LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
 `NODE_ENV` | Default: `development`<br><br>When this is set to `production`, it enables production specific express settings and middleware
 `APP_HOST` | Default: `localhost`<br><br>The domain which this app should serve. It's only used when `NODE_ENV` is set to `production`
