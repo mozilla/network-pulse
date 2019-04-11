@@ -6,5 +6,9 @@ export default (props) => {
   let counterText = `${props.totalMatched} result${props.totalMatched > 1 ? `s` : ``} found`;
   let searchKeyword = props.searchKeyword;
 
-  return <p>{`${counterText}${searchKeyword ? ` for ‘${searchKeyword}’` : ``}`}</p>;
+  if (searchKeyword) {
+    counterText = `${counterText} for ${searchKeyword}`;
+  }
+
+  return <p>{counterText}</p>;
 };

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link, Redirect } from 'react-router-dom';
-import SearchProfilesTab from './search-profiles-tab.jsx';
-import SearchProjectsTab from './search-projects-tab.jsx';
+import SearchTab from './search-tab.jsx';
+import ProjectLoader from '../../components/project-loader/project-loader.jsx';
+import ProfileLoader from '../profile-loader/profile-loader.jsx';
 
 const TAB_NAMES = [ `people`, `projects` ];
 const DEFAULT_TAB_NAME = `projects`;
@@ -31,7 +32,7 @@ class SearchTabGroup extends React.Component {
       states.activeTab = props.activeTab;
     }
 
-    // set states.activeTab to be the default tab (first tab in availableTabs)
+    // set states.activeTab to be our pre-defined DEFAULT_TAB_NAME
     if (!props.activeTab) {
       states.activeTab = DEFAULT_TAB_NAME;
     }
@@ -80,17 +81,10 @@ class SearchTabGroup extends React.Component {
       }} />;
     }
 
-    let tab = <SearchProfilesTab
-      keywordSearched={this.props.keywordSearched}
-    />;
-
-    if (this.state.activeTab === `projects`) {
-      tab = <SearchProjectsTab
-        keywordSearched={this.props.keywordSearched}
-      />;
-    }
-
-    return tab;
+    return SearchTab(
+      this.state.activeTab === `projects` ? ProjectLoader : ProfileLoader,
+      this.state.activeTab
+    )({ keywordSearched : this.props.keywordSearched });
   }
 
   render() {

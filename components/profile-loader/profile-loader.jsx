@@ -73,14 +73,11 @@ class ProfileLoader extends React.Component {
 
   updateStateWithNewData(data) {
     let moreItemsToFetch = !!data.next;
-    let sorter;
 
     let nextBatchIndex = moreItemsToFetch ? this.state.nextBatchIndex+1 : this.state.nextBatchIndex;
 
-    let newItems = sorter ? data.results.sort(sorter) : data.results;
-
     let currentListInfo = {
-      items: this.state.items.concat(newItems),
+      items: this.state.items.concat(data.results),
       nextBatchIndex: nextBatchIndex,
       moreItemsToFetch: moreItemsToFetch,
       totalMatched: data.count

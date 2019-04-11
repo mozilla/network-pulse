@@ -19,7 +19,7 @@ export default (props) => {
     </Link>;
   };
 
-  let renderProfileBlurb = (bio = ``) => {
+  let renderProfileBlurb = (bio) => {
     if (!bio) return null;
 
     let paragraphs = bio.split(`\n`).map((paragraph) => {

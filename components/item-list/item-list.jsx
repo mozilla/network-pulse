@@ -85,7 +85,7 @@ ItemList.propTypes = {
 };
 
 ItemList.defaultProps = {
-  items: []
+  type: `projects`
 };
 
 export default ItemList;
