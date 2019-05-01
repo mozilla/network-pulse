@@ -36,7 +36,9 @@ const Featured = () => {
 
   return <div>
     <Helmet><title>Featured</title></Helmet>
-    <p className="mb-4">Discover & collaborate on projects for a healthy internet. {learnMore}</p>
+    <div className="row">
+      <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">Discover & collaborate on projects for a healthy internet. {learnMore}</h2>
+    </div>
     <ProjectLoader featured={`True`} />
   </div>;
 };
