@@ -79,6 +79,12 @@ module.exports = function(showLongBio) {
         validator.imageFilenameValidator()
       ]
     },
+    "location": {
+      type: `text`,
+      label: `Your location`,
+      placeholder: `City, State, Country`,
+      fieldClassname: `form-control`
+    },
     "issues": {
       type: IssuesField,
       label: <IssuesLabel />,
