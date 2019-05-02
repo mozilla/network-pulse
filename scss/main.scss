@@ -21,6 +21,10 @@
 @import './foundation-styles/mixins.scss';
 @import './foundation-styles/type.scss';
 
+// Buttons
+
+@import 'buttons.scss';
+
 html {
   height: 100%;
 }

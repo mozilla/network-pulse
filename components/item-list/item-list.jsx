@@ -61,7 +61,7 @@ class ItemList extends React.Component {
     if (!this.props.moreItemsToFetch) return null;
 
     return <div className="view-more text-center">
-      <button type="button" className="btn btn-outline-info" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
+      <button type="button" className="btn btn-secondary" onClick={() => this.handleLoadMoreBtnClick()}>View more</button>
     </div>;
   }
 
