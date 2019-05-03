@@ -1,4 +1,5 @@
 @import 'variables.scss';
+@import 'mixin.scss';
 
 // mofo-bootstrap bits
 
@@ -14,13 +15,11 @@
 @import '../node_modules/bootstrap/scss/grid.scss';
 @import '../node_modules/react-select/scss/default.scss';
 
-// mixins
+// Foundation Styles
 
-@import 'mixin.scss';
-
-// Type
-
-@import 'type.scss';
+@import './foundation-styles/variables.scss';
+@import './foundation-styles/mixins.scss';
+@import './foundation-styles/type.scss';
 
 html {
   height: 100%;
