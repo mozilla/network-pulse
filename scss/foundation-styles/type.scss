@@ -1,5 +1,6 @@
 a {
   color: $dark-blue; //style override
+  text-decoration: none;
 
   @include hover-focus-active {
     // Bootstrap / mofo-style overrides
