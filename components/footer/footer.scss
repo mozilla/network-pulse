@@ -7,4 +7,13 @@ footer {
 
 .site-footer {
   background-color: $black;
+
+  .link-list {
+    @media (min-width: $bp-md) {
+      -webkit-column-count: 2;
+      column-count: 2;
+      -webkit-column-break-inside: avoid;
+      break-inside: avoid-column;
+    }
+  }
 }

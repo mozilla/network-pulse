@@ -62,7 +62,7 @@ class MofoFooter extends React.Component {
               <div className="row">
                 <div className="col-md-4">
                   <h5 class="h5-heading">More about us</h5>
-                  <ul className="d-flex">{this.renderSocialLinks()}</ul>
+                  <ul className="d-flex pl-0">{this.renderSocialLinks()}</ul>
                 </div>
                 <div className="col-md-8">
                   <ul className="link-list list-unstyled mb-0">
@@ -72,7 +72,7 @@ class MofoFooter extends React.Component {
               </div>
               <div className="row">
                 <div className="col-12">
-                  <hr class="mt-3 mt-md-5" />
+                  <hr className="mt-3 mt-md-5" />
                   {this.renderOrgs()}
                 </div>
               </div>
