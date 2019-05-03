@@ -32,11 +32,13 @@ const Featured = () => {
     });
   };
 
-  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
+  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} className="learn-more" onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
 
   return <div>
     <Helmet><title>Featured</title></Helmet>
-    <p className="mb-4">Discover & collaborate on projects for a healthy internet. {learnMore}</p>
+    <div className="row">
+      <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">Discover & collaborate on projects for a healthy internet. {learnMore}</h2>
+    </div>
     <ProjectLoader featured={`True`} />
   </div>;
 };
