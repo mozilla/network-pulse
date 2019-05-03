@@ -1,8 +1,7 @@
 .bio {
   .thumbnail {
     overflow: hidden;
-    border-radius: 50%;
-    background: url("/assets/profile-pic.jpg") $gray no-repeat center;
+    background: url("/assets/profile-pic.png") $gray no-repeat center;
     background-size: cover;
 
     &::after {
