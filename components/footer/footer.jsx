@@ -29,7 +29,7 @@ const Footer = () => {
     {
       name: `mozilla`,
       link: `https://mozilla.org`,
-      description: (<p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>),
+      description: (<p className="dark-theme body-small">Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://mozilla.org">mozilla.org</a>.</p>),
       className: `mozilla`
     }
   ];
