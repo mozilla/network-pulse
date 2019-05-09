@@ -20,10 +20,7 @@
 @import './foundation-styles/variables.scss';
 @import './foundation-styles/mixins.scss';
 @import './foundation-styles/type.scss';
-
-// Buttons
-
-@import 'buttons.scss';
+@import './foundation-styles/buttons.scss';
 
 html {
   height: 100%;
