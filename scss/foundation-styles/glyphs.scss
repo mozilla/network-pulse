@@ -3,7 +3,7 @@
   display: inline-block;
   width: $width;
   height: $height;
-  margin-right: 20px;
+  margin-right: 10px;
   background: url(../assets/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
 
   @media screen and (min-width: $bp-lg) {

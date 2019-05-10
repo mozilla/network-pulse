@@ -108,14 +108,14 @@ button {
 }
 
 #main {
-  padding-bottom: 420px;
-
-  @media screen and (min-width: $bp-sm) {
-    padding-bottom: 350px;
-  }
+  padding-bottom: 550px;
 
   @media screen and (min-width: $bp-md) {
-    padding-bottom: 250px;
+    padding-bottom: 450px;
+  }
+
+  @media screen and (min-width: $bp-lg) {
+    padding-bottom: 400px;
   }
 }
 

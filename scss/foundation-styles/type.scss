@@ -1,5 +1,11 @@
+html,
+body {
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+}
+
 a {
   color: $dark-blue;
+  text-decoration: none;
 
   @include hover-focus-active {
     // Bootstrap / mofo-style overrides

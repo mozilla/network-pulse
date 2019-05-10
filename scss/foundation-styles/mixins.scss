@@ -40,6 +40,8 @@
 
     a {
       @include dark-theme-inline-anchor($light-blue);
+
+      text-decoration: none;
     }
   }
 }
