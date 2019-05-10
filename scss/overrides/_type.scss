@@ -1,0 +1,13 @@
+a {
+  text-decoration: none;
+}
+
+.learn-more {
+  color: $dark-blue !important;
+
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+}

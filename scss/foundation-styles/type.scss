@@ -5,7 +5,6 @@ body {
 
 a {
   color: $dark-blue;
-  text-decoration: none;
 
   @include hover-focus-active {
     // Bootstrap / mofo-style overrides
@@ -106,17 +105,5 @@ p,
     margin-left: 0.333em;
     position: relative;
     top: -1px;
-  }
-}
-
-// Style Overrides
-
-.learn-more {
-  color: $dark-blue !important;
-
-  @include hover-focus-active {
-    // Bootstrap / mofo-style overrides
-    color: $dark-blue;
-    text-decoration: underline;
   }
 }

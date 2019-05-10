@@ -23,6 +23,10 @@
 @import './foundation-styles/buttons.scss';
 @import './foundation-styles/glyphs.scss';
 
+// New Pulse Overrides
+
+@import './overrides/type.scss';
+
 html {
   height: 100%;
 }
