@@ -1,0 +1,7 @@
+@mixin body-text($font-family, $font-weight, $color, $dark-theme-color) {
+  @at-root .dark-theme & {
+    a {
+      text-decoration: none;
+    }
+  }
+}
