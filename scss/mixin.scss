@@ -18,7 +18,10 @@
   }
 }
 
-@mixin link-text-decoration($normal-state: $link-decoration, $hover-state: $link-decoration) {
+@mixin link-text-decoration(
+  $normal-state: $link-decoration,
+  $hover-state: $link-decoration
+) {
   text-decoration: $normal-state;
 
   @include hover-focus-active {
@@ -26,7 +29,12 @@
   }
 }
 
-@mixin scale-text($base-font-size, $base-line-height: null, $large-font-size: null, $large-line-height: null) {
+@mixin scale-text(
+  $base-font-size,
+  $base-line-height: null,
+  $large-font-size: null,
+  $large-line-height: null
+) {
   font-size: $base-font-size;
 
   @if ($base-line-height) {

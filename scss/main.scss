@@ -18,8 +18,11 @@
 // Foundation Styles
 
 @import './foundation-styles/variables.scss';
+@import './foundation-styles/glyphs.scss';
 @import './foundation-styles/mixins.scss';
 @import './foundation-styles/type.scss';
+@import './foundation-styles/buttons.scss';
+@import './overrides/type.scss'; //override
 
 html {
   height: 100%;

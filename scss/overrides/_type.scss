@@ -1,0 +1,50 @@
+a {
+  text-decoration: none;
+}
+
+.learn-more {
+  color: $dark-blue !important;
+
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+}
+
+h4,
+.h4-heading {
+  @include scaleText(22px, 32px, 24px, 30px);
+}
+
+.featured-flag {
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.7px;
+  font-size: 9px;
+  font-weight: 700;
+
+  &::before {
+    content: "☆";
+    width: 100%;
+    margin-right: 3px;
+  }
+
+  &-container {
+    background: $blue;
+    position: absolute;
+    z-index: 1;
+    width: 23%;
+    height: 10%;
+    left: 0;
+    top: 0;
+    margin-top: 1rem;
+    padding: 0.25rem 0.25rem 0 0;
+    font-size: 9px;
+    color: white;
+    text-align: right;
+    padding-right: 5px;
+    max-width: 75px;
+    max-height: 20px;
+  }
+}

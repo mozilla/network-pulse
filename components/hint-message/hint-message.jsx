@@ -6,7 +6,7 @@ class HintMessage extends React.Component {
   renderLink() {
     if (!this.props.linkComponent) return null;
 
-    return React.cloneElement(this.props.linkComponent, { className: classNames(`btn`, `btn-outline-info`)} );
+    return React.cloneElement(this.props.linkComponent, { className: classNames(`btn`, `btn-secondary`)} );
   }
 
   render() {
