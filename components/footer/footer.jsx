@@ -32,7 +32,7 @@ export default class Footer extends React.Component {
     return (
       <ul className="link-list list-unstyled mb-0">
         <li className="col-auto mb-2" key="Donate">
-          <a href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank">Donate</a>
+          <a href="https://donate.mozilla.org/?utm_source=mozillapulse.org&utm_medium=referral&utm_content=footer" target="_blank">Donate</a>
         </li>
         <li className="col-auto mb-2" key="Legal">
           <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Legal</a>
