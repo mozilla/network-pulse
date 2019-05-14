@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class MofoFooter extends React.Component {
+export default class Footer extends React.Component {
   renderSocialLinks() {
     return (
       <ul className="d-flex pl-0">

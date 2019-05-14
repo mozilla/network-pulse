@@ -21,7 +21,7 @@ import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
-import MofoFooter from './components/footer/footer.jsx';
+import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
   let handleOnClick = function() {
@@ -110,7 +110,7 @@ class Main extends React.Component {
         <div id="main" className="container">
           <Routes />
         </div>
-        <MofoFooter/>
+        <Footer/>
       </div>
     );
   }
