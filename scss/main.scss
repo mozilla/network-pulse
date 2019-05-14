@@ -75,19 +75,18 @@ button {
 %btn-tab-active-state {
   color: inherit;
   text-decoration: none;
-  box-shadow: 0 2px $pulse-pink;
+  box-shadow: 0 3px $black;
 }
 
 .btn-tab {
   color: $body-color;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 17px;
+  text-transform: capitalize;
   margin-right: 2rem;
   padding: 0;
   border: 0;
   border-radius: 0;
-
-  @include scale-text(16px, 22px);
 
   &.active {
     @extend %btn-tab-active-state;
