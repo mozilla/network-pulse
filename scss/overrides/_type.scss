@@ -12,3 +12,29 @@ h4,
 .h4-heading {
   @include scaleText(22px, 32px, 24px, 30px);
 }
+  
+.featured-flag {
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.7px;
+  font-size: 9px;
+  font-weight: 700;
+
+  &::before {
+    content: "";
+    margin-right: 3px;
+    float: left;
+    background: url('../assets/svg/featured.svg') no-repeat 0 0 / contain;
+    width: 12px;
+    height: 12px;
+  }
+
+  &-container {
+    background: $blue;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    font-size: 9px;
+  }
+}

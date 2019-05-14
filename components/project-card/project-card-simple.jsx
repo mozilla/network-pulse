@@ -118,6 +118,12 @@ class ProjectCard extends React.Component {
     return <ul className="list-unstyled">{urls}</ul>;
   }
 
+  renderFeaturedFlag() {
+    if(!this.props.featured) return null;
+
+    return <div role="featured-content" className="featured-flag-container mt-3 p-1 text-align-right"><p className="body-small featured-flag mb-0 featured-glyph">Featured</p></div>;
+  }
+
   render() {
     let wrapperClassnames = classNames(`col-md-6 col-lg-4`);
 
@@ -134,6 +140,7 @@ class ProjectCard extends React.Component {
         <div className={classnames}>
           { this.renderModerationPanel() }
           <div className="summary-content">
+            { this.renderFeaturedFlag() }
             <Thumbnail thumbnail={this.props.thumbnail}
               link={!this.props.onModerationMode ? detailViewLink : ``}
               sendGaEvent={() => this.handleReadMoreClick()} />
