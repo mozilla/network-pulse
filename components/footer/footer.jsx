@@ -32,19 +32,19 @@ export default class MofoFooter extends React.Component {
     return (
       <ul className="link-list list-unstyled mb-0">
         <li className="col-auto mb-2" key="Donate">
-          <a className="footer-link-donate" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer">Donate</a>
+          <a className="footer-link-donate" href="https://donate.mozilla.org/?utm_source=foundation.mozilla.org&amp;utm_medium=referral&amp;utm_content=footer" target="_blank">Donate</a>
         </li>
         <li className="col-auto mb-2" key="Legal">
-          <a className="footer-link-legal" href="https://www.mozilla.org/about/legal/terms/mozilla/">Legal</a>
+          <a className="footer-link-legal" href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Legal</a>
         </li>
         <li className="col-auto mb-2" key="License">
-          <a className="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0">License</a>
+          <a className="footer-link-cc-license" href="https://creativecommons.org/licenses/by/4.0" target="_blank">License</a>
         </li>
         <li className="col-auto mb-2" key="Participation">
-          <a className="footer-link-undefined" href="https://www.mozilla.org/about/governance/policies/participation/">Participation Guidelines</a>
+          <a className="footer-link-undefined" href="https://www.mozilla.org/about/governance/policies/participation/" target="_blank">Participation Guidelines</a>
         </li>
         <li className="col-auto mb-2" key="Privacy">
-          <a className="footer-link-undefined" href="https://mozilla.org/en-US/privacy/websites/">Privacy</a>
+          <a className="footer-link-undefined" href="https://mozilla.org/en-US/privacy/websites/" target="_blank">Privacy</a>
         </li>
       </ul>
     );
