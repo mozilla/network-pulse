@@ -70,6 +70,10 @@
   @include hoverGlyph("linkedin-hover");
 }
 
+.featured-star {
+  @include compositeGlyph("featured");
+}
+
 .dark-theme {
   .twitter {
     @include compositeGlyph("twitter-dark-theme");

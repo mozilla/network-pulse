@@ -26,28 +26,19 @@ h4,
 
   &::before {
     content: "";
-    width: 15px; //testing icon --not official dimensions
-    height: 15px; //testing icon
     margin-right: 3px;
-    display: inline;
-    background: url('../assets/svg/featured.svg') no-repeat 0 0 / contain; 
+    float: left;
+    background: url('../assets/svg/featured.svg') no-repeat 0 0 / contain;
+    width: 12px;
+    height: 12px;
   }
 
   &-container {
     background: $blue;
     position: absolute;
     z-index: 1;
-    width: 23%;
-    height: 10%;
     left: 0;
     top: 0;
-    margin-top: 1rem;
-    padding: 0.25rem 0.25rem 0 0;
     font-size: 9px;
-    color: white;
-    text-align: right;
-    padding-right: 5px;
-    max-width: 75px;
-    max-height: 20px;
   }
 }

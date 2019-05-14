@@ -121,7 +121,7 @@ class ProjectCard extends React.Component {
   renderFeaturedFlag() {
     if(!this.props.featured) return null;
 
-    return <div className="featured-flag-container"><p className="body-small featured-flag">Featured</p></div>;
+    return <div className="featured-flag-container mt-3 p-1 text-align-right"><p className="body-small featured-flag mb-0 featured-glyph">Featured</p></div>;
   }
 
   render() {
