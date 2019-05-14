@@ -12,7 +12,7 @@ h4,
 .h4-heading {
   @include scaleText(22px, 32px, 24px, 30px);
 }
-  
+
 .featured-flag {
   text-transform: uppercase;
   color: white;
@@ -24,7 +24,7 @@ h4,
     content: "";
     margin-right: 3px;
     float: left;
-    background: url('../assets/svg/featured.svg') no-repeat 0 0 / contain;
+    background: url("../assets/svg/featured.svg") no-repeat 0 0 / contain;
     width: 12px;
     height: 12px;
   }
