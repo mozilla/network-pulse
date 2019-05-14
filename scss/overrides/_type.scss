@@ -2,8 +2,8 @@ a {
   text-decoration: none;
 }
 
-.learn-more {
-  color: $dark-blue !important;
+#learn-more {
+  color: $dark-blue;
 
   @include hover-focus-active {
     // Bootstrap / mofo-style overrides
