@@ -25,9 +25,12 @@ h4,
   font-weight: 700;
 
   &::before {
-    content: "☆";
-    width: 100%;
+    content: "";
+    width: 15px; //testing icon --not official dimensions
+    height: 15px; //testing icon
     margin-right: 3px;
+    display: inline;
+    background: url('../assets/svg/featured.svg') no-repeat 0 0 / contain; 
   }
 
   &-container {
