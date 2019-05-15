@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Helmet } from "react-helmet";
-import { Link } from 'react-router-dom';
-import IssueSelector from '../../components/issue-selector/issue-selector.jsx';
-import Service from '../../js/service';
-import Utility from '../../js/utility';
+import { Link } from "react-router-dom";
+import IssueSelector from "../../components/issue-selector/issue-selector.jsx";
+import Service from "../../js/service";
+import Utility from "../../js/utility";
 
 class Issues extends React.Component {
   constructor(props) {
@@ -22,14 +22,14 @@ class Issues extends React.Component {
       .get()
       .then(issues => {
         // sort issues alphabetically by their name
-        issues.sort((a,b) => {
+        issues.sort((a, b) => {
           if (a.name > b.name) return 1;
           if (a.name < b.name) return -1;
           return 0;
         });
         this.setState({ issues });
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }
@@ -37,7 +37,11 @@ class Issues extends React.Component {
   renderIssueSection(issue) {
     return (
       <div className="issue-section col-md-6" key={issue.name}>
-        <h2><Link to={`/issues/${Utility.getUriPathFromIssueName(issue.name)}`}>{issue.name}</Link></h2>
+        <h2>
+          <Link to={`/issues/${Utility.getUriPathFromIssueName(issue.name)}`}>
+            {issue.name}
+          </Link>
+        </h2>
         <p>{issue.description}</p>
       </div>
     );
@@ -46,11 +50,17 @@ class Issues extends React.Component {
   render() {
     return (
       <div className="issues-page">
-        <Helmet><title>Issues</title></Helmet>
+        <Helmet>
+          <title>Issues</title>
+        </Helmet>
         <IssueSelector />
-        <p className="intro">Mozilla has identified five issues that we believe must be tackled in the current era, to build the open internet we want. Tap above to browse by issue.</p>
+        <p className="intro">
+          Mozilla has identified five issues that we believe must be tackled in
+          the current era, to build the open internet we want. Tap above to
+          browse by issue.
+        </p>
         <div className="row">
-          { this.state.issues.map(issue => this.renderIssueSection(issue)) }
+          {this.state.issues.map(issue => this.renderIssueSection(issue))}
         </div>
       </div>
     );

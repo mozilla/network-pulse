@@ -1,5 +1,5 @@
-import Service from '../../../js/service';
-import AutoCompleteInput from './auto-complete-input';
+import Service from "../../../js/service";
+import AutoCompleteInput from "./auto-complete-input";
 
 const PROFILE_PREFIX = `👤 `;
 
@@ -20,7 +20,7 @@ export default class Creators extends AutoCompleteInput {
    */
   toSchema(field) {
     return {
-      "profile_id": field.id ? field.id : null,
+      profile_id: field.id ? field.id : null,
       name: field.id ? null : field.name
     };
     // Note: we do not need to strip the profile prefix
@@ -35,7 +35,7 @@ export default class Creators extends AutoCompleteInput {
       .get(fragment)
       .then(profiles => {
         let suggestions = profiles.map(creator => {
-          if(creator.is_active) {
+          if (creator.is_active) {
             creator.name = PROFILE_PREFIX + creator.name;
           }
 
@@ -47,7 +47,7 @@ export default class Creators extends AutoCompleteInput {
 
         this.setState({ suggestions });
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }

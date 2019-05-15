@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactGA from 'react-ga';
-import { Link } from 'react-router-dom';
+import React from "react";
+import ReactGA from "react-ga";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Form } from 'react-formbuilder';
-import qs from 'qs';
-import SignOutButton from '../../components/sign-out-button.jsx';
-import HintMessage from '../../components/hint-message/hint-message.jsx';
-import Service from '../../js/service.js';
-import utility from '../../js/utility';
-import user from '../../js/app-user';
-import basicInfoFields from './form/basic-info-fields';
-import detailInfoFields from './form/detail-info-fields';
-import getHelpFields from './form/get-help-fields';
+import { Form } from "react-formbuilder";
+import qs from "qs";
+import SignOutButton from "../../components/sign-out-button.jsx";
+import HintMessage from "../../components/hint-message/hint-message.jsx";
+import Service from "../../js/service.js";
+import utility from "../../js/utility";
+import user from "../../js/app-user";
+import basicInfoFields from "./form/basic-info-fields";
+import detailInfoFields from "./form/detail-info-fields";
+import getHelpFields from "./form/get-help-fields";
 
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
@@ -54,7 +54,7 @@ class Add extends React.Component {
 
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified` ) {
+    if (event === `verified`) {
       this.setState({ user });
     }
   }
@@ -74,7 +74,7 @@ class Add extends React.Component {
 
   handleCreatorClick(event) {
     event.preventDefault();
-    this.setState({numCreatorFields: this.state.numCreatorFields+1});
+    this.setState({ numCreatorFields: this.state.numCreatorFields + 1 });
   }
 
   handleFormUpdate(evt, name, field, value) {
@@ -112,10 +112,13 @@ class Add extends React.Component {
             return;
           }
 
-          this.setState({
-            showFormInvalidNotice: false,
-            submitting: true
-          }, () => this.postEntry(this.state.formValues));
+          this.setState(
+            {
+              showFormInvalidNotice: false,
+              submitting: true
+            },
+            () => this.postEntry(this.state.formValues)
+          );
         });
       });
     });
@@ -130,7 +133,7 @@ class Add extends React.Component {
     let pathname = `/submitted`;
     let query = qs.parse(this.props.location.search.substring(1));
 
-    this.getSubmittedEntry(entryId, (approved) => {
+    this.getSubmittedEntry(entryId, approved => {
       if (approved) {
         pathname = `/entry/${entryId}`;
         query.justPostedByUser = true;
@@ -174,69 +177,130 @@ class Add extends React.Component {
   }
 
   getContentForLoggedInUser() {
-    let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
-    let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
+    let authErrorMessage = this.state.authError ? (
+      <span className="error">
+        You seem to be logged out at this moment. Try{" "}
+        <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a>{" "}
+        again?
+      </span>
+    ) : null;
+    let serverErrorMessage = this.state.serverError ? (
+      <span className="error">
+        Sorry! We're unable to submit entry to server at this time.
+      </span>
+    ) : null;
 
-    let updateCallback = (evt, name, field, value) => this.handleFormUpdate(evt, name, field, value);
+    let updateCallback = (evt, name, field, value) =>
+      this.handleFormUpdate(evt, name, field, value);
 
-    return( <div>
-      <h1>Share with the Network</h1>
-      <p>Do you have something to share? If it might be useful to someone in our network, share it here! Pulse includes links to products and software tools, research reports and findings, think pieces, white papers, interviews, and curricula. If it might be useful, share it… at any stage or fidelity.</p>
-      <p>Please keep your language simple and useful for a broad audience. No jargon. Submissions may be lightly edited by our curators for spelling, grammar and style consistency.</p>
-      <div className="mb-4">
-        <h2>Basic Info</h2>
-        <div className="posted-by">
-          <p className="d-inline-block mr-3 mb-3">Posted by: <span className="text-muted">{user.name}</span></p>
-          <p className="d-inline-block text-muted">Not you? <SignOutButton user={user} history={this.props.history} />.</p>
-        </div>
-        <Form ref="basicForm"
-          fields={basicInfoFields}
-          inlineErrors={true}
-          onUpdate={updateCallback} />
-        <h2>Optional Details</h2>
-        <Form ref="detailForm"
-          fields={detailInfoFields}
-          inlineErrors={true}
-          onUpdate={updateCallback} />
-        <h2>Get Help</h2>
-        <Form ref="getHelpForm"
-          fields={getHelpFields}
-          inlineErrors={true}
-          onUpdate={updateCallback} />
-        <div className="submit-section">
-          <p>By submitting your entry, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Use</a>, and you agree that your entry may be edited lightly for clarity and style.</p>
-          <button
-            className="btn btn-info mr-3"
-            type="submit"
-            onClick={(evt) => this.handleFormSubmit(evt)}
-            disabled={this.state.submitting ? `disabled` : null}
-          >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
-          { authErrorMessage }
-          { serverErrorMessage }
-          { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
+    return (
+      <div>
+        <h1>Share with the Network</h1>
+        <p>
+          Do you have something to share? If it might be useful to someone in
+          our network, share it here! Pulse includes links to products and
+          software tools, research reports and findings, think pieces, white
+          papers, interviews, and curricula. If it might be useful, share it… at
+          any stage or fidelity.
+        </p>
+        <p>
+          Please keep your language simple and useful for a broad audience. No
+          jargon. Submissions may be lightly edited by our curators for
+          spelling, grammar and style consistency.
+        </p>
+        <div className="mb-4">
+          <h2>Basic Info</h2>
+          <div className="posted-by">
+            <p className="d-inline-block mr-3 mb-3">
+              Posted by: <span className="text-muted">{user.name}</span>
+            </p>
+            <p className="d-inline-block text-muted">
+              Not you?{" "}
+              <SignOutButton user={user} history={this.props.history} />.
+            </p>
+          </div>
+          <Form
+            ref="basicForm"
+            fields={basicInfoFields}
+            inlineErrors={true}
+            onUpdate={updateCallback}
+          />
+          <h2>Optional Details</h2>
+          <Form
+            ref="detailForm"
+            fields={detailInfoFields}
+            inlineErrors={true}
+            onUpdate={updateCallback}
+          />
+          <h2>Get Help</h2>
+          <Form
+            ref="getHelpForm"
+            fields={getHelpFields}
+            inlineErrors={true}
+            onUpdate={updateCallback}
+          />
+          <div className="submit-section">
+            <p>
+              By submitting your entry, you agree to be bound by the{" "}
+              <a
+                href="https://www.mozilla.org/about/legal/terms/mozilla/"
+                target="_blank"
+              >
+                Mozilla Terms of Use
+              </a>, and you agree that your entry may be edited lightly for
+              clarity and style.
+            </p>
+            <button
+              className="btn btn-info mr-3"
+              type="submit"
+              onClick={evt => this.handleFormSubmit(evt)}
+              disabled={this.state.submitting ? `disabled` : null}
+            >
+              {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
+            </button>
+            {authErrorMessage}
+            {serverErrorMessage}
+            {this.state.showFormInvalidNotice && (
+              <span>Something isn't right. Check your info above.</span>
+            )}
+          </div>
         </div>
       </div>
-    </div>);
+    );
   }
 
   getAnonymousContent() {
     let header = `Please sign in to add a post`;
-    let linkComponent = <a href={user.getLoginURL(utility.getCurrentURL())} onClick={(event) => this.handleSignInBtnClick(event)}>Sign in with Google</a>;
+    let linkComponent = (
+      <a
+        href={user.getLoginURL(utility.getCurrentURL())}
+        onClick={event => this.handleSignInBtnClick(event)}
+      >
+        Sign in with Google
+      </a>
+    );
     let additionalMessage;
 
     if (user.failedLogin) {
       header = `Sign in failed`;
       linkComponent = <Link to={`/featured`}>Explore featured</Link>;
-      additionalMessage = <p>Sorry, login failed! Please try again or <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.</p>;
+      additionalMessage = (
+        <p>
+          Sorry, login failed! Please try again or{" "}
+          <a href="mailto:https://mzl.la/pulse-contact">contact us</a>.
+        </p>
+      );
     }
 
-    return <HintMessage
-      iconComponent={<span className={`fa fa-user`}></span>}
-      header={header}
-      linkComponent={linkComponent}
-    >
-      {additionalMessage}
-    </HintMessage>;
+    return (
+      <HintMessage
+        iconComponent={<span className={`fa fa-user`} />}
+        header={header}
+        linkComponent={linkComponent}
+      >
+        {additionalMessage}
+      </HintMessage>
+    );
   }
 
   getContent() {
@@ -250,10 +314,10 @@ class Add extends React.Component {
   render() {
     return (
       <div className="add-page row justify-content-center">
-        <Helmet><title>Post an entry</title></Helmet>
-        <div className="col-lg-8">
-          { this.getContent() }
-        </div>
+        <Helmet>
+          <title>Post an entry</title>
+        </Helmet>
+        <div className="col-lg-8">{this.getContent()}</div>
       </div>
     );
   }

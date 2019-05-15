@@ -29,7 +29,7 @@
     "watch:css": "chokidar 'components/**/*.scss' 'pages/**/*.scss' 'scss/**/*.scss' -c 'npm run build-client:scss'",
     "watch:js": "chokidar 'app.jsx' 'main.jsx' 'js/**/*.js' 'components/**/*.jsx' 'pages/**/*.jsx' 'pages/**/*.js' 'webpack.config.js' -c 'npm run build-client:js'",
     "test": "run-s test:**",
-    "test:js": "eslint --config .eslintrc.yaml \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
+    "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
     "postinstall": "npm run build",
     "prepare": "npm run snyk-protect"
@@ -57,9 +57,10 @@
   "devDependencies": {
     "chokidar": "^2.1.5",
     "chokidar-cli": "^1.2.2",
-    "eslint": "^4.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
-    "mofo-style": "^2.4.0",
     "optipng-bin": "^5.1.0",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^16.0.0",

@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink as ReactRouterNavLink } from 'react-router-dom';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import { NavLink as ReactRouterNavLink } from "react-router-dom";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 class NavLink extends React.Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class NavLink extends React.Component {
     let classes = classNames(`open-sans`, this.props.className);
 
     return (
-      <ReactRouterNavLink {...this.props}
+      <ReactRouterNavLink
+        {...this.props}
         className={classes}
         activeClassName="active"
         onClick={() => this.handleClick()}
