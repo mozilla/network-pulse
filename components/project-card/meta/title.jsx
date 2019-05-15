@@ -13,14 +13,14 @@ class Title extends React.Component {
   }
 
   render() {
-    let classnames = classNames(`title mb-0`, this.props.className);
+    let classnames = classNames(`title mb-0 h4-heading`, this.props.className);
     let title = this.props.title;
 
     if (this.props.link) {
       title = <Link to={this.props.link} onClick={() => this.handleTitleClick() }>{this.props.title}</Link>;
     }
 
-    return <h2 className={classnames}>{title}</h2>;
+    return <h4 className={classnames}>{title}</h4>;
   }
 }
 
