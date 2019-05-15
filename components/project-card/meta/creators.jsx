@@ -6,7 +6,7 @@ import classNames from 'classnames';
 const Creators = (props) => {
   if (props.creators.length === 0) return null;
 
-  let classnames = classNames(`my-1 body-small creator d-block`, props.className);
+  let classnames = classNames(`my-1 body-small creator`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
   let creators = [];
 
