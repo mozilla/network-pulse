@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Form } from 'react-formbuilder';
-import NotFound from '../not-found.jsx';
-import utility from '../../js/utility';
-import user from '../../js/app-user';
-import Service from '../../js/service';
-import createFormFields from './form/fields';
+import { Form } from "react-formbuilder";
+import NotFound from "../not-found.jsx";
+import utility from "../../js/utility";
+import user from "../../js/app-user";
+import Service from "../../js/service";
+import createFormFields from "./form/fields";
 
 const PRE_SUBMIT_LABEL = `Submit`;
 const SUBMITTING_LABEL = `Submitting...`;
 
-class ProfileEdit extends React.Component{
+class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -43,7 +43,7 @@ class ProfileEdit extends React.Component{
 
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified` ) {
+    if (event === `verified`) {
       this.setState({ user });
     }
   }
@@ -87,7 +87,10 @@ class ProfileEdit extends React.Component{
     // if value of an image field is a link, we don't wanna include it in the formValues state
     // as the link is just for previewing user's current profile and not the image object we are
     // sending to backend
-    if (field.type !== `image` || (field.type === `image` && typeof value !== `string`)) {
+    if (
+      field.type !== `image` ||
+      (field.type === `image` && typeof value !== `string`)
+    ) {
       formValues[name] = value;
       this.setState({
         formValues,
@@ -107,10 +110,13 @@ class ProfileEdit extends React.Component{
         return;
       }
 
-      this.setState({
-        showFormInvalidNotice: false,
-        submitting: true
-      }, () => this.updateProfile(this.state.formValues));
+      this.setState(
+        {
+          showFormInvalidNotice: false,
+          submitting: true
+        },
+        () => this.updateProfile(this.state.formValues)
+      );
     });
   }
 
@@ -119,7 +125,7 @@ class ProfileEdit extends React.Component{
       .put(profile)
       .then(() => {
         this.props.history.push({
-          pathname: `/profile/me`,
+          pathname: `/profile/me`
         });
       })
       .catch(reason => {
@@ -133,53 +139,114 @@ class ProfileEdit extends React.Component{
   renderForm() {
     if (!this.state.currentProfileLoaded) return null;
 
-    return <Form ref="form" fields={this.state.fields}
-      inlineErrors={true}
-      onUpdate={(event, name, field, value) => this.handleFormUpdate(event, name, field, value)}
-      className="row" />;
+    return (
+      <Form
+        ref="form"
+        fields={this.state.fields}
+        inlineErrors={true}
+        onUpdate={(event, name, field, value) =>
+          this.handleFormUpdate(event, name, field, value)
+        }
+        className="row"
+      />
+    );
   }
 
   getContentForLoggedInUser() {
-    let authErrorMessage = this.state.authError ? <span className="error">You seem to be logged out at this moment. Try <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a> again?</span> : null;
-    let serverErrorMessage = this.state.serverError ? <span className="error">Sorry! We're unable to submit entry to server at this time.</span> : null;
+    let authErrorMessage = this.state.authError ? (
+      <span className="error">
+        You seem to be logged out at this moment. Try{" "}
+        <a href={user.getLoginURL(utility.getCurrentURL())}>logging in</a>{" "}
+        again?
+      </span>
+    ) : null;
+    let serverErrorMessage = this.state.serverError ? (
+      <span className="error">
+        Sorry! We're unable to submit entry to server at this time.
+      </span>
+    ) : null;
 
-    return( <div className="row">
-      <div className="col-12">
-        <h1>Your profile</h1>
-        <p>Tell everyone about yourself, so we can connect and collaborate!</p>
-        <div className="mb-4">
-          <div className="mb-3">
-            <span>Email <em>(email won't be displayed or shared)</em></span>
-            <div className="text-muted">
-              <span>{user.email}</span>
-              <span className="d-block d-sm-inline-block ml-0 ml-sm-4"><button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button></span>
+    return (
+      <div className="row">
+        <div className="col-12">
+          <h1>Your profile</h1>
+          <p>
+            Tell everyone about yourself, so we can connect and collaborate!
+          </p>
+          <div className="mb-4">
+            <div className="mb-3">
+              <span>
+                Email <em>(email won't be displayed or shared)</em>
+              </span>
+              <div className="text-muted">
+                <span>{user.email}</span>
+                <span className="d-block d-sm-inline-block ml-0 ml-sm-4">
+                  <button
+                    className="btn btn-link inline-link"
+                    onClick={event => this.handleLogOutBtnClick(event)}
+                  >
+                    Sign out
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          {this.renderForm()}
+          <div className="submit-section">
+            <p className="mb-0">
+              By submitting your profile, you agree to be bound by the{" "}
+              <a
+                href="https://www.mozilla.org/about/legal/terms/mozilla/"
+                target="_blank"
+              >
+                Mozilla Terms of Service
+              </a>.
+            </p>
+            <p>
+              Please{" "}
+              <a href="https://mzl.la/pulse-contact" target="_blank">
+                contact us
+              </a>{" "}
+              if you have any questions or concerns.
+            </p>
+            <div className="mt-4">
+              <button
+                className="btn btn-info mr-3"
+                type="submit"
+                onClick={event => this.handleFormSubmit(event)}
+                disabled={this.state.submitting ? `disabled` : null}
+              >
+                {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
+              </button>
+              {authErrorMessage}
+              {serverErrorMessage}
+              {this.state.showFormInvalidNotice && (
+                <span>Something isn't right. Check your info above.</span>
+              )}
             </div>
           </div>
         </div>
-        { this.renderForm() }
-        <div className="submit-section">
-          <p className="mb-0">By submitting your profile, you agree to be bound by the <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Mozilla Terms of Service</a>.</p>
-          <p>Please <a href="https://mzl.la/pulse-contact" target="_blank">contact us</a> if you have any questions or concerns.</p>
-          <div className="mt-4">
-            <button
-              className="btn btn-info mr-3"
-              type="submit"
-              onClick={(event) => this.handleFormSubmit(event)}
-              disabled={this.state.submitting ? `disabled` : null}
-            >{ this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL }</button>
-            { authErrorMessage }
-            { serverErrorMessage }
-            { this.state.showFormInvalidNotice && <span>Something isn't right. Check your info above.</span> }
-          </div>
-        </div>
       </div>
-    </div>);
+    );
   }
 
   getAnonymousContent() {
-    return <NotFound header="You do not have access to this page" linkComponent={false}>
-      <p><button className="btn btn-link inline-link" onClick={(event) => this.handleSignInBtnClick(event)}>Log in</button> or see <Link to="/featured">Featured projects</Link></p>
-    </NotFound>;
+    return (
+      <NotFound
+        header="You do not have access to this page"
+        linkComponent={false}
+      >
+        <p>
+          <button
+            className="btn btn-link inline-link"
+            onClick={event => this.handleSignInBtnClick(event)}
+          >
+            Log in
+          </button>{" "}
+          or see <Link to="/featured">Featured projects</Link>
+        </p>
+      </NotFound>
+    );
   }
 
   getContent() {
@@ -193,10 +260,10 @@ class ProfileEdit extends React.Component{
   render() {
     return (
       <div className="profile-edit-page row justify-content-center">
-        <Helmet><title>Update profile</title></Helmet>
-        <div className="col-lg-8">
-          { this.getContent() }
-        </div>
+        <Helmet>
+          <title>Update profile</title>
+        </Helmet>
+        <div className="col-lg-8">{this.getContent()}</div>
       </div>
     );
   }

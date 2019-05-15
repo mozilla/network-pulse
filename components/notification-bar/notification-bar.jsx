@@ -1,6 +1,6 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 class NotificationBar extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class NotificationBar extends React.Component {
   render() {
     return (
       <div className={classNames(`notification-bar p-3`, this.props.className)}>
-        { this.props.children }
+        {this.props.children}
       </div>
     );
   }

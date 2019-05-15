@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 
-const Creators = (props) => {
+const Creators = props => {
   if (props.creators.length === 0) return null;
 
   let classnames = classNames(`creator d-block open-sans`, props.className);
@@ -15,13 +15,20 @@ const Creators = (props) => {
     let name = creator.name;
     let creatorLabel = name;
 
-    if (typeof creator.profile_id === `number` && creator.is_active && props.makeLink) {
-      creatorLabel = <Link key={name}
-        to={`/profile/${creator.profile_id}`}
-        onClick={(event) => props.creatorClickHandler(event, name)}
-      >
-        {name}
-      </Link>;
+    if (
+      typeof creator.profile_id === `number` &&
+      creator.is_active &&
+      props.makeLink
+    ) {
+      creatorLabel = (
+        <Link
+          key={name}
+          to={`/profile/${creator.profile_id}`}
+          onClick={event => props.creatorClickHandler(event, name)}
+        >
+          {name}
+        </Link>
+      );
     }
     creators.push(creatorLabel);
     creators.push(`, `);
@@ -31,7 +38,14 @@ const Creators = (props) => {
     creators.pop();
   }
 
-  return <p className="my-2"><small className={classnames}>{labelText}{creators}</small></p>;
+  return (
+    <p className="my-2">
+      <small className={classnames}>
+        {labelText}
+        {creators}
+      </small>
+    </p>
+  );
 };
 
 Creators.propTypes = {
