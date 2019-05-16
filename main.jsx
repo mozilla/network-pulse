@@ -22,6 +22,7 @@ import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
 import Footer from './components/footer/footer.jsx';
+import HelpDropdown from './components/help-dropdown/help-dropdown.jsx';
 
 const Featured = () => {
   let handleOnClick = function() {
@@ -38,6 +39,12 @@ const Featured = () => {
     <Helmet><title>Featured</title></Helmet>
     <div className="row">
       <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">Discover & collaborate on projects for a healthy internet. {learnMore}</h2>
+    </div>
+    <div className="d-flex justify-content-between py-4">
+      <div>I'm a search bar</div>
+      <div>
+        <HelpDropdown />
+      </div>
     </div>
     <ProjectLoader featured={`True`} />
   </div>;
