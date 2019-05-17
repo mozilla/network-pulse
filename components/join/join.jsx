@@ -1,7 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
 import classNames from "classnames";
-import basketSignup from "../../basket-signup.js";
+// import basketSignup from "../js/basket-signup.js" <---error ?
 
 export default class JoinUs extends React.Component {
   constructor(props) {
