@@ -1,4 +1,5 @@
 import React from "react";
+import Join from "./join/join.jsx"
 
 export default class Footer extends React.Component {
   renderSocialLinks() {
@@ -58,6 +59,7 @@ export default class Footer extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-5">
+              <Join />
               <div className="my-5 my-md-0 d-md-flex align-items-md-end h-100">
                 <a href="https://foundation.mozilla.org" className="logo">
                   <img src="../assets/svg/mozilla-block-white.svg" alt="Mozilla Foundation Home Page" />
