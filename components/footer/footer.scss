@@ -18,7 +18,9 @@ footer {
       a {
         text-decoration: none;
 
-        &:hover,:active,:focus {
+        &:hover,
+        :active,
+        :focus {
           text-decoration: underline;
         }
       }
