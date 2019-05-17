@@ -1,0 +1,17 @@
+#help-dropdown {
+  display: block;
+  font-family: 'Nunito Sans';
+  font-weight: 700;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid $black;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none; // ^ not working without explicit prefixes
+  background-color: $white;
+  background-image: url('../assets/svg/caret-down.svg');
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
+  cursor: pointer;
+}
