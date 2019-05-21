@@ -32,7 +32,7 @@ const Featured = () => {
     });
   };
 
-  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} className="learn-more" onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
+  let learnMore = env.LEARN_MORE_LINK ? <span><a href={env.LEARN_MORE_LINK} id="learn-more" onClick={() => handleOnClick()}>Learn more</a>.</span> : null;
 
   return <div>
     <Helmet><title>Featured</title></Helmet>

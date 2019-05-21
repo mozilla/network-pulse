@@ -21,6 +21,8 @@
 @import './foundation-styles/mixins.scss';
 @import './foundation-styles/type.scss';
 @import './foundation-styles/buttons.scss';
+@import './foundation-styles/glyphs.scss';
+@import './overrides/type.scss';
 
 html {
   height: 100%;
@@ -103,14 +105,14 @@ button {
 }
 
 #main {
-  padding-bottom: 420px;
-
-  @media screen and (min-width: $bp-sm) {
-    padding-bottom: 350px;
-  }
+  padding-bottom: 550px;
 
   @media screen and (min-width: $bp-md) {
-    padding-bottom: 250px;
+    padding-bottom: 450px;
+  }
+
+  @media screen and (min-width: $bp-lg) {
+    padding-bottom: 400px;
   }
 }
 

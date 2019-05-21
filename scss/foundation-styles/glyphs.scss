@@ -1,0 +1,49 @@
+@mixin glyph($id, $width: 20px, $height: 20px) {
+  content: "";
+  display: inline-block;
+  width: $width;
+  height: $height;
+  margin-right: 10px;
+  background: url(../assets/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+
+  @media screen and (min-width: $bp-lg) {
+    margin-right: 10px;
+  }
+}
+
+@mixin hoverGlyph($id) {
+  &:hover::before,
+  &:focus::before {
+    background: url(../assets/glyphs/#{$id}.svg) no-repeat 0 0 / contain;
+  }
+}
+
+@mixin compositeGlyph($id) {
+  &::before {
+    @include glyph($id);
+  }
+
+  &.small {
+    &::before {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.dark-theme {
+  .twitter {
+    @include compositeGlyph("twitter-dark-theme");
+    @include hoverGlyph("twitter-dark-theme-hover");
+  }
+
+  .instagram {
+    @include compositeGlyph("instagram-dark-theme");
+    @include hoverGlyph("instagram-dark-theme-hover");
+  }
+
+  .github {
+    @include compositeGlyph("github-dark-theme");
+    @include hoverGlyph("github-dark-theme-hover");
+  }
+}
