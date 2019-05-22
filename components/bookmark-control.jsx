@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactGA from 'react-ga';
-import PropTypes from 'prop-types';
-import bookmarkManager from '../js/bookmarks-manager';
-import Service from '../js/service.js';
-import user from '../js/app-user.js';
-import classNames from 'classnames';
+import React from "react";
+import ReactGA from "react-ga";
+import PropTypes from "prop-types";
+import bookmarkManager from "../js/bookmarks-manager";
+import Service from "../js/service.js";
+import user from "../js/app-user.js";
+import classNames from "classnames";
 
 class BookmarkControl extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class BookmarkControl extends React.Component {
 
     if (bookmarks) {
       bookmarked = bookmarks.indexOf(this.props.id) > -1;
-      this.setState({bookmarked: bookmarked});
+      this.setState({ bookmarked: bookmarked });
     }
   }
 
@@ -86,8 +86,8 @@ class BookmarkControl extends React.Component {
 
     toggleUI(); // Immediately update UI (assume success)
 
-    Service.entry
-      .put.bookmark(this.props.id)
+    Service.entry.put
+      .bookmark(this.props.id)
       .then(() => {
         if (callback) {
           callback(null);
@@ -110,7 +110,9 @@ class BookmarkControl extends React.Component {
       });
     }
 
-    ReactGA.event(this.createGaEventConfig(this.state.bookmarked ? `Remove fav` : `Add fav`));
+    ReactGA.event(
+      this.createGaEventConfig(this.state.bookmarked ? `Remove fav` : `Add fav`)
+    );
 
     if (user.loggedin) {
       this.toggleBookmark();
@@ -123,7 +125,11 @@ class BookmarkControl extends React.Component {
     let classnames = classNames(`heart`, this.props.className);
 
     return (
-      <a className={classnames} ref="heart" onClick={() => this.handleBookmarkClick()}></a>
+      <a
+        className={classnames}
+        ref="heart"
+        onClick={() => this.handleBookmarkClick()}
+      />
     );
   }
 }

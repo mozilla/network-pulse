@@ -21,6 +21,8 @@
 @import './foundation-styles/mixins.scss';
 @import './foundation-styles/type.scss';
 @import './foundation-styles/buttons.scss';
+@import './foundation-styles/glyphs.scss';
+@import './overrides/type.scss';
 
 html {
   height: 100%;
@@ -102,14 +104,14 @@ button {
 }
 
 #main {
-  padding-bottom: 420px;
-
-  @media screen and (min-width: $bp-sm) {
-    padding-bottom: 350px;
-  }
+  padding-bottom: 550px;
 
   @media screen and (min-width: $bp-md) {
-    padding-bottom: 250px;
+    padding-bottom: 450px;
+  }
+
+  @media screen and (min-width: $bp-lg) {
+    padding-bottom: 400px;
   }
 }
 
@@ -216,6 +218,35 @@ textarea {
     font-size: 1.5rem;
     font-weight: 400;
     margin-top: $form-field-vertical-margin;
+  }
+}
+
+// New Pulse Styles
+
+.featured-flag {
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.7px;
+  font-size: 9px;
+  font-weight: 700;
+  position: relative;
+  top: 0.5px;
+
+  &::before {
+    content: "";
+    margin-right: 3px;
+    float: left;
+    background: url("../assets/svg/featured.svg") no-repeat 0 0 / contain;
+    width: 12px;
+    height: 12px;
+  }
+
+  &-container {
+    background: $blue;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
   }
 }
 

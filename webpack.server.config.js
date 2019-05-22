@@ -12,12 +12,13 @@ module.exports = {
   target: `node`,
   // keep node_module paths out of the bundle
   // copied from https://github.com/reactjs/react-router-tutorial/tree/master/lessons/13-server-rendering
-  externals: fs.readdirSync(path.resolve(__dirname, `node_modules`)).concat([
-    `react-dom/server`, `react/addons`
-  ]).reduce((ext, mod) => {
-    ext[mod] = `commonjs ` + mod;
-    return ext;
-  }, {}),
+  externals: fs
+    .readdirSync(path.resolve(__dirname, `node_modules`))
+    .concat([`react-dom/server`, `react/addons`])
+    .reduce((ext, mod) => {
+      ext[mod] = `commonjs ` + mod;
+      return ext;
+    }, {}),
   node: {
     __filename: true,
     __dirname: true
@@ -27,10 +28,7 @@ module.exports = {
       {
         test: /.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          `babel-loader`,
-          `document-env-vars`
-        ]
+        use: [`babel-loader`, `document-env-vars`]
       }
     ]
   }

@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === `production`) {
   console.log(`bundling for production.`);
   plugins = [
     new webpack.DefinePlugin({
-      'process.env': {
+      "process.env": {
         NODE_ENV: JSON.stringify(`production`)
       }
     }),
@@ -27,10 +27,7 @@ module.exports = {
       {
         test: /.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          `babel-loader`,
-          `document-env-vars`
-        ]
+        use: [`babel-loader`, `document-env-vars`]
       }
     ]
   },

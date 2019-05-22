@@ -1,5 +1,10 @@
+html,
+body {
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+}
+
 a {
-  color: $dark-blue; //style override
+  color: $dark-blue;
 
   @include hover-focus-active {
     // Bootstrap / mofo-style overrides
@@ -100,17 +105,5 @@ p,
     margin-left: 0.333em;
     position: relative;
     top: -1px;
-  }
-}
-
-// Style Overrides
-
-.learn-more {
-  color: $dark-blue !important;
-
-  @include hover-focus-active {
-    // Bootstrap / mofo-style overrides
-    color: $dark-blue;
-    text-decoration: underline;
   }
 }

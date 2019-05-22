@@ -4,3 +4,30 @@ footer {
   bottom: 0;
   left: 0;
 }
+
+.site-footer {
+  background-color: $black;
+
+  .link-list {
+    @media (min-width: $bp-md) {
+      column-count: 2;
+      break-inside: avoid-column;
+    }
+
+    li {
+      a {
+        text-decoration: none;
+
+        &:hover,
+        :active,
+        :focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  hr {
+    border-color: $gray-20;
+  }
+}
