@@ -230,6 +230,8 @@ textarea {
   letter-spacing: 0.7px;
   font-size: 9px;
   font-weight: 700;
+  position: relative;
+  top: .5px;
 
   &::before {
     content: "";
