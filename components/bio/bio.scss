@@ -89,7 +89,7 @@
     &::after {
       content: ",";
       display: inline-block;
-      margin-right: .25rem;
+      margin-right: 0.25rem;
     }
 
     &:last-child::after {
