@@ -24,7 +24,7 @@ class SignOutButton extends React.Component {
 
   render() {
     return (
-      <button className="btn btn-link inline-link" onClick={(event) => this.handleLogOutBtnClick(event)}>Sign out</button>
+      <a onClick={(event) => this.handleLogOutBtnClick(event)} href="">Sign out</a>
     );
   }
 }

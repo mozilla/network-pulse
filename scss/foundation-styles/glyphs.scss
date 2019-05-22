@@ -31,6 +31,21 @@
   }
 }
 
+.twitter {
+  @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
+}
+
+.linkedin {
+  @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
+}
+
+.github {
+  @include compositeGlyph("github");
+  @include hoverGlyph("github-hover");
+}
+
 .dark-theme {
   .twitter {
     @include compositeGlyph("twitter-dark-theme");

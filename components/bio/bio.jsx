@@ -46,7 +46,7 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3"><Link to="/myprofile">Edit your profile</Link></div>;
+    return <div className="mt-3 mb-2"><Link to="/myprofile">Edit your profile</Link></div>;
   }
 
   renderSocialMedia() {
@@ -55,14 +55,14 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`d-inline-block social-media`, {
-        "mr-sm-3" : i !== list.length-1
+      let classname = classNames(`social-media ${type} small`, {
+        "mr-sm-1" : i !== list.length-1
       });
 
-      return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}><span className={`fa fa-${type}`}></span></a>;
+      return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}></a>;
     });
 
-    return <div>{list}</div>;
+    return <div className="d-flex mb-4 mb-md-0">{list}</div>;
   }
 
   renderSignOut() {
@@ -78,7 +78,7 @@ class Bio extends React.Component {
       meta = <a href={link} onClick={(event) => this.handleSocialMediaClick(event, type)}>{text}</a>;
     }
 
-    return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;
+    return <div className={`meta-with-icon ${type}`}>{meta}</div>;
   }
 
   renderOtherMeta() {
@@ -88,7 +88,7 @@ class Bio extends React.Component {
     let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, this.props.storyLink) : null;
     let website = this.props.website ? this.renderMeta(`website`, this.props.website, this.props.website) : null;
 
-    return <div className="other-meta open-sans mb-3">{org}{location}{language}{story}{website}</div>;
+    return <div className="mb-3 d-flex flex-column">{org}{location}{language}{story}{website}</div>;
   }
 
   renderBlurb() {
@@ -109,11 +109,11 @@ class Bio extends React.Component {
     tags = tags.map(tag => {
       let link = `/${type}/${type === `issues` ? Utility.getUriPathFromIssueName(tag) : encodeURIComponent(tag)}`;
 
-      return <Link to={link} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
+      return <Link className="tags-link" to={link} key={tag}>{tag}</Link>;
     });
 
-    return <div className="tags mb-1">
-      <div className="d-inline-block mr-2 open-sans text-uppercase">{label}:</div>
+    return <div className="body-small tags mb-1">
+      <div className="d-inline-block mr-2">{label}:</div>
       {tags}
     </div>;
   }
@@ -121,7 +121,7 @@ class Bio extends React.Component {
   renderInterest() {
     if (!this.props.issues) { return null; }
 
-    return this.renderTags(`interests`, `issues`, this.props.issues);
+    return this.renderTags(`Interests`, `issues`, this.props.issues);
   }
 
   render() {
@@ -133,8 +133,8 @@ class Bio extends React.Component {
             { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
-            <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3">
-              <div className="name mr-sm-4 text-truncate mw-100">{this.profileOwnerName}</div>
+            <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3 mb-md-1">
+              <h1 className="name mr-sm-4 text-truncate mw-100 mb-md-0">{this.profileOwnerName}</h1>
               { this.renderSocialMedia() }
               { this.renderSignOut() }
             </div>

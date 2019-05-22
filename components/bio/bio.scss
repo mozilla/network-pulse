@@ -14,7 +14,7 @@
   }
 
   .social-media {
-    width: 40px;
+    width: 30px;
     text-align: center;
 
     @media screen and (min-width: $bp-md) {
@@ -34,11 +34,10 @@
   }
 
   .tags {
-    font-size: 0.875rem;
-    font-weight: 600;
+    color: $black;
 
-    .open-sans {
-      font-size: 0.625rem;
+    &:not(a.tags-link:last-of-type) {
+      content: unset;
     }
   }
 
@@ -54,6 +53,8 @@
     }
 
     &.location {
+      color: $gray-40;
+
       &::before {
         content: "\f041";
       }
@@ -72,9 +73,33 @@
     }
 
     &.website {
+      color: $dark-blue;
+
       &::before {
         content: "\f0ac";
       }
+
+      a {
+        font-weight: 700;
+      }
     }
+  }
+
+  .tags-link {
+    &::after {
+      content: ",";
+      display: inline-block;
+      margin-right: .25rem;
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+  }
+}
+
+.profile-page {
+  hr {
+    border-top: 1px solid $black;
   }
 }
