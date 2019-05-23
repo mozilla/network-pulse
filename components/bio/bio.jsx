@@ -46,7 +46,7 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3 mb-2"><Link to="/myprofile">Edit your profile</Link></div>;
+    return <div className="my-3 mt-md-3 mb-md-0"><Link to="/myprofile">Edit your profile</Link></div>;
   }
 
   renderSocialMedia() {
@@ -55,14 +55,14 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`social-media ${type} small`, {
+      let classname = classNames(`social-media ${type} x-small`, {
         "mr-sm-1" : i !== list.length-1
       });
 
       return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}></a>;
     });
 
-    return <div className="d-flex mb-4 mb-md-0">{list}</div>;
+    return <div className="d-flex mb-4 mb-sm-0">{list}</div>;
   }
 
   renderSignOut() {
@@ -78,7 +78,7 @@ class Bio extends React.Component {
       meta = <a href={link} onClick={(event) => this.handleSocialMediaClick(event, type)}>{text}</a>;
     }
 
-    return <div className={`meta-with-icon ${type}`}>{meta}</div>;
+    return <div className={`meta-with-icon ${ type == 'website' ? 'website mt-3' : type}`}>{meta}</div>;
   }
 
   renderOtherMeta() {
@@ -133,9 +133,11 @@ class Bio extends React.Component {
             { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
-            <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3 mb-md-1">
-              <h1 className="name mr-sm-4 text-truncate mw-100 mb-md-0">{this.profileOwnerName}</h1>
-              { this.renderSocialMedia() }
+            <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-baseline align-items-md-baseline mb-4 mb-sm-0">
+              <div className="d-flex flex-column flex-md-row align-items-center align-items-sm-start align-items-md-baseline">
+                <h1 className="name mr-sm-4 text-truncate mw-100 mb-4 mb-sm-1 mb-md-0">{this.profileOwnerName}</h1>
+                { this.renderSocialMedia() }
+              </div>
               { this.renderSignOut() }
             </div>
             { this.renderOtherMeta() }
