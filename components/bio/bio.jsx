@@ -78,7 +78,7 @@ class Bio extends React.Component {
       meta = <a href={link} onClick={(event) => this.handleSocialMediaClick(event, type)}>{text}</a>;
     }
 
-    return <div className={`meta-with-icon ${ type == 'website' ? 'website mt-3' : type}`}>{meta}</div>;
+    return <div className={`meta-with-icon d-flex align-items-center ${ type == 'website' ? 'website mt-3' : type} x-small`}>{meta}</div>;
   }
 
   renderOtherMeta() {

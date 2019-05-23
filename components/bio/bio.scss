@@ -53,10 +53,12 @@
     }
 
     &.location {
+      @include compositeGlyph("icon-locator");
+
       color: $gray-40;
 
       &::before {
-        content: "\f041";
+        margin-right: 5px;
       }
     }
 
@@ -73,10 +75,10 @@
     }
 
     &.website {
-      color: $dark-blue;
+      @include compositeGlyph("icon-globe");
 
       &::before {
-        content: "\f0ac";
+        margin-right: 6px;
       }
 
       a {
