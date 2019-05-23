@@ -133,7 +133,7 @@ class Bio extends React.Component {
             { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
-            <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-baseline align-items-md-baseline mb-4 mb-sm-0">
+            <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-baseline align-items-md-baseline mb-4 mb-sm-3">
               <div className="d-flex flex-column flex-md-row align-items-center align-items-sm-start align-items-md-baseline">
                 <h1 className="name mr-sm-4 text-truncate mw-100 mb-4 mb-sm-1 mb-md-0">{this.profileOwnerName}</h1>
                 { this.renderSocialMedia() }
