@@ -84,7 +84,7 @@ class SearchTabGroup extends React.Component {
     return SearchTab(
       this.state.activeTab === `projects` ? ProjectLoader : ProfileLoader,
       this.state.activeTab
-    )({ keywordSearched : this.props.keywordSearched });
+    )({ keywordSearched : this.props.keywordSearched, helpType: this.props.helpType });
   }
 
   render() {

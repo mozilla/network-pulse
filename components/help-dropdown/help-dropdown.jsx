@@ -36,7 +36,7 @@ export default class HelpDropdown extends React.Component {
       return <option key={type} value={type}>{type}</option>;
     });
 
-    return <select id="help-dropdown" className="body-large p-3" value={ this.state.value } onChange={ this.handleChange }>
+    return <select id="help-dropdown" className="body-large p-3" value={ this.state.value } onChange={  (event) => this.handleChange(event) }>
       <option value="">Help</option>
       {renderedHelpTypes}
     </select>;
