@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import Service from '../../js/service';
 
 export default class HelpDropdown extends React.Component {
@@ -7,9 +6,7 @@ export default class HelpDropdown extends React.Component {
     super(props);
     this.state = {
        options: [],
-       value: '',
-       redirect: false,
-       path: ''
+       value: ''
      };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,17 +27,8 @@ export default class HelpDropdown extends React.Component {
     let value = this.state.value.toLowerCase().replace(/\s/g,'');
     let pathUpdate = `/?helptype=${ value }`;
 
-    // updating state of redirect & path
-    this.setState({
-      redirect: true,
-      path: { pathUpdate }
-    });
-    
-    // updating url params
-    if (this.state.redirect) {
-      console.log(this.state.redirect, this.state.path);
-      return <Redirect to={ this.state.path } />;
-    }
+    //Update URL 
+    console.log(this.props.history);
   }
 
   render() {
