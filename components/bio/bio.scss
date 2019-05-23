@@ -24,21 +24,12 @@
   }
 
   .name {
-    font-size: 1.75rem;
-    font-weight: 500;
-  }
-
-  .other-meta {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 1.375rem;
+    font-weight: 700;
   }
 
   .tags {
     color: $black;
-
-    &:not(a.tags-link:last-of-type) {
-      content: unset;
-    }
   }
 
   .blurb {
