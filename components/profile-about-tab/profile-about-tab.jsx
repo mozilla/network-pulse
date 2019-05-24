@@ -21,7 +21,7 @@ class ProfileAboutTab extends React.Component {
   }
 
   render() {
-    return <div className="profile-about-tab row justify-content-center mb-5 row">
+    return <div className="profile-about-tab row justify-content-center mb-5">
       <div className="col-12 col-sm-10 col-lg-8">
         { this.renderLongBio() }
       </div>
