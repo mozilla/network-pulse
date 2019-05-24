@@ -250,6 +250,21 @@ textarea {
   }
 }
 
+.btn-signout {
+  background: transparent;
+  color: inherit;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: $dark-blue;
+
+  &:hover,
+  :focus,
+  :active {
+    text-decoration: underline;
+  }
+}
+
 @import 'shared';
 @import 'form';
 
