@@ -23,21 +23,18 @@ class Search extends React.Component {
     this.setState(this.getSearchCriteria(nextProps));
   }
 
-  componentWillMount() {
-    Service.helpTypes.get().then(options => {
-      this.setState({ 
-        helpOptions: options.map(option => option.name), 
-        helpType: '' 
-      });
-    });
-  }
-
   componentDidMount() {
     // The focus() function of <input /> isn't exposed by <DebounceInput />
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
 
+    Service.helpTypes.get().then(options => {
+      this.setState({ 
+        helpOptions: options.map(option => option.name), 
+        helpType: '' 
+      });
+    });
   }
 
   getSearchCriteria(props) {
@@ -57,7 +54,7 @@ class Search extends React.Component {
     let query = {
       helpType: this.state.helpType
     };
-
+   
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
     }
