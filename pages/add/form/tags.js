@@ -1,5 +1,5 @@
-import Service from '../../../js/service';
-import AutoCompleteInput from './auto-complete-input';
+import Service from "../../../js/service";
+import AutoCompleteInput from "./auto-complete-input";
 
 export default class Tags extends AutoCompleteInput {
   componentDidMount() {
@@ -10,9 +10,9 @@ export default class Tags extends AutoCompleteInput {
     // Prefill tags if specified via URL query
     let map = new URLSearchParams(window.location.search);
     let data = (map.get(`tags`) || ``)
-      .replace(/\s+/g,``)
+      .replace(/\s+/g, ``)
       .split(`,`)
-      .map((name,id) => name.trim() ? { id: id + idOffset, name } : false)
+      .map((name, id) => (name.trim() ? { id: id + idOffset, name } : false))
       .filter(v => v);
 
     // Update the idOffset so that we don't have conflicting
@@ -23,14 +23,17 @@ export default class Tags extends AutoCompleteInput {
     Service.tags
       .get()
       .then(suggestions => {
-        suggestions = suggestions.map((name,id) => ({ id: id + idOffset, name }));
+        suggestions = suggestions.map((name, id) => ({
+          id: id + idOffset,
+          name
+        }));
         this.setState(
           { data, suggestions },
           // make sure our parent's onchange handler gets called, too
           () => this.update(this.state.data)
         );
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }
