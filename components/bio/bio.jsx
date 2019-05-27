@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import Utility from '../../js/utility.js';
 import SignOutButton from '../sign-out-button.jsx';
-import { isNull } from 'util';
 
 class Bio extends React.Component {
   constructor(props) {
@@ -110,8 +109,8 @@ class Bio extends React.Component {
     tags = tags.map((tag, i) => {
       let link = `/${type}/${type === `issues` ? Utility.getUriPathFromIssueName(tag) : encodeURIComponent(tag)}`;
 
-      return <div className="d-inline-block">
-      <Link className="mr-1" to={link} key={tag}>{tag}{i < tags.length-1 && ","}</Link>
+      return <div className="d-inline-block" key={tag}>
+      <Link className="mr-1" to={link}>{tag}{i < tags.length-1 && ","}</Link>
     </div>;;
     });
 
