@@ -40,12 +40,6 @@ const Featured = () => {
     <div className="row">
       <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">Discover & collaborate on projects for a healthy internet. {learnMore}</h2>
     </div>
-    <div className="row mt-4 mb-5 pb-5">
-      <div className="col-8"></div>
-      <div className="col-4">
-        <HelpDropdown />
-      </div>
-    </div>
     <ProjectLoader featured={`True`} />
   </div>;
 };

@@ -136,7 +136,10 @@ class Search extends React.Component {
   }
 
   renderSearchControls() {
-    return <div>{ this.renderSearchBar() } { this.renderHelpFilter() }</div>;
+    return <div className="row mt-4 mb-5 pb-5">
+      <div className="col-8">{ this.renderSearchBar() }</div>
+      <div className="col-4">{ this.renderHelpFilter() }</div>
+    </div>;
   }
 
   render() {
