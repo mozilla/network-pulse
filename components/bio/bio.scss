@@ -23,12 +23,6 @@
     }
   }
 
-  .name {
-    font-size: 1.375rem;
-    font-weight: 700;
-    line-height: 1.2727;
-  }
-
   .tags {
     color: $black;
   }
@@ -76,18 +70,6 @@
       a {
         font-weight: 700;
       }
-    }
-  }
-
-  .tags-link {
-    &::after {
-      content: ",";
-      display: inline-block;
-      margin-right: 0.25rem;
-    }
-
-    &:last-child::after {
-      display: none;
     }
   }
 }

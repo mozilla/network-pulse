@@ -42,15 +42,24 @@ h2 {
 }
 
 .btn-link {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: $dark-blue;
+
   &.inline-link {
-    font-family: inherit;
-    font-size: inherit;
     line-height: inherit;
     vertical-align: inherit;
     padding: 0;
     border: 0;
+  }
 
-    @include link-text-decoration;
+  &:hover,
+  :focus,
+  :active {
+    text-decoration: underline;
+    color: $dark-blue;
   }
 }
 
@@ -247,20 +256,6 @@ textarea {
     z-index: 1;
     left: 0;
     top: 0;
-  }
-}
-
-.btn-signout {
-  background: transparent;
-  border: none;
-  font-family: inherit;
-  cursor: pointer;
-  color: $dark-blue;
-
-  &:hover,
-  :focus,
-  :active {
-    text-decoration: underline;
   }
 }
 
