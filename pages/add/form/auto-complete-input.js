@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import ReactTags from 'react-tag-autocomplete';
-import { DELIMITERS } from './tag-delimiters';
+import React, { Component } from "react";
+import ReactTags from "react-tag-autocomplete";
+import { DELIMITERS } from "./tag-delimiters";
 
 /**
  * This is a superclass for components that require
@@ -97,11 +97,13 @@ export default class AutoCompleteInput extends Component {
     const { data, suggestions } = this.state;
     const names = data.map(field => field.name);
 
-    return suggestions.map((suggestion) => {
-      if (names.indexOf(suggestion.name) > -1) return null;
+    return suggestions
+      .map(suggestion => {
+        if (names.indexOf(suggestion.name) > -1) return null;
 
-      return suggestion;
-    }).filter(suggestion => !!suggestion);
+        return suggestion;
+      })
+      .filter(suggestion => !!suggestion);
   }
 
   handleBlur() {
@@ -140,28 +142,38 @@ export default class AutoCompleteInput extends Component {
    * }
    *
    */
-  render(props={}) {
+  render(props = {}) {
     let placeholder = props.placeholder || `Add new tag`;
-    return <div onBlur={e => this.handleBlur(e)} ref={e => { this.div = e; }} tabIndex={0}>
-      <ReactTags
-        ref={e => { this.reactTags = e; }}
-        tags={this.state.data}
-        suggestions={this.getFilteredSuggestions()}
-        allowNew={true}
-        autofocus={false}
-        delimiters={DELIMITERS}
-        handleDelete={(...args) => this.handleDelete(...args) }
-        handleAddition={(...args) => this.handleAddition(...args) }
-        handleInputChange={(...args) => this.handleInputChange(...args)}
-        placeholder={placeholder}
-        classNames={{
-          root: `react-tags form-control d-flex flex-column flex-sm-row`,
-          selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
-          search: `search d-flex`,
-          searchInput: `tag-input-field`,
-          suggestions: `suggestions p-2`
+    return (
+      <div
+        onBlur={e => this.handleBlur(e)}
+        ref={e => {
+          this.div = e;
         }}
-      />
-    </div>;
+        tabIndex={0}
+      >
+        <ReactTags
+          ref={e => {
+            this.reactTags = e;
+          }}
+          tags={this.state.data}
+          suggestions={this.getFilteredSuggestions()}
+          allowNew={true}
+          autofocus={false}
+          delimiters={DELIMITERS}
+          handleDelete={(...args) => this.handleDelete(...args)}
+          handleAddition={(...args) => this.handleAddition(...args)}
+          handleInputChange={(...args) => this.handleInputChange(...args)}
+          placeholder={placeholder}
+          classNames={{
+            root: `react-tags form-control d-flex flex-column flex-sm-row`,
+            selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
+            search: `search d-flex`,
+            searchInput: `tag-input-field`,
+            suggestions: `suggestions p-2`
+          }}
+        />
+      </div>
+    );
   }
 }
