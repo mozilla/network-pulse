@@ -21,7 +21,6 @@ import ProfileEdit from './pages/profile-edit/profile-edit.jsx';
 import NotFound from './pages/not-found.jsx';
 
 import Navbar from './components/navbar/navbar.jsx';
-import HelpDropdown from './components/help-dropdown/help-dropdown.jsx';
 import Footer from './components/footer/footer.jsx';
 
 const Featured = () => {
