@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { Helmet } from "react-helmet";
-import classNames from 'classnames';
+import classNames from "classnames";
 import qs from "qs";
-import DebounceInput from 'react-debounce-input';
-import Select from 'react-select';
-import ReactGA from 'react-ga';
-import Service from '../../js/service.js';
-import ProjectLoader from '../../components/project-loader/project-loader.jsx';
+import DebounceInput from "react-debounce-input";
+import Select from "react-select";
+import ReactGA from "react-ga";
+import Service from "../../js/service.js";
+import ProjectLoader from "../../components/project-loader/project-loader.jsx";
 
 const DEFAULT_MODERATION_FILTER = `Pending`;
 const TRENDING_TERMS = [
@@ -64,13 +64,13 @@ class Search extends React.Component {
     let location = { pathname: this.props.location.pathname };
     let query = {};
 
-    if ( keywordSearched ) {
+    if (keywordSearched) {
       query.keyword = keywordSearched;
     }
 
-    if ( this.props.moderation ) {
+    if (this.props.moderation) {
       // the following params are only useful on moderation mode
-      if ( featured === `True` ) {
+      if (featured === `True`) {
         query.featured = featured;
       }
       // we want moderationState.label (name of the state) here and not moderationState.value (id of the state)
@@ -107,23 +107,31 @@ class Search extends React.Component {
 
   renderSearchBar() {
     let classnames = classNames(`activated search-bar w-100`, {
-      'mb-0': this.props.moderation
+      "mb-0": this.props.moderation
     });
 
-    return <div className="d-flex align-items-center">
-      <div className={classnames}>
-        <DebounceInput id="search-box"
-          value={this.state.keywordSearched}
-          debounceTimeout={300}
-          type="search"
-          onChange={ event => this.handleInputChange(event) }
-          inputRef={ ref => this.setDebounceInput(ref) }
-          placeholder="Search keywords, people, tags..."
-          className="form-control"
-        />
-        <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
+    return (
+      <div className="d-flex align-items-center">
+        <div className={classnames}>
+          <DebounceInput
+            id="search-box"
+            value={this.state.keywordSearched}
+            debounceTimeout={300}
+            type="search"
+            onChange={event => this.handleInputChange(event)}
+            inputRef={ref => this.setDebounceInput(ref)}
+            placeholder="Search keywords, people, tags..."
+            className="form-control"
+          />
+          <button
+            className="btn dismiss"
+            onClick={() => this.handleDismissBtnClick()}
+          >
+            &times;
+          </button>
+        </div>
       </div>
-    </div>;
+    );
   }
 
   setDebounceInput(ref) {
@@ -143,14 +151,14 @@ class Search extends React.Component {
   getModerationStates(input, callback) {
     Service.moderationStates
       .get()
-      .then((mStates) => {
-        let options = mStates.map((mState) => {
+      .then(mStates => {
+        let options = mStates.map(mState => {
           return { value: mState.id, label: mState.name };
         });
 
-        callback(null, {options});
+        callback(null, { options });
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }
@@ -162,86 +170,114 @@ class Search extends React.Component {
   }
 
   handleFeaturedFilterChange(event) {
-    let featured = event.target.checked ? `True`: `False`;
+    let featured = event.target.checked ? `True` : `False`;
     this.setState({ featured: featured }, () => {
       this.updateBrowserHistory();
     });
   }
 
   renderStateFilter() {
-    return <Select.Async
-      name="state-filter"
-      value={this.state.moderationState}
-      className="state-filter text-left"
-      searchable={false}
-      clearable={false}
-      cache={false}
-      placeholder="Moderation state"
-      loadOptions={(input, callback) => this.getModerationStates(input, callback)}
-      onChange={(selected) => this.handleStateFilterChange(selected)}
-    />;
+    return (
+      <Select.Async
+        name="state-filter"
+        value={this.state.moderationState}
+        className="state-filter text-left"
+        searchable={false}
+        clearable={false}
+        cache={false}
+        placeholder="Moderation state"
+        loadOptions={(input, callback) =>
+          this.getModerationStates(input, callback)
+        }
+        onChange={selected => this.handleStateFilterChange(selected)}
+      />
+    );
   }
 
   renderFeaturedFilter() {
-    return <label className="featured-filter d-flex align-items-center mb-0">
-      <input type="checkbox"
-        className="d-inline-block mr-2"
-        onChange={(event) => this.handleFeaturedFilterChange(event)}
-        checked={this.state.featured === `True`} />
-      Featured only
-    </label>;
+    return (
+      <label className="featured-filter d-flex align-items-center mb-0">
+        <input
+          type="checkbox"
+          className="d-inline-block mr-2"
+          onChange={event => this.handleFeaturedFilterChange(event)}
+          checked={this.state.featured === `True`}
+        />
+        Featured only
+      </label>
+    );
   }
 
   renderSearchControls() {
     if (this.props.moderation) {
-      return <div className="moderation-search-controls mb-4 pb-4">
-        <h2>Moderation</h2>
-        <div className="row">
-          <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderStateFilter() }</div>
-          <div className="col-sm-12 col-md-6 mb-2 mb-sm-0">{ this.renderSearchBar() }</div>
-          <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">{ this.renderFeaturedFilter() }</div>
+      return (
+        <div className="moderation-search-controls mb-4 pb-4">
+          <h2>Moderation</h2>
+          <div className="row">
+            <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">
+              {this.renderStateFilter()}
+            </div>
+            <div className="col-sm-12 col-md-6 mb-2 mb-sm-0">
+              {this.renderSearchBar()}
+            </div>
+            <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">
+              {this.renderFeaturedFilter()}
+            </div>
+          </div>
         </div>
-      </div>;
+      );
     }
 
-    return <div>{ this.renderSearchBar() }</div>;
+    return <div>{this.renderSearchBar()}</div>;
   }
 
   renderTrendingTerms() {
     if (this.props.moderation || this.state.keywordSearched) return null;
 
-    let links = TRENDING_TERMS.map(term =>
-      <a href={term.link} className="btn btn-link inline-link" key={term.label}>{term.label}</a>
-    ).reduce((prev, curr) => [prev, `, `, curr]);
+    let links = TRENDING_TERMS.map(term => (
+      <a href={term.link} className="btn btn-link inline-link" key={term.label}>
+        {term.label}
+      </a>
+    )).reduce((prev, curr) => [prev, `, `, curr]);
 
-    return <div className="trending">
-      <div className="d-inline-block mr-1">Trending:</div>
-      {links}
-    </div>;
+    return (
+      <div className="trending">
+        <div className="d-inline-block mr-1">Trending:</div>
+        {links}
+      </div>
+    );
   }
 
   renderProjects() {
     if (!this.state.keywordSearched && !this.props.moderation) return null;
 
     if (this.props.moderation) {
-      return <ProjectLoader search={this.state.keywordSearched}
-        moderationState={this.state.moderationState}
-        featured={this.state.featured}
-        showCounter={true} />;
+      return (
+        <ProjectLoader
+          search={this.state.keywordSearched}
+          moderationState={this.state.moderationState}
+          featured={this.state.featured}
+          showCounter={true}
+        />
+      );
     }
 
     if (this.state.keywordSearched) {
-      return <ProjectLoader search={this.state.keywordSearched} showCounter={true} />;
+      return (
+        <ProjectLoader search={this.state.keywordSearched} showCounter={true} />
+      );
     }
   }
 
   render() {
     return (
       <div className="search-page">
-        <Helmet><title>{this.state.keywordSearched}</title></Helmet>
-        { this.renderSearchControls() }
-        { this.renderTrendingTerms() }
-        { this.renderProjects() }
+        <Helmet>
+          <title>{this.state.keywordSearched}</title>
+        </Helmet>
+        {this.renderSearchControls()}
+        {this.renderTrendingTerms()}
+        {this.renderProjects()}
       </div>
     );
   }

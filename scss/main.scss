@@ -42,15 +42,22 @@ h2 {
 }
 
 .btn-link {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-weight: normal;
+  cursor: pointer;
+  color: $dark-blue;
+
   &.inline-link {
-    font-family: inherit;
+    @include link-text-decoration(none,underline);
+
+    color: $dark-blue;
     font-size: inherit;
     line-height: inherit;
     vertical-align: inherit;
     padding: 0;
     border: 0;
-
-    @include link-text-decoration;
   }
 }
 

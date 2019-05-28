@@ -1,7 +1,8 @@
-import validator from './validator';
+import validator from "./validator";
 
 module.exports = {
-  title: { // required field
+  title: {
+    // required field
     type: `text`,
     label: `Title: Keep it simple. Name it, don't describe it.`,
     placeholder: `Title`,
@@ -17,16 +18,14 @@ module.exports = {
       return charLimit - charCount;
     }
   },
-  'content_url': { // required field
+  content_url: {
+    // required field
     type: `text`,
     label: `URL`,
     placeholder: `https://example.com`,
     labelClassname: `required`,
     fieldClassname: `form-control`,
-    validator: [
-      validator.emptyValueValidator(),
-      validator.urlValidator()
-    ]
+    validator: [validator.emptyValueValidator(), validator.urlValidator()]
   },
   description: {
     type: `textarea`,
@@ -35,8 +34,8 @@ module.exports = {
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600),
     charLimit: 600,
-    charLimitText: function (charCount, charLimit) {
+    charLimitText: function(charCount, charLimit) {
       return charLimit - charCount;
     }
-  },
+  }
 };

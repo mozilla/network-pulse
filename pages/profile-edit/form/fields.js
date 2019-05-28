@@ -1,17 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import validator from '../../../js/form-validator';
-import IssuesField from '../../../components/form-fields/issues.jsx';
+import React from "react";
+import { Link } from "react-router-dom";
+import validator from "../../../js/form-validator";
+import IssuesField from "../../../components/form-fields/issues.jsx";
 
 let IssuesLabel = () => {
-  return <div>Your <Link to="/issues" target="_blank">Key Internet Issues</Link> interest.</div>;
+  return (
+    <div>
+      Your{" "}
+      <Link to="/issues" target="_blank">
+        Key Internet Issues
+      </Link>{" "}
+      interest.
+    </div>
+  );
 };
 
 module.exports = function(showLongBio) {
   let fields = {
-    "custom_name": {
+    custom_name: {
       type: `text`,
-      label: <div>Name <em>(*required field)</em></div>,
+      label: (
+        <div>
+          Name <em>(*required field)</em>
+        </div>
+      ),
       placeholder: ``,
       fieldClassname: `form-control`,
       validator: [
@@ -19,58 +31,59 @@ module.exports = function(showLongBio) {
         validator.maxLengthValidator(70)
       ]
     },
-    "user_bio": {
+    user_bio: {
       type: `textarea`,
-      label: <div>Bio <em>(do not include any personal information)</em></div>,
+      label: (
+        <div>
+          Bio <em>(do not include any personal information)</em>
+        </div>
+      ),
       placeholder: `About you`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.maxLengthValidator(140)
-      ],
+      validator: [validator.maxLengthValidator(140)],
       charLimit: 140,
-      charLimitText: function (charCount, charLimit) {
+      charLimitText: function(charCount, charLimit) {
         return charLimit - charCount;
       }
     },
-    "twitter": {
+    twitter: {
       type: `text`,
       label: `Twitter`,
       placeholder: `https://twitter.com/username`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.urlValidator(`Twitter`)
-      ]
+      validator: [validator.urlValidator(`Twitter`)]
     },
-    "linkedin": {
+    linkedin: {
       type: `text`,
       label: `LinkedIn`,
       placeholder: `https://linkedin.com/in/username`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.urlValidator(`LinkedIn`)
-      ]
+      validator: [validator.urlValidator(`LinkedIn`)]
     },
-    "github": {
+    github: {
       type: `text`,
       label: `GitHub`,
       placeholder: `https://github.com/username`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.urlValidator(`GitHub`)
-      ]
+      validator: [validator.urlValidator(`GitHub`)]
     },
-    "website": {
+    website: {
       type: `text`,
       label: `Your website URL`,
       placeholder: `https://example.com`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.urlValidator()
-      ]
+      validator: [validator.urlValidator()]
     },
-    "thumbnail": {
+    thumbnail: {
       type: `image`,
-      label: <div>Profile pic <em>(only submit photos you have permission to use in this context)</em></div>,
+      label: (
+        <div>
+          Profile pic{" "}
+          <em>
+            (only submit photos you have permission to use in this context)
+          </em>
+        </div>
+      ),
       prompt: `Select image`,
       fieldClassname: `form-control`,
       validator: [
@@ -79,13 +92,13 @@ module.exports = function(showLongBio) {
         validator.imageFilenameValidator()
       ]
     },
-    "location": {
+    location: {
       type: `text`,
       label: `Your location`,
       placeholder: `City, State, Country`,
       fieldClassname: `form-control`
     },
-    "issues": {
+    issues: {
       type: IssuesField,
       label: <IssuesLabel />,
       colCount: 1
@@ -98,11 +111,9 @@ module.exports = function(showLongBio) {
       label: `Tell your story`,
       placeholder: `Let others know about yourself.\nWhat are your goals? Where do you come from? What are you most passionate about?\nBe careful not to include any private information!`,
       fieldClassname: `form-control`,
-      validator: [
-        validator.maxLengthValidator(4096)
-      ],
+      validator: [validator.maxLengthValidator(4096)],
       charLimit: 4096,
-      charLimitText: function (charCount, charLimit) {
+      charLimitText: function(charCount, charLimit) {
         return charLimit - charCount;
       }
     };

@@ -1,6 +1,6 @@
-import React from 'react';
-import DynamicCheckboxGroup from './dynamic-checkbox-group.jsx';
-import Service from '../../js/service';
+import React from "react";
+import DynamicCheckboxGroup from "./dynamic-checkbox-group.jsx";
+import Service from "../../js/service";
 
 class HelpTypesField extends React.Component {
   constructor(props) {
@@ -13,7 +13,13 @@ class HelpTypesField extends React.Component {
     });
   }
   render() {
-    return <DynamicCheckboxGroup options={this.state.options} onChange={this.props.onChange} colNum={2} />;
+    return (
+      <DynamicCheckboxGroup
+        options={this.state.options}
+        onChange={this.props.onChange}
+        colNum={2}
+      />
+    );
   }
 }
 
