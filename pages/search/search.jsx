@@ -11,7 +11,6 @@ class Search extends React.Component {
     super(props);
     this.state = this.getSearchCriteria(props);
     this.state.helpOptions = [];
-    this.state.helpType = '';
 
     this.handleHelpChange = this.handleHelpChange.bind(this);
   }
@@ -31,8 +30,7 @@ class Search extends React.Component {
 
     Service.helpTypes.get().then(options => {
       this.setState({ 
-        helpOptions: options.map(option => option.name), 
-        helpType: '' 
+        helpOptions: options.map(option => option.name)
       });
     });
   }
@@ -52,7 +50,7 @@ class Search extends React.Component {
     let keywordSearched = this.state.keywordSearched;
     let location = { pathname: this.props.location.pathname };
     let query = {
-      helpType: this.state.helpType
+      helpType: this.props.helpType
     };
    
     if ( keywordSearched ) {
@@ -114,8 +112,8 @@ class Search extends React.Component {
     let renderedHelpTypes = this.state.helpOptions.map(type => {
       return <option key={type} value={type}>{type}</option>;
     });
-
-    return <select id="help-dropdown" className="body-large p-3" value={ this.state.helpType } onChange={  (event) => this.handleHelpChange(event) }>
+    console.log(this.props.helpType);
+    return <select id="help-dropdown" className="body-large p-3" value={ this.props.helpType } onChange={  (event) => this.handleHelpChange(event) }>
       <option value="">Help</option>
       {renderedHelpTypes}
     </select>;
@@ -150,7 +148,7 @@ class Search extends React.Component {
         <SearchTabGroup
           activeTab={this.state.activeTab}
           keywordSearched={this.state.keywordSearched}
-          helpType={this.state.helpType}
+          helpType={this.props.helpType}
         />
       </div>
     );
