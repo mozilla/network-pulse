@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 
 export default {
   initialize: function() {
@@ -12,10 +12,11 @@ export default {
     } else if (ie10Match && w8Match) {
       _dntStatus = `Unspecified`;
     } else {
-      _dntStatus = { '0': `Disabled`, '1': `Enabled` }[_dntStatus] || `Unspecified`;
+      _dntStatus =
+        { "0": `Disabled`, "1": `Enabled` }[_dntStatus] || `Unspecified`;
     }
 
-    if (_dntStatus !== `Enabled`){
+    if (_dntStatus !== `Enabled`) {
       // if user doesn't have Do Not Track turned on, initialize GA script
       ReactGA.initialize(`UA-87658599-4`);
     }

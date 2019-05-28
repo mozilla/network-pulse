@@ -1,7 +1,7 @@
 import qs from "qs";
-import env from './env-client';
-import localstorage from './localstorage.js';
-import Service from './service.js';
+import env from "./env-client";
+import localstorage from "./localstorage.js";
+import Service from "./service.js";
 
 const loginUrl = env.PULSE_LOGIN_URL;
 
@@ -100,12 +100,12 @@ class User {
 
   // unregister listeners
   removeListener(o) {
-    this.listeners.splice(this.listeners.indexOf(o),1);
+    this.listeners.splice(this.listeners.indexOf(o), 1);
   }
 
   // notify all listeners of a change for this user
   notifyListeners(evtName) {
-    this.listeners.forEach( listener => {
+    this.listeners.forEach(listener => {
       if (listener.updateUser) {
         listener.updateUser(evtName, this);
       }
