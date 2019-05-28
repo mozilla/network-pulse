@@ -11,7 +11,6 @@ class Search extends React.Component {
     super(props);
     this.state = this.getSearchCriteria(props);
     this.state.helpOptions = [];
-    this.state.helpType = '';
 
     this.handleHelpChange = this.handleHelpChange.bind(this);
   }
@@ -32,7 +31,6 @@ class Search extends React.Component {
     Service.helpTypes.get().then(options => {
       this.setState({ 
         helpOptions: options.map(option => option.name), 
-        helpType: '' 
       });
     });
   }
