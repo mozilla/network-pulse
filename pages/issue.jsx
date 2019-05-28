@@ -1,22 +1,26 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import IssueSelector from '../components/issue-selector/issue-selector.jsx';
-import ProjectLoader from '../components/project-loader/project-loader.jsx';
-import Utility from '../js/utility.js';
+import IssueSelector from "../components/issue-selector/issue-selector.jsx";
+import ProjectLoader from "../components/project-loader/project-loader.jsx";
+import Utility from "../js/utility.js";
 
-export default function (props) {
+export default function(props) {
   const issueParam = decodeURIComponent(props.match.params.issue);
   let issueName = Utility.getIssueNameFromUriPath(issueParam);
 
   // render page if issueName is one of the 5 hyphenated all lowercase routes we want to serve
   // e.g., digital-inclusion, web-literacy
   if (issueName) {
-    return <div>
-      <Helmet><title>{issueName}</title></Helmet>
-      <IssueSelector />
-      <ProjectLoader issue={issueName} showCounter={true} />
-    </div>;
+    return (
+      <div>
+        <Helmet>
+          <title>{issueName}</title>
+        </Helmet>
+        <IssueSelector />
+        <ProjectLoader issue={issueName} showCounter={true} />
+      </div>
+    );
   }
 
   issueName = Utility.getUriPathFromIssueName(issueParam);

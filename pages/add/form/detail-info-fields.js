@@ -1,25 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import IssuesField from '../../../components/form-fields/issues.jsx';
-import validator from './validator';
-import Creators from './creators';
-import Tags from './tags';
+import React from "react";
+import { Link } from "react-router-dom";
+import IssuesField from "../../../components/form-fields/issues.jsx";
+import validator from "./validator";
+import Creators from "./creators";
+import Tags from "./tags";
 
 const IssuesLabel = function() {
   return (
-    <div>Check any <Link to="/issues" target="_blank">Key Internet Issues</Link> that relate to your project.</div>
+    <div>
+      Check any{" "}
+      <Link to="/issues" target="_blank">
+        Key Internet Issues
+      </Link>{" "}
+      that relate to your project.
+    </div>
   );
 };
 
-
 module.exports = {
-  "published_by_creator": {
+  published_by_creator: {
     type: `checkbox`,
     label: `Yes`,
     fieldClassname: `published-by-creator`,
     guideText: `Are you one of the creators?`
   },
-  "related_creators": {
+  related_creators: {
     type: Creators,
     label: `Name any creators, contributors, partners. Comma separated.`,
     fieldClassname: `form-control`
@@ -33,7 +38,7 @@ module.exports = {
   },
   issues: {
     type: IssuesField,
-    label: <IssuesLabel/>,
+    label: <IssuesLabel />,
     colCount: 1
   },
   tags: {
