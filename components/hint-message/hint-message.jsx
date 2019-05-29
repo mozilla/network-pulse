@@ -12,7 +12,6 @@ class HintMessage extends React.Component {
   render() {
     return (
       <div className="hint-message text-center">
-        <h2 className="icon mb-3">{ this.props.iconComponent }</h2>
         <h2>{ this.props.header }</h2>
         { this.props.children }
         { this.renderLink() }
@@ -23,7 +22,6 @@ class HintMessage extends React.Component {
 
 HintMessage.propTypes = {
   header: PropTypes.string.isRequired,
-  iconComponent: PropTypes.element,
   linkComponent: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.element
