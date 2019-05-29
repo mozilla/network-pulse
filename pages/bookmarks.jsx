@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import ProjectLoader from '../components/project-loader/project-loader.jsx';
-import HintMessage from '../components/hint-message/hint-message.jsx';
-import Service from '../js/service.js';
-import bookmarkManager from '../js/bookmarks-manager';
-import user from '../js/app-user';
+import ProjectLoader from "../components/project-loader/project-loader.jsx";
+import HintMessage from "../components/hint-message/hint-message.jsx";
+import Service from "../js/service.js";
+import bookmarkManager from "../js/bookmarks-manager";
+import user from "../js/app-user";
 
-class Bookmarks extends React.Component{
+class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -25,7 +25,7 @@ class Bookmarks extends React.Component{
 
   componentDidMount() {
     // get IDs of user's bookmarked entries
-    this.setState({lsBookmarkedIds: bookmarkManager.bookmarks.get()});
+    this.setState({ lsBookmarkedIds: bookmarkManager.bookmarks.get() });
 
     user.addListener(this);
     user.verify(this.props.location, this.props.history);
@@ -55,7 +55,7 @@ class Bookmarks extends React.Component{
 
   handleImportBookmarksClick() {
     // import
-    this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
+    this.bulkBookmark(this.state.lsBookmarkedIds, error => {
       if (error) {
         console.error(error);
       } else {
@@ -74,14 +74,29 @@ class Bookmarks extends React.Component{
   }
 
   getContentForLoggedInUser() {
-    let projects = this.state.displayBookmarkPrompt ? this.renderBookmarkPrompt() : <ProjectLoader
-      bookmarkedOnly={true}
-      showBookmarkPrompt={() => this.showBookmarkPrompt()}
-    />;
+    let projects = this.state.displayBookmarkPrompt ? (
+      this.renderBookmarkPrompt()
+    ) : (
+      <ProjectLoader
+        bookmarkedOnly={true}
+        showBookmarkPrompt={() => this.showBookmarkPrompt()}
+      />
+    );
     let importHint;
 
     if (this.state.lsBookmarkedIds.length > 0) {
-      importHint = <span>Did you add favs while logged out? You can <button className="btn btn-link inline-link" onClick={evt=>this.handleImportBookmarksClick(evt)}>import favs</button> from this browser.</span>;
+      importHint = (
+        <span>
+          Did you add favs while logged out? You can{" "}
+          <button
+            className="btn btn-link inline-link"
+            onClick={evt => this.handleImportBookmarksClick(evt)}
+          >
+            import favs
+          </button>{" "}
+          from this browser.
+        </span>
+      );
     }
 
     if (this.state.bookmarksImported) {
@@ -89,13 +104,19 @@ class Bookmarks extends React.Component{
     }
 
     if (importHint) {
-      importHint = <p><small className="text-muted">{importHint}</small></p>;
+      importHint = (
+        <p>
+          <small className="text-muted">{importHint}</small>
+        </p>
+      );
     }
 
-    return <div>
-      { importHint }
-      { projects }
-    </div>;
+    return (
+      <div>
+        {importHint}
+        {projects}
+      </div>
+    );
   }
 
   getAnonymousContent() {
@@ -117,20 +138,24 @@ class Bookmarks extends React.Component{
   }
 
   renderBookmarkPrompt() {
-    return <HintMessage
-      iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
-      header="Save your Favs"
-      linkComponent={<Link to={`/featured`}>Explore featured</Link>}
-    >
-      <p>Tap the heart on any project to save it here.</p>
-    </HintMessage>;
+    return (
+      <HintMessage
+        iconComponent={<img src="/assets/svg/icon-bookmark-selected.svg" />}
+        header="Save your Favs"
+        linkComponent={<Link to={`/featured`}>Explore featured</Link>}
+      >
+        <p>Tap the heart on any project to save it here.</p>
+      </HintMessage>
+    );
   }
 
   render() {
     return (
       <div>
-        <Helmet><title>Favs</title></Helmet>
-        { this.renderContent() }
+        <Helmet>
+          <title>Favs</title>
+        </Helmet>
+        {this.renderContent()}
       </div>
     );
   }

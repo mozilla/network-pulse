@@ -1,4 +1,4 @@
-import url from 'url';
+import url from "url";
 
 const Validator = {
   emptyValueValidator() {
@@ -24,7 +24,10 @@ const Validator = {
         try {
           let parsedUrl = url.parse(value);
 
-          if (parsedUrl.href.indexOf(`https://`) !== 0 && parsedUrl.href.indexOf(`http://`) !== 0) {
+          if (
+            parsedUrl.href.indexOf(`https://`) !== 0 &&
+            parsedUrl.href.indexOf(`http://`) !== 0
+          ) {
             return true;
           }
         } catch (e) {
@@ -44,14 +47,10 @@ const Validator = {
 
         let fileName = value.name;
         if (fileName) {
-          let extension = fileName.substring(fileName.lastIndexOf(`.`)+1).toLowerCase();
-          let allowedExtensions = [
-            `jpg`,
-            `jpeg`,
-            `gif`,
-            `png`,
-            `svg`
-          ];
+          let extension = fileName
+            .substring(fileName.lastIndexOf(`.`) + 1)
+            .toLowerCase();
+          let allowedExtensions = [`jpg`, `jpeg`, `gif`, `png`, `svg`];
 
           return allowedExtensions.indexOf(extension) < 0;
         }
@@ -70,7 +69,7 @@ const Validator = {
         // but it's still good that we enforce a size limit (2MB) on client side
         let base64String = value.base64;
         let sizeLimit = 2097152; // 2MB
-        if (base64String && base64String.length > 4/3 * sizeLimit) {
+        if (base64String && base64String.length > (4 / 3) * sizeLimit) {
           return new Error(`File size is over 2MB.`);
         }
       }
