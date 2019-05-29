@@ -55,37 +55,14 @@ export default class Footer extends React.Component {
   }
   render() {
 
-    if (document.querySelectorAll(`.join-us`)) {
-      var elements = Array.from(document.querySelectorAll(`.join-us`));
-  
-      if (elements.length) {
-        elements.forEach(element => {
-          var props = element.dataset;
-  
-          props.apiUrl = `${networkSiteURL}/api/campaign/signups/${props.signupId ||
-            0}/`;
-  
-          props.csrfToken = props.csrfToken || csrfToken;
-          props.isHidden = false;
-  
-          apps.push(
-            new Promise(resolve => {
-              ReactDOM.render(
-                <JoinUs {...props} whenLoaded={() => resolve()} />,
-                element
-              );
-            })
-          );
-        });
-      }
-    }
-
     return (
       <footer className="site-footer dark-theme py-md-5">
         <div className="container">
           <div className="row">
             <div className="col-md-5">
-              <div className="join-us mb-5" data-button-position="side"></div>
+              <div className="join-us mb-5" data-button-position="side">
+                <JoinUs />
+              </div>
               <div className="my-5 mb-md-0">
                 <a href="https://foundation.mozilla.org" className="logo">
                   <img src="../assets/svg/mozilla-block-white.svg" alt="Mozilla Foundation Home Page" />

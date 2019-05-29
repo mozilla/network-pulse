@@ -68,6 +68,7 @@ export default class JoinUs extends React.Component {
         }
 
         if (xhr.status !== 201) {
+          console.error(`XHR/ResponseText ${xhr.responseText}`);
           reject(new Error(xhr.responseText));
         }
 
@@ -77,10 +78,11 @@ export default class JoinUs extends React.Component {
       xhr.open(`POST`, this.props.apiUrl, true);
       xhr.setRequestHeader(`Content-Type`, `application/json`);
       xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
-      xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
+      // xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
       xhr.timeout = 5000;
       xhr.ontimeout = () => reject(new Error(`xhr timed out`));
 
+      console.log(`Payload ${payload}`);
       xhr.send(JSON.stringify(payload));
     });
   }
@@ -289,5 +291,6 @@ JoinUs.defaultProps = {
   ctaHeader: `Want to get smarter about your online life?`,
   ctaDescription: `Sign up for our Mozilla newsletter!`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
-  newsletter: `mozilla-foundation`
+  newsletter: `mozilla-foundation`,
+  apiUrl: `https://foundation.mozilla.org/api/campaign/signups/0`
 };
