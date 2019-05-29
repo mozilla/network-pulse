@@ -11,7 +11,7 @@ class HintMessage extends React.Component {
 
   render() {
     return (
-      <div className="hint-message text-center">
+      <div className="pt-4 pt-lg-5 text-center">
         <h2 className="h2-heading">{ this.props.header }</h2>
         { this.props.children }
         { this.renderLink() }

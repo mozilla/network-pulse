@@ -118,7 +118,7 @@ class ProfileProjectTab extends React.Component {
         header="Save your Favs"
         linkComponent={<Link to={`/featured`}>Explore featured</Link>}
       >
-        <p>Tap the heart on any project to save it here.</p>
+        <p className="h4-heading mb-4">Tap the heart on any project to save it here.</p>
       </HintMessage>;
     }
 
