@@ -96,7 +96,7 @@ class ProfileProjectTab extends React.Component {
         header="Do you have something to share?"
         linkComponent={<Link to={`/add`}>Add entry</Link>}
       >
-        <p>If it might be useful to someone in our network, share it here.</p>
+        <p className="h4-heading mb-4">If it might be useful to someone in our network, share it here.</p>
       </HintMessage>;
     }
 
