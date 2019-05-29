@@ -46,7 +46,7 @@ class Bio extends React.Component {
   renderEditLink() {
     if (!this.props.my_profile) return null;
 
-    return <div className="mt-3"><Link to="/myprofile">Edit your profile</Link></div>;
+    return <div className="my-3 mt-sm-4 mb-md-0"><Link to="/myprofile">Edit your profile</Link></div>;
   }
 
   renderSocialMedia() {
@@ -55,14 +55,14 @@ class Bio extends React.Component {
       let link = this.props[type];
       if (!link) { return; }
 
-      let classname = classNames(`d-inline-block social-media`, {
-        "mr-sm-3" : i !== list.length-1
+      let classname = classNames(`social-media ${type} x-small`, {
+        "mr-sm-1" : i !== list.length-1
       });
 
-      return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}><span className={`fa fa-${type}`}></span></a>;
+      return <a href={link} target="_blank" className={classname} onClick={(event) => this.handleSocialMediaClick(event, type)} key={type}></a>;
     });
 
-    return <div>{list}</div>;
+    return <div className="d-flex mb-4 mb-sm-0">{list}</div>;
   }
 
   renderSignOut() {
@@ -78,7 +78,7 @@ class Bio extends React.Component {
       meta = <a href={link} onClick={(event) => this.handleSocialMediaClick(event, type)}>{text}</a>;
     }
 
-    return <div className={`meta-with-icon ${type} d-inline-block mr-4`}>{meta}</div>;
+    return <div className={`meta-with-icon d-flex align-items-center ${ type == 'website' ? 'website mt-3' : type} x-small`}>{meta}</div>;
   }
 
   renderOtherMeta() {
@@ -88,7 +88,7 @@ class Bio extends React.Component {
     let story = this.props.storyLink ? this.renderMeta(`story`, `Read Story`, this.props.storyLink) : null;
     let website = this.props.website ? this.renderMeta(`website`, this.props.website, this.props.website) : null;
 
-    return <div className="other-meta open-sans mb-3">{org}{location}{language}{story}{website}</div>;
+    return <div className="mb-3 d-flex flex-column">{org}{location}{language}{story}{website}</div>;
   }
 
   renderBlurb() {
@@ -105,15 +105,17 @@ class Bio extends React.Component {
 
   renderTags(label = ``, type = ``, tags = []) {
     if (!type || tags.length < 1) { return null; }
-
-    tags = tags.map(tag => {
+    
+    tags = tags.map((tag, i) => {
       let link = `/${type}/${type === `issues` ? Utility.getUriPathFromIssueName(tag) : encodeURIComponent(tag)}`;
 
-      return <Link to={link} className="btn btn-xs btn-tag" key={tag}>{tag}</Link>;
+      return <div className="d-inline-block" key={tag}>
+      <Link className="mr-1" to={link}>{tag}{i < tags.length-1 && ","}</Link>
+    </div>;;
     });
 
-    return <div className="tags mb-1">
-      <div className="d-inline-block mr-2 open-sans text-uppercase">{label}:</div>
+    return <div className="body-small tags mb-1">
+      <div className="d-inline-block mr-2">{label}:</div>
       {tags}
     </div>;
   }
@@ -121,21 +123,23 @@ class Bio extends React.Component {
   renderInterest() {
     if (!this.props.issues) { return null; }
 
-    return this.renderTags(`interests`, `issues`, this.props.issues);
+    return this.renderTags(`Interests`, `issues`, this.props.issues);
   }
 
   render() {
     return (
       <div className="bio mb-5">
         <div className="row justify-content-center">
-          <div className="col-6 col-sm-4 col-md-2 text-center">
+          <div className="col-6 col-sm-4 col-md-2 text-center text-sm-left">
             { this.renderThumbnail() }
             { this.renderEditLink() }
           </div>
           <div className="col-sm-8 col-md-10">
-            <div className="d-flex flex-wrap flex-column flex-sm-row align-items-center align-items-sm-baseline mb-3">
-              <div className="name mr-sm-4 text-truncate mw-100">{this.profileOwnerName}</div>
-              { this.renderSocialMedia() }
+            <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-baseline align-items-md-baseline mb-4 mb-sm-3">
+              <div className="d-flex flex-column flex-md-row align-items-center align-items-sm-start align-items-md-baseline">
+                <h1 className="h5-heading mr-sm-4 text-truncate mw-100 mb-4 mb-sm-1 mb-md-0">{this.profileOwnerName}</h1>
+                { this.renderSocialMedia() }
+              </div>
               { this.renderSignOut() }
             </div>
             { this.renderOtherMeta() }
