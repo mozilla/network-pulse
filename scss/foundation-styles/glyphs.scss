@@ -29,6 +29,33 @@
       height: 16px;
     }
   }
+
+  &.x-small {
+    &::before {
+      width: 16px;
+      height: 16px;
+
+      @media screen and (min-width: $bp-md) {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+.twitter {
+  @include compositeGlyph("twitter");
+  @include hoverGlyph("twitter-hover");
+}
+
+.linkedin {
+  @include compositeGlyph("linkedin");
+  @include hoverGlyph("linkedin-hover");
+}
+
+.github {
+  @include compositeGlyph("github");
+  @include hoverGlyph("github-hover");
 }
 
 .dark-theme {

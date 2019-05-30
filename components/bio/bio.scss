@@ -14,7 +14,7 @@
   }
 
   .social-media {
-    width: 40px;
+    width: 30px;
     text-align: center;
 
     @media screen and (min-width: $bp-md) {
@@ -23,23 +23,8 @@
     }
   }
 
-  .name {
-    font-size: 1.75rem;
-    font-weight: 500;
-  }
-
-  .other-meta {
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
   .tags {
-    font-size: 0.875rem;
-    font-weight: 600;
-
-    .open-sans {
-      font-size: 0.625rem;
-    }
+    color: $black;
   }
 
   .blurb {
@@ -54,8 +39,12 @@
     }
 
     &.location {
+      @include compositeGlyph("icon-locator");
+
+      color: $gray-40;
+
       &::before {
-        content: "\f041";
+        margin-right: 5px;
       }
     }
 
@@ -72,9 +61,21 @@
     }
 
     &.website {
+      @include compositeGlyph("icon-globe");
+
       &::before {
-        content: "\f0ac";
+        margin-right: 6px;
+      }
+
+      a {
+        font-weight: 700;
       }
     }
+  }
+}
+
+.profile-page {
+  hr {
+    border-top: 1px solid $black;
   }
 }
