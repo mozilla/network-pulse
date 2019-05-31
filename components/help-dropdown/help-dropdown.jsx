@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Service from '../../js/service';
 
 export default class HelpDropdown extends React.Component {
