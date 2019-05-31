@@ -4,15 +4,12 @@ import qs from "qs";
 import DebounceInput from 'react-debounce-input';
 import ReactGA from 'react-ga';
 import SearchTabGroup from '../../components/search-tab-group/search-tab-group.jsx';
-import Service from '../../js/service';
+import HelpDropdown from '../../components/help-dropdown/help-dropdown.jsx';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getSearchCriteria(props);
-    this.state.helpOptions = [];
-
-    this.handleHelpChange = this.handleHelpChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,12 +24,10 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
+  }
 
-    Service.helpTypes.get().then(options => {
-      this.setState({ 
-        helpOptions: options.map(option => option.name), 
-      });
-    });
+  handleHelpChange(event) {
+    this.setState({ helpType: event.target.value})
   }
 
   getSearchCriteria(props) {
@@ -85,12 +80,6 @@ class Search extends React.Component {
     });
   }
 
-  handleHelpChange(event) {
-    this.setState({ helpType: event.target.value}, () => {
-      this.updateBrowserHistory();
-    });
-  }
-
   renderSearchBar() {
     return <div className="d-flex align-items-center">
       <div className="activated search-bar w-100">
@@ -106,17 +95,6 @@ class Search extends React.Component {
         <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
       </div>
     </div>;
-  }
-
-  renderHelpFilter() {
-    let renderedHelpTypes = this.state.helpOptions.map(type => {
-      return <option key={type} value={type}>{type}</option>;
-    });
-
-    return <select className="body-large dropdown" value={ this.state.helpType } onChange={  (event) => this.handleHelpChange(event) }>
-      <option value="">Help</option>
-      {renderedHelpTypes}
-    </select>;
   }
 
   setDebounceInput(ref) {
@@ -136,7 +114,9 @@ class Search extends React.Component {
   renderSearchControls() {
     return <div className="row mt-4 mb-5 pb-5">
       <div className="col-8">{ this.renderSearchBar() }</div>
-      <div className="col-4">{ this.renderHelpFilter() }</div>
+      <div className="col-4">
+        <HelpDropdown helpType={ (event) => this.handleHelpChange(event) }/>
+      </div>
     </div>;
   }
 
