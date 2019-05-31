@@ -26,10 +26,6 @@ class Search extends React.Component {
     document.querySelector(`#search-box`).focus();
   }
 
-  handleHelpChange(event) {
-    this.setState({ helpType: event.target.value})
-  }
-
   getSearchCriteria(props) {
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
@@ -54,6 +50,20 @@ class Search extends React.Component {
 
     location.search = `?${qs.stringify(query)}`;
     this.props.history.push(location);
+  }
+
+  handleHelpChange(event) {
+    let helpType = event.target.value;
+
+    ReactGA.event({
+      category: `Search`,
+      action: `Help filtered`,
+      label: helpType
+    });
+
+    this.setState({ helpType: helpType}, () => {
+      this.updateBrowserHistory();
+    })
   }
 
   handleInputChange(event) {
@@ -115,7 +125,7 @@ class Search extends React.Component {
     return <div className="row mt-4 mb-5 pb-5">
       <div className="col-8">{ this.renderSearchBar() }</div>
       <div className="col-4">
-        <HelpDropdown helpType={ (event) => this.handleHelpChange(event) }/>
+        <HelpDropdown value={  this.state.helpType } helpType={ (event) => this.handleHelpChange(event) }/>
       </div>
     </div>;
   }
