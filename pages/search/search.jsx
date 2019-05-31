@@ -113,7 +113,7 @@ class Search extends React.Component {
       return <option key={type} value={type}>{type}</option>;
     });
 
-    return <select id="help-dropdown" className="body-large p-3" value={ this.state.helpType } onChange={  (event) => this.handleHelpChange(event) }>
+    return <select className="body-large dropdown" value={ this.state.helpType } onChange={  (event) => this.handleHelpChange(event) }>
       <option value="">Help</option>
       {renderedHelpTypes}
     </select>;

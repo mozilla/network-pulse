@@ -1,4 +1,4 @@
-#help-dropdown {
+.dropdown {
   display: block;
   font-family: 'Nunito Sans';
   font-weight: 700;
@@ -15,4 +15,5 @@
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
   cursor: pointer;
+  padding: 1rem;
 }

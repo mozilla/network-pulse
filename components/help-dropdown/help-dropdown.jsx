@@ -26,9 +26,6 @@ export default class HelpDropdown extends React.Component {
     //value stored and used in path
     let value = this.state.value.toLowerCase().replace(/\s/g,'');
     let pathUpdate = `/?helptype=${ value }`;
-
-    //Update URL 
-    console.log(this.props.history);
   }
 
   render() {
