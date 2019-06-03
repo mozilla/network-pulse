@@ -35,15 +35,21 @@
   .twitter {
     @include compositeGlyph("twitter-dark-theme");
     @include hoverGlyph("twitter-dark-theme-hover");
+
+    margin-right: 10px;
   }
 
   .instagram {
     @include compositeGlyph("instagram-dark-theme");
     @include hoverGlyph("instagram-dark-theme-hover");
+
+    margin-right: 10px;
   }
 
   .github {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
+
+    margin-right: 10px;
   }
 }
