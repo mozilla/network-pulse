@@ -82,7 +82,7 @@ export default class Footer extends React.Component {
               <div className="row">
                 <div className="col-12">
                   <hr className="mt-3 mt-md-5" />
-                  <p className="dark-theme body-small mb-5 mb-md-0">Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://foundation.mozilla.org">foundation.mozilla.org</a>.</p>
+                  <p className="dark-theme body-small mb-0">Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://foundation.mozilla.org">foundation.mozilla.org</a>.</p>
                 </div>
               </div>
             </div>
