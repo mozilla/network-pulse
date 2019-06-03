@@ -22,7 +22,7 @@ export default class HelpDropdown extends React.Component {
     });
 
     return (
-      <select className="body-large dropdown" value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
+      <select className="body-large help-dropdown" value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
         <option value="">Help</option>
         {renderedHelpTypes}
       </select>
