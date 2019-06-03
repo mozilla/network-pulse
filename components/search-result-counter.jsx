@@ -5,14 +5,23 @@ export default (props) => {
 
   let counterText = `${props.totalMatched} result${props.totalMatched > 1 ? `s` : ``} found`;
   let searchKeyword = props.searchKeyword;
-  let counterTextWQuery = `${counterText} for `
+  let helpType = props.helpFilter;
+  let counterTextWQuery = `${counterText} for `;
   
-  return (
-    <p className="query-text"> 
-      { searchKeyword ? counterTextWQuery : counterText }
-      <span className={ searchKeyword ? `query` : `d-none`}>
-        { searchKeyword ? searchKeyword : null }
-      </span>
-    </p>
-  );
+  if (searchKeyword) {
+    counterTextWQuery += searchKeyword;
+
+    return <p className="query-text">{counterTextWQuery}</p>;
+  } else if (helpType) {
+    return (
+      <p className="query-text">
+        {counterTextWQuery}
+        <span className="help-query">
+          {helpType}
+        </span>
+      </p>
+    );
+  } else {
+    return <p className="query-text">{counterText}</p>;
+  }
 };

@@ -48,6 +48,10 @@ class Search extends React.Component {
       query.keyword = keywordSearched;
     }
 
+    // if ( helpType ) {
+    //   query.helpType = this.state.helpType;
+    // }
+
     location.search = `?${qs.stringify(query)}`;
     this.props.history.push(location);
   }
