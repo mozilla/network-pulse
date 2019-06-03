@@ -22,7 +22,6 @@
     "copy:contributejson": "shx cp contribute.json dist",
     "copy:assets": "shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
-    "snyk-protect": "snyk protect",
     "optimize": "run-p optimize:**",
     "optimize:svg": "find assets -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
@@ -31,8 +30,7 @@
     "test": "run-s test:**",
     "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
-    "postinstall": "npm run build",
-    "prepare": "npm run snyk-protect"
+    "postinstall": "npm run build"
   },
   "babel": {
     "presets": [
@@ -102,13 +100,11 @@
     "react-select": "^1.3.0",
     "react-tag-autocomplete": "^5.11.0",
     "shx": "^0.2.1",
-    "snyk": "^1.163.3",
     "url": "^0.11.0",
     "webpack": "^2.7.0"
   },
   "engines": {
     "node": "^8.9.0",
     "npm": "^6.0.0"
-  },
-  "snyk": true
+  }
 }
