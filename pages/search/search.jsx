@@ -61,9 +61,13 @@ class Search extends React.Component {
       label: helpType
     });
 
-    this.setState({ helpType: helpType}, () => {
+    this.setState(
+      { 
+        helpType: helpType, 
+        keywordSearched: `` 
+      }, () => {
       this.updateBrowserHistory();
-    })
+    });
   }
 
   handleInputChange(event) {
@@ -75,9 +79,13 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState({ keywordSearched: keywordsEntered }, () => {
-      this.updateBrowserHistory();
-    });
+    this.setState(
+      {
+        keywordSearched: keywordsEntered,
+        helpType: ``
+      }, () => {
+        this.updateBrowserHistory();
+      });
   }
 
   handleDismissBtnClick() {
