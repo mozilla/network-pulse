@@ -37,20 +37,32 @@ class Search extends React.Component {
     return criteria;
   }
 
+  setSearchCriteria(key, value) {
+    let criteria = {
+      keywordSearched: ``,
+      helpType: ``
+    };
+
+    criteria[key] = value;
+
+    this.setState(criteria, () => {
+      this.updateBrowserHistory();
+    });
+  }
+
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
+    let helpType = this.state.helpType;
     let location = { pathname: this.props.location.pathname };
-    let query = {
-      helpType: this.state.helpType
-    };
+    let query = {};
    
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
     }
 
-    // if ( helpType ) {
-    //   query.helpType = this.state.helpType;
-    // }
+    if ( helpType ) {
+      query.helpType = helpType;
+    }
 
     location.search = `?${qs.stringify(query)}`;
     this.props.history.push(location);
@@ -65,13 +77,7 @@ class Search extends React.Component {
       label: helpType
     });
 
-    this.setState(
-      { 
-        helpType: helpType, 
-        keywordSearched: `` 
-      }, () => {
-      this.updateBrowserHistory();
-    });
+    this.setSearchCriteria(`helpType`, helpType);
   }
 
   handleInputChange(event) {
@@ -83,13 +89,7 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState(
-      {
-        keywordSearched: keywordsEntered,
-        helpType: ``
-      }, () => {
-        this.updateBrowserHistory();
-      });
+    this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
   handleDismissBtnClick() {
