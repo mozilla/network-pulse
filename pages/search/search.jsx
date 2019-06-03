@@ -130,9 +130,9 @@ class Search extends React.Component {
   }
 
   renderSearchControls() {
-    return <div className="row mt-4 mb-5 pb-5">
-      <div className="col-8">{ this.renderSearchBar() }</div>
-      <div className="col-4">
+    return <div className="row mt-4 mb-5">
+      <div className="col-12 col-lg-8 mb-4">{ this.renderSearchBar() }</div>
+      <div className="col-12 col-lg-4">
         <HelpDropdown value={  this.state.helpType } helpType={ (event) => this.handleHelpChange(event) }/>
       </div>
     </div>;
