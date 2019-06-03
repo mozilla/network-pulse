@@ -56,12 +56,12 @@ export default class Footer extends React.Component {
   render() {
 
     return (
-      <footer className="site-footer dark-theme py-md-5">
+      <footer className="site-footer dark-theme py-5">
         <div className="container">
           <div className="row">
             <div className="col-md-5">
               <div className="join-us mb-5" data-button-position="side">
-                <JoinUs />
+                <JoinUs buttonPosition="side"/>
               </div>
               <div className="my-5 mb-md-0">
                 <a href="https://foundation.mozilla.org" className="logo">
