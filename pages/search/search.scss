@@ -2,14 +2,13 @@
   .query {
     border-radius: 10px;
     border: 0.8px solid $black;
-    font-size: 12px;
-    padding: 2px 9px;
+    padding: 1px 8px;
     text-transform: capitalize;
     font-weight: 300;
     margin-left: 4px;
 
     &-text {
-      font-size: 14px;
+      font-size: 12px;
       display: flex;
       align-items: center;
     }
