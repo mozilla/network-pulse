@@ -1,0 +1,19 @@
+.search-page {
+  .query {
+    @include scaleText( 12px, 16px, 12px, 16px);
+
+    border-radius: 10px;
+    border: 0.8px solid $black;
+    padding: 1px 8px;
+    text-transform: capitalize;
+    font-weight: 300;
+    margin-left: 4px;
+
+    &-text {
+      @include scaleText( 12px, 16px, 16px, 24px);
+
+      display: flex;
+      align-items: center;
+    }
+  }
+}

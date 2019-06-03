@@ -4,15 +4,12 @@ import qs from "qs";
 import DebounceInput from 'react-debounce-input';
 import ReactGA from 'react-ga';
 import SearchTabGroup from '../../components/search-tab-group/search-tab-group.jsx';
-import Service from '../../js/service';
+import HelpDropdown from '../../components/help-dropdown/help-dropdown.jsx';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.getSearchCriteria(props);
-    this.state.helpOptions = [];
-
-    this.handleHelpChange = this.handleHelpChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,12 +24,6 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
-
-    Service.helpTypes.get().then(options => {
-      this.setState({ 
-        helpOptions: options.map(option => option.name), 
-      });
-    });
   }
 
   getSearchCriteria(props) {
@@ -61,6 +52,24 @@ class Search extends React.Component {
     this.props.history.push(location);
   }
 
+  handleHelpChange(event) {
+    let helpType = event.target.value;
+
+    ReactGA.event({
+      category: `Search`,
+      action: `Help filtered`,
+      label: helpType
+    });
+
+    this.setState(
+      { 
+        helpType: helpType, 
+        keywordSearched: `` 
+      }, () => {
+      this.updateBrowserHistory();
+    });
+  }
+
   handleInputChange(event) {
     let keywordsEntered = event.target.value;
 
@@ -70,9 +79,13 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState({ keywordSearched: keywordsEntered }, () => {
-      this.updateBrowserHistory();
-    });
+    this.setState(
+      {
+        keywordSearched: keywordsEntered,
+        helpType: ``
+      }, () => {
+        this.updateBrowserHistory();
+      });
   }
 
   handleDismissBtnClick() {
@@ -82,12 +95,6 @@ class Search extends React.Component {
       // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
       // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
       document.querySelector(`#search-box`).focus();
-    });
-  }
-
-  handleHelpChange(event) {
-    this.setState({ helpType: event.target.value}, () => {
-      this.updateBrowserHistory();
     });
   }
 
@@ -108,17 +115,6 @@ class Search extends React.Component {
     </div>;
   }
 
-  renderHelpFilter() {
-    let renderedHelpTypes = this.state.helpOptions.map(type => {
-      return <option key={type} value={type}>{type}</option>;
-    });
-
-    return <select className="body-large dropdown" value={ this.state.helpType } onChange={  (event) => this.handleHelpChange(event) }>
-      <option value="">Help</option>
-      {renderedHelpTypes}
-    </select>;
-  }
-
   setDebounceInput(ref) {
     if (this.debounceInputElement || !ref) {
       return;
@@ -136,7 +132,9 @@ class Search extends React.Component {
   renderSearchControls() {
     return <div className="row mt-4 mb-5 pb-5">
       <div className="col-8">{ this.renderSearchBar() }</div>
-      <div className="col-4">{ this.renderHelpFilter() }</div>
+      <div className="col-4">
+        <HelpDropdown value={  this.state.helpType } helpType={ (event) => this.handleHelpChange(event) }/>
+      </div>
     </div>;
   }
 

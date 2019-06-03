@@ -5,10 +5,14 @@ export default (props) => {
 
   let counterText = `${props.totalMatched} result${props.totalMatched > 1 ? `s` : ``} found`;
   let searchKeyword = props.searchKeyword;
-
-  if (searchKeyword) {
-    counterText = `${counterText} for ${searchKeyword}`;
-  }
-
-  return <p>{counterText}</p>;
+  let counterTextWQuery = `${counterText} for `
+  
+  return (
+    <p className="query-text"> 
+      { searchKeyword ? counterTextWQuery : counterText }
+      <span className={ searchKeyword ? `query` : `d-none`}>
+        { searchKeyword ? searchKeyword : null }
+      </span>
+    </p>
+  );
 };
