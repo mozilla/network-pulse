@@ -6,5 +6,12 @@
     padding: 2px 9px;
     text-transform: capitalize;
     font-weight: 300;
+    margin-left: 4px;
+
+    &-text {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
   }
 }

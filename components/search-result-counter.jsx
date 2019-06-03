@@ -8,7 +8,7 @@ export default (props) => {
   let counterTextWQuery = `${counterText} for `
   
   return (
-    <p> 
+    <p className="query-text"> 
       { searchKeyword ? counterTextWQuery : counterText }
       <span className={ searchKeyword ? `query` : `d-none`}>
         { searchKeyword ? searchKeyword : null }
