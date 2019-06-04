@@ -13,12 +13,14 @@ export default {
     ],
     fontSrc: [
       `'self'`,
-      `https://code.cdn.mozilla.net`
+      `https://code.cdn.mozilla.net`,
+      `https://fonts.gstatic.com`
     ],
     styleSrc: [
       `'self'`,
       `'unsafe-inline'`,
-      `https://code.cdn.mozilla.net`
+      `https://code.cdn.mozilla.net`,
+      `https://fonts.googleapis.com`
     ],
     imgSrc: [
       `'self'`,
