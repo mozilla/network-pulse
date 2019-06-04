@@ -7,12 +7,12 @@ export default (props) => {
   let searchKeyword = props.searchKeyword;
   let helpType = props.helpFilter;
   let counterTextWQuery = `${counterText} for `;
-  
-  if (searchKeyword) {
-    counterTextWQuery += searchKeyword;
 
-    return <p className="query-text">{counterTextWQuery}</p>;
-  } else if (helpType) {
+  if (searchKeyword) {
+    counterText = counterTextWQuery + searchKeyword;
+  }
+  
+  if (helpType) {
     return (
       <p className="query-text">
         {counterTextWQuery}
@@ -21,7 +21,7 @@ export default (props) => {
         </span>
       </p>
     );
-  } else {
-    return <p className="query-text">{counterText}</p>;
-  }
+  } 
+
+  return <p className="query-text">{counterText}</p>;
 };
