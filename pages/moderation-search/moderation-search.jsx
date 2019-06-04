@@ -9,13 +9,6 @@ import Service from "../../js/service.js";
 import ProjectLoader from "../../components/project-loader/project-loader.jsx";
 
 const DEFAULT_MODERATION_FILTER = `Pending`;
-const TRENDING_TERMS = [
-  { label: `mozsprint`, link: `/tags/mozsprint` },
-  { label: `artists open web`, link: `/tags/Artists%20Open%20Web` },
-  { label: `inclusion`, link: `/issues/digital-inclusion` },
-  { label: `help code`, link: `/help/code` },
-  { label: `help with feedback`, link: `/help/test-and-feedback` }
-];
 
 class Search extends React.Component {
   constructor(props) {
@@ -231,23 +224,6 @@ class Search extends React.Component {
     return <div>{this.renderSearchBar()}</div>;
   }
 
-  renderTrendingTerms() {
-    if (this.props.moderation || this.state.keywordSearched) return null;
-
-    let links = TRENDING_TERMS.map(term => (
-      <a href={term.link} className="btn btn-link inline-link" key={term.label}>
-        {term.label}
-      </a>
-    )).reduce((prev, curr) => [prev, `, `, curr]);
-
-    return (
-      <div className="trending">
-        <div className="d-inline-block mr-1">Trending:</div>
-        {links}
-      </div>
-    );
-  }
-
   renderProjects() {
     if (!this.state.keywordSearched && !this.props.moderation) return null;
 
@@ -276,7 +252,6 @@ class Search extends React.Component {
           <title>{this.state.keywordSearched}</title>
         </Helmet>
         {this.renderSearchControls()}
-        {this.renderTrendingTerms()}
         {this.renderProjects()}
       </div>
     );
