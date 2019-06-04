@@ -76,9 +76,9 @@ class ProfileProjectTab extends React.Component {
     return <div className="row mb-5">
       { headerText &&
       <div className="col-12">
-        <h2 className="h6 text-uppercase">
+        <h5>
           {headerText}
-        </h2>
+        </h5>
       </div>
       }
       <div className="col-12">
