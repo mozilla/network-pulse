@@ -76,9 +76,9 @@ class ProfileProjectTab extends React.Component {
     return <div className="row mb-5">
       { headerText &&
       <div className="col-12">
-        <h2 className="h6 text-uppercase">
+        <h5>
           {headerText}
-        </h2>
+        </h5>
       </div>
       }
       <div className="col-12">
@@ -96,7 +96,7 @@ class ProfileProjectTab extends React.Component {
         header="Do you have something to share?"
         linkComponent={<Link to={`/add`}>Add entry</Link>}
       >
-        <p>If it might be useful to someone in our network, share it here.</p>
+        <p className="h4-heading mb-4">If it might be useful to someone in our network, share it here.</p>
       </HintMessage>;
     }
 
@@ -118,7 +118,7 @@ class ProfileProjectTab extends React.Component {
         header="Save your Favs"
         linkComponent={<Link to={`/featured`}>Explore featured</Link>}
       >
-        <p>Tap the heart on any project to save it here.</p>
+        <p className="h4-heading mb-4">Tap the heart on any project to save it here.</p>
       </HintMessage>;
     }
 
