@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 class Title extends React.Component {
   constructor(props) {
@@ -17,7 +17,11 @@ class Title extends React.Component {
     let title = this.props.title;
 
     if (this.props.link) {
-      title = <Link to={this.props.link} onClick={() => this.handleTitleClick() }>{this.props.title}</Link>;
+      title = (
+        <Link to={this.props.link} onClick={() => this.handleTitleClick()}>
+          {this.props.title}
+        </Link>
+      );
     }
 
     return <h4 className={classnames}>{title}</h4>;

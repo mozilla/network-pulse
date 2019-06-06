@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 // Augument process.env with local .env or project defaults:
 
@@ -6,9 +6,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // load default.env so that anything didn't get set in .env or the host environment will get a default value
-dotenv.config({path: `config/default.env`});
+dotenv.config({ path: `config/default.env` });
 
-let envUtilities= {
+let envUtilities = {
   serializeSafeEnvAsJSON: () => {
     //
     // WARNING! Only put variables safe for public consumption here! This is emitted on the client side!

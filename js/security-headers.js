@@ -1,11 +1,9 @@
-import url from 'url';
-import { env } from './env-server';
+import url from "url";
+import { env } from "./env-server";
 
 export default {
   directives: {
-    defaultSrc: [
-      `'none'`
-    ],
+    defaultSrc: [`'none'`],
     scriptSrc: [
       `'self'`,
       `https://*.google-analytics.com`,
@@ -22,26 +20,18 @@ export default {
       `https://code.cdn.mozilla.net`,
       `https://fonts.googleapis.com`
     ],
-    imgSrc: [
-      `'self'`,
-      `data:`,
-      `https:`,
-      `http:`
-    ],
+    imgSrc: [`'self'`, `data:`, `https:`, `http:`],
     connectSrc: [
       `'self'`,
-      url.parse(env.PULSE_API).host || `https://network-pulse-api-staging.herokuapp.com/`
+      url.parse(env.PULSE_API).host ||
+        `https://network-pulse-api-staging.herokuapp.com/`
     ],
     childSrc: [
       `https://syndication.twitter.com`,
       `https://platform.twitter.com`
     ],
-    frameAncestors: [
-      `'none'`
-    ],
-    manifestSrc: [
-      `'self'`
-    ]
+    frameAncestors: [`'none'`],
+    manifestSrc: [`'self'`]
   },
   reportOnly: false,
   browserSniff: false

@@ -1,4 +1,4 @@
-import env from './env-client';
+import env from "./env-client";
 
 const PULSE_API = env.PULSE_API;
 const PULSE_API_LOGOUT = env.PULSE_LOGOUT_URL;
@@ -22,10 +22,13 @@ function toQueryPair(key, data) {
 
   let type = typeof val;
 
-  switch(type) {
-    case `object`: return false;
-    case `function`: return false;
-    default: return `${key}=${encodeURIComponent(val.toString())}`;
+  switch (type) {
+    case `object`:
+      return false;
+    case `function`:
+      return false;
+    default:
+      return `${key}=${encodeURIComponent(val.toString())}`;
   }
 }
 
@@ -35,7 +38,9 @@ function toQueryPair(key, data) {
  * @returns {String} Query string
  */
 function toQueryString(data) {
-  const pairs = Object.keys(data).map( key => toQueryPair(key, data)).filter(e => !!e);
+  const pairs = Object.keys(data)
+    .map(key => toQueryPair(key, data))
+    .filter(e => !!e);
   const queryArguments = pairs.join(`&`);
 
   return `?${queryArguments}`;
@@ -52,7 +57,7 @@ function toQueryString(data) {
 function getDataFromURL(route, params = {}, token = {}) {
   let request = new XMLHttpRequest();
   let defaultParams = {
-    "format": `json`
+    format: `json`
   };
 
   Object.assign(params, defaultParams);
@@ -61,7 +66,7 @@ function getDataFromURL(route, params = {}, token = {}) {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
-    request.onload = (event) => {
+    request.onload = event => {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
@@ -106,10 +111,10 @@ function callURL(route) {
     request.open(`GET`, route, true);
 
     request.withCredentials = true;
-    request.onload = (event) => {
+    request.onload = event => {
       let result = event.currentTarget;
 
-      if ( result.status === 200 ) {
+      if (result.status === 200) {
         resolve();
       } else {
         reject(`XHR request failed. Status ${result.status}.`);
@@ -134,9 +139,9 @@ function callURL(route) {
 function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
   return new Promise((resolve, reject) => {
     getDataFromURL(`${PULSE_API}/v2/nonce/`)
-      .then((nonce) => {
-        data.nonce = nonce.nonce,
-        data.csrfmiddlewaretoken = nonce.csrf_token;
+      .then(nonce => {
+        (data.nonce = nonce.nonce),
+          (data.csrfmiddlewaretoken = nonce.csrf_token);
 
         let dataToSend = JSON.stringify(data);
         let request = new XMLHttpRequest();
@@ -144,7 +149,7 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
         request.open(requestType, endpointRoute, true);
 
         request.withCredentials = true;
-        request.onload = (event) => {
+        request.onload = event => {
           let result = event.currentTarget;
 
           if (result.status >= 200 && result.status < 400) {
@@ -170,13 +175,14 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
         };
 
         request.setRequestHeader(`X-CSRFToken`, data.csrfmiddlewaretoken);
-        request.setRequestHeader(`Content-Type`,`application/json`);
+        request.setRequestHeader(`Content-Type`, `application/json`);
         request.send(dataToSend);
       })
-      .catch((reason) => {
-        console.error(new Error(`Could not retrieve data from /nonce. Reason: ${reason}`));
+      .catch(reason => {
+        console.error(
+          new Error(`Could not retrieve data from /nonce. Reason: ${reason}`)
+        );
       });
-
   });
 }
 
@@ -184,16 +190,20 @@ let Service = {
   entries: {
     get: function(bookmarkedOnly, params, token) {
       let defaultParams = {
-        "ordering": `-created`,
-        "page_size": env.PROJECT_BATCH_SIZE
+        ordering: `-created`,
+        page_size: env.PROJECT_BATCH_SIZE
       };
 
-      if (bookmarkedOnly) return Service.bookmarks.get(params,token);
+      if (bookmarkedOnly) return Service.bookmarks.get(params, token);
 
-      return getDataFromURL(`${PULSE_API}/v2/entries/`, Object.assign(params, defaultParams), token);
+      return getDataFromURL(
+        `${PULSE_API}/v2/entries/`,
+        Object.assign(params, defaultParams),
+        token
+      );
     },
     post: function(entryData) {
-      return updateStoredData(`POST`,`${PULSE_API}/v2/entries/`, entryData);
+      return updateStoredData(`POST`, `${PULSE_API}/v2/entries/`, entryData);
     }
   },
   entry: {
@@ -202,25 +212,41 @@ let Service = {
     },
     put: {
       moderationState: function(entryId, stateId) {
-        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/moderate/${stateId}`);
+        return updateStoredData(
+          `PUT`,
+          `${PULSE_API}/v2/entries/${entryId}/moderate/${stateId}`
+        );
       },
       feature: function(entryId) {
-        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/feature/`);
+        return updateStoredData(
+          `PUT`,
+          `${PULSE_API}/v2/entries/${entryId}/feature/`
+        );
       },
       bookmark: function(entryId) {
-        return updateStoredData(`PUT`,`${PULSE_API}/v2/entries/${entryId}/bookmark/`);
+        return updateStoredData(
+          `PUT`,
+          `${PULSE_API}/v2/entries/${entryId}/bookmark/`
+        );
       }
     }
   },
   bookmarks: {
-    get: function(params,token) {
+    get: function(params, token) {
       let defaultParams = {
-        "page_size": env.PROJECT_BATCH_SIZE
+        page_size: env.PROJECT_BATCH_SIZE
       };
-      return getDataFromURL(`${PULSE_API}/v2/entries/bookmarks/`, Object.assign(params, defaultParams), token);
+      return getDataFromURL(
+        `${PULSE_API}/v2/entries/bookmarks/`,
+        Object.assign(params, defaultParams),
+        token
+      );
     },
     post: function(entryIds = []) {
-      return updateStoredData(`POST`,`${PULSE_API}/v2/entries/bookmarks/?ids=${entryIds.join(`,`)}`);
+      return updateStoredData(
+        `POST`,
+        `${PULSE_API}/v2/entries/bookmarks/?ids=${entryIds.join(`,`)}`
+      );
     }
   },
   moderationStates: {
@@ -245,7 +271,10 @@ let Service = {
   },
   creators: {
     get: function(fragment) {
-      return getDataFromURL(`${PULSE_API}/v2/profiles/`, {name: fragment, basic: true});
+      return getDataFromURL(`${PULSE_API}/v2/profiles/`, {
+        name: fragment,
+        basic: true
+      });
     }
   },
   logout: function() {
@@ -266,11 +295,15 @@ let Service = {
   profiles: {
     get: function(params, token) {
       let defaultParams = {
-        "ordering": `id`,
-        "page_size": env.PROFILE_BATCH_SIZE
+        ordering: `id`,
+        page_size: env.PROFILE_BATCH_SIZE
       };
 
-      return getDataFromURL(`${PULSE_API}/v3/profiles/`, Object.assign(params, defaultParams), token);
+      return getDataFromURL(
+        `${PULSE_API}/v3/profiles/`,
+        Object.assign(params, defaultParams),
+        token
+      );
     }
   },
   nonce: function() {
@@ -281,7 +314,11 @@ let Service = {
       return getDataFromURL(`${PULSE_API}/v2/myprofile/`);
     },
     put: function(updatedProfile) {
-      return updateStoredData(`PUT`, `${PULSE_API}/v2/myprofile/`, updatedProfile);
+      return updateStoredData(
+        `PUT`,
+        `${PULSE_API}/v2/myprofile/`,
+        updatedProfile
+      );
     }
   }
   // ... and more Pulse API endpoints to come
