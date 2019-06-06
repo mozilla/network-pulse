@@ -1,7 +1,7 @@
-import React from 'react';
-import ModerationSearch from './moderation-search/moderation-search.jsx';
-import NotFound from './not-found.jsx';
-import user from '../js/app-user';
+import React from "react";
+import ModerationSearch from "./moderation-search/moderation-search.jsx";
+import NotFound from "./not-found.jsx";
+import user from "../js/app-user";
 
 class Moderation extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Moderation extends React.Component {
 
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified` ) {
+    if (event === `verified`) {
       this.setState({ user });
     }
   }

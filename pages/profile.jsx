@@ -1,11 +1,11 @@
-import React from 'react';
-import NotFound from './not-found.jsx';
-import Service from '../js/service';
+import React from "react";
+import NotFound from "./not-found.jsx";
+import Service from "../js/service";
 import { Helmet } from "react-helmet";
-import Bio from '../components/bio/bio.jsx';
-import ProfileTabGroup from '../components/profile-tab-group/profile-tab-group.jsx';
-import LoadingNotice from '../components/loading-notice.jsx';
-import user from '../js/app-user';
+import Bio from "../components/bio/bio.jsx";
+import ProfileTabGroup from "../components/profile-tab-group/profile-tab-group.jsx";
+import LoadingNotice from "../components/loading-notice.jsx";
+import user from "../js/app-user";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -78,32 +78,46 @@ class Profile extends React.Component {
       activeTab = this.props.location.state.activeTab;
     }
 
-    return <div>
-      <Helmet><title>{userProfile.name}</title></Helmet>
-      <div className="row">
-        <div className="col-12">
-          <Bio {...userProfile} user={this.state.user} history={this.props.history} />
-          <hr />
+    return (
+      <div>
+        <Helmet>
+          <title>{userProfile.name}</title>
+        </Helmet>
+        <div className="row">
+          <div className="col-12">
+            <Bio
+              {...userProfile}
+              user={this.state.user}
+              history={this.props.history}
+            />
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <ProfileTabGroup
+              profileId={userProfile.profile_id}
+              myProfile={userProfile.my_profile}
+              entryCount={userProfile.entry_count}
+              userBioLong={userProfile.user_bio_long}
+              activeTab={activeTab}
+            />
+          </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <ProfileTabGroup
-            profileId={userProfile.profile_id}
-            myProfile={userProfile.my_profile}
-            entryCount={userProfile.entry_count}
-            userBioLong={userProfile.user_bio_long}
-            activeTab={activeTab}
-          />
-        </div>
-      </div>
-    </div>;
+    );
   }
 
   render() {
-    return <div className="profile-page">
-      { this.state.showLoadingNotice ? <LoadingNotice /> : this.renderProfile() }
-    </div>;
+    return (
+      <div className="profile-page">
+        {this.state.showLoadingNotice ? (
+          <LoadingNotice />
+        ) : (
+          this.renderProfile()
+        )}
+      </div>
+    );
   }
 }
 

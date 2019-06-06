@@ -1,14 +1,14 @@
-import url from 'url';
-import express from 'express';
-import path from 'path';
-import helmet from 'helmet';
+import url from "url";
+import express from "express";
+import path from "path";
+import helmet from "helmet";
 import { Helmet as ReactHelmet } from "react-helmet";
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router';
-import Main from './main.jsx';
-import securityHeaders from './js/security-headers';
-import {envUtilities, env } from './js/env-server';
+import React from "react";
+import { renderToString } from "react-dom/server";
+import { StaticRouter } from "react-router";
+import Main from "./main.jsx";
+import securityHeaders from "./js/security-headers";
+import { envUtilities, env } from "./js/env-server";
 
 const app = express();
 
@@ -25,7 +25,7 @@ const APP_HOST = env.APP_HOST;
 // what environment are we running in
 const NODE_ENV = env.NODE_ENV;
 
-function renderPage(appHtml,reactHelmet) {
+function renderPage(appHtml, reactHelmet) {
   return `
     <!doctype html>
     <html>
@@ -42,7 +42,10 @@ function renderPage(appHtml,reactHelmet) {
         <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(`api/pulse`,``)}rss/latest">
+        <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(
+          `api/pulse`,
+          ``
+        )}rss/latest">
         ${reactHelmet.title.toString()}
       </head>
       <body>
@@ -59,26 +62,32 @@ app.disable(`x-powered-by`);
 // Some app security settings
 app.use(helmet.contentSecurityPolicy(securityHeaders));
 
-app.use(helmet.xssFilter({
-  setOnOldIE: true
-}));
+app.use(
+  helmet.xssFilter({
+    setOnOldIE: true
+  })
+);
 
 // maxAge for HSTS header must be at least 6 months
 // (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
-app.use(helmet.hsts({
-  maxAge: 15768000*2, // 12 months in seconds
-  setIf: req => req.protocol === `https`,
-  includeSubDomains: true,
-  preload: true
-}));
+app.use(
+  helmet.hsts({
+    maxAge: 15768000 * 2, // 12 months in seconds
+    setIf: req => req.protocol === `https`,
+    includeSubDomains: true,
+    preload: true
+  })
+);
 
 app.use(helmet.ieNoOpen());
 
 app.use(helmet.noSniff());
 
-app.use(helmet.frameguard({
-  action: `deny`
-}));
+app.use(
+  helmet.frameguard({
+    action: `deny`
+  })
+);
 
 // production specific configuration and middleware
 if (NODE_ENV === `production`) {
@@ -118,7 +127,9 @@ app.get(`*`, (req, res) => {
     // Somewhere a `<Redirect>` was rendered
     res.redirect(301, context.url);
   } else {
-    res.status(context.pageNotFound ? 404 : 200).send(renderPage(appHtml, reactHelmet));
+    res
+      .status(context.pageNotFound ? 404 : 200)
+      .send(renderPage(appHtml, reactHelmet));
   }
 });
 

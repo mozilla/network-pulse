@@ -1,7 +1,7 @@
 const ISSUE_MAPPING = {
   "privacy-and-security": `Privacy & Security`,
-  "openness": `Openness`,
-  "decentralization": `Decentralization`,
+  openness: `Openness`,
+  decentralization: `Decentralization`,
   "web-literacy": `Web Literacy`,
   "digital-inclusion": `Digital Inclusion`
 };
@@ -12,7 +12,7 @@ const Utils = {
     let out = {};
 
     Object.keys(obj).forEach(key => {
-      let rekey = key.replace(/_(\w)/g, (a,b) => b.toUpperCase());
+      let rekey = key.replace(/_(\w)/g, (a, b) => b.toUpperCase());
 
       out[rekey] = obj[key];
     });
@@ -31,7 +31,7 @@ const Utils = {
   },
 
   getUriPathFromIssueName(issueName) {
-    for(let key in ISSUE_MAPPING) {
+    for (let key in ISSUE_MAPPING) {
       if (ISSUE_MAPPING[key] === issueName) return key;
     }
 
@@ -42,7 +42,8 @@ const Utils = {
     // turns help type into a prettier string so we can use it as slug
     // e.g., "Plan & organize" becomes "plan-and-organize"
 
-    return helpTag.split(` `)
+    return helpTag
+      .split(` `)
       .map(word => encodeURIComponent(word.replace(/&/g, `and`)).toLowerCase())
       .join(`-`);
   },
@@ -51,7 +52,8 @@ const Utils = {
     // turns help type slug into a string Pulse API recognizes as helpType
     // e.g., "plan-and-organize" becomes "plan & organize"
 
-    return slug.split(`-`)
+    return slug
+      .split(`-`)
       .map(word => decodeURIComponent(word.replace(/\band\b/g, `&`)))
       .join(` `);
   }
