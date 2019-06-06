@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 class DynamicCheckboxGroup extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class DynamicCheckboxGroup extends React.Component {
 
   updateSelected(selected) {
     this.setState({ selected }, () => {
-      this.props.onChange(null,selected);
+      this.props.onChange(null, selected);
     });
   }
 
@@ -37,14 +37,19 @@ class DynamicCheckboxGroup extends React.Component {
   renderCheckbox(option) {
     let checked = this.state.selected.indexOf(option) > -1;
 
-    return <div key={option}>
-      <label>
-        <input type="checkbox"
-          value={option}
-          checked={checked}
-          onChange={event => this.handleCheckboxChange(event)} />{option}
-      </label>
-    </div>;
+    return (
+      <div key={option}>
+        <label>
+          <input
+            type="checkbox"
+            value={option}
+            checked={checked}
+            onChange={event => this.handleCheckboxChange(event)}
+          />
+          {option}
+        </label>
+      </div>
+    );
   }
 
   renderCheckboxes() {
@@ -52,7 +57,11 @@ class DynamicCheckboxGroup extends React.Component {
 
     let options = this.props.options.map(option => this.renderCheckbox(option));
 
-    return <div className="options" style={{"columnCount": this.props.colNum}}>{options}</div>;
+    return (
+      <div className="options" style={{ columnCount: this.props.colNum }}>
+        {options}
+      </div>
+    );
   }
 
   render() {

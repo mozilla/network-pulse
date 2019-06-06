@@ -1,22 +1,20 @@
-import React from 'react';
+import React from "react";
 import { Helmet } from "react-helmet";
-import { Link } from 'react-router-dom';
-import qs from 'qs';
-import LoadingNotice from '../components/loading-notice.jsx';
-import NotificationBar from '../components/notification-bar/notification-bar.jsx';
-import ProjectCardDetailed from '../components/project-card/project-card-detailed.jsx';
-import Service from '../js/service.js';
-import Utility from '../js/utility.js';
-import pageSettings from '../js/app-page-settings.js';
-import user from '../js/app-user';
+import { Link } from "react-router-dom";
+import qs from "qs";
+import LoadingNotice from "../components/loading-notice.jsx";
+import NotificationBar from "../components/notification-bar/notification-bar.jsx";
+import ProjectCardDetailed from "../components/project-card/project-card-detailed.jsx";
+import Service from "../js/service.js";
+import Utility from "../js/utility.js";
+import pageSettings from "../js/app-page-settings.js";
+import user from "../js/app-user";
 
 const NO_ENTRY_TITLE = `Entry unavailable`;
 const NO_ENTRY_BLOCK = (
   <div className="text-center">
     <div className="content">
-      <p className="description">
-        This entry is not currently available.
-      </p>
+      <p className="description">This entry is not currently available.</p>
     </div>
   </div>
 );
@@ -43,14 +41,14 @@ class Entry extends React.Component {
   fetchData(entryId = ``) {
     Service.entry
       .get(entryId)
-      .then((response) => {
+      .then(response => {
         this.setState({
           dataLoaded: true,
           entry: response
         });
         this.checkIfRedirectedFromFormSubmission();
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
         this.setState({
           dataLoaded: true,
@@ -87,24 +85,38 @@ class Entry extends React.Component {
 
     if (!this.state.errorLoadingData) {
       docTitle = `${this.state.entry.title}`;
-      justPostedByUserMessage = this.state.justPostedByUser && <div className="col-12 my-3"><NotificationBar>Thanks! Submission was added to <Link to={ `/profile/${this.state.user.profileid}` }>your profile</Link>.</NotificationBar></div>;
-      content = <ProjectCardDetailed {...Utility.processEntryData(this.state.entry)} onDetailView={true} />;
+      justPostedByUserMessage = this.state.justPostedByUser && (
+        <div className="col-12 my-3">
+          <NotificationBar>
+            Thanks! Submission was added to{" "}
+            <Link to={`/profile/${this.state.user.profileid}`}>
+              your profile
+            </Link>.
+          </NotificationBar>
+        </div>
+      );
+      content = (
+        <ProjectCardDetailed
+          {...Utility.processEntryData(this.state.entry)}
+          onDetailView={true}
+        />
+      );
     }
 
     return (
       <div className="w-100">
-        <Helmet><title>{ docTitle }</title></Helmet>
-        { justPostedByUserMessage }
-        { content }
+        <Helmet>
+          <title>{docTitle}</title>
+        </Helmet>
+        {justPostedByUserMessage}
+        {content}
       </div>
     );
   }
 
   render() {
     return (
-      <div className="row justify-content-center">
-        { this.renderEntry() }
-      </div>
+      <div className="row justify-content-center">{this.renderEntry()}</div>
     );
   }
 }
