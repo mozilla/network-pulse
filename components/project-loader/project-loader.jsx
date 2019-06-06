@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Service from '../../js/service.js';
-import ItemList from '../item-list/item-list.jsx';
-import SearchResultCounter from '../search-result-counter.jsx';
-import pageSettings from '../../js/app-page-settings';
-import env from '../../js/env-client';
+import React from "react";
+import PropTypes from "prop-types";
+import Service from "../../js/service.js";
+import ItemList from "../item-list/item-list.jsx";
+import SearchResultCounter from "../search-result-counter.jsx";
+import pageSettings from "../../js/app-page-settings";
+import env from "../../js/env-client";
 
 const PROJECT_BATCH_SIZE = env.PROJECT_BATCH_SIZE;
 
@@ -55,9 +55,9 @@ class ProjectLoader extends React.Component {
       // 2) we sort projects based on the order they were stored in localStorage
       //    and pass the sorted array to <ItemList> to render projects onto the page.
       //    (See updateStateWithNewData(data) method.)
-      let begin = (this.state.nextBatchIndex-1)*PROJECT_BATCH_SIZE;
-      let end = this.state.nextBatchIndex*PROJECT_BATCH_SIZE;
-      let idsInCurrentBatch = combinedParams.ids.slice(begin,end);
+      let begin = (this.state.nextBatchIndex - 1) * PROJECT_BATCH_SIZE;
+      let end = this.state.nextBatchIndex * PROJECT_BATCH_SIZE;
+      let idsInCurrentBatch = combinedParams.ids.slice(begin, end);
 
       combinedParams.ids = idsInCurrentBatch.join(`,`);
 
@@ -98,10 +98,10 @@ class ProjectLoader extends React.Component {
 
     Service.entries
       .get(bookmarkedOnly, combinedParams, this.promiseToken)
-      .then((data) => {
+      .then(data => {
         this.updateStateWithNewData(data);
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }
@@ -113,11 +113,14 @@ class ProjectLoader extends React.Component {
     if (this.props.ids) {
       // sort entries by the time they were bookmarked, from most recently bookmarked
       let ids = this.props.ids.slice();
-      sorter = (a,b) => ids.indexOf(a.id) - ids.indexOf(b.id);
-      moreEntriesToFetch = (this.state.nextBatchIndex * PROJECT_BATCH_SIZE) < this.props.ids.length;
+      sorter = (a, b) => ids.indexOf(a.id) - ids.indexOf(b.id);
+      moreEntriesToFetch =
+        this.state.nextBatchIndex * PROJECT_BATCH_SIZE < this.props.ids.length;
     }
 
-    let nextBatchIndex = moreEntriesToFetch ? this.state.nextBatchIndex+1 : this.state.nextBatchIndex;
+    let nextBatchIndex = moreEntriesToFetch
+      ? this.state.nextBatchIndex + 1
+      : this.state.nextBatchIndex;
     let newEntries = sorter ? data.results.sort(sorter) : data.results;
 
     let currentListInfo = {
@@ -151,7 +154,7 @@ class ProjectLoader extends React.Component {
   render() {
     return (
       <div>
-        { this.props.showCounter && this.renderEntryCounter() }
+        {this.props.showCounter && this.renderEntryCounter()}
         <ItemList
           items={this.state.entries}
           loadingData={this.state.loadingData}

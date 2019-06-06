@@ -1,21 +1,22 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 class HintMessage extends React.Component {
   renderLink() {
     if (!this.props.linkComponent) return null;
 
-    return React.cloneElement(this.props.linkComponent, { className: classNames(`btn`, `btn-secondary`)} );
+    return React.cloneElement(this.props.linkComponent, {
+      className: classNames(`btn`, `btn-secondary`)
+    });
   }
 
   render() {
     return (
-      <div className="hint-message text-center">
-        <h2 className="icon mb-3">{ this.props.iconComponent }</h2>
-        <h2>{ this.props.header }</h2>
-        { this.props.children }
-        { this.renderLink() }
+      <div className="pt-4 pt-lg-5 text-center">
+        <h2 className="h2-heading">{this.props.header}</h2>
+        {this.props.children}
+        {this.renderLink()}
       </div>
     );
   }
@@ -23,11 +24,8 @@ class HintMessage extends React.Component {
 
 HintMessage.propTypes = {
   header: PropTypes.string.isRequired,
-  iconComponent: PropTypes.element,
-  linkComponent: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.element
-  ]).isRequired
+  linkComponent: PropTypes.oneOfType([PropTypes.bool, PropTypes.element])
+    .isRequired
 };
 
 export default HintMessage;

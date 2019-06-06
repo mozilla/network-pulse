@@ -1,19 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ReactGA from 'react-ga';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import moment from 'moment';
-import Creators from './meta/creators.jsx';
-import Thumbnail from './meta/thumbnail.jsx';
-import Title from './meta/title.jsx';
-import Description from './meta/description.jsx';
-import WhyInteresting from './meta/why-interesting.jsx';
-import IssuesAndTags from './meta/issues-and-tags.jsx';
-import GetInvolved from './meta/get-involved.jsx';
-import BookmarkControl from '../bookmark-control.jsx';
-import bookmarkManager from '../../js/bookmarks-manager';
-import user from '../../js/app-user.js';
+import React from "react";
+import { Link } from "react-router-dom";
+import ReactGA from "react-ga";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import moment from "moment";
+import Creators from "./meta/creators.jsx";
+import Thumbnail from "./meta/thumbnail.jsx";
+import Title from "./meta/title.jsx";
+import Description from "./meta/description.jsx";
+import WhyInteresting from "./meta/why-interesting.jsx";
+import IssuesAndTags from "./meta/issues-and-tags.jsx";
+import GetInvolved from "./meta/get-involved.jsx";
+import BookmarkControl from "../bookmark-control.jsx";
+import bookmarkManager from "../../js/bookmarks-manager";
+import user from "../../js/app-user.js";
 
 class DetailedProjectCard extends React.Component {
   constructor(props) {
@@ -24,11 +24,14 @@ class DetailedProjectCard extends React.Component {
   }
 
   sendGaEvent(config) {
-    config = Object.assign({
-      category: `Entry`,
-      action: ``,
-      label: this.props.title
-    }, config);
+    config = Object.assign(
+      {
+        category: `Entry`,
+        action: ``,
+        label: this.props.title
+      },
+      config
+    );
 
     // config usually contains the following properties:
     // category, action, label, transport
@@ -91,96 +94,145 @@ class DetailedProjectCard extends React.Component {
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
-    return <a href={this.props.contentUrl} target="_blank" className="btn btn-block btn-info btn-visit text-capitalize mt-3" onClick={() => this.handleVisitBtnClick()}>Visit</a>;
+    return (
+      <a
+        href={this.props.contentUrl}
+        target="_blank"
+        className="btn btn-block btn-info btn-visit text-capitalize mt-3"
+        onClick={() => this.handleVisitBtnClick()}
+      >
+        Visit
+      </a>
+    );
   }
 
   renderTimePosted() {
     if (!this.props.created && !this.props.publishedBy) return null;
 
-    let timePosted = this.props.created ? ` ${moment(this.props.created).format(`MMM DD, YYYY`)}` : null;
-    let publishedBy = this.props.publishedBy ? <span> by <Link to={`/profile/${this.props.submitterProfileId}`} onClick={(event) => this.handlePublisherClick(event,this.props.publishedBy)}>{this.props.publishedBy}</Link></span> : null;
+    let timePosted = this.props.created
+      ? ` ${moment(this.props.created).format(`MMM DD, YYYY`)}`
+      : null;
+    let publishedBy = this.props.publishedBy ? (
+      <span>
+        {" "}
+        by{" "}
+        <Link
+          to={`/profile/${this.props.submitterProfileId}`}
+          onClick={event =>
+            this.handlePublisherClick(event, this.props.publishedBy)
+          }
+        >
+          {this.props.publishedBy}
+        </Link>
+      </span>
+    ) : null;
 
     return (
-      <p><small className="time-posted d-block">
-        Added{timePosted}{publishedBy}
-      </small></p>
+      <p>
+        <small className="time-posted d-block">
+          Added{timePosted}
+          {publishedBy}
+        </small>
+      </p>
     );
   }
 
   renderActionPanel() {
-    let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(this.props.title)}&url=${encodeURIComponent(window.location.href)}`;
+    let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      this.props.title
+    )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
       <div className="action-panel pb-3 mb-3">
         <div className="d-flex share">
-          <BookmarkControl id={this.props.id}
+          <BookmarkControl
+            id={this.props.id}
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
-            updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }}
+            updateCardBookmarkedState={bookmarked => {
+              this.updateCardBookmarkedState(bookmarked);
+            }}
           />
-          <a href={twitterUrl} onClick={evt => this.handleTwitterShareClick(evt) } className="btn twitter-share d-inline-block align-self-center mx-3"></a>
+          <a
+            href={twitterUrl}
+            onClick={evt => this.handleTwitterShareClick(evt)}
+            className="btn twitter-share d-inline-block align-self-center mx-3"
+          />
         </div>
       </div>
     );
   }
 
   renderTopHeader() {
-    return <div className="col-12 mb-3">
-      <div className="row">
-        <div className="col-12 col-sm-8">
-          <Title title={this.props.title} className="mb-1" />
-          <Creators
-            creators={this.props.relatedCreators}
-            showLabelText={true}
-            creatorClickHandler={(event, name) => this.handleCreatorClick(event, name)}
-          />
+    return (
+      <div className="col-12 mb-3">
+        <div className="row">
+          <div className="col-12 col-sm-8">
+            <Title title={this.props.title} className="mb-1" />
+            <Creators
+              creators={this.props.relatedCreators}
+              showLabelText={true}
+              creatorClickHandler={(event, name) =>
+                this.handleCreatorClick(event, name)
+              }
+            />
+          </div>
         </div>
       </div>
-    </div>;
+    );
   }
 
   renderLeftColumn() {
     let wrapperClassnames = classNames(`col-12 col-md-8`);
 
-    return <div className={wrapperClassnames}>
-      <Thumbnail thumbnail={this.props.thumbnail} />
-      { this.renderVisitButton() }
-      <Description description={this.props.description} className="mt-3" />
-      <WhyInteresting interest={this.props.interest} />
-      { this.renderTimePosted() }
-      <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
-    </div>;
+    return (
+      <div className={wrapperClassnames}>
+        <Thumbnail thumbnail={this.props.thumbnail} />
+        {this.renderVisitButton()}
+        <Description description={this.props.description} className="mt-3" />
+        <WhyInteresting interest={this.props.interest} />
+        {this.renderTimePosted()}
+        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+      </div>
+    );
   }
 
   renderRightColumn() {
     let wrapperClassnames = classNames(`col-12 col-md-4 mt-3 mt-md-0`);
 
-    return <div className={wrapperClassnames}>
-      { this.renderActionPanel() }
-      <GetInvolved getInvolved={this.props.getInvolved}
-        getInvolvedUrl={this.props.getInvolvedUrl}
-        helpTypes={this.props.helpTypes}
-        sendGaEvent={(config) => this.sendGaEvent(config)} />
-    </div>;
+    return (
+      <div className={wrapperClassnames}>
+        {this.renderActionPanel()}
+        <GetInvolved
+          getInvolved={this.props.getInvolved}
+          getInvolvedUrl={this.props.getInvolvedUrl}
+          helpTypes={this.props.helpTypes}
+          sendGaEvent={config => this.sendGaEvent(config)}
+        />
+      </div>
+    );
   }
 
   render() {
     let wrapperClassnames = classNames(`col-12 pt-3 project-card detail-view`, {
-      "bookmarked": this.state.bookmarked
+      bookmarked: this.state.bookmarked
     });
 
     return (
       <div className={wrapperClassnames}>
+        <div className="row">{this.renderTopHeader()}</div>
         <div className="row">
-          { this.renderTopHeader() }
-        </div>
-        <div className="row">
-          { this.renderLeftColumn() }
-          { this.renderRightColumn() }
+          {this.renderLeftColumn()}
+          {this.renderRightColumn()}
         </div>
         <div className="row">
           <div className="col-12 col-md-8">
-            <p className="report-correction mt-md-3 pt-md-3"><small>Correction? <a href="https://mzl.la/pulse-contact">Contact us</a>.</small></p>
+            <p className="report-correction mt-md-3 pt-md-3">
+              <small>
+                Correction?{" "}
+                <a href="https://mzl.la/pulse-contact">Contact us</a>.
+              </small>
+            </p>
           </div>
         </div>
       </div>

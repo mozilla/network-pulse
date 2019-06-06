@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Utility from '../../../js/utility';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import Utility from "../../../js/utility";
 
 const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
 
@@ -20,28 +20,55 @@ class GetInvolved extends React.Component {
   renderGetInvolvedText() {
     let props = this.props;
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
-    let getInvolvedLink = props.getInvolvedUrl ? ( <a href={props.getInvolvedUrl} target="_blank" onClick={() => this.handleGetInvolvedLinkClick()}>Get Involved</a>) : null;
+    let getInvolvedLink = props.getInvolvedUrl ? (
+      <a
+        href={props.getInvolvedUrl}
+        target="_blank"
+        onClick={() => this.handleGetInvolvedLinkClick()}
+      >
+        Get Involved
+      </a>
+    ) : null;
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
-    return <p>{getInvolvedText} {getInvolvedLink}</p>;
+    return (
+      <p>
+        {getInvolvedText} {getInvolvedLink}
+      </p>
+    );
   }
 
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
     return this.props.helpTypes.map(helpType => {
-      return <Link to={`/help/${Utility.getSlugFromHelpTag(helpType)}`} className="btn btn-xs btn-tag" key={helpType}>{helpType}</Link>;
+      return (
+        <Link
+          to={`/help/${Utility.getSlugFromHelpTag(helpType)}`}
+          className="btn btn-xs btn-tag"
+          key={helpType}
+        >
+          {helpType}
+        </Link>
+      );
     });
   }
 
   render() {
-    if (!this.props.getInvolved && !this.props.getInvolvedUrl && !this.props.helpTypes.length > 0) return null;
+    if (
+      !this.props.getInvolved &&
+      !this.props.getInvolvedUrl &&
+      !this.props.helpTypes.length > 0
+    )
+      return null;
 
-    return <div className="get-involved pb-3 mb-3">
-      <h2>Get involved</h2>
-      { this.renderGetInvolvedText() }
-      { this.renderHelpLabels() }
-    </div>;
+    return (
+      <div className="get-involved pb-3 mb-3">
+        <h2>Get involved</h2>
+        {this.renderGetInvolvedText()}
+        {this.renderHelpLabels()}
+      </div>
+    );
   }
 }
 
