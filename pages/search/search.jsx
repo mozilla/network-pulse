@@ -65,6 +65,7 @@ class Search extends React.Component {
     }
 
     location.search = `?${qs.stringify(query)}`;
+
     this.props.history.push(location);
   }
 
@@ -148,7 +149,7 @@ class Search extends React.Component {
         <Helmet><title>{this.state.keywordSearched}</title></Helmet>
         { this.renderSearchControls() }
         <SearchTabGroup
-          activeTab={this.state.activeTab}
+          activeTab={this.state.helpType ? `projects` : this.state.activeTab}
           keywordSearched={this.state.keywordSearched}
           helpType={this.state.helpType}
         />
