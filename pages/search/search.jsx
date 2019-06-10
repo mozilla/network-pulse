@@ -62,15 +62,14 @@ class Search extends React.Component {
 
     if ( helpType ) {
       query.helpType = helpType;
-    }
 
-    // Reset URL path for dropdown results
-    if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
-      location.pathname = "/search";
+      // Reset URL path for dropdown results
+      if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
+        location.pathname = "/search";
+      }
     }
     
     location.search = `?${qs.stringify(query)}`;
-
     this.props.history.push(location);
   }
 
@@ -95,17 +94,27 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setSearchCriteria(`keywordSearched`, keywordsEntered);
+    //this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
   handleDismissBtnClick() {
-    this.setState({ keywordSearched: `` }, () => {
-      this.updateBrowserHistory();
-      // The focus() function of <input /> isn't exposed by <DebounceInput />
-      // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
-      // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
-      document.querySelector(`#search-box`).focus();
+    let inputQuery = document.querySelector(`#search-box`);
+    let keywordsEntered = inputQuery.value;
+
+    ReactGA.event({
+      category: `Search`,
+      action: `Keywords entered`,
+      label: keywordsEntered
     });
+
+    this.setSearchCriteria(`keywordSearched`, keywordsEntered);
+    // this.setState({ keywordSearched: `` }, () => {
+    //   this.updateBrowserHistory();
+    //   // The focus() function of <input /> isn't exposed by <DebounceInput />
+    //   // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
+    //   // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
+    //   document.querySelector(`#search-box`).focus();
+    // });
   }
 
   renderSearchBar() {
@@ -113,10 +122,10 @@ class Search extends React.Component {
       <div className="activated search-bar w-100">
         <DebounceInput id="search-box"
           value={this.state.keywordSearched}
-          debounceTimeout={300}
+          //debounceTimeout={300}
           type="search"
-          onChange={ event => this.handleInputChange(event) }
-          inputRef={ ref => this.setDebounceInput(ref) }
+          //onChange={ event => this.handleInputChange(event) }
+          //inputRef={ ref => this.setDebounceInput(ref) }
           placeholder="Search name, keyword, location..."
           className="form-control"
         />
