@@ -62,15 +62,14 @@ class Search extends React.Component {
 
     if ( helpType ) {
       query.helpType = helpType;
-    }
 
-    // Reset URL path for dropdown results
-    if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
-      location.pathname = "/search";
+      // Reset URL path for dropdown results
+      if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
+        location.pathname = "/search";
+      }
     }
     
     location.search = `?${qs.stringify(query)}`;
-
     this.props.history.push(location);
   }
 
