@@ -58,6 +58,15 @@
   @include hoverGlyph("github-hover");
 }
 
+.search {
+  @include compositeGlyph("search");
+  @include hoverGlyph("search-focus");
+}
+
+.search-focus {
+  @include compositeGlyph("search-focus");
+}
+
 .dark-theme {
   .twitter {
     @include compositeGlyph("twitter-dark-theme");
