@@ -64,6 +64,10 @@ class Search extends React.Component {
       query.helpType = helpType;
     }
 
+    if (location.pathname.endsWith("people")) {
+      location.pathname = "/search/projects";
+    }
+    
     location.search = `?${qs.stringify(query)}`;
 
     this.props.history.push(location);
