@@ -117,19 +117,28 @@ class Search extends React.Component {
     // });
   }
 
+  inputFocusEvent() {
+    let input = document.querySelector(`#search-box`);
+    if (document.activeElement === input) {
+      document.querySelector(`.search-submit`).classList.toggle('search-focus');
+    }
+  }
+
+
   renderSearchBar() {
+
     return <div className="d-flex align-items-center">
       <div className="activated search-bar w-100">
         <DebounceInput id="search-box"
           value={this.state.keywordSearched}
+          onClick={ (event) => {this.inputFocusEvent(event)} }
           //debounceTimeout={300}
           type="search"
-          //onChange={ event => this.handleInputChange(event) }
           //inputRef={ ref => this.setDebounceInput(ref) }
           placeholder="Search name, keyword, location..."
           className="form-control"
         />
-        <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
+        <button className="btn search-submit search small" onClick={() => this.handleDismissBtnClick()}></button>
       </div>
     </div>;
   }

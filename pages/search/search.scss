@@ -16,4 +16,21 @@
     display: flex;
     align-items: center;
   }
+
+  .search-bar input{
+     &:focus,
+     &:active {
+      border-color: $light-blue;
+    }
+  }
+
+  .search-submit {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 17px;
+    height: 17px;
+    padding: 0;
+    border: none;
+  }
 }
