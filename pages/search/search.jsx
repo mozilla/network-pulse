@@ -38,6 +38,7 @@ class Search extends React.Component {
   }
 
   setSearchCriteria(key, value) {
+	// Current UX dictates that either search or help filter can be used, but not both at the same time, so we reset things every time this function gets called
     let criteria = {
       keywordSearched: ``,
       helpType: ``
