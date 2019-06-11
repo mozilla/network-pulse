@@ -17,9 +17,9 @@
     align-items: center;
   }
 
-  .search-bar input{
-     &:focus,
-     &:active {
+  .search-bar input {
+    &:focus,
+    &:active {
       border-color: $light-blue;
     }
   }
