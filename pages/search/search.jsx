@@ -131,8 +131,8 @@ class Search extends React.Component {
           button.classList.remove('search-focus');
         }
     });
-
-    document.removeEventListener("click", () => {return null;});
+  
+    //document.removeEventListener("click", () => {return null;});
   }
 
 
