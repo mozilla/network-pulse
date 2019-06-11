@@ -67,7 +67,11 @@ class SearchTabGroup extends React.Component {
       </Link>;
     });
 
-    return <div className="tab-control-container mb-4">
+    let tabContainerClasses = classNames(`tab-control-container mb-4`, {
+      'd-none': this.props.helpType
+    });
+
+    return <div className={tabContainerClasses}>
       { tabControls }
     </div>;
   }
@@ -84,7 +88,7 @@ class SearchTabGroup extends React.Component {
     return SearchTab(
       this.state.activeTab === `projects` ? ProjectLoader : ProfileLoader,
       this.state.activeTab
-    )({ keywordSearched : this.props.keywordSearched });
+    )({ keywordSearched : this.props.keywordSearched, helpType: this.props.helpType });
   }
 
   render() {
