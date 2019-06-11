@@ -244,7 +244,7 @@ textarea {
   &-container {
     background: $blue;
     position: absolute;
-    z-index: 1;
+    z-index: map-get($z-indexes, featured-flag);
     left: 0;
     top: 0;
   }
@@ -264,6 +264,7 @@ textarea {
 @import '../components/notification-bar/notification-bar';
 @import '../components/profile-tab-group/profile-tab-group';
 @import '../components/search-tab-group/search-tab-group';
+@import '../components/join-us-modal/join-us-modal';
 
 // Pages
 
