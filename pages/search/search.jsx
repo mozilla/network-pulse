@@ -24,6 +24,7 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
+    document.querySelector(`.search-submit`).classList.add(`search-focus`);
   }
 
   getSearchCriteria(props) {
@@ -119,19 +120,30 @@ class Search extends React.Component {
 
   inputFocusEvent() {
     let input = document.querySelector(`#search-box`);
-    if (document.activeElement === input) {
-      document.querySelector(`.search-submit`).classList.toggle('search-focus');
-    }
+    let button = document.querySelector(`.search-submit`);
+
+    document.addEventListener("click", (event) => {
+        if (event.target === input) {
+          button.classList.add('search-focus');
+        }
+
+        if (event.target !== input && button.classList.contains('search-focus')) {
+          button.classList.remove('search-focus');
+        }
+    });
+
+    document.removeEventListener("click", () => {return null;});
   }
 
 
   renderSearchBar() {
 
+    this.inputFocusEvent();
+
     return <div className="d-flex align-items-center">
       <div className="activated search-bar w-100">
         <DebounceInput id="search-box"
           value={this.state.keywordSearched}
-          onClick={ (event) => {this.inputFocusEvent(event)} }
           //debounceTimeout={300}
           type="search"
           //inputRef={ ref => this.setDebounceInput(ref) }
