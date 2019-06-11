@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Service from '../../js/service';
 
 export default class HelpDropdown extends React.Component {
@@ -22,7 +23,7 @@ export default class HelpDropdown extends React.Component {
     });
 
     return (
-      <select className="custom-select" value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
+      <select className="custom-select w-100" value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
         <option value="">Help</option>
         {renderedHelpTypes}
       </select>
