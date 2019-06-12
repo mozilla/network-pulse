@@ -71,9 +71,11 @@ class SearchTabGroup extends React.Component {
       'd-none': this.props.helpType
     });
 
-    return <div className={tabContainerClasses}>
+    if (this.props.keywordSearched) {
+      return <div className={tabContainerClasses}>
       { tabControls }
     </div>;
+    }
   }
 
   renderTab() {
