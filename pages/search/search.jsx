@@ -99,7 +99,7 @@ class Search extends React.Component {
     //this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
-  handleDismissBtnClick() {
+  handleUserSearch() {
     let inputQuery = document.querySelector(`#search-box`);
     let keywordsEntered = inputQuery.value;
 
@@ -110,13 +110,6 @@ class Search extends React.Component {
     });
 
     this.setSearchCriteria(`keywordSearched`, keywordsEntered);
-    // this.setState({ keywordSearched: `` }, () => {
-    //   this.updateBrowserHistory();
-    //   // The focus() function of <input /> isn't exposed by <DebounceInput />
-    //   // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
-    //   // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
-    //   document.querySelector(`#search-box`).focus();
-    // });
   }
 
   inputFocusEvent() {
@@ -146,7 +139,7 @@ class Search extends React.Component {
           placeholder="Search name, keyword, location..."
           className="form-control"
         />
-        <button className="btn search-submit search small" onClick={() => this.handleDismissBtnClick()}></button>
+        <button className="btn search-submit search small" onClick={() => this.handleUserSearch()}></button>
       </div>
     </div>;
   }
