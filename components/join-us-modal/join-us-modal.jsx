@@ -89,35 +89,25 @@ class JoinUsModal extends React.Component {
   loadProfileToForm(done) {
     // get current profile data and load it into form
     Service.myProfile.get().then(profile => {
-      let fields = createFields();
-
-      for (let i = 1; i <= this.totalStep; i++) {
-        let formSection = fields[`step${i}`];
-
-        Object.keys(formSection).forEach(key => {
-          // load current profile to form fields
-          switch (key) {
-            case `custom_name`:
-              formSection[key].defaultValue = user.name;
-              break;
-            case `email`:
-              formSection[key].defaultValue = user.email;
-              break;
-            default:
-              formSection[key].defaultValue = profile[key];
-          }
-        });
-      }
-
-      this.setState({ fields }, () => done());
+      this.setState({ fields: createFields(this.state.user, profile) }, () =>
+        done()
+      );
     });
   }
 
   handleFormUpdate(evt, name, field, value) {
     let formValues = this.state.formValues;
 
-    formValues[name] = value;
-    this.setState({ formValues });
+    // if value of an image field is a link, we don't wanna include it in the formValues state
+    // as the link is just for previewing user's current profile and not the image object we are
+    // sending to backend
+    if (
+      field.type !== `image` ||
+      (field.type === `image` && typeof value !== `string`)
+    ) {
+      formValues[name] = value;
+      this.setState({ formValues });
+    }
   }
 
   handleFormSubmit() {
@@ -147,12 +137,6 @@ class JoinUsModal extends React.Component {
         });
         console.error(reason);
       });
-  }
-
-  handlePrevBtnClick() {
-    this.setState({
-      currentStep: Math.max(this.state.currentStep - 1, 1)
-    });
   }
 
   getNextScreenState() {
@@ -272,7 +256,6 @@ class JoinUsModal extends React.Component {
   renderButtons() {
     let primaryAction = (
       <div>
-        <button onClick={event => this.handlePrevBtnClick(event)}>Back</button>
         <button
           className="btn btn-secondary"
           onClick={() => this.handleNextBtnClick()}

@@ -37,6 +37,10 @@
   fieldset {
     position: relative;
     margin-bottom: 10px;
+
+    span.optional {
+      display: none;
+    }
   }
 
   fieldset.email {
@@ -64,8 +68,7 @@
     }
   }
 
-  fieldset.newsletter,
-  fieldset.privacy {
+  fieldset.newsletter {
     label {
       @extend .form-check-label;
 

@@ -1,12 +1,12 @@
 import React from "react";
 import validator from "./validator";
 
-module.exports = function(user) {
+module.exports = function(user, profile) {
   let step1 = {
     custom_name: {
       type: `text`,
       placeholder: ``,
-      // defaultValue: user.name, // TODO:FIXME: custom_name or name?
+      defaultValue: profile.custom_name || user.name,
       fieldClassname: `form-control`,
       validator: [
         validator.emptyValueValidator(),
@@ -15,15 +15,21 @@ module.exports = function(user) {
     },
     email: {
       type: `text`,
-      // defaultValue: user.email,
+      defaultValue: user.email,
       fieldClassname: `form-control`
     },
     newsletter: {
-      optional: true,
       // TODO:FIXME: not sure if Pulse API supports this?
       type: `checkbox`,
       labelClassname: `body-small`,
-      label: `Yes, I want to receive email updates about Mozilla’s campaigns.`,
+      label: (
+        <div className="d-inline-block">
+          <span style={{ background: `Aquamarine` }}>
+            (Not sure if API supports this yet?)
+          </span>{" "}
+          Yes, I want to receive email updates about Mozilla’s campaigns.
+        </div>
+      )
     }
   };
 
@@ -31,8 +37,8 @@ module.exports = function(user) {
     user_bio: {
       optional: true,
       type: `textarea`,
-      label: ``,
       placeholder: `Add bio`,
+      defaultValue: profile.user_bio,
       fieldClassname: `form-control`,
       validator: [validator.maxLengthValidator(140)],
       charLimit: 140,
@@ -46,7 +52,8 @@ module.exports = function(user) {
     thumbnail: {
       optional: true,
       type: `image`,
-      label: ``,
+      // defaultValue: `http://test.example.com:8000${profile.thumbnail}`,
+      defaultValue: `${profile.thumbnail}`,
       prompt: `Select image`,
       reprompt: `Select another image`,
       fieldClassname: `form-control`,
