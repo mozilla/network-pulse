@@ -1,5 +1,5 @@
 import React from "react";
-import validator from "./validator";
+import validator from "../../../js/form-validator";
 
 module.exports = function(user, profile) {
   let step1 = {
