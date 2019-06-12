@@ -10,6 +10,7 @@ export default (props) => {
 
   if (searchKeyword) {
     counterText = counterTextWQuery + searchKeyword;
+    return <p className="query-text">{counterText}</p>;
   }
   
   if (helpType) {
@@ -21,7 +22,7 @@ export default (props) => {
         </span>
       </p>
     );
-  } 
-
-  return <p className="query-text">{counterText}</p>;
+  }
+  
+  return null;
 };
