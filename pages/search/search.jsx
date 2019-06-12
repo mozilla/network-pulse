@@ -4,6 +4,7 @@ import qs from "qs";
 import DebounceInput from 'react-debounce-input';
 import ReactGA from 'react-ga';
 import SearchTabGroup from '../../components/search-tab-group/search-tab-group.jsx';
+import HelpDropdown from '../../components/help-dropdown/help-dropdown.jsx';
 
 class Search extends React.Component {
   constructor(props) {
@@ -29,23 +30,60 @@ class Search extends React.Component {
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
       keywordSearched: query.keyword,
-      activeTab: props.match.params.tab
+      activeTab: props.match.params.tab,
+      helpType: query.helpType
     };
 
     return criteria;
   }
 
+  setSearchCriteria(key, value) {
+	// Current UX dictates that either search or help filter can be used, but not both at the same time, so we reset things every time this function gets called
+    let criteria = {
+      keywordSearched: ``,
+      helpType: ``
+    };
+
+    criteria[key] = value;
+
+    this.setState(criteria, () => {
+      this.updateBrowserHistory();
+    });
+  }
+
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
+    let helpType = this.state.helpType;
     let location = { pathname: this.props.location.pathname };
     let query = {};
-
+   
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
     }
 
+    if ( helpType ) {
+      query.helpType = helpType;
+
+      // Reset URL path for dropdown results
+      if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
+        location.pathname = "/search";
+      }
+    }
+    
     location.search = `?${qs.stringify(query)}`;
     this.props.history.push(location);
+  }
+
+  handleHelpChange(event) {
+    let helpType = event.target.value;
+
+    ReactGA.event({
+      category: `Search`,
+      action: `Help filtered`,
+      label: helpType
+    });
+
+    this.setSearchCriteria(`helpType`, helpType);
   }
 
   handleInputChange(event) {
@@ -57,9 +95,7 @@ class Search extends React.Component {
       label: keywordsEntered
     });
 
-    this.setState({ keywordSearched: keywordsEntered }, () => {
-      this.updateBrowserHistory();
-    });
+    this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
   handleDismissBtnClick() {
@@ -104,7 +140,15 @@ class Search extends React.Component {
   }
 
   renderSearchControls() {
-    return <div>{ this.renderSearchBar() }</div>;
+    return <div className="row mt-4 mb-5">
+      <div className="col-12 col-lg-8 mb-4">{ this.renderSearchBar() }</div>
+      <div className="col-12 col-lg-4">
+        <HelpDropdown 
+          value={  this.state.helpType } 
+          helpType={ (event) => this.handleHelpChange(event)} 
+        />
+      </div>
+    </div>;
   }
 
   render() {
@@ -113,8 +157,9 @@ class Search extends React.Component {
         <Helmet><title>{this.state.keywordSearched}</title></Helmet>
         { this.renderSearchControls() }
         <SearchTabGroup
-          activeTab={this.state.activeTab}
+          activeTab={this.state.helpType ? `projects` : this.state.activeTab}
           keywordSearched={this.state.keywordSearched}
+          helpType={this.state.helpType}
         />
       </div>
     );
