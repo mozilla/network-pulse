@@ -1,18 +1,18 @@
-import React from 'react';
-import ReactGA from 'react-ga';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import ModerationPanel from '../moderation-panel.jsx';
-import Creators from './meta/creators.jsx';
-import Thumbnail from './meta/thumbnail.jsx';
-import Title from './meta/title.jsx';
-import Description from './meta/description.jsx';
-import GetInvolved from './meta/get-involved.jsx';
-import WhyInteresting from './meta/why-interesting.jsx';
-import IssuesAndTags from './meta/issues-and-tags.jsx';
-import BookmarkControl from '../bookmark-control.jsx';
-import bookmarkManager from '../../js/bookmarks-manager';
-import user from '../../js/app-user.js';
+import React from "react";
+import ReactGA from "react-ga";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import ModerationPanel from "../moderation-panel.jsx";
+import Creators from "./meta/creators.jsx";
+import Thumbnail from "./meta/thumbnail.jsx";
+import Title from "./meta/title.jsx";
+import Description from "./meta/description.jsx";
+import GetInvolved from "./meta/get-involved.jsx";
+import WhyInteresting from "./meta/why-interesting.jsx";
+import IssuesAndTags from "./meta/issues-and-tags.jsx";
+import BookmarkControl from "../bookmark-control.jsx";
+import bookmarkManager from "../../js/bookmarks-manager";
+import user from "../../js/app-user.js";
 
 class ProjectCard extends React.Component {
   constructor(props) {
@@ -23,17 +23,19 @@ class ProjectCard extends React.Component {
   }
 
   sendGaEvent(config) {
-    config = Object.assign({
-      category: `Entry`,
-      action: ``,
-      label: this.props.title
-    }, config);
+    config = Object.assign(
+      {
+        category: `Entry`,
+        action: ``,
+        label: this.props.title
+      },
+      config
+    );
 
     // config usually contains the following properties:
     // category, action, label, transport
     ReactGA.event(config);
   }
-
 
   componentDidMount() {
     this.setInitialBookmarkedStatus();
@@ -69,7 +71,7 @@ class ProjectCard extends React.Component {
 
   handleReadMoreClick() {
     this.sendGaEvent({
-      action: `Read More`,
+      action: `Read More`
     });
   }
 
@@ -77,10 +79,13 @@ class ProjectCard extends React.Component {
     if (this.props.onModerationMode) return null;
 
     return (
-      <BookmarkControl id={this.props.id}
+      <BookmarkControl
+        id={this.props.id}
         title={this.props.title}
         isBookmarked={this.props.isBookmarked}
-        updateCardBookmarkedState={(bookmarked) => { this.updateCardBookmarkedState(bookmarked); }}
+        updateCardBookmarkedState={bookmarked => {
+          this.updateCardBookmarkedState(bookmarked);
+        }}
         className="align-middle"
       />
     );
@@ -89,20 +94,34 @@ class ProjectCard extends React.Component {
   renderModerationPanel() {
     if (!this.props.onModerationMode) return null;
 
-    return <ModerationPanel id={this.props.id} moderationState={this.props.moderationState} featured={this.props.featured} />;
+    return (
+      <ModerationPanel
+        id={this.props.id}
+        moderationState={this.props.moderationState}
+        featured={this.props.featured}
+      />
+    );
   }
 
   renderExtraMeta() {
     if (!this.props.onModerationMode) return null;
 
-    return <div>
-      <WhyInteresting interest={this.props.interest} />
-      <IssuesAndTags issues={this.props.issues} tags={this.props.tags} className={`pb-3 mb-3`} />
-      <GetInvolved getInvolved={this.props.getInvolved}
-        getInvolvedUrl={this.props.getInvolvedUrl}
-        helpTypes={this.props.helpTypes}
-        sendGaEvent={(config) => this.sendGaEvent(config)} />
-    </div>;
+    return (
+      <div>
+        <WhyInteresting interest={this.props.interest} />
+        <IssuesAndTags
+          issues={this.props.issues}
+          tags={this.props.tags}
+          className={`pb-3 mb-3`}
+        />
+        <GetInvolved
+          getInvolved={this.props.getInvolved}
+          getInvolvedUrl={this.props.getInvolvedUrl}
+          helpTypes={this.props.helpTypes}
+          sendGaEvent={config => this.sendGaEvent(config)}
+        />
+      </div>
+    );
   }
 
   renderFullUrlSection() {
@@ -112,7 +131,16 @@ class ProjectCard extends React.Component {
       { label: `Link`, link: this.props.contentUrl },
       { label: `Help`, link: this.props.getInvolvedUrl }
     ].map(url => {
-      return url.link && <li key={url.label}>{url.label}: <a href={url.link} target="_blank">{url.link}</a></li>;
+      return (
+        url.link && (
+          <li key={url.label}>
+            {url.label}:{" "}
+            <a href={url.link} target="_blank">
+              {url.link}
+            </a>
+          </li>
+        )
+      );
     });
 
     return <ul className="list-unstyled">{urls}</ul>;
@@ -121,7 +149,14 @@ class ProjectCard extends React.Component {
   renderFeaturedFlag() {
     if (!this.props.featured) return null;
 
-    return <div role="featured-content" className="featured-flag-container mt-3 p-1 text-align-right"><p className="body-small featured-flag mb-0 featured-glyph">Featured</p></div>;
+    return (
+      <div
+        role="featured-content"
+        className="featured-flag-container mt-3 p-1 text-align-right"
+      >
+        <p className="body-small featured-flag mb-0 featured-glyph">Featured</p>
+      </div>
+    );
   }
 
   render() {
@@ -130,7 +165,7 @@ class ProjectCard extends React.Component {
     let classnames = classNames(`project-card`, {
       "regular-list-mode": !this.props.onModerationMode,
       "moderation-mode": this.props.onModerationMode,
-      "bookmarked": this.state.bookmarked
+      bookmarked: this.state.bookmarked
     });
 
     let detailViewLink = `/entry/${this.props.id}`;
@@ -138,28 +173,35 @@ class ProjectCard extends React.Component {
     return (
       <div className={wrapperClassnames}>
         <div className={classnames}>
-          { this.renderModerationPanel() }
+          {this.renderModerationPanel()}
           <div className="summary-content">
-            { this.renderFeaturedFlag() }
-            <Thumbnail thumbnail={this.props.thumbnail}
+            {this.renderFeaturedFlag()}
+            <Thumbnail
+              thumbnail={this.props.thumbnail}
               link={!this.props.onModerationMode ? detailViewLink : ``}
-              sendGaEvent={() => this.handleReadMoreClick()} />
+              sendGaEvent={() => this.handleReadMoreClick()}
+            />
             <div className="content mt-2">
               <div className="d-flex">
-                <Title title={this.props.title}
+                <Title
+                  title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
                   className="pr-2"
                 />
-                { this.renderActionPanel() }
+                {this.renderActionPanel()}
               </div>
               <Creators
                 creators={this.props.relatedCreators}
-                creatorClickHandler={(event, name) => this.handleCreatorClick(event, name)}
+                creatorClickHandler={(event, name) =>
+                  this.handleCreatorClick(event, name)
+                }
               />
-              { this.props.onModerationMode && <Description description={this.props.description} /> }
-              { this.renderExtraMeta() }
-              { this.renderFullUrlSection() }
+              {this.props.onModerationMode && (
+                <Description description={this.props.description} />
+              )}
+              {this.renderExtraMeta()}
+              {this.renderFullUrlSection()}
             </div>
           </div>
         </div>

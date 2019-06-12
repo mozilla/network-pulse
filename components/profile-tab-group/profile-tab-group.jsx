@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Link, Redirect } from 'react-router-dom';
-import ProfileAboutTab from '../../components/profile-about-tab/profile-about-tab.jsx';
-import ProfileProjectTab from '../../components/profile-project-tab/profile-project-tab.jsx';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Link, Redirect } from "react-router-dom";
+import ProfileAboutTab from "../../components/profile-about-tab/profile-about-tab.jsx";
+import ProfileProjectTab from "../../components/profile-project-tab/profile-project-tab.jsx";
 
 const PROJECT_TYPES_BY_TAB_NAME = {
-  about: [ ], // a tab to show user's long bio
-  projects: [ `published`, `created` ], // a tab to show projects
-  favs: [ `favorited` ] // a tab to show user's favourited projects
+  about: [], // a tab to show user's long bio
+  projects: [`published`, `created`], // a tab to show projects
+  favs: [`favorited`] // a tab to show user's favourited projects
 };
 
 class ProfileTabGroup extends React.Component {
@@ -62,7 +62,12 @@ class ProfileTabGroup extends React.Component {
       // 2 scenarios
       // [1] viewing your own profile: always show tab
       // [2] viewing other people's profile: show tab only if there is content to show
-      return props.myProfile || PROJECT_TYPES_BY_TAB_NAME[tab].some(type => props.entryCount[type] && props.entryCount[type] > 0);
+      return (
+        props.myProfile ||
+        PROJECT_TYPES_BY_TAB_NAME[tab].some(
+          type => props.entryCount[type] && props.entryCount[type] > 0
+        )
+      );
     });
   }
 
@@ -72,35 +77,41 @@ class ProfileTabGroup extends React.Component {
         active: this.state.activeTab === tabName
       });
 
-      return <Link
-        key={tabName}
-        className={classnames}
-        to={`/profile/${this.props.profileId}/${tabName}`}
-      >
-        {tabName}
-      </Link>;
+      return (
+        <Link
+          key={tabName}
+          className={classnames}
+          to={`/profile/${this.props.profileId}/${tabName}`}
+        >
+          {tabName}
+        </Link>
+      );
     });
 
-    return <div className="tab-control-container">
-      { tabControls }
-    </div>;
+    return <div className="tab-control-container">{tabControls}</div>;
   }
 
   renderTab() {
     // if activeTab isn't set, redirect to base profile route and show the default tab
     if (!this.state.activeTab) {
-      return <Redirect to={{
-        pathname: `/profile/${this.props.profileId}`,
-        state: { activeTab: this.state.availableTabs[0] }
-      }} />;
+      return (
+        <Redirect
+          to={{
+            pathname: `/profile/${this.props.profileId}`,
+            state: { activeTab: this.state.availableTabs[0] }
+          }}
+        />
+      );
     }
 
-    let tab = <ProfileProjectTab
-      profileId={this.props.profileId}
-      myProfile={this.props.myProfile}
-      tabName={this.state.activeTab}
-      projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
-    />;
+    let tab = (
+      <ProfileProjectTab
+        profileId={this.props.profileId}
+        myProfile={this.props.myProfile}
+        tabName={this.state.activeTab}
+        projectTypes={PROJECT_TYPES_BY_TAB_NAME[this.state.activeTab]}
+      />
+    );
 
     if (this.state.activeTab === `about`) {
       tab = <ProfileAboutTab longBio={this.props.userBioLong} />;
@@ -123,8 +134,8 @@ class ProfileTabGroup extends React.Component {
 
     return (
       <div>
-        { this.renderTabControls() }
-        { this.renderTab() }
+        {this.renderTabControls()}
+        {this.renderTab()}
       </div>
     );
   }

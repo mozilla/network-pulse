@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Service from '../../js/service.js';
-import ItemList from '../item-list/item-list.jsx';
-import SearchResultCounter from '../../components/search-result-counter.jsx';
-import pageSettings from '../../js/app-page-settings';
+import React from "react";
+import PropTypes from "prop-types";
+import Service from "../../js/service.js";
+import ItemList from "../item-list/item-list.jsx";
+import SearchResultCounter from "../../components/search-result-counter.jsx";
+import pageSettings from "../../js/app-page-settings";
 
 class ProfileLoader extends React.Component {
   constructor(props) {
@@ -63,10 +63,10 @@ class ProfileLoader extends React.Component {
 
     Service.profiles
       .get(combinedParams, this.promiseToken)
-      .then((data) => {
+      .then(data => {
         this.updateStateWithNewData(data);
       })
-      .catch((reason) => {
+      .catch(reason => {
         console.error(reason);
       });
   }
@@ -74,7 +74,9 @@ class ProfileLoader extends React.Component {
   updateStateWithNewData(data) {
     let moreItemsToFetch = !!data.next;
 
-    let nextBatchIndex = moreItemsToFetch ? this.state.nextBatchIndex+1 : this.state.nextBatchIndex;
+    let nextBatchIndex = moreItemsToFetch
+      ? this.state.nextBatchIndex + 1
+      : this.state.nextBatchIndex;
 
     let currentListInfo = {
       items: this.state.items.concat(data.results),
@@ -92,16 +94,18 @@ class ProfileLoader extends React.Component {
   }
 
   renderCounter() {
-    return <SearchResultCounter
-      searchKeyword={this.props.search}
-      totalMatched={this.state.totalMatched}
-    />;
+    return (
+      <SearchResultCounter
+        searchKeyword={this.props.search}
+        totalMatched={this.state.totalMatched}
+      />
+    );
   }
 
   render() {
     return (
       <div>
-        { this.props.showCounter && this.renderCounter() }
+        {this.props.showCounter && this.renderCounter()}
         <ItemList
           type="profile"
           items={this.state.items}
@@ -115,7 +119,7 @@ class ProfileLoader extends React.Component {
 }
 
 ProfileLoader.propTypes = {
-  showCounter: PropTypes.bool,
+  showCounter: PropTypes.bool
 };
 
 export default ProfileLoader;
