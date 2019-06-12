@@ -24,6 +24,8 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
+    document.querySelector(`.search-submit`).classList.add(`search-focus`);
+    this.inputFocusEvent();
   }
 
   getSearchCriteria(props) {
@@ -94,17 +96,46 @@ class Search extends React.Component {
       action: `Keywords entered`,
       label: keywordsEntered
     });
+  }
+
+  handleUserSearch() {
+    let inputQuery = document.querySelector(`#search-box`);
+    let keywordsEntered = inputQuery.value;
+
+    ReactGA.event({
+      category: `Search`,
+      action: `Keywords entered`,
+      label: keywordsEntered
+    });
 
     this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
-  handleDismissBtnClick() {
-    this.setState({ keywordSearched: `` }, () => {
-      this.updateBrowserHistory();
-      // The focus() function of <input /> isn't exposed by <DebounceInput />
-      // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
-      // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
-      document.querySelector(`#search-box`).focus();
+  inputFocusEvent() {
+    let input = document.querySelector(`#search-box`);
+    let button = document.querySelector(`.search-submit`);
+
+    document.addEventListener("click", (event) => {
+        if (event.target === input) {
+          button.classList.add('search-focus');
+        }
+        if (event.target !== input && button.classList.contains('search-focus')) {
+          button.classList.remove('search-focus');
+        }
+    });
+  }
+
+  inputFocusEvent() {
+    let input = document.querySelector(`#search-box`);
+    let button = document.querySelector(`.search-submit`);
+
+    document.addEventListener("click", (event) => {
+        if (event.target === input) {
+          button.classList.add('search-focus');
+        }
+        if (event.target !== input && button.classList.contains('search-focus')) {
+          button.classList.remove('search-focus');
+        }
     });
   }
 
@@ -115,12 +146,11 @@ class Search extends React.Component {
           value={this.state.keywordSearched}
           debounceTimeout={300}
           type="search"
-          onChange={ event => this.handleInputChange(event) }
           inputRef={ ref => this.setDebounceInput(ref) }
           placeholder="Search name, keyword, location..."
           className="form-control"
         />
-        <button className="btn dismiss" onClick={() => this.handleDismissBtnClick()}>&times;</button>
+        <button className="btn search-submit search small" onClick={() => this.handleUserSearch()}></button>
       </div>
     </div>;
   }
