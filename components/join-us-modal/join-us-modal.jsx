@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
@@ -12,27 +11,37 @@ import createFields from "./form/create-fields";
 
 Modal.setAppElement("#app");
 
+const SIGN_UP_PARAM = `sign_up`;
+const EDIT_NEW_PROFILE_PARAM = `edit_new_profile`;
+
 class JoinUsModal extends React.Component {
   constructor(props) {
     super(props);
     this.totalStep = 3;
     this.state = {
-      user,
+      user: {},
       formValues: {},
       currentStep: 1,
-      submitting: false,
       showModal: false,
-      showConfirmation: false,
-      modalIsOpen: true
+      submitting: false,
+      showConfirmation: false
     };
   }
 
   openModal() {
-    this.setState({ modalIsOpen: true });
+    this.setState({ showModal: true }, () => {
+      // a hack to disable 'email' field
+      // because react-formbuilder doesn't allow setting a field as disabled
+      try {
+        document.querySelector(`input[name='email']`).disabled = true;
+      } catch (e) {
+        console.error(e);
+      }
+    });
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    this.setState({ showModal: false });
   }
 
   componentDidMount() {
@@ -41,16 +50,28 @@ class JoinUsModal extends React.Component {
 
     let query = qs.parse(this.props.location.search.substring(1));
 
-    if (query.sign_up === `true`) {
+    // send user to sign in/up page
+    // and make sure we redirect user back to where he/she was
+    if (query[SIGN_UP_PARAM] === `true`) {
       user.login(
-        utility.getCurrentURL().replace(`sign_up=true`, `edit_new_profile=true`)
+        utility
+          .getCurrentURL()
+          .replace(`${SIGN_UP_PARAM}=true`, `${EDIT_NEW_PROFILE_PARAM}=true`)
       );
     }
+  }
 
-    if (query.edit_new_profile === `true`) {
-      // TODO:FIXME: do we always show this modal?
-      //             or only the first time this user has signed in using the special link
-      this.setState({ showModal: true });
+  componentDidUpdate(prevProps, prevState) {
+    // show profile edit modal
+    let query = qs.parse(this.props.location.search.substring(1));
+    if (query[EDIT_NEW_PROFILE_PARAM] === `true`) {
+      if (
+        !prevState.user.loggedin &&
+        this.state.user.loggedin &&
+        !this.state.showModal
+      ) {
+        this.loadProfileToForm(() => this.openModal());
+      }
     }
   }
 
@@ -61,42 +82,47 @@ class JoinUsModal extends React.Component {
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified`) {
-      console.log(`verified`, user);
-      this.setState(
-        {
-          user,
-          fields: createFields(user)
-        },
-        () => {
-          // hack to set email field as disabled / not editable
-          try {
-            document.querySelector(`input[name='email']`).disabled = true;
-          } catch (e) {
-
-          }
-        }
-      );
+      this.setState({ user });
     }
+  }
+
+  loadProfileToForm(done) {
+    // get current profile data and load it into form
+    Service.myProfile.get().then(profile => {
+      let fields = createFields();
+
+      for (let i = 1; i <= this.totalStep; i++) {
+        let formSection = fields[`step${i}`];
+
+        Object.keys(formSection).forEach(key => {
+          // load current profile to form fields
+          switch (key) {
+            case `custom_name`:
+              formSection[key].defaultValue = user.name;
+              break;
+            case `email`:
+              formSection[key].defaultValue = user.email;
+              break;
+            default:
+              formSection[key].defaultValue = profile[key];
+          }
+        });
+      }
+
+      this.setState({ fields }, () => done());
+    });
   }
 
   handleFormUpdate(evt, name, field, value) {
     let formValues = this.state.formValues;
 
     formValues[name] = value;
-    this.setState({
-      formValues,
-      // hide notice once user starts typing again
-      // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
-      showFormInvalidNotice: false
-    });
+    this.setState({ formValues });
   }
 
   handleFormSubmit() {
-    // TODO:FIXME: delete email from post value
-    // TODO:FIXME: deal with these states
     this.setState(
       {
-        showFormInvalidNotice: false,
         submitting: true
       },
       () => {
@@ -108,9 +134,9 @@ class JoinUsModal extends React.Component {
     );
   }
 
-  updateProfile(profile) {
+  updateProfile(formValues) {
     Service.myProfile
-      .put(profile)
+      .put(formValues)
       .then(() => {
         this.setState({ showConfirmation: true });
       })
@@ -130,29 +156,23 @@ class JoinUsModal extends React.Component {
   }
 
   getNextScreenState() {
-    let state = {};
-
-    if (this.state.currentStep === this.totalStep) {
-      // TODO:FIXME: do we need this? formsubmit should have this handled?!
-      state.showConfirmation = true;
-    } else {
-      state.currentStep = this.state.currentStep + 1;
-    }
-
-    return state;
+    return this.state.currentStep < this.totalStep
+      ? { currentStep: this.state.currentStep + 1 }
+      : {};
   }
 
   handleNextBtnClick() {
+    // validate current form section
     this.refs[`step${this.state.currentStep}Form`].validates(valid => {
-      console.log(`current form is valid? ` + valid);
+      console.log(`current form is valid? ${valid}`, this.state.formValues);
 
       if (valid) {
         if (this.state.currentStep === this.totalStep) {
+          // we've reached the last step of the form, submit the form
           this.handleFormSubmit();
         } else {
-          this.setState(this.getNextScreenState(), () => {
-            console.log(this.state.formValues);
-          });
+          // more steps to complete
+          this.setState(this.getNextScreenState());
         }
       }
     });
@@ -162,15 +182,19 @@ class JoinUsModal extends React.Component {
     let currentStep = this.state.currentStep;
     let formValues = this.state.formValues;
     let fieldsToReset = this.state.fields[`step${this.state.currentStep}`];
+
     Object.keys(fieldsToReset).forEach(key => {
       delete formValues[key];
     });
 
-    this.setState(Object.assign({ formValues }, this.getNextScreenState()), () => {
-      if (currentStep === this.totalStep) {
-        this.handleFormSubmit();
+    this.setState(
+      Object.assign({ formValues }, this.getNextScreenState()),
+      () => {
+        if (currentStep === this.totalStep) {
+          this.handleFormSubmit();
+        }
       }
-    });
+    );
   }
 
   renderProgressDots() {
@@ -200,7 +224,8 @@ class JoinUsModal extends React.Component {
             fields={this.state.fields[`step1`]}
             inlineErrors={true}
             onUpdate={(evt, name, field, value) =>
-              this.handleFormUpdate(evt, name, field, value)}
+              this.handleFormUpdate(evt, name, field, value)
+            }
           />
         </Step>
         <Step
@@ -213,7 +238,8 @@ class JoinUsModal extends React.Component {
             fields={this.state.fields[`step2`]}
             inlineErrors={true}
             onUpdate={(evt, name, field, value) =>
-              this.handleFormUpdate(evt, name, field, value)}
+              this.handleFormUpdate(evt, name, field, value)
+            }
           />
         </Step>
         <Step show={this.state.currentStep === 3} heading="Add a profile photo">
@@ -222,7 +248,8 @@ class JoinUsModal extends React.Component {
             fields={this.state.fields[`step3`]}
             inlineErrors={true}
             onUpdate={(evt, name, field, value) =>
-      this.handleFormUpdate(evt, name, field, value)}
+              this.handleFormUpdate(evt, name, field, value)
+            }
           />
         </Step>
       </div>
@@ -255,7 +282,8 @@ class JoinUsModal extends React.Component {
         </button>
       </div>
     );
-    let secondaryAction = (
+
+    let secondaryAction = this.state.currentStep !== 1 && (
       <button
         className="btn btn-link inline-link"
         onClick={() => this.handleSkipBtnClick()}
@@ -295,11 +323,11 @@ class JoinUsModal extends React.Component {
   }
 
   render() {
-    if (!this.state.showModal || !this.state.user.loggedin) return null;
+    if (!this.state.showModal) return null;
 
     return (
       <Modal
-        isOpen={this.state.modalIsOpen}
+        isOpen={this.state.showModal}
         onRequestClose={() => this.closeModal()}
         shouldCloseOnOverlayClick={false}
         className="join-us-modal"

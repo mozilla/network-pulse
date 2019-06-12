@@ -2,14 +2,11 @@ import React from "react";
 import validator from "./validator";
 
 module.exports = function(user) {
-  console.log(`user passed to form`, user);
-
   let step1 = {
     custom_name: {
-      // TODO:FIXME: custom_name or name?
       type: `text`,
       placeholder: ``,
-      defaultValue: user.name, // TODO:FIXME: custom_name or name?
+      // defaultValue: user.name, // TODO:FIXME: custom_name or name?
       fieldClassname: `form-control`,
       validator: [
         validator.emptyValueValidator(),
@@ -18,7 +15,7 @@ module.exports = function(user) {
     },
     email: {
       type: `text`,
-      defaultValue: user.email,
+      // defaultValue: user.email,
       fieldClassname: `form-control`
     },
     newsletter: {
