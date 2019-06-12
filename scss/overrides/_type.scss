@@ -12,3 +12,7 @@ h4,
 .h4-heading {
   @include scaleText(22px, 32px, 24px, 30px);
 }
+
+a {
+  @include link-text-decoration;
+}
