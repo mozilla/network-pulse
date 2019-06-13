@@ -96,33 +96,8 @@ class Search extends React.Component {
       action: `Keywords entered`,
       label: keywordsEntered
     });
-  }
-
-  handleUserSearch() {
-    let inputQuery = document.querySelector(`#search-box`);
-    let keywordsEntered = inputQuery.value;
-
-    ReactGA.event({
-      category: `Search`,
-      action: `Keywords entered`,
-      label: keywordsEntered
-    });
 
     this.setSearchCriteria(`keywordSearched`, keywordsEntered);
-  }
-
-  inputFocusEvent() {
-    let input = document.querySelector(`#search-box`);
-    let button = document.querySelector(`.search-submit`);
-
-    document.addEventListener("click", (event) => {
-        if (event.target === input) {
-          button.classList.add('search-focus');
-        }
-        if (event.target !== input && button.classList.contains('search-focus')) {
-          button.classList.remove('search-focus');
-        }
-    });
   }
 
   inputFocusEvent() {
@@ -146,11 +121,12 @@ class Search extends React.Component {
           value={this.state.keywordSearched}
           debounceTimeout={300}
           type="search"
+          onChange={ event => this.handleInputChange(event) }
           inputRef={ ref => this.setDebounceInput(ref) }
           placeholder="Search keywords, people, tags..."
           className="form-control"
         />
-        <button className="btn search-submit search small" onClick={() => this.handleUserSearch()}></button>
+        <button className="btn search-submit search small"></button>
       </div>
     </div>;
   }
