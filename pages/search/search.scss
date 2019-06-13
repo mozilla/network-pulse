@@ -17,13 +17,6 @@
     align-items: center;
   }
 
-  .search-bar input {
-    &:focus,
-    &:active {
-      border-color: $light-blue;
-    }
-  }
-
   .search-submit {
     position: absolute;
     top: 0.6rem;

@@ -147,7 +147,7 @@ class Search extends React.Component {
           debounceTimeout={300}
           type="search"
           inputRef={ ref => this.setDebounceInput(ref) }
-          placeholder="Search name, keyword, location..."
+          placeholder="Search keywords, people, tags..."
           className="form-control"
         />
         <button className="btn search-submit search small" onClick={() => this.handleUserSearch()}></button>
