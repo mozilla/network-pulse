@@ -39,4 +39,9 @@
   background-size: 0.65em auto, 100%;
   cursor: pointer;
   color: black;
+
+  &:focus,
+  &:active {
+    border-color: $light-blue;
+  }
 }
