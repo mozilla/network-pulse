@@ -48,7 +48,7 @@ class SearchTabGroup extends React.Component {
 
   renderTabControls() {
     let tabControls = this.state.availableTabs.map(tabName => {
-      let classnames = classNames(`btn btn-tab open-sans text-uppercase`, {
+      let classnames = classNames(`btn btn-tab`, {
         active: this.state.activeTab === tabName
       });
 
