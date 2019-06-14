@@ -5,10 +5,11 @@ import classNames from "classnames";
 import NavLink from "../nav-link/nav-link.jsx";
 import user from "../../js/app-user";
 import utility from "../../js/utility";
+import SignOutButton from "../sign-out-button.jsx"
 
 class NavListItem extends React.Component {
   render() {
-    let classes = classNames(`d-inline-block my-md-0`, this.props.className, {
+    let classes = classNames(`d-inline-block`, this.props.className, {
       "my-2 my-md-0 mr-md-4": !this.props.noMargin
     });
 
@@ -50,7 +51,7 @@ class NavBar extends React.Component {
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
       >
-        Signup / Signin
+      Signin / Signup
       </a>
     );
 
@@ -59,6 +60,7 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
+          className="signupin"
         >
           {user.name}
         </NavLink>
@@ -107,7 +109,7 @@ class NavBar extends React.Component {
 
   renderNavList() {
     let classes = classNames(
-      `nav-link-list list-unstyled ml-lg-4 mt-md-3 mt-lg-0 mb-0`,
+      `nav-link-list list-unstyled ml-lg-4 mt-md-3 mt-lg-0 mb-0 hidden-md-up`,
       {
         "d-flex": this.state.burgerActive,
         "flex-column": this.state.burgerActive
@@ -128,35 +130,24 @@ class NavBar extends React.Component {
 
     return (
       <ul className={classes}>
-        <div className="d-flex justify-content-end mb-2 hidden-md-up">
-          <button
-            className="btn btn-link"
-            id="btn-dismiss"
-            onClick={() => this.handleBurgerClick()}
-          >
-            <img src="/assets/svg/x.svg" width="23" />
+        {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
+          <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
+            <div className="burger-bar burger-bar-top"></div>
+            <div className="burger-bar burger-bar-middle"></div>
+            <div className="burger-bar burger-bar-bottom"></div>
           </button>
-        </div>
-        {this.renderName(`hidden-md-up`)}
-        <NavListItem>
-          <MainNavLink to="/featured">Featured</MainNavLink>
+        </div> */}
+        <NavListItem className="dark-theme">
+          <MainNavLink to={`/profile/${user.profileid}`}>Profile</MainNavLink>
         </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/latest">Latest</MainNavLink>
+        <NavListItem className="dark-theme">
+          <MainNavLink to="/myprofile">Edit Profile</MainNavLink>
         </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/issues">Issues</MainNavLink>
+        <NavListItem className="dark-theme">
+          <MainNavLink to="/favs">Favs</MainNavLink>
         </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/favs" className="bookmarks">
-            Favs
-          </MainNavLink>
-        </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/search" className="btn-search">
-            <i className="fa fa-search" />
-            <span className="sr-only">Search</span>
-          </MainNavLink>
+        <NavListItem className="dark-theme">
+          <SignOutButton user={this.props.user} history={this.props.history}/>
         </NavListItem>
         {moderatorLink}
       </ul>
@@ -171,52 +162,43 @@ class NavBar extends React.Component {
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
 
     return (
-      <div className="navbar">
+      <div className="navbar mb-5">
         <div className="container">
-          <div className="row open-sans align-items-center">
+          <div className="row align-items-center">
             <div
-              className="col-12 col-lg-9 d-flex flex-column flex-lg-row"
+              className="col-6"
               id="main-nav-wrapper"
             >
-              <ReactRouterNavLink to="/" className="d-inline-block">
-                <img
-                  src="/assets/svg/pulse-logo-mobile.svg"
-                  alt="Mozilla Pulse"
-                  className="logo hidden-md-up"
-                  width="40"
-                />
-                <img
-                  src="/assets/svg/pulse-logo.svg"
-                  alt="Mozilla Pulse"
-                  className="logo hidden-sm-down"
-                  width="187"
-                />
-              </ReactRouterNavLink>
+              <div className="d-flex align-items-center">
+                <button id="btn-dismiss" className="burger hidden-lg-up mr-3 ml-md-0" onClick={() => this.handleBurgerClick()}>    
+                  <div className="burger-bar burger-bar-top"></div>
+                  <div className="burger-bar burger-bar-middle"></div>
+                  <div className="burger-bar burger-bar-bottom"></div>
+                </button>
+                <ReactRouterNavLink to="/" className="d-inline-block">
+                  <img
+                    src="/assets/svg/pulse-logo-mobile.svg"
+                    alt="Mozilla Pulse"
+                    className="logo-mobile hidden-md-up"
+                    width="40"
+                  />
+                  <img
+                    src="/assets/svg/pulse-logo.svg"
+                    alt="Mozilla Pulse"
+                    className="logo hidden-sm-down"
+                    width="187"
+                  />
+                </ReactRouterNavLink>
+              </div>
               {this.renderNavList()}
             </div>
-            <div className="pinned col-6 col-lg-3">
+            <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
-                <NavListItem noMargin={true}>
-                  <NavLink to="/add" className="btn-add d-inline-block">
-                    <span className="sr-only">Add</span>
-                  </NavLink>
-                </NavListItem>
-                <NavListItem noMargin={true}>
-                  <button
-                    className={classNames(`hidden-md-up`, {
-                      active: this.state.burgerActive
-                    })}
-                    id="burger"
-                    onClick={() => this.handleBurgerClick()}
-                  />
+                <NavListItem noMargin={true} className="my-0">
+                  <NavLink to="/add" className="btn btn-secondary d-inline-block">Add New</NavLink>
                 </NavListItem>
               </ul>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <hr className="hr-gradient" />
             </div>
           </div>
         </div>

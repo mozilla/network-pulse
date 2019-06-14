@@ -15,7 +15,7 @@ class NavLink extends React.Component {
   }
 
   render() {
-    let classes = classNames(`open-sans`, this.props.className);
+    let classes = classNames(this.props.className);
 
     return (
       <ReactRouterNavLink

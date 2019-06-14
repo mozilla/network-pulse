@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>profile</title>
+    <desc>Created with Sketch.</desc>
+    <g id="profile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="Iconography-/-Small-/-Profile" stroke="#000000">
+            <g id="Group" transform="translate(1.000000, 1.000000)">
+                <path d="M22.0094803,11.0066786 C22.0094803,17.0838075 17.081869,22.0114188 11.0047402,22.0114188 C4.92567285,22.0114188 -1.33226763e-12,17.0838075 -1.33226763e-12,11.0066786 C-1.33226763e-12,4.92761133 4.92567285,-1.82431847e-12 11.0047402,-1.82431847e-12 C17.081869,-1.82431847e-12 22.0094803,4.92761133 22.0094803,11.0066786 Z" id="Stroke-7" stroke-width="2"></path>
+                <path d="M16.352833,16.7019808 L16.352833,16.7019808 C16.352833,14.4552673 14.5315118,12.633946 12.2847982,12.633946 L9.57277499,12.633946 C7.32606139,12.633946 5.50474016,14.4552673 5.50474016,16.7019808 L5.50474016,16.7019808" id="Shape" stroke-width="2" stroke-linecap="round"></path>
+                <circle id="Oval" stroke-width="2" stroke-linecap="round" cx="10.9979646" cy="7.49787637" r="3"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

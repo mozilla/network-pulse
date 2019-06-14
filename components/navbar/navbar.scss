@@ -11,10 +11,55 @@
   padding: 0;
 }
 
+#main-nav-wrapper {
+  .burger {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    outline: 0;
+
+    &-bar {
+      position: absolute;
+      background: #000000;
+      height: 3px;
+      width: 28px;
+      -webkit-transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, -webkit-transform 0.1s;
+      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, -webkit-transform 0.1s;
+      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
+      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s, -webkit-transform 0.1s;
+
+      &-top {
+        top: 3px;
+        width: 16px;
+      }
+
+      &-middle {
+        top: 12.5px;
+      }
+
+      &-bottom {
+        top: 22px;
+        width: 23px;
+      }
+    }
+  }
+
+  .logo-mobile {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 .navbar {
   display: block;
-  padding: 24px 0 0;
+  padding: 24px 0;
   border-radius: 0;
+  border-bottom: 1px solid $gray-20;
 
   .inner {
     position: relative;
@@ -27,28 +72,23 @@
   .nav-link-list {
     display: none;
     position: fixed;
-    top: 0;
+    top: 200px;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: $black;
     z-index: 1000000;
     padding: 1rem $grid-gutter-width-base/2;
     overflow: auto;
 
     a {
-      color: white;
+      font-size: 17px;
+      line-height: 1.35;
       font-weight: 700;
-      font-size: 26px;
-    }
-
-    a.active,
-    a.active > i.fa,
-    a:hover > i.fa {
-      text-decoration: underline;
     }
   }
 
+  /*CLEAN UP/REMOVE*/
   .pinned {
     position: absolute;
     top: 0;
@@ -60,11 +100,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: $pulse-purple;
 
     a {
-      color: $pulse-purple;
-      font-weight: 600;
+      color: $black;
+      font-weight: 700;
     }
   }
 
@@ -130,6 +169,7 @@
       top: 0;
     }
 
+    /*CLEAN UP/REMOVE*/
     .pinned {
       position: static;
       right: 0;
