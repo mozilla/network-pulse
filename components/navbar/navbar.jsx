@@ -60,7 +60,7 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
-          className="signupin"
+          className="signupin d-flex align-items-center"
         >
           {user.name}
         </NavLink>
