@@ -9,11 +9,7 @@ import SignOutButton from "../sign-out-button.jsx"
 
 class NavListItem extends React.Component {
   render() {
-    let classes = classNames(`d-inline-block`, this.props.className, {
-      "my-2 my-md-0 mr-md-4": !this.props.noMargin
-    });
-
-    return <li className={classes}>{this.props.children}</li>;
+    return <li className="dark-theme mb-4 ml-3">{this.props.children}</li>;
   }
 }
 
@@ -50,6 +46,7 @@ class NavBar extends React.Component {
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
+        className="signupin d-none d-md-flex align-items-md-center"
       >
       Signin / Signup
       </a>
@@ -60,7 +57,6 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
-          className="signupin d-flex align-items-center"
         >
           {user.name}
         </NavLink>
@@ -68,9 +64,9 @@ class NavBar extends React.Component {
     }
 
     return (
-      <NavListItem className={classNames(`signupin-user`, classes)}>
+      <li className="signupin-user d-inline-block my-2 my-md-0 mr-md-4">
         {link}
-      </NavListItem>
+      </li>
     );
   }
 
@@ -107,9 +103,9 @@ class NavBar extends React.Component {
     }
   }
 
-  renderNavList() {
+  renderNavContent() {
     let classes = classNames(
-      `nav-link-list list-unstyled ml-lg-4 mt-md-3 mt-lg-0 mb-0 hidden-md-up`,
+      `nav-link-list list-unstyled pt-4 hidden-md-up dark-theme`,
       {
         "d-flex": this.state.burgerActive,
         "flex-column": this.state.burgerActive
@@ -128,8 +124,23 @@ class NavBar extends React.Component {
       </NavListItem>
     ) : null;
 
-    return (
-      <ul className={classes}>
+    let signInRequest = (
+      <div className="signupin-request text-center">
+        <h3>Signup or Signin to your Pulse Account</h3>
+        <p>Share your projects or help out on other projects in our Network.</p>
+        <a
+        href={user.getLoginURL(utility.getCurrentURL())}
+        onClick={event => this.handleSignInBtnClick(event)}
+        className="btn btn-secondary"
+        >
+        Signin / Signup
+        </a>
+      </div>
+    );
+
+    if (user.loggedin) {
+      navContent = (
+        <ul>
         {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
           <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
             <div className="burger-bar burger-bar-top"></div>
@@ -147,10 +158,17 @@ class NavBar extends React.Component {
           <MainNavLink to="/favs">Favs</MainNavLink>
         </NavListItem>
         <NavListItem className="dark-theme">
-          <SignOutButton user={this.props.user} history={this.props.history}/>
+          {/* <SignOutButton user={this.props.user} history={this.props.history}/> */}
         </NavListItem>
         {moderatorLink}
       </ul>
+      );
+    }
+
+    return (
+      <div className={classes}>
+        { !user.loggedin ? signInRequest : navContent }
+      </div>
     );
   }
 
@@ -190,14 +208,14 @@ class NavBar extends React.Component {
                   />
                 </ReactRouterNavLink>
               </div>
-              {this.renderNavList()}
+              {this.renderNavContent()}
             </div>
             <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
-                <NavListItem noMargin={true} className="my-0">
-                  <NavLink to="/add" className="btn btn-secondary d-inline-block">Add New</NavLink>
-                </NavListItem>
+                <li className="d-inline-block my-2 my-md-0 mr-md-4">
+                  <NavLink to="/add" className="btn btn-secondary">Add New</NavLink>
+                </li>
               </ul>
             </div>
           </div>
