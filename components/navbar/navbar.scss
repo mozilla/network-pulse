@@ -25,7 +25,7 @@
 
     &-bar {
       position: absolute;
-      background: #000000;
+      background: $black;
       height: 3px;
       width: 28px;
       -webkit-transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, -webkit-transform 0.1s;
@@ -88,7 +88,7 @@
     }
   }
 
-  /*CLEAN UP/REMOVE*/
+  /* CLEAN UP/REMOVE */
   .pinned {
     position: absolute;
     top: 0;
@@ -183,7 +183,7 @@
       top: 0;
     }
 
-    /*CLEAN UP/REMOVE*/
+    /* CLEAN UP/REMOVE */
     .pinned {
       position: static;
       right: 0;
