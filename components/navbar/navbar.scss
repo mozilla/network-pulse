@@ -65,10 +65,6 @@
     position: relative;
   }
 
-  a {
-    @include link-text-decoration(none);
-  }
-
   .nav-link-list {
     display: none;
     position: fixed;
@@ -81,10 +77,21 @@
     padding: 1rem $grid-gutter-width-base/2;
     overflow: auto;
 
-    a {
+    a,
+    button {
       font-size: 17px;
       line-height: 1.35;
       font-weight: 700;
+    }
+
+    .link {
+      color: $white;
+
+      &:hover,
+      :active,
+      :focus {
+        color: $light-blue;
+      }
     }
   }
 
@@ -97,10 +104,6 @@
 
   .signupin-request {
     margin-top: 100px; //TODO: Verify spacing w/designer
-
-    a::after {
-      display: none;
-    }
   }
 
   .signupin-user {

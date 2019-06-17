@@ -41,12 +41,13 @@ class NavBar extends React.Component {
   renderName(classes) {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
+    let classNames = "signupin d-none d-md-flex align-items-md-center";
 
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
-        className="signupin d-none d-md-flex align-items-md-center"
+        className={classNames}
       >
       Signin / Signup
       </a>
@@ -57,6 +58,7 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
+          className={classNames}
         >
           {user.name}
         </NavLink>
@@ -138,8 +140,7 @@ class NavBar extends React.Component {
       </div>
     );
 
-    if (user.loggedin) {
-      navContent = (
+    let navLinks = (
         <ul>
         {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
           <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
@@ -149,25 +150,28 @@ class NavBar extends React.Component {
           </button>
         </div> */}
         <NavListItem className="dark-theme">
-          <MainNavLink to={`/profile/${user.profileid}`}>Profile</MainNavLink>
+          <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
         </NavListItem>
         <NavListItem className="dark-theme">
-          <MainNavLink to="/myprofile">Edit Profile</MainNavLink>
+          <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
         </NavListItem>
         <NavListItem className="dark-theme">
-          <MainNavLink to="/favs">Favs</MainNavLink>
+          <MainNavLink to="/favs" >Favs</MainNavLink>
         </NavListItem>
         <NavListItem className="dark-theme">
-          {/* <SignOutButton user={this.props.user} history={this.props.history}/> */}
+          <SignOutButton 
+            user={this.state.user} 
+            history={this.props.history}
+            className="link"
+          />
         </NavListItem>
         {moderatorLink}
       </ul>
       );
-    }
 
     return (
       <div className={classes}>
-        { !user.loggedin ? signInRequest : navContent }
+        { !user.loggedin ? signInRequest : navLinks }
       </div>
     );
   }

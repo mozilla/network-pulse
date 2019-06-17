@@ -83,39 +83,39 @@
   }
 }
 
-// append external link glyph
-.btn-secondary[href*="//"]:not([href*="mozillapulse.org"]) {
-  display: inline-flex;
-  align-items: center;
+// // append external link glyph
+// .btn-secondary[href*="//"]:not([href*="api.mozillapulse.org"]) {
+//   display: inline-flex;
+//   align-items: center;
 
-  &::after {
-    filter: brightness(0);
-    content: " ";
-    display: block;
-    width: 16px;
-    height: 14px;
-    background: url(../_images/glyphs/external.svg) no-repeat;
-    margin-left: 8px;
-    position: relative;
-    bottom: 1px;
-    transition: filter 0.2s ease-in-out;
-  }
+//   &::after {
+//     filter: brightness(0);
+//     content: " ";
+//     display: block;
+//     width: 16px;
+//     height: 14px;
+//     background: url(../_images/glyphs/external.svg) no-repeat;
+//     margin-left: 8px;
+//     position: relative;
+//     bottom: 1px;
+//     transition: filter 0.2s ease-in-out;
+//   }
 
-  @include hover-focus-active {
-    &::after {
-      filter: brightness(1);
-    }
-  }
+//   @include hover-focus-active {
+//     &::after {
+//       filter: brightness(1);
+//     }
+//   }
 
-  @at-root .dark-theme & {
-    &::after {
-      filter: brightness(1);
-    }
+//   @at-root .dark-theme & {
+//     &::after {
+//       filter: brightness(1);
+//     }
 
-    @include hover-focus-active {
-      &::after {
-        filter: brightness(0);
-      }
-    }
-  }
-}
+//     @include hover-focus-active {
+//       &::after {
+//         filter: brightness(0);
+//       }
+//     }
+//   }
+// }
