@@ -9,7 +9,7 @@ import SignOutButton from "../sign-out-button.jsx"
 
 class NavListItem extends React.Component {
   render() {
-    return <li className="dark-theme mb-4 ml-3">{this.props.children}</li>;
+    return <li className="dark-theme mb-4 ml-3 ml-sm-4 pl-md-2">{this.props.children}</li>;
   }
 }
 
@@ -66,7 +66,7 @@ class NavBar extends React.Component {
     }
 
     return (
-      <li className="signupin-user d-inline-block my-2 my-md-0 mr-md-4">
+      <li className="signupin-user d-inline-block mb-0 mr-md-4">
         {link}
       </li>
     );
@@ -107,7 +107,7 @@ class NavBar extends React.Component {
 
   renderNavContent() {
     let classes = classNames(
-      `nav-link-list list-unstyled pt-4 hidden-md-up dark-theme`,
+      `nav-link-list list-unstyled pt-4 px-3 hidden-lg-up dark-theme`,
       {
         "d-flex": this.state.burgerActive,
         "flex-column": this.state.burgerActive
@@ -141,32 +141,36 @@ class NavBar extends React.Component {
     );
 
     let navLinks = (
-        <ul>
-        {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
-          <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
-            <div className="burger-bar burger-bar-top"></div>
-            <div className="burger-bar burger-bar-middle"></div>
-            <div className="burger-bar burger-bar-bottom"></div>
-          </button>
-        </div> */}
-        <NavListItem className="dark-theme">
-          <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
-        </NavListItem>
-        <NavListItem className="dark-theme">
-          <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
-        </NavListItem>
-        <NavListItem className="dark-theme">
-          <MainNavLink to="/favs" >Favs</MainNavLink>
-        </NavListItem>
-        <NavListItem className="dark-theme">
-          <SignOutButton 
-            user={this.state.user} 
-            history={this.props.history}
-            className="link"
-          />
-        </NavListItem>
-        {moderatorLink}
-      </ul>
+      <div className="row">
+        <div className="col">
+          <ul className="nav-link-list-container">
+            {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
+              <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
+                <div className="burger-bar burger-bar-top"></div>
+                <div className="burger-bar burger-bar-middle"></div>
+                <div className="burger-bar burger-bar-bottom"></div>
+              </button>
+            </div> */}
+            <NavListItem className="dark-theme">
+              <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
+            </NavListItem>
+            <NavListItem className="dark-theme">
+              <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
+            </NavListItem>
+            <NavListItem className="dark-theme">
+              <MainNavLink to="/favs" >Favs</MainNavLink>
+            </NavListItem>
+            <NavListItem className="dark-theme">
+              <SignOutButton 
+                user={this.state.user} 
+                history={this.props.history}
+                className="link"
+              />
+            </NavListItem>
+            {moderatorLink}
+          </ul>
+        </div>
+      </div>
       );
 
     return (
@@ -192,7 +196,7 @@ class NavBar extends React.Component {
               id="main-nav-wrapper"
             >
               <div className="d-flex align-items-center">
-                <button id="btn-dismiss" className="burger hidden-lg-up mr-3 ml-md-0" onClick={() => this.handleBurgerClick()}>    
+                <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
                   <div className="burger-bar burger-bar-top"></div>
                   <div className="burger-bar burger-bar-middle"></div>
                   <div className="burger-bar burger-bar-bottom"></div>
@@ -217,7 +221,7 @@ class NavBar extends React.Component {
             <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
-                <li className="d-inline-block my-2 my-md-0 mr-md-4">
+                <li className="d-inline-block mb-0 mr-md-4">
                   <NavLink to="/add" className="btn btn-secondary">Add New</NavLink>
                 </li>
               </ul>

@@ -13,6 +13,7 @@
 
 #main-nav-wrapper {
   .burger {
+    margin-right: 28px;
     cursor: pointer;
     border: 0;
     background: transparent;
@@ -68,13 +69,12 @@
   .nav-link-list {
     display: none;
     position: fixed;
-    top: 89px;
+    top: 80px;
     left: 0;
     width: 100%;
     height: 100%;
     background: $black;
     z-index: 1000000;
-    padding: 1rem $grid-gutter-width-base/2;
     overflow: auto;
 
     a,
@@ -91,6 +91,19 @@
       :active,
       :focus {
         color: $light-blue;
+      }
+    }
+
+    &-container {
+
+      @media (min-width: $bp-sm) {
+        width: 540px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      @media (min-width: $bp-md) {
+        width: 720px;
       }
     }
   }
@@ -160,40 +173,12 @@
     margin-bottom: 25px;
   }
 
-  @media screen and (min-width: $bp-md) {
-    #main-nav-wrapper {
-      position: relative;
-      top: 5px;
-    }
-
-    .nav-link-list {
-      display: block;
-      position: static;
-      background: none;
-      height: auto;
-      padding: 0;
-
-      a {
-        color: $body-color;
-        font-size: inherit;
-      }
-    }
-  }
-
   @media screen and (min-width: $bp-lg) {
-    #main-nav-wrapper {
-      position: static;
-      top: 0;
-    }
 
     /* CLEAN UP/REMOVE */
     .pinned {
       position: static;
       right: 0;
-    }
-
-    .nav-link-list {
-      align-self: center;
     }
   }
 }
