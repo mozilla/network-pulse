@@ -89,8 +89,12 @@ class NavBar extends React.Component {
     this.setState({ burgerActive: !this.state.burgerActive }, () => {
       // prevent the layer underneath the nav menu overlay from scrolling
       let body = document.querySelector(`body`);
+      let nav = document.querySelector(`.nav-link-list`);
+
       body.setAttribute(`aria-hidden`, !this.state.burgerActive);
       body.style.overflow = this.state.burgerActive ? `hidden` : `auto`;
+      nav.style.opacity = this.state.burgerActive ? `1` : `0`;
+      nav.style.height = this.state.burgerActive ? `100%` : `0`;
     });
   }
 
@@ -107,7 +111,7 @@ class NavBar extends React.Component {
 
   renderNavContent() {
     let classes = classNames(
-      `nav-link-list list-unstyled pt-4 px-3 hidden-lg-up dark-theme`,
+      `nav-link-list list-unstyled px-3 hidden-lg-up dark-theme`,
       {
         "d-flex": this.state.burgerActive,
         "flex-column": this.state.burgerActive
@@ -143,7 +147,7 @@ class NavBar extends React.Component {
     let navLinks = (
       <div className="row">
         <div className="col">
-          <ul className="nav-link-list-container">
+          <ul className="nav-link-list-container pt-4">
             {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
               <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
                 <div className="burger-bar burger-bar-top"></div>
@@ -180,6 +184,22 @@ class NavBar extends React.Component {
     );
   }
 
+  renderBurger() {
+    let classes = classNames(
+      `burger hidden-lg-up ml-md-0`,
+      {
+        "menu-open": this.state.burgerActive
+      }
+    );
+    return(
+      <button id="btn-dismiss" className={ classes } onClick={() => this.handleBurgerClick()}>    
+        <div className="burger-bar burger-bar-top"></div>
+        <div className="burger-bar burger-bar-middle"></div>
+        <div className="burger-bar burger-bar-bottom"></div>
+      </button>
+    )
+  }
+
   render() {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
     // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
@@ -196,11 +216,7 @@ class NavBar extends React.Component {
               id="main-nav-wrapper"
             >
               <div className="d-flex align-items-center">
-                <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
-                  <div className="burger-bar burger-bar-top"></div>
-                  <div className="burger-bar burger-bar-middle"></div>
-                  <div className="burger-bar burger-bar-bottom"></div>
-                </button>
+                { this.renderBurger() }
                 <ReactRouterNavLink to="/" className="d-inline-block">
                   <img
                     src="/assets/svg/pulse-logo-mobile.svg"
