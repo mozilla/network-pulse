@@ -93,14 +93,14 @@
     top: 80px;
     left: 0;
     width: 100%;
-    height: 0;
+    height: 100%;
     opacity: 0;
     background: $black;
     z-index: 1000000;
     overflow: auto;
     overflow: hidden;
-    -webkit-transition: opacity 0.2s, height 0s linear 0.2s;
-    transition: opacity 0.2s, height 0s linear 0.2s;
+    -webkit-transition: opacity 0.2s ease-in 0.1s;
+    transition: opacity 0.2s ease-in 0.1s;
 
     a,
     button {
@@ -152,6 +152,7 @@
     a {
       color: $black;
       font-weight: 700;
+      @include link-text-decoration(none,none);
 
       &:hover,
       :focus,

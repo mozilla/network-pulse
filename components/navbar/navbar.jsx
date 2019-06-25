@@ -94,7 +94,6 @@ class NavBar extends React.Component {
       body.setAttribute(`aria-hidden`, !this.state.burgerActive);
       body.style.overflow = this.state.burgerActive ? `hidden` : `auto`;
       nav.style.opacity = this.state.burgerActive ? `1` : `0`;
-      nav.style.height = this.state.burgerActive ? `100%` : `0`;
     });
   }
 
