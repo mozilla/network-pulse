@@ -1,16 +1,3 @@
-#burger {
-  margin-left: 1rem;
-  border: 0;
-  background: url(/assets/svg/hamburger.svg) no-repeat;
-  width: 31px;
-  height: 39px;
-}
-
-#btn-dismiss {
-  border: none;
-  padding: 0;
-}
-
 #main-nav-wrapper {
   .burger {
     margin-right: 28px;
@@ -21,8 +8,6 @@
     height: 28px;
     padding: 0;
     position: relative;
-    z-index: 1;
-    outline: 0;
 
     &-bar {
       position: absolute;
@@ -81,12 +66,7 @@
 .navbar {
   display: block;
   padding: 20px 0;
-  border-radius: 0;
   border-bottom: 1px solid $gray-20;
-
-  .inner {
-    position: relative;
-  }
 
   .nav-link-list {
     position: fixed;
@@ -97,8 +77,6 @@
     opacity: 0;
     background: $black;
     z-index: 1000000;
-    overflow: auto;
-    overflow: hidden;
     -webkit-transition: opacity 0.2s ease-in 0.1s;
     transition: opacity 0.2s ease-in 0.1s;
 
@@ -132,13 +110,6 @@
     }
   }
 
-  /* CLEAN UP/REMOVE */
-  .pinned {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
   .signupin-request {
     margin-top: 100px; //TODO: Verify spacing w/designer
   }
@@ -150,59 +121,16 @@
     overflow: hidden;
 
     a {
+      @include link-text-decoration(none,none);
+
       color: $black;
       font-weight: 700;
-      @include link-text-decoration(none,none);
 
       &:hover,
       :focus,
       :active {
         color: $dark-blue;
       }
-    }
-  }
-
-  .btn-add {
-    height: 40px;
-    width: 40px;
-    z-index: 1000;
-    background-color: $pulse-purple;
-    background-image: url(/assets/svg/icon-add.svg);
-    background-size: 15px 15px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    box-shadow: 2px 2px black;
-    border: 2px solid black;
-    cursor: pointer;
-    position: relative;
-    top: 3px;
-    transition: all 0.25s ease;
-
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: 5px 5px black;
-      transform: translate(-3px, -3px);
-    }
-
-    &.active {
-      background-color: black;
-      background-image: url(/assets/svg/icon-add-gray.svg);
-      box-shadow: none;
-      pointer-events: none;
-    }
-  }
-
-  hr {
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
-
-  @media screen and (min-width: $bp-lg) {
-    /* CLEAN UP/REMOVE */
-    .pinned {
-      position: static;
-      right: 0;
     }
   }
 }

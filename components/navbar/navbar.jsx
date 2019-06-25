@@ -147,13 +147,6 @@ class NavBar extends React.Component {
       <div className="row">
         <div className="col">
           <ul className="nav-link-list-container pt-4">
-            {/* <div className="d-flex justify-content-end mb-2 hidden-md-up">
-              <button id="btn-dismiss" className="burger hidden-lg-up ml-md-0" onClick={() => this.handleBurgerClick()}>    
-                <div className="burger-bar burger-bar-top"></div>
-                <div className="burger-bar burger-bar-middle"></div>
-                <div className="burger-bar burger-bar-bottom"></div>
-              </button>
-            </div> */}
             <NavListItem className="dark-theme">
               <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
             </NavListItem>
@@ -191,7 +184,7 @@ class NavBar extends React.Component {
       }
     );
     return(
-      <button id="btn-dismiss" className={ classes } onClick={() => this.handleBurgerClick()}>    
+      <button className={ classes } onClick={() => this.handleBurgerClick()}>    
         <div className="burger-bar burger-bar-top"></div>
         <div className="burger-bar burger-bar-middle"></div>
         <div className="burger-bar burger-bar-bottom"></div>
