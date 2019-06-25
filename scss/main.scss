@@ -164,13 +164,11 @@ fieldset {
 input,
 textarea,
 .form-control {
-  // TODO: Remove font-weight & add/@extend .body-large once Pulse forms are updated
-  font-weight: 300;
-  border-radius: 0;
+  @include homepage-search-dropdown( $gray-20, false );
 
-  &:focus,
-  &:active {
-    border-color: $light-blue;
+  &#search-box {
+    @extend .body-large;
+    @include homepage-search-dropdown( $black, false );
   }
 }
 

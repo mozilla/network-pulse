@@ -19,12 +19,14 @@
 
   .search-icon {
     position: absolute;
-    top: 0.7rem;
-    right: 0.6rem;
-    width: 17px;
-    height: 17px;
+    top: 1.2rem;
+    right: 0.5rem;
     padding: 0;
     border: none;
     background: transparent;
   }
+}
+
+#help-dropdown {
+  @include homepage-search-dropdown( $black, true );
 }

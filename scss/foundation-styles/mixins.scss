@@ -88,3 +88,22 @@
     }
   }
 }
+
+@mixin homepage-search-dropdown( $border-color, $dropdown ) {
+  border-radius: 0;
+  padding: 1.0625rem 0.75rem;
+  border-color: $border-color;
+
+  @if $dropdown == true {
+    @include scaleText(16px ,24px ,20px ,28px);
+  
+    font-weight: 700;
+    height: 100%;
+    max-height: 64px;
+  }
+
+  &:focus,
+  &:active {
+    border-color: $light-blue;
+  }
+}

@@ -126,7 +126,7 @@ class Search extends React.Component {
           placeholder="Search keywords, people, tags..."
           className="form-control"
         />
-        <span className="search-icon search small"></span>
+        <span className="search-icon search-glyph"></span>
       </div>
     </div>;
   }
@@ -152,6 +152,7 @@ class Search extends React.Component {
         <HelpDropdown 
           value={  this.state.helpType } 
           helpType={ (event) => this.handleHelpChange(event)} 
+          id="help-dropdown"
         />
       </div>
     </div>;
