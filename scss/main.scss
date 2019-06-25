@@ -168,6 +168,7 @@ textarea,
 
   &#search-box {
     @extend .body-large;
+    
     @include homepage-search-dropdown( $black, false );
   }
 }

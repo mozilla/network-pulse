@@ -91,7 +91,7 @@
 
 @mixin homepage-search-dropdown( $border-color, $dropdown ) {
   @include scaleText(16px ,24px ,20px ,28px);
-  
+
   border-radius: 0;
   padding: 1.0625rem 0.75rem;
   border-color: $border-color;
