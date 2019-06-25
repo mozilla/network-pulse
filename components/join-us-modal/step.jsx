@@ -7,10 +7,6 @@ class Step extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   render() {
     if (!this.props.show) return null;
 

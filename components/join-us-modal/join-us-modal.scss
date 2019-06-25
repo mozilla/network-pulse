@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   background: transparentize($black, 0.15);
-  z-index: map-get($z-indexes, join-us-modal);
+  z-index: map-get($z-indices, join-us-modal);
 }
 
 .join-us-modal {
