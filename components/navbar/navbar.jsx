@@ -5,7 +5,7 @@ import classNames from "classnames";
 import NavLink from "../nav-link/nav-link.jsx";
 import user from "../../js/app-user";
 import utility from "../../js/utility";
-import SignOutButton from "../sign-out-button.jsx"
+import SignOutButton from "../sign-out-button.jsx";
 
 class NavListItem extends React.Component {
   render() {
@@ -110,10 +110,11 @@ class NavBar extends React.Component {
 
   renderNavContent() {
     let classes = classNames(
-      `nav-link-list list-unstyled px-3 hidden-lg-up dark-theme`,
+      `nav-link-list px-3 hidden-lg-up dark-theme`,
       {
-        "d-flex": this.state.burgerActive,
-        "flex-column": this.state.burgerActive
+        "list-unstyled": user.loggedin,
+        "d-flex": user.loggedin,
+        "flex-column": user.loggedin
       }
     );
 
@@ -154,9 +155,9 @@ class NavBar extends React.Component {
               <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
             </NavListItem>
             <NavListItem className="dark-theme">
-              <MainNavLink to="/favs" >Favs</MainNavLink>
+              <MainNavLink to="/favs">Favs</MainNavLink>
             </NavListItem>
-            <NavListItem className="dark-theme">
+            <NavListItem>
               <SignOutButton 
                 user={this.state.user} 
                 history={this.props.history}
@@ -170,7 +171,7 @@ class NavBar extends React.Component {
       );
 
     return (
-      <div className={classes}>
+      <div className={ classes }>
         { !user.loggedin ? signInRequest : navLinks }
       </div>
     );
@@ -196,7 +197,7 @@ class NavBar extends React.Component {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
     // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
     // For user facing bits like UI labels and URL path we want them to stay as "favorites".
-    // That's why a link like <NavLink to="/favs" className="text-nav-link bookmarks">Favs</NavLink> is seen here.
+    // That's why a link like <NavLink to="/favs">Favs</NavLink> is seen here.
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
 
     return (
