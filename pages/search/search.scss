@@ -19,11 +19,16 @@
 
   .search-icon {
     position: absolute;
-    top: 1.2rem;
-    right: 0.5rem;
+    top: .85rem;
+    right: 0.25rem;
     padding: 0;
     border: none;
     background: transparent;
+
+    @media (min-width: $bp-md) {
+      top: 1.2rem;
+      right: 0.5rem;
+    }
   }
 }
 
