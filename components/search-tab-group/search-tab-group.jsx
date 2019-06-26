@@ -84,7 +84,7 @@ class SearchTabGroup extends React.Component {
     // if activeTab isn't set, redirect to base search route and show the default tab
     if (!this.state.activeTab) {
       return <Redirect to={{
-        pathname: `/search`,
+        pathname: `/`,
         state: { activeTab: this.state.availableTabs[0] }
       }} />;
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
+import env from "../../js/env-client";
 import qs from "qs";
 import DebounceInput from 'react-debounce-input';
 import ReactGA from 'react-ga';
@@ -61,12 +62,13 @@ class Search extends React.Component {
    
     if ( keywordSearched ) {
       query.keyword = keywordSearched;
+      location.pathname = "/search";
     }
 
     if ( helpType ) {
       query.helpType = helpType;
 
-      // Reset URL path for dropdown results
+      //Reset URL path for dropdown results
       if (location.pathname.endsWith("people") || location.pathname.endsWith("projects")) {
         location.pathname = "/search";
       }
@@ -145,6 +147,36 @@ class Search extends React.Component {
     });
   }
 
+  renderLearnMore() {
+    let handleOnClick = function() {
+      ReactGA.event({
+        category: `Browse`,
+        action: `About learn more tap`,
+        label: `Tagline learn more link`
+      });
+    };
+  
+    let learnMore = env.LEARN_MORE_LINK ? (
+      <span>
+        <a
+          href={env.LEARN_MORE_LINK}
+          id="learn-more"
+          onClick={() => handleOnClick()}
+        >
+          Learn more
+        </a>.
+      </span>
+    ) : null;
+  
+    return (
+        <div className="row">
+          <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">
+            Discover & collaborate on projects for a healthy internet. {learnMore}
+          </h2>
+        </div>
+    );
+  };
+
   renderSearchControls() {
     return <div className="row mt-4 mb-5">
       <div className="col-12 col-lg-8 mb-4">{ this.renderSearchBar() }</div>
@@ -161,6 +193,7 @@ class Search extends React.Component {
     return (
       <div className="search-page">
         <Helmet><title>{this.state.keywordSearched}</title></Helmet>
+        { this.renderLearnMore() }
         { this.renderSearchControls() }
         <SearchTabGroup
           activeTab={this.state.helpType ? `projects` : this.state.activeTab}
