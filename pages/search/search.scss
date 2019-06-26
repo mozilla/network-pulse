@@ -17,7 +17,11 @@
     align-items: center;
   }
 
-  .search-icon {
+  .help-dropdown {
+    @include search-input-and-dropdown( $black, true );
+  }
+
+  .search-glyph-container {
     position: absolute;
     top: 0.85rem;
     right: 0.25rem;
@@ -32,6 +36,6 @@
   }
 }
 
-#help-dropdown {
-  @include homepage-search-dropdown( $black, true );
+#search-box {
+  @include search-input-and-dropdown( $black, false );
 }

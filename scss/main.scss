@@ -161,16 +161,6 @@ fieldset {
   }
 }
 
-input,
-textarea,
-.form-control {
-  @include homepage-search-dropdown( $gray-20, false );
-
-  &#search-box {
-    @include homepage-search-dropdown( $black, false );
-  }
-}
-
 // loading animation
 
 .loading {

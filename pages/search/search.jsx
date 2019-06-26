@@ -24,7 +24,7 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
-    document.querySelector(`.search-icon`).classList.add(`search-focus`);
+    document.querySelector(`.search-glyph-container`).classList.add(`search-focus`);
     this.inputFocusEvent();
   }
 
@@ -102,7 +102,7 @@ class Search extends React.Component {
 
   inputFocusEvent() {
     let input = document.querySelector(`#search-box`);
-    let icon = document.querySelector(`.search-icon`);
+    let icon = document.querySelector(`.search-glyph-container`);
 
     document.addEventListener("click", (event) => {
         if (event.target === input) {
@@ -126,7 +126,7 @@ class Search extends React.Component {
           placeholder="Search keywords, people, tags..."
           className="form-control"
         />
-        <span className="search-icon search-glyph"></span>
+        <span className="search-glyph-container search-glyph"></span>
       </div>
     </div>;
   }
@@ -152,7 +152,7 @@ class Search extends React.Component {
         <HelpDropdown 
           value={  this.state.helpType } 
           helpType={ (event) => this.handleHelpChange(event)} 
-          id="help-dropdown"
+          specialClass="help-dropdown"
         />
       </div>
     </div>;
