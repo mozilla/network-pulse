@@ -68,6 +68,8 @@ const Tag = router => {
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Search} />
+    <Route exact path="/search" component={Search} />
+    <Route path="/search/:helpType" component={Search} />
     <Route path="/search/:tab" component={Search} />
     <Route path="/featured" component={Featured} />
     <Route path="/latest" component={Latest} />
