@@ -115,7 +115,7 @@ class Search extends React.Component {
   }
 
   renderSearchBar() {
-    return <div className="d-flex align-items-center">
+    return <div className="d-flex align-items-center pr-lg-5 mr-lg-5">
       <div className="activated search-bar w-100">
         <DebounceInput id="search-box"
           value={this.state.keywordSearched}
