@@ -23,14 +23,14 @@
 
   .search-glyph-container {
     position: absolute;
-    top: 0.85rem;
+    top: 0.95rem;
     right: 0.25rem;
     padding: 0;
     border: none;
     background: transparent;
 
     @media (min-width: $bp-md) {
-      top: 1.2rem;
+      top: 1.4rem;
       right: 0.5rem;
     }
   }
