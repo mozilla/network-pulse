@@ -51,6 +51,7 @@ This starts a few image optimization scripts.
    Name | Description
 ------------------|---------------------------------------------
 `PORT` | Default: `process.env.PORT`(falls back to `3000` if `process.env.PORT` cannot be found)<br><br>The port number you are running the server on.
+`PULSE_API_HOST` | Default: `https://pulse-api.mofostaging.net`<br><br>Host of the Pulse API URL.
 `PULSE_API` | Default: `https://pulse-api.mofostaging.net/api/pulse`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
 `PULSE_LOGIN_URL` | Default: `https://pulse-api.mofostaging.net/accounts/login/`<br><br>URL to use to login to Pulse. This needs to be a Pulse API login url.
 `PULSE_LOGOUT_URL` | Default: `https://pulse-api.mofostaging.net/accounts/logout/`<br><br>URL to use to logout of Pulse. This needs to be a Pulse API logout url.

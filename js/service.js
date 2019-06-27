@@ -1,6 +1,7 @@
 import env from "./env-client";
 import user from "./app-user";
 
+const PULSE_API_HOST = env.PULSE_API_HOST;
 const PULSE_API = env.PULSE_API;
 const PULSE_API_LOGOUT = env.PULSE_LOGOUT_URL;
 
@@ -327,7 +328,7 @@ let Service = {
     }
   },
   signUp: function(email, source) {
-    return updateStoredData(`POST`, `${PULSE_API}/v2/signup`, {
+    return updateStoredData(`POST`, `${PULSE_API_HOST}/signup/`, {
       email: email,
       source: source
     });
