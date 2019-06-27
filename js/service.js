@@ -1,4 +1,5 @@
 import env from "./env-client";
+import user from "./app-user";
 
 const PULSE_API = env.PULSE_API;
 const PULSE_API_LOGOUT = env.PULSE_LOGOUT_URL;
@@ -314,12 +315,22 @@ let Service = {
       return getDataFromURL(`${PULSE_API}/v2/myprofile/`);
     },
     put: function(updatedProfile) {
+      if (updatedProfile.newsletter) {
+        Service.signUp(user.email, window.location.toString());
+      }
+
       return updateStoredData(
         `PUT`,
         `${PULSE_API}/v2/myprofile/`,
         updatedProfile
       );
     }
+  },
+  signUp: function(email, source) {
+    return updateStoredData(`POST`, `${PULSE_API}/v2/signup`, {
+      email: email,
+      source: source
+    });
   }
   // ... and more Pulse API endpoints to come
 };

@@ -199,8 +199,8 @@ class JoinUsModal extends React.Component {
       <div>
         <Step
           show={this.state.currentStep === 1}
-          heading="Complete your sign up"
-          subhead="Please confirm your information to finish signing up."
+          heading="Complete your profile"
+          subhead="Please confirm your information to finish creating your profile."
           hint="(This information came from your Google or GitHub account)"
         >
           <Form

@@ -24,10 +24,7 @@ module.exports = function(user, profile) {
       labelClassname: `body-small`,
       label: (
         <div className="d-inline-block">
-          <span style={{ background: `Aquamarine` }}>
-            (Not sure if API supports this yet?)
-          </span>{" "}
-          Yes, I want to receive email updates about Mozilla’s campaigns.
+          Yes, I want to subscribe to Mozilla’s newsletter.
         </div>
       )
     }
