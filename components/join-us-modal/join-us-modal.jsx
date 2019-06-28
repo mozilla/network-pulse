@@ -131,10 +131,6 @@ class JoinUsModal extends React.Component {
         this.setState({ showConfirmation: true });
       })
       .catch(reason => {
-        this.setState({
-          // TODO:FIXME: do we care to have this state?
-          serverError: true
-        });
         console.error(reason);
       });
   }

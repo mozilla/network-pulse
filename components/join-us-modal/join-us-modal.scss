@@ -12,12 +12,11 @@
   background: $white;
   top: 50px;
   overflow: auto;
-  // padding: 37px 48px 112px;
-  padding: 37px 15px;
+  padding: 35px 15px;
   width: 100%;
 
   @media screen and (min-width: $bp-sm) {
-    width: 600px;
+    width: 550px;
     left: 50%;
     transform: translateX(-50%);
     padding-left: 48px;

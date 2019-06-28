@@ -19,7 +19,6 @@ module.exports = function(user, profile) {
       fieldClassname: `form-control`
     },
     newsletter: {
-      // TODO:FIXME: not sure if Pulse API supports this?
       type: `checkbox`,
       labelClassname: `body-small`,
       label: (
@@ -49,7 +48,6 @@ module.exports = function(user, profile) {
     thumbnail: {
       optional: true,
       type: `image`,
-      // defaultValue: `http://test.example.com:8000${profile.thumbnail}`,
       defaultValue: `${profile.thumbnail}`,
       prompt: `Select image`,
       reprompt: `Select another image`,
