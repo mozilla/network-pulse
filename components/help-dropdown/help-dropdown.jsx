@@ -23,7 +23,7 @@ export default class HelpDropdown extends React.Component {
     });
 
     return (
-      <select className={`custom-select w-100 ${this.props.specialClass}`} value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
+      <select className="custom-select w-100 help-dropdown" value={ this.props.value } onChange={ (event) => {this.props.helpType(event);} }>
         <option value="">Help</option>
         {renderedHelpTypes}
       </select>

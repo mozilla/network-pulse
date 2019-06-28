@@ -152,7 +152,6 @@ class Search extends React.Component {
         <HelpDropdown 
           value={  this.state.helpType } 
           helpType={ (event) => this.handleHelpChange(event)} 
-          specialClass="help-dropdown"
         />
       </div>
     </div>;
