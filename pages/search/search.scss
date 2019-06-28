@@ -17,14 +17,25 @@
     align-items: center;
   }
 
-  .search-submit {
+  .help-dropdown {
+    @include search-input-and-dropdown( $black, true );
+  }
+
+  .search-glyph-container {
     position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
-    width: 17px;
-    height: 17px;
+    top: 0.95rem;
+    right: 0.25rem;
     padding: 0;
     border: none;
     background: transparent;
+
+    @media (min-width: $bp-md) {
+      top: 1.4rem;
+      right: 0.5rem;
+    }
   }
+}
+
+#search-box {
+  @include search-input-and-dropdown( $black, false );
 }
