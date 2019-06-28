@@ -179,7 +179,7 @@ class NavBar extends React.Component {
 
   renderBurger() {
     let classes = classNames(
-      `burger hidden-lg-up ml-md-0`,
+      `burger hidden-md-up ml-md-0`,
       {
         "menu-open": this.state.burgerActive
       }
