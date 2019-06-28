@@ -58,9 +58,8 @@
   @include hoverGlyph("github-hover");
 }
 
-.search {
+.search-glyph {
   @include compositeGlyph("search");
-  //@include hoverGlyph("search-focus");
 }
 
 .search-focus {

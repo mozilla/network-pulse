@@ -161,19 +161,6 @@ fieldset {
   }
 }
 
-input,
-textarea,
-.form-control {
-  // TODO: Remove font-weight & add/@extend .body-large once Pulse forms are updated
-  font-weight: 300;
-  border-radius: 0;
-
-  &:focus,
-  &:active {
-    border-color: $light-blue;
-  }
-}
-
 // loading animation
 
 .loading {
