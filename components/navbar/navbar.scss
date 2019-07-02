@@ -1,11 +1,15 @@
 #main-nav-wrapper {
+  $burger-width: 28px;
+  $burger-height: 28px;
+  $burger-bar-offset: 13px;
+
   .burger {
-    margin-right: $value-28px;
+    margin-right: $burger-width;
     cursor: pointer;
     border: 0;
     background: transparent;
-    width: $value-28px;
-    height: $value-28px;
+    width: $burger-width;
+    height: $burger-height;
     padding: 0;
     position: relative;
 
@@ -13,7 +17,7 @@
       position: absolute;
       background: $black;
       height: 3px;
-      width: $value-28px;
+      width: $burger-width;
       transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
 
       &-top {
@@ -22,7 +26,7 @@
       }
 
       &-middle {
-        top: $value-13px;
+        top: $burger-bar-offset;
       }
 
       &-bottom {
@@ -34,8 +38,8 @@
     &.menu-open {
       .burger-bar {
         &.burger-bar-top {
-          top: $value-13px;
-          width: $value-28px;
+          top: $burger-bar-offset;
+          width: $burger-width;
           transform: rotate(135deg);
         }
 
@@ -44,8 +48,8 @@
         }
 
         &.burger-bar-bottom {
-          top: $value-13px;
-          width: $value-28px;
+          top: $burger-bar-offset;
+          width: $burger-width;
           transform: rotate(45deg);
         }
 
@@ -55,8 +59,8 @@
   }
 
   .logo-mobile {
-    width: $value-28px;
-    height: $value-28px;
+    width: $burger-width;
+    height: $burger-height;
   }
 }
 
