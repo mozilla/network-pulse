@@ -38,16 +38,16 @@ class NavBar extends React.Component {
     }
   }
 
-  renderName(classes) {
+  renderName() {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
-    let classNames = "signupin d-none d-md-flex align-items-md-center";
+    let classes = "signupin d-none d-md-flex align-items-md-center";
 
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
-        className={classNames}
+        className={classes}
       >
       Signin / Signup
       </a>
@@ -58,7 +58,7 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
-          className={classNames}
+          className={classes}
         >
           {user.name}
         </NavLink>
@@ -89,11 +89,9 @@ class NavBar extends React.Component {
     this.setState({ burgerActive: !this.state.burgerActive }, () => {
       // prevent the layer underneath the nav menu overlay from scrolling
       let body = document.querySelector(`body`);
-      let nav = document.querySelector(`.nav-link-list`);
 
       body.setAttribute(`aria-hidden`, !this.state.burgerActive);
       body.style.overflow = this.state.burgerActive ? `hidden` : `auto`;
-      nav.style.opacity = this.state.burgerActive ? `1` : `0`;
     });
   }
 
@@ -112,9 +110,7 @@ class NavBar extends React.Component {
     let classes = classNames(
       `nav-link-list px-3 hidden-lg-up dark-theme`,
       {
-        "list-unstyled": user.loggedin,
-        "d-flex": user.loggedin,
-        "flex-column": user.loggedin
+        "show": this.state.burgerActive
       }
     );
 
@@ -230,7 +226,7 @@ class NavBar extends React.Component {
             <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
-                <li className="d-inline-block mb-0 mr-md-4">
+                <li className="d-inline-block mb-0">
                   <NavLink to="/add" className="btn btn-secondary">Add New</NavLink>
                 </li>
               </ul>

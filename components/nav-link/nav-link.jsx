@@ -15,12 +15,11 @@ class NavLink extends React.Component {
   }
 
   render() {
-    let classes = classNames(this.props.className);
 
     return (
       <ReactRouterNavLink
         {...this.props}
-        className={classes}
+        className={this.props.className}
         activeClassName="active"
         onClick={() => this.handleClick()}
       />

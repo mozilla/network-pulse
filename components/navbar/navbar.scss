@@ -1,11 +1,11 @@
 #main-nav-wrapper {
   .burger {
-    margin-right: 28px;
+    margin-right: $value-28px;
     cursor: pointer;
     border: 0;
     background: transparent;
-    width: 28px;
-    height: 28px;
+    width: $value-28px;
+    height: $value-28px;
     padding: 0;
     position: relative;
 
@@ -13,11 +13,8 @@
       position: absolute;
       background: $black;
       height: 3px;
-      width: 28px;
-      -webkit-transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, -webkit-transform 0.1s;
-      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, -webkit-transform 0.1s;
+      width: $value-28px;
       transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
-      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s, -webkit-transform 0.1s;
 
       &-top {
         top: 3px;
@@ -25,7 +22,7 @@
       }
 
       &-middle {
-        top: 12.5px;
+        top: $value-13px;
       }
 
       &-bottom {
@@ -37,8 +34,8 @@
     &.menu-open {
       .burger-bar {
         &.burger-bar-top {
-          top: 12.5px;
-          width: 28px;
+          top: $value-13px;
+          width: $value-28px;
           transform: rotate(135deg);
         }
 
@@ -47,8 +44,8 @@
         }
 
         &.burger-bar-bottom {
-          top: 12.5px;
-          width: 28px;
+          top: $value-13px;
+          width: $value-28px;
           transform: rotate(45deg);
         }
 
@@ -58,8 +55,8 @@
   }
 
   .logo-mobile {
-    width: 28px;
-    height: 28px;
+    width: $value-28px;
+    height: $value-28px;
   }
 }
 
@@ -77,7 +74,6 @@
     opacity: 0;
     background: $black;
     z-index: 1000000;
-    -webkit-transition: opacity 0.2s ease-in 0.1s;
     transition: opacity 0.2s ease-in 0.1s;
 
     a,
@@ -87,12 +83,14 @@
       font-weight: 700;
     }
 
+    &.show {
+      opacity: 1;
+    }
+
     .link {
       color: $white;
 
-      &:hover,
-      :active,
-      :focus {
+      @include hover-focus-active {
         color: $light-blue;
       }
     }
@@ -126,9 +124,7 @@
       color: $black;
       font-weight: 700;
 
-      &:hover,
-      :focus,
-      :active {
+      @include hover-focus-active {
         color: $dark-blue;
       }
     }
