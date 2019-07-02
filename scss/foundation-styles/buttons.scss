@@ -84,7 +84,7 @@
 }
 
 // // append external link glyph
-.btn-secondary.btn-outbound-link {
+.btn-secondary[href*="//"]:not([href*="test.example.com"]):not([href*="pulse-api.mofostaging.net"]):not([href*="api.mozillapulse.org"]) {
   display: inline-flex;
   align-items: center;
 
