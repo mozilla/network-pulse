@@ -1,0 +1,15 @@
+.btn-secondary {
+  @mixin active-style() {
+    color: $white;
+    background: $black;
+    border: 2px solid $black;
+  }
+
+  @include hover-focus-active {
+    @include active-style();
+  }
+
+  &:active:hover {
+    @include active-style();
+  }
+}

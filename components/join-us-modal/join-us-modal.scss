@@ -12,7 +12,7 @@
   background: $white;
   top: 50px;
   overflow: auto;
-  padding: 35px 15px;
+  padding: 1.5rem 1rem;
   width: 100%;
 
   @media screen and (min-width: $bp-sm) {
@@ -64,6 +64,10 @@
 
     .form-control.image {
       text-align: center;
+    }
+
+    input[type="button"] {
+      @include thumbnail-button-style();
     }
   }
 

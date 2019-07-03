@@ -295,7 +295,7 @@ class JoinUsModal extends React.Component {
       <div className="text-center mt-5">
         <div className="mt-4">
           {primaryAction}
-          <div className="secondary-action mt-5">{secondaryAction}</div>
+          <div className="secondary-action mt-4">{secondaryAction}</div>
         </div>
       </div>
     );
