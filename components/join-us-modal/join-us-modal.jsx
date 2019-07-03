@@ -144,8 +144,6 @@ class JoinUsModal extends React.Component {
   handleNextBtnClick() {
     // validate current form section
     this.refs[`step${this.state.currentStep}Form`].validates(valid => {
-      console.log(`current form is valid? ${valid}`, this.state.formValues);
-
       if (valid) {
         if (this.state.currentStep === this.totalStep) {
           // we've reached the last step of the form, submit the form
