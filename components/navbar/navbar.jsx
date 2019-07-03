@@ -5,14 +5,11 @@ import classNames from "classnames";
 import NavLink from "../nav-link/nav-link.jsx";
 import user from "../../js/app-user";
 import utility from "../../js/utility";
+import SignOutButton from "../sign-out-button.jsx";
 
 class NavListItem extends React.Component {
   render() {
-    let classes = classNames(`d-inline-block my-md-0`, this.props.className, {
-      "my-2 my-md-0 mr-md-4": !this.props.noMargin
-    });
-
-    return <li className={classes}>{this.props.children}</li>;
+    return <li className="dark-theme mb-4 ml-3 ml-sm-4 pl-md-2">{this.props.children}</li>;
   }
 }
 
@@ -41,16 +38,18 @@ class NavBar extends React.Component {
     }
   }
 
-  renderName(classes) {
+  renderName() {
     // don't show anything until we verify this user's loggedin status
     if (user.loggedin === undefined) return null;
+    let classes = "signupin d-none d-md-flex align-items-md-center";
 
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
+        className={classes}
       >
-        Signup / Signin
+      Signin / Signup
       </a>
     );
 
@@ -59,6 +58,7 @@ class NavBar extends React.Component {
         <NavLink
           to={`/profile/${user.profileid}`}
           onClick={() => this.handleMobileNavLinkClick()}
+          className={classes}
         >
           {user.name}
         </NavLink>
@@ -66,9 +66,9 @@ class NavBar extends React.Component {
     }
 
     return (
-      <NavListItem className={classNames(`signupin-user`, classes)}>
+      <li className="signupin-user d-inline-block mb-0 mr-md-4">
         {link}
-      </NavListItem>
+      </li>
     );
   }
 
@@ -89,6 +89,7 @@ class NavBar extends React.Component {
     this.setState({ burgerActive: !this.state.burgerActive }, () => {
       // prevent the layer underneath the nav menu overlay from scrolling
       let body = document.querySelector(`body`);
+
       body.setAttribute(`aria-hidden`, !this.state.burgerActive);
       body.style.overflow = this.state.burgerActive ? `hidden` : `auto`;
     });
@@ -105,12 +106,11 @@ class NavBar extends React.Component {
     }
   }
 
-  renderNavList() {
+  renderNavContent() {
     let classes = classNames(
-      `nav-link-list list-unstyled ml-lg-4 mt-md-3 mt-lg-0 mb-0`,
+      `nav-link-list px-3 hidden-lg-up dark-theme`,
       {
-        "d-flex": this.state.burgerActive,
-        "flex-column": this.state.burgerActive
+        "show": this.state.burgerActive
       }
     );
 
@@ -126,97 +126,110 @@ class NavBar extends React.Component {
       </NavListItem>
     ) : null;
 
-    return (
-      <ul className={classes}>
-        <div className="d-flex justify-content-end mb-2 hidden-md-up">
-          <button
-            className="btn btn-link"
-            id="btn-dismiss"
-            onClick={() => this.handleBurgerClick()}
-          >
-            <img src="/assets/svg/x.svg" width="23" />
-          </button>
-        </div>
-        {this.renderName(`hidden-md-up`)}
-        <NavListItem>
-          <MainNavLink to="/featured">Featured</MainNavLink>
-        </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/latest">Latest</MainNavLink>
-        </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/issues">Issues</MainNavLink>
-        </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/favs" className="bookmarks">
-            Favs
-          </MainNavLink>
-        </NavListItem>
-        <NavListItem>
-          <MainNavLink to="/search" className="btn-search">
-            <i className="fa fa-search" />
-            <span className="sr-only">Search</span>
-          </MainNavLink>
-        </NavListItem>
-        {moderatorLink}
-      </ul>
+    let signInRequest = (
+      <div className="signupin-request text-center">
+        <h3>Signup or Signin to your Pulse Account</h3>
+        <p>Share your projects or help out on other projects in our Network.</p>
+        <a
+        href={user.getLoginURL(utility.getCurrentURL())}
+        onClick={event => this.handleSignInBtnClick(event)}
+        className="btn btn-secondary"
+        >
+        Signin / Signup
+        </a>
+      </div>
     );
+
+    let navLinks = (
+      <div className="row">
+        <div className="col">
+          <ul className="nav-link-list-container pt-4">
+            <NavListItem className="dark-theme">
+              <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
+            </NavListItem>
+            <NavListItem className="dark-theme">
+              <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
+            </NavListItem>
+            <NavListItem className="dark-theme">
+              <MainNavLink to="/favs">Favs</MainNavLink>
+            </NavListItem>
+            <NavListItem>
+              <SignOutButton 
+                user={this.state.user} 
+                history={this.props.history}
+                className="link"
+              />
+            </NavListItem>
+            {moderatorLink}
+          </ul>
+        </div>
+      </div>
+      );
+
+    return (
+      <div className={ classes }>
+        { !user.loggedin ? signInRequest : navLinks }
+      </div>
+    );
+  }
+
+  renderBurger() {
+    let classes = classNames(
+      `burger hidden-md-up ml-md-0`,
+      {
+        "menu-open": this.state.burgerActive
+      }
+    );
+    return(
+      <button className={ classes } onClick={() => this.handleBurgerClick()}>    
+        <div className="burger-bar burger-bar-top"></div>
+        <div className="burger-bar burger-bar-middle"></div>
+        <div className="burger-bar burger-bar-bottom"></div>
+      </button>
+    )
   }
 
   render() {
     // We have renamed all non user facing "favorites" related variables and text (e.g., favs, faved, etc) to "bookmarks".
     // This is because we want client side code to match what Pulse API uses (i.e., bookmarks)
     // For user facing bits like UI labels and URL path we want them to stay as "favorites".
-    // That's why a link like <NavLink to="/favs" className="text-nav-link bookmarks">Favs</NavLink> is seen here.
+    // That's why a link like <NavLink to="/favs">Favs</NavLink> is seen here.
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
 
     return (
-      <div className="navbar">
+      <div className="navbar mb-5">
         <div className="container">
-          <div className="row open-sans align-items-center">
+          <div className="row align-items-center">
             <div
-              className="col-12 col-lg-9 d-flex flex-column flex-lg-row"
+              className="col-6"
               id="main-nav-wrapper"
             >
-              <ReactRouterNavLink to="/" className="d-inline-block">
-                <img
-                  src="/assets/svg/pulse-logo-mobile.svg"
-                  alt="Mozilla Pulse"
-                  className="logo hidden-md-up"
-                  width="40"
-                />
-                <img
-                  src="/assets/svg/pulse-logo.svg"
-                  alt="Mozilla Pulse"
-                  className="logo hidden-sm-down"
-                  width="187"
-                />
-              </ReactRouterNavLink>
-              {this.renderNavList()}
+              <div className="d-flex align-items-center">
+                { this.renderBurger() }
+                <ReactRouterNavLink to="/" className="d-inline-block">
+                  <img
+                    src="/assets/svg/pulse-logo-mobile.svg"
+                    alt="Mozilla Pulse"
+                    className="logo-mobile hidden-md-up"
+                    width="40"
+                  />
+                  <img
+                    src="/assets/svg/pulse-logo.svg"
+                    alt="Mozilla Pulse"
+                    className="logo hidden-sm-down"
+                    width="187"
+                  />
+                </ReactRouterNavLink>
+              </div>
+              {this.renderNavContent()}
             </div>
-            <div className="pinned col-6 col-lg-3">
+            <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
-                <NavListItem noMargin={true}>
-                  <NavLink to="/add" className="btn-add d-inline-block">
-                    <span className="sr-only">Add</span>
-                  </NavLink>
-                </NavListItem>
-                <NavListItem noMargin={true}>
-                  <button
-                    className={classNames(`hidden-md-up`, {
-                      active: this.state.burgerActive
-                    })}
-                    id="burger"
-                    onClick={() => this.handleBurgerClick()}
-                  />
-                </NavListItem>
+                <li className="d-inline-block mb-0">
+                  <NavLink to="/add" className="btn btn-secondary">Add New</NavLink>
+                </li>
               </ul>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <hr className="hr-gradient" />
             </div>
           </div>
         </div>
