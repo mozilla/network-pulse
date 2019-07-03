@@ -23,17 +23,6 @@ import NotFound from "./pages/not-found.jsx";
 import Navbar from "./components/navbar/navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 
-const Featured = () => {
-  return (
-    <div>
-      <Helmet>
-        <title>Featured</title>
-      </Helmet>
-      <ProjectLoader featured={`True`} />
-    </div>
-  );
-};
-
 const Latest = () => {
   return (
     <div>
@@ -70,7 +59,6 @@ const Routes = () => (
     <Route exact path="/" component={Search} />
     <Route exact path="/search" component={Search} />
     <Route path="/search/:tab" component={Search} />
-    <Route path="/featured" component={Featured} />
     <Route path="/latest" component={Latest} />
     <Route path="/favs" component={Bookmarks} />
     <Route exact path="/issues" component={Issues} />
