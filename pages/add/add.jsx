@@ -276,7 +276,7 @@ class Add extends React.Component {
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
       >
-        Sign in with Google
+        Sign in with Github or Google
       </a>
     );
     let additionalMessage;
