@@ -57,7 +57,7 @@ class Search extends React.Component {
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
     let helpType = this.state.helpType;
-    let location = { pathname: `/projects` };
+    let location = { pathname: this.state.activeTab == `people` ? `/people` : `/projects` };
     let query = {};
    
     if ( keywordSearched ) {
@@ -66,6 +66,7 @@ class Search extends React.Component {
 
     if ( helpType ) {
       query.helpType = helpType;
+      location.pathname = `/projects`;
     }
     
     location.search = `?${qs.stringify(query)}`;
