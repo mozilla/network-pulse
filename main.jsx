@@ -23,42 +23,6 @@ import NotFound from "./pages/not-found.jsx";
 import Navbar from "./components/navbar/navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 
-const Featured = () => {
-  let handleOnClick = function() {
-    ReactGA.event({
-      category: `Browse`,
-      action: `About learn more tap`,
-      label: `Tagline learn more link`
-    });
-  };
-
-  let learnMore = env.LEARN_MORE_LINK ? (
-    <span>
-      <a
-        href={env.LEARN_MORE_LINK}
-        id="learn-more"
-        onClick={() => handleOnClick()}
-      >
-        Learn more
-      </a>.
-    </span>
-  ) : null;
-
-  return (
-    <div>
-      <Helmet>
-        <title>Featured</title>
-      </Helmet>
-      <div className="row">
-        <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">
-          Discover & collaborate on projects for a healthy internet. {learnMore}
-        </h2>
-      </div>
-      <ProjectLoader featured={`True`} />
-    </div>
-  );
-};
-
 const Latest = () => {
   return (
     <div>
@@ -92,8 +56,11 @@ const Tag = router => {
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" render={() => <Redirect to="/featured" />} />
-    <Route path="/featured" component={Featured} />
+    <Route exact path="/" component={Search} />
+    <Route path="/search/:tab" render={(props) => <Redirect to={`/${props.match.params.tab}${props.location.search}`}/>}/>
+    <Route exact path="/search" render={(props) => <Redirect to={`/projects${props.location.search}`}/>} />
+    <Route path="/:tab(people|projects)" component={Search} />
+    <Redirect exact path="/featured" to="/" />
     <Route path="/latest" component={Latest} />
     <Route path="/favs" component={Bookmarks} />
     <Route exact path="/issues" component={Issues} />
@@ -101,8 +68,6 @@ const Routes = () => (
     <Route path="/entry/:entryId" component={Entry} />
     <Route path="/add" component={Add} />
     <Route path="/submitted" component={Submitted} />
-    <Route exact path="/search" component={Search} />
-    <Route path="/search/:tab" component={Search} />
     <Route exact path="/tags" render={() => <Redirect to="/latest" />} />
     <Route path="/tags/:tag" component={Tag} />
     <Route exact path="/help" render={() => <Redirect to="/latest" />} />
