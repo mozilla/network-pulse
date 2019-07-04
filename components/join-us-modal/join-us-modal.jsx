@@ -299,6 +299,19 @@ class JoinUsModal extends React.Component {
     );
   }
 
+  renderModalContent() {
+    if (this.state.showConfirmation) {
+      return this.renderConfirmation();
+    }
+
+    return (
+      <div>
+        {this.renderProgressDots()}
+        {this.renderSteps()}
+      </div>
+    );
+  }
+
   render() {
     if (!this.state.showModal) return null;
 
@@ -313,10 +326,7 @@ class JoinUsModal extends React.Component {
         <button className="btn btn-close" onClick={() => this.closeModal()}>
           <span className="sr-only">Close modal</span>
         </button>
-        {!this.state.showConfirmation && this.renderProgressDots()}
-        {!this.state.showConfirmation
-          ? this.renderSteps()
-          : this.renderConfirmation()}
+        {this.renderModalContent()}
         {this.renderButtons()}
       </Modal>
     );
