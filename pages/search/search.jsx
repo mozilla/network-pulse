@@ -57,7 +57,7 @@ class Search extends React.Component {
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
     let helpType = this.state.helpType;
-    let location = { pathname: "/search" };
+    let location = { pathname: `/projects` };
     let query = {};
    
     if ( keywordSearched ) {

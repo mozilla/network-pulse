@@ -52,7 +52,7 @@ class SearchTabGroup extends React.Component {
         active: this.state.activeTab === tabName
       });
 
-      let to = `/search/${tabName}`;
+      let to = `/${tabName}`;
 
       if (this.props.keywordSearched) {
         to += `?keyword=` + encodeURIComponent(this.props.keywordSearched);
