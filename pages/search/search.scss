@@ -18,7 +18,21 @@
   }
 
   .help-dropdown {
-    @include search-input-and-dropdown( $black, true );
+    @include form-control( $black );
+
+    font-weight: 600;
+    height: 100%;
+    max-height: 50px;
+    background-image: url("../assets/svg/caret-down.svg");
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    cursor: pointer;
+    color: black;
+
+    @media (min-width: $bp-md) {
+      max-height: 64px;
+    }
   }
 
   .search-glyph-container {
@@ -37,5 +51,5 @@
 }
 
 #search-box {
-  @include search-input-and-dropdown( $black, false );
+  @include form-control( $black );
 }
