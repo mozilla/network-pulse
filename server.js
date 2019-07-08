@@ -38,7 +38,7 @@ function renderPage(appHtml, reactHelmet) {
         <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,300,700,300i">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,600,700">
         <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">

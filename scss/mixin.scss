@@ -52,7 +52,7 @@
   border-color: $border-color;
 
   @if $home-dropdown == true {
-    font-weight: 700;
+    font-weight: 600;
     height: 100%;
     max-height: 50px;
     background-image: url("../assets/svg/caret-down.svg");
