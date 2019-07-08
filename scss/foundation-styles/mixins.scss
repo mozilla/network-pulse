@@ -88,3 +88,12 @@
     }
   }
 }
+
+@mixin thumbnail-button-style() {
+  background: $pulse-light-blue;
+  font-weight: 400;
+
+  @include hover-focus-active {
+    background: $light-blue;
+  }
+}

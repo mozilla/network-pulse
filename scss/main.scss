@@ -23,6 +23,7 @@
 @import './foundation-styles/buttons.scss';
 @import './foundation-styles/glyphs.scss';
 @import './overrides/type.scss';
+@import './overrides/buttons.scss';
 
 html {
   height: 100%;
@@ -239,7 +240,7 @@ fieldset {
   &-container {
     background: $blue;
     position: absolute;
-    z-index: 1;
+    z-index: map-get($z-indices, featured-flag);
     left: 0;
     top: 0;
   }
@@ -259,6 +260,7 @@ fieldset {
 @import '../components/notification-bar/notification-bar';
 @import '../components/profile-tab-group/profile-tab-group';
 @import '../components/search-tab-group/search-tab-group';
+@import '../components/join-us-modal/join-us-modal';
 
 // Pages
 

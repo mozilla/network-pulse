@@ -5,6 +5,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Analytics from "./js/analytics.js";
 import env from "./js/env-client";
+import user from "./js/app-user";
+import utility from "./js/utility";
 
 import ProjectLoader from "./components/project-loader/project-loader.jsx";
 import Bookmarks from "./pages/bookmarks.jsx";
@@ -19,7 +21,7 @@ import Moderation from "./pages/moderation.jsx";
 import Profile from "./pages/profile.jsx";
 import ProfileEdit from "./pages/profile-edit/profile-edit.jsx";
 import NotFound from "./pages/not-found.jsx";
-
+import JoinUsModal from "./components/join-us-modal/join-us-modal.jsx";
 import Navbar from "./components/navbar/navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 
@@ -80,6 +82,7 @@ const Routes = () => (
   </Switch>
 );
 
+const JoinUsModalWithRouter = withRouter(JoinUsModal);
 const NavbarWithRouter = withRouter(Navbar);
 
 class Main extends React.Component {
@@ -104,6 +107,7 @@ class Main extends React.Component {
           titleTemplate={`%s - ${this.pageTitle}`}
           defaultTitle={this.pageTitle}
         />
+        <JoinUsModalWithRouter />
         <NavbarWithRouter />
         <div id="main" className="container">
           <Routes />
