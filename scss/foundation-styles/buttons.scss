@@ -75,6 +75,7 @@
     color: $white;
     background: $black;
     border: 2px solid $black;
+
     @include hover-focus-active {
       @extend .btn-secondary;
     }
