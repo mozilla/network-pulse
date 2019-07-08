@@ -227,7 +227,7 @@ class NavBar extends React.Component {
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
                 <li className="d-inline-block mb-0">
-                  <NavLink to="/add" className="btn btn-secondary">Add New</NavLink>
+                  <NavLink to="/add" className="btn btn-secondary">Add new</NavLink>
                 </li>
               </ul>
             </div>

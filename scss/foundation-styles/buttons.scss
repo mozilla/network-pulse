@@ -71,6 +71,15 @@
     border: 2px solid $black;
   }
 
+  &.active {
+    color: $white;
+    background: $black;
+    border: 2px solid $black;
+    @include hover-focus-active {
+      @extend .btn-secondary;
+    }
+  }
+
   @at-root .dark-theme & {
     color: $white;
     background: transparent;
