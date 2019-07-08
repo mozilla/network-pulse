@@ -54,6 +54,10 @@
       margin-left: 1rem;
       color: $gray-light;
     }
+
+    input[type="button"] {
+      @include thumbnail-button-style();
+    }
   }
 
   .tags,
