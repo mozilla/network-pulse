@@ -44,7 +44,7 @@ class GetInvolved extends React.Component {
     return this.props.helpTypes.map(helpType => {
       return (
         <Link
-          to={`/projects?helpType=${Utility.getSlugFromHelpTag(helpType)}`}
+          to={`/projects?helpType=${helpType}`}
           className="btn btn-xs btn-tag"
           key={helpType}
         >
