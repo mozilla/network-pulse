@@ -109,7 +109,7 @@ fieldset.help_types {
 
   .options {
     column-count: 1;
-    
+
     @media (min-width: $bp-md) {
       column-count: 2;
     }

@@ -75,7 +75,7 @@ DynamicCheckboxGroup.propTypes = {
 };
 
 DynamicCheckboxGroup.defaultProps = {
-  colNum: 1,
+  colNum: '',
   options: [],
   selectedOptions: []
 };
