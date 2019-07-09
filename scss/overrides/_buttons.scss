@@ -12,4 +12,12 @@
   &:active:hover {
     @include active-style();
   }
+
+  &.active {
+    @extend .btn-secondary;
+
+    @include hover-focus-active {
+      @extend .btn-secondary;
+    }
+  }
 }
