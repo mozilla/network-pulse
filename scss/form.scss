@@ -76,8 +76,8 @@ span.char-limit {
 }
 
 .form-label {
-  @include scaleText(16px, 24px, 20px, 28px);
-
+  font-size: 16px;
+  line-height: 1.5;
   font-weight: 700;
   margin-bottom: 8px;
 }
@@ -92,6 +92,10 @@ p.project-image {
 
     content: "(only submit images that you have permission to use in this context)";
     margin-left: 0;
+
+    @media (min-width: $bp-md) {
+      margin-left: 4px;
+    }
   }
 }
 
@@ -102,4 +106,12 @@ fieldset.issues {
 fieldset.help_types {
   margin-bottom: 48px;
   padding-top: 24px;
+
+  .options {
+    column-count: 1;
+    
+    @media (min-width: $bp-md) {
+      column-count: 2;
+    }
+  }
 }
