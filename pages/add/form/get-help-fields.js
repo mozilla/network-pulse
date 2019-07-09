@@ -5,7 +5,7 @@ let fields = {
   get_involved: {
     type: `text`,
     label: `Looking for support? Describe how people can do that.`,
-    placeholder: `Help us test the prototype, plan some local events, contribute to the codebase, ...`,
+    placeholder: `Help us test the prototype, plan some local events, etc...`,
     labelClassname: `form-label`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(300)

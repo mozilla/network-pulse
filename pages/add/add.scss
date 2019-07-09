@@ -1,6 +1,8 @@
 .add-page {
   .posted-by {
-    margin-top: $form-field-vertical-margin / 2;
+    p:first-child {
+      @include scaleText(16px,24px,20px,28px);
+    }
   }
 
   fieldset.title {
@@ -58,6 +60,10 @@
     input[type="button"] {
       @include thumbnail-button-style();
     }
+  }
+
+  .form-control {
+    font-weight: 300;
   }
 
   .tags,

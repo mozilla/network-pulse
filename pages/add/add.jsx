@@ -208,13 +208,13 @@ class Add extends React.Component {
           jargon. Submissions may be lightly edited by our curators for
           spelling, grammar and style consistency.
         </p>
-        <div className="pt-4 mb-4">
+        <div className="pt-4 mb-3">
           <h5 className="h5-heading mb-2">Basic Info</h5>
           <div className="posted-by mb-5">
-            <p className="d-inline-block mr-3 mb-2 mb-sm-0">
-              Posted by: <span className="text-muted">{user.name}</span>
+            <p className="d-inline-block mr-4 mb-2 mb-sm-0">
+              Posted by <span className="text-muted">{user.name}</span>
             </p>
-            <p className="d-inline-block text-muted">
+            <p className="d-inline-block">
               Not you?{" "}
               <SignOutButton user={user} history={this.props.history} />
             </p>
@@ -224,7 +224,7 @@ class Add extends React.Component {
             fields={basicInfoFields}
             inlineErrors={true}
             onUpdate={updateCallback}
-            className="mt-4 mb-5"
+            className="mb-5"
           />
           <h5 className="h5-heading">Optional Details</h5>
           <Form
@@ -242,7 +242,7 @@ class Add extends React.Component {
             onUpdate={updateCallback}
           />
           <div className="submit-section mt-5">
-            <p>
+            <p className="body-small mb-4">
               By submitting your entry, you agree to be bound by the{" "}
               <a
                 href="https://www.mozilla.org/about/legal/terms/mozilla/"
@@ -253,7 +253,7 @@ class Add extends React.Component {
               clarity and style.
             </p>
             <button
-              className="btn btn-primary mr-3"
+              className="btn btn-primary px-5 mr-3"
               type="submit"
               onClick={evt => this.handleFormSubmit(evt)}
               disabled={this.state.submitting ? `disabled` : null}

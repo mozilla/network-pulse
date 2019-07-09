@@ -70,7 +70,6 @@ module.exports = {
       </p>
     ),
     prompt: `Select image`,
-    helpText: `Looks best at 1200px × 630px`,
     fieldClassname: `form-control`,
     validator: [
       validator.imageTypeValidator(),
