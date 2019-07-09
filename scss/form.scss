@@ -56,7 +56,9 @@ $field-hint-font-size: 0.875rem;
 }
 
 p.guide-text {
-  margin-bottom: 0;
+  @extend .form-label;
+
+  margin-bottom: 4px;
 }
 
 span.char-limit {

@@ -6,7 +6,7 @@ module.exports = {
     type: `text`,
     label: `Title: Keep it simple. Name it, don't describe it.`,
     placeholder: `Title`,
-    labelClassname: `required`,
+    labelClassname: `form-label required`,
     fieldClassname: `form-control`,
     validator: [
       validator.emptyValueValidator(),
@@ -23,7 +23,7 @@ module.exports = {
     type: `text`,
     label: `URL`,
     placeholder: `https://example.com`,
-    labelClassname: `required`,
+    labelClassname: `form-label required`,
     fieldClassname: `form-control`,
     validator: [validator.emptyValueValidator(), validator.urlValidator()]
   },
@@ -31,6 +31,7 @@ module.exports = {
     type: `textarea`,
     label: `Description: Simple, brief language works best. No jargon.`,
     placeholder: `Description`,
+    labelClassname: `form-label`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600),
     charLimit: 600,
