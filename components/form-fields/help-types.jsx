@@ -17,7 +17,7 @@ class HelpTypesField extends React.Component {
       <DynamicCheckboxGroup
         options={this.state.options}
         onChange={this.props.onChange}
-        colNum={2}
+        colNum={1}
       />
     );
   }

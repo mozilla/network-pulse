@@ -7,13 +7,25 @@ import Tags from "./tags";
 
 const IssuesLabel = function() {
   return (
-    <div>
+    <p className="form-label mb-0">
       Check any{" "}
       <Link to="/issues" target="_blank">
         Key Internet Issues
       </Link>{" "}
       that relate to your project.
-    </div>
+    </p>
+  );
+};
+
+const ThumbnailLabel = function() {
+  return (
+    <p className="form-label mb-0">
+      Check any{" "}
+      <Link to="/issues" target="_blank">
+        Key Internet Issues
+      </Link>{" "}
+      that relate to your project.
+    </p>
   );
 };
 
@@ -27,28 +39,36 @@ module.exports = {
   related_creators: {
     type: Creators,
     label: `Name any creators, contributors, partners. Comma separated.`,
+    labelClassname: `form-label`,
     fieldClassname: `form-control`
   },
   interest: {
     type: `text`,
     label: `Why might this be interesting to other people in our network?`,
     placeholder: ``,
-    fieldClassname: `form-control`,
+    labelClassname: `form-label`,
+    fieldClassname: `form-control mb-4`,
     validator: validator.maxLengthValidator(300)
   },
   issues: {
     type: IssuesField,
     label: <IssuesLabel />,
     colCount: 1
+    
   },
   tags: {
     type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
+    labelClassname: `form-label`,
     fieldClassname: `form-control`
   },
   thumbnail: {
     type: `image`,
-    label: `Project image: Only submit images that you have permission to use in this context.`,
+    label: (
+      <p className="form-label project-image">
+        Project image
+      </p>
+    ),
     prompt: `Select image`,
     helpText: `Looks best at 1200px × 630px`,
     fieldClassname: `form-control`,

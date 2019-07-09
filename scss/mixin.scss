@@ -60,3 +60,12 @@
     padding: 1.0625rem 0.75rem;
   }
 }
+
+@mixin form-helper-text {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.33;
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: $gray-40;
+}

@@ -56,7 +56,9 @@ $field-hint-font-size: 0.875rem;
 }
 
 p.guide-text {
-  margin-bottom: 0;
+  @extend .form-label;
+
+  margin-bottom: 4px;
 }
 
 span.char-limit {
@@ -71,4 +73,33 @@ span.char-limit {
   span.char-limit {
     color: $form-error-color;
   }
+}
+
+.form-label {
+  @include scaleText(16px, 24px, 20px, 28px);
+
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  @include form-control ( $gray-20 );
+}
+
+p.project-image {
+  &::after {
+    @include form-helper-text;
+
+    content: "(only submit images that you have permission to use in this context)";
+    margin-left: 0;
+  }
+}
+
+fieldset.issues {
+  margin-bottom: 36px;
+}
+
+fieldset.help_types {
+  margin-bottom: 48px;
+  padding-top: 24px;
 }
