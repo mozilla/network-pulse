@@ -4,7 +4,11 @@
   "scripts": {
   },
   "env": {
-    "NODE_ENV": "development"
+    "APP_HOST": "pulse.mofostaging.net",
+    "NODE_ENV": "development",
+    "PULSE_API_HOST": "https://pulse-api.mofostaging.net",
+    "PULSE_LOGIN_URL": "https://pulse-api.mofostaging.net/accounts/login/",
+    "PULSE_LOGOUT_URL": "https://pulse-api.mofostaging.net/accounts/logout/"
   },
   "formation": {
   },
