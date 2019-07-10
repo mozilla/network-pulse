@@ -17,18 +17,6 @@ const IssuesLabel = function() {
   );
 };
 
-const ThumbnailLabel = function() {
-  return (
-    <p className="form-label mb-0">
-      Check any{" "}
-      <Link to="/issues" target="_blank">
-        Key Internet Issues
-      </Link>{" "}
-      that relate to your project.
-    </p>
-  );
-};
-
 module.exports = {
   published_by_creator: {
     type: `checkbox`,

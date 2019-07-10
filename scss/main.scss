@@ -37,11 +37,6 @@ body {
   color: $body-color;
 }
 
-h2 {
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
 .btn-link {
   background: transparent;
   border: none;
@@ -139,11 +134,11 @@ form {
 label {
   margin-bottom: 5px;
 
-  &.required {
+  .required {
     &::after {
       @include form-helper-text;
 
-      content: "(*required field)";
+      content: "(*required)";
     }
   }
 }
