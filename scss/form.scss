@@ -93,7 +93,7 @@ p.project-image {
     content: "(only submit images that you have permission to use in this context)";
     margin-left: 0;
 
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-sm) {
       margin-left: 4px;
     }
   }
@@ -114,4 +114,8 @@ fieldset.help_types {
       column-count: 2;
     }
   }
+}
+
+.form fieldset label {
+  margin-bottom: 8px;
 }

@@ -1,14 +1,71 @@
 .profile-edit-page {
+  h5.email {
+    &::after {
+      @include form-helper-text;
+
+      content: "(email won't be displayed or shared)";
+    }
+  }
+
+  label.bio {
+    &::after {
+      @include form-helper-text;
+
+      content: "(do not include any personal information)";
+    }
+  }
+
+  label.profile-image {
+    &::after {
+      @include form-helper-text;
+
+      content: "(only submit photos you have permission to use in this context)";
+      margin-left: 0;
+
+      @media (min-width: $bp-sm) {
+        margin-left: 4px;
+      }
+    }
+  }
+
   fieldset {
     @extend .fieldset-full-width;
   }
 
-  fieldset.city_country,
-  fieldset.languages,
-  fieldset.twitter,
-  fieldset.linkedin,
-  fieldset.github {
+  fieldset.user_bio {
+    textarea {
+      height: 11.25rem;
+    }
+  }
+
+  fieldset.thumbnail {
+    input[type="button"] {
+      @include thumbnail-button-style();
+
+      display: block;
+      margin: auto;
+    }
+  }
+
+  fieldset.issues {
+    a {
+      color: $dark-blue;
+    }
+  }
+
+  fieldset.Twitter,
+  fieldset.Linkedin,
+  fieldset.Github,
+  fieldset.website {
     @extend .fieldset-half-width;
+  }
+
+  fieldset.user_bio,
+  fieldset.website,
+  fieldset.thumbnail,
+  fieldset.location,
+  fieldset.user_bio_long {
+    margin-bottom: 48px;
   }
 
   fieldset.user_bio_long {
