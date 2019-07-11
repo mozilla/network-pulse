@@ -23,6 +23,5 @@ export default (props) => {
       </p>
     );
   }
-  
   return null;
 };
