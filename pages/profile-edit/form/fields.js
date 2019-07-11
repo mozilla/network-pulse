@@ -50,7 +50,7 @@ module.exports = function(showLongBio) {
     },
     Linkedin: {
       type: `text`,
-      label: `LinkedIn`,
+      label: `Linkedin`,
       placeholder: `https://linkedin.com/in/username`,
       labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
