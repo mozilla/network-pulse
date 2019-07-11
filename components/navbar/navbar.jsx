@@ -9,7 +9,11 @@ import SignOutButton from "../sign-out-button.jsx";
 
 class NavListItem extends React.Component {
   render() {
-    return <li className="dark-theme mb-4 ml-3 ml-sm-4 pl-md-2">{this.props.children}</li>;
+    return (
+      <li className="dark-theme mb-4 ml-3 ml-sm-4 pl-md-2">
+        {this.props.children}
+      </li>
+    );
   }
 }
 
@@ -18,7 +22,8 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       user,
-      burgerActive: false
+      burgerActive: false,
+      verified: false
     };
   }
 
@@ -34,13 +39,19 @@ class NavBar extends React.Component {
   updateUser(event) {
     // this updateUser method is called by "user" after changes in the user state happened
     if (event === `verified`) {
-      this.setState({ user });
+      this.setState({
+        user,
+        verified: true
+      });
     }
   }
 
   renderName() {
-    // don't show anything until we verify this user's loggedin status
-    if (user.loggedin === undefined) return null;
+    if (user.loggedin === undefined) {
+      // If the user is not logged in, there is no name to render.
+      return null;
+    }
+
     let classes = "signupin d-none d-md-flex align-items-md-center";
 
     let link = (
@@ -49,7 +60,7 @@ class NavBar extends React.Component {
         onClick={event => this.handleSignInBtnClick(event)}
         className={classes}
       >
-      Signin / Signup
+        Signin / Signup
       </a>
     );
 
@@ -66,9 +77,7 @@ class NavBar extends React.Component {
     }
 
     return (
-      <li className="signupin-user d-inline-block mb-0 mr-md-4">
-        {link}
-      </li>
+      <li className="signupin-user d-inline-block mb-0 mr-md-4">{link}</li>
     );
   }
 
@@ -107,13 +116,22 @@ class NavBar extends React.Component {
   }
 
   renderNavContent() {
-    let classes = classNames(
-      `nav-link-list px-3 hidden-lg-up dark-theme`,
-      {
-        "show": this.state.burgerActive
-      }
-    );
+    let classes = classNames(`nav-link-list px-3 hidden-lg-up dark-theme`, {
+      show: this.state.burgerActive
+    });
 
+    let content = null;
+
+    if (this.state.verified) {
+      content = user.loggedin
+        ? this.renderNavLinks()
+        : this.renderSignInRequest();
+    }
+
+    return <div className={classes}>{content}</div>;
+  }
+
+  renderNavLinks() {
     let MainNavLink = props => (
       <NavLink {...props} onClick={() => this.handleMobileNavLinkClick()}>
         {props.children}
@@ -126,36 +144,24 @@ class NavBar extends React.Component {
       </NavListItem>
     ) : null;
 
-    let signInRequest = (
-      <div className="signupin-request text-center">
-        <h3>Signup or Signin to your Pulse Account</h3>
-        <p>Share your projects or help out on other projects in our Network.</p>
-        <a
-        href={user.getLoginURL(utility.getCurrentURL())}
-        onClick={event => this.handleSignInBtnClick(event)}
-        className="btn btn-secondary"
-        >
-        Signin / Signup
-        </a>
-      </div>
-    );
-
-    let navLinks = (
+    return (
       <div className="row">
         <div className="col">
           <ul className="nav-link-list-container pt-4">
             <NavListItem className="dark-theme">
-              <MainNavLink to={`/profile/${user.profileid}`} >Profile</MainNavLink>
+              <MainNavLink to={`/profile/${user.profileid}`}>
+                Profile
+              </MainNavLink>
             </NavListItem>
             <NavListItem className="dark-theme">
-              <MainNavLink to="/myprofile" >Edit Profile</MainNavLink>
+              <MainNavLink to="/myprofile">Edit Profile</MainNavLink>
             </NavListItem>
             <NavListItem className="dark-theme">
               <MainNavLink to="/favs">Favs</MainNavLink>
             </NavListItem>
             <NavListItem>
-              <SignOutButton 
-                user={this.state.user} 
+              <SignOutButton
+                user={this.state.user}
                 history={this.props.history}
                 className="link"
               />
@@ -164,29 +170,36 @@ class NavBar extends React.Component {
           </ul>
         </div>
       </div>
-      );
+    );
+  }
 
+  renderSignInRequest() {
     return (
-      <div className={ classes }>
-        { !user.loggedin ? signInRequest : navLinks }
+      <div className="signupin-request text-center">
+        <h3>Signup or Signin to your Pulse Account</h3>
+        <p>Share your projects or help out on other projects in our Network.</p>
+        <a
+          href={user.getLoginURL(utility.getCurrentURL())}
+          onClick={event => this.handleSignInBtnClick(event)}
+          className="btn btn-secondary"
+        >
+          Signin / Signup
+        </a>
       </div>
     );
   }
 
   renderBurger() {
-    let classes = classNames(
-      `burger hidden-md-up ml-md-0`,
-      {
-        "menu-open": this.state.burgerActive
-      }
-    );
-    return(
-      <button className={ classes } onClick={() => this.handleBurgerClick()}>    
-        <div className="burger-bar burger-bar-top"></div>
-        <div className="burger-bar burger-bar-middle"></div>
-        <div className="burger-bar burger-bar-bottom"></div>
+    let classes = classNames(`burger hidden-md-up ml-md-0`, {
+      "menu-open": this.state.burgerActive
+    });
+    return (
+      <button className={classes} onClick={() => this.handleBurgerClick()}>
+        <div className="burger-bar burger-bar-top" />
+        <div className="burger-bar burger-bar-middle" />
+        <div className="burger-bar burger-bar-bottom" />
       </button>
-    )
+    );
   }
 
   render() {
@@ -200,12 +213,9 @@ class NavBar extends React.Component {
       <div className="navbar mb-5">
         <div className="container">
           <div className="row align-items-center">
-            <div
-              className="col-6"
-              id="main-nav-wrapper"
-            >
+            <div className="col-6" id="main-nav-wrapper">
               <div className="d-flex align-items-center">
-                { this.renderBurger() }
+                {this.renderBurger()}
                 <ReactRouterNavLink to="/" className="d-inline-block">
                   <img
                     src="/assets/svg/pulse-logo-mobile.svg"
@@ -227,7 +237,9 @@ class NavBar extends React.Component {
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
                 {this.renderName(`hidden-sm-down`)}
                 <li className="d-inline-block mb-0">
-                  <NavLink to="/add" className="btn btn-secondary">Add new</NavLink>
+                  <NavLink to="/add" className="btn btn-secondary">
+                    Add new
+                  </NavLink>
                 </li>
               </ul>
             </div>

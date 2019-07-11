@@ -19,8 +19,12 @@ const Utils = {
     return out;
   },
 
+  inBrowser() {
+    return typeof window !== "undefined";
+  },
+
   getCurrentURL() {
-    if (typeof window !== `undefined`) {
+    if (Utils.inBrowser()) {
       return window.location.toString();
     }
     return console.error(`No window available to get the current url!`);

@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import { Helmet } from "react-helmet";
 import env from "../../js/env-client";
 import qs from "qs";
-import DebounceInput from 'react-debounce-input';
-import ReactGA from 'react-ga';
-import SearchTabGroup from '../../components/search-tab-group/search-tab-group.jsx';
-import HelpDropdown from '../../components/help-dropdown/help-dropdown.jsx';
+import DebounceInput from "react-debounce-input";
+import ReactGA from "react-ga";
+import SearchTabGroup from "../../components/search-tab-group/search-tab-group.jsx";
+import HelpDropdown from "../../components/help-dropdown/help-dropdown.jsx";
 
 class Search extends React.Component {
   constructor(props) {
@@ -25,7 +25,9 @@ class Search extends React.Component {
     // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
     // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
     document.querySelector(`#search-box`).focus();
-    document.querySelector(`.search-glyph-container`).classList.add(`search-focus`);
+    document
+      .querySelector(`.search-glyph-container`)
+      .classList.add(`search-focus`);
     this.inputFocusEvent();
   }
 
@@ -41,7 +43,7 @@ class Search extends React.Component {
   }
 
   setSearchCriteria(key, value) {
-	// Current UX dictates that either search or help filter can be used, but not both at the same time, so we reset things every time this function gets called
+    // Current UX dictates that either search or help filter can be used, but not both at the same time, so we reset things every time this function gets called
     let criteria = {
       keywordSearched: ``,
       helpType: ``
@@ -57,18 +59,20 @@ class Search extends React.Component {
   updateBrowserHistory() {
     let keywordSearched = this.state.keywordSearched;
     let helpType = this.state.helpType;
-    let location = { pathname: this.state.activeTab == `people` ? `/people` : `/projects` };
+    let location = {
+      pathname: this.state.activeTab == `people` ? `/people` : `/projects`
+    };
     let query = {};
-   
-    if ( keywordSearched ) {
+
+    if (keywordSearched) {
       query.keyword = keywordSearched;
     }
 
-    if ( helpType ) {
+    if (helpType) {
       query.helpType = helpType;
       location.pathname = `/projects`;
     }
-    
+
     location.search = `?${qs.stringify(query)}`;
     this.props.history.push(location);
   }
@@ -101,31 +105,34 @@ class Search extends React.Component {
     let input = document.querySelector(`#search-box`);
     let icon = document.querySelector(`.search-glyph-container`);
 
-    document.addEventListener("click", (event) => {
-        if (event.target === input) {
-          icon.classList.add('search-focus');
-        }
-        if (event.target !== input && icon.classList.contains('search-focus')) {
-          icon.classList.remove('search-focus');
-        }
+    document.addEventListener("click", event => {
+      if (event.target === input) {
+        icon.classList.add("search-focus");
+      }
+      if (event.target !== input && icon.classList.contains("search-focus")) {
+        icon.classList.remove("search-focus");
+      }
     });
   }
 
   renderSearchBar() {
-    return <div className="d-flex align-items-center pr-lg-5 mr-lg-5">
-      <div className="activated search-bar w-100">
-        <DebounceInput id="search-box"
-          value={this.state.keywordSearched}
-          debounceTimeout={300}
-          type="search"
-          onChange={ event => this.handleInputChange(event) }
-          inputRef={ ref => this.setDebounceInput(ref) }
-          placeholder="Search keywords, people, tags..."
-          className="form-control"
-        />
-        <span className="search-glyph-container search-glyph"></span>
+    return (
+      <div className="d-flex align-items-center pr-lg-5 mr-lg-5">
+        <div className="activated search-bar w-100">
+          <DebounceInput
+            id="search-box"
+            value={this.state.keywordSearched}
+            debounceTimeout={300}
+            type="search"
+            onChange={event => this.handleInputChange(event)}
+            inputRef={ref => this.setDebounceInput(ref)}
+            placeholder="Search keywords, people, tags..."
+            className="form-control"
+          />
+          <span className="search-glyph-container search-glyph" />
+        </div>
       </div>
-    </div>;
+    );
   }
 
   setDebounceInput(ref) {
@@ -150,7 +157,7 @@ class Search extends React.Component {
         label: `Tagline learn more link`
       });
     };
-  
+
     let learnMore = env.LEARN_MORE_LINK ? (
       <span>
         <a
@@ -159,37 +166,42 @@ class Search extends React.Component {
           onClick={() => handleOnClick()}
         >
           Learn more
-        </a>.
+        </a>
+        .
       </span>
     ) : null;
-  
+
     return (
-        <div className="row">
-          <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">
-            Discover & collaborate on projects for a healthy internet. {learnMore}
-          </h2>
-        </div>
+      <div className="row">
+        <h2 className="mb-4 h2-heading col-12 col-md-10 col-lg-8">
+          Discover & collaborate on projects for a healthy internet. {learnMore}
+        </h2>
+      </div>
     );
-  };
+  }
 
   renderSearchControls() {
-    return <div className="row mt-4 mb-5">
-      <div className="col-12 col-lg-8 mb-4">{ this.renderSearchBar() }</div>
-      <div className="col-12 col-lg-4">
-        <HelpDropdown 
-          value={  this.state.helpType } 
-          helpType={ (event) => this.handleHelpChange(event)} 
-        />
+    return (
+      <div className="row mt-4 mb-5">
+        <div className="col-12 col-lg-8 mb-4">{this.renderSearchBar()}</div>
+        <div className="col-12 col-lg-4">
+          <HelpDropdown
+            value={this.state.helpType}
+            helpType={event => this.handleHelpChange(event)}
+          />
+        </div>
       </div>
-    </div>;
+    );
   }
 
   render() {
     return (
       <div className="search-page">
-        <Helmet><title>{this.state.keywordSearched}</title></Helmet>
-        { this.renderLearnMore() }
-        { this.renderSearchControls() }
+        <Helmet>
+          <title>{this.state.keywordSearched}</title>
+        </Helmet>
+        {this.renderLearnMore()}
+        {this.renderSearchControls()}
         <SearchTabGroup
           activeTab={this.state.helpType ? `projects` : this.state.activeTab}
           keywordSearched={this.state.keywordSearched}
