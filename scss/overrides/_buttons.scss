@@ -14,10 +14,17 @@
   }
 
   &.active {
-    @extend .btn-secondary;
+    color: $black;
+    background: transparent;
+    border: 2px solid $black;
 
-    @include hover-focus-active {
-      @extend .btn-secondary;
+    &:active,
+    &:focus {
+      @extend .btn-secondary.active;
+    }
+
+    &:hover {
+      @include active-style();
     }
   }
 }

@@ -44,23 +44,6 @@
   }
 }
 
-@mixin form-control( $border-color ) {
-  @include scaleText(16px, 24px, 20px, 28px);
-
-  border-radius: 0;
-  padding: 0.75rem;
-  border-color: $border-color;
-
-  &:focus,
-  &:active {
-    border-color: $light-blue;
-  }
-
-  @media (min-width: $bp-md) {
-    padding: 1.0625rem 0.75rem;
-  }
-}
-
 @mixin form-helper-text {
   font-weight: 400;
   font-size: 0.75rem;
