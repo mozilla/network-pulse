@@ -1,0 +1,28 @@
+.newsletter-sign-up {
+  background: inherit;
+
+  .has-danger {
+    color: $red;
+  }
+
+  .form-control {
+    font-family: "Nunito Sans";
+    font-weight: 400;
+  }
+
+  .fields-wrapper {
+    flex: 1 1 auto;
+  }
+
+  @at-root .dark-theme & {
+    form {
+      input {
+        border: none;
+      }
+    }
+
+    .body-small.form-control-feedback {
+      color: $red;
+    }
+  }
+}
