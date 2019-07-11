@@ -11,6 +11,12 @@
     }
   }
 
+  fieldset.description {
+    textarea {
+      height: 11.25rem;
+    }
+  }
+
   fieldset.published_by_creator {
     input {
       margin-right: $form-check-input-margin-x;
@@ -53,12 +59,21 @@
 
   fieldset.thumbnail {
     .help-text {
-      margin-left: 1rem;
-      color: $gray-light;
+      @include form-helper-text;
+
+      @media (min-width: $bp-sm) {
+        margin-left: 1rem;
+      }
     }
 
     input[type="button"] {
       @include thumbnail-button-style();
+    }
+  }
+
+  fieldset.get_involved {
+    textarea {
+      height: 4.625rem;
     }
   }
 
