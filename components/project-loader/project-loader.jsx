@@ -144,11 +144,13 @@ class ProjectLoader extends React.Component {
   }
 
   renderEntryCounter() {
-    return <SearchResultCounter
-      searchKeyword={this.props.search}
-      helpFilter={this.props.help_type}
-      totalMatched={this.state.totalMatched}
-    />;
+    return (
+      <SearchResultCounter
+        searchKeyword={this.props.search}
+        helpFilter={this.props.help_type}
+        totalMatched={this.state.totalMatched}
+      />
+    );
   }
 
   render() {

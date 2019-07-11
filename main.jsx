@@ -59,8 +59,17 @@ const Tag = router => {
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Search} />
-    <Route path="/search/:tab" render={(props) => <Redirect to={`/${props.match.params.tab}${props.location.search}`}/>}/>
-    <Route exact path="/search" render={(props) => <Redirect to={`/projects${props.location.search}`}/>} />
+    <Route
+      path="/search/:tab"
+      render={props => (
+        <Redirect to={`/${props.match.params.tab}${props.location.search}`} />
+      )}
+    />
+    <Route
+      exact
+      path="/search"
+      render={props => <Redirect to={`/projects${props.location.search}`} />}
+    />
     <Route path="/:tab(people|projects)" component={Search} />
     <Redirect exact path="/featured" to="/" />
     <Route path="/latest" component={Latest} />

@@ -15,7 +15,6 @@ class NavLink extends React.Component {
   }
 
   render() {
-
     return (
       <ReactRouterNavLink
         {...this.props}
