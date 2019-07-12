@@ -82,35 +82,6 @@ span.char-limit {
   margin-bottom: 8px;
 }
 
-p.project-image {
-  &::after {
-    @include form-helper-text("(only submit images that you have permission to use in this context)");
-
-    margin-left: 0;
-
-    @media (min-width: $bp-sm) {
-      margin-left: 4px;
-    }
-  }
-}
-
-fieldset.issues {
-  margin-bottom: 36px;
-}
-
-fieldset.help_types {
-  margin-bottom: 48px;
-  padding-top: 24px;
-
-  .options {
-    column-count: 1;
-
-    @media (min-width: $bp-md) {
-      column-count: 2;
-    }
-  }
-}
-
 .form fieldset label {
   margin-bottom: 8px;
 }
@@ -118,6 +89,7 @@ fieldset.help_types {
 .form-control {
   @include scaleText(16px, 24px, 20px, 28px);
 
+  font-weight: 300;
   border-radius: 0;
   padding: 0.75rem;
   border-color: $gray-20;
