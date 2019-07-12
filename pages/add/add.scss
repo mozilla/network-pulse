@@ -59,7 +59,7 @@
 
   fieldset.thumbnail {
     .help-text {
-      @include form-helper-text;
+      @include form-helper-text("");
 
       @media (min-width: $bp-sm) {
         margin-left: 1rem;
