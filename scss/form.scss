@@ -78,6 +78,7 @@ span.char-limit {
 .form-control {
   @include scaleText(16px, 24px, 20px, 28px);
 
+  font-weight: 300;
   border-radius: 0;
   padding: 0.75rem;
   border-color: $gray-20;
