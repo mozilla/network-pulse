@@ -6,8 +6,9 @@
   }
 
   .form-control {
-    font-family: "Nunito Sans";
-    font-weight: 400;
+    @include scale-text(1rem, 1.25rem);
+
+    padding: 0.5rem 0.75rem;
   }
 
   .fields-wrapper {
