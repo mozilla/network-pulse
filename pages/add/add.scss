@@ -80,12 +80,6 @@
   p.project-image {
     &::after {
       @include form-helper-text("(only submit images that you have permission to use in this context)");
-
-      margin-left: 0;
-
-      @media (min-width: $bp-sm) {
-        margin-left: 4px;
-      }
     }
   }
 
