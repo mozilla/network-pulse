@@ -1,58 +1,121 @@
-#burger {
-  margin-left: 1rem;
-  border: 0;
-  background: url(/assets/svg/hamburger.svg) no-repeat;
-  width: 31px;
-  height: 39px;
-}
+#main-nav-wrapper {
+  $burger-width: 28px;
+  $burger-height: 28px;
+  $burger-bar-offset: 13px;
 
-#btn-dismiss {
-  border: none;
-  padding: 0;
+  .burger {
+    margin-right: $burger-width;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    width: $burger-width;
+    height: $burger-height;
+    padding: 0;
+    position: relative;
+
+    &-bar {
+      position: absolute;
+      background: $black;
+      height: 3px;
+      width: $burger-width;
+      transition: top 0.1s linear 0.1s, width 0.1s linear 0.1s, transform 0.1s;
+
+      &-top {
+        top: 3px;
+        width: 16px;
+      }
+
+      &-middle {
+        top: $burger-bar-offset;
+      }
+
+      &-bottom {
+        top: 22px;
+        width: 23px;
+      }
+    }
+
+    &.menu-open {
+      .burger-bar {
+        &.burger-bar-top {
+          top: $burger-bar-offset;
+          width: $burger-width;
+          transform: rotate(135deg);
+        }
+
+        &.burger-bar-middle {
+          transform: rotate(135deg);
+        }
+
+        &.burger-bar-bottom {
+          top: $burger-bar-offset;
+          width: $burger-width;
+          transform: rotate(45deg);
+        }
+
+        transition: top 0.1s, width 0.1s, transform 0.1s linear 0.1s;
+      }
+    }
+  }
+
+  .logo-mobile {
+    width: $burger-width;
+    height: $burger-height;
+  }
 }
 
 .navbar {
   display: block;
-  padding: 24px 0 0;
-  border-radius: 0;
-
-  .inner {
-    position: relative;
-  }
-
-  a {
-    @include link-text-decoration(none);
-  }
+  padding: 20px 0;
+  border-bottom: 1px solid $gray-20;
 
   .nav-link-list {
-    display: none;
     position: fixed;
-    top: 0;
+    top: 80px;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: map-get($z-indices, nav-link-list);
-    padding: 1rem $grid-gutter-width-base/2;
-    overflow: auto;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    background: $black;
+    z-index: 1000000;
+    transition: opacity 0.2s ease-in 0.1s;
 
-    a {
-      color: white;
+    a,
+    button {
+      font-size: 17px;
+      line-height: 1.35;
       font-weight: 700;
-      font-size: 26px;
     }
 
-    a.active,
-    a.active > i.fa,
-    a:hover > i.fa {
-      text-decoration: underline;
+    &.show {
+      opacity: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .link {
+      color: $white;
+
+      @include hover-focus-active {
+        color: $light-blue;
+      }
+    }
+
+    &-container {
+      @media (min-width: $bp-sm) {
+        width: 540px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      @media (min-width: $bp-md) {
+        width: 720px;
+      }
     }
   }
 
-  .pinned {
-    position: absolute;
-    top: 0;
-    right: 0;
+  .signupin-request {
+    margin-top: 120px;
   }
 
   .signupin-user {
@@ -60,83 +123,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: $pulse-purple;
 
     a {
-      color: $pulse-purple;
-      font-weight: 600;
-    }
-  }
+      @include link-text-decoration(none,none);
 
-  .btn-add {
-    height: 40px;
-    width: 40px;
-    z-index: map-get($z-indices, btn-add);
-    background-color: $pulse-purple;
-    background-image: url(/assets/svg/icon-add.svg);
-    background-size: 15px 15px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    box-shadow: 2px 2px black;
-    border: 2px solid black;
-    cursor: pointer;
-    position: relative;
-    top: 3px;
-    transition: all 0.25s ease;
+      color: $black;
+      font-weight: 700;
 
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: 5px 5px black;
-      transform: translate(-3px, -3px);
-    }
-
-    &.active {
-      background-color: black;
-      background-image: url(/assets/svg/icon-add-gray.svg);
-      box-shadow: none;
-      pointer-events: none;
-    }
-  }
-
-  hr {
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
-
-  @media screen and (min-width: $bp-md) {
-    #main-nav-wrapper {
-      position: relative;
-      top: 5px;
-    }
-
-    .nav-link-list {
-      display: block;
-      position: static;
-      background: none;
-      height: auto;
-      padding: 0;
-
-      a {
-        color: $body-color;
-        font-size: inherit;
+      @include hover-focus-active {
+        color: $dark-blue;
       }
-    }
-  }
-
-  @media screen and (min-width: $bp-lg) {
-    #main-nav-wrapper {
-      position: static;
-      top: 0;
-    }
-
-    .pinned {
-      position: static;
-      right: 0;
-    }
-
-    .nav-link-list {
-      align-self: center;
     }
   }
 }

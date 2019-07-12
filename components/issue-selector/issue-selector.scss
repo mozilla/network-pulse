@@ -1,18 +1,20 @@
 .issue-selector {
-  margin-bottom: 20px;
+  margin-bottom: 36px;
 
   .btn {
-    color: $gray;
-    border-color: $gray-lighter;
-    margin-right: 5px;
+    color: $black;
+    font-weight: 400;
+    border-color: $black;
+    border-radius: 19px;
+    margin-right: 16px;
     margin-bottom: 10px;
 
     &.active,
     &:active,
     &:hover,
     &:focus {
-      color: $bikeshed-magenta;
-      border-color: $bikeshed-magenta;
+      color: $white;
+      background-color: $black;
     }
   }
 }

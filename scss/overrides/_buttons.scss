@@ -12,4 +12,19 @@
   &:active:hover {
     @include active-style();
   }
+
+  &.active {
+    color: $black;
+    background: transparent;
+    border: 2px solid $black;
+
+    &:active,
+    &:focus {
+      @extend .btn-secondary.active;
+    }
+
+    &:hover {
+      @include active-style();
+    }
+  }
 }

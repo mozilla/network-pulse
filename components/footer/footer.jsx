@@ -9,7 +9,8 @@ export default class Footer extends React.Component {
           <a
             className="twitter small d-inline-block"
             href="https://twitter.com/mozilla"
-            target="_blank">
+            target="_blank"
+          >
             <span className="sr-only">Twitter</span>
           </a>
         </li>
@@ -17,7 +18,8 @@ export default class Footer extends React.Component {
           <a
             className="instagram small d-inline-block"
             href="https://www.instagram.com/mozilla/"
-            target="_blank">
+            target="_blank"
+          >
             <span className="sr-only">Instagram</span>
           </a>
         </li>
@@ -25,7 +27,8 @@ export default class Footer extends React.Component {
           <a
             className="github small d-inline-block"
             href="https://www.github.com/mozilla/foundation.mozilla.org/"
-            target="_blank">
+            target="_blank"
+          >
             <span className="sr-only">Github</span>
           </a>
         </li>
@@ -36,19 +39,38 @@ export default class Footer extends React.Component {
     return (
       <ul className="link-list list-unstyled mb-0">
         <li className="col-auto mb-2" key="Donate">
-          <a href="https://donate.mozilla.org/?utm_source=mozillapulse.org&utm_medium=referral&utm_content=footer" target="_blank">Donate</a>
+          <a
+            href="https://donate.mozilla.org/?utm_source=mozillapulse.org&utm_medium=referral&utm_content=footer"
+            target="_blank"
+          >
+            Donate
+          </a>
         </li>
         <li className="col-auto mb-2" key="Legal">
-          <a href="https://www.mozilla.org/about/legal/terms/mozilla/" target="_blank">Legal</a>
+          <a
+            href="https://www.mozilla.org/about/legal/terms/mozilla/"
+            target="_blank"
+          >
+            Legal
+          </a>
         </li>
         <li className="col-auto mb-2" key="License">
-          <a href="https://creativecommons.org/licenses/by/4.0" target="_blank">License</a>
+          <a href="https://creativecommons.org/licenses/by/4.0" target="_blank">
+            License
+          </a>
         </li>
         <li className="col-auto mb-2" key="Participation">
-          <a href="https://www.mozilla.org/about/governance/policies/participation/" target="_blank">Participation Guidelines</a>
+          <a
+            href="https://www.mozilla.org/about/governance/policies/participation/"
+            target="_blank"
+          >
+            Participation Guidelines
+          </a>
         </li>
         <li className="col-auto mb-2" key="Privacy">
-          <a href="https://mozilla.org/en-US/privacy/websites/" target="_blank">Privacy</a>
+          <a href="https://mozilla.org/en-US/privacy/websites/" target="_blank">
+            Privacy
+          </a>
         </li>
       </ul>
     );
@@ -83,7 +105,15 @@ export default class Footer extends React.Component {
               <div className="row">
                 <div className="col-12">
                   <hr className="mt-3 mt-md-5" />
-                  <p className="dark-theme body-small mb-5 mb-md-0">Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="https://foundation.mozilla.org">foundation.mozilla.org</a>.</p>
+                  <p className="dark-theme body-small mb-5 mb-md-0">
+                    Mozilla is a global non-profit dedicated to putting you in
+                    control of your online experience and shaping the future of
+                    the web for the public good. Visit us at{" "}
+                    <a href="https://foundation.mozilla.org">
+                      foundation.mozilla.org
+                    </a>
+                    .
+                  </p>
                 </div>
               </div>
             </div>
