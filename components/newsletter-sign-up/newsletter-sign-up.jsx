@@ -1,6 +1,7 @@
 import React from "react";
 // import ReactGA from "react-ga";
 import classNames from "classnames";
+import Service from "../../js/service";
 
 class NewsletterSignUp extends React.Component {
   constructor(props) {
@@ -53,42 +54,44 @@ class NewsletterSignUp extends React.Component {
   submitDataToApi() {
     this.setState({ apiSubmitted: true });
 
-    return new Promise((resolve, reject) => {
-      let payload = {
-        email: this.email.value,
-        source: window.location.toString()
-      };
+    return Service.signUp(this.email.value, window.location.toString())
+      .then(() => {
+        this.apiSubmissionSuccessful();
+      })
+      .catch(reason => {
+        console.error(reason);
+        this.apiSubmissionFailure(reason);
+      });
 
-      if (this.givenNames) {
-        payload.givenNames = this.givenNames.value;
-      }
-      if (this.surname) {
-        payload.surname = this.surname.value;
-      }
+    // return new Promise((resolve, reject) => {
+    //   let payload = {
+    //     email: this.email.value,
+    //     source: window.location.toString()
+    //   };
 
-      let xhr = new XMLHttpRequest();
+    //   let xhr = new XMLHttpRequest();
 
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState !== XMLHttpRequest.DONE) {
-          return;
-        }
+    //   xhr.onreadystatechange = () => {
+    //     if (xhr.readyState !== XMLHttpRequest.DONE) {
+    //       return;
+    //     }
 
-        if (xhr.status !== 201) {
-          reject(new Error(xhr.responseText));
-        }
+    //     if (xhr.status !== 201) {
+    //       reject(new Error(xhr.responseText));
+    //     }
 
-        resolve();
-      };
+    //     resolve();
+    //   };
 
-      xhr.open(`POST`, this.props.apiUrl, true);
-      xhr.setRequestHeader(`Content-Type`, `application/json`);
-      xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
-      xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
-      xhr.timeout = 5000;
-      xhr.ontimeout = () => reject(new Error(`xhr timed out`));
+    //   xhr.open(`POST`, this.props.apiUrl, true);
+    //   xhr.setRequestHeader(`Content-Type`, `application/json`);
+    //   xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
+    //   xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
+    //   xhr.timeout = 5000;
+    //   xhr.ontimeout = () => reject(new Error(`xhr timed out`));
 
-      xhr.send(JSON.stringify(payload));
-    });
+    //   xhr.send(JSON.stringify(payload));
+    // });
   }
 
   /**
@@ -117,11 +120,7 @@ class NewsletterSignUp extends React.Component {
     let consent = this.privacy.checked;
 
     if (email && consent) {
-      this.submitDataToApi()
-        .then(() => {
-          this.apiSubmissionSuccessful();
-        })
-        .catch(e => this.apiSubmissionFailure(e));
+      this.submitDataToApi();
     }
 
     // ReactGA.event({
@@ -228,33 +227,6 @@ class NewsletterSignUp extends React.Component {
   }
 
   /**
-   * Render fields asking for user name
-   */
-  renderNameFields() {
-    return (
-      <div>
-        <div className="mb-2">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="First name"
-            ref={el => (this.givenNames = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-          />
-        </div>
-        <div className="mb-2">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Last name"
-            ref={el => (this.surname = el)}
-            onFocus={evt => this.onInputFocus(evt)}
-          />
-        </div>
-      </div>
-    );
-  }
-  /**
    * Render the privacy field in signup CTA.
    */
   renderPrivacyField() {
@@ -327,8 +299,6 @@ class NewsletterSignUp extends React.Component {
         className={formClass}
       >
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
-          {/* the data attribute is passed as a String from Python, so we need this check structured this way */}
-          {this.props.askName === "True" && this.renderNameFields()}
           {this.renderEmailField()}
           {this.renderPrivacyField()}
         </div>
@@ -342,8 +312,7 @@ NewsletterSignUp.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `Join our email list to take action and stay updated!`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
-  newsletter: `mozilla-foundation`,
-  askName: false
+  newsletter: `mozilla-foundation`
 };
 
 export default NewsletterSignUp;
