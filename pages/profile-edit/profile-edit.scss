@@ -1,25 +1,20 @@
 .profile-edit-page {
   h5.email {
     &::after {
-      @include form-helper-text;
-
-      content: "(email won't be displayed or shared)";
+      @include form-helper-text("(email won't be displayed or shared)");
     }
   }
 
   label.bio {
     &::after {
-      @include form-helper-text;
-
-      content: "(do not include any personal information)";
+      @include form-helper-text("(do not include any personal information)");
     }
   }
 
   label.profile-image {
     &::after {
-      @include form-helper-text;
+      @include form-helper-text("(only submit photos you have permission to use in this context)");
 
-      content: "(only submit photos you have permission to use in this context)";
       margin-left: 0;
 
       @media (min-width: $bp-sm) {
