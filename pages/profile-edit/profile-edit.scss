@@ -14,12 +14,6 @@
   label.profile-image {
     &::after {
       @include form-helper-text("(only submit photos you have permission to use in this context)");
-
-      margin-left: 0;
-
-      @media (min-width: $bp-sm) {
-        margin-left: 4px;
-      }
     }
   }
 
