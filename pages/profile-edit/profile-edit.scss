@@ -29,7 +29,7 @@
 
   fieldset.user_bio {
     textarea {
-      height: 11.25rem;
+      height: $large-text-area;
     }
   }
 
@@ -65,7 +65,7 @@
 
   fieldset.user_bio_long {
     textarea {
-      height: 10rem;
+      height: $large-text-area;
     }
   }
 }

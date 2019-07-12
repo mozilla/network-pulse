@@ -13,7 +13,7 @@
 
   fieldset.description {
     textarea {
-      height: 11.25rem;
+      height: $large-text-area;
     }
   }
 
@@ -77,8 +77,33 @@
     }
   }
 
-  .form-control {
-    font-weight: 300;
+  p.project-image {
+    &::after {
+      @include form-helper-text("(only submit images that you have permission to use in this context)");
+
+      margin-left: 0;
+
+      @media (min-width: $bp-sm) {
+        margin-left: 4px;
+      }
+    }
+  }
+
+  fieldset.issues {
+    margin-bottom: 36px;
+  }
+
+  fieldset.help_types {
+    margin-bottom: 48px;
+    padding-top: 24px;
+
+    .options {
+      column-count: 1;
+
+      @media (min-width: $bp-md) {
+        column-count: 2;
+      }
+    }
   }
 
   .tags,
