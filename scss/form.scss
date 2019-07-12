@@ -55,9 +55,13 @@ $field-hint-font-size: 0.875rem;
   }
 }
 
-p.guide-text {
-  @extend .form-label;
+.form-label {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
 
+p.guide-text {
+  font-weight: 700;
   margin-bottom: 4px;
 }
 

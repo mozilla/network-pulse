@@ -132,8 +132,6 @@ form {
 }
 
 label {
-  margin-bottom: 5px;
-
   &.required {
     &::after {
       @include form-helper-text("(*required)");
