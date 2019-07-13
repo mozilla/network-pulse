@@ -62,36 +62,6 @@ class NewsletterSignUp extends React.Component {
         console.error(reason);
         this.apiSubmissionFailure(reason);
       });
-
-    // return new Promise((resolve, reject) => {
-    //   let payload = {
-    //     email: this.email.value,
-    //     source: window.location.toString()
-    //   };
-
-    //   let xhr = new XMLHttpRequest();
-
-    //   xhr.onreadystatechange = () => {
-    //     if (xhr.readyState !== XMLHttpRequest.DONE) {
-    //       return;
-    //     }
-
-    //     if (xhr.status !== 201) {
-    //       reject(new Error(xhr.responseText));
-    //     }
-
-    //     resolve();
-    //   };
-
-    //   xhr.open(`POST`, this.props.apiUrl, true);
-    //   xhr.setRequestHeader(`Content-Type`, `application/json`);
-    //   xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
-    //   xhr.setRequestHeader(`X-CSRFToken`, this.props.csrfToken);
-    //   xhr.timeout = 5000;
-    //   xhr.ontimeout = () => reject(new Error(`xhr timed out`));
-
-    //   xhr.send(JSON.stringify(payload));
-    // });
   }
 
   /**
