@@ -71,17 +71,6 @@ button {
   @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-xs, $btn-border-radius-xs);
 }
 
-.btn-tag {
-  color: $white;
-  background: $gray-lighter;
-  margin: 0 4px 4px 0;
-
-  @include hover-focus {
-    color: $white;
-    background: $gray-light;
-  }
-}
-
 %btn-tab-active-state {
   color: inherit;
   text-decoration: none;

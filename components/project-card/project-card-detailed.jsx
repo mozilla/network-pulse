@@ -98,7 +98,7 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-info btn-visit text-capitalize mt-3"
+        className="btn btn-block btn-info btn-visit"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
@@ -137,13 +137,13 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderActionPanel() {
+  renderSocialPanel() {
     let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       this.props.title
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel pb-3 mb-3">
+      <div className="action-panel mb-3">
         <div className="d-flex share">
           <BookmarkControl
             id={this.props.id}
@@ -163,11 +163,11 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderTopHeader() {
+  renderTitleAuthor() {
     return (
-      <div className="col-12 mb-3">
+      <div className="">
         <div className="row">
-          <div className="col-12 col-sm-8">
+          <div className="col-12 col-sm-8 mb-4">
             <Title title={this.props.title} className="mb-1" />
             <Creators
               creators={this.props.relatedCreators}
@@ -183,44 +183,48 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderLeftColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-8`);
-
     return (
-      <div className={wrapperClassnames}>
-        <Thumbnail thumbnail={this.props.thumbnail} />
-        {this.renderVisitButton()}
-        <Description description={this.props.description} className="mt-3" />
-        <WhyInteresting interest={this.props.interest} />
-        {this.renderTimePosted()}
-        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+      <div className="col-12 p-0 mb-5">
+        <div className="">
+          <Thumbnail thumbnail={this.props.thumbnail}/>
+          <div className="col-12 mb-4">
+            {this.renderTitleAuthor()}
+            {this.renderVisitButton()}
+          </div>
+        </div>
+        <div className="col-12">
+          {this.renderSocialPanel()}
+          <Description description={this.props.description} className="mt-3" /> 
+        </div>    
       </div>
     );
   }
 
   renderRightColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-4 mt-3 mt-md-0`);
+    let wrapperClassnames = classNames(`col-12 col-md-4`);
 
     return (
       <div className={wrapperClassnames}>
-        {this.renderActionPanel()}
+        <WhyInteresting interest={this.props.interest} />
         <GetInvolved
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
         />
+        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+        {this.renderTimePosted()}
       </div>
     );
   }
 
   render() {
-    let wrapperClassnames = classNames(`col-12 pt-3 project-card detail-view`, {
+    let wrapperClassnames = classNames(`col-12 project-card detail-view`, {
       bookmarked: this.state.bookmarked
     });
 
     return (
       <div className={wrapperClassnames}>
-        <div className="row">{this.renderTopHeader()}</div>
         <div className="row">
           {this.renderLeftColumn()}
           {this.renderRightColumn()}

@@ -9,7 +9,6 @@ const IssuesAndTags = props => {
     return (
       <Link
         to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
-        className="btn btn-xs btn-tag"
         key={issue}
       >
         {issue}
@@ -21,15 +20,14 @@ const IssuesAndTags = props => {
     return (
       <Link
         to={`/tags/${encodeURIComponent(tag)}`}
-        className="btn btn-xs btn-tag"
         key={tag}
       >
-        {tag}
+        #{tag}
       </Link>
     );
   });
 
-  let classnames = classNames(`issues-and-tags`, props.className);
+  let classnames = classNames(`issues-and-tags mb-4`, props.className);
 
   return (
     <div className={classnames}>

@@ -37,9 +37,7 @@
     justify-content: space-between;
   }
 
-  .get-involved,
-  &.moderation-mode .issues-and-tags,
-  &.detail-view .action-panel {
+  .moderation-mode .issues-and-tags {
     border-bottom: 1px solid $gray-lighter;
   }
 
@@ -103,12 +101,6 @@
   .moderation-panel {
     background: $gray-lightest;
   }
-
-  @media screen and (min-width: $bp-md) {
-    &.detail-view .report-correction {
-      border-top: 1px solid $gray-lighter;
-    }
-  }
 }
 
 .project-card.regular-list-mode {
@@ -155,5 +147,15 @@
 
   .btn-visit {
     border-radius: 0;
+  }
+
+  .get-involved {
+    background-color: $gray-05;
+  }
+
+  .description {
+    p {
+      margin-bottom: 0;
+    }
   }
 }

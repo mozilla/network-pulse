@@ -28,3 +28,23 @@
     }
   }
 }
+
+a.btn {
+  &.btn-tag {
+    color: $black;
+    font-weight: 400;
+    border-color: $black;
+    border-radius: 19px;
+    margin-right: 16px;
+    margin-bottom: 10px;
+    padding: 0.5rem 0.8125rem;
+
+    &.active,
+    &:active,
+    &:hover,
+    &:focus {
+      color: $white;
+      background-color: $black;
+    }
+  }
+}

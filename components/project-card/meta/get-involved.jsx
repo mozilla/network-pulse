@@ -44,7 +44,7 @@ class GetInvolved extends React.Component {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
-          className="btn btn-xs btn-tag"
+          className="btn btn-tag"
           key={helpType}
         >
           {helpType}
@@ -62,8 +62,8 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <div className="get-involved pb-3 mb-3">
-        <h2>Get involved</h2>
+      <div className="row get-involved px-3 py-5 mb-5">
+        <h2>Help needed</h2>
         {this.renderGetInvolvedText()}
         {this.renderHelpLabels()}
       </div>

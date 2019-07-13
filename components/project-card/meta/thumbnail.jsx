@@ -21,7 +21,7 @@ class Thumbnail extends React.Component {
         style={{ backgroundImage: `url(${imgSrc})` }}
       />
     );
-    let classnames = `thumbnail`;
+    let classnames = `thumbnail mb-4`;
 
     if (this.props.link) {
       return (
