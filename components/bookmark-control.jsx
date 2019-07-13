@@ -122,11 +122,9 @@ class BookmarkControl extends React.Component {
   }
 
   render() {
-    let classnames = classNames(`heart`, this.props.className);
-
     return (
       <a
-        className={classnames}
+        className={this.props.className}
         ref="heart"
         onClick={() => this.handleBookmarkClick()}
       />

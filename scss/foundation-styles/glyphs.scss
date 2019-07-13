@@ -41,6 +41,13 @@
       }
     }
   }
+
+  &.large {
+    &::before {
+      width: 37px;
+      height: 37px;
+    }
+  }
 }
 
 .twitter {
@@ -69,6 +76,14 @@
 .signupin {
   @include compositeGlyph("signupin");
   @include hoverGlyph("signupin-hover");
+}
+
+.circle-heart {
+  @include compositeGlyph("circle-heart");
+}
+
+.circle-twitter {
+  @include compositeGlyph("circle-twitter");
 }
 
 .dark-theme {

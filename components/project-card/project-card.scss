@@ -42,13 +42,9 @@
   }
 
   .share {
-    .btn {
-      width: 20px;
-      height: 20px;
-      background-position: center center;
-      background-repeat: no-repeat;
-      padding: 0;
-      border: none;
+    a {
+      max-width: 37px;
+      max-height: 37px;
       cursor: pointer;
     }
   }

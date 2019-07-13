@@ -129,10 +129,8 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <p>
-        <small className="time-posted d-block">
-          Added{timePosted}
-          {publishedBy}
-        </small>
+        Added{timePosted}
+        {publishedBy}
       </p>
     );
   }
@@ -143,10 +141,11 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel mb-3">
+      <div className="action-panel mb-3 pb-1">
         <div className="d-flex share">
           <BookmarkControl
             id={this.props.id}
+            className="circle-heart large mr-3"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
             updateCardBookmarkedState={bookmarked => {
@@ -156,7 +155,7 @@ class DetailedProjectCard extends React.Component {
           <a
             href={twitterUrl}
             onClick={evt => this.handleTwitterShareClick(evt)}
-            className="btn twitter-share d-inline-block align-self-center mx-3"
+            className="circle-twitter large"
           />
         </div>
       </div>
@@ -208,7 +207,7 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderRightColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-4`);
+    let wrapperClassnames = classNames(`col-12 col-md-4 mb-2`);
 
     return (
       <div className={wrapperClassnames}>
@@ -239,10 +238,8 @@ class DetailedProjectCard extends React.Component {
         <div className="row">
           <div className="col-12 col-md-8">
             <p className="report-correction mt-md-3 pt-md-3">
-              <small>
-                Correction?{" "}
-                <a href="https://mzl.la/pulse-contact">Contact us</a>.
-              </small>
+              Correction?{" "}
+              <a href="https://mzl.la/pulse-contact">Contact us</a>.
             </p>
           </div>
         </div>
