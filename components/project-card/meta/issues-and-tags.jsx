@@ -5,32 +5,49 @@ import classNames from "classnames";
 import Utility from "../../../js/utility.js";
 
 const IssuesAndTags = props => {
-  let issues = props.issues.map(issue => {
-    return (
-      <Link
-        to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
-        key={issue}
-      >
-        {issue}
-      </Link>
-    );
+  //TODO: clean this up if possible
+  let issues = [];
+  let tags = [];
+
+  props.issues.map(issue => {
+
+    if (issue) {
+      issue = (
+        <Link
+          to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
+          key={issue}
+        >
+          {issue}
+        </Link>
+      );
+    }
+
+    issues.push(issue);
+    issues.push(`, `);
   });
 
-  let tags = props.tags.map(tag => {
-    return (
-      <Link
+  if (issues.length) {
+    issues.pop();
+  }
+
+  props.tags.map(tag => {
+    if (tag) {
+      tag = (
+        <Link
         to={`/tags/${encodeURIComponent(tag)}`}
         key={tag}
       >
         #{tag}
       </Link>
-    );
+      );
+    }
+    
+    tags.push(`, `);
+    tags.push(tag);
   });
 
-  let classnames = classNames(`issues-and-tags mb-4`, props.className);
-
   return (
-    <div className={classnames}>
+    <div className="issues-and-tags mb-4">
       {issues}
       {tags}
     </div>
