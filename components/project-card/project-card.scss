@@ -10,7 +10,7 @@
   }
 
   .thumbnail {
-    @include aspect-ratio(1200, 630);
+    @include aspect-ratio(1200, 900);
 
     display: block;
     overflow: hidden;
