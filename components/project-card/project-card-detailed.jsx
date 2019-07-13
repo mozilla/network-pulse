@@ -98,7 +98,7 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-info btn-visit"
+        className="btn btn-block btn-primary"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
@@ -190,6 +190,13 @@ class DetailedProjectCard extends React.Component {
           <div className="col-12 mb-4">
             {this.renderTitleAuthor()}
             {this.renderVisitButton()}
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              className="btn btn-block btn-secondary text-center"
+            >
+              Get Involved
+            </a>
           </div>
         </div>
         <div className="col-12">

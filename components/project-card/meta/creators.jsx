@@ -38,7 +38,7 @@ const Creators = props => {
   }
 
   return (
-    <p>
+    <p className="mb-0">
       {labelText}
       {creators}
     </p>

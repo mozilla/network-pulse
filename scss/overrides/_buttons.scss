@@ -48,3 +48,9 @@ a.btn {
     }
   }
 }
+.project-card.detail-view {
+  .btn-secondary {
+    display: flex;
+    justify-content: center;
+  }
+}
