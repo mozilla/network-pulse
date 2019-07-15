@@ -141,8 +141,8 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel mb-3 pb-1">
-        <div className="d-flex share">
+      <div className="action-panel mb-3 pb-1 px-0 col-lg-2">
+        <div className="d-flex flex-lg-column share">
           <BookmarkControl
             id={this.props.id}
             className="circle-heart large mr-3"
@@ -217,7 +217,7 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <div className={wrapperClassnames}>
-        <div className="social-panel container">
+        <div className="social-panel container d-lg-flex">
           {this.renderSocialPanel()}
           <Description description={this.props.description} className="mt-3" /> 
         </div> 
