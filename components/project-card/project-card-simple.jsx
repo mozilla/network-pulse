@@ -180,6 +180,7 @@ class ProjectCard extends React.Component {
               thumbnail={this.props.thumbnail}
               link={!this.props.onModerationMode ? detailViewLink : ``}
               sendGaEvent={() => this.handleReadMoreClick()}
+              className="mb-2 simple-view"
             />
             <div className="content mt-2">
               <div className="d-flex">
@@ -187,7 +188,7 @@ class ProjectCard extends React.Component {
                   title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
-                  className="pr-2"
+                  className="pr-2 h4-heading"
                 />
                 {this.renderActionPanel()}
               </div>

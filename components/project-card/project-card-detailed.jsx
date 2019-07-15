@@ -167,7 +167,12 @@ class DetailedProjectCard extends React.Component {
       <div className="">
         <div className="row">
           <div className="col-12 col-sm-8 mb-4">
-            <Title title={this.props.title} className="mb-1" />
+            <Title 
+              title={this.props.title} 
+              className="mb-1 h1-heading"
+              role="heading"
+              ariaLevel="1"
+            />
             <Creators
               creators={this.props.relatedCreators}
               showLabelText={true}
@@ -185,7 +190,10 @@ class DetailedProjectCard extends React.Component {
     return (
       <div className="col-12 p-0 mb-5">
         <div className="">
-          <Thumbnail thumbnail={this.props.thumbnail}/>
+          <Thumbnail 
+            thumbnail={this.props.thumbnail}
+            className="mb-4"
+          />
           <div className="col-12 mb-4">
             {this.renderTitleAuthor()}
             {this.renderVisitButton()}

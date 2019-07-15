@@ -15,6 +15,10 @@
     display: block;
     overflow: hidden;
 
+    &.simple-view {
+      @include aspect-ratio(1200, 630);
+    }
+
     .img-container {
       background-color: #eee;
       background-blend-mode: multiply;
