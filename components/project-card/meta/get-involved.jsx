@@ -62,10 +62,14 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <div className="row get-involved px-3 py-5 mb-5">
-        <h2>Help needed</h2>
-        {this.renderGetInvolvedText()}
-        {this.renderHelpLabels()}
+      <div className="get-involved w-100">
+        <div className="container">
+          <div className="offset-lg-2 py-5 mb-5">
+            <h2>Help needed</h2>
+            {this.renderGetInvolvedText()}
+            {this.renderHelpLabels()}
+          </div>
+        </div>
       </div>
     );
   }

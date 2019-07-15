@@ -164,7 +164,7 @@ class DetailedProjectCard extends React.Component {
 
   renderTitleAuthor() {
     return (
-      <div className="">
+      <div className="container">
         <div className="row">
           <div className="col-12 col-sm-8 mb-4">
             <Title 
@@ -181,6 +181,16 @@ class DetailedProjectCard extends React.Component {
               }
             />
           </div>
+          <div className="col-12">
+            {this.renderVisitButton()}
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              className="btn btn-block btn-secondary text-center"
+            >
+              Get Involved
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -194,31 +204,23 @@ class DetailedProjectCard extends React.Component {
             thumbnail={this.props.thumbnail}
             className="mb-4"
           />
-          <div className="col-12 mb-4">
+          <div className="mb-4">
             {this.renderTitleAuthor()}
-            {this.renderVisitButton()}
-            <a
-              href="https://www.google.com"
-              target="_blank"
-              className="btn btn-block btn-secondary text-center"
-            >
-              Get Involved
-            </a>
           </div>
-        </div>
-        <div className="col-12">
-          {this.renderSocialPanel()}
-          <Description description={this.props.description} className="mt-3" /> 
-        </div>    
+        </div>  
       </div>
     );
   }
 
   renderRightColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-4 mb-2`);
+    let wrapperClassnames = classNames(`w-100 mb-2`);
 
     return (
       <div className={wrapperClassnames}>
+        <div className="social-panel container">
+          {this.renderSocialPanel()}
+          <Description description={this.props.description} className="mt-3" /> 
+        </div> 
         <WhyInteresting interest={this.props.interest} />
         <GetInvolved
           getInvolved={this.props.getInvolved}
@@ -226,8 +228,6 @@ class DetailedProjectCard extends React.Component {
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
         />
-        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
-        {this.renderTimePosted()}
       </div>
     );
   }
@@ -244,11 +244,21 @@ class DetailedProjectCard extends React.Component {
           {this.renderRightColumn()}
         </div>
         <div className="row">
-          <div className="col-12 col-md-8">
-            <p className="report-correction mt-md-3 pt-md-3">
-              Correction?{" "}
-              <a href="https://mzl.la/pulse-contact">Contact us</a>.
-            </p>
+          <div className="w-100">
+            <div className="container">
+                <div className="offset-lg-2">
+                  <IssuesAndTags issues={this.props.issues} tags={this.props.tags}/>
+                  <div className="time-posted">{this.renderTimePosted()}</div>
+                  <div className="row">
+                    <div className="col-12 col-md-8">
+                      <p className="report-correction mt-md-3 pt-md-3">
+                        Correction?{" "}
+                        <a href="https://mzl.la/pulse-contact">Contact us</a>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
