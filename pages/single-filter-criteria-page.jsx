@@ -25,7 +25,7 @@ class SingleFilterCriteriaPage extends React.Component {
     params[searchParam.key] = searchParam.value;
 
     return (
-      <div>
+      <div className="container mt-5">
         <Helmet>
           <title>{searchParam.value}</title>
         </Helmet>

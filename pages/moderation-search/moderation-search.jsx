@@ -247,7 +247,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className="search-page mt-5">
+      <div className="search-page container mt-5">
         <Helmet>
           <title>{this.state.keywordSearched}</title>
         </Helmet>
