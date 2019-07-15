@@ -110,7 +110,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div className="profile-page">
+      <div className="profile-page mt-5">
         {this.state.showLoadingNotice ? (
           <LoadingNotice />
         ) : (

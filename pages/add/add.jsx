@@ -313,7 +313,7 @@ class Add extends React.Component {
 
   render() {
     return (
-      <div className="add-page row justify-content-center">
+      <div className="add-page row justify-content-center mt-5">
         <Helmet>
           <title>Post an entry</title>
         </Helmet>
