@@ -46,7 +46,7 @@ module.exports = function(showLongBio) {
         return charLimit - charCount;
       }
     },
-    Twitter: {
+    twitter: {
       type: `text`,
       label: `Twitter`,
       placeholder: `https://twitter.com/username`,
@@ -54,7 +54,7 @@ module.exports = function(showLongBio) {
       fieldClassname: `form-control`,
       validator: [validator.urlValidator(`Twitter`)]
     },
-    Linkedin: {
+    linkedin: {
       type: `text`,
       label: `Linkedin`,
       placeholder: `https://linkedin.com/in/username`,
@@ -62,7 +62,7 @@ module.exports = function(showLongBio) {
       fieldClassname: `form-control`,
       validator: [validator.urlValidator(`LinkedIn`)]
     },
-    Github: {
+    github: {
       type: `text`,
       label: `GitHub`,
       placeholder: `https://github.com/username`,
