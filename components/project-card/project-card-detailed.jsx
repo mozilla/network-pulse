@@ -196,7 +196,7 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderLeftColumn() {
+  renderThumbnailAndTitle() {
     return (
       <div className="col-12 p-0 mb-5">
         <div className="pl-lg-5 ml-lg-5">
@@ -212,7 +212,7 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderRightColumn() {
+  renderOtherContent() {
     let wrapperClassnames = classNames(`w-100 mb-2`);
 
     return (
@@ -242,8 +242,8 @@ class DetailedProjectCard extends React.Component {
     return (
       <div className={wrapperClassnames}>
         <div className="row">
-          {this.renderLeftColumn()}
-          {this.renderRightColumn()}
+          {this.renderThumbnailAndTitle()}
+          {this.renderOtherContent()}
         </div>
         <div className="row">
           <div className="w-100">
