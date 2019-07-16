@@ -36,9 +36,11 @@
 
   .action-panel {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+
+    @media (min-width: $bp-lg) {
+      justify-content: flex-end;
+    }
   }
 
   .moderation-mode .issues-and-tags {
@@ -160,6 +162,8 @@
   }
 
   .issues-and-tags {
+    @include scaleText(16px,24px,20px,28px);
+    
     color: $dark-blue;
   }
 }

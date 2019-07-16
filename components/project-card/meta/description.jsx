@@ -12,7 +12,7 @@ const Description = props => {
   if (paragraphs.length < 1) return null;
 
   return (
-    <div className={classNames(`description my-3 px-0 col-lg-10 `, props.className)}>
+    <div className="description">
       {paragraphs}
     </div>
   );

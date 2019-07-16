@@ -25,15 +25,17 @@ class GetInvolved extends React.Component {
         target="_blank"
         onClick={() => this.handleGetInvolvedLinkClick()}
       >
-        Get Involved
+      {props.getInvolvedUrl}
       </a>
     ) : null;
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return (
-      <p>
-        {getInvolvedText} {getInvolvedLink}
-      </p>
+      <div>
+        <p>{getInvolvedText}</p>
+        <p className="mt-2">{getInvolvedLink}</p> 
+      </div>
+
     );
   }
 
@@ -67,7 +69,9 @@ class GetInvolved extends React.Component {
           <div className="offset-lg-2 py-5 mb-5">
             <h2>Help needed</h2>
             {this.renderGetInvolvedText()}
-            {this.renderHelpLabels()}
+            <div className="mt-4">
+              {this.renderHelpLabels()}
+            </div>
           </div>
         </div>
       </div>

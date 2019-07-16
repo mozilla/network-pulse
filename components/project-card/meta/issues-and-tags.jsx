@@ -47,7 +47,7 @@ const IssuesAndTags = props => {
   });
 
   return (
-    <div className="issues-and-tags mb-4">
+    <div className="issues-and-tags mb-4 mb-lg-5">
       {issues}
       {tags}
     </div>

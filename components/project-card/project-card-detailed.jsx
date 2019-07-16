@@ -141,11 +141,11 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel mb-3 pb-1 px-0 col-lg-2">
-        <div className="d-flex flex-lg-column share">
+      <div className="action-panel mb-3 mb-lg-0 pb-1 px-0 col-lg-2 justify-content-lg-end">
+        <div className="d-flex flex-lg-column share pr-lg-5">
           <BookmarkControl
             id={this.props.id}
-            className="circle-heart large mr-3"
+            className="circle-heart large mr-3 mr-lg-0 mb-lg-3"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
             updateCardBookmarkedState={bookmarked => {
@@ -217,11 +217,13 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <div className={wrapperClassnames}>
-        <div className="social-panel container d-lg-flex">
+        <div className="social-panel container d-lg-flex mb-lg-5">
           {this.renderSocialPanel()}
-          <Description description={this.props.description} className="mt-3" /> 
-        </div> 
-        <WhyInteresting interest={this.props.interest} />
+          <div className="my-3 my-lg-0 px-0">
+            <Description description={this.props.description} className="mt-3" /> 
+            <WhyInteresting interest={this.props.interest} />
+          </div>
+        </div>
         <GetInvolved
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
@@ -251,7 +253,7 @@ class DetailedProjectCard extends React.Component {
                   <div className="time-posted">{this.renderTimePosted()}</div>
                   <div className="row">
                     <div className="col-12 col-md-8">
-                      <p className="report-correction mt-md-3 pt-md-3">
+                      <p className="report-correction mt-3">
                         Correction?{" "}
                         <a href="https://mzl.la/pulse-contact">Contact us</a>.
                       </p>
