@@ -199,12 +199,12 @@ class DetailedProjectCard extends React.Component {
   renderLeftColumn() {
     return (
       <div className="col-12 p-0 mb-5">
-        <div className="">
+        <div className="pl-lg-5 ml-lg-5">
           <Thumbnail 
             thumbnail={this.props.thumbnail}
-            className="mb-4"
+            className="mb-4 col-lg-5"
           />
-          <div className="mb-4">
+          <div className="title-author mb-4">
             {this.renderTitleAuthor()}
           </div>
         </div>  
@@ -235,7 +235,7 @@ class DetailedProjectCard extends React.Component {
   }
 
   render() {
-    let wrapperClassnames = classNames(`col-12 project-card detail-view`, {
+    let wrapperClassnames = classNames(`col-12 mt-lg-5 project-card detail-view`, {
       bookmarked: this.state.bookmarked
     });
 

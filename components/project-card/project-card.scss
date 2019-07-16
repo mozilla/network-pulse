@@ -166,4 +166,12 @@
     
     color: $dark-blue;
   }
+
+  .title-author {
+    max-width: 50%;
+    float: right;
+    top: 50px;
+    position: absolute;
+    left: 500px;
+  }
 }
