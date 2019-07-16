@@ -59,7 +59,7 @@
 
   fieldset.thumbnail {
     .help-text {
-      @include form-helper-text("");
+      @include form-helper-text();
 
       @media (min-width: $bp-sm) {
         margin-left: 1rem;
@@ -74,12 +74,6 @@
   fieldset.get_involved {
     textarea {
       height: 4.625rem;
-    }
-  }
-
-  p.project-image {
-    &::after {
-      @include form-helper-text("(only submit images that you have permission to use in this context)");
     }
   }
 

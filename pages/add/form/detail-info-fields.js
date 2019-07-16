@@ -7,13 +7,13 @@ import Tags from "./tags";
 
 const IssuesLabel = function() {
   return (
-    <p className="form-label mb-0">
+    <div className="form-label mb-0">
       Check any{" "}
       <Link to="/issues" target="_blank">
         Key Internet Issues
       </Link>{" "}
       that relate to your project.
-    </p>
+    </div>
   );
 };
 
@@ -53,9 +53,9 @@ module.exports = {
   thumbnail: {
     type: `image`,
     label: (
-      <p className="form-label project-image">
-        Project image
-      </p>
+      <div className="project-image form-label">
+        Project image <span className="hint-text">(only submit images that you have permission to use in this context)</span>
+      </div>
     ),
     helpText: `Looks best at 1200px × 630px`,
     prompt: `Select image`,

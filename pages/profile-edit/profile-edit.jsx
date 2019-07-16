@@ -175,7 +175,7 @@ class ProfileEdit extends React.Component {
           </p>
           <div className="mb-4">
             <h5 className="h5-heading email mb-1">
-              Email
+              Email <span className="hint-text">(email won't be displayed or shared)</span>
             </h5>
             <div className="d-flex flex-column flex-md-row">
               <p className="mb-1">{user.email}</p>

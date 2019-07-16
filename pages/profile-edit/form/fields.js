@@ -19,9 +19,12 @@ module.exports = function(showLongBio) {
   let fields = {
     custom_name: {
       type: `text`,
-      label: `Name`,
+      label: (
+        <div className="h5-heading">
+          Name <span className="hint-text">(*required)</span>
+        </div>
+      ),
       placeholder: ``,
-      labelClassname: `h5-heading required`,
       fieldClassname: `form-control`,
       validator: [
         validator.emptyValueValidator(),
@@ -30,9 +33,12 @@ module.exports = function(showLongBio) {
     },
     user_bio: {
       type: `textarea`,
-      label: `Bio`,
+      label: (
+        <div className="h5-heading bio">
+          Bio <span className="hint-text">(do not include any personal information)</span>
+        </div>
+      ),
       placeholder: `About you`,
-      labelClassname: `h5-heading bio`,
       fieldClassname: `form-control`,
       validator: [validator.maxLengthValidator(140)],
       charLimit: 140,
@@ -74,9 +80,12 @@ module.exports = function(showLongBio) {
     },
     thumbnail: {
       type: `image`,
-      label: `Profile pic`,
+      label: (
+        <div className="h5-heading profile-image">
+          Profile pic <span className="hint-text">(only submit photos you have permission to use in this context)</span>
+        </div>
+      ),
       prompt: `Select image`,
-      labelClassname: `h5-heading profile-image`,
       fieldClassname: `form-control`,
       validator: [
         validator.imageTypeValidator(),

@@ -1,12 +1,16 @@
+import React from "react";
 import validator from "./validator";
 
 module.exports = {
   title: {
     // required field
     type: `text`,
-    label: `Title: Keep it simple. Name it, don't describe it.`,
+    label: (
+      <div className="form-label">
+      Title: Keep it simple. Name it, don't describe it. <span className="hint-text">(*required)</span>
+      </div>
+    ),
     placeholder: `Title`,
-    labelClassname: `form-label required`,
     fieldClassname: `form-control`,
     validator: [
       validator.emptyValueValidator(),
@@ -21,9 +25,12 @@ module.exports = {
   content_url: {
     // required field
     type: `text`,
-    label: `URL`,
+    label: (
+      <div className="form-label">
+        URL <span className="hint-text">(*required)</span>
+      </div>
+    ),
     placeholder: `https://example.com`,
-    labelClassname: `form-label required`,
     fieldClassname: `form-control`,
     validator: [validator.emptyValueValidator(), validator.urlValidator()]
   },

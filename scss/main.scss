@@ -131,12 +131,8 @@ form {
   font-family: inherit;
 }
 
-label {
-  &.required {
-    &::after {
-      @include form-helper-text("(*required)");
-    }
-  }
+.hint-text {
+  @include form-helper-text();
 }
 
 fieldset {
