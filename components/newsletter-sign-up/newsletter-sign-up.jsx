@@ -1,5 +1,5 @@
 import React from "react";
-// import ReactGA from "react-ga";
+import ReactGA from "react-ga";
 import classNames from "classnames";
 import Service from "../../js/service";
 
@@ -93,22 +93,22 @@ class NewsletterSignUp extends React.Component {
       this.submitDataToApi();
     }
 
-    // ReactGA.event({
-    //   category: `signup`,
-    //   action: `form submit tap`,
-    //   label: `Signup submitted`
-    // });
+    ReactGA.event({
+      category: `signup`,
+      action: `form submit tap`,
+      label: `Signup submitted`
+    });
   }
 
   /**
    * GA event when users interact with the signup form.
    */
   onInputFocus() {
-    // ReactGA.event({
-    //   category: `signup`,
-    //   action: `form focus`,
-    //   label: `Signup form input focused`
-    // });
+    ReactGA.event({
+      category: `signup`,
+      action: `form focus`,
+      label: `Signup form input focused`
+    });
   }
 
   /**
