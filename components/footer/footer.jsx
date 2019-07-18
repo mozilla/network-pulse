@@ -81,11 +81,7 @@ export default class Footer extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-5 col-lg-6">
-              <NewsletterSignUp
-                buttonPosition="side"
-                ctaHeader="Want to get smarter about your online life?"
-                ctaDescription="Sign up for our Mozilla newsletter!"
-               />
+              <NewsletterSignUp buttonPosition="side" />
               <div className="my-5 mb-md-0">
                 <a className="logo" href="https://foundation.mozilla.org">
                   <img src="../assets/svg/mozilla-block-white.svg" alt="Mozilla Foundation Home Page" />
