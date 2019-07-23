@@ -2,6 +2,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import classNames from "classnames";
 import Service from "../../js/service";
+import user from "../../js/app-user";
 
 class NewsletterSignUp extends React.Component {
   constructor(props) {
@@ -20,8 +21,20 @@ class NewsletterSignUp extends React.Component {
    * used in the context of automated testing)
    */
   componentDidMount() {
-    if (this.props.whenLoaded) {
-      this.props.whenLoaded();
+    user.addListener(this);
+    user.verify(this.props.location, this.props.history);
+  }
+
+  componentWillUnmount() {
+    user.removeListener(this);
+  }
+
+  updateUser(event) {
+    // this updateUser method is called by "user" after changes in the user state happened
+    if (event === `verified`) {
+      this.setState({
+        user
+      });
     }
   }
 
@@ -115,6 +128,12 @@ class NewsletterSignUp extends React.Component {
    * Render the signup CTA.
    */
   render() {
+    if (user.loggedin !== true) {
+      // Currently only authenticated user can sign up for newsletter
+      // Don't show form if user is not authenticated.
+      return null;
+    }
+
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted

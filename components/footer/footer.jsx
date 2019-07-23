@@ -1,5 +1,5 @@
 import React from "react";
-import NewsletterSignUp from '../../components/newsletter-sign-up/newsletter-sign-up.jsx';
+import NewsletterSignUp from "../../components/newsletter-sign-up/newsletter-sign-up.jsx";
 
 export default class Footer extends React.Component {
   renderSocialLinks() {
@@ -80,11 +80,14 @@ export default class Footer extends React.Component {
       <footer className="site-footer dark-theme py-5">
         <div className="container">
           <div className="row">
-            <div className="col-md-5 col-lg-6">
+            <div className="col-md-5 col-lg-6 d-flex flex-column justify-content-end">
               <NewsletterSignUp buttonPosition="side" />
               <div className="my-5 mb-md-0">
                 <a className="logo" href="https://foundation.mozilla.org">
-                  <img src="../assets/svg/mozilla-block-white.svg" alt="Mozilla Foundation Home Page" />
+                  <img
+                    src="../assets/svg/mozilla-block-white.svg"
+                    alt="Mozilla Foundation Home Page"
+                  />
                 </a>
               </div>
             </div>
