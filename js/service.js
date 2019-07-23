@@ -178,7 +178,6 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
 
         request.setRequestHeader(`X-CSRFToken`, data.csrfmiddlewaretoken);
         request.setRequestHeader(`Content-Type`, `application/json`);
-        //   xhr.setRequestHeader(`X-Requested-With`, `XMLHttpRequest`);
         request.send(dataToSend);
       })
       .catch(reason => {
