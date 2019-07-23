@@ -1,4 +1,5 @@
 import React from "react";
+import NewsletterSignUp from "../../components/newsletter-sign-up/newsletter-sign-up.jsx";
 
 export default class Footer extends React.Component {
   renderSocialLinks() {
@@ -76,12 +77,13 @@ export default class Footer extends React.Component {
   }
   render() {
     return (
-      <footer className="site-footer dark-theme py-md-5">
+      <footer className="site-footer dark-theme py-5">
         <div className="container">
           <div className="row">
-            <div className="col-md-5">
-              <div className="my-5 my-md-0 d-md-flex align-items-md-end h-100">
-                <a href="https://foundation.mozilla.org" className="logo">
+            <div className="col-md-5 col-lg-6 d-flex flex-column justify-content-end">
+              <NewsletterSignUp buttonPosition="side" />
+              <div className="my-5 mb-md-0">
+                <a className="logo" href="https://foundation.mozilla.org">
                   <img
                     src="../assets/svg/mozilla-block-white.svg"
                     alt="Mozilla Foundation Home Page"
@@ -89,13 +91,15 @@ export default class Footer extends React.Component {
                 </a>
               </div>
             </div>
-            <div className="col-md-6 offset-md-1 d-flex flex-column justify-content-between">
+            <div className="col-md-6 col-lg-5 offset-md-1 d-flex flex-column justify-content-between">
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-lg-6 col-xl-5">
                   <h5 className="h5-heading">More about us</h5>
                   {this.renderSocialLinks()}
                 </div>
-                <div className="col-md-8">{this.renderFooterLinks()}</div>
+                <div className="col-lg-6 col-xl-7">
+                  {this.renderFooterLinks()}
+                </div>
               </div>
               <div className="row">
                 <div className="col-12">
