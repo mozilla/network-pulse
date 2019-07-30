@@ -27,15 +27,13 @@ module.exports = {
   related_creators: {
     type: Creators,
     label: `Name any creators, contributors, partners. Comma separated.`,
-    labelClassname: `form-label`,
     fieldClassname: `form-control`
   },
   interest: {
     type: `text`,
     label: `Why might this be interesting to other people in our network?`,
     placeholder: ``,
-    labelClassname: `form-label`,
-    fieldClassname: `form-control mb-4`,
+    fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(300)
   },
   issues: {
@@ -47,13 +45,12 @@ module.exports = {
   tags: {
     type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
-    labelClassname: `form-label`,
     fieldClassname: `form-control`
   },
   thumbnail: {
     type: `image`,
     label: (
-      <div className="project-image form-label">
+      <div>
         Project image <span className="hint-text">(only submit images that you have permission to use in this context)</span>
       </div>
     ),

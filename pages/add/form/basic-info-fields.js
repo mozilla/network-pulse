@@ -6,7 +6,7 @@ module.exports = {
     // required field
     type: `text`,
     label: (
-      <div className="form-label">
+      <div>
       Title: Keep it simple. Name it, don't describe it. <span className="hint-text">(*required)</span>
       </div>
     ),
@@ -26,7 +26,7 @@ module.exports = {
     // required field
     type: `text`,
     label: (
-      <div className="form-label">
+      <div>
         URL <span className="hint-text">(*required)</span>
       </div>
     ),
@@ -38,7 +38,6 @@ module.exports = {
     type: `textarea`,
     label: `Description: Simple, brief language works best. No jargon.`,
     placeholder: `Description`,
-    labelClassname: `form-label`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600),
     charLimit: 600,

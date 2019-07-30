@@ -1,4 +1,10 @@
 .add-page {
+  label,
+  .form-label {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
   .posted-by {
     p:first-child {
       @include scaleText(16px,24px,20px,28px);
@@ -77,14 +83,7 @@
     }
   }
 
-  fieldset.issues {
-    margin-bottom: 36px;
-  }
-
   fieldset.help_types {
-    margin-bottom: 48px;
-    padding-top: 24px;
-
     .options {
       column-count: 1;
 
@@ -92,6 +91,18 @@
         column-count: 2;
       }
     }
+  }
+
+  .checkboxGroup {
+    label {
+      font-weight: 400;
+    }
+  }
+
+  fieldset.interest,
+  fieldset.issues,
+  fieldset.help_types {
+    margin-bottom: $form-field-mb-lg;
   }
 
   .tags,

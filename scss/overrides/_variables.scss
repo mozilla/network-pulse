@@ -8,10 +8,11 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // spacing
 
-$form-field-vertical-margin: 24px;
+$form-field-mb-sm: 24px;
+$form-field-mb-lg: 48px;
 $form-check-input-margin-x: 0.5rem;
 
-//sizing
+// sizing
 
 $large-text-area: 11.25em;
 

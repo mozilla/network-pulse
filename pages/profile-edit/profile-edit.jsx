@@ -179,7 +179,7 @@ class ProfileEdit extends React.Component {
             </h5>
             <div className="d-flex flex-column flex-md-row">
               <p className="mb-1">{user.email}</p>
-              <span className="d-block d-sm-inline-block ml-0 ml-md-4">
+              <span className="ml-md-4">
                 <button
                   className="btn btn-link inline-link"
                   onClick={event => this.handleLogOutBtnClick(event)}

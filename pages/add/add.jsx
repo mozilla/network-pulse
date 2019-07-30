@@ -203,12 +203,12 @@ class Add extends React.Component {
           papers, interviews, and curricula. If it might be useful, share it… at
           any stage or fidelity.
         </p>
-        <p className="mb-4">
+        <p className="mb-5">
           Please keep your language simple and useful for a broad audience. No
           jargon. Submissions may be lightly edited by our curators for
           spelling, grammar and style consistency.
         </p>
-        <div className="pt-4 mb-3">
+        <div className="mb-3">
           <h5 className="h5-heading mb-2">Basic Info</h5>
           <div className="posted-by mb-5">
             <p className="d-inline-block mr-4 mb-2 mb-sm-0">
@@ -232,14 +232,15 @@ class Add extends React.Component {
             fields={detailInfoFields}
             inlineErrors={true}
             onUpdate={updateCallback}
-            className="mb-4"
+            className="mb-5"
           />
-          <h5 className="h5-heading pt-4 mb-2">Get Help</h5>
+          <h5 className="h5-heading mb-2">Get Help</h5>
           <Form
             ref="getHelpForm"
             fields={getHelpFields}
             inlineErrors={true}
             onUpdate={updateCallback}
+            className="mb-5"
           />
           <div className="submit-section mt-5">
             <p className="body-small mb-4">
