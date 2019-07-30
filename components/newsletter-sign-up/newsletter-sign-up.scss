@@ -1,0 +1,29 @@
+.newsletter-sign-up {
+  background: inherit;
+
+  .has-danger {
+    color: $red;
+  }
+
+  .form-control {
+    @include scale-text(1rem, 1.25rem);
+
+    padding: 0.5rem 0.75rem;
+  }
+
+  .fields-wrapper {
+    flex: 1 1 auto;
+  }
+
+  @at-root .dark-theme & {
+    form {
+      input {
+        border: none;
+      }
+    }
+
+    .body-small.form-control-feedback {
+      color: $red;
+    }
+  }
+}
