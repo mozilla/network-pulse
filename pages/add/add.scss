@@ -5,12 +5,6 @@
     margin-bottom: 8px;
   }
 
-  .posted-by {
-    p:first-child {
-      @include scaleText(16px,24px,20px,28px);
-    }
-  }
-
   fieldset.title {
     .error {
       margin-right: 3rem;

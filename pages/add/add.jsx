@@ -211,8 +211,8 @@ class Add extends React.Component {
         <div className="mb-3">
           <h5 className="h5-heading mb-2">Basic Info</h5>
           <div className="posted-by mb-5">
-            <p className="d-inline-block mr-4 mb-2 mb-sm-0">
-              Posted by <span className="text-muted">{user.name}</span>
+            <p className="body-large d-inline-block mr-4 mb-2 mb-sm-0">
+              Posted by {user.name}
             </p>
             <p className="d-inline-block">
               Not you?{" "}
