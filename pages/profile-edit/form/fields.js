@@ -5,13 +5,13 @@ import IssuesField from "../../../components/form-fields/issues.jsx";
 
 let IssuesLabel = () => {
   return (
-    <div>
+    <p className="h5-heading">
       Your{" "}
       <Link to="/issues" target="_blank">
         Key Internet Issues
       </Link>{" "}
-      interest.
-    </div>
+      interest
+    </p>
   );
 };
 
@@ -20,8 +20,8 @@ module.exports = function(showLongBio) {
     custom_name: {
       type: `text`,
       label: (
-        <div>
-          Name <em>(*required field)</em>
+        <div className="h5-heading">
+          Name <span className="hint-text">(*required)</span>
         </div>
       ),
       placeholder: ``,
@@ -34,8 +34,8 @@ module.exports = function(showLongBio) {
     user_bio: {
       type: `textarea`,
       label: (
-        <div>
-          Bio <em>(do not include any personal information)</em>
+        <div className="h5-heading bio">
+          Bio <span className="hint-text">(do not include any personal information)</span>
         </div>
       ),
       placeholder: `About you`,
@@ -50,6 +50,7 @@ module.exports = function(showLongBio) {
       type: `text`,
       label: `Twitter`,
       placeholder: `https://twitter.com/username`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
       validator: [validator.urlValidator(`Twitter`)]
     },
@@ -57,6 +58,7 @@ module.exports = function(showLongBio) {
       type: `text`,
       label: `LinkedIn`,
       placeholder: `https://linkedin.com/in/username`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
       validator: [validator.urlValidator(`LinkedIn`)]
     },
@@ -64,6 +66,7 @@ module.exports = function(showLongBio) {
       type: `text`,
       label: `GitHub`,
       placeholder: `https://github.com/username`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
       validator: [validator.urlValidator(`GitHub`)]
     },
@@ -71,17 +74,15 @@ module.exports = function(showLongBio) {
       type: `text`,
       label: `Your website URL`,
       placeholder: `https://example.com`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
       validator: [validator.urlValidator()]
     },
     thumbnail: {
       type: `image`,
       label: (
-        <div>
-          Profile pic{" "}
-          <em>
-            (only submit photos you have permission to use in this context)
-          </em>
+        <div className="h5-heading profile-image">
+          Profile pic <span className="hint-text">(only submit photos you have permission to use in this context)</span>
         </div>
       ),
       prompt: `Select image`,
@@ -96,6 +97,7 @@ module.exports = function(showLongBio) {
       type: `text`,
       label: `Your location`,
       placeholder: `City, State, Country`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`
     },
     issues: {
@@ -110,6 +112,7 @@ module.exports = function(showLongBio) {
       type: `textarea`,
       label: `Tell your story`,
       placeholder: `Let others know about yourself.\nWhat are your goals? Where do you come from? What are you most passionate about?\nBe careful not to include any private information!`,
+      labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
       validator: [validator.maxLengthValidator(4096)],
       charLimit: 4096,

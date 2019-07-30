@@ -195,7 +195,7 @@ class Add extends React.Component {
 
     return (
       <div>
-        <h1>Share with the Network</h1>
+        <h2 className="h2-heading">Share with the Network</h2>
         <p>
           Do you have something to share? If it might be useful to someone in
           our network, share it here! Pulse includes links to products and
@@ -203,20 +203,20 @@ class Add extends React.Component {
           papers, interviews, and curricula. If it might be useful, share it… at
           any stage or fidelity.
         </p>
-        <p>
+        <p className="mb-5">
           Please keep your language simple and useful for a broad audience. No
           jargon. Submissions may be lightly edited by our curators for
           spelling, grammar and style consistency.
         </p>
-        <div className="mb-4">
-          <h2>Basic Info</h2>
-          <div className="posted-by">
-            <p className="d-inline-block mr-3 mb-3">
-              Posted by: <span className="text-muted">{user.name}</span>
+        <div className="mb-3">
+          <h5 className="h5-heading mb-2">Basic Info</h5>
+          <div className="posted-by mb-5">
+            <p className="body-large d-inline-block mr-4 mb-2 mb-sm-0">
+              Posted by {user.name}
             </p>
-            <p className="d-inline-block text-muted">
+            <p className="d-inline-block">
               Not you?{" "}
-              <SignOutButton user={user} history={this.props.history} />.
+              <SignOutButton user={user} history={this.props.history} />
             </p>
           </div>
           <Form
@@ -224,23 +224,26 @@ class Add extends React.Component {
             fields={basicInfoFields}
             inlineErrors={true}
             onUpdate={updateCallback}
+            className="mb-5"
           />
-          <h2>Optional Details</h2>
+          <h5 className="h5-heading">Optional Details</h5>
           <Form
             ref="detailForm"
             fields={detailInfoFields}
             inlineErrors={true}
             onUpdate={updateCallback}
+            className="mb-5"
           />
-          <h2>Get Help</h2>
+          <h5 className="h5-heading mb-2">Get Help</h5>
           <Form
             ref="getHelpForm"
             fields={getHelpFields}
             inlineErrors={true}
             onUpdate={updateCallback}
+            className="mb-5"
           />
-          <div className="submit-section">
-            <p>
+          <div className="submit-section mt-5">
+            <p className="body-small mb-4">
               By submitting your entry, you agree to be bound by the{" "}
               <a
                 href="https://www.mozilla.org/about/legal/terms/mozilla/"
@@ -251,7 +254,7 @@ class Add extends React.Component {
               clarity and style.
             </p>
             <button
-              className="btn btn-info mr-3"
+              className="btn btn-primary"
               type="submit"
               onClick={evt => this.handleFormSubmit(evt)}
               disabled={this.state.submitting ? `disabled` : null}

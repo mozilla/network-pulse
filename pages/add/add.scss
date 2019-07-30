@@ -1,11 +1,19 @@
 .add-page {
-  .posted-by {
-    margin-top: $form-field-vertical-margin / 2;
+  label,
+  .form-label {
+    font-weight: 700;
+    margin-bottom: 8px;
   }
 
   fieldset.title {
     .error {
       margin-right: 3rem;
+    }
+  }
+
+  fieldset.description {
+    textarea {
+      height: $large-text-area;
     }
   }
 
@@ -51,13 +59,44 @@
 
   fieldset.thumbnail {
     .help-text {
-      margin-left: 1rem;
-      color: $gray-light;
+      @include form-helper-text();
+
+      @media (min-width: $bp-sm) {
+        margin-left: 1rem;
+      }
     }
 
     input[type="button"] {
       @include thumbnail-button-style();
     }
+  }
+
+  fieldset.get_involved {
+    textarea {
+      height: 4.625rem;
+    }
+  }
+
+  fieldset.help_types {
+    .options {
+      column-count: 1;
+
+      @media (min-width: $bp-md) {
+        column-count: 2;
+      }
+    }
+  }
+
+  .checkboxGroup {
+    label {
+      font-weight: 400;
+    }
+  }
+
+  fieldset.interest,
+  fieldset.issues,
+  fieldset.help_types {
+    margin-bottom: $form-field-mb-lg;
   }
 
   .tags,
@@ -68,7 +107,7 @@
     }
 
     .react-tags.is-focused {
-      border-color: $gray-lightest;
+      border-color: $light-blue;
     }
 
     .react-tags__selected {

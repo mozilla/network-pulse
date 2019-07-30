@@ -1,19 +1,51 @@
 .profile-edit-page {
+  .h5-heading {
+    margin-bottom: 0.5rem;
+  }
+
   fieldset {
     @extend .fieldset-full-width;
   }
 
-  fieldset.city_country,
-  fieldset.languages,
+  fieldset.user_bio {
+    textarea {
+      height: $large-text-area;
+    }
+  }
+
+  fieldset.thumbnail {
+    input[type="button"] {
+      @include thumbnail-button-style();
+
+      display: block;
+      margin: auto;
+    }
+  }
+
+  fieldset.issues {
+    a {
+      color: $dark-blue;
+    }
+  }
+
   fieldset.twitter,
   fieldset.linkedin,
-  fieldset.github {
+  fieldset.github,
+  fieldset.website {
     @extend .fieldset-half-width;
+  }
+
+  fieldset.user_bio,
+  fieldset.website,
+  fieldset.thumbnail,
+  fieldset.location,
+  fieldset.user_bio_long {
+    margin-bottom: $form-field-mb-lg;
   }
 
   fieldset.user_bio_long {
     textarea {
-      height: 10rem;
+      height: $large-text-area;
     }
   }
 }
