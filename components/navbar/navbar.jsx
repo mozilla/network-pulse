@@ -210,7 +210,7 @@ class NavBar extends React.Component {
     // For more info see: https://github.com/mozilla/network-pulse/issues/326
 
     return (
-      <div className="navbar mb-5">
+      <div className="navbar">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-6" id="main-nav-wrapper">
