@@ -204,16 +204,16 @@ class Search extends React.Component {
   renderSearchControls() {
     if (this.props.moderation) {
       return (
-        <div className="moderation-search-controls mb-4 pb-4">
+        <div className="moderation-search-controls mb-5 pb-5">
           <h2>Moderation</h2>
           <div className="row">
-            <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">
+            <div className="col-12 col-md-3 mb-2 mb-md-0">
               {this.renderStateFilter()}
             </div>
-            <div className="col-sm-12 col-md-6 mb-2 mb-sm-0">
+            <div className="col-12 col-md-6 mb-2 mb-md-0">
               {this.renderSearchBar()}
             </div>
-            <div className="col-sm-6 col-md-3 mb-2 mb-sm-0">
+            <div className="col-6 col-md-3 mb-2 mb-md-0">
               {this.renderFeaturedFilter()}
             </div>
           </div>
