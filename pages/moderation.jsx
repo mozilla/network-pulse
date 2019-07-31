@@ -28,7 +28,7 @@ class Moderation extends React.Component {
   }
 
   render() {
-    //if (!user.moderator) return <NotFound />;
+    if (!user.moderator) return <NotFound />;
 
     return <ModerationSearch moderation={true} {...this.props} />;
   }

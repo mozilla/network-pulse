@@ -5,59 +5,38 @@ import classNames from "classnames";
 import Utility from "../../../js/utility.js";
 
 const IssuesAndTags = props => {
-  let issues = [];
-  let tags = [];
+  if (props.issues.length + props.tags.length === 0) return null;
 
-  props.issues.map(issue => {
-
-    // Creates individual issue
-    issue = (
+  let issues = props.issues.map(issue => {
+    return (
       <Link
       to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
       key={issue}
-    >
-      {issue}
-    </Link>
+      >
+        {issue}
+      </Link>
     );
-
-    // Pushes individual issue followed by comma
-    issues.push(issue);
-    issues.push(`, `);
   });
 
-  // If issues array full length, remove last comma
-  if (issues.length) {
-    issues.pop();
-  }
-
-  props.tags.map(tag => {
-
-    // Creates individual tag
-    tag = (
+  let tags = props.tags.map(tag => {
+    return (
       <Link
-        to={`/tags/${encodeURIComponent(tag)}`}
-        key={tag}
+      to={`/tags/${encodeURIComponent(tag)}`}
+      key={tag}
       >
         #{tag}
       </Link>
     );
-    
-    // Adds comma before tag since issues.arr will never end in a comma
-    tags.push(`, `);
-    tags.push(tag);
   });
 
-  // However, if issues is empty, remove the first comma in tags.arr
-  if (issues.length == 0) {
-    tags.shift();
-  }
-
   let classnames = classNames(`issues-and-tags`, props.className);
+  let issues_and_tags = issues.concat(tags);
+
+  issues_and_tags = issues_and_tags.reduce((accu, curr) => [accu, ", ", curr]);
 
   return (
     <div className={classnames}>
-      {issues}
-      {tags}
+      {issues_and_tags}
     </div>
   );
 };
