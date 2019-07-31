@@ -254,11 +254,13 @@ class ProfileEdit extends React.Component {
 
   render() {
     return (
-      <div className="profile-edit-page row justify-content-center">
-        <Helmet>
-          <title>Update profile</title>
-        </Helmet>
-        <div className="col-lg-8">{this.getContent()}</div>
+      <div className="container mt-5">
+        <div className="profile-edit-page row justify-content-center">
+          <Helmet>
+            <title>Update profile</title>
+          </Helmet>
+          <div className="col-lg-8">{this.getContent()}</div>
+        </div>
       </div>
     );
   }
