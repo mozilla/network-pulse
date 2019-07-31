@@ -169,41 +169,36 @@ class ProfileEdit extends React.Component {
     return (
       <div className="row">
         <div className="col-12">
-          <h1>Your profile</h1>
-          <p>
+          <h2 className="h2-heading">Your profile</h2>
+          <p className="mb-4">
             Tell everyone about yourself, so we can connect and collaborate!
           </p>
           <div className="mb-4">
-            <div className="mb-3">
-              <span>
-                Email <em>(email won't be displayed or shared)</em>
+            <h5 className="h5-heading email mb-1">
+              Email <span className="hint-text">(email won't be displayed or shared)</span>
+            </h5>
+            <div className="d-flex flex-column flex-md-row">
+              <p className="mb-1">{user.email}</p>
+              <span className="ml-md-4">
+                <button
+                  className="btn btn-link inline-link"
+                  onClick={event => this.handleLogOutBtnClick(event)}
+                >
+                  Sign out
+                </button>
               </span>
-              <div className="text-muted">
-                <span>{user.email}</span>
-                <span className="d-block d-sm-inline-block ml-0 ml-sm-4">
-                  <button
-                    className="btn btn-link inline-link"
-                    onClick={event => this.handleLogOutBtnClick(event)}
-                  >
-                    Sign out
-                  </button>
-                </span>
-              </div>
             </div>
           </div>
           {this.renderForm()}
           <div className="submit-section">
-            <p className="mb-0">
+            <p className="mb-0 body-small">
               By submitting your profile, you agree to be bound by the{" "}
               <a
                 href="https://www.mozilla.org/about/legal/terms/mozilla/"
                 target="_blank"
               >
                 Mozilla Terms of Service
-              </a>.
-            </p>
-            <p>
-              Please{" "}
+              </a>. Please{" "}
               <a href="https://mzl.la/pulse-contact" target="_blank">
                 contact us
               </a>{" "}
@@ -211,7 +206,7 @@ class ProfileEdit extends React.Component {
             </p>
             <div className="mt-4">
               <button
-                className="btn btn-info mr-3"
+                className="btn btn-primary mr-3"
                 type="submit"
                 onClick={event => this.handleFormSubmit(event)}
                 disabled={this.state.submitting ? `disabled` : null}

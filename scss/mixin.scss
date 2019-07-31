@@ -43,3 +43,13 @@
     }
   }
 }
+
+@mixin form-helper-text() {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.33;
+  display: inline;
+  margin-left: 0.5rem;
+  color: $gray-40;
+  font-family: 'Nunito Sans', sans-serif;
+}

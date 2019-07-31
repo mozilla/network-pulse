@@ -7,7 +7,7 @@ import Tags from "./tags";
 
 const IssuesLabel = function() {
   return (
-    <div>
+    <div className="form-label mb-0">
       Check any{" "}
       <Link to="/issues" target="_blank">
         Key Internet Issues
@@ -40,6 +40,7 @@ module.exports = {
     type: IssuesField,
     label: <IssuesLabel />,
     colCount: 1
+    
   },
   tags: {
     type: Tags,
@@ -48,9 +49,13 @@ module.exports = {
   },
   thumbnail: {
     type: `image`,
-    label: `Project image: Only submit images that you have permission to use in this context.`,
-    prompt: `Select image`,
+    label: (
+      <div>
+        Project image <span className="hint-text">(only submit images that you have permission to use in this context)</span>
+      </div>
+    ),
     helpText: `Looks best at 1200px × 630px`,
+    prompt: `Select image`,
     fieldClassname: `form-control`,
     validator: [
       validator.imageTypeValidator(),

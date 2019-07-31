@@ -3,9 +3,9 @@ import HelpTypesField from "../../../components/form-fields/help-types.jsx";
 
 let fields = {
   get_involved: {
-    type: `text`,
+    type: `textarea`,
     label: `Looking for support? Describe how people can do that.`,
-    placeholder: `Help us test the prototype, plan some local events, contribute to the codebase, ...`,
+    placeholder: `Help us test the prototype, plan some local events, etc...`,
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(300)
   },
