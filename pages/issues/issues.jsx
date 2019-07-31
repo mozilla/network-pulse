@@ -49,7 +49,7 @@ class Issues extends React.Component {
 
   render() {
     return (
-      <div className="issues-page">
+      <div className="issues-page container mt-5">
         <Helmet>
           <title>Issues</title>
         </Helmet>
