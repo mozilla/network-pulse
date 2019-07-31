@@ -13,7 +13,7 @@ export default function(props) {
   // e.g., digital-inclusion, web-literacy
   if (issueName) {
     return (
-      <div>
+      <div className="container mt-5">
         <Helmet>
           <title>{issueName}</title>
         </Helmet>

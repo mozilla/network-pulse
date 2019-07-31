@@ -116,7 +116,11 @@ class Entry extends React.Component {
 
   render() {
     return (
-      <div className="row justify-content-center">{this.renderEntry()}</div>
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          {this.renderEntry()}
+        </div>
+      </div>
     );
   }
 }

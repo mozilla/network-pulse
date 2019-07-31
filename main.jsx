@@ -27,7 +27,7 @@ import Footer from "./components/footer/footer.jsx";
 
 const Latest = () => {
   return (
-    <div>
+    <div className="container mt-5">
       <Helmet>
         <title>Latest</title>
       </Helmet>
@@ -118,7 +118,7 @@ class Main extends React.Component {
         />
         <JoinUsModalWithRouter />
         <NavbarWithRouter />
-        <div id="main" className="container mb-5">
+        <div id="main">
           <Routes />
         </div>
         <Footer />
