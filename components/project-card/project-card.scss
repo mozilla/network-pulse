@@ -40,7 +40,7 @@
   .get-involved,
   &.moderation-mode .issues-and-tags,
   &.detail-view .action-panel {
-    border-bottom: 1px solid $gray-lighter;
+    border-bottom: 1px solid $black;
   }
 
   .share {
@@ -101,7 +101,7 @@
   }
 
   .moderation-panel {
-    background: $gray-lightest;
+    background: $gray-20;
   }
 
   @media screen and (min-width: $bp-md) {

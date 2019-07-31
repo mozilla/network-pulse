@@ -5,29 +5,52 @@ import classNames from "classnames";
 import Utility from "../../../js/utility.js";
 
 const IssuesAndTags = props => {
-  let issues = props.issues.map(issue => {
-    return (
+  let issues = [];
+  let tags = [];
+
+  props.issues.map(issue => {
+
+    // Creates individual issue
+    issue = (
       <Link
-        to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
-        className="btn btn-xs btn-tag"
-        key={issue}
-      >
-        {issue}
-      </Link>
+      to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
+      key={issue}
+    >
+      {issue}
+    </Link>
     );
+
+    // Pushes individual issue followed by comma
+    issues.push(issue);
+    issues.push(`, `);
   });
 
-  let tags = props.tags.map(tag => {
-    return (
+  // If issues array full length, remove last comma
+  if (issues.length) {
+    issues.pop();
+  }
+
+  props.tags.map(tag => {
+
+    // Creates individual tag
+    tag = (
       <Link
         to={`/tags/${encodeURIComponent(tag)}`}
-        className="btn btn-xs btn-tag"
         key={tag}
       >
-        {tag}
+        #{tag}
       </Link>
     );
+    
+    // Adds comma before tag since issues.arr will never end in a comma
+    tags.push(`, `);
+    tags.push(tag);
   });
+
+  // However, if issues is empty, remove the first comma in tags.arr
+  if (issues.length == 0) {
+    tags.shift();
+  }
 
   let classnames = classNames(`issues-and-tags`, props.className);
 
