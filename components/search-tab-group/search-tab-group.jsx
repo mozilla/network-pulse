@@ -12,7 +12,7 @@ const DEFAULT_TAB_NAME = `projects`;
 // Extends React.PureComponent instead of React.Component as we want
 // this component to re-render only when there's change in its props or state.
 // Note that React.PureComponent runs *shallow comparison* to determine
-// if the componet should be re-rendered or not. So make sure
+// if the component should be re-rendered or not. So make sure
 // SearchTabGroup's props and state doesn't contain anything mutatable otherwise
 // we will run into issues.
 class SearchTabGroup extends React.PureComponent {

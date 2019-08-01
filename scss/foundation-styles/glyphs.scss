@@ -58,20 +58,22 @@
   @include hoverGlyph("github-hover");
 }
 
+// New glyph added for Pulse
 .search-glyph {
   @include compositeGlyph("search");
 }
 
+// New glyph added for Pulse
 .search-focus {
   @include compositeGlyph("search-focus");
 }
 
-// TODO:FIXME: wrong file for this to be in?
+// New glyph added for Pulse
 .dismiss-glyph {
   @include compositeGlyph("dismiss");
 }
 
-// TODO:FIXME: wrong file for this to be in?
+// New glyph added for Pulse
 .dismiss-focus-glyph {
   @include compositeGlyph("dismiss-focus");
 }

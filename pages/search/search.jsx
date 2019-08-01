@@ -114,7 +114,7 @@ class Search extends React.Component {
   renderKeywordDimissButton() {
     return (
       <button
-        className={`btn btn-dismiss p-0 ${
+        className={`btn btn-dismiss small p-0 ${
           this.state.searchBoxFocused ? `dismiss-focus-glyph` : `dismiss-glyph`
         }`}
         onClick={() => this.handleKeywordDismissBtnClick()}
