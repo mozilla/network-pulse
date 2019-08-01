@@ -108,15 +108,7 @@ button {
 }
 
 #main {
-  padding-bottom: 550px;
-
-  @media screen and (min-width: $bp-md) {
-    padding-bottom: 450px;
-  }
-
-  @media screen and (min-width: $bp-lg) {
-    padding-bottom: 400px;
-  }
+  min-height: 60vh;
 }
 
 hr.hr-gradient {
