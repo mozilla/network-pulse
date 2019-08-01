@@ -66,6 +66,16 @@
   @include compositeGlyph("search-focus");
 }
 
+// TODO:FIXME: wrong file for this to be in?
+.dismiss-glyph {
+  @include compositeGlyph("dismiss");
+}
+
+// TODO:FIXME: wrong file for this to be in?
+.dismiss-focus-glyph {
+  @include compositeGlyph("dismiss-focus");
+}
+
 .signupin {
   @include compositeGlyph("signupin");
   @include hoverGlyph("signupin-hover");
