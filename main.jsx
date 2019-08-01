@@ -118,7 +118,7 @@ class Main extends React.Component {
         />
         <JoinUsModalWithRouter />
         <NavbarWithRouter />
-        <div id="main">
+        <div id="main" className="mb-5">
           <Routes />
         </div>
         <Footer />
