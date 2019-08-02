@@ -11,6 +11,7 @@
     border-color: $black;
     border-radius: 0;
     height: 50px;
+    font-weight: 600;
 
     @media (min-width: $bp-md) {
       height: 64px;
