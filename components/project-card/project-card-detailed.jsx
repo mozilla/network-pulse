@@ -98,7 +98,7 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-primary"
+        className="btn btn-block btn-primary mb-3"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
@@ -128,7 +128,7 @@ class DetailedProjectCard extends React.Component {
     ) : null;
 
     return (
-      <p className="time-posted">
+      <p className="time-posted mb-4">
         Added{timePosted}
         {publishedBy}
       </p>
@@ -141,10 +141,11 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <aside className="action-panel-wrapper">
-        <div className="action-panel">
+      <aside className="social-panel-wrapper mb-4">
+        <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
+            className="circle-heart large"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
             updateCardBookmarkedState={bookmarked => {
@@ -164,32 +165,41 @@ class DetailedProjectCard extends React.Component {
 
   renderTitleAuthor() {
     return (
-      <header className="title-author-wrapper">
+      <div className="title-author-wrapper mb-4">
         <div className="title-author">
-            <Title title={this.props.title} className="mb-1" />
-            <Creators
-              creators={this.props.relatedCreators}
-              showLabelText={true}
-              creatorClickHandler={(event, name) =>
-                this.handleCreatorClick(event, name)
-              }
+          <header>
+            <Title 
+              title={this.props.title} 
+              className="h1-heading mb-1"
+              role="banner"
+              ariaLevel="1"
             />
+            <Creators
+            creators={this.props.relatedCreators}
+            showLabelText={true}
+            creatorClickHandler={(event, name) =>
+              this.handleCreatorClick(event, name)
+            }
+            />
+          </header>
+          <div className="action-panel">
             {this.renderVisitButton()}
             <a
               href="https://www.google.com"
               target="_blank"
-              className="btn btn-block btn-secondary text-center"
+              className="btn btn-block btn-secondary d-flex justify-content-center"
             >
               Get Involved
             </a>
+          </div>
         </div>
-      </header>
+      </div>
     );
   }
 
   renderThumbnail() { 
     return (
-      <div className="thumbnail-wrapper">
+      <div className="thumbnail-wrapper mb-4">
         <div className="thumbnail-container">
           <Thumbnail 
             thumbnail={this.props.thumbnail} 
@@ -202,7 +212,7 @@ class DetailedProjectCard extends React.Component {
   renderMainContent() {
     return (
       <article>
-        <section className="summary-info">
+        <section className="summary-info mb-5">
           <div className="container">
             <div className="offset-lg-3">
               <Description description={this.props.description} className="mt-3" />
@@ -216,12 +226,16 @@ class DetailedProjectCard extends React.Component {
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
         />
-        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+        <IssuesAndTags 
+          issues={this.props.issues} 
+          tags={this.props.tags}
+          className="mb-4"
+        />
         <section>
           <div className="container">
             <div className="offset-lg-3">
               {this.renderTimePosted()}
-              <p className="report-correction mt-3">
+              <p className="report-correction">
                 Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
               </p>
             </div>
@@ -238,7 +252,7 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <main className={wrapperClassnames}>
-        <div className="thumbnail-title-social-wrapper">
+        <div className="thumbnail-title-social-wrapper mb-4">
           <div className="thumbnail-title-social">
             {this.renderThumbnail()}
             {this.renderTitleAuthor()}

@@ -86,7 +86,7 @@ class ProjectCard extends React.Component {
         updateCardBookmarkedState={bookmarked => {
           this.updateCardBookmarkedState(bookmarked);
         }}
-        className="align-middle"
+        className="heart align-middle"
       />
     );
   }
@@ -180,6 +180,7 @@ class ProjectCard extends React.Component {
               thumbnail={this.props.thumbnail}
               link={!this.props.onModerationMode ? detailViewLink : ``}
               sendGaEvent={() => this.handleReadMoreClick()}
+              className="simple-view"
             />
             <div className="content mt-2">
               <div className="d-flex">

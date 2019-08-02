@@ -34,16 +34,7 @@
     }
   }
 
-  .action-panel {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .get-involved,
-  &.moderation-mode .issues-and-tags,
-  &.detail-view .action-panel {
+  .moderation-mode .issues-and-tags {
     border-bottom: 1px solid $gray-lighter;
   }
 
@@ -140,34 +131,6 @@
   .get-involved {
     h2 {
       font-size: inherit;
-    }
-  }
-}
-
-// Detailed view styling
-.project-card.detail-view {
-  background: inherit;
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-
-  .heart {
-    height: auto;
-  }
-
-  .btn-visit {
-    border-radius: 0;
-  }
-
-  .get-involved {
-    background-color: $gray-05;
-  }
-
-  .description {
-    p {
-      margin-bottom: 0;
     }
   }
 }

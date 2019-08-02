@@ -63,9 +63,9 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <section className="get-involved w-100">
+      <section className="get-involved w-100  mb-5">
         <div className="container">
-          <div className="offset-lg-3 py-5 mb-5">
+          <div className="offset-lg-3 py-5">
             <h2>Help needed</h2>
             {this.renderGetInvolvedText()}
             <div className="mt-4">
