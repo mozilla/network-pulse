@@ -25,15 +25,16 @@ class GetInvolved extends React.Component {
         target="_blank"
         onClick={() => this.handleGetInvolvedLinkClick()}
       >
-        Get Involved
+        {props.getInvolvedUrl}
       </a>
     ) : null;
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return (
-      <p>
-        {getInvolvedText} {getInvolvedLink}
-      </p>
+      <div>
+        <p>{getInvolvedText}</p>
+        <p className="mt-2">{getInvolvedLink}</p> 
+      </div>
     );
   }
 
@@ -44,7 +45,7 @@ class GetInvolved extends React.Component {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
-          className="btn btn-xs btn-tag"
+          className={`btn btn-tag ${this.props.helpTypesOnModeration}`}
           key={helpType}
         >
           {helpType}
@@ -62,11 +63,17 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <div className="get-involved pb-3 mb-3">
-        <h2>Get involved</h2>
-        {this.renderGetInvolvedText()}
-        {this.renderHelpLabels()}
-      </div>
+      <section className="get-involved w-100">
+        <div className="container">
+          <div className="offset-lg-3 py-5 mb-5">
+            <h2>Help needed</h2>
+            {this.renderGetInvolvedText()}
+            <div className="mt-4">
+              {this.renderHelpLabels()}
+            </div>
+          </div>
+        </div>
+      </section>
     );
   }
 }

@@ -13,7 +13,7 @@ class Title extends React.Component {
   }
 
   render() {
-    let classnames = classNames(`title mb-0 h4-heading`, this.props.className);
+    let classnames = classNames(`title mb-2`, this.props.className);
     let title = this.props.title;
 
     if (this.props.link) {
@@ -24,7 +24,7 @@ class Title extends React.Component {
       );
     }
 
-    return <h4 className={classnames}>{title}</h4>;
+    return <h4 className={classnames} role={this.props.role} aria-level={this.props.ariaLevel}>{title}</h4>;
   }
 }
 

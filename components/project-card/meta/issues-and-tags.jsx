@@ -30,12 +30,16 @@ const IssuesAndTags = props => {
   });
 
   let classnames = classNames(`issues-and-tags`, props.className);
-
+  
   return (
-    <div className={classnames}>
-      {issues}
-      {tags}
-    </div>
+    <section className={classnames}>
+      <div className="container">
+        <div className="offset-lg-3">
+          {issues}
+          {tags}
+        </div>
+      </div>
+    </section>
   );
 };
 

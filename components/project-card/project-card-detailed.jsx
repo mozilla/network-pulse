@@ -4,11 +4,11 @@ import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
+import WhyInteresting from "./meta/why-interesting.jsx";
 import Creators from "./meta/creators.jsx";
 import Thumbnail from "./meta/thumbnail.jsx";
 import Title from "./meta/title.jsx";
 import Description from "./meta/description.jsx";
-import WhyInteresting from "./meta/why-interesting.jsx";
 import IssuesAndTags from "./meta/issues-and-tags.jsx";
 import GetInvolved from "./meta/get-involved.jsx";
 import BookmarkControl from "../bookmark-control.jsx";
@@ -98,7 +98,7 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-info btn-visit text-capitalize mt-3"
+        className="btn btn-block btn-primary"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
@@ -128,23 +128,21 @@ class DetailedProjectCard extends React.Component {
     ) : null;
 
     return (
-      <p>
-        <small className="time-posted d-block">
-          Added{timePosted}
-          {publishedBy}
-        </small>
+      <p className="time-posted">
+        Added{timePosted}
+        {publishedBy}
       </p>
     );
   }
 
-  renderActionPanel() {
+  renderSocialPanel() {
     let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       this.props.title
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel pb-3 mb-3">
-        <div className="d-flex share">
+      <aside className="action-panel-wrapper">
+        <div className="action-panel">
           <BookmarkControl
             id={this.props.id}
             title={this.props.title}
@@ -156,18 +154,18 @@ class DetailedProjectCard extends React.Component {
           <a
             href={twitterUrl}
             onClick={evt => this.handleTwitterShareClick(evt)}
-            className="btn twitter-share d-inline-block align-self-center mx-3"
+            className="circle-twitter large"
+            aria-label="Share on Twitter"
           />
         </div>
-      </div>
+      </aside>
     );
   }
 
-  renderTopHeader() {
+  renderTitleAuthor() {
     return (
-      <div className="col-12 mb-3">
-        <div className="row">
-          <div className="col-12 col-sm-8">
+      <header className="title-author-wrapper">
+        <div className="title-author">
             <Title title={this.props.title} className="mb-1" />
             <Creators
               creators={this.props.relatedCreators}
@@ -176,66 +174,79 @@ class DetailedProjectCard extends React.Component {
                 this.handleCreatorClick(event, name)
               }
             />
-          </div>
+            {this.renderVisitButton()}
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              className="btn btn-block btn-secondary text-center"
+            >
+              Get Involved
+            </a>
+        </div>
+      </header>
+    );
+  }
+
+  renderThumbnail() { 
+    return (
+      <div className="thumbnail-wrapper">
+        <div className="thumbnail-container">
+          <Thumbnail 
+            thumbnail={this.props.thumbnail} 
+          />
         </div>
       </div>
     );
   }
 
-  renderLeftColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-8`);
-
+  renderMainContent() {
     return (
-      <div className={wrapperClassnames}>
-        <Thumbnail thumbnail={this.props.thumbnail} />
-        {this.renderVisitButton()}
-        <Description description={this.props.description} className="mt-3" />
-        <WhyInteresting interest={this.props.interest} />
-        {this.renderTimePosted()}
-        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
-      </div>
-    );
-  }
-
-  renderRightColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-4 mt-3 mt-md-0`);
-
-    return (
-      <div className={wrapperClassnames}>
-        {this.renderActionPanel()}
+      <article>
+        <section className="summary-info">
+          <div className="container">
+            <div className="offset-lg-3">
+              <Description description={this.props.description} className="mt-3" />
+              <WhyInteresting interest={this.props.interest} />
+            </div>
+          </div>
+        </section>
         <GetInvolved
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
         />
-      </div>
+        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+        <section>
+          <div className="container">
+            <div className="offset-lg-3">
+              {this.renderTimePosted()}
+              <p className="report-correction mt-3">
+                Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
     );
   }
 
   render() {
-    let wrapperClassnames = classNames(`col-12 pt-3 project-card detail-view`, {
+    let wrapperClassnames = classNames(`project-card detail-view`, {
       bookmarked: this.state.bookmarked
     });
 
     return (
-      <div className={wrapperClassnames}>
-        <div className="row">{this.renderTopHeader()}</div>
-        <div className="row">
-          {this.renderLeftColumn()}
-          {this.renderRightColumn()}
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-8">
-            <p className="report-correction mt-md-3 pt-md-3">
-              <small>
-                Correction?{" "}
-                <a href="https://mzl.la/pulse-contact">Contact us</a>.
-              </small>
-            </p>
+      <main className={wrapperClassnames}>
+        <div className="thumbnail-title-social-wrapper">
+          <div className="thumbnail-title-social">
+            {this.renderThumbnail()}
+            {this.renderTitleAuthor()}
+            {this.renderSocialPanel()}
           </div>
         </div>
-      </div>
+        {this.renderMainContent()}
+      </main>
     );
   }
 }

@@ -129,6 +129,7 @@ class BookmarkControl extends React.Component {
         className={classnames}
         ref="heart"
         onClick={() => this.handleBookmarkClick()}
+        aria-label="Bookmark Entry"
       />
     );
   }

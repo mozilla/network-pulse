@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 class Thumbnail extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Thumbnail extends React.Component {
         style={{ backgroundImage: `url(${imgSrc})` }}
       />
     );
-    let classnames = `thumbnail`;
+    let classnames = classNames(`thumbnail`, this.props.className);
 
     if (this.props.link) {
       return (
