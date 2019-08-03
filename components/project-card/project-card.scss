@@ -98,12 +98,6 @@
   .moderation-panel {
     background: $gray-lightest;
   }
-
-  @media screen and (min-width: $bp-md) {
-    &.detail-view .report-correction {
-      border-top: 1px solid $gray-lighter;
-    }
-  }
 }
 
 .project-card.regular-list-mode {

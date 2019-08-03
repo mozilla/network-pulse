@@ -34,7 +34,7 @@ const IssuesAndTags = props => {
   return (
     <section className={classnames}>
       <div className="container">
-        <div className="offset-lg-3">
+        <div className="offset-lg-2">
           {issues}
           {tags}
         </div>

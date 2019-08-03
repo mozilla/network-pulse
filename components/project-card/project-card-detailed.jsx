@@ -98,7 +98,7 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-primary mb-3"
+        className="btn btn-primary mb-3 mb-md-0 mr-md-3"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
@@ -141,7 +141,7 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <aside className="social-panel-wrapper mb-4">
+      <aside className="social-panel-wrapper mb-4 pl-md-3">
         <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
@@ -165,12 +165,12 @@ class DetailedProjectCard extends React.Component {
 
   renderTitleAuthor() {
     return (
-      <div className="title-author-wrapper mb-4">
-        <div className="title-author">
-          <header>
+      <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
+        <div className="title-author p-lg-4">
+          <header className="mb-md-4">
             <Title 
               title={this.props.title} 
-              className="h1-heading mb-1"
+              className="h1-heading mb-1 mb-md-3"
               role="banner"
               ariaLevel="1"
             />
@@ -182,12 +182,12 @@ class DetailedProjectCard extends React.Component {
             }
             />
           </header>
-          <div className="action-panel">
+          <div className="action-panel d-md-flex justify-content-lg-between">
             {this.renderVisitButton()}
             <a
               href="https://www.google.com"
               target="_blank"
-              className="btn btn-block btn-secondary d-flex justify-content-center"
+              className="btn btn-secondary d-flex justify-content-center"
             >
               Get Involved
             </a>
@@ -199,7 +199,7 @@ class DetailedProjectCard extends React.Component {
 
   renderThumbnail() { 
     return (
-      <div className="thumbnail-wrapper mb-4">
+      <div className="thumbnail-wrapper mb-4 mb-md-0">
         <div className="thumbnail-container">
           <Thumbnail 
             thumbnail={this.props.thumbnail} 
@@ -211,10 +211,10 @@ class DetailedProjectCard extends React.Component {
 
   renderMainContent() {
     return (
-      <article>
+      <article className="main-content">
         <section className="summary-info mb-5">
           <div className="container">
-            <div className="offset-lg-3">
+            <div className="offset-lg-2">
               <Description description={this.props.description} className="mt-3" />
               <WhyInteresting interest={this.props.interest} />
             </div>
@@ -229,11 +229,11 @@ class DetailedProjectCard extends React.Component {
         <IssuesAndTags 
           issues={this.props.issues} 
           tags={this.props.tags}
-          className="mb-4"
+          className="mb-4 mb-md-5"
         />
         <section>
           <div className="container">
-            <div className="offset-lg-3">
+            <div className="offset-lg-2">
               {this.renderTimePosted()}
               <p className="report-correction">
                 Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
@@ -252,7 +252,7 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <main className={wrapperClassnames}>
-        <div className="thumbnail-title-social-wrapper mb-4">
+        <div className="thumbnail-title-social-wrapper mb-4 mb-md-5">
           <div className="thumbnail-title-social">
             {this.renderThumbnail()}
             {this.renderTitleAuthor()}
