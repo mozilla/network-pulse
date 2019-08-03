@@ -119,6 +119,7 @@ class ProjectCard extends React.Component {
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
+          helpTypesOnModeration="btn-xs"
         />
       </div>
     );
