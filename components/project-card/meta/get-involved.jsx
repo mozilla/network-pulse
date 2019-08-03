@@ -63,7 +63,7 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <section className="get-involved w-100  mb-5">
+      <section className="get-involved w-100 mb-5">
         <div className="container">
           <div className="offset-lg-2 py-5">
             <h2>Help needed</h2>

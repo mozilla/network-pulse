@@ -9,7 +9,7 @@
 
   .dismiss {
     position: absolute;
-    top: 0.5rem;
+    top: 1rem;
     right: 0.5rem;
     border-radius: 50%;
     width: 20px;
@@ -27,6 +27,10 @@
     &:focus {
       background: #333;
       color: $white;
+    }
+
+    @media (min-width: $bp-md) {
+      top: 1.4rem;
     }
   }
 }
