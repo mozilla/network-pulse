@@ -78,11 +78,6 @@
   @include hoverGlyph("signupin-hover");
 }
 
-.circle-heart {
-  @include compositeGlyph("circle-heart");
-  @include hoverGlyph("circle-heart-hover");
-}
-
 .circle-twitter {
   @include compositeGlyph("circle-twitter");
   @include hoverGlyph("circle-twitter-hover");

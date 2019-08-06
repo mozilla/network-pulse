@@ -6,8 +6,24 @@
     font-weight: 500;
   }
 
-  .heart {
-    height: auto;
+  .circle-heart {
+    display: inline-block;
+    width: 37px;
+    height: 37px;
+    background-image: url(/assets/svg/icon-bookmark-entryDetailed.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &.beating {
+      animation-name: beating;
+      animation-duration: 0.4s;
+      animation-fill-mode: both;
+    }
+  }
+
+  &.bookmarked .circle-heart {
+    background-image: url(/assets/svg/icon-bookmark-selected-entryDetailed.svg);
   }
 
   .btn-visit {
