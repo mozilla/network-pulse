@@ -40,6 +40,7 @@ class DetailedProjectCard extends React.Component {
 
   componentDidMount() {
     this.setInitialBookmarkedStatus();
+    this.setSocialPanelHeight();
   }
 
   setInitialBookmarkedStatus() {
@@ -89,6 +90,25 @@ class DetailedProjectCard extends React.Component {
       action: `Visit button tap`,
       transport: `beacon`
     });
+  }
+
+  setSocialPanelHeight() {
+    let article = document.querySelector('.main-content');
+    let socialIcons = document.querySelector('.social-panel-wrapper');
+    let breakpoint = window.matchMedia("(min-width: 992px)");
+
+    function Test(breakpoint) {
+      if (breakpoint.matches) {
+        socialIcons.style.height = `calc(${article.offsetHeight}px)`;
+        article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
+      } else {
+        socialIcons.style.height = `auto`;
+        article.style.marginTop = `auto`;
+      }
+    }
+
+    Test(breakpoint);
+    breakpoint.addListener(Test);
   }
 
   renderVisitButton() {
@@ -141,7 +161,7 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <aside className="social-panel-wrapper mb-4 pl-md-3">
+      <aside className="social-panel-wrapper mb-4 pl-md-3 pb-xl-4">
         <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
@@ -185,7 +205,7 @@ class DetailedProjectCard extends React.Component {
           <div className="action-panel d-md-flex justify-content-lg-between">
             {this.renderVisitButton()}
             <a
-              href="https://www.google.com"
+              href={this.props.getInvolvedUrl}
               target="_blank"
               className="btn btn-secondary d-flex justify-content-center"
             >

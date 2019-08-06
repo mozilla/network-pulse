@@ -38,7 +38,9 @@ const IssuesAndTags = props => {
     <section className={classnames}>
       <div className="container">
         <div className="offset-lg-2">
-          {issues_and_tags}
+          <div className="issues-and-tags-container">
+            {issues_and_tags}
+          </div>
         </div>
       </div>
     </section>

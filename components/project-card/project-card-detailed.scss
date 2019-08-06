@@ -55,6 +55,7 @@
 
   .social-panel-wrapper {
     grid-area: icons;
+    z-index: 1;
 
     @media (min-width: $bp-lg) {
       height: 60vh;
@@ -77,13 +78,14 @@
       margin-top: 48px;
       grid-template:
         [row1-start] "info info" 0.5fr [row1-end]
-        [row2-start] "image icons" 1.75fr [row2-end]
+        [row2-start] "image icons" 1.5fr [row2-end]
         / 2fr 1fr;
     }
 
     @media (min-width: $bp-lg) {
       grid-template-columns: repeat(24, 1fr);
       grid-template-rows: 0.5fr 0.25fr;
+      grid-row-gap: 48px;
     }
 
     &-wrapper {
@@ -110,7 +112,7 @@
     }
 
     header {
-      width: 90%;
+      width: 95%;
     }
   }
 
@@ -162,6 +164,17 @@
   .main-content {
     @media (min-width: $bp-lg) {
       margin-top: -58vh;
+    }
+
+    .description,
+    .interest,
+    .help-needed,
+    .issues-and-tags-container,
+    .time-posted,
+    .report-correction {
+      @media (min-width: $bp-lg) {
+        width: 80%;
+      }
     }
   }
 }
