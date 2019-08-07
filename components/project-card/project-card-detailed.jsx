@@ -126,6 +126,20 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
+  renderGetInvolvedButton() {
+    if (!this.props.getInvolvedUrl) return null;
+    
+    return (
+      <a
+        href={this.props.getInvolvedUrl}
+        target="_blank"
+        className="btn btn-secondary d-flex justify-content-center"
+      >
+        Get Involved
+      </a>
+    );
+  }
+
   renderTimePosted() {
     if (!this.props.created && !this.props.publishedBy) return null;
 
@@ -204,13 +218,7 @@ class DetailedProjectCard extends React.Component {
           </header>
           <div className="action-panel d-md-flex justify-content-lg-between">
             {this.renderVisitButton()}
-            <a
-              href={this.props.getInvolvedUrl}
-              target="_blank"
-              className="btn btn-secondary d-flex justify-content-center"
-            >
-              Get Involved
-            </a>
+            {this.renderGetInvolvedButton()}
           </div>
         </div>
       </div>
