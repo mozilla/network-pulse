@@ -37,8 +37,10 @@ const Creators = props => {
     creators.pop();
   }
 
+  let classnames = classNames(props.className);
+
   return (
-    <p className="mb-4">
+    <p className={classnames}>
       {labelText}
       {creators}
     </p>

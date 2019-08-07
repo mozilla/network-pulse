@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
 
@@ -55,6 +56,8 @@ class GetInvolved extends React.Component {
   }
 
   render() {
+    let classnames = classNames(`help-needed`, this.props.className);
+
     if (
       !this.props.getInvolved &&
       !this.props.getInvolvedUrl &&
@@ -63,19 +66,14 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <section className="get-involved w-100 mb-5">
-        <div className="container">
-          <div className="offset-lg-2 py-5">
-            <div className="help-needed">
-              <h2>Help needed</h2>
-              {this.renderGetInvolvedText()}
-              <div className="mt-4">
-                {this.renderHelpLabels()}
-              </div>
-            </div>
-          </div>
+      
+      <div className={classnames}>
+        <h2>Help needed</h2>
+        {this.renderGetInvolvedText()}
+        <div className="mt-4">
+          {this.renderHelpLabels()}
         </div>
-      </section>
+      </div>
     );
   }
 }

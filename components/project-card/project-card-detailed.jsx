@@ -214,6 +214,7 @@ class DetailedProjectCard extends React.Component {
             creatorClickHandler={(event, name) =>
               this.handleCreatorClick(event, name)
             }
+            className="mb-4"
             />
           </header>
           <div className="action-panel d-md-flex justify-content-lg-between">
@@ -248,17 +249,29 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <GetInvolved
-          getInvolved={this.props.getInvolved}
-          getInvolvedUrl={this.props.getInvolvedUrl}
-          helpTypes={this.props.helpTypes}
-          sendGaEvent={config => this.sendGaEvent(config)}
-        />
-        <IssuesAndTags 
-          issues={this.props.issues} 
-          tags={this.props.tags}
-          className="mb-4 mb-md-5"
-        />
+        <section className="get-involved w-100 mb-5">
+          <div className="container">
+            <div className="offset-lg-2 py-5">
+              <GetInvolved
+                getInvolved={this.props.getInvolved}
+                getInvolvedUrl={this.props.getInvolvedUrl}
+                helpTypes={this.props.helpTypes}
+                sendGaEvent={config => this.sendGaEvent(config)}
+              />
+            </div>
+          </div>
+        </section>
+        <section className="issues-and-tags mb-4 mb-md-5">
+          <div className="container">
+            <div className="offset-lg-2">
+              <IssuesAndTags 
+                issues={this.props.issues} 
+                tags={this.props.tags}
+                className="mb-4 mb-md-5"
+              />
+            </div>
+          </div>
+        </section>
         <section>
           <div className="container">
             <div className="offset-lg-2">

@@ -29,21 +29,15 @@ const IssuesAndTags = props => {
     );
   });
 
-  let classnames = classNames(`issues-and-tags`, props.className);
+  let classnames = classNames(`issues-and-tags-container`, props.className);
   let issues_and_tags = issues.concat(tags);
 
   issues_and_tags = issues_and_tags.reduce((accu, curr) => [accu, ", ", curr]);
 
   return (
-    <section className={classnames}>
-      <div className="container">
-        <div className="offset-lg-2">
-          <div className="issues-and-tags-container">
-            {issues_and_tags}
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className={classnames}>
+      {issues_and_tags}
+    </div>
   );
 };
 

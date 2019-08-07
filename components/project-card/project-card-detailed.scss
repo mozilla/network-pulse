@@ -100,7 +100,7 @@
 
     @media (min-width: $bp-lg) {
       grid-template-columns: repeat(24, 1fr);
-      grid-template-rows: 0.5fr 0.25fr;
+      grid-template-rows: 0.25fr 0.25fr;
       grid-row-gap: 48px;
     }
 
@@ -135,11 +135,7 @@
   .social-panel {
     @media (min-width: $bp-lg) {
       position: sticky;
-      top: 530px;
-    }
-
-    @media (min-width: $bp-xl) {
-      top: 600px;
+      top: 50px;
     }
 
     &-wrapper {

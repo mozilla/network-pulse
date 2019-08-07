@@ -112,7 +112,6 @@ class ProjectCard extends React.Component {
         <IssuesAndTags
           issues={this.props.issues}
           tags={this.props.tags}
-          className={`pb-3 mb-3`}
         />
         <GetInvolved
           getInvolved={this.props.getInvolved}
@@ -120,6 +119,7 @@ class ProjectCard extends React.Component {
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
           helpTypesOnModeration="btn-xs"
+          className="py-3 my-4"
         />
       </div>
     );
@@ -189,7 +189,7 @@ class ProjectCard extends React.Component {
                   title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
-                  className="pr-2"
+                  className="mb-0"
                 />
                 {this.renderActionPanel()}
               </div>
@@ -198,9 +198,13 @@ class ProjectCard extends React.Component {
                 creatorClickHandler={(event, name) =>
                   this.handleCreatorClick(event, name)
                 }
+                className="my-1 body-small"
               />
               {this.props.onModerationMode && (
-                <Description description={this.props.description} />
+                <Description 
+                  description={this.props.description}
+                  className="mt-3"
+                />
               )}
               {this.renderExtraMeta()}
               {this.renderFullUrlSection()}
