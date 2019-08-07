@@ -24,7 +24,7 @@ class Title extends React.Component {
       );
     }
 
-    return <h4 className={classnames} role={this.props.role} aria-level={this.props.ariaLevel}>{title}</h4>;
+    return <h4 className={classnames} aria-level={this.props.ariaLevel}>{title}</h4>;
   }
 }
 

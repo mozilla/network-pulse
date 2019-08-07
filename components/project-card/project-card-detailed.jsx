@@ -118,8 +118,9 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-primary mb-3 mb-md-0 mr-md-3"
+        className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
         onClick={() => this.handleVisitBtnClick()}
+        aria-label="See More Information"
       >
         Visit
       </a>
@@ -162,7 +163,7 @@ class DetailedProjectCard extends React.Component {
     ) : null;
 
     return (
-      <p className="time-posted mb-4">
+      <p className="time-posted mb-4" aria-label="Date Published & Publisher">
         Added{timePosted}
         {publishedBy}
       </p>
@@ -179,7 +180,7 @@ class DetailedProjectCard extends React.Component {
         <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
-            className="circle-heart large"
+            className="circle-heart large mr-3 mr-lg-0 mb-lg-2"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
             updateCardBookmarkedState={bookmarked => {
@@ -201,11 +202,10 @@ class DetailedProjectCard extends React.Component {
     return (
       <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
         <div className="title-author p-lg-4">
-          <header className="mb-md-4">
+          <header className="mb-md-4" aria-label="Article Title & Author(s)">
             <Title 
               title={this.props.title} 
               className="h1-heading mb-1 mb-md-3"
-              role="banner"
               ariaLevel="1"
             />
             <Creators
@@ -241,7 +241,7 @@ class DetailedProjectCard extends React.Component {
   renderMainContent() {
     return (
       <article className="main-content">
-        <section className="summary-info mb-5">
+        <section className="summary-info mb-5" aria-label="Why is this interesting?">
           <div className="container">
             <div className="offset-lg-2">
               <Description description={this.props.description} className="mt-3" />
@@ -249,7 +249,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className="get-involved w-100 mb-5">
+        <section className="get-involved w-100 mb-5" aria-label="Get Involved">
           <div className="container">
             <div className="offset-lg-2 py-5">
               <GetInvolved
@@ -261,7 +261,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className="issues-and-tags mb-4 mb-md-5">
+        <section className="issues-and-tags mb-4 mb-md-5" aria-label="Check Out Related Issues & Tags">
           <div className="container">
             <div className="offset-lg-2">
               <IssuesAndTags 
@@ -272,11 +272,11 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section>
+        <section aria-label="View Article Meta Details">
           <div className="container">
             <div className="offset-lg-2">
               {this.renderTimePosted()}
-              <p className="report-correction">
+              <p className="report-correction" aria-label="Notify Us Of A Correction">
                 Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
               </p>
             </div>

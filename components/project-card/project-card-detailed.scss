@@ -10,7 +10,7 @@
     display: inline-block;
     width: 37px;
     height: 37px;
-    background-image: url(/assets/svg/icon-bookmark-entryDetailed.svg);
+    background-image: url(/assets/svg/icon-bookmark-entry-detailed.svg);
     background-position: center center;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -23,7 +23,7 @@
   }
 
   &.bookmarked .circle-heart {
-    background-image: url(/assets/svg/icon-bookmark-selected-entryDetailed.svg);
+    background-image: url(/assets/svg/icon-bookmark-selected-entry-detailed.svg);
   }
 
   .btn-visit {
@@ -32,6 +32,11 @@
 
   .issues-and-tags {
     color: $dark-blue;
+
+    @media (min-width: $bp-md) {
+      @include body-text(null, 300, $black, $white);
+      @include scaleText(18px, 24px, 20px, 28px);
+    }
   }
 
   .get-involved {
@@ -72,10 +77,6 @@
   .social-panel-wrapper {
     grid-area: icons;
     z-index: 1;
-
-    @media (min-width: $bp-lg) {
-      height: 60vh;
-    }
   }
 
   .thumbnail-title-social {
@@ -138,12 +139,6 @@
       top: 50px;
     }
 
-    &-wrapper {
-      @media (min-width: $bp-lg) {
-        height: 55vh;
-      }
-    }
-
     a:first-child::before {
       margin-right: 16px;
     }
@@ -173,20 +168,14 @@
     }
   }
 
-  .main-content {
+  .description,
+  .interest,
+  .help-needed,
+  .issues-and-tags-container,
+  .time-posted,
+  .report-correction {
     @media (min-width: $bp-lg) {
-      margin-top: -58vh;
-    }
-
-    .description,
-    .interest,
-    .help-needed,
-    .issues-and-tags-container,
-    .time-posted,
-    .report-correction {
-      @media (min-width: $bp-lg) {
-        width: 80%;
-      }
+      width: 80%;
     }
   }
 }

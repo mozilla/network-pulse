@@ -79,8 +79,8 @@
 }
 
 .circle-twitter {
-  @include compositeGlyph("circle-twitter");
-  @include hoverGlyph("circle-twitter-hover");
+  @include compositeGlyph("icon-twitter-entry-detailed");
+  @include hoverGlyph("icon-twitter-hover-entry-detailed");
 }
 
 .dark-theme {
