@@ -5,12 +5,13 @@ import classNames from "classnames";
 import Utility from "../../../js/utility.js";
 
 const IssuesAndTags = props => {
+  if (props.issues.length + props.tags.length === 0) return null;
+
   let issues = props.issues.map(issue => {
     return (
       <Link
-        to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
-        className="btn btn-xs btn-tag"
-        key={issue}
+      to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
+      key={issue}
       >
         {issue}
       </Link>
@@ -20,21 +21,22 @@ const IssuesAndTags = props => {
   let tags = props.tags.map(tag => {
     return (
       <Link
-        to={`/tags/${encodeURIComponent(tag)}`}
-        className="btn btn-xs btn-tag"
-        key={tag}
+      to={`/tags/${encodeURIComponent(tag)}`}
+      key={tag}
       >
-        {tag}
+        #{tag}
       </Link>
     );
   });
 
   let classnames = classNames(`issues-and-tags`, props.className);
+  let issues_and_tags = issues.concat(tags);
+
+  issues_and_tags = issues_and_tags.reduce((accu, curr) => [accu, ", ", curr]);
 
   return (
     <div className={classnames}>
-      {issues}
-      {tags}
+      {issues_and_tags}
     </div>
   );
 };

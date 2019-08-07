@@ -15,7 +15,7 @@ class IssueSelector extends React.Component {
     return ISSUES.map(issueName => {
       let linkTo = `/issues/${Utility.getUriPathFromIssueName(issueName)}`;
       return (
-        <NavLink className="btn" to={linkTo} key={issueName}>
+        <NavLink className="btn btn-tag" to={linkTo} key={issueName}>
           {issueName}
         </NavLink>
       );

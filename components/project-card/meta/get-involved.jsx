@@ -63,7 +63,7 @@ class GetInvolved extends React.Component {
 
     return (
       <div className="get-involved pb-3 mb-3">
-        <h2>Get involved</h2>
+        <h2>Help needed</h2>
         {this.renderGetInvolvedText()}
         {this.renderHelpLabels()}
       </div>

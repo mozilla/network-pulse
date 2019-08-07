@@ -1,5 +1,5 @@
 .moderation-search-controls {
-  border-bottom: 3px solid $gray-lighter;
+  border-bottom: 3px solid $black;
 }
 
 .state-filter,
@@ -8,6 +8,29 @@
   height: 100%;
 
   .Select-control {
-    border-color: $input-border-color;
+    border-color: $black;
+    border-radius: 0;
+    height: 50px;
+    font-weight: 600;
+
+    @media (min-width: $bp-md) {
+      height: 64px;
+    }
+
+    .Select-value {
+      line-height: 50px;
+
+      @media (min-width: $bp-md) {
+        line-height: 60px;
+      }
+
+      .Select-value-label {
+        vertical-align: middle;
+      }
+    }
+
+    .Select-arrow {
+      border-color: $black transparent transparent;
+    }
   }
 }
