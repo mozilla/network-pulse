@@ -61,7 +61,7 @@ class Bio extends React.Component {
         return;
       }
 
-      let classname = classNames(`social-media ${type} x-small`, {
+      let classname = classNames(`social-media ${type}-glyph x-small`, {
         "mr-sm-1": i !== list.length - 1
       });
 

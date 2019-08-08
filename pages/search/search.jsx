@@ -105,7 +105,7 @@ class Search extends React.Component {
     return (
       <span
         className={
-          this.state.searchBoxFocused ? `search-focus` : `search-glyph`
+          this.state.searchBoxFocused ? `search-focus-glyph` : `search-glyph`
         }
       />
     );
