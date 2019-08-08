@@ -58,12 +58,24 @@
   @include hoverGlyph("github-hover");
 }
 
+// New glyph added for Pulse
 .search-glyph {
   @include compositeGlyph("search");
 }
 
+// New glyph added for Pulse
 .search-focus {
   @include compositeGlyph("search-focus");
+}
+
+// New glyph added for Pulse
+.dismiss-glyph {
+  @include compositeGlyph("dismiss");
+}
+
+// New glyph added for Pulse
+.dismiss-focus-glyph {
+  @include compositeGlyph("dismiss-focus");
 }
 
 .signupin {
