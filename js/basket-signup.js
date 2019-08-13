@@ -31,7 +31,7 @@ var basketSignup = function(transaction, onSuccessCallback, onFailCallback) {
     `&fmt=` +
     payload.format +
     `&source_url=` +
-    // /* Strip query params in source url for newsletter signups: https://github.com/mozilla/foundation.mozilla.org/issues/2994#issuecomment-516997473 */
+    /* Strip query params in source url for newsletter signups: https://github.com/mozilla/foundation.mozilla.org/issues/2994#issuecomment-516997473 */
     encodeURIComponent(window.location.href.split(`?`)[0]);
 
   var xhr = new XMLHttpRequest();
