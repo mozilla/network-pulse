@@ -1,5 +1,6 @@
 import env from "./env-client";
 import user from "./app-user";
+import basketSignup from "./basket-signup";
 
 const PULSE_API_HOST = env.PULSE_API_HOST;
 const PULSE_API = env.PULSE_API;
@@ -317,7 +318,16 @@ let Service = {
     },
     put: function(updatedProfile) {
       if (updatedProfile.newsletter) {
-        Service.signUp(user.email, window.location.toString());
+        basketSignup(
+          {
+            email: user.email,
+            privacy: true
+          },
+          () => {},
+          e => {
+            console.error(e);
+          }
+        );
       }
 
       return updateStoredData(

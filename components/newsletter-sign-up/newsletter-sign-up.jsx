@@ -3,6 +3,7 @@ import ReactGA from "react-ga";
 import classNames from "classnames";
 import Service from "../../js/service";
 import user from "../../js/app-user";
+import basketSignup from "../../js/basket-signup";
 
 class NewsletterSignUp extends React.Component {
   constructor(props) {
@@ -48,6 +49,8 @@ class NewsletterSignUp extends React.Component {
   // state update function
   apiSubmissionFailure(e) {
     if (e && e instanceof Error) {
+      console.error(e);
+
       this.setState({
         apiFailed: true
       });
@@ -67,14 +70,18 @@ class NewsletterSignUp extends React.Component {
   submitDataToApi() {
     this.setState({ apiSubmitted: true });
 
-    return Service.signUp(this.email.value, window.location.toString())
-      .then(() => {
+    basketSignup(
+      {
+        email: this.email.value,
+        privacy: this.privacy.checked
+      },
+      () => {
         this.apiSubmissionSuccessful();
-      })
-      .catch(reason => {
-        console.error(reason);
-        this.apiSubmissionFailure(reason);
-      });
+      },
+      e => {
+        this.apiSubmissionFailure(e);
+      }
+    );
   }
 
   /**
@@ -301,8 +308,7 @@ class NewsletterSignUp extends React.Component {
 NewsletterSignUp.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `Join our email list to take action and stay updated!`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
-  newsletter: `mozilla-foundation`
+  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`
 };
 
 export default NewsletterSignUp;
