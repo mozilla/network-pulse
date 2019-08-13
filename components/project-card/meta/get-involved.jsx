@@ -32,7 +32,7 @@ class GetInvolved extends React.Component {
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return (
-      <div>
+      <div className="help-needed-info">
         <p>{getInvolvedText}</p>
         <p className="mt-2">{getInvolvedLink}</p> 
       </div>
@@ -68,7 +68,7 @@ class GetInvolved extends React.Component {
     return (
       
       <div className={classnames}>
-        <h2>Help needed</h2>
+        <h3>Help needed</h3>
         {this.renderGetInvolvedText()}
         <div className="mt-4">
           {this.renderHelpLabels()}

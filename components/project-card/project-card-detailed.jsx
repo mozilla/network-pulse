@@ -239,6 +239,12 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderMainContent() {
+    let getInvolved = classNames("get-involved w-100 mb-5",{
+      "d-none": !this.props.getInvolved &&
+      !this.props.getInvolvedUrl &&
+      !this.props.helpTypes.length > 0
+    });
+    
     return (
       <article className="main-content">
         <section className="summary-info mb-5" aria-label="Why is this interesting?">
@@ -249,7 +255,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className="get-involved w-100 mb-5" aria-label="Get Involved">
+        <section className={getInvolved} aria-label="Get Involved">
           <div className="container">
             <div className="offset-lg-2 py-5">
               <GetInvolved

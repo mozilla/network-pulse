@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const WhyInteresting = props => {
   if (!props.interest) return null;
 
-  return <p className="interest mt-3">{props.interest}</p>;
+  return <p className="interest body-large mt-3">{props.interest}</p>;
 };
 
 WhyInteresting.propTypes = {
