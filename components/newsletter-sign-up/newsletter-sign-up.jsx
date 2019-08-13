@@ -1,7 +1,6 @@
 import React from "react";
 import ReactGA from "react-ga";
 import classNames from "classnames";
-import user from "../../js/app-user";
 import basketSignup from "../../js/basket-signup";
 
 class NewsletterSignUp extends React.Component {
@@ -13,29 +12,6 @@ class NewsletterSignUp extends React.Component {
       apiFailed: false,
       userTriedSubmitting: false
     };
-  }
-
-  /**
-   * Ensure that the parent component is informed
-   * about this component being mounted (primarily
-   * used in the context of automated testing)
-   */
-  componentDidMount() {
-    user.addListener(this);
-    user.verify(this.props.location, this.props.history);
-  }
-
-  componentWillUnmount() {
-    user.removeListener(this);
-  }
-
-  updateUser(event) {
-    // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified`) {
-      this.setState({
-        user
-      });
-    }
   }
 
   // state update function
