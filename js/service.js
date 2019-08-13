@@ -336,12 +336,6 @@ let Service = {
         updatedProfile
       );
     }
-  },
-  signUp: function(email, source) {
-    return updateStoredData(`POST`, `${PULSE_API_HOST}/signup/`, {
-      email: email,
-      source: source
-    });
   }
   // ... and more Pulse API endpoints to come
 };

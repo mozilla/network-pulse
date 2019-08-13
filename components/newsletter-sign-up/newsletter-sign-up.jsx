@@ -1,7 +1,6 @@
 import React from "react";
 import ReactGA from "react-ga";
 import classNames from "classnames";
-import Service from "../../js/service";
 import user from "../../js/app-user";
 import basketSignup from "../../js/basket-signup";
 
@@ -135,12 +134,6 @@ class NewsletterSignUp extends React.Component {
    * Render the signup CTA.
    */
   render() {
-    if (user.loggedin !== true) {
-      // Currently only authenticated user can sign up for newsletter
-      // Don't show form if user is not authenticated.
-      return null;
-    }
-
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
