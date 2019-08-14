@@ -1,11 +1,6 @@
 .project-card.detail-view {
   background: inherit;
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-
   .circle-heart {
     display: inline-block;
     width: 37px;
@@ -26,16 +21,13 @@
     background-image: url(/assets/svg/icon-bookmark-selected-entry-detailed.svg);
   }
 
-  .btn-visit {
-    border-radius: 0;
-  }
-
   .issues-and-tags {
+    @include scaleText(16px, 24px, 20px, 28px);
+
     color: $dark-blue;
 
     @media (min-width: $bp-md) {
-      @include body-text(null, 300, $black, $white);
-      @include scaleText(18px, 24px, 20px, 28px);
+      font-weight: 300;
     }
   }
 
@@ -137,10 +129,6 @@
     @media (min-width: $bp-lg) {
       position: sticky;
       top: 50px;
-    }
-
-    a:first-child::before {
-      margin-right: 16px;
     }
   }
 

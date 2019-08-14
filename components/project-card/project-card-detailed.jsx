@@ -97,7 +97,7 @@ class DetailedProjectCard extends React.Component {
     let socialIcons = document.querySelector('.social-panel-wrapper');
     let breakpoint = window.matchMedia("(min-width: 992px)");
 
-    function Test(breakpoint) {
+    function renderHeight(breakpoint) {
       if (breakpoint.matches) {
         socialIcons.style.height = `calc(${article.offsetHeight}px)`;
         article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
@@ -107,8 +107,8 @@ class DetailedProjectCard extends React.Component {
       }
     }
 
-    Test(breakpoint);
-    breakpoint.addListener(Test);
+    renderHeight(breakpoint);
+    breakpoint.addListener(renderHeight);
   }
 
   renderVisitButton() {
@@ -163,7 +163,7 @@ class DetailedProjectCard extends React.Component {
     ) : null;
 
     return (
-      <p className="time-posted mb-4" aria-label="Date Published & Publisher">
+      <p className="time-posted mb-4">
         Added{timePosted}
         {publishedBy}
       </p>
@@ -244,9 +244,9 @@ class DetailedProjectCard extends React.Component {
       !this.props.getInvolvedUrl &&
       !this.props.helpTypes.length > 0
     });
-    
+
     return (
-      <article className="main-content">
+      <article className="main-content" aria-labelledby="entry-title">
         <section className="summary-info mb-5" aria-label="Why is this interesting?">
           <div className="container">
             <div className="offset-lg-2">
@@ -282,7 +282,7 @@ class DetailedProjectCard extends React.Component {
           <div className="container">
             <div className="offset-lg-2">
               {this.renderTimePosted()}
-              <p className="report-correction" aria-label="Notify Us Of A Correction">
+              <p className="report-correction">
                 Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
               </p>
             </div>
