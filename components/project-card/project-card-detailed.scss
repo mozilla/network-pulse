@@ -118,10 +118,7 @@
   .title-author {
     @media (min-width: $bp-lg) {
       background-color: $white;
-    }
-
-    header {
-      width: 95%;
+      padding: 24px 0 24px 24px;
     }
   }
 

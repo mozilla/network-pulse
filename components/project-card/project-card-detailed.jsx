@@ -201,7 +201,7 @@ class DetailedProjectCard extends React.Component {
   renderTitleAuthor() {
     return (
       <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
-        <div className="title-author p-lg-4">
+        <div className="title-author">
           <header className="mb-md-4" aria-label="Article Title & Author(s)">
             <Title 
               title={this.props.title} 
