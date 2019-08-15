@@ -22,14 +22,10 @@ class NewsletterSignUp extends React.Component {
   }
 
   // state update function
-  apiSubmissionFailure(e) {
-    if (e && e instanceof Error) {
-      console.error(e);
-
-      this.setState({
-        apiFailed: true
-      });
-    }
+  apiSubmissionFailure(error) {
+    this.setState({
+      apiFailed: true
+    });
   }
 
   // state check function
@@ -53,8 +49,8 @@ class NewsletterSignUp extends React.Component {
       () => {
         this.apiSubmissionSuccessful();
       },
-      e => {
-        this.apiSubmissionFailure(e);
+      error => {
+        this.apiSubmissionFailure(error);
       }
     );
   }

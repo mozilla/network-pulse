@@ -318,16 +318,10 @@ let Service = {
     },
     put: function(updatedProfile) {
       if (updatedProfile.newsletter) {
-        basketSignup(
-          {
-            email: user.email,
-            privacy: true
-          },
-          () => {},
-          e => {
-            console.error(e);
-          }
-        );
+        basketSignup({
+          email: user.email,
+          privacy: true
+        });
       }
 
       return updateStoredData(
