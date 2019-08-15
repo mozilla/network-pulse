@@ -20,12 +20,12 @@ var basketSignup = function(transaction, onSuccess, onFail) {
   })
     .then(response => response.json())
     .then(response => {
-      console.log(response);
-      if (onSuccess) {
-        if (!response.success) {
-          throw new Error(response.errors);
-        }
+      // throw error if Basket responded with errors
+      if (!response.success) {
+        throw new Error(response.errors);
+      }
 
+      if (onSuccess) {
         onSuccess();
       }
     })
