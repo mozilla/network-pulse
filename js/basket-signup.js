@@ -1,8 +1,6 @@
 // Posting to Basket
 // Doc: https://basket.readthedocs.io/newsletter_api.html#news-subscribe
 
-var url = `https://www.mozilla.org/en-US/newsletter/`;
-
 var basketSignup = function(transaction, onSuccess, onFail) {
   var params = new URLSearchParams();
   params.append(`fmt`, `H`); // format
