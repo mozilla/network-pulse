@@ -121,7 +121,6 @@ class DetailedProjectCard extends React.Component {
         target="_blank"
         className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
         onClick={() => this.handleVisitBtnClick()}
-        aria-label="Get More Information"
       >
         Visit
       </a>
@@ -191,7 +190,6 @@ class DetailedProjectCard extends React.Component {
             href={twitterUrl}
             onClick={evt => this.handleTwitterShareClick(evt)}
             className="circle-twitter large"
-            aria-label="Share on Twitter"
           />
         </div>
       </aside>
@@ -202,7 +200,7 @@ class DetailedProjectCard extends React.Component {
     return (
       <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
         <div className="title-author">
-          <header className="mb-md-4" aria-label="Article Title & Author(s)">
+          <header className="mb-md-4">
             <Title 
               title={this.props.title} 
               view={this.state.simpleView}
@@ -245,8 +243,8 @@ class DetailedProjectCard extends React.Component {
     });
 
     return (
-      <article className="main-content" aria-labelledby="detailed-entry-title">
-        <section className="summary-info mb-5" aria-label="Why is this interesting?">
+      <article className="main-content">
+        <section className="summary-info mb-5">
           <div className="container">
             <div className="offset-lg-2">
               <Description description={this.props.description} className="mt-3" />
@@ -254,7 +252,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className={getInvolved} aria-label="Get Involved">
+        <section className={getInvolved}>
           <div className="container">
             <div className="offset-lg-2 py-5">
               <GetInvolved
@@ -266,7 +264,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className="issues-and-tags-container mb-4 mb-md-5" aria-label="Check Out Related Issues & Tags">
+        <section className="issues-and-tags-container mb-4 mb-md-5">
           <div className="container">
             <div className="offset-lg-2">
               <IssuesAndTags 
@@ -277,7 +275,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section aria-label="View Article Meta Details">
+        <section>
           <div className="container">
             <div className="offset-lg-2">
               {this.renderTimePosted()}

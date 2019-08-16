@@ -34,7 +34,7 @@ class Title extends React.Component {
     }
 
     if(!view) {
-      content = <h1 id="detailed-entry-title" className={classnames}>{title}</h1>;
+      content = <h1 className={classnames}>{title}</h1>;
     }
 
     return content;
