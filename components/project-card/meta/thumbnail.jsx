@@ -20,7 +20,7 @@ class Thumbnail extends React.Component {
       <div
         className="img-container"
         style={{ backgroundImage: `url(${imgSrc})` }}
-        role="figure"
+        role="presentation"
       />
     );
     let classnames = classNames(`thumbnail`, this.props.className);

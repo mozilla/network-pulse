@@ -21,7 +21,7 @@
     background-image: url(/assets/svg/icon-bookmark-selected-entry-detailed.svg);
   }
 
-  .issues-and-tags {
+  .issues-and-tags-container {
     @include scaleText(16px, 24px, 20px, 28px);
 
     color: $dark-blue;
@@ -162,7 +162,7 @@
   .description,
   .interest,
   .help-needed,
-  .issues-and-tags-container,
+  .issues-and-tags,
   .time-posted,
   .report-correction {
     @media (min-width: $bp-lg) {

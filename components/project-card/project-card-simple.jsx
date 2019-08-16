@@ -18,7 +18,8 @@ class ProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false
+      bookmarked: false,
+      simpleView: true
     };
   }
 
@@ -189,7 +190,7 @@ class ProjectCard extends React.Component {
                   title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
-                  className="mb-0"
+                  view={this.state.simpleView}
                 />
                 {this.renderActionPanel()}
               </div>

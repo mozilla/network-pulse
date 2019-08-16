@@ -4,11 +4,11 @@ import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
-import WhyInteresting from "./meta/why-interesting.jsx";
 import Creators from "./meta/creators.jsx";
 import Thumbnail from "./meta/thumbnail.jsx";
 import Title from "./meta/title.jsx";
 import Description from "./meta/description.jsx";
+import WhyInteresting from "./meta/why-interesting.jsx";
 import IssuesAndTags from "./meta/issues-and-tags.jsx";
 import GetInvolved from "./meta/get-involved.jsx";
 import BookmarkControl from "../bookmark-control.jsx";
@@ -19,7 +19,8 @@ class DetailedProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false
+      bookmarked: false,
+      simpleView: false
     };
   }
 
@@ -120,7 +121,7 @@ class DetailedProjectCard extends React.Component {
         target="_blank"
         className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
         onClick={() => this.handleVisitBtnClick()}
-        aria-label="See More Information"
+        aria-label="Get More Information"
       >
         Visit
       </a>
@@ -164,8 +165,7 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <p className="time-posted mb-4">
-        Added{timePosted}
-        {publishedBy}
+        Added{timePosted}{publishedBy}
       </p>
     );
   }
@@ -205,8 +205,7 @@ class DetailedProjectCard extends React.Component {
           <header className="mb-md-4" aria-label="Article Title & Author(s)">
             <Title 
               title={this.props.title} 
-              className="h1-heading mb-1 mb-md-3"
-              ariaLevel="1"
+              view={this.state.simpleView}
             />
             <Creators
             creators={this.props.relatedCreators}
@@ -246,7 +245,7 @@ class DetailedProjectCard extends React.Component {
     });
 
     return (
-      <article className="main-content" aria-labelledby="entry-title">
+      <article className="main-content" aria-labelledby="detailed-entry-title">
         <section className="summary-info mb-5" aria-label="Why is this interesting?">
           <div className="container">
             <div className="offset-lg-2">
@@ -267,7 +266,7 @@ class DetailedProjectCard extends React.Component {
             </div>
           </div>
         </section>
-        <section className="issues-and-tags mb-4 mb-md-5" aria-label="Check Out Related Issues & Tags">
+        <section className="issues-and-tags-container mb-4 mb-md-5" aria-label="Check Out Related Issues & Tags">
           <div className="container">
             <div className="offset-lg-2">
               <IssuesAndTags 

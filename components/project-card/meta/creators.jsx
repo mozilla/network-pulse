@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import classNames from "classnames";
 
 const Creators = props => {
   if (props.creators.length === 0) return null;
@@ -37,10 +36,8 @@ const Creators = props => {
     creators.pop();
   }
 
-  let classnames = classNames(props.className);
-
   return (
-    <p className={classnames}>
+    <p>
       {labelText}
       {creators}
     </p>

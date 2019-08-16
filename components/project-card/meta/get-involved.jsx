@@ -21,20 +21,24 @@ class GetInvolved extends React.Component {
     let props = this.props;
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
     let getInvolvedLink = props.getInvolvedUrl ? (
-      <a
-        href={props.getInvolvedUrl}
-        target="_blank"
-        onClick={() => this.handleGetInvolvedLinkClick()}
-      >
-        {props.getInvolvedUrl}
-      </a>
+      <p className="mt-2">
+        <strong>
+          <a
+          href={props.getInvolvedUrl}
+          target="_blank"
+          onClick={() => this.handleGetInvolvedLinkClick()}
+          >
+            {props.getInvolvedUrl}
+          </a>
+        </strong>
+      </p>
     ) : null;
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return (
-      <div className="help-needed-info">
+      <div>
         <p>{getInvolvedText}</p>
-        <p className="mt-2">{getInvolvedLink}</p> 
+        {getInvolvedLink}
       </div>
     );
   }
@@ -42,7 +46,7 @@ class GetInvolved extends React.Component {
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
-    return this.props.helpTypes.map(helpType => {
+    let helpLabel = this.props.helpTypes.map(helpType => {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
@@ -53,6 +57,8 @@ class GetInvolved extends React.Component {
         </Link>
       );
     });
+
+    return <div className="mt-4">{helpLabel}</div>
   }
 
   render() {
@@ -70,9 +76,7 @@ class GetInvolved extends React.Component {
       <div className={classnames}>
         <h3>Help needed</h3>
         {this.renderGetInvolvedText()}
-        <div className="mt-4">
-          {this.renderHelpLabels()}
-        </div>
+        {this.renderHelpLabels()}
       </div>
     );
   }

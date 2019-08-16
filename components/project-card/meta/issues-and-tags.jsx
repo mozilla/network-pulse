@@ -29,7 +29,7 @@ const IssuesAndTags = props => {
     );
   });
 
-  let classnames = classNames(`issues-and-tags-container`, props.className);
+  let classnames = classNames(`issues-and-tags`, props.className);
   let issues_and_tags = issues.concat(tags);
 
   issues_and_tags = issues_and_tags.reduce((accu, curr) => [accu, ", ", curr]);
