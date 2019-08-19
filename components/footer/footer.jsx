@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
       <ul className="d-flex pl-0">
         <li className="mr-2">
           <a
-            className="twitter small d-inline-block"
+            className="twitter-glyph small d-inline-block"
             href="https://twitter.com/mozilla"
             target="_blank"
           >
@@ -16,7 +16,7 @@ export default class Footer extends React.Component {
         </li>
         <li className="mr-2">
           <a
-            className="instagram small d-inline-block"
+            className="instagram-glyph small d-inline-block"
             href="https://www.instagram.com/mozilla/"
             target="_blank"
           >
@@ -25,7 +25,7 @@ export default class Footer extends React.Component {
         </li>
         <li className="mr-2">
           <a
-            className="github small d-inline-block"
+            className="github-glyph small d-inline-block"
             href="https://www.github.com/mozilla/foundation.mozilla.org/"
             target="_blank"
           >

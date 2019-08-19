@@ -50,30 +50,43 @@
   }
 }
 
-.twitter {
+.twitter-glyph {
   @include compositeGlyph("twitter");
   @include hoverGlyph("twitter-hover");
 }
 
-.linkedin {
+.linkedin-glyph {
   @include compositeGlyph("linkedin");
   @include hoverGlyph("linkedin-hover");
 }
 
-.github {
+.github-glyph {
   @include compositeGlyph("github");
   @include hoverGlyph("github-hover");
 }
 
+// New glyph added for Pulse
 .search-glyph {
   @include compositeGlyph("search");
 }
 
-.search-focus {
+// New glyph added for Pulse
+.search-focus-glyph {
   @include compositeGlyph("search-focus");
 }
 
-.signupin {
+// New glyph added for Pulse
+.dismiss-glyph {
+  @include compositeGlyph("dismiss");
+}
+
+// New glyph added for Pulse
+.dismiss-focus-glyph {
+  @include compositeGlyph("dismiss-focus");
+}
+
+// New glyph added for Pulse
+.signupin-glyph {
   @include compositeGlyph("signupin");
   @include hoverGlyph("signupin-hover");
 }
@@ -84,17 +97,17 @@
 }
 
 .dark-theme {
-  .twitter {
+  .twitter-glyph {
     @include compositeGlyph("twitter-dark-theme");
     @include hoverGlyph("twitter-dark-theme-hover");
   }
 
-  .instagram {
+  .instagram-glyph {
     @include compositeGlyph("instagram-dark-theme");
     @include hoverGlyph("instagram-dark-theme-hover");
   }
 
-  .github {
+  .github-glyph {
     @include compositeGlyph("github-dark-theme");
     @include hoverGlyph("github-dark-theme-hover");
   }

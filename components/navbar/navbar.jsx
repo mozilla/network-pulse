@@ -52,7 +52,7 @@ class NavBar extends React.Component {
       return null;
     }
 
-    let classes = "signupin d-none d-md-flex align-items-md-center";
+    let classes = "signupin-glyph d-none d-md-flex align-items-md-center";
 
     let link = (
       <a

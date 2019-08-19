@@ -21,14 +21,7 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    // The focus() function of <input /> isn't exposed by <DebounceInput />
-    // Ticket filed on the 'react-debounce-input' repo https://github.com/nkbt/react-debounce-input/issues/65
-    // In the meanwhile, we have to rely on document.querySelector(`#search-box`) to trigger input's focus() function
-    document.querySelector(`#search-box`).focus();
-    document
-      .querySelector(`.search-glyph-container`)
-      .classList.add(`search-focus`);
-    this.inputFocusEvent();
+    this.debounceInputElement.focus();
   }
 
   getSearchCriteria(props) {
@@ -101,24 +94,40 @@ class Search extends React.Component {
     this.setSearchCriteria(`keywordSearched`, keywordsEntered);
   }
 
-  inputFocusEvent() {
-    let input = document.querySelector(`#search-box`);
-    let icon = document.querySelector(`.search-glyph-container`);
-
-    document.addEventListener("click", event => {
-      if (event.target === input) {
-        icon.classList.add("search-focus");
-      }
-      if (event.target !== input && icon.classList.contains("search-focus")) {
-        icon.classList.remove("search-focus");
-      }
+  handleKeywordDismissBtnClick() {
+    this.setState({ keywordSearched: `` }, () => {
+      this.updateBrowserHistory();
+      this.debounceInputElement.focus();
     });
+  }
+
+  renderSearchGlyph() {
+    return (
+      <span
+        className={
+          this.state.searchBoxFocused ? `search-focus-glyph` : `search-glyph`
+        }
+      />
+    );
+  }
+
+  renderKeywordDimissButton() {
+    return (
+      <button
+        className={`btn btn-dismiss small p-0 ${
+          this.state.searchBoxFocused ? `dismiss-focus-glyph` : `dismiss-glyph`
+        }`}
+        onClick={() => this.handleKeywordDismissBtnClick()}
+      >
+        <span className="sr-only">Clear input</span>
+      </button>
+    );
   }
 
   renderSearchBar() {
     return (
       <div className="d-flex align-items-center pr-lg-5 mr-lg-5">
-        <div className="activated search-bar w-100">
+        <div className="search-bar w-100">
           <DebounceInput
             id="search-box"
             value={this.state.keywordSearched}
@@ -127,9 +136,14 @@ class Search extends React.Component {
             onChange={event => this.handleInputChange(event)}
             inputRef={ref => this.setDebounceInput(ref)}
             placeholder="Search keywords, people, tags..."
-            className="form-control"
+            className={`form-control ${this.state.searchBoxFocused &&
+              `focused`}`}
           />
-          <span className="search-glyph-container search-glyph" />
+          <div className="glyph-container">
+            {this.state.keywordSearched
+              ? this.renderKeywordDimissButton()
+              : this.renderSearchGlyph()}
+          </div>
         </div>
       </div>
     );
@@ -139,7 +153,21 @@ class Search extends React.Component {
     if (this.debounceInputElement || !ref) {
       return;
     }
+
     this.debounceInputElement = ref;
+
+    this.debounceInputElement.addEventListener(`focus`, event => {
+      this.setState({
+        searchBoxFocused: true
+      });
+    });
+
+    this.debounceInputElement.addEventListener(`blur`, event => {
+      this.setState({
+        searchBoxFocused: false
+      });
+    });
+
     // Set up bindings so that when this input
     // receives an "enter", we remove focus.
     this.debounceInputElement.addEventListener(`keyup`, evt => {

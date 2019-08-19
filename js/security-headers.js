@@ -24,7 +24,8 @@ export default {
     connectSrc: [
       `'self'`,
       url.parse(env.PULSE_API).host ||
-        `https://network-pulse-api-staging.herokuapp.com/`
+        `https://network-pulse-api-staging.herokuapp.com/`,
+      `https://www.mozilla.org/en-US/newsletter/`
     ],
     childSrc: [
       `https://syndication.twitter.com`,

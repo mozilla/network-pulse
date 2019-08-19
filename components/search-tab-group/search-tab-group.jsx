@@ -9,26 +9,31 @@ import ProfileLoader from "../profile-loader/profile-loader.jsx";
 const TAB_NAMES = [`people`, `projects`];
 const DEFAULT_TAB_NAME = `projects`;
 
-class SearchTabGroup extends React.Component {
+// Extends React.PureComponent instead of React.Component as we want
+// this component to re-render only when there's change in its props or state.
+// Note that React.PureComponent runs *shallow comparison* to determine
+// if the component should be re-rendered or not. So make sure
+// SearchTabGroup's props and state doesn't contain anything mutatable otherwise
+// we will run into issues.
+class SearchTabGroup extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.availableTabs = TAB_NAMES;
     this.state = this.getInitialState(props);
   }
 
   getInitialState(props) {
-    let availableTabs = TAB_NAMES;
     let activeTab;
     let states = {
-      activeTab,
-      availableTabs
+      activeTab
     };
 
     // when there are no available tabs to show
-    if (availableTabs.length === 0) return states;
+    if (this.availableTabs.length === 0) return states;
 
     // the tab we are trying to load has content and can be rendered
-    if (availableTabs.indexOf(props.activeTab) >= 0) {
+    if (this.availableTabs.indexOf(props.activeTab) >= 0) {
       states.activeTab = props.activeTab;
     }
 
@@ -47,7 +52,7 @@ class SearchTabGroup extends React.Component {
   }
 
   renderTabControls() {
-    let tabControls = this.state.availableTabs.map(tabName => {
+    let tabControls = this.availableTabs.map(tabName => {
       let classnames = classNames(`btn btn-tab`, {
         active: this.state.activeTab === tabName
       });
@@ -81,7 +86,7 @@ class SearchTabGroup extends React.Component {
         <Redirect
           to={{
             pathname: `/`,
-            state: { activeTab: this.state.availableTabs[0] }
+            state: { activeTab: this.availableTabs[0] }
           }}
         />
       );
@@ -108,7 +113,8 @@ class SearchTabGroup extends React.Component {
 
 SearchTabGroup.propTypes = {
   activeTab: PropTypes.string,
-  keywordSearched: PropTypes.string
+  keywordSearched: PropTypes.string,
+  helpType: PropTypes.string
 };
 
 SearchTabGroup.defaultProps = {
