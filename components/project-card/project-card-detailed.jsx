@@ -19,8 +19,7 @@ class DetailedProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false,
-      simpleView: false
+      bookmarked: false
     };
   }
 
@@ -94,14 +93,16 @@ class DetailedProjectCard extends React.Component {
   }
 
   setSocialPanelHeight() {
-    let article = document.querySelector('.main-content');
-    let socialIcons = document.querySelector('.social-panel-wrapper');
+    let article = this.article;
+    let socialIcons = this.socialIcons;
     let breakpoint = window.matchMedia("(min-width: 992px)");
 
     function renderHeight(breakpoint) {
       if (breakpoint.matches) {
         socialIcons.style.height = `calc(${article.offsetHeight}px)`;
-        article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
+        article.style.marginTop = `calc(0px - (${
+          article.offsetHeight
+          }px + 80px))`;
       } else {
         socialIcons.style.height = `auto`;
         article.style.marginTop = `auto`;
@@ -116,29 +117,29 @@ class DetailedProjectCard extends React.Component {
     if (!this.props.contentUrl) return null;
 
     return (
-      <a
-        href={this.props.contentUrl}
-        target="_blank"
-        className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
-        onClick={() => this.handleVisitBtnClick()}
-      >
-        Visit
-      </a>
-    );
+			<a
+				href={this.props.contentUrl}
+				target="_blank"
+				className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
+				onClick={() => this.handleVisitBtnClick()}
+			>
+				Visit
+			</a>
+		);
   }
 
   renderGetInvolvedButton() {
     if (!this.props.getInvolvedUrl) return null;
-    
+
     return (
-      <a
-        href={this.props.getInvolvedUrl}
-        target="_blank"
-        className="btn btn-secondary d-flex justify-content-center"
-      >
-        Get Involved
-      </a>
-    );
+			<a
+				href={this.props.getInvolvedUrl}
+				target="_blank"
+				className="btn btn-secondary d-flex justify-content-center"
+			>
+				Get Involved
+			</a>
+		);
   }
 
   renderTimePosted() {
@@ -164,7 +165,8 @@ class DetailedProjectCard extends React.Component {
 
     return (
       <p className="time-posted mb-4">
-        Added{timePosted}{publishedBy}
+        Added{timePosted}
+        {publishedBy}
       </p>
     );
   }
@@ -175,7 +177,12 @@ class DetailedProjectCard extends React.Component {
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <aside className="social-panel-wrapper mb-4 pl-md-3 pb-xl-4">
+      <aside
+        className="social-panel-wrapper mb-4 pl-md-3 pb-xl-4"
+        ref={socialIcons => {
+          this.socialIcons = socialIcons;
+        }}
+      >
         <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
@@ -201,17 +208,14 @@ class DetailedProjectCard extends React.Component {
       <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
         <div className="title-author">
           <header className="mb-md-4">
-            <Title 
-              title={this.props.title} 
-              view={this.state.simpleView}
-            />
+            <Title title={this.props.title} />
             <Creators
-            creators={this.props.relatedCreators}
-            showLabelText={true}
-            creatorClickHandler={(event, name) =>
-              this.handleCreatorClick(event, name)
-            }
-            className="mb-4"
+              creators={this.props.relatedCreators}
+              showLabelText={true}
+              creatorClickHandler={(event, name) =>
+                this.handleCreatorClick(event, name)
+              }
+              className="mb-4"
             />
           </header>
           <div className="action-panel d-md-flex justify-content-lg-between">
@@ -223,70 +227,75 @@ class DetailedProjectCard extends React.Component {
     );
   }
 
-  renderThumbnail() { 
+  renderThumbnail() {
     return (
       <div className="thumbnail-wrapper mb-4 mb-md-0">
         <div className="thumbnail-container">
-          <Thumbnail 
-            thumbnail={this.props.thumbnail} 
-          />
+          <Thumbnail thumbnail={this.props.thumbnail} />
         </div>
       </div>
     );
   }
 
   renderMainContent() {
-    let getInvolved = classNames("get-involved w-100 mb-5",{
-      "d-none": !this.props.getInvolved &&
-      !this.props.getInvolvedUrl &&
-      !this.props.helpTypes.length > 0
+    let getInvolved = classNames("get-involved w-100 mb-5", {
+      "d-none":
+        !this.props.getInvolved &&
+        !this.props.getInvolvedUrl &&
+        !this.props.helpTypes.length > 0
     });
 
     return (
-      <article className="main-content">
-        <section className="summary-info mb-5">
-          <div className="container">
-            <div className="offset-lg-2">
-              <Description description={this.props.description} className="mt-3" />
-              <WhyInteresting interest={this.props.interest} />
-            </div>
-          </div>
-        </section>
-        <section className={getInvolved}>
-          <div className="container">
-            <div className="offset-lg-2 py-5">
-              <GetInvolved
-                getInvolved={this.props.getInvolved}
-                getInvolvedUrl={this.props.getInvolvedUrl}
-                helpTypes={this.props.helpTypes}
-                sendGaEvent={config => this.sendGaEvent(config)}
-              />
-            </div>
-          </div>
-        </section>
-        <section className="issues-and-tags-container mb-4 mb-md-5">
-          <div className="container">
-            <div className="offset-lg-2">
-              <IssuesAndTags 
-                issues={this.props.issues} 
-                tags={this.props.tags}
-                className="mb-4 mb-md-5"
-              />
-            </div>
-          </div>
-        </section>
-        <section>
-          <div className="container">
-            <div className="offset-lg-2">
-              {this.renderTimePosted()}
-              <p className="report-correction">
-                Correction?{" "}<a href="https://mzl.la/pulse-contact">Contact us</a>.
-              </p>
-            </div>
-          </div>
-        </section>
-      </article>
-    );
+			<article
+				className="main-content"
+				ref={article => {
+					this.article = article;
+				}}
+			>
+				<section className="summary-info mb-5">
+					<div className="container">
+						<div className="offset-lg-2">
+							<Description description={this.props.description} />
+							<WhyInteresting interest={this.props.interest} />
+						</div>
+					</div>
+				</section>
+				<section className={getInvolved}>
+					<div className="container">
+						<div className="offset-lg-2 py-5">
+							<GetInvolved
+								getInvolved={this.props.getInvolved}
+								getInvolvedUrl={this.props.getInvolvedUrl}
+								helpTypes={this.props.helpTypes}
+								sendGaEvent={config => this.sendGaEvent(config)}
+							/>
+						</div>
+					</div>
+				</section>
+				<section className="issues-and-tags-container mb-4 mb-md-5">
+					<div className="container">
+						<div className="offset-lg-2">
+							<IssuesAndTags
+								issues={this.props.issues}
+								tags={this.props.tags}
+								className="mb-4 mb-md-5"
+							/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div className="container">
+						<div className="offset-lg-2">
+							{this.renderTimePosted()}
+							<p className="report-correction">
+								Correction?{" "}
+								<a href="https://mzl.la/pulse-contact">Contact us</a>.
+							</p>
+						</div>
+					</div>
+				</section>
+			</article>
+		);
   }
 
   render() {

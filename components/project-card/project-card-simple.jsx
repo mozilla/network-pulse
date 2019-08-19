@@ -18,8 +18,7 @@ class ProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false,
-      simpleView: true
+      bookmarked: false
     };
   }
 
@@ -110,16 +109,13 @@ class ProjectCard extends React.Component {
     return (
       <div>
         <WhyInteresting interest={this.props.interest} />
-        <IssuesAndTags
-          issues={this.props.issues}
-          tags={this.props.tags}
-        />
+        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
         <GetInvolved
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
-          helpTypesOnModeration="btn-xs"
+          onModeration={true}
           className="py-3 my-4"
         />
       </div>
@@ -190,7 +186,7 @@ class ProjectCard extends React.Component {
                   title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
-                  view={this.state.simpleView}
+                  simpleView={true}
                 />
                 {this.renderActionPanel()}
               </div>
@@ -202,10 +198,7 @@ class ProjectCard extends React.Component {
                 className="my-1 body-small"
               />
               {this.props.onModerationMode && (
-                <Description 
-                  description={this.props.description}
-                  className="mt-3"
-                />
+                <Description description={this.props.description} />
               )}
               {this.renderExtraMeta()}
               {this.renderFullUrlSection()}

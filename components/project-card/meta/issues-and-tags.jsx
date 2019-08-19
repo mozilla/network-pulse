@@ -10,8 +10,8 @@ const IssuesAndTags = props => {
   let issues = props.issues.map(issue => {
     return (
       <Link
-      to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
-      key={issue}
+        to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
+        key={issue}
       >
         {issue}
       </Link>
@@ -20,10 +20,7 @@ const IssuesAndTags = props => {
 
   let tags = props.tags.map(tag => {
     return (
-      <Link
-      to={`/tags/${encodeURIComponent(tag)}`}
-      key={tag}
-      >
+      <Link to={`/tags/${encodeURIComponent(tag)}`} key={tag}>
         #{tag}
       </Link>
     );
@@ -34,11 +31,7 @@ const IssuesAndTags = props => {
 
   issues_and_tags = issues_and_tags.reduce((accu, curr) => [accu, ", ", curr]);
 
-  return (
-    <div className={classnames}>
-      {issues_and_tags}
-    </div>
-  );
+  return <div className={classnames}>{issues_and_tags}</div>;
 };
 
 IssuesAndTags.propTypes = {

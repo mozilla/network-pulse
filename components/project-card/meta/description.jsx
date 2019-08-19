@@ -6,13 +6,17 @@ const Description = props => {
   let paragraphs = props.description.split(`\n`).map(paragraph => {
     if (!paragraph) return null;
 
-    return <p key={paragraph} className="body-large">{paragraph}</p>;
+    return (
+      <p key={paragraph} className="body-large">
+        {paragraph}
+      </p>
+    );
   });
 
   if (paragraphs.length < 1) return null;
 
   return (
-    <div className={classNames(`description`, props.className)}>
+    <div className={classNames(`description mt-3`, props.className)}>
       {paragraphs}
     </div>
   );

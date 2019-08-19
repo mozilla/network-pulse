@@ -24,9 +24,9 @@ class GetInvolved extends React.Component {
       <p className="mt-2">
         <strong>
           <a
-          href={props.getInvolvedUrl}
-          target="_blank"
-          onClick={() => this.handleGetInvolvedLinkClick()}
+            href={props.getInvolvedUrl}
+            target="_blank"
+            onClick={() => this.handleGetInvolvedLinkClick()}
           >
             {props.getInvolvedUrl}
           </a>
@@ -46,11 +46,15 @@ class GetInvolved extends React.Component {
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
-    let helpLabel = this.props.helpTypes.map(helpType => {
+    let classes = classNames(`btn btn-tag`, {
+      "btn-xs": this.props.onModerationMode
+    });
+
+    let helpLabels = this.props.helpTypes.map(helpType => {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
-          className={`btn btn-tag ${this.props.helpTypesOnModeration}`}
+          className={classes}
           key={helpType}
         >
           {helpType}
@@ -58,7 +62,7 @@ class GetInvolved extends React.Component {
       );
     });
 
-    return <div className="mt-4">{helpLabel}</div>
+    return <div className="mt-4">{helpLabels}</div>;
   }
 
   render() {
@@ -72,7 +76,6 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      
       <div className={classnames}>
         <h3>Help needed</h3>
         {this.renderGetInvolvedText()}
