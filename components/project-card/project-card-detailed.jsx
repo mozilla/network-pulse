@@ -92,54 +92,62 @@ class DetailedProjectCard extends React.Component {
     });
   }
 
+  // Sets height for social icons grid cell to match the height of entry content
   setSocialPanelHeight() {
-    let article = this.article;
-    let socialIcons = this.socialIcons;
+    let article = this.article; //entry content
+    let socialIcons = this.socialIcons; //social icons
+
+    // We want to set the social icons height at large+ devices
     let breakpoint = window.matchMedia("(min-width: 992px)");
 
     function renderHeight(breakpoint) {
+      // If screen size is at large+ breakpoint
       if (breakpoint.matches) {
-        socialIcons.style.height = `calc(${article.offsetHeight}px)`;
-        article.style.marginTop = `calc(0px - (${
-          article.offsetHeight
-          }px + 80px))`;
+        // Set the height of the social icons grid cell to the height of loaded entry
+        socialIcons.style.height = `${article.offsetHeight}px`;
+
+        // Since social icons is in a CSS Grid cell, the cell is now the height of the entry &
+        // the entry has been pushed below the grid; so, we want to offset the social icons height with
+        // a negative margin-top on the entry (article) to bring the content back up.
+        article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
       } else {
+        // If not at large+ breakpoint we want these values to be 'auto'
         socialIcons.style.height = `auto`;
         article.style.marginTop = `auto`;
       }
     }
 
-    renderHeight(breakpoint);
-    breakpoint.addListener(renderHeight);
+    renderHeight(breakpoint); // Calls our function at run time
+    breakpoint.addListener(renderHeight); // Runs our callback function in response to any media query status changes
   }
 
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
     return (
-			<a
-				href={this.props.contentUrl}
-				target="_blank"
-				className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
-				onClick={() => this.handleVisitBtnClick()}
-			>
-				Visit
-			</a>
-		);
+      <a
+        href={this.props.contentUrl}
+        target="_blank"
+        className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
+        onClick={() => this.handleVisitBtnClick()}
+      >
+        Visit
+      </a>
+    );
   }
 
   renderGetInvolvedButton() {
     if (!this.props.getInvolvedUrl) return null;
 
     return (
-			<a
-				href={this.props.getInvolvedUrl}
-				target="_blank"
-				className="btn btn-secondary d-flex justify-content-center"
-			>
-				Get Involved
-			</a>
-		);
+      <a
+        href={this.props.getInvolvedUrl}
+        target="_blank"
+        className="btn btn-secondary d-flex justify-content-center"
+      >
+        Get Involved
+      </a>
+    );
   }
 
   renderTimePosted() {
@@ -246,56 +254,56 @@ class DetailedProjectCard extends React.Component {
     });
 
     return (
-			<article
-				className="main-content"
-				ref={article => {
-					this.article = article;
-				}}
-			>
-				<section className="summary-info mb-5">
-					<div className="container">
-						<div className="offset-lg-2">
-							<Description description={this.props.description} />
-							<WhyInteresting interest={this.props.interest} />
-						</div>
-					</div>
-				</section>
-				<section className={getInvolved}>
-					<div className="container">
-						<div className="offset-lg-2 py-5">
-							<GetInvolved
-								getInvolved={this.props.getInvolved}
-								getInvolvedUrl={this.props.getInvolvedUrl}
-								helpTypes={this.props.helpTypes}
-								sendGaEvent={config => this.sendGaEvent(config)}
-							/>
-						</div>
-					</div>
-				</section>
-				<section className="issues-and-tags-container mb-4 mb-md-5">
-					<div className="container">
-						<div className="offset-lg-2">
-							<IssuesAndTags
-								issues={this.props.issues}
-								tags={this.props.tags}
-								className="mb-4 mb-md-5"
-							/>
-						</div>
-					</div>
-				</section>
-				<section>
-					<div className="container">
-						<div className="offset-lg-2">
-							{this.renderTimePosted()}
-							<p className="report-correction">
-								Correction?{" "}
-								<a href="https://mzl.la/pulse-contact">Contact us</a>.
-							</p>
-						</div>
-					</div>
-				</section>
-			</article>
-		);
+      <article
+        className="main-content"
+        ref={article => {
+          this.article = article;
+        }}
+      >
+        <section className="summary-info mb-5">
+          <div className="container">
+            <div className="offset-lg-2">
+              <Description description={this.props.description} />
+              <WhyInteresting interest={this.props.interest} />
+            </div>
+          </div>
+        </section>
+        <section className={getInvolved}>
+          <div className="container">
+            <div className="offset-lg-2 py-5">
+              <GetInvolved
+                getInvolved={this.props.getInvolved}
+                getInvolvedUrl={this.props.getInvolvedUrl}
+                helpTypes={this.props.helpTypes}
+                sendGaEvent={config => this.sendGaEvent(config)}
+              />
+            </div>
+          </div>
+        </section>
+        <section className="issues-and-tags-container mb-4 mb-md-5">
+          <div className="container">
+            <div className="offset-lg-2">
+              <IssuesAndTags
+                issues={this.props.issues}
+                tags={this.props.tags}
+                className="mb-4 mb-md-5"
+              />
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <div className="offset-lg-2">
+              {this.renderTimePosted()}
+              <p className="report-correction">
+                Correction?{" "}
+                <a href="https://mzl.la/pulse-contact">Contact us</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+    );
   }
 
   render() {
