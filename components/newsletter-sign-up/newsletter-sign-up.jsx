@@ -1,8 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
 import classNames from "classnames";
-import Service from "../../js/service";
-import user from "../../js/app-user";
+import basketSignup from "../../js/basket-signup";
 
 class NewsletterSignUp extends React.Component {
   constructor(props) {
@@ -15,29 +14,6 @@ class NewsletterSignUp extends React.Component {
     };
   }
 
-  /**
-   * Ensure that the parent component is informed
-   * about this component being mounted (primarily
-   * used in the context of automated testing)
-   */
-  componentDidMount() {
-    user.addListener(this);
-    user.verify(this.props.location, this.props.history);
-  }
-
-  componentWillUnmount() {
-    user.removeListener(this);
-  }
-
-  updateUser(event) {
-    // this updateUser method is called by "user" after changes in the user state happened
-    if (event === `verified`) {
-      this.setState({
-        user
-      });
-    }
-  }
-
   // state update function
   apiSubmissionSuccessful() {
     this.setState({
@@ -46,12 +22,10 @@ class NewsletterSignUp extends React.Component {
   }
 
   // state update function
-  apiSubmissionFailure(e) {
-    if (e && e instanceof Error) {
-      this.setState({
-        apiFailed: true
-      });
-    }
+  apiSubmissionFailure(error) {
+    this.setState({
+      apiFailed: true
+    });
   }
 
   // state check function
@@ -67,14 +41,18 @@ class NewsletterSignUp extends React.Component {
   submitDataToApi() {
     this.setState({ apiSubmitted: true });
 
-    return Service.signUp(this.email.value, window.location.toString())
-      .then(() => {
+    basketSignup(
+      {
+        email: this.email.value,
+        privacy: this.privacy.checked
+      },
+      () => {
         this.apiSubmissionSuccessful();
-      })
-      .catch(reason => {
-        console.error(reason);
-        this.apiSubmissionFailure(reason);
-      });
+      },
+      error => {
+        this.apiSubmissionFailure(error);
+      }
+    );
   }
 
   /**
@@ -128,12 +106,6 @@ class NewsletterSignUp extends React.Component {
    * Render the signup CTA.
    */
   render() {
-    if (user.loggedin !== true) {
-      // Currently only authenticated user can sign up for newsletter
-      // Don't show form if user is not authenticated.
-      return null;
-    }
-
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
       "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
@@ -301,8 +273,7 @@ class NewsletterSignUp extends React.Component {
 NewsletterSignUp.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `Join our email list to take action and stay updated!`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
-  newsletter: `mozilla-foundation`
+  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`
 };
 
 export default NewsletterSignUp;
