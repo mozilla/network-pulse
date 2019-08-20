@@ -92,8 +92,8 @@
 }
 
 .circle-twitter {
-  @include compositeGlyph("icon-twitter-entry-detailed");
-  @include hoverGlyph("icon-twitter-hover-entry-detailed");
+  @include compositeGlyph("twitter-entry-detailed");
+  @include hoverGlyph("twitter-entry-detailed-hover");
 }
 
 .dark-theme {

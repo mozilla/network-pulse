@@ -226,7 +226,7 @@ class DetailedProjectCard extends React.Component {
               className="mb-4"
             />
           </header>
-          <div className="action-panel d-md-flex justify-content-lg-between">
+          <div className="action-panel d-flex flex-column flex-md-row">
             {this.renderVisitButton()}
             {this.renderGetInvolvedButton()}
           </div>

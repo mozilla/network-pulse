@@ -1,4 +1,6 @@
 .btn-secondary {
+  justify-content: center;
+
   @mixin active-style() {
     color: $white;
     background: $black;

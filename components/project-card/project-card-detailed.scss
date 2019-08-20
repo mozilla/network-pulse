@@ -99,18 +99,18 @@
 
     &-wrapper {
       @media (min-width: $bp-md) {
-        width: 720px;
+        width: map-get($container-max-widths, md);
         max-width: 100%;
         padding: 0 15px;
         margin: 0 auto;
       }
 
       @media (min-width: $bp-lg) {
-        width: 960px;
+        width: map-get($container-max-widths, lg);
       }
 
       @media (min-width: $bp-xl) {
-        width: 1140px;
+        width: map-get($container-max-widths, xl);
       }
     }
   }
@@ -135,27 +135,15 @@
     }
 
     a {
+      flex: 1;
+
+      @media (min-width: $bp-md) {
+        flex: unset;
+      }
+
       @media (min-width: $bp-lg) {
-        width: 49%;
+        flex: 1;
       }
-
-      &:first-of-type {
-        width: 100%;
-
-        @media (min-width: $bp-md) {
-          width: auto;
-        }
-
-        @media (min-width: $bp-lg) {
-          width: 49%;
-        }
-      }
-    }
-  }
-
-  .help-needed-info {
-    a {
-      font-weight: 700;
     }
   }
 
