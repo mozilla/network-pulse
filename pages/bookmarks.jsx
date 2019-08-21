@@ -155,9 +155,7 @@ class Bookmarks extends React.Component {
         <Helmet>
           <title>Favs</title>
         </Helmet>
-        <main className="favs container mt-5">
-          {this.renderContent()}
-        </main>
+        <main className="favs container mt-5">{this.renderContent()}</main>
       </div>
     );
   }

@@ -86,7 +86,7 @@ class ProjectCard extends React.Component {
         updateCardBookmarkedState={bookmarked => {
           this.updateCardBookmarkedState(bookmarked);
         }}
-        className="align-middle"
+        className="heart align-middle"
       />
     );
   }
@@ -109,16 +109,14 @@ class ProjectCard extends React.Component {
     return (
       <div>
         <WhyInteresting interest={this.props.interest} />
-        <IssuesAndTags
-          issues={this.props.issues}
-          tags={this.props.tags}
-          className={`pb-3 mb-3`}
-        />
+        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
         <GetInvolved
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
+          onModeration={true}
+          className="py-3 my-4"
         />
       </div>
     );
@@ -180,6 +178,7 @@ class ProjectCard extends React.Component {
               thumbnail={this.props.thumbnail}
               link={!this.props.onModerationMode ? detailViewLink : ``}
               sendGaEvent={() => this.handleReadMoreClick()}
+              className="simple-view"
             />
             <div className="content mt-2">
               <div className="d-flex">
@@ -187,7 +186,7 @@ class ProjectCard extends React.Component {
                   title={this.props.title}
                   link={!this.props.onModerationMode ? detailViewLink : ``}
                   sendGaEvent={() => this.handleReadMoreClick()}
-                  className="pr-2"
+                  simpleView={true}
                 />
                 {this.renderActionPanel()}
               </div>
@@ -196,6 +195,7 @@ class ProjectCard extends React.Component {
                 creatorClickHandler={(event, name) =>
                   this.handleCreatorClick(event, name)
                 }
+                className="my-1 body-small"
               />
               {this.props.onModerationMode && (
                 <Description description={this.props.description} />

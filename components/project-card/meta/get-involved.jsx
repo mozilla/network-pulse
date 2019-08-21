@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 const DEFAULT_TEXT = `Help with this, or find other projects that have similar ways to get involved.`;
 
@@ -20,40 +21,53 @@ class GetInvolved extends React.Component {
     let props = this.props;
     let getInvolvedText = props.getInvolved ? props.getInvolved : null;
     let getInvolvedLink = props.getInvolvedUrl ? (
-      <a
-        href={props.getInvolvedUrl}
-        target="_blank"
-        onClick={() => this.handleGetInvolvedLinkClick()}
-      >
-        Get Involved
-      </a>
+      <p className="mt-2">
+        <strong>
+          <a
+            href={props.getInvolvedUrl}
+            target="_blank"
+            onClick={() => this.handleGetInvolvedLinkClick()}
+          >
+            {props.getInvolvedUrl}
+          </a>
+        </strong>
+      </p>
     ) : null;
     if (!getInvolvedText && !getInvolvedLink) return <p>{DEFAULT_TEXT}</p>;
 
     return (
-      <p>
-        {getInvolvedText} {getInvolvedLink}
-      </p>
+      <div>
+        <p>{getInvolvedText}</p>
+        {getInvolvedLink}
+      </div>
     );
   }
 
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
-    return this.props.helpTypes.map(helpType => {
+    let classes = classNames(`btn btn-tag`, {
+      "btn-xs": this.props.onModerationMode
+    });
+
+    let helpLabels = this.props.helpTypes.map(helpType => {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
-          className="btn btn-xs btn-tag"
+          className={classes}
           key={helpType}
         >
           {helpType}
         </Link>
       );
     });
+
+    return <div className="mt-4">{helpLabels}</div>;
   }
 
   render() {
+    let classnames = classNames(`help-needed`, this.props.className);
+
     if (
       !this.props.getInvolved &&
       !this.props.getInvolvedUrl &&
@@ -62,8 +76,8 @@ class GetInvolved extends React.Component {
       return null;
 
     return (
-      <div className="get-involved pb-3 mb-3">
-        <h2>Help needed</h2>
+      <div className={classnames}>
+        <h3>Help needed</h3>
         {this.renderGetInvolvedText()}
         {this.renderHelpLabels()}
       </div>

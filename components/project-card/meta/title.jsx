@@ -13,18 +13,23 @@ class Title extends React.Component {
   }
 
   render() {
-    let classnames = classNames(`title mb-0 h4-heading`, this.props.className);
     let title = this.props.title;
+    let simpleView = this.props.simpleView;
+    let content = <h1 className="title h1-heading mb-1 mb-md-3">{title}</h1>;
 
-    if (this.props.link) {
-      title = (
-        <Link to={this.props.link} onClick={() => this.handleTitleClick()}>
-          {this.props.title}
-        </Link>
-      );
+    if (simpleView) {
+      if (this.props.link) {
+        title = (
+          <Link to={this.props.link} onClick={() => this.handleTitleClick()}>
+            {this.props.title}
+          </Link>
+        );
+      }
+
+      content = <h4 className="title h4-heading mb-0">{title}</h4>;
     }
 
-    return <h4 className={classnames}>{title}</h4>;
+    return content;
   }
 }
 

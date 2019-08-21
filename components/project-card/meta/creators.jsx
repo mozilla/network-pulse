@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import classNames from "classnames";
 
 const Creators = props => {
   if (props.creators.length === 0) return null;
 
-  let classnames = classNames(`my-1 body-small creator`, props.className);
   let labelText = props.showLabelText ? `Created by ` : ``;
   let creators = [];
 
@@ -39,7 +37,7 @@ const Creators = props => {
   }
 
   return (
-    <p className={classnames}>
+    <p>
       {labelText}
       {creators}
     </p>

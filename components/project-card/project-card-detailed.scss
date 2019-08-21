@@ -1,0 +1,160 @@
+.project-card.detail-view {
+  background: inherit;
+
+  .circle-heart {
+    display: inline-block;
+    width: 37px;
+    height: 37px;
+    background-image: url(/assets/svg/icon-bookmark-entry-detailed.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &.beating {
+      animation-name: beating;
+      animation-duration: 0.4s;
+      animation-fill-mode: both;
+    }
+  }
+
+  &.bookmarked .circle-heart {
+    background-image: url(/assets/svg/icon-bookmark-selected-entry-detailed.svg);
+  }
+
+  .issues-and-tags-container {
+    @include scaleText(16px, 24px, 20px, 28px);
+
+    color: $dark-blue;
+
+    @media (min-width: $bp-md) {
+      font-weight: 300;
+    }
+  }
+
+  .get-involved {
+    background-color: $gray-05;
+  }
+
+  .description {
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .thumbnail-wrapper {
+    grid-area: image;
+
+    @media (min-width: $bp-md) {
+      grid-column: 1 / 2;
+      grid-row: 2;
+    }
+
+    @media (min-width: $bp-lg) {
+      grid-column: 1 / 13;
+      grid-row: 1;
+    }
+  }
+
+  .title-author-wrapper {
+    grid-area: info;
+
+    @media (min-width: $bp-lg) {
+      grid-column: 10 / 25;
+      grid-row: 1;
+      z-index: 1;
+      align-self: center;
+    }
+  }
+
+  .social-panel-wrapper {
+    grid-area: icons;
+    z-index: 1;
+  }
+
+  .thumbnail-title-social {
+    display: grid;
+    grid-template:
+      [row1-start] "image image image" 1fr [row1-end]
+      [row2-start] ". info ." 0.5fr [row2-end]
+      [row3-start] ". icons ." 40px [row3-end]
+      / 15px 1fr 15px;
+
+    @media (min-width: $bp-sm) {
+      grid-template-columns: 100px 1fr 100px;
+    }
+
+    @media (min-width: $bp-md) {
+      margin-top: 48px;
+      grid-template:
+        [row1-start] "info info" 0.5fr [row1-end]
+        [row2-start] "image icons" 1.5fr [row2-end]
+        / 2fr 1fr;
+    }
+
+    @media (min-width: $bp-lg) {
+      grid-template-columns: repeat(24, 1fr);
+      grid-template-rows: 0.25fr 0.25fr;
+      grid-row-gap: 48px;
+    }
+
+    &-wrapper {
+      @media (min-width: $bp-md) {
+        width: map-get($container-max-widths, md);
+        max-width: 100%;
+        padding: 0 15px;
+        margin: 0 auto;
+      }
+
+      @media (min-width: $bp-lg) {
+        width: map-get($container-max-widths, lg);
+      }
+
+      @media (min-width: $bp-xl) {
+        width: map-get($container-max-widths, xl);
+      }
+    }
+  }
+
+  .title-author {
+    @media (min-width: $bp-lg) {
+      background-color: $white;
+      padding: 24px 0 24px 24px;
+    }
+  }
+
+  .social-panel {
+    @media (min-width: $bp-lg) {
+      position: sticky;
+      top: 50px;
+    }
+  }
+
+  .action-panel {
+    @media (min-width: $bp-lg) {
+      width: 80%;
+    }
+
+    a {
+      flex: 1;
+
+      @media (min-width: $bp-md) {
+        flex: unset;
+      }
+
+      @media (min-width: $bp-lg) {
+        flex: 1;
+      }
+    }
+  }
+
+  .description,
+  .interest,
+  .help-needed,
+  .issues-and-tags,
+  .time-posted,
+  .report-correction {
+    @media (min-width: $bp-lg) {
+      width: 80%;
+    }
+  }
+}

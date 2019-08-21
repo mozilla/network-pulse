@@ -40,6 +40,7 @@ class DetailedProjectCard extends React.Component {
 
   componentDidMount() {
     this.setInitialBookmarkedStatus();
+    this.setSocialPanelHeight();
   }
 
   setInitialBookmarkedStatus() {
@@ -91,6 +92,35 @@ class DetailedProjectCard extends React.Component {
     });
   }
 
+  // Sets height for social icons grid cell to match the height of entry content
+  setSocialPanelHeight() {
+    let article = this.article; //entry content
+    let socialIcons = this.socialIcons; //social icons
+
+    // We want to set the social icons height at large+ devices
+    let breakpoint = window.matchMedia("(min-width: 992px)");
+
+    function renderHeight(breakpoint) {
+      // If screen size is at large+ breakpoint
+      if (breakpoint.matches) {
+        // Set the height of the social icons grid cell to the height of loaded entry
+        socialIcons.style.height = `${article.offsetHeight}px`;
+
+        // Since social icons is in a CSS Grid cell, the cell is now the height of the entry &
+        // the entry has been pushed below the grid; so, we want to offset the social icons height with
+        // a negative margin-top on the entry (article) to bring the content back up.
+        article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
+      } else {
+        // If not at large+ breakpoint we want these values to be 'auto'
+        socialIcons.style.height = `auto`;
+        article.style.marginTop = `auto`;
+      }
+    }
+
+    renderHeight(breakpoint); // Calls our function at run time
+    breakpoint.addListener(renderHeight); // Runs our callback function in response to any media query status changes
+  }
+
   renderVisitButton() {
     if (!this.props.contentUrl) return null;
 
@@ -98,10 +128,24 @@ class DetailedProjectCard extends React.Component {
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-block btn-info btn-visit text-capitalize mt-3"
+        className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
+      </a>
+    );
+  }
+
+  renderGetInvolvedButton() {
+    if (!this.props.getInvolvedUrl) return null;
+
+    return (
+      <a
+        href={this.props.getInvolvedUrl}
+        target="_blank"
+        className="btn btn-secondary d-flex justify-content-center"
+      >
+        Get Involved
       </a>
     );
   }
@@ -128,25 +172,29 @@ class DetailedProjectCard extends React.Component {
     ) : null;
 
     return (
-      <p>
-        <small className="time-posted d-block">
-          Added{timePosted}
-          {publishedBy}
-        </small>
+      <p className="time-posted mb-4">
+        Added{timePosted}
+        {publishedBy}
       </p>
     );
   }
 
-  renderActionPanel() {
+  renderSocialPanel() {
     let twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       this.props.title
     )}&url=${encodeURIComponent(window.location.href)}`;
 
     return (
-      <div className="action-panel pb-3 mb-3">
-        <div className="d-flex share">
+      <aside
+        className="social-panel-wrapper mb-4 pl-md-3 pb-xl-4"
+        ref={socialIcons => {
+          this.socialIcons = socialIcons;
+        }}
+      >
+        <div className="social-panel">
           <BookmarkControl
             id={this.props.id}
+            className="circle-heart large mr-3 mr-lg-0 mb-lg-2"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
             updateCardBookmarkedState={bookmarked => {
@@ -156,86 +204,124 @@ class DetailedProjectCard extends React.Component {
           <a
             href={twitterUrl}
             onClick={evt => this.handleTwitterShareClick(evt)}
-            className="btn twitter-share d-inline-block align-self-center mx-3"
+            className="circle-twitter large"
           />
         </div>
-      </div>
+      </aside>
     );
   }
 
-  renderTopHeader() {
+  renderTitleAuthor() {
     return (
-      <div className="col-12 mb-3">
-        <div className="row">
-          <div className="col-12 col-sm-8">
-            <Title title={this.props.title} className="mb-1" />
+      <div className="title-author-wrapper mb-4 mb-md-5 mb-lg-0">
+        <div className="title-author">
+          <header className="mb-md-4">
+            <Title title={this.props.title} />
             <Creators
               creators={this.props.relatedCreators}
               showLabelText={true}
               creatorClickHandler={(event, name) =>
                 this.handleCreatorClick(event, name)
               }
+              className="mb-4"
             />
+          </header>
+          <div className="action-panel d-flex flex-column flex-md-row">
+            {this.renderVisitButton()}
+            {this.renderGetInvolvedButton()}
           </div>
         </div>
       </div>
     );
   }
 
-  renderLeftColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-8`);
-
+  renderThumbnail() {
     return (
-      <div className={wrapperClassnames}>
-        <Thumbnail thumbnail={this.props.thumbnail} />
-        {this.renderVisitButton()}
-        <Description description={this.props.description} className="mt-3" />
-        <WhyInteresting interest={this.props.interest} />
-        {this.renderTimePosted()}
-        <IssuesAndTags issues={this.props.issues} tags={this.props.tags} />
+      <div className="thumbnail-wrapper mb-4 mb-md-0">
+        <div className="thumbnail-container">
+          <Thumbnail thumbnail={this.props.thumbnail} />
+        </div>
       </div>
     );
   }
 
-  renderRightColumn() {
-    let wrapperClassnames = classNames(`col-12 col-md-4 mt-3 mt-md-0`);
+  renderMainContent() {
+    let getInvolved = classNames("get-involved w-100 mb-5", {
+      "d-none":
+        !this.props.getInvolved &&
+        !this.props.getInvolvedUrl &&
+        !this.props.helpTypes.length > 0
+    });
 
     return (
-      <div className={wrapperClassnames}>
-        {this.renderActionPanel()}
-        <GetInvolved
-          getInvolved={this.props.getInvolved}
-          getInvolvedUrl={this.props.getInvolvedUrl}
-          helpTypes={this.props.helpTypes}
-          sendGaEvent={config => this.sendGaEvent(config)}
-        />
-      </div>
+      <article
+        className="main-content"
+        ref={article => {
+          this.article = article;
+        }}
+      >
+        <section className="summary-info mb-5">
+          <div className="container">
+            <div className="offset-lg-2">
+              <Description description={this.props.description} />
+              <WhyInteresting interest={this.props.interest} />
+            </div>
+          </div>
+        </section>
+        <section className={getInvolved}>
+          <div className="container">
+            <div className="offset-lg-2 py-5">
+              <GetInvolved
+                getInvolved={this.props.getInvolved}
+                getInvolvedUrl={this.props.getInvolvedUrl}
+                helpTypes={this.props.helpTypes}
+                sendGaEvent={config => this.sendGaEvent(config)}
+              />
+            </div>
+          </div>
+        </section>
+        <section className="issues-and-tags-container mb-4 mb-md-5">
+          <div className="container">
+            <div className="offset-lg-2">
+              <IssuesAndTags
+                issues={this.props.issues}
+                tags={this.props.tags}
+                className="mb-4 mb-md-5"
+              />
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <div className="offset-lg-2">
+              {this.renderTimePosted()}
+              <p className="report-correction">
+                Correction?{" "}
+                <a href="https://mzl.la/pulse-contact">Contact us</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
     );
   }
 
   render() {
-    let wrapperClassnames = classNames(`col-12 pt-3 project-card detail-view`, {
+    let wrapperClassnames = classNames(`project-card detail-view`, {
       bookmarked: this.state.bookmarked
     });
 
     return (
-      <div className={wrapperClassnames}>
-        <div className="row">{this.renderTopHeader()}</div>
-        <div className="row">
-          {this.renderLeftColumn()}
-          {this.renderRightColumn()}
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-8">
-            <p className="report-correction mt-md-3 pt-md-3">
-              <small>
-                Correction?{" "}
-                <a href="https://mzl.la/pulse-contact">Contact us</a>.
-              </small>
-            </p>
+      <main className={wrapperClassnames}>
+        <div className="thumbnail-title-social-wrapper mb-4 mb-md-5">
+          <div className="thumbnail-title-social">
+            {this.renderThumbnail()}
+            {this.renderTitleAuthor()}
+            {this.renderSocialPanel()}
           </div>
         </div>
-      </div>
+        {this.renderMainContent()}
+      </main>
     );
   }
 }
