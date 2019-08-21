@@ -144,6 +144,12 @@
       @media (min-width: $bp-lg) {
         flex: 1;
       }
+
+      &.single-btn {
+        @media (min-width: $bp-lg) {
+          flex: 0.5;
+        }
+      }
     }
   }
 

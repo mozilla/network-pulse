@@ -122,13 +122,17 @@ class DetailedProjectCard extends React.Component {
   }
 
   renderVisitButton() {
+    let classes = classNames("btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center", {
+    "single-btn": !this.props.getInvolvedUrl
+    });
+
     if (!this.props.contentUrl) return null;
 
     return (
       <a
         href={this.props.contentUrl}
         target="_blank"
-        className="btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center"
+        className={classes}
         onClick={() => this.handleVisitBtnClick()}
       >
         Visit
