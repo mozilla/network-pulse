@@ -17,11 +17,17 @@
 
     &.simple-view {
       @include aspect-ratio(1200, 630);
+
+      .img-container {
+        border: 1px solid $gray-20;
+      }
     }
 
     .img-container {
-      background-color: #eee;
-      background-blend-mode: multiply;
+      // Temporarily disabled due to an Android Chrome bug.
+      // For details see https://github.com/mozilla/network-pulse/issues/1141
+      // background-color: #eee;
+      // background-blend-mode: multiply;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: top center;
