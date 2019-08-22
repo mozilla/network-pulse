@@ -143,6 +143,10 @@
 
       @media (min-width: $bp-lg) {
         flex: 1;
+
+        &.single-btn {
+          flex: 0.5;
+        }
       }
     }
   }
