@@ -143,10 +143,8 @@
 
       @media (min-width: $bp-lg) {
         flex: 1;
-      }
 
-      &.single-btn {
-        @media (min-width: $bp-lg) {
+        &.single-btn {
           flex: 0.5;
         }
       }
