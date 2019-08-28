@@ -35,7 +35,10 @@ module.exports = function(showLongBio) {
       type: `textarea`,
       label: (
         <div className="h5-heading bio">
-          Bio <span className="hint-text">(do not include any personal information)</span>
+          Bio{" "}
+          <span className="hint-text">
+            (do not include any personal information)
+          </span>
         </div>
       ),
       placeholder: `About you`,
@@ -82,7 +85,10 @@ module.exports = function(showLongBio) {
       type: `image`,
       label: (
         <div className="h5-heading profile-image">
-          Profile pic <span className="hint-text">(only submit photos you have permission to use in this context)</span>
+          Profile pic{" "}
+          <span className="hint-text">
+            (only submit photos you have permission to use in this context)
+          </span>
         </div>
       ),
       prompt: `Select image`,
