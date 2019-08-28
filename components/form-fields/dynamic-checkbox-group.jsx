@@ -57,11 +57,7 @@ class DynamicCheckboxGroup extends React.Component {
 
     let options = this.props.options.map(option => this.renderCheckbox(option));
 
-    return (
-      <div className="options">
-        {options}
-      </div>
-    );
+    return <div className="options">{options}</div>;
   }
 
   render() {
@@ -70,7 +66,7 @@ class DynamicCheckboxGroup extends React.Component {
 }
 
 DynamicCheckboxGroup.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 DynamicCheckboxGroup.defaultProps = {
