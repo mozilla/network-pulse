@@ -1,4 +1,10 @@
 .search-page {
+  $glyph-container: (
+    "margin-x": 12px,
+    "height": 20px,
+    "width": 20px
+  );
+
   .btn-dismiss {
     background: transparent;
   }
@@ -59,13 +65,17 @@
     }
   }
 
+  #search-box {
+    padding-right: map-get($glyph-container, "margin-x")*2 + map-get($glyph-container, "width");
+  }
+
   .glyph-container {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 12px;
-    height: 20px;
-    width: 20px;
+    right: map-get($glyph-container, "margin-x");
+    height: map-get($glyph-container, "height");
+    width: map-get($glyph-container, "width");
     margin: auto;
   }
 }

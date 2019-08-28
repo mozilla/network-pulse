@@ -4,6 +4,7 @@ import env from "../../js/env-client";
 import qs from "qs";
 import DebounceInput from "react-debounce-input";
 import ReactGA from "react-ga";
+import classNames from "classnames";
 import SearchTabGroup from "../../components/search-tab-group/search-tab-group.jsx";
 import HelpDropdown from "../../components/help-dropdown/help-dropdown.jsx";
 
@@ -125,6 +126,10 @@ class Search extends React.Component {
   }
 
   renderSearchBar() {
+    let classes = classNames(`form-control`, {
+      focused: this.state.searchBoxFocused
+    });
+
     return (
       <div className="d-flex align-items-center pr-lg-5 mr-lg-5">
         <div className="search-bar w-100">
@@ -136,8 +141,7 @@ class Search extends React.Component {
             onChange={event => this.handleInputChange(event)}
             inputRef={ref => this.setDebounceInput(ref)}
             placeholder="Search keywords, people, tags..."
-            className={`form-control ${this.state.searchBoxFocused &&
-              `focused`}`}
+            className={classes}
           />
           <div className="glyph-container">
             {this.state.keywordSearched
