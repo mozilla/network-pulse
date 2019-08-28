@@ -7,7 +7,8 @@ module.exports = {
     type: `text`,
     label: (
       <div>
-      Title: Keep it simple. Name it, don't describe it. <span className="hint-text">(*required)</span>
+        Title: Keep it simple. Name it, don't describe it.{" "}
+        <span className="hint-text">(*required)</span>
       </div>
     ),
     placeholder: `Title`,
