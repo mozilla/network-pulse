@@ -1,29 +1,29 @@
-@import 'variables.scss';
-@import 'mixin.scss';
+@import "variables.scss";
+@import "mixin.scss";
 
 // mofo-bootstrap bits
 
-@import '../node_modules/mofo-bootstrap/src/scss/custom/colors';
-@import '../node_modules/bootstrap/scss/variables.scss';
-@import '../node_modules/mofo-bootstrap/src/scss/overrides/variables.scss';
-@import './overrides/variables.scss';
-@import '../node_modules/bootstrap/scss/mixins';
-@import '../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss';
-@import '../node_modules/bootstrap/scss/reboot.scss';
-@import '../node_modules/bootstrap/scss/buttons.scss';
-@import '../node_modules/bootstrap/scss/forms.scss';
-@import '../node_modules/bootstrap/scss/grid.scss';
-@import '../node_modules/react-select/scss/default.scss';
+@import "../node_modules/mofo-bootstrap/src/scss/custom/colors";
+@import "../node_modules/bootstrap/scss/variables.scss";
+@import "../node_modules/mofo-bootstrap/src/scss/overrides/variables.scss";
+@import "./overrides/variables.scss";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss";
+@import "../node_modules/bootstrap/scss/reboot.scss";
+@import "../node_modules/bootstrap/scss/buttons.scss";
+@import "../node_modules/bootstrap/scss/forms.scss";
+@import "../node_modules/bootstrap/scss/grid.scss";
+@import "../node_modules/react-select/scss/default.scss";
 
 // Foundation Styles
 
-@import './foundation-styles/variables.scss';
-@import './foundation-styles/mixins.scss';
-@import './foundation-styles/type.scss';
-@import './foundation-styles/buttons.scss';
-@import './foundation-styles/glyphs.scss';
-@import './overrides/type.scss';
-@import './overrides/buttons.scss';
+@import "./foundation-styles/variables.scss";
+@import "./foundation-styles/mixins.scss";
+@import "./foundation-styles/type.scss";
+@import "./foundation-styles/buttons.scss";
+@import "./foundation-styles/glyphs.scss";
+@import "./overrides/type.scss";
+@import "./overrides/buttons.scss";
 
 html {
   height: 100%;
@@ -46,7 +46,7 @@ body {
   color: $dark-blue;
 
   &.inline-link {
-    @include link-text-decoration(none,underline);
+    @include link-text-decoration(none, underline);
 
     color: $dark-blue;
     font-size: inherit;
@@ -63,7 +63,12 @@ button {
 }
 
 .btn-xs {
-  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-xs, $btn-border-radius-xs);
+  @include button-size(
+    $btn-padding-y-xs,
+    $btn-padding-x-xs,
+    $font-size-xs,
+    $btn-border-radius-xs
+  );
 }
 
 %btn-tab-active-state {
@@ -92,7 +97,7 @@ button {
 }
 
 .open-sans {
-  font-family: 'Open Sans', X-LocaleSpecific, sans-serif;
+  font-family: "Open Sans", X-LocaleSpecific, sans-serif;
 }
 
 #main {
@@ -175,7 +180,7 @@ fieldset {
 
 .featured-flag {
   text-transform: uppercase;
-  color: white;
+  color: $white;
   letter-spacing: 0.7px;
   font-size: 9px;
   font-weight: 700;
@@ -217,28 +222,28 @@ fieldset {
   }
 }
 
-@import 'shared';
-@import 'form';
+@import "shared";
+@import "form";
 
 // Components
 
-@import '../components/navbar/navbar';
-@import '../components/project-card/project-card';
-@import '../components/project-card/project-card-detailed';
-@import '../components/profile-card/profile-card';
-@import '../components/footer/footer';
-@import '../components/issue-selector/issue-selector';
-@import '../components/bio/bio';
-@import '../components/notification-bar/notification-bar';
-@import '../components/profile-tab-group/profile-tab-group';
-@import '../components/search-tab-group/search-tab-group';
-@import '../components/join-us-modal/join-us-modal';
-@import '../components/newsletter-sign-up/newsletter-sign-up';
+@import "../components/navbar/navbar";
+@import "../components/project-card/project-card";
+@import "../components/project-card/project-card-detailed";
+@import "../components/profile-card/profile-card";
+@import "../components/footer/footer";
+@import "../components/issue-selector/issue-selector";
+@import "../components/bio/bio";
+@import "../components/notification-bar/notification-bar";
+@import "../components/profile-tab-group/profile-tab-group";
+@import "../components/search-tab-group/search-tab-group";
+@import "../components/join-us-modal/join-us-modal";
+@import "../components/newsletter-sign-up/newsletter-sign-up";
 
 // Pages
 
-@import '../pages/add/add';
-@import '../pages/moderation-search/moderation-search';
-@import '../pages/issues/issues';
-@import '../pages/profile-edit/profile-edit';
-@import '../pages/search/search';
+@import "../pages/add/add";
+@import "../pages/moderation-search/moderation-search";
+@import "../pages/issues/issues";
+@import "../pages/profile-edit/profile-edit";
+@import "../pages/search/search";

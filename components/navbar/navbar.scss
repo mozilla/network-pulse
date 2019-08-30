@@ -125,7 +125,7 @@
     overflow: hidden;
 
     a {
-      @include link-text-decoration(none,none);
+      @include link-text-decoration(none, none);
 
       color: $black;
       font-weight: 700;

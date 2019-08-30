@@ -13,7 +13,7 @@
           ]
         },
         {
-          "message": "Custom colors are not allowed. Please use brand colors listed in _colors.scss."
+          "message": "Custom colors are not allowed. Please use brand colors listed in variables.scss."
         }
       ]
     }

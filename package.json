@@ -29,7 +29,7 @@
     "watch:js": "chokidar \"app.jsx\" \"main.jsx\" \"js/**/*.js\" \"components/**/*.js?(x)\" \"pages/**/*.js?(x)\" \"webpack.config.js\" -c \"npm run build-client:js\"",
     "test": "run-s test:**",
     "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
-    "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss --config .stylelintrc-colors.js",
+    "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" \"!scss/foundation-styles/_variables.scss\" \"!scss/**/variables.scss\" \"!scss/overrides/_variables.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
     "postinstall": "npm run build"
   },
