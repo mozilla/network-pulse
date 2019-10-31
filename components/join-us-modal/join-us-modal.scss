@@ -24,7 +24,7 @@
   }
 
   .btn-close {
-    @include compositeGlyph("icon-close");
+    @include compositeGlyph("close");
 
     background: none;
     padding: 0;
