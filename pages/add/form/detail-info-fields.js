@@ -40,7 +40,6 @@ module.exports = {
     type: IssuesField,
     label: <IssuesLabel />,
     colCount: 1
-    
   },
   tags: {
     type: Tags,
@@ -51,7 +50,10 @@ module.exports = {
     type: `image`,
     label: (
       <div>
-        Project image <span className="hint-text">(only submit images that you have permission to use in this context)</span>
+        Project image{" "}
+        <span className="hint-text">
+          (only submit images that you have permission to use in this context)
+        </span>
       </div>
     ),
     helpText: `Looks best at 1200px × 630px`,

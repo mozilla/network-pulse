@@ -24,7 +24,7 @@
   }
 
   .btn-close {
-    @include compositeGlyph("icon-close");
+    @include compositeGlyph("close");
 
     background: none;
     padding: 0;
@@ -43,7 +43,7 @@
   }
 
   fieldset.email {
-    input[name='email'][disabled] {
+    input[name="email"][disabled] {
       background: none;
       color: $gray-40;
     }

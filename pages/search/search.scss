@@ -1,10 +1,16 @@
 .search-page {
+  $glyph-container: (
+    "margin-x": 12px,
+    "height": 20px,
+    "width": 20px
+  );
+
   .btn-dismiss {
     background: transparent;
   }
 
   .help-query {
-    @include scaleText( 12px, 16px, 12px, 16px);
+    @include scaleText(12px, 16px, 12px, 16px);
 
     border-radius: 10px;
     border: 0.8px solid $black;
@@ -15,7 +21,7 @@
   }
 
   .query-text {
-    @include scaleText( 12px, 16px, 16px, 24px);
+    @include scaleText(12px, 16px, 16px, 24px);
 
     display: flex;
     align-items: center;
@@ -35,7 +41,7 @@
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
     cursor: pointer;
-    color: black;
+    color: $black;
 
     &:focus,
     &:active {
@@ -59,13 +65,18 @@
     }
   }
 
+  #search-box {
+    padding-right: map-get($glyph-container, "margin-x") * 2 +
+      map-get($glyph-container, "width");
+  }
+
   .glyph-container {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 12px;
-    height: 20px;
-    width: 20px;
+    right: map-get($glyph-container, "margin-x");
+    height: map-get($glyph-container, "height");
+    width: map-get($glyph-container, "width");
     margin: auto;
   }
 }
