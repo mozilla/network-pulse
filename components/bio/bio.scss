@@ -39,7 +39,7 @@
     }
 
     &.location {
-      @include compositeGlyph("icon-locator");
+      @include compositeGlyph("locator");
 
       color: $gray-40;
 
@@ -61,7 +61,7 @@
     }
 
     &.website {
-      @include compositeGlyph("icon-globe");
+      @include compositeGlyph("globe");
 
       &::before {
         margin-right: 6px;
