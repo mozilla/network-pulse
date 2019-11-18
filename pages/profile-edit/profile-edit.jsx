@@ -209,7 +209,7 @@ class ProfileEdit extends React.Component {
             </p>
             <div className="mt-4">
               <button
-                className="btn btn-primary mr-3"
+                className="btn btn-primary d-block d-md-inline-block mb-2 mb-md-0 mr-md-3"
                 type="submit"
                 onClick={event => this.handleFormSubmit(event)}
                 disabled={this.state.submitting ? `disabled` : null}

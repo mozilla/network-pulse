@@ -254,7 +254,7 @@ class Add extends React.Component {
               clarity and style.
             </p>
             <button
-              className="btn btn-primary mr-3"
+              className="btn btn-primary d-block d-sm-inline-block mb-2 mb-sm-0 mr-sm-3"
               type="submit"
               onClick={evt => this.handleFormSubmit(evt)}
               disabled={this.state.submitting ? `disabled` : null}
