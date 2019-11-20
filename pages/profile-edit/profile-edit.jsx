@@ -209,18 +209,22 @@ class ProfileEdit extends React.Component {
             </p>
             <div className="mt-4">
               <button
-                className="btn btn-primary d-block d-md-inline-block mb-2 mb-md-0 mr-md-3"
+                className="btn btn-primary"
                 type="submit"
                 onClick={event => this.handleFormSubmit(event)}
                 disabled={this.state.submitting ? `disabled` : null}
               >
                 {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
               </button>
-              {authErrorMessage}
-              {serverErrorMessage}
-              {this.state.showFormInvalidNotice && (
-                <span>Something isn't right. Check your info above.</span>
-              )}
+              <div className="d-md-inline-block mt-2 mt-md-0 ml-md-3">
+                {authErrorMessage}
+                {serverErrorMessage}
+                {this.state.showFormInvalidNotice && (
+                  <span className="error">
+                    Something isn't right. Check your info above.
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>

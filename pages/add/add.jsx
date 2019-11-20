@@ -254,18 +254,22 @@ class Add extends React.Component {
               clarity and style.
             </p>
             <button
-              className="btn btn-primary d-block d-sm-inline-block mb-2 mb-sm-0 mr-sm-3"
+              className="btn btn-primary"
               type="submit"
               onClick={evt => this.handleFormSubmit(evt)}
               disabled={this.state.submitting ? `disabled` : null}
             >
               {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
             </button>
-            {authErrorMessage}
-            {serverErrorMessage}
-            {this.state.showFormInvalidNotice && (
-              <span>Something isn't right. Check your info above.</span>
-            )}
+            <div className="d-sm-inline-block mt-2 mt-sm-0 ml-sm-3">
+              {authErrorMessage}
+              {serverErrorMessage}
+              {this.state.showFormInvalidNotice && (
+                <span className="error">
+                  Something isn't right. Check your info above.
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
