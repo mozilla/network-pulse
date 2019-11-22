@@ -20,28 +20,22 @@ request(
     if (!error && response.statusCode === 200) {
       const pr_title = JSON.parse(body)["title"];
 
-      let color = "";
-      if (JSON.parse(body)["label"]) {
-        for (let label in JSON.parse(body)["label"]) {
-          if (label["name"] === "dependencies") {
-            return (color = "#BA55D3");
-          } else {
-            return (color = "#7CD197");
-          }
+      let color = "#7CD197";
+      for (let label of JSON.parse(body)["labels"]) {
+        if (label["name"] === "dependencies") {
+          color = "#BA55D3";
         }
-      } else {
-        return (color = "#7CD197");
       }
 
       const slack_payload = {
         attachments: [
           {
             fallback: `New review app deployed: It will be ready in a minute!\n
-                        PR ${pr_number}${pr_title}\n
+                        PR ${pr_number}: ${pr_title}\n
                         Login: use your staging credentials\n
                         URL: https://${reviewapp_name}.herokuapp.com`,
             pretext: "New review app deployed: It will be ready in a minute!",
-            title: `PR ${pr_number}${pr_title}`,
+            title: `PR ${pr_number}: ${pr_title}`,
             text: "Login: use your staging credentials",
             color: `${color}`,
             actions: [
@@ -53,7 +47,7 @@ request(
               {
                 type: "button",
                 text: "View PR on Github",
-                url: `https://github.com/mozilla/foundation.mozilla.org/pull/${pr_number}`
+                url: `https://github.com/mozilla/network-pulse/pull/${pr_number}`
               }
             ]
           }
@@ -65,6 +59,8 @@ request(
         { header: { "Content-Type": "application/json" }, json: slack_payload },
         function(error, response, body) {}
       );
+    } else {
+      console.log(error.message);
     }
   }
 );
