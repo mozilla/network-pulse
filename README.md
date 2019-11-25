@@ -75,6 +75,6 @@ Deployment is done using the Heroku pipeline. Simply click "Promote To Productio
 
 URL: https:{review-app-name}.herokuapp.com/
 
-Opening a PR will automatically create a Review App in the `network-pulse` pipeline. Then, a slack bot posts links to Review Apps and GitHub PR in to the mofo-pulse-review-app channel.
+Opening a PR will automatically create a Review App in the `network-pulse` pipeline. Then, a slack bot posts links to Review Apps and GitHub PR in to the `mofo-ra-pulse` channel.
 
 This only work for Mo-Fo staff: you will need to manually open a Review App on Heroku for PRs opened by external contributors.
