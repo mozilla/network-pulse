@@ -91,7 +91,8 @@ class Entry extends React.Component {
             Thanks! Submission was added to{" "}
             <Link to={`/profile/${this.state.user.profileid}`}>
               your profile
-            </Link>.
+            </Link>
+            .
           </NotificationBar>
         </div>
       );

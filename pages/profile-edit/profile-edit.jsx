@@ -201,7 +201,8 @@ class ProfileEdit extends React.Component {
                 target="_blank"
               >
                 Mozilla Terms of Service
-              </a>. Please{" "}
+              </a>
+              . Please{" "}
               <a href="https://mzl.la/pulse-contact" target="_blank">
                 contact us
               </a>{" "}

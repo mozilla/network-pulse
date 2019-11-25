@@ -29,9 +29,7 @@ class SingleFilterCriteriaPage extends React.Component {
         <Helmet>
           <title>{searchParam.value}</title>
         </Helmet>
-        <h2 className="text-capitalize">{`${this.props.headerLabel}: ${
-          searchParam.value
-        } `}</h2>
+        <h2 className="text-capitalize">{`${this.props.headerLabel}: ${searchParam.value}`}</h2>
         <ProjectLoader {...params} showCounter={true} />
       </div>
     );

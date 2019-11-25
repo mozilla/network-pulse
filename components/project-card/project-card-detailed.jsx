@@ -109,9 +109,7 @@ class DetailedProjectCard extends React.Component {
         // Since social icons is in a CSS Grid cell, the cell is now the height of the entry &
         // the entry has been pushed below the grid; so, we want to offset the social icons height with
         // a negative margin-top on the entry (article) to bring the content back up.
-        article.style.marginTop = `calc(0px - (${
-          article.offsetHeight
-        }px + 80px))`;
+        article.style.marginTop = `calc(0px - (${article.offsetHeight}px + 80px))`;
       } else {
         // If not at large+ breakpoint we want these values to be 'auto'
         socialIcons.style.height = `auto`;

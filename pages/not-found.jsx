@@ -23,7 +23,8 @@ class NotFound extends React.Component {
             Check your URL or try a search. Still no luck?{" "}
             <a href="https://github.com/mozilla/network-pulse/issues/new">
               Let us know
-            </a>.
+            </a>
+            .
           </p>
         )}
       </HintMessage>
