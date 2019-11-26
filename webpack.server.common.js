@@ -2,7 +2,6 @@ var fs = require(`fs`);
 var path = require(`path`);
 
 module.exports = {
-  mode: process.env.NODE_ENV === `production` ? `production` : `development`,
   context: `${__dirname}`,
   entry: path.resolve(__dirname, `server.js`),
   output: {
