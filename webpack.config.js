@@ -1,5 +1,3 @@
-var webpack = require(`webpack`);
-
 module.exports = {
   mode: process.env.NODE_ENV,
   context: `${__dirname}`,
