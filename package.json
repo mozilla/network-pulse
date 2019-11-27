@@ -80,7 +80,7 @@
     "event-stream": "3.3.4",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
-    "helmet": "^3.18.0",
+    "helmet": "^3.21.2",
     "lodash": "^4.17.15",
     "mofo-bootstrap": "4.0.1",
     "mofo-ui": "^1.7.0",
