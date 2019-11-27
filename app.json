@@ -2,8 +2,18 @@
   "name": "network-pulse",
   "description": "",
   "scripts": {
+    "postdeploy": "node -r dotenv/config js/review-app-slack-webhook.js"
   },
   "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "GITHUB_TOKEN": {
+      "required": true
+    },
+    "SLACK_WEBHOOK": {
+      "required": true
+    },
     "APP_HOST": "pulse.mofostaging.net",
     "NODE_ENV": "development",
     "PULSE_API_HOST": "https://pulse-api.mofostaging.net",
