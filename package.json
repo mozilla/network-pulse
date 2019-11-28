@@ -7,7 +7,6 @@
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build:dev && run-p server watch:**",
     "build": "run-s bootstrap build:**",
-    "heroku-postbuild": "npm run build:prod",
     "build:prod": "run-s bootstrap build-client:** build-js:prod:**",
     "build:dev": "run-s bootstrap build-client:** build-js:dev:**",
     "build-js:prod:server": "webpack --config webpack.server.prod.js --display-error-details --colors",
@@ -34,7 +33,8 @@
     "test": "run-s test:**",
     "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.**.js",
     "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" \"!scss/foundation-styles/_variables.scss\" \"!scss/**/variables.scss\" \"!scss/overrides/_variables.scss\" --syntax scss --config .stylelintrc-colors.js",
-    "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss"
+    "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
+    "postinstall": "npm run build:prod"
   },
   "babel": {
     "presets": [
