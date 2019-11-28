@@ -25,36 +25,13 @@ const APP_HOST = env.APP_HOST;
 // what environment are we running in
 const NODE_ENV = env.NODE_ENV;
 
-function renderPage(appHtml, reactHelmet) {
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="utf-8">
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
-        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
-        <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
-        <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,600,700">
-        <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(
-          `api/pulse`,
-          ``
-        )}rss/latest">
-        ${reactHelmet.title.toString()}
-      </head>
-      <body>
-        <div id="app">${appHtml}</div>
-        <script type="application/json" id="environment-variables">${envUtilities.serializeSafeEnvAsJSON()}</script>
-        <script src="/bundle.js"></script>
-      </body>
-    </html>`;
-}
+// maxAge for HSTS header must be at least 6 months
+// (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
+const hstsMiddleware = helmet.hsts({
+  maxAge: 31536000, // 12 months in seconds
+  includeSubDomains: true,
+  preload: true
+});
 
 // disable x-powered-by
 app.disable(`x-powered-by`);
@@ -68,16 +45,13 @@ app.use(
   })
 );
 
-// maxAge for HSTS header must be at least 6 months
-// (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
-app.use(
-  helmet.hsts({
-    maxAge: 15768000 * 2, // 12 months in seconds
-    setIf: req => req.protocol === `https`,
-    includeSubDomains: true,
-    preload: true
-  })
-);
+app.use((req, res, next) => {
+  if (req.secure) {
+    hstsMiddleware(req, res, next);
+  } else {
+    next();
+  }
+});
 
 app.use(helmet.ieNoOpen());
 
@@ -111,6 +85,37 @@ if (NODE_ENV !== `development`) {
     let pulseHost = url.parse(env.PULSE_API);
     res.redirect(`${pulseHost.protocol}//${pulseHost.host}/admin`);
   });
+}
+
+function renderPage(appHtml, reactHelmet) {
+  return `
+    <!doctype html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
+        <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,600,700">
+        <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(
+          `api/pulse`,
+          ``
+        )}rss/latest">
+        ${reactHelmet.title.toString()}
+      </head>
+      <body>
+        <div id="app">${appHtml}</div>
+        <script type="application/json" id="environment-variables">${envUtilities.serializeSafeEnvAsJSON()}</script>
+        <script src="/bundle.js"></script>
+      </body>
+    </html>`;
 }
 
 app.get(`*`, (req, res) => {
