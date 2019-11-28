@@ -70,14 +70,20 @@ app.use(
 
 // maxAge for HSTS header must be at least 6 months
 // (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
-app.use(
-  helmet.hsts({
-    maxAge: 15768000 * 2, // 12 months in seconds
-    setIf: req => req.protocol === `https`,
-    includeSubDomains: true,
-    preload: true
-  })
-);
+
+const hstsMiddleware = helmet.hsts({
+  maxAge: 15768000 * 2, // 12 months in seconds
+  includeSubDomains: true,
+  preload: true
+});
+
+app.use((req, res, next) => {
+  if (req.secure) {
+    hstsMiddleware(req, res, next);
+  } else {
+    next();
+  }
+});
 
 app.use(helmet.ieNoOpen());
 
