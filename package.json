@@ -7,6 +7,7 @@
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build:dev && run-p server watch:**",
     "build": "run-s bootstrap build:**",
+    "heroku-postbuild": "echo Skip builds on Heroku",
     "build:prod": "run-s bootstrap build-client:** build-js:prod:**",
     "build:dev": "run-s bootstrap build-client:** build-js:dev:**",
     "build-js:prod:server": "webpack --config webpack.server.prod.js --display-error-details --colors",
