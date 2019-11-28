@@ -28,7 +28,7 @@ const NODE_ENV = env.NODE_ENV;
 // maxAge for HSTS header must be at least 6 months
 // (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
 const hstsMiddleware = helmet.hsts({
-  maxAge: 15768000 * 2, // 12 months in seconds
+  maxAge: 31536000, // 12 months in seconds
   includeSubDomains: true,
   preload: true
 });
