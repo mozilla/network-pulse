@@ -5,15 +5,18 @@
   "main": "dist/server.bundle.js",
   "scripts": {
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
-    "start": "npm run build && run-p server watch:**",
+    "start": "npm run build:dev && run-p server watch:**",
     "build": "run-s bootstrap build:**",
-    "heroku-postbuild": "echo Skip builds on Heroku",
+    "build:prod": "run-s bootstrap build-client:** build-js:prod:**",
+    "build:dev": "run-s bootstrap build-client:** build-js:dev:**",
+    "build-js:prod:server": "webpack --config webpack.server.prod.js --display-error-details --colors",
+    "build-js:prod:client": "webpack --config webpack.client.prod.js --display-error-details --colors",
+    "build-js:dev:server": "webpack --config webpack.server.dev.js --display-error-details --colors",
+    "build-js:dev:client": "webpack --config webpack.client.dev.js --display-error-details --colors",
     "build:client": "run-s build-client:**",
-    "build-client:js": "webpack --config webpack.config.js --display-error-details --colors",
     "build-client:scss": "node-sass scss/main.scss dist/css/main.css",
     "build-client:prefix:main": "postcss --use autoprefixer -o dist/css/main.css dist/css/main.css",
     "build-client:static": "run-s copy:**",
-    "build:server": "webpack --config webpack.server.config.js --display-error-details --colors",
     "copy:styling-dependency": "run-s bootstrap:clean bootstrap:fontawesome bootstrap:prefix",
     "bootstrap:clean": "shx cp -r node_modules/mofo-bootstrap/dest/css dist",
     "bootstrap:fontawesome": "shx cp -r node_modules/font-awesome/css/font-awesome.min.css dist/css && shx cp -r node_modules/font-awesome/fonts dist",
@@ -26,12 +29,12 @@
     "optimize:svg": "find assets -type f -name \"*.svg\" -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name \"*.png\" -print0 | xargs -0 -n 1 -P 6 optipng",
     "watch:css": "chokidar \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" -c \"npm run build-client:scss\"",
-    "watch:js": "chokidar \"app.jsx\" \"main.jsx\" \"js/**/*.js\" \"components/**/*.js?(x)\" \"pages/**/*.js?(x)\" \"webpack.config.js\" -c \"npm run build-client:js\"",
+    "watch:js": "chokidar \"app.jsx\" \"main.jsx\" \"js/**/*.js\" \"components/**/*.js?(x)\" \"pages/**/*.js?(x)\" \"webpack.**.js\" -c \"npm run build-js:dev:client\"",
     "test": "run-s test:**",
-    "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.config.js",
+    "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.**.js",
     "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" \"!scss/foundation-styles/_variables.scss\" \"!scss/**/variables.scss\" \"!scss/overrides/_variables.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build:prod"
   },
   "babel": {
     "presets": [
@@ -54,18 +57,21 @@
   },
   "homepage": "https://github.com/mozilla/network-pulse#readme",
   "devDependencies": {
-    "chokidar": "^2.1.5",
-    "chokidar-cli": "^1.2.2",
+    "chokidar": "^3.3.0",
+    "chokidar-cli": "^2.1.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "optipng-bin": "^5.1.0",
+    "prettier": "^1.19.1",
     "stylelint": "^12.0.0",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-prettier": "^1.1.1",
     "svgo": "^1.3.2",
-    "webpack-cli": "^2.1.3"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "autoprefixer": "^8.6.5",
@@ -80,7 +86,7 @@
     "event-stream": "3.3.4",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
-    "helmet": "^3.18.0",
+    "helmet": "^3.21.2",
     "lodash": "^4.17.15",
     "mofo-bootstrap": "4.0.1",
     "mofo-ui": "^1.7.0",
@@ -104,8 +110,7 @@
     "react-tag-autocomplete": "^5.11.1",
     "request": "^2.88.0",
     "shx": "^0.2.1",
-    "url": "^0.11.0",
-    "webpack": "^3.0.0"
+    "url": "^0.11.0"
   },
   "engines": {
     "node": "^8.9.0",

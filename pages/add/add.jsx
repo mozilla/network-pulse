@@ -250,8 +250,9 @@ class Add extends React.Component {
                 target="_blank"
               >
                 Mozilla Terms of Use
-              </a>, and you agree that your entry may be edited lightly for
-              clarity and style.
+              </a>
+              , and you agree that your entry may be edited lightly for clarity
+              and style.
             </p>
             <button
               className="btn btn-primary mr-3"
