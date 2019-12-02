@@ -2,6 +2,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import moment from "moment";
 import ModerationPanel from "../moderation-panel.jsx";
 import Creators from "./meta/creators.jsx";
 import Thumbnail from "./meta/thumbnail.jsx";
@@ -157,6 +158,19 @@ class ProjectCard extends React.Component {
     );
   }
 
+  renderProjectDetails() {
+    let timePosted = this.props.created ? (
+      <p>Added {moment(this.props.created).format(`MMM DD, YYYY`)}</p>
+    ) : null;
+
+    return (
+      <div>
+        {timePosted}
+        <Description description={this.props.description} />
+      </div>
+    );
+  }
+
   render() {
     let wrapperClassnames = classNames(`col-md-6 col-lg-4`);
 
@@ -197,9 +211,7 @@ class ProjectCard extends React.Component {
                 }
                 className="my-1 body-small"
               />
-              {this.props.onModerationMode && (
-                <Description description={this.props.description} />
-              )}
+              {this.props.onModerationMode && this.renderProjectDetails()}
               {this.renderExtraMeta()}
               {this.renderFullUrlSection()}
             </div>
