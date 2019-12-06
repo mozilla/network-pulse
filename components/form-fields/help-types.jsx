@@ -7,7 +7,7 @@ class HelpTypesField extends React.Component {
     super(props);
     this.state = { options: [] };
   }
-  componentWillMount() {
+  componentDidMount() {
     Service.helpTypes.get().then(options => {
       this.setState({ options: options.map(option => option.name) });
     });

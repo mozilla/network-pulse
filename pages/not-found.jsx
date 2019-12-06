@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import HintMessage from "../components/hint-message/hint-message.jsx";
 
 class NotFound extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { staticContext } = this.props;
     if (staticContext) {
       staticContext.pageNotFound = true;

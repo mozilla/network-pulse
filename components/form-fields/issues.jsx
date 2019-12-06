@@ -10,7 +10,7 @@ class IssuesField extends React.Component {
       selectedOptions: this.props.value
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     Service.issues.get().then(options => {
       this.setState({ options: options.map(option => option.name) });
     });
