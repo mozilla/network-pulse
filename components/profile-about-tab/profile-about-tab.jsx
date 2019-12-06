@@ -10,16 +10,16 @@ class ProfileAboutTab extends React.Component {
   renderLongBio() {
     if (!this.props.longBio) return null;
 
-    return this.props.longBio.split(`\n`).map(line => {
-      return (
+    return this.props.longBio.split(`\n`).map(line => (
+      <div>
         <ReactMarkdown
           key={line}
           source={line}
           escapeHtml={true}
           skipHtml={true}
         />
-      );
-    });
+      </div>
+    ));
   }
 
   render() {
