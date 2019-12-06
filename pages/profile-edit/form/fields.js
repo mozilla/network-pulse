@@ -15,7 +15,7 @@ let IssuesLabel = () => {
   );
 };
 
-module.exports = function(showLongBio) {
+export default function(showLongBio) {
   let fields = {
     custom_name: {
       type: `text`,

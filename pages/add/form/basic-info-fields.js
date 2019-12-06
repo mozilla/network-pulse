@@ -1,7 +1,7 @@
 import React from "react";
 import validator from "./validator";
 
-module.exports = {
+export default {
   title: {
     // required field
     type: `text`,
