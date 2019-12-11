@@ -6,12 +6,12 @@ class HelpTypesField extends React.Component {
   constructor(props) {
     super(props);
     this.state = { options: [] };
-  }
-  componentWillMount() {
+
     Service.helpTypes.get().then(options => {
       this.setState({ options: options.map(option => option.name) });
     });
   }
+
   render() {
     return (
       <DynamicCheckboxGroup
