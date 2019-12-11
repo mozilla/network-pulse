@@ -9,12 +9,12 @@ class IssuesField extends React.Component {
       options: [],
       selectedOptions: this.props.value
     };
-  }
-  componentDidMount() {
+
     Service.issues.get().then(options => {
       this.setState({ options: options.map(option => option.name) });
     });
   }
+
   render() {
     return (
       <DynamicCheckboxGroup
