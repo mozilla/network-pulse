@@ -17,7 +17,7 @@ const IssuesLabel = function() {
   );
 };
 
-module.exports = {
+export default {
   published_by_creator: {
     type: `checkbox`,
     label: `Yes`,

@@ -1,7 +1,7 @@
 import React from "react";
 import validator from "../../../js/form-validator";
 
-module.exports = function(user, profile) {
+export default function(user, profile) {
   let step1 = {
     custom_name: {
       type: `text`,
