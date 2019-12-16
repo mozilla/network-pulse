@@ -83,7 +83,7 @@
     "browserslist": "^4.8.2",
     "classnames": "^2.2.5",
     "document-env-vars": "^2.1.0",
-    "dotenv": "^4.0.0",
+    "dotenv": "^8.2.0",
     "event-stream": "3.3.4",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
