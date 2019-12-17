@@ -12,10 +12,7 @@ export default props => {
     }
 
     return (
-      <Link
-        to={`/profile/${props.id}`}
-        onClick={event => props.creatorClickHandler(event, name)}
-      >
+      <Link to={`/profile/${props.id}`}>
         <div className="thumbnail mx-auto" style={style} />
       </Link>
     );
@@ -41,12 +38,7 @@ export default props => {
         </div>
         <div className="col-sm-9">
           <h2 className="name text-center text-sm-left">
-            <Link
-              to={`/profile/${props.id}`}
-              onClick={event => props.creatorClickHandler(event, name)}
-            >
-              {props.name}
-            </Link>
+            <Link to={`/profile/${props.id}`}>{props.name}</Link>
           </h2>
           {renderProfileBlurb(props.user_bio)}
         </div>
