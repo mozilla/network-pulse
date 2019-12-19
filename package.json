@@ -98,7 +98,7 @@
     "react": "^16.12.0",
     "react-debounce-input": "^3.2.2",
     "react-dom": "^16.12.0",
-    "react-formbuilder": "^0.10.0",
+    "react-formbuilder": "^0.11.0",
     "react-ga": "^2.7.0",
     "react-helmet": "^5.2.1",
     "react-markdown": "^4.2.2",
