@@ -73,8 +73,26 @@ Deployment is done using the Heroku pipeline. Simply click "Promote To Productio
 
 ### Review Apps
 
-URL: https:{review-app-name}.herokuapp.com/
+#### Review App for PRs
 
-Opening a PR will automatically create a Review App in the `network-pulse` pipeline. Then, a slack bot posts links to Review Apps and GitHub PR in to the `mofo-ra-pulse` channel.
+Opening a PR will automatically create a Review App in the `network-pulse` pipeline. A slack bot posts credentials and links to Review Apps in to the `mofo-ra-pulse` Slack channel.
 
-This only work for Mo-Fo staff: you will need to manually open a Review App on Heroku for PRs opened by external contributors.
+*Note:* This only work for Mo-Fo staff: you will need to manually open a Review App on Heroku for PRs opened by external contributors.
+
+#### Review App for branches
+
+You can manually create a review app for any branch pushed to this repo. It's useful if you want to test your code on Heroku without opening a PR yet.
+
+To create one:
+- log into Heroku.
+- Go to the `network-pulse` pipeline.
+- Click on `+ New app` and select the branch you want to use.
+
+The review app slack bot will post a message in the `mofo-ra-pulse` with links and credentials as soon as the review app is ready.
+
+#### Environment variables:
+
+- `GITHUB_TOKEN`: GITHUB API authentication,
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-ra-pulse`
+
+Non-secret envs can be added to the `app.json` file. Secrets must be set on Heroku in the `Review Apps` (pipelines' `settings` tab).
