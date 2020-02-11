@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - "lts/*"
+  - 12
 install:
-- npm install -g npm@latest # Needed to use npm ci
 - npm ci # use package-lock.json
 cache:
   directories:
