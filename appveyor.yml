@@ -1,11 +1,10 @@
 version: "{build}"
 
 environment:
-  nodejs_version: "LTS"
+  nodejs_version: 12
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install -g npm@latest
   - npm ci
 
 cache:
