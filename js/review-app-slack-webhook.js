@@ -18,7 +18,13 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 if (pr_number) {
   request(
     `https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}&access_token=${github_token}`,
-    { headers: { "User-Agent": "request" } },
+    {
+      headers: [
+          {
+            "User-Agent": "request",
+            "Authorization": `token ${github_token}`
+          }
+      ],
     function(error, response, body) {
       if (!error && response.statusCode === 200) {
         const pr_title = JSON.parse(body)["title"];
