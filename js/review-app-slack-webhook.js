@@ -45,6 +45,33 @@ const request = (url, options) => {
 };
 
 const postToSlack = () => {
+  const slack_payload = {
+    attachments: [
+      {
+        fallback: `New review app deployed: It will be ready in a minute!\n
+                          Branch: ${branch_name}\n
+                          Login: use your staging credentials\n
+                          URL: https://${reviewapp_name}.herokuapp.com`,
+        pretext: "New review app deployed: It will be ready in a minute!",
+        title: `Branch: ${branch_name}`,
+        text: "Login: use your staging credentials",
+        color: "#7CD197",
+        actions: [
+          {
+            type: "button",
+            text: "View review app",
+            url: `https://${reviewapp_name}.herokuapp.com`
+          },
+          {
+            type: "button",
+            text: "View branch on Github",
+            url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`
+          }
+        ]
+      }
+    ]
+  };
+
   request(slack_webhook, {
     method: "POST",
     header: { "Content-Type": "application/json" },
@@ -55,33 +82,6 @@ const postToSlack = () => {
       console.log(`postToSlackError`);
       console.log(sError);
     });
-};
-
-let slack_payload = {
-  attachments: [
-    {
-      fallback: `New review app deployed: It will be ready in a minute!\n
-                        Branch: ${branch_name}\n
-                        Login: use your staging credentials\n
-                        URL: https://${reviewapp_name}.herokuapp.com`,
-      pretext: "New review app deployed: It will be ready in a minute!",
-      title: `Branch: ${branch_name}`,
-      text: "Login: use your staging credentials",
-      color: "#7CD197",
-      actions: [
-        {
-          type: "button",
-          text: "View review app",
-          url: `https://${reviewapp_name}.herokuapp.com`
-        },
-        {
-          type: "button",
-          text: "View branch on Github",
-          url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`
-        }
-      ]
-    }
-  ]
 };
 
 if (pr_number) {
@@ -101,7 +101,7 @@ if (pr_number) {
         }
       }
 
-      slack_payload = {
+      const slack_payload = {
         attachments: [
           {
             fallback: `New review app deployed: It will be ready in a minute!\n
