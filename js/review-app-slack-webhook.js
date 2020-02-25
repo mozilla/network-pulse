@@ -23,8 +23,10 @@ const request = (url, options) => {
         let body = "";
         res.on("data", chunk => (body += chunk));
         res.on("end", () => {
-          if (res.statusCode !== 200) {
-            reject("Status code is not equal to 200.");
+          console.log(res);
+          let statusCode = res.statusCode;
+          if (statusCode !== 200) {
+            reject(`Status code ${statusCode}`);
           }
           resolve(body);
         });
