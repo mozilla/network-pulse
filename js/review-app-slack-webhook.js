@@ -17,21 +17,28 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 // For review app manually created, we have to use the branch name instead.
 
 const request = (url, options) => {
+  console.log(`\n\n\n[new request] ${url}`);
   return new Promise((resolve, reject) => {
     https
       .get(url, options, res => {
         let body = "";
         res.on("data", chunk => (body += chunk));
         res.on("end", () => {
-          console.log(res);
+          // console.log(res);
           let statusCode = res.statusCode;
+          console.log(res);
+          console.log(`\n`);
           if (statusCode !== 200) {
-            reject(`Status code ${statusCode}`);
+            // reject(`Status ${statusCode} ${statusMessage}`);
+            throw new Error(`Status ${statusCode} ${statusMessage}`);
+          } else {
+            console.log(`else`);
+            resolve(body);
           }
-          resolve(body);
         });
       })
       .on("error", e => {
+        console.log(`on error`);
         reject(e);
       });
   });
@@ -45,6 +52,7 @@ const postToSlack = () => {
   })
     .then(() => {})
     .catch(sError => {
+      console.log(`postToSlackError`);
       console.log(sError);
     });
 };
@@ -77,14 +85,13 @@ let slack_payload = {
 };
 
 if (pr_number) {
-  request(
-    `https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}&access_token=${github_token}`,
-    {
-      method: "GET",
-      headers: { "User-Agent": "request" }
-    }
-  )
+  request(`https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}`, {
+    method: "GET",
+    headers: { "User-Agent": "request" },
+    Authorization: `token ${github_token}`
+  })
     .then(gBody => {
+      console.log(`then`);
       const pr_title = JSON.parse(gBody)["title"];
 
       let color = "#7CD197";
