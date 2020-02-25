@@ -30,7 +30,7 @@ const request = (url, options) => {
           console.log(`\n`);
           if (statusCode !== 200) {
             // reject(`Status ${statusCode} ${statusMessage}`);
-            throw new Error(`Status ${statusCode} ${statusMessage}`);
+            throw new Error(`Status ${statusCode} ${res.statusMessage}`);
           } else {
             console.log(`else`);
             resolve(body);
