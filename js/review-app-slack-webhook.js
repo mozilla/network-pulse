@@ -17,7 +17,7 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 // For review app manually created, we have to use the branch name instead.
 if (pr_number) {
   request(
-    `https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}&access_token=${github_token}`,
+    `https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}`,
     {
       headers: {
         "User-Agent": "request",
