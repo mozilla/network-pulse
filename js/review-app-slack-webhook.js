@@ -21,13 +21,14 @@ const request = (url, options) => {
     https
       .get(url, options, res => {
         let body = "";
+        console.log(res);
+        let statusCode = res.statusCode;
+        if (statusCode !== 200) {
+          reject(new Error(`Status code ${statusCode} ${res.statusMessage}`));
+        }
+
         res.on("data", chunk => (body += chunk));
         res.on("end", () => {
-          console.log(res);
-          let statusCode = res.statusCode;
-          if (statusCode !== 200) {
-            reject(`Status code ${statusCode}`);
-          }
           resolve(body);
         });
       })
