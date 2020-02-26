@@ -17,7 +17,9 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 // For review app manually created, we have to use the branch name instead.
 
 const request = (url, options) => {
-  console.log(`\n\n\n====================\n[new request] ${url}\n====================\n\n\n`);
+  console.log(
+    `\n\n\n====================\n[new request] ${url}\n====================\n\n\n`
+  );
   return new Promise((resolve, reject) => {
     https
       .get(url, options, res => {
@@ -79,13 +81,11 @@ let slack_payload = {
 };
 
 if (pr_number) {
-  request(
-    `https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}&access_token=${github_token}`,
-    {
-      method: "GET",
-      headers: { "User-Agent": "request" }
-    }
-  )
+  request(`https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}`, {
+    method: "GET",
+    headers: { "User-Agent": "request" },
+    Authorization: `token ${github_token}`
+  })
     .then(gBody => {
       const pr_title = JSON.parse(gBody)["title"];
 
