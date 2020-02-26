@@ -18,7 +18,7 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 
 const request = (url, options) => {
   console.log(
-    `\n\n\n====================\n[new request] ${url}\n====================\n\n\n`
+    `\n\n\n====================\n[new request] ${url}\n====================\n PR: ${pr_number}\n\n\n`
   );
   return new Promise((resolve, reject) => {
     https
@@ -27,7 +27,7 @@ const request = (url, options) => {
         let statusCode = res.statusCode;
         if (statusCode !== 200) {
           console.log(res);
-          reject(new Error(`Status code ${statusCode} ${res.statusMessage}`));
+          throw new Error(`Status code ${statusCode} ${res.statusMessage}`);
         }
 
         res.on("data", chunk => (body += chunk));
