@@ -17,13 +17,14 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 // For review app manually created, we have to use the branch name instead.
 
 const request = (url, options) => {
+  console.log(`\n\n\n====================\n[new request] ${url}\n====================\n\n\n`);
   return new Promise((resolve, reject) => {
     https
       .get(url, options, res => {
         let body = "";
-        console.log(res);
         let statusCode = res.statusCode;
         if (statusCode !== 200) {
+          console.log(res);
           reject(new Error(`Status code ${statusCode} ${res.statusMessage}`));
         }
 
