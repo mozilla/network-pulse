@@ -43,8 +43,8 @@ const request = (url, options, postData = ``) => {
   });
 };
 
-const postToSlack = payload => {
-  let data = JSON.stringify(payload);
+const postToSlack = () => {
+  let data = JSON.stringify(slack_payload);
 
   request(
     slack_webhook,
