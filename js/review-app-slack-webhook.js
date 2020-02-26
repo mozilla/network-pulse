@@ -16,18 +16,14 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 // (https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables).
 // For review app manually created, we have to use the branch name instead.
 
-const request = (url, options) => {
-  console.log(
-    `\n\n\n====================\n[new request] ${url}\n====================\n PR: ${pr_number}\n\n\n`
-  );
+const request = (url, options, postData = ``) => {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, options, res => {
+    let req = https
+      .request(url, options, res => {
         let body = "";
         let statusCode = res.statusCode;
         if (statusCode !== 200) {
-          console.log(res);
-          throw new Error(`Status code ${statusCode} ${res.statusMessage}`);
+          throw new Error(`Status ${statusCode}`);
         }
 
         res.on("data", chunk => (body += chunk));
@@ -38,15 +34,27 @@ const request = (url, options) => {
       .on("error", e => {
         reject(e);
       });
+
+    if (options.method === `POST`) {
+      req.write(postData);
+    }
+
+    req.end();
   });
 };
 
 const postToSlack = () => {
-  request(slack_webhook, {
-    method: "POST",
-    header: { "Content-Type": "application/json" },
-    json: slack_payload
-  })
+  let data = JSON.stringify(slack_payload);
+
+  request(
+    slack_webhook,
+    {
+      method: "POST",
+      header: { "Content-Type": "application/json" },
+      "Content-Length": data.length
+    },
+    data
+  )
     .then(() => {})
     .catch(sError => {
       console.log(sError);
@@ -126,7 +134,6 @@ if (pr_number) {
       postToSlack(slack_payload);
     })
     .catch(error => {
-      console.log(`catch`);
       console.log(error);
     });
 } else {
