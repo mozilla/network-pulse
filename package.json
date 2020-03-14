@@ -35,7 +35,7 @@
     "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.**.js",
     "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" \"!scss/foundation-styles/_variables.scss\" \"!scss/**/variables.scss\" \"!scss/overrides/_variables.scss\" --syntax scss --config .stylelintrc-colors.js",
     "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
-    "postinstall": "npm run build:prod"
+    "heroku-postinstall": "npm run build:prod"
   },
   "babel": {
     "presets": [
