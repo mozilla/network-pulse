@@ -25,6 +25,7 @@ We love contributors, but the team maintaining this project is small and not str
 $> git clone https://github.com/mozilla/network-pulse.git
 $> cd network-pulse
 $> npm install
+$> npm start
 ```
 
 If you would like to override default environment variables... create a `.env` file on the root directory and set your env vars there. See [environment variables section](https://github.com/mozilla/network-pulse#environment-variables) for details.
