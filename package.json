@@ -27,7 +27,7 @@
     "copy:assets": "shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
     "optimize": "run-p optimize:**",
-    "optimize:svg": "find assets -type f -name \"*.svg\" -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
+    "optimize:svg": "svgo assets/svg --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name \"*.png\" -print0 | xargs -0 -n 1 -P 6 optipng",
     "watch:css": "chokidar \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" -c \"npm run build-client:scss\"",
     "watch:js": "chokidar \"app.jsx\" \"main.jsx\" \"js/**/*.js\" \"components/**/*.js?(x)\" \"pages/**/*.js?(x)\" \"webpack.**.js\" -c \"npm run build-js:dev:client\"",
