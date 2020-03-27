@@ -7,7 +7,7 @@
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build:dev && run-p server watch:**",
     "build": "run-s bootstrap build:**",
-    "heroku-postbuild": "echo Skip builds on Heroku",
+    "heroku-postbuild": "npm run build:prod",
     "build:prod": "run-s bootstrap build-client:** build-js:prod:**",
     "build:dev": "run-s bootstrap build-client:** build-js:dev:**",
     "build-js:prod:server": "webpack --config webpack.server.prod.js --display-error-details --colors",
@@ -27,15 +27,14 @@
     "copy:assets": "shx cp -r assets dist",
     "server": "node dist/server.bundle.js",
     "optimize": "run-p optimize:**",
-    "optimize:svg": "find assets -type f -name \"*.svg\" -print0 | xargs -0 -n 1 -P 6 svgo --multipass --pretty --enable=removeTitle",
+    "optimize:svg": "svgo assets/svg --multipass --pretty --enable=removeTitle",
     "optimize:png": "find assets -type f -name \"*.png\" -print0 | xargs -0 -n 1 -P 6 optipng",
     "watch:css": "chokidar \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" -c \"npm run build-client:scss\"",
     "watch:js": "chokidar \"app.jsx\" \"main.jsx\" \"js/**/*.js\" \"components/**/*.js?(x)\" \"pages/**/*.js?(x)\" \"webpack.**.js\" -c \"npm run build-js:dev:client\"",
     "test": "run-s test:**",
     "test:eslint": "eslint --config ./.eslintrc.json  \"*.js\" \"*.jsx\" \"js/**/*.js\" \"components/**/*.jsx\" \"pages/**/*.jsx\" \"pages/**/*.js\" webpack.**.js",
     "test:scss:styleguide:color": "stylelint \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" \"!scss/foundation-styles/_variables.scss\" \"!scss/**/variables.scss\" \"!scss/overrides/_variables.scss\" --syntax scss --config .stylelintrc-colors.js",
-    "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss",
-    "postinstall": "npm run build:prod"
+    "test:scss": "stylelint --config .stylelintrc \"components/**/*.scss\" \"pages/**/*.scss\" \"scss/**/*.scss\" --syntax scss"
   },
   "babel": {
     "presets": [
