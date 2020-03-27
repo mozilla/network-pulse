@@ -1,3 +1,6 @@
+import React from "react";
+import { Helmet } from "react-helmet";
+
 const ISSUE_MAPPING = {
   "privacy-and-security": `Privacy & Security`,
   openness: `Openness`,
@@ -60,6 +63,62 @@ const Utils = {
       .split(`-`)
       .map(word => decodeURIComponent(word.replace(/\band\b/g, `&`)))
       .join(` `);
+  },
+
+  generateMetaTags(metaTitle, metaDescription, metaImage) {
+    metaTitle = metaTitle ? `${metaTitle} – Mozilla Pulse` : null;
+
+    // <Helmet> requires meta tags to be immediate children of it.
+    // So using array is the cleanest way to implement the following.
+    // vs <Helmet>
+    //      {metaTile && <title ...>}
+    //      {metaTile && <meta ...>}
+    //      {metaTile && <meta ...>}
+    //    </Helmet>
+    //
+
+    let titleTags = metaTitle && [
+      <title key="title">{metaTitle}</title>,
+      <meta name="twitter:title" content={metaTitle} key="twitter:title" />,
+      <meta property="og:title" content={metaTitle} key="og:title" />
+    ];
+
+    let descriptionTags = metaDescription && [
+      <meta name="description" content={metaDescription} key="descripiton" />,
+      <meta
+        name="twitter:description"
+        content={metaDescription}
+        key="twitter:description"
+      />,
+      <meta
+        property="og:description"
+        content={metaDescription}
+        key="og:description"
+      />
+    ];
+
+    let imageTag = metaImage && (
+      <meta property="og:image" content={metaImage} />
+    );
+
+    return (
+      <Helmet>
+        {titleTags}
+        {descriptionTags}
+        {imageTag}
+      </Helmet>
+    );
+
+    return (
+      <Helmet>
+        {/* <title>{metaTitle}</title> */}
+        <meta name="description" content={metaDescription} />
+        {/* <meta name="twitter:title" content={metaTitle} /> */}
+        <meta name="twitter:description" content={metaDescription} />
+        {/* <meta property="og:title" content={metaTitle} /> */}
+        <meta property="og:description" content={metaDescription} />
+      </Helmet>
+    );
   }
 };
 

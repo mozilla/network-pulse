@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
 import ProjectLoader from "../components/project-loader/project-loader.jsx";
 import Utility from "../js/utility";
 
@@ -26,9 +25,7 @@ class SingleFilterCriteriaPage extends React.Component {
 
     return (
       <div className="container mt-5">
-        <Helmet>
-          <title>{searchParam.value}</title>
-        </Helmet>
+        {Utility.generateMetaTags(searchParam.value)}
         <h2 className="text-capitalize">{`${this.props.headerLabel}: ${searchParam.value}`}</h2>
         <ProjectLoader {...params} showCounter={true} />
       </div>

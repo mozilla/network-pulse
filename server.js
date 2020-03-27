@@ -88,11 +88,6 @@ if (NODE_ENV !== `development`) {
 }
 
 function renderPage(appHtml, reactHelmet) {
-  const url = `https://www.mozillapulse.org/`;
-  const title = `Mozilla Pulse`;
-  const description = `Discover & collaborate on projects for a healthy internet.`;
-  const image = `https://assets.mofoprod.net/network-pulse/images/mozilla-og-image-min.original.jpg`;
-
   return `
     <!doctype html>
     <html>
@@ -102,14 +97,8 @@ function renderPage(appHtml, reactHelmet) {
         <meta property='og:type' content='website'>
         <meta property='og:locale' content='en_US'>
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="${title}">
-        <meta name="twitter:description" content="${description}">
-        <meta name="twitter:image" content="${image}">
-        <meta property="og:url" content="${url}" />
-        <meta property="og:title" content="${title}" />
-        <meta property="og:description" content="${description}" />
-        <meta property="og:site_name" content="${title}" />
-        <meta property="og:image" content="${image}" />
+        ${reactHelmet.meta.toString()}
+        ${reactHelmet.title.toString()}
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
         <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
@@ -124,7 +113,6 @@ function renderPage(appHtml, reactHelmet) {
           `api/pulse`,
           ``
         )}rss/latest">
-        ${reactHelmet.title.toString()}
       </head>
       <body>
         <div id="app">${appHtml}</div>

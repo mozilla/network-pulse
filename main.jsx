@@ -4,9 +4,6 @@ import { withRouter } from "react-router";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Analytics from "./js/analytics.js";
-import env from "./js/env-client";
-import user from "./js/app-user";
-import utility from "./js/utility";
 
 import ProjectLoader from "./components/project-loader/project-loader.jsx";
 import Bookmarks from "./pages/bookmarks.jsx";
@@ -97,7 +94,9 @@ const NavbarWithRouter = withRouter(Navbar);
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.pageTitle = `Mozilla Network Pulse`;
+    this.metaTitle = `Mozilla Pulse`;
+    this.metaDescription = `Discover & collaborate on projects for a healthy internet.`;
+    this.metaImage = `https://assets.mofoprod.net/network-pulse/images/mozilla-og-image-min.original.jpg`;
   }
 
   componentDidMount() {
@@ -111,18 +110,25 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
-        <Helmet
-          titleTemplate={`%s - ${this.pageTitle}`}
-          defaultTitle={this.pageTitle}
-        />
+      <React.Fragment>
+        <Helmet>
+          <meta name="description" content={this.metaDescription} />
+          <meta name="twitter:title" content={this.metaTitle} />
+          <meta name="twitter:description" content={this.metaDescription} />
+          <meta name="twitter:image" content={this.metaImage} />
+          <meta property="og:url" content={this.props.url} />
+          <meta property="og:title" content={this.metaTitle} />
+          <meta property="og:description" content={this.metaDescription} />
+          <meta property="og:site_name" content={this.metaTitle} />
+          <meta property="og:image" content={this.metaImage} />
+        </Helmet>
         <JoinUsModalWithRouter />
         <NavbarWithRouter />
         <div id="main" className="mb-5">
           <Routes />
         </div>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }

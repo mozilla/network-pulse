@@ -9,7 +9,7 @@ Analytics.initialize();
 
 ReactDOM.render(
   <BrowserRouter>
-    <Main />
+    <Main url={window.location} />
   </BrowserRouter>,
   document.getElementById(`app`)
 );

@@ -12,6 +12,7 @@ class ProfileAboutTab extends React.Component {
 
     return this.props.longBio
       .split(`\n`)
+      .filter(s => !!s)
       .map(line => (
         <ReactMarkdown
           key={line}

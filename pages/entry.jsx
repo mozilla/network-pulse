@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import qs from "qs";
 import LoadingNotice from "../components/loading-notice.jsx";
@@ -106,9 +105,11 @@ class Entry extends React.Component {
 
     return (
       <div className="w-100">
-        <Helmet>
-          <title>{docTitle}</title>
-        </Helmet>
+        {Utility.generateMetaTags(
+          docTitle,
+          `Discover and collaborate on Mozilla Pulse`,
+          this.state.entry.thumbnail
+        )}
         {justPostedByUserMessage}
         {content}
       </div>

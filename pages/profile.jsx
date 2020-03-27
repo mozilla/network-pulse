@@ -1,11 +1,11 @@
 import React from "react";
 import NotFound from "./not-found.jsx";
 import Service from "../js/service";
-import { Helmet } from "react-helmet";
 import Bio from "../components/bio/bio.jsx";
 import ProfileTabGroup from "../components/profile-tab-group/profile-tab-group.jsx";
 import LoadingNotice from "../components/loading-notice.jsx";
 import user from "../js/app-user";
+import Utility from "../js/utility.js";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -72,7 +72,9 @@ class Profile extends React.Component {
     let userProfile = this.state.userProfile;
     let activeTab = this.props.match.params.tab;
 
-    if (!userProfile) return <NotFound header="Profile not found" />;
+    if (!userProfile) {
+      return <NotFound header="Profile not found" />;
+    }
 
     if (this.props.location.state) {
       activeTab = this.props.location.state.activeTab;
@@ -80,9 +82,11 @@ class Profile extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          <title>{userProfile.name}</title>
-        </Helmet>
+        {Utility.generateMetaTags(
+          userProfile.name,
+          userProfile.user_bio,
+          userProfile.thumbnail
+        )}
         <div className="row">
           <div className="col-12">
             <Bio
