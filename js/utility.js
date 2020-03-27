@@ -108,17 +108,6 @@ const Utils = {
         {imageTag}
       </Helmet>
     );
-
-    return (
-      <Helmet>
-        {/* <title>{metaTitle}</title> */}
-        <meta name="description" content={metaDescription} />
-        {/* <meta name="twitter:title" content={metaTitle} /> */}
-        <meta name="twitter:description" content={metaDescription} />
-        {/* <meta property="og:title" content={metaTitle} /> */}
-        <meta property="og:description" content={metaDescription} />
-      </Helmet>
-    );
   }
 };
 
