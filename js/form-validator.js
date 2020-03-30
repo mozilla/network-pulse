@@ -66,7 +66,7 @@ const FormValidator = {
   },
   imageSizeValidator() {
     return {
-      error: `File size is over 2MB.`,
+      error: `File size is over 500KB.`,
       validate: function(value) {
         if (!value) {
           return;
