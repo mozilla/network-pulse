@@ -52,7 +52,8 @@ export default {
       <div>
         Project image{" "}
         <span className="hint-text">
-          (only submit images that you have permission to use in this context)
+          (Only submit images that you have permission to use in this context.)
+          (Maximum file size is 500KB.)
         </span>
       </div>
     ),
