@@ -87,7 +87,8 @@ export default function(showLongBio) {
         <div className="h5-heading profile-image">
           Profile pic{" "}
           <span className="hint-text">
-            (only submit photos you have permission to use in this context)
+            (Only submit photos you have permission to use in this context)
+            (Maximum file size is 500KB.)
           </span>
         </div>
       ),
