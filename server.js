@@ -87,9 +87,9 @@ if (NODE_ENV !== `development`) {
   });
 }
 
-function renderPage(appHtml, reactHelmet) {
+function renderPage(appHtml, reactHelmet, canonicalUrl) {
   const meta = {
-    url: `https://mozillapulse.org`,
+    url: canonicalUrl,
     title: `Mozilla Pulse`,
     descritption: `Discover & collaborate on projects for a healthy internet.`,
     image: {
@@ -168,9 +168,11 @@ app.get(`*`, (req, res) => {
     // Somewhere a `<Redirect>` was rendered
     res.redirect(301, context.url);
   } else {
+    let canonicalUrl = `${req.protocol}://${req.hostname}${req.path}`;
+
     res
       .status(context.pageNotFound ? 404 : 200)
-      .send(renderPage(appHtml, reactHelmet));
+      .send(renderPage(appHtml, reactHelmet, canonicalUrl));
   }
 });
 
