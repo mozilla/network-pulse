@@ -92,6 +92,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
     url: canonicalUrl,
     title: `Mozilla Pulse`,
     descritption: `Discover & collaborate on projects for a healthy internet.`,
+    type: `website`,
     image: {
       url: `https://assets.mofoprod.net/network-pulse/images/mozilla-og-image-min.original.jpg`,
       type: `image/jpg`,
@@ -113,6 +114,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
     <meta property="og:title" content="${meta.title}" />
     <meta property="og:description" content="${meta.descritption}" />
     <meta property="og:site_name" content="${meta.title}" />
+    <meta property="og:type" content="${meta.type}">
     <meta property="og:image" content="${meta.image.url}" />
     <meta property="og:image:type" content="${meta.image.type}" />
     <meta property="og:image:width" content="${meta.image.width}" />
