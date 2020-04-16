@@ -91,7 +91,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
   const meta = {
     url: canonicalUrl,
     title: `Mozilla Pulse`,
-    descritption: `Discover & collaborate on projects for a healthy internet.`,
+    description: `Discover & collaborate on projects for a healthy internet.`,
     type: `website`,
     image: {
       url: `https://assets.mofoprod.net/network-pulse/images/mozilla-og-image-min.original.jpg`,
