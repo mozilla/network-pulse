@@ -112,7 +112,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
   const ogTags = `
     <meta property="og:url" content="${meta.url}" />
     <meta property="og:title" content="${meta.title}" />
-    <meta property="og:description" content="${meta.descritption}" />
+    <meta property="og:description" content="${meta.description}" />
     <meta property="og:site_name" content="${meta.title}" />
     <meta property="og:type" content="${meta.type}">
     <meta property="og:image" content="${meta.image.url}" />
