@@ -9,7 +9,8 @@ textarea {
 // Mozilla's brand guide says UI controls should use Open Sans instead of Zilla
 .btn,
 button {
-  font-family: 'Open Sans', X-LocaleSpecific, sans-serif;
-  &:hover { cursor: pointer; }
+  font-family: "Open Sans", X-LocaleSpecific, sans-serif;
+  &:hover {
+    cursor: pointer;
+  }
 }
-
