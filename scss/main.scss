@@ -2,13 +2,13 @@
 @import "mixin.scss";
 
 // mofo-bootstrap bits
-
-@import "../node_modules/mofo-bootstrap/src/scss/custom/colors";
+@import "./mofo-bootstrap/mofo-bootstrap";
+@import "./mofo-bootstrap/custom/colors";
 @import "../node_modules/bootstrap/scss/variables.scss";
-@import "../node_modules/mofo-bootstrap/src/scss/overrides/variables.scss";
+@import "./mofo-bootstrap/overrides/variables.scss";
 @import "./overrides/variables.scss";
 @import "../node_modules/bootstrap/scss/mixins";
-@import "../node_modules/mofo-bootstrap/src/scss/overrides/mixins.scss";
+@import "./mofo-bootstrap/overrides/mixins.scss";
 @import "../node_modules/bootstrap/scss/reboot.scss";
 @import "../node_modules/bootstrap/scss/buttons.scss";
 @import "../node_modules/bootstrap/scss/forms.scss";
