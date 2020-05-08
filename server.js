@@ -139,7 +139,6 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,600,700">
-        <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(
