@@ -87,13 +87,51 @@ if (NODE_ENV !== `development`) {
   });
 }
 
-function renderPage(appHtml, reactHelmet) {
+function renderPage(appHtml, reactHelmet, canonicalUrl) {
+  const meta = {
+    url: canonicalUrl,
+    title: `Mozilla Pulse`,
+    description: `Discover & collaborate on projects for a healthy internet.`,
+    type: `website`,
+    image: {
+      url: `https://assets.mofoprod.net/network-pulse/images/mozilla-og-image-min.original.jpg`,
+      type: `image/jpg`,
+      width: `600`,
+      height: `600`,
+      altText: `Mozilla logo`
+    }
+  };
+
+  const twitterCard = `
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${meta.title}">
+    <meta name="twitter:description" content="${meta.description}">
+    <meta name="twitter:image" content="${meta.image.url}">
+  `;
+
+  const ogTags = `
+    <meta property="og:url" content="${meta.url}" />
+    <meta property="og:title" content="${meta.title}" />
+    <meta property="og:description" content="${meta.description}" />
+    <meta property="og:site_name" content="${meta.title}" />
+    <meta property="og:type" content="${meta.type}">
+    <meta property="og:image" content="${meta.image.url}" />
+    <meta property="og:image:type" content="${meta.image.type}" />
+    <meta property="og:image:width" content="${meta.image.width}" />
+    <meta property="og:image:height" content="${meta.image.height}" />
+    <meta property="og:image:alt" content="${meta.image.altText}" />
+  `;
+
   return `
     <!doctype html>
     <html>
       <head>
+        <title>"${meta.title}"</title>
+        <meta name="description" content="${meta.description}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
+        ${twitterCard}
+        ${ogTags}
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
         <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
@@ -101,7 +139,6 @@ function renderPage(appHtml, reactHelmet) {
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" type="text/css" href="https://code.cdn.mozilla.net/fonts/zilla-slab.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,600,700">
-        <link rel="stylesheet" type="text/css" href="/css/mofo-bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <link rel="alternate"  type="application/rss+xml" href="${env.PULSE_API.replace(
@@ -132,9 +169,11 @@ app.get(`*`, (req, res) => {
     // Somewhere a `<Redirect>` was rendered
     res.redirect(301, context.url);
   } else {
+    let canonicalUrl = `${req.protocol}://${req.hostname}${req.path}`;
+
     res
       .status(context.pageNotFound ? 404 : 200)
-      .send(renderPage(appHtml, reactHelmet));
+      .send(renderPage(appHtml, reactHelmet, canonicalUrl));
   }
 });
 
