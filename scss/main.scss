@@ -1,29 +1,29 @@
-@import "variables.scss";
-@import "mixin.scss";
-
 // mofo-bootstrap bits
 @import "./mofo-bootstrap/mofo-bootstrap";
-@import "./mofo-bootstrap/custom/colors";
-@import "../node_modules/bootstrap/scss/variables.scss";
-@import "./mofo-bootstrap/overrides/variables.scss";
-@import "./overrides/variables.scss";
-@import "../node_modules/bootstrap/scss/mixins";
-@import "./mofo-bootstrap/overrides/mixins.scss";
-@import "../node_modules/bootstrap/scss/reboot.scss";
-@import "../node_modules/bootstrap/scss/buttons.scss";
-@import "../node_modules/bootstrap/scss/forms.scss";
-@import "../node_modules/bootstrap/scss/grid.scss";
+
+// Breakpoints (imported from Bootstrap)
+
+$bp-xs: #{map-get($grid-breakpoints, xs)}; // < 544px
+$bp-sm: #{map-get($grid-breakpoints, sm)}; // >= 544px
+$bp-md: #{map-get($grid-breakpoints, md)}; // >= 768px
+$bp-lg: #{map-get($grid-breakpoints, lg)}; // >= 992px
+$bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
+
+// Foundation site style
+
+@import "./foundation-style/mixins";
+@import "./foundation-style/type";
+@import "./foundation-style/buttons";
+@import "./foundation-style/glyphs";
+
+// Pulse
+@import "variables.scss";
+@import "mixin.scss";
+@import "shared";
+@import "form";
+
+// third party modules
 @import "../node_modules/react-select/scss/default.scss";
-
-// Foundation Styles
-
-@import "./foundation-styles/variables.scss";
-@import "./foundation-styles/mixins.scss";
-@import "./foundation-styles/type.scss";
-@import "./foundation-styles/buttons.scss";
-@import "./foundation-styles/glyphs.scss";
-@import "./overrides/type.scss";
-@import "./overrides/buttons.scss";
 
 html {
   height: 100%;
@@ -35,6 +35,25 @@ body {
   position: relative;
   font-weight: $font-weight-normal;
   color: $body-color;
+}
+
+#learn-more {
+  color: $dark-blue;
+
+  @include hover-focus-active {
+    // Bootstrap / mofo-style overrides
+    color: $dark-blue;
+    text-decoration: underline;
+  }
+}
+
+h4,
+.h4-heading {
+  @include scaleText(22px, 32px, 24px, 30px);
+}
+
+a {
+  @include link-text-decoration;
 }
 
 .btn-link {
@@ -69,6 +88,11 @@ button {
     $font-size-xs,
     $btn-border-radius-xs
   );
+}
+
+.btn-secondary.active {
+  background: none;
+  border-color: $black;
 }
 
 %btn-tab-active-state {
@@ -221,9 +245,6 @@ fieldset {
     background-color: $black;
   }
 }
-
-@import "shared";
-@import "form";
 
 // Components
 
