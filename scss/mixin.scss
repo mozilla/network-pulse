@@ -18,10 +18,7 @@
   }
 }
 
-@mixin link-text-decoration(
-  $normal-state: none,
-  $hover-state: $link-decoration
-) {
+@mixin link-text-decoration($normal-state: none, $hover-state: underline) {
   text-decoration: $normal-state;
 
   @include hover-focus-active {

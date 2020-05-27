@@ -67,7 +67,7 @@ a {
   color: $dark-blue;
 
   &.inline-link {
-    @include link-text-decoration(none, underline);
+    @include link-text-decoration;
 
     color: $dark-blue;
     font-size: inherit;
