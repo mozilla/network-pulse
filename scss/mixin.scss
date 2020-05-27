@@ -61,3 +61,12 @@
   color: $gray-40;
   font-family: "Nunito Sans", sans-serif;
 }
+
+@mixin thumbnail-button-style() {
+  background: $pulse-light-blue;
+  font-weight: 400;
+
+  @include hover-focus-active {
+    background: $light-blue;
+  }
+}

@@ -11,7 +11,9 @@ $bp-xl: #{map-get($grid-breakpoints, xl)}; // >= 1200px
 
 // Foundation site style
 
-@import "./foundation-style/mixins";
+@import "./foundation-style/mixins/shared";
+@import "./foundation-style/mixins/type";
+@import "./foundation-style/mixins/button";
 @import "./foundation-style/type";
 @import "./foundation-style/buttons";
 @import "./foundation-style/glyphs";
@@ -88,11 +90,6 @@ button {
     $font-size-xs,
     $btn-border-radius-xs
   );
-}
-
-.btn-secondary.active {
-  background: none;
-  border-color: $black;
 }
 
 %btn-tab-active-state {
