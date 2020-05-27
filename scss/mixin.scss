@@ -18,10 +18,7 @@
   }
 }
 
-@mixin link-text-decoration(
-  $normal-state: none,
-  $hover-state: $link-decoration
-) {
+@mixin link-text-decoration($normal-state: none, $hover-state: underline) {
   text-decoration: $normal-state;
 
   @include hover-focus-active {
@@ -60,4 +57,13 @@
   margin-left: 0.5rem;
   color: $gray-40;
   font-family: "Nunito Sans", sans-serif;
+}
+
+@mixin thumbnail-button-style() {
+  background: $pulse-light-blue;
+  font-weight: 400;
+
+  @include hover-focus-active {
+    background: $light-blue;
+  }
 }
