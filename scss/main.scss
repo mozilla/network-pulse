@@ -243,6 +243,12 @@ fieldset {
   }
 }
 
+.navbar .btn.btn-secondary.active {
+  background: none;
+  border-color: $black;
+  color: $black;
+}
+
 // Components
 
 @import "../components/navbar/navbar";
