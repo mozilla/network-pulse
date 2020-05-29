@@ -4,11 +4,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-// Non-Bootstrap Modules
-// These are modules that contain code that isn't standard in Bootstrap
-@import "custom/colors";
-
 // Core variables and mixins
+@import "./colors"; // Foundation brand colors
 @import "../../node_modules/bootstrap/scss/variables";
 @import "./overrides/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
@@ -23,7 +20,6 @@
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
 @import "./overrides/type";
-@import "../../node_modules/bootstrap/scss/images";
 @import "../../node_modules/bootstrap/scss/grid";
 @import "../../node_modules/bootstrap/scss/forms";
 @import "../../node_modules/bootstrap/scss/buttons";
