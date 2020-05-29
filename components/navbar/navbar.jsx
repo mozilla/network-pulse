@@ -52,11 +52,13 @@ class NavBar extends React.Component {
       return null;
     }
 
+    let classes = "signupin-glyph d-none d-md-flex align-items-md-center";
+
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={event => this.handleSignInBtnClick(event)}
-        className="signupin-glyph d-none d-md-flex align-items-md-center"
+        className={classes}
       >
         Signin / Signup
       </a>

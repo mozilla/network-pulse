@@ -58,6 +58,17 @@ a {
   @include link-text-decoration;
 }
 
+li {
+  $list-item-vertical-margin: 0.25em;
+
+  margin-bottom: $list-item-vertical-margin;
+
+  ol,
+  ul {
+    margin-top: $list-item-vertical-margin;
+  }
+}
+
 .btn-link {
   background: transparent;
   border: none;
