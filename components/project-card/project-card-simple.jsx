@@ -116,7 +116,6 @@ class ProjectCard extends React.Component {
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
           sendGaEvent={config => this.sendGaEvent(config)}
-          onModeration={true}
           className="py-3 my-4"
         />
       </div>

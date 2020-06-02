@@ -5,21 +5,18 @@
  */
 
 // Core variables and mixins
-@import "./colors"; // Foundation brand colors
+@import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
+@import "./colors"; // Foundation brand colors
 @import "./overrides/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
-@import "./overrides/mixins";
 
 // Reset and dependencies
-@import "../../node_modules/bootstrap/scss/normalize";
-@import "./overrides/normalize";
 @import "../../node_modules/bootstrap/scss/print";
 
 // Core CSS
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
-@import "./overrides/type";
 @import "../../node_modules/bootstrap/scss/grid";
 @import "../../node_modules/bootstrap/scss/forms";
 @import "../../node_modules/bootstrap/scss/buttons";
