@@ -35,8 +35,6 @@ $field-hint-font-size: 0.875rem;
   }
 
   input {
-    @extend .form-check-input;
-
     margin-right: $form-check-input-margin-x;
   }
 }
@@ -62,7 +60,7 @@ p.guide-text {
 
 span.char-limit {
   position: absolute;
-  right: $grid-gutter-width-base/2;
+  right: $grid-gutter-width/2;
   color: $gray-60;
   font-size: $field-hint-font-size;
   padding-top: $field-hint-top-spacing;
@@ -85,6 +83,7 @@ span.char-limit {
   &:focus,
   &:active {
     border-color: $light-blue;
+    box-shadow: none;
   }
 
   @media (min-width: $bp-md) {
