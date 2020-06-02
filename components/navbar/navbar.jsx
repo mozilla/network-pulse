@@ -190,7 +190,7 @@ class NavBar extends React.Component {
   }
 
   renderBurger() {
-    let classes = classNames(`burger hidden-md-up ml-md-0`, {
+    let classes = classNames(`burger d-md-none ml-md-0`, {
       "menu-open": this.state.burgerActive
     });
     return (
@@ -220,13 +220,13 @@ class NavBar extends React.Component {
                   <img
                     src="/assets/svg/pulse-logo-mobile.svg"
                     alt="Mozilla Pulse"
-                    className="logo-mobile hidden-md-up"
+                    className="logo-mobile d-md-none"
                     width="40"
                   />
                   <img
                     src="/assets/svg/pulse-logo.svg"
                     alt="Mozilla Pulse"
-                    className="logo hidden-sm-down"
+                    className="logo d-none d-md-block"
                     width="187"
                   />
                 </ReactRouterNavLink>
@@ -235,7 +235,7 @@ class NavBar extends React.Component {
             </div>
             <div className="col-6">
               <ul className="list-unstyled d-flex justify-content-end align-items-center mb-0">
-                {this.renderName(`hidden-sm-down`)}
+                {this.renderName()}
                 <li className="d-inline-block mb-0">
                   <NavLink to="/add" className="btn btn-secondary">
                     Add new

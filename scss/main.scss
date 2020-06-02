@@ -58,6 +58,17 @@ a {
   @include link-text-decoration;
 }
 
+li {
+  $list-item-vertical-margin: 0.25em;
+
+  margin-bottom: $list-item-vertical-margin;
+
+  ol,
+  ul {
+    margin-top: $list-item-vertical-margin;
+  }
+}
+
 .btn-link {
   background: transparent;
   border: none;
@@ -81,15 +92,6 @@ a {
 .btn,
 button {
   @include link-text-decoration(none, none);
-}
-
-.btn-xs {
-  @include button-size(
-    $btn-padding-y-xs,
-    $btn-padding-x-xs,
-    $font-size-xs,
-    $btn-border-radius-xs
-  );
 }
 
 %btn-tab-active-state {
@@ -162,7 +164,7 @@ fieldset {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: $gray-dark;
+    background: $gray-80;
     margin: 0 6px;
     opacity: 0;
     transform-origin: center center;
