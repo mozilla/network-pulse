@@ -19,7 +19,7 @@ class Bookmarks extends React.Component {
       user,
       lsBookmarkedIds: [], // localStorage bookmarked entry ids,
       bookmarksImported: false,
-      displayBookmarkPrompt: false // false because we don't know if there's any bookmarked entry yet
+      displayBookmarkPrompt: false, // false because we don't know if there's any bookmarked entry yet
     };
   }
 
@@ -48,14 +48,14 @@ class Bookmarks extends React.Component {
       .then(() => {
         onError(null);
       })
-      .catch(reason => {
+      .catch((reason) => {
         onError(reason);
       });
   }
 
   handleImportBookmarksClick() {
     // import
-    this.bulkBookmark(this.state.lsBookmarkedIds, error => {
+    this.bulkBookmark(this.state.lsBookmarkedIds, (error) => {
       if (error) {
         console.error(error);
       } else {
@@ -63,7 +63,7 @@ class Bookmarks extends React.Component {
         this.setState({
           lsBookmarkedIds: [],
           bookmarksImported: true,
-          displayBookmarkPrompt: false
+          displayBookmarkPrompt: false,
         });
       }
     });
@@ -90,7 +90,7 @@ class Bookmarks extends React.Component {
           Did you add favs while logged out? You can{" "}
           <button
             className="btn btn-link inline-link"
-            onClick={evt => this.handleImportBookmarksClick(evt)}
+            onClick={(evt) => this.handleImportBookmarksClick(evt)}
           >
             import favs
           </button>{" "}
@@ -162,7 +162,7 @@ class Bookmarks extends React.Component {
 }
 
 Bookmarks.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default Bookmarks;

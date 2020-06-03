@@ -10,21 +10,21 @@ class NewsletterSignUp extends React.Component {
       apiSubmitted: false,
       apiSuccess: false,
       apiFailed: false,
-      userTriedSubmitting: false
+      userTriedSubmitting: false,
     };
   }
 
   // state update function
   apiSubmissionSuccessful() {
     this.setState({
-      apiSuccess: true
+      apiSuccess: true,
     });
   }
 
   // state update function
   apiSubmissionFailure(error) {
     this.setState({
-      apiFailed: true
+      apiFailed: true,
     });
   }
 
@@ -44,12 +44,12 @@ class NewsletterSignUp extends React.Component {
     basketSignup(
       {
         email: this.email.value,
-        privacy: this.privacy.checked
+        privacy: this.privacy.checked,
       },
       () => {
         this.apiSubmissionSuccessful();
       },
-      error => {
+      (error) => {
         this.apiSubmissionFailure(error);
       }
     );
@@ -87,7 +87,7 @@ class NewsletterSignUp extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
-      label: `Signup submitted`
+      label: `Signup submitted`,
     });
   }
 
@@ -98,7 +98,7 @@ class NewsletterSignUp extends React.Component {
     ReactGA.event({
       category: `signup`,
       action: `form focus`,
-      label: `Signup form input focused`
+      label: `Signup form input focused`,
     });
   }
 
@@ -108,7 +108,7 @@ class NewsletterSignUp extends React.Component {
   render() {
     let signupState = classNames({
       "signup-success": this.state.apiSuccess && this.state.apiSubmitted,
-      "signup-fail": !this.state.apiFailed && this.state.apiSubmitted
+      "signup-fail": !this.state.apiFailed && this.state.apiSubmitted,
     });
 
     let layoutClass =
@@ -136,13 +136,13 @@ class NewsletterSignUp extends React.Component {
         {!this.state.apiSuccess ? (
           <p
             dangerouslySetInnerHTML={{
-              __html: this.props.ctaDescription
+              __html: this.props.ctaDescription,
             }}
           />
         ) : (
           <p
             dangerouslySetInnerHTML={{
-              __html: this.props.thankYouMessage
+              __html: this.props.thankYouMessage,
             }}
           />
         )}
@@ -160,7 +160,7 @@ class NewsletterSignUp extends React.Component {
         (!this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
           !this.validatesAsEmail(this.email.value)) ||
-        this.state.signupFailed
+        this.state.signupFailed,
     });
 
     return (
@@ -169,8 +169,8 @@ class NewsletterSignUp extends React.Component {
           type="email"
           className="form-control"
           placeholder="Enter email address"
-          ref={el => (this.email = el)}
-          onFocus={evt => this.onInputFocus(evt)}
+          ref={(el) => (this.email = el)}
+          onFocus={(evt) => this.onInputFocus(evt)}
         />
         {this.state.userTriedSubmitting &&
           !this.state.apiSubmitted &&
@@ -199,7 +199,7 @@ class NewsletterSignUp extends React.Component {
         "has-danger":
           !this.state.apiSuccess &&
           this.state.userTriedSubmitting &&
-          !this.privacy.checked
+          !this.privacy.checked,
       }
     );
 
@@ -210,7 +210,7 @@ class NewsletterSignUp extends React.Component {
             type="checkbox"
             className="form-check-input"
             id="PrivacyCheckbox"
-            ref={el => (this.privacy = el)}
+            ref={(el) => (this.privacy = el)}
           />
           <p className="d-inline-block body-small my-0">
             I'm okay with Mozilla handling my info as explained in this{" "}
@@ -257,7 +257,7 @@ class NewsletterSignUp extends React.Component {
     return (
       <form
         noValidate
-        onSubmit={evt => this.processFormData(evt)}
+        onSubmit={(evt) => this.processFormData(evt)}
         className={formClass}
       >
         <div className={`fields-wrapper ${fieldsWrapperClass}`}>
@@ -273,7 +273,7 @@ class NewsletterSignUp extends React.Component {
 NewsletterSignUp.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
   ctaDescription: `Join our email list to take action and stay updated!`,
-  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`
+  thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
 };
 
 export default NewsletterSignUp;

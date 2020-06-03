@@ -13,7 +13,7 @@ export default class Tags extends AutoCompleteInput {
       .replace(/\s+/g, ``)
       .split(`,`)
       .map((name, id) => (name.trim() ? { id: id + idOffset, name } : false))
-      .filter(v => v);
+      .filter((v) => v);
 
     // Update the idOffset so that we don't have conflicting
     // tag ids when we process the suggestions from the server:
@@ -22,10 +22,10 @@ export default class Tags extends AutoCompleteInput {
     // Load known tags from the server for tag suggestion filtering
     Service.tags
       .get()
-      .then(suggestions => {
+      .then((suggestions) => {
         suggestions = suggestions.map((name, id) => ({
           id: id + idOffset,
-          name
+          name,
         }));
         this.setState(
           { data, suggestions },
@@ -33,7 +33,7 @@ export default class Tags extends AutoCompleteInput {
           () => this.update(this.state.data)
         );
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }

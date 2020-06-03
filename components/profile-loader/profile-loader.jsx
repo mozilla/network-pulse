@@ -17,7 +17,7 @@ class ProfileLoader extends React.Component {
       nextBatchIndex: 1,
       items: [],
       moreItemsToFetch: false,
-      totalMatched: null
+      totalMatched: null,
     };
   }
 
@@ -63,10 +63,10 @@ class ProfileLoader extends React.Component {
 
     Service.profiles
       .get(combinedParams, this.promiseToken)
-      .then(data => {
+      .then((data) => {
         this.updateStateWithNewData(data);
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -82,7 +82,7 @@ class ProfileLoader extends React.Component {
       items: this.state.items.concat(data.results),
       nextBatchIndex: nextBatchIndex,
       moreItemsToFetch: moreItemsToFetch,
-      totalMatched: data.count
+      totalMatched: data.count,
     };
 
     // store current project list's info in pageSettings
@@ -119,7 +119,7 @@ class ProfileLoader extends React.Component {
 }
 
 ProfileLoader.propTypes = {
-  showCounter: PropTypes.bool
+  showCounter: PropTypes.bool,
 };
 
 export default ProfileLoader;

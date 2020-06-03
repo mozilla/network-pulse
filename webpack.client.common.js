@@ -4,15 +4,15 @@ module.exports = {
   output: {
     path: `${__dirname}/dist`,
     filename: `bundle.js`,
-    publicPath: `/`
+    publicPath: `/`,
   },
   module: {
     rules: [
       {
         test: /.jsx?$/,
         exclude: /node_modules/,
-        use: [`babel-loader`, `document-env-vars`]
-      }
-    ]
-  }
+        use: [`babel-loader`, `document-env-vars`],
+      },
+    ],
+  },
 };

@@ -42,8 +42,8 @@ function toQueryPair(key, data) {
  */
 function toQueryString(data) {
   const pairs = Object.keys(data)
-    .map(key => toQueryPair(key, data))
-    .filter(e => !!e);
+    .map((key) => toQueryPair(key, data))
+    .filter((e) => !!e);
   const queryArguments = pairs.join(`&`);
 
   return `?${queryArguments}`;
@@ -60,7 +60,7 @@ function toQueryString(data) {
 function getDataFromURL(route, params = {}, token = {}) {
   let request = new XMLHttpRequest();
   let defaultParams = {
-    format: `json`
+    format: `json`,
   };
 
   Object.assign(params, defaultParams);
@@ -69,7 +69,7 @@ function getDataFromURL(route, params = {}, token = {}) {
     request.open(`GET`, `${route}${params ? toQueryString(params) : ``}`, true);
 
     request.withCredentials = true;
-    request.onload = event => {
+    request.onload = (event) => {
       let result = event.currentTarget;
 
       if (result.status >= 200 && result.status < 400) {
@@ -88,7 +88,7 @@ function getDataFromURL(route, params = {}, token = {}) {
       }
     };
 
-    token.cancel = function() {
+    token.cancel = function () {
       request.abort();
       reject(`XHR request cancelled.`);
     };
@@ -114,7 +114,7 @@ function callURL(route) {
     request.open(`GET`, route, true);
 
     request.withCredentials = true;
-    request.onload = event => {
+    request.onload = (event) => {
       let result = event.currentTarget;
 
       if (result.status === 200) {
@@ -142,7 +142,7 @@ function callURL(route) {
 function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
   return new Promise((resolve, reject) => {
     getDataFromURL(`${PULSE_API}/v2/nonce/`)
-      .then(nonce => {
+      .then((nonce) => {
         (data.nonce = nonce.nonce),
           (data.csrfmiddlewaretoken = nonce.csrf_token);
 
@@ -152,7 +152,7 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
         request.open(requestType, endpointRoute, true);
 
         request.withCredentials = true;
-        request.onload = event => {
+        request.onload = (event) => {
           let result = event.currentTarget;
 
           if (result.status >= 200 && result.status < 400) {
@@ -181,7 +181,7 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
         request.setRequestHeader(`Content-Type`, `application/json`);
         request.send(dataToSend);
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(
           new Error(`Could not retrieve data from /nonce. Reason: ${reason}`)
         );
@@ -191,10 +191,10 @@ function updateStoredData(requestType = `POST`, endpointRoute, data = {}) {
 
 let Service = {
   entries: {
-    get: function(bookmarkedOnly, params, token) {
+    get: function (bookmarkedOnly, params, token) {
       let defaultParams = {
         ordering: `-created`,
-        page_size: env.PROJECT_BATCH_SIZE
+        page_size: env.PROJECT_BATCH_SIZE,
       };
 
       if (bookmarkedOnly) return Service.bookmarks.get(params, token);
@@ -205,39 +205,39 @@ let Service = {
         token
       );
     },
-    post: function(entryData) {
+    post: function (entryData) {
       return updateStoredData(`POST`, `${PULSE_API}/v2/entries/`, entryData);
-    }
+    },
   },
   entry: {
-    get: function(entryId) {
+    get: function (entryId) {
       return getDataFromURL(`${PULSE_API}/v2/entries/${entryId}/`);
     },
     put: {
-      moderationState: function(entryId, stateId) {
+      moderationState: function (entryId, stateId) {
         return updateStoredData(
           `PUT`,
           `${PULSE_API}/v2/entries/${entryId}/moderate/${stateId}`
         );
       },
-      feature: function(entryId) {
+      feature: function (entryId) {
         return updateStoredData(
           `PUT`,
           `${PULSE_API}/v2/entries/${entryId}/feature/`
         );
       },
-      bookmark: function(entryId) {
+      bookmark: function (entryId) {
         return updateStoredData(
           `PUT`,
           `${PULSE_API}/v2/entries/${entryId}/bookmark/`
         );
-      }
-    }
+      },
+    },
   },
   bookmarks: {
-    get: function(params, token) {
+    get: function (params, token) {
       let defaultParams = {
-        page_size: env.PROJECT_BATCH_SIZE
+        page_size: env.PROJECT_BATCH_SIZE,
       };
       return getDataFromURL(
         `${PULSE_API}/v2/entries/bookmarks/`,
@@ -245,61 +245,61 @@ let Service = {
         token
       );
     },
-    post: function(entryIds = []) {
+    post: function (entryIds = []) {
       return updateStoredData(
         `POST`,
         `${PULSE_API}/v2/entries/bookmarks/?ids=${entryIds.join(`,`)}`
       );
-    }
+    },
   },
   moderationStates: {
-    get: function() {
+    get: function () {
       return getDataFromURL(`${PULSE_API}/v2/entries/moderation-states/`);
-    }
+    },
   },
   issues: {
-    get: function() {
+    get: function () {
       return getDataFromURL(`${PULSE_API}/v2/issues/`);
-    }
+    },
   },
   helpTypes: {
-    get: function() {
+    get: function () {
       return getDataFromURL(`${PULSE_API}/v2/helptypes/`);
-    }
+    },
   },
   tags: {
-    get: function() {
+    get: function () {
       return getDataFromURL(`${PULSE_API}/v2/tags/`);
-    }
+    },
   },
   creators: {
-    get: function(fragment) {
+    get: function (fragment) {
       return getDataFromURL(`${PULSE_API}/v2/profiles/`, {
         name: fragment,
-        basic: true
+        basic: true,
       });
-    }
+    },
   },
-  logout: function() {
+  logout: function () {
     return callURL(PULSE_API_LOGOUT);
   },
-  userstatus: function() {
+  userstatus: function () {
     return getDataFromURL(`${PULSE_API}/v2/userstatus/`);
   },
-  profileMe: function() {
+  profileMe: function () {
     return getDataFromURL(`${PULSE_API}/v2/profiles/me/`);
   },
-  profile: function(id) {
+  profile: function (id) {
     return getDataFromURL(`${PULSE_API}/v2/profiles/${id}/`);
   },
-  profileEntries: function(id, params) {
+  profileEntries: function (id, params) {
     return getDataFromURL(`${PULSE_API}/v2/profiles/${id}/entries/`, params);
   },
   profiles: {
-    get: function(params, token) {
+    get: function (params, token) {
       let defaultParams = {
         ordering: `id`,
-        page_size: env.PROFILE_BATCH_SIZE
+        page_size: env.PROFILE_BATCH_SIZE,
       };
 
       return getDataFromURL(
@@ -307,20 +307,20 @@ let Service = {
         Object.assign(params, defaultParams),
         token
       );
-    }
+    },
   },
-  nonce: function() {
+  nonce: function () {
     return getDataFromURL(`${PULSE_API}/v2/nonce/`);
   },
   myProfile: {
-    get: function() {
+    get: function () {
       return getDataFromURL(`${PULSE_API}/v2/myprofile/`);
     },
-    put: function(updatedProfile) {
+    put: function (updatedProfile) {
       if (updatedProfile.newsletter) {
         basketSignup({
           email: user.email,
-          privacy: true
+          privacy: true,
         });
       }
 
@@ -329,8 +329,8 @@ let Service = {
         `${PULSE_API}/v2/myprofile/`,
         updatedProfile
       );
-    }
-  }
+    },
+  },
   // ... and more Pulse API endpoints to come
 };
 

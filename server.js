@@ -30,7 +30,7 @@ const NODE_ENV = env.NODE_ENV;
 const hstsMiddleware = helmet.hsts({
   maxAge: 31536000, // 12 months in seconds
   includeSubDomains: true,
-  preload: true
+  preload: true,
 });
 
 // disable x-powered-by
@@ -41,7 +41,7 @@ app.use(helmet.contentSecurityPolicy(securityHeaders));
 
 app.use(
   helmet.xssFilter({
-    setOnOldIE: true
+    setOnOldIE: true,
   })
 );
 
@@ -59,7 +59,7 @@ app.use(helmet.noSniff());
 
 app.use(
   helmet.frameguard({
-    action: `deny`
+    action: `deny`,
   })
 );
 
@@ -98,8 +98,8 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
       type: `image/jpg`,
       width: `600`,
       height: `600`,
-      altText: `Mozilla logo`
-    }
+      altText: `Mozilla logo`,
+    },
   };
 
   const twitterCard = `

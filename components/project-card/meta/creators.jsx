@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Creators = props => {
+const Creators = (props) => {
   if (props.creators.length === 0) return null;
 
   let labelText = props.showLabelText ? `Created by ` : ``;
   let creators = [];
 
-  props.creators.forEach(creator => {
+  props.creators.forEach((creator) => {
     // Link to creators with a profile, plain text name if without.
     let name = creator.name;
     let creatorLabel = name;
@@ -22,7 +22,7 @@ const Creators = props => {
         <Link
           key={name}
           to={`/profile/${creator.profile_id}`}
-          onClick={event => props.creatorClickHandler(event, name)}
+          onClick={(event) => props.creatorClickHandler(event, name)}
         >
           {name}
         </Link>
@@ -48,13 +48,13 @@ Creators.propTypes = {
   creators: PropTypes.arrayOf(PropTypes.object).isRequired,
   showLabelText: PropTypes.bool,
   makeLink: PropTypes.bool,
-  creatorClickHandler: PropTypes.func.isRequired
+  creatorClickHandler: PropTypes.func.isRequired,
 };
 
 Creators.defaultProps = {
   creators: [],
   showLabelText: false,
-  makeLink: true
+  makeLink: true,
 };
 
 export default Creators;

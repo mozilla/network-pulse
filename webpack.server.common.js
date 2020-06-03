@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: `${__dirname}/dist`,
     filename: `server.bundle.js`,
-    publicPath: `/`
+    publicPath: `/`,
   },
   target: `node`,
   // keep node_module paths out of the bundle
@@ -21,15 +21,15 @@ module.exports = {
     }, {}),
   node: {
     __filename: true,
-    __dirname: true
+    __dirname: true,
   },
   module: {
     rules: [
       {
         test: /.jsx?$/,
         exclude: /node_modules/,
-        use: [`babel-loader`, `document-env-vars`]
-      }
-    ]
-  }
+        use: [`babel-loader`, `document-env-vars`],
+      },
+    ],
+  },
 };

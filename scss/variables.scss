@@ -11,13 +11,6 @@ $form-error-color: #d24735;
 $form-field-mb-sm: 24px;
 $form-field-mb-lg: 48px;
 $form-check-input-margin-x: 0.5rem;
-$btn-padding-x-xs: $btn-padding-x-sm;
-$btn-padding-y-xs: 0.125rem;
-
-// button
-
-$btn-border-radius-sm: $btn-border-radius;
-$btn-border-radius-xs: $btn-border-radius;
 
 // sizing
 
@@ -28,5 +21,5 @@ $z-indices: (
   join-us-modal: 4,
   nav-link-list: 3,
   btn-add: 2,
-  featured-flag: 1
+  featured-flag: 1,
 );

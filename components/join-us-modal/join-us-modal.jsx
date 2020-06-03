@@ -24,7 +24,7 @@ class JoinUsModal extends React.Component {
       currentStep: 1,
       showModal: false,
       submitting: false,
-      showConfirmation: false
+      showConfirmation: false,
     };
   }
 
@@ -88,7 +88,7 @@ class JoinUsModal extends React.Component {
 
   loadProfileToForm(done) {
     // get current profile data and load it into form
-    Service.myProfile.get().then(profile => {
+    Service.myProfile.get().then((profile) => {
       this.setState({ fields: createFields(this.state.user, profile) }, () =>
         done()
       );
@@ -113,7 +113,7 @@ class JoinUsModal extends React.Component {
   handleFormSubmit() {
     this.setState(
       {
-        submitting: true
+        submitting: true,
       },
       () => {
         let formValues = this.state.formValues;
@@ -130,7 +130,7 @@ class JoinUsModal extends React.Component {
       .then(() => {
         this.setState({ showConfirmation: true });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -143,7 +143,7 @@ class JoinUsModal extends React.Component {
 
   handleNextBtnClick() {
     // validate current form section
-    this.refs[`step${this.state.currentStep}Form`].validates(valid => {
+    this.refs[`step${this.state.currentStep}Form`].validates((valid) => {
       if (valid) {
         if (this.state.currentStep === this.totalStep) {
           // we've reached the last step of the form, submit the form
@@ -161,7 +161,7 @@ class JoinUsModal extends React.Component {
     let formValues = this.state.formValues;
     let fieldsToReset = this.state.fields[`step${this.state.currentStep}`];
 
-    Object.keys(fieldsToReset).forEach(key => {
+    Object.keys(fieldsToReset).forEach((key) => {
       delete formValues[key];
     });
 

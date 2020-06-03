@@ -9,7 +9,7 @@ class Issues extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      issues: []
+      issues: [],
     };
   }
 
@@ -20,7 +20,7 @@ class Issues extends React.Component {
   getIssues() {
     Service.issues
       .get()
-      .then(issues => {
+      .then((issues) => {
         // sort issues alphabetically by their name
         issues.sort((a, b) => {
           if (a.name > b.name) return 1;
@@ -29,7 +29,7 @@ class Issues extends React.Component {
         });
         this.setState({ issues });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -54,13 +54,13 @@ class Issues extends React.Component {
           <title>Issues</title>
         </Helmet>
         <IssueSelector />
-        <p className="intro">
+        <p className="body-large">
           Mozilla has identified five issues that we believe must be tackled in
           the current era, to build the open internet we want. Tap above to
           browse by issue.
         </p>
         <div className="row">
-          {this.state.issues.map(issue => this.renderIssueSection(issue))}
+          {this.state.issues.map((issue) => this.renderIssueSection(issue))}
         </div>
       </div>
     );
