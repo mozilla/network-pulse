@@ -27,7 +27,7 @@ class Bio extends React.Component {
       category: `Profile`,
       action: `Social link tap`,
       label: `${this.profileOwnerName} - ${type}`,
-      transport: `beacon`
+      transport: `beacon`,
     });
   }
 
@@ -36,7 +36,7 @@ class Bio extends React.Component {
 
     if (this.props.thumbnail) {
       style = {
-        backgroundImage: `url(${this.props.thumbnail})`
+        backgroundImage: `url(${this.props.thumbnail})`,
       };
     }
 
@@ -62,7 +62,7 @@ class Bio extends React.Component {
       }
 
       let classname = classNames(`social-media ${type}-glyph x-small`, {
-        "mr-sm-1": i !== list.length - 1
+        "mr-sm-1": i !== list.length - 1,
       });
 
       return (
@@ -70,7 +70,7 @@ class Bio extends React.Component {
           href={link}
           target="_blank"
           className={classname}
-          onClick={event => this.handleSocialMediaClick(event, type)}
+          onClick={(event) => this.handleSocialMediaClick(event, type)}
           key={type}
         />
       );
@@ -96,7 +96,7 @@ class Bio extends React.Component {
       meta = (
         <a
           href={link}
-          onClick={event => this.handleSocialMediaClick(event, type)}
+          onClick={(event) => this.handleSocialMediaClick(event, type)}
         >
           {text}
         </a>
@@ -141,7 +141,7 @@ class Bio extends React.Component {
   }
 
   renderBlurb() {
-    let paragraphs = this.props.user_bio.split(`\n`).map(paragraph => {
+    let paragraphs = this.props.user_bio.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;
@@ -228,7 +228,7 @@ Bio.propTypes = {
   github: PropTypes.string.isRequired,
   website: PropTypes.string.isRequired,
   my_profile: PropTypes.bool.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 export default Bio;

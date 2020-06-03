@@ -26,13 +26,13 @@ export default class AutoCompleteInput extends Component {
     super(props);
     this.state = {
       data: [],
-      suggestions: []
+      suggestions: [],
     };
   }
 
   update(data) {
     this.setState({ data }, () => {
-      const mappedData = this.state.data.map(field => this.toSchema(field));
+      const mappedData = this.state.data.map((field) => this.toSchema(field));
       this.props.onChange(null, mappedData);
     });
   }
@@ -95,15 +95,15 @@ export default class AutoCompleteInput extends Component {
   getFilteredSuggestions() {
     // show only suggestions that haven't already been selected.
     const { data, suggestions } = this.state;
-    const names = data.map(field => field.name);
+    const names = data.map((field) => field.name);
 
     return suggestions
-      .map(suggestion => {
+      .map((suggestion) => {
         if (names.indexOf(suggestion.name) > -1) return null;
 
         return suggestion;
       })
-      .filter(suggestion => !!suggestion);
+      .filter((suggestion) => !!suggestion);
   }
 
   handleBlur() {
@@ -146,14 +146,14 @@ export default class AutoCompleteInput extends Component {
     let placeholder = props.placeholder || `Add new tag`;
     return (
       <div
-        onBlur={e => this.handleBlur(e)}
-        ref={e => {
+        onBlur={(e) => this.handleBlur(e)}
+        ref={(e) => {
           this.div = e;
         }}
         tabIndex={0}
       >
         <ReactTags
-          ref={e => {
+          ref={(e) => {
             this.reactTags = e;
           }}
           tags={this.state.data}
@@ -170,7 +170,7 @@ export default class AutoCompleteInput extends Component {
             selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
             search: `search d-flex`,
             searchInput: `tag-input-field`,
-            suggestions: `suggestions p-2`
+            suggestions: `suggestions p-2`,
           }}
         />
       </div>

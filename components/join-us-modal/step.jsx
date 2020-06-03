@@ -28,7 +28,7 @@ class Step extends React.Component {
 Step.propTypes = {
   heading: PropTypes.string.isRequired,
   subhead: PropTypes.string,
-  hint: PropTypes.string
+  hint: PropTypes.string,
 };
 
 export default Step;

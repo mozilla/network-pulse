@@ -11,7 +11,7 @@ class ItemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inPageUpdate: false
+      inPageUpdate: false,
     };
   }
 
@@ -33,14 +33,14 @@ class ItemList extends React.Component {
     ReactGA.event({
       category: `Browse`,
       action: `View more tap`,
-      label: window.location.pathname
+      label: window.location.pathname,
     });
     this.props.fetchData();
     this.setState({ inPageUpdate: true });
   }
 
   renderProjectCards() {
-    return this.props.items.map(item => {
+    return this.props.items.map((item) => {
       return (
         <ProjectCardSimple
           key={item.id}
@@ -52,7 +52,7 @@ class ItemList extends React.Component {
   }
 
   renderProfileCards() {
-    return this.props.items.map(item => {
+    return this.props.items.map((item) => {
       return <ProfileCard key={item.id} {...item} />;
     });
   }
@@ -99,11 +99,11 @@ ItemList.propTypes = {
   items: PropTypes.array.isRequired,
   loadingData: PropTypes.bool.isRequired,
   moreItemsToFetch: PropTypes.bool.isRequired,
-  fetchData: PropTypes.func.isRequired
+  fetchData: PropTypes.func.isRequired,
 };
 
 ItemList.defaultProps = {
-  type: `projects`
+  type: `projects`,
 };
 
 export default ItemList;

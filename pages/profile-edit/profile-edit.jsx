@@ -26,7 +26,7 @@ class ProfileEdit extends React.Component {
       formValues: {},
       serverError: false,
       submitting: false,
-      showFormInvalidNotice: false
+      showFormInvalidNotice: false,
     };
   }
 
@@ -50,10 +50,10 @@ class ProfileEdit extends React.Component {
 
   loadCurrentProfile() {
     // get current profile data and load it into form
-    Service.myProfile.get().then(profile => {
+    Service.myProfile.get().then((profile) => {
       let fields = createFormFields(profile.hasOwnProperty(`user_bio_long`));
 
-      Object.keys(fields).forEach(key => {
+      Object.keys(fields).forEach((key) => {
         // load current profile to form fields
         let defaultValue = key === `custom_name` ? user.name : profile[key];
         fields[key].defaultValue = defaultValue;
@@ -61,7 +61,7 @@ class ProfileEdit extends React.Component {
 
       this.setState({
         fields,
-        currentProfileLoaded: true
+        currentProfileLoaded: true,
       });
     });
   }
@@ -77,7 +77,7 @@ class ProfileEdit extends React.Component {
 
     user.logout();
     this.props.history.push({
-      pathname: `/featured`
+      pathname: `/featured`,
     });
   }
 
@@ -96,7 +96,7 @@ class ProfileEdit extends React.Component {
         formValues,
         // hide notice once user starts typing again
         // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
-        showFormInvalidNotice: false
+        showFormInvalidNotice: false,
       });
     }
   }
@@ -104,7 +104,7 @@ class ProfileEdit extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
 
-    this.refs.form.validates(formIsValid => {
+    this.refs.form.validates((formIsValid) => {
       if (!formIsValid) {
         this.setState({ showFormInvalidNotice: true });
         return;
@@ -113,7 +113,7 @@ class ProfileEdit extends React.Component {
       this.setState(
         {
           showFormInvalidNotice: false,
-          submitting: true
+          submitting: true,
         },
         () => this.updateProfile(this.state.formValues)
       );
@@ -125,12 +125,12 @@ class ProfileEdit extends React.Component {
       .put(profile)
       .then(() => {
         this.props.history.push({
-          pathname: `/profile/me`
+          pathname: `/profile/me`,
         });
       })
-      .catch(reason => {
+      .catch((reason) => {
         this.setState({
-          serverError: true
+          serverError: true,
         });
         console.error(reason);
       });
@@ -185,7 +185,7 @@ class ProfileEdit extends React.Component {
               <span className="ml-md-4">
                 <button
                   className="btn btn-link inline-link"
-                  onClick={event => this.handleLogOutBtnClick(event)}
+                  onClick={(event) => this.handleLogOutBtnClick(event)}
                 >
                   Sign out
                 </button>
@@ -212,7 +212,7 @@ class ProfileEdit extends React.Component {
               <button
                 className="btn btn-primary mr-3"
                 type="submit"
-                onClick={event => this.handleFormSubmit(event)}
+                onClick={(event) => this.handleFormSubmit(event)}
                 disabled={this.state.submitting ? `disabled` : null}
               >
                 {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
@@ -238,7 +238,7 @@ class ProfileEdit extends React.Component {
         <p>
           <button
             className="btn btn-link inline-link"
-            onClick={event => this.handleSignInBtnClick(event)}
+            onClick={(event) => this.handleSignInBtnClick(event)}
           >
             Log in
           </button>{" "}
@@ -271,7 +271,7 @@ class ProfileEdit extends React.Component {
 }
 
 ProfileEdit.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default ProfileEdit;

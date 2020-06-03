@@ -7,33 +7,33 @@ export default {
     scriptSrc: [
       `'self'`,
       `https://*.google-analytics.com`,
-      `https://platform.twitter.com/widgets.js`
+      `https://platform.twitter.com/widgets.js`,
     ],
     fontSrc: [
       `'self'`,
       `https://code.cdn.mozilla.net`,
-      `https://fonts.gstatic.com`
+      `https://fonts.gstatic.com`,
     ],
     styleSrc: [
       `'self'`,
       `'unsafe-inline'`,
       `https://code.cdn.mozilla.net`,
-      `https://fonts.googleapis.com`
+      `https://fonts.googleapis.com`,
     ],
     imgSrc: [`'self'`, `data:`, `https:`, `http:`],
     connectSrc: [
       `'self'`,
       url.parse(env.PULSE_API).host ||
         `https://network-pulse-api-staging.herokuapp.com/`,
-      `https://www.mozilla.org/en-US/newsletter/`
+      `https://www.mozilla.org/en-US/newsletter/`,
     ],
     childSrc: [
       `https://syndication.twitter.com`,
-      `https://platform.twitter.com`
+      `https://platform.twitter.com`,
     ],
     frameAncestors: [`'none'`],
-    manifestSrc: [`'self'`]
+    manifestSrc: [`'self'`],
   },
   reportOnly: false,
-  browserSniff: false
+  browserSniff: false,
 };

@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Utility from "../../../js/utility.js";
 
-const IssuesAndTags = props => {
+const IssuesAndTags = (props) => {
   if (props.issues.length + props.tags.length === 0) return null;
 
-  let issues = props.issues.map(issue => {
+  let issues = props.issues.map((issue) => {
     return (
       <Link
         to={`/issues/${Utility.getUriPathFromIssueName(issue)}`}
@@ -18,7 +18,7 @@ const IssuesAndTags = props => {
     );
   });
 
-  let tags = props.tags.map(tag => {
+  let tags = props.tags.map((tag) => {
     return (
       <Link to={`/tags/${encodeURIComponent(tag)}`} key={tag}>
         #{tag}
@@ -36,12 +36,12 @@ const IssuesAndTags = props => {
 
 IssuesAndTags.propTypes = {
   issues: PropTypes.array.isRequired,
-  tags: PropTypes.array.isRequired
+  tags: PropTypes.array.isRequired,
 };
 
 IssuesAndTags.defaultProps = {
   issues: [],
-  tags: []
+  tags: [],
 };
 
 export default IssuesAndTags;

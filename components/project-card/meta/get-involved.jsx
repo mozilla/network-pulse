@@ -13,7 +13,7 @@ class GetInvolved extends React.Component {
   handleGetInvolvedLinkClick() {
     this.props.sendGaEvent({
       action: `Get involved link tap`,
-      transport: `beacon`
+      transport: `beacon`,
     });
   }
 
@@ -46,7 +46,7 @@ class GetInvolved extends React.Component {
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
-    let helpLabels = this.props.helpTypes.map(helpType => {
+    let helpLabels = this.props.helpTypes.map((helpType) => {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
@@ -85,14 +85,14 @@ GetInvolved.propTypes = {
   getInvolved: PropTypes.string.isRequired,
   getInvolvedUrl: PropTypes.string.isRequired,
   helpTypes: PropTypes.array.isRequired,
-  sendGaEvent: PropTypes.func.isRequired
+  sendGaEvent: PropTypes.func.isRequired,
 };
 
 GetInvolved.defaultProps = {
   getInvolved: ``,
   getInvolvedUrl: ``,
   helpTypes: [],
-  sendGaEvent: function() {}
+  sendGaEvent: function () {},
 };
 
 export default GetInvolved;

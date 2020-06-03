@@ -39,10 +39,10 @@ const Login = {
 
     // verify user's logged in status with Pulse API
     Service.userstatus()
-      .then(response => {
+      .then((response) => {
         setUserData(false, response);
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         setUserData(reason);
       });
@@ -63,11 +63,11 @@ const Login = {
         // be treating the user as logged out, and no
         // callback is necessary or expected.
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         onError(reason);
       });
-  }
+  },
 };
 
 /**
@@ -105,7 +105,7 @@ class User {
 
   // notify all listeners of a change for this user
   notifyListeners(evtName) {
-    this.listeners.forEach(listener => {
+    this.listeners.forEach((listener) => {
       if (listener.updateUser) {
         listener.updateUser(evtName, this);
       }
@@ -134,7 +134,7 @@ class User {
     // notify listeners that this user has been logged out
     this.notifyListeners(`logged out`);
 
-    Login.logout(error => {
+    Login.logout((error) => {
       alert(`Sorry, we encountered an error while logging you out!`);
       console.log(`logout error:`, error);
     });

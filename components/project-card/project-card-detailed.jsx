@@ -19,7 +19,7 @@ class DetailedProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false
+      bookmarked: false,
     };
   }
 
@@ -28,7 +28,7 @@ class DetailedProjectCard extends React.Component {
       {
         category: `Entry`,
         action: ``,
-        label: this.props.title
+        label: this.props.title,
       },
       config
     );
@@ -46,7 +46,7 @@ class DetailedProjectCard extends React.Component {
   setInitialBookmarkedStatus() {
     if (user.loggedin) {
       this.setState({
-        bookmarked: this.props.isBookmarked
+        bookmarked: this.props.isBookmarked,
       });
 
       return;
@@ -67,28 +67,28 @@ class DetailedProjectCard extends React.Component {
   handleCreatorClick(event, creator) {
     this.sendGaEvent({
       action: `Creator tap`,
-      label: `${this.props.title} - ${creator}`
+      label: `${this.props.title} - ${creator}`,
     });
   }
 
   handlePublisherClick(event, publisher) {
     this.sendGaEvent({
       action: `Submitter tap`,
-      label: `${this.props.title} - ${publisher}`
+      label: `${this.props.title} - ${publisher}`,
     });
   }
 
   handleTwitterShareClick() {
     this.sendGaEvent({
       action: `Twitter share tap`,
-      transport: `beacon`
+      transport: `beacon`,
     });
   }
 
   handleVisitBtnClick() {
     this.sendGaEvent({
       action: `Visit button tap`,
-      transport: `beacon`
+      transport: `beacon`,
     });
   }
 
@@ -127,7 +127,7 @@ class DetailedProjectCard extends React.Component {
     let classes = classNames(
       "btn btn-primary mb-3 mb-md-0 mr-md-3 d-flex justify-content-center align-items-center",
       {
-        "single-btn": !this.props.getInvolvedUrl
+        "single-btn": !this.props.getInvolvedUrl,
       }
     );
 
@@ -169,7 +169,7 @@ class DetailedProjectCard extends React.Component {
         by{" "}
         <Link
           to={`/profile/${this.props.submitterProfileId}`}
-          onClick={event =>
+          onClick={(event) =>
             this.handlePublisherClick(event, this.props.publishedBy)
           }
         >
@@ -194,7 +194,7 @@ class DetailedProjectCard extends React.Component {
     return (
       <aside
         className="social-panel-wrapper mb-4 pl-md-3 pb-xl-4"
-        ref={socialIcons => {
+        ref={(socialIcons) => {
           this.socialIcons = socialIcons;
         }}
       >
@@ -204,13 +204,13 @@ class DetailedProjectCard extends React.Component {
             className="circle-heart large mr-3 mr-lg-0 mb-lg-2"
             title={this.props.title}
             isBookmarked={this.props.isBookmarked}
-            updateCardBookmarkedState={bookmarked => {
+            updateCardBookmarkedState={(bookmarked) => {
               this.updateCardBookmarkedState(bookmarked);
             }}
           />
           <a
             href={twitterUrl}
-            onClick={evt => this.handleTwitterShareClick(evt)}
+            onClick={(evt) => this.handleTwitterShareClick(evt)}
             className="circle-twitter large"
           />
         </div>
@@ -257,13 +257,13 @@ class DetailedProjectCard extends React.Component {
       "d-none":
         !this.props.getInvolved &&
         !this.props.getInvolvedUrl &&
-        !this.props.helpTypes.length > 0
+        !this.props.helpTypes.length > 0,
     });
 
     return (
       <article
         className="main-content"
-        ref={article => {
+        ref={(article) => {
           this.article = article;
         }}
       >
@@ -282,7 +282,7 @@ class DetailedProjectCard extends React.Component {
                 getInvolved={this.props.getInvolved}
                 getInvolvedUrl={this.props.getInvolvedUrl}
                 helpTypes={this.props.helpTypes}
-                sendGaEvent={config => this.sendGaEvent(config)}
+                sendGaEvent={(config) => this.sendGaEvent(config)}
               />
             </div>
           </div>
@@ -315,7 +315,7 @@ class DetailedProjectCard extends React.Component {
 
   render() {
     let wrapperClassnames = classNames(`project-card detail-view`, {
-      bookmarked: this.state.bookmarked
+      bookmarked: this.state.bookmarked,
     });
 
     return (
@@ -346,11 +346,11 @@ DetailedProjectCard.propTypes = {
   title: PropTypes.string.isRequired,
   contentUrl: PropTypes.string,
   isBookmarked: PropTypes.bool,
-  onDetailView: PropTypes.bool
+  onDetailView: PropTypes.bool,
 };
 
 DetailedProjectCard.defaultProps = {
-  onDetailView: true
+  onDetailView: true,
 };
 
 export default DetailedProjectCard;

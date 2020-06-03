@@ -17,7 +17,7 @@ class NotificationBar extends React.Component {
 }
 
 NotificationBar.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default NotificationBar;

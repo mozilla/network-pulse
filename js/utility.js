@@ -3,7 +3,7 @@ const ISSUE_MAPPING = {
   openness: `Openness`,
   decentralization: `Decentralization`,
   "web-literacy": `Web Literacy`,
-  "digital-inclusion": `Digital Inclusion`
+  "digital-inclusion": `Digital Inclusion`,
 };
 
 const Utils = {
@@ -11,7 +11,7 @@ const Utils = {
   processEntryData(obj) {
     let out = {};
 
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj).forEach((key) => {
       let rekey = key.replace(/_(\w)/g, (a, b) => b.toUpperCase());
 
       out[rekey] = obj[key];
@@ -48,7 +48,9 @@ const Utils = {
 
     return helpTag
       .split(` `)
-      .map(word => encodeURIComponent(word.replace(/&/g, `and`)).toLowerCase())
+      .map((word) =>
+        encodeURIComponent(word.replace(/&/g, `and`)).toLowerCase()
+      )
       .join(`-`);
   },
 
@@ -58,9 +60,9 @@ const Utils = {
 
     return slug
       .split(`-`)
-      .map(word => decodeURIComponent(word.replace(/\band\b/g, `&`)))
+      .map((word) => decodeURIComponent(word.replace(/\band\b/g, `&`)))
       .join(` `);
-  }
+  },
 };
 
 export default Utils;

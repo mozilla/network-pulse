@@ -2,7 +2,7 @@ const LS_BOOKMARKS_KEY = `bookmarks`;
 
 export default {
   bookmarks: {
-    get: function() {
+    get: function () {
       try {
         let bookmarks = localStorage.getItem(LS_BOOKMARKS_KEY);
 
@@ -14,7 +14,7 @@ export default {
         return [];
       }
     },
-    set: function(bookmarksArray) {
+    set: function (bookmarksArray) {
       try {
         let bookmarks = JSON.stringify(bookmarksArray);
 
@@ -23,12 +23,12 @@ export default {
         console.error(err);
       }
     },
-    delete: function() {
+    delete: function () {
       try {
         localStorage.removeItem(LS_BOOKMARKS_KEY);
       } catch (err) {
         console.error(err);
       }
-    }
-  }
+    },
+  },
 };

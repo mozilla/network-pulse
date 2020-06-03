@@ -26,7 +26,7 @@ class Entry extends React.Component {
       user,
       dataLoaded: false,
       justPostedByUser: false,
-      entry: null
+      entry: null,
     };
   }
 
@@ -41,18 +41,18 @@ class Entry extends React.Component {
   fetchData(entryId = ``) {
     Service.entry
       .get(entryId)
-      .then(response => {
+      .then((response) => {
         this.setState({
           dataLoaded: true,
-          entry: response
+          entry: response,
         });
         this.checkIfRedirectedFromFormSubmission();
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         this.setState({
           dataLoaded: true,
-          errorLoadingData: true
+          errorLoadingData: true,
         });
       });
   }
@@ -69,7 +69,7 @@ class Entry extends React.Component {
       delete query.justPostedByUser;
       this.props.history.replace({
         pathname: location.pathname,
-        search: `?${qs.stringify(query)}`
+        search: `?${qs.stringify(query)}`,
       });
     }
 

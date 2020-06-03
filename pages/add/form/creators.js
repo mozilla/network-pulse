@@ -21,7 +21,7 @@ export default class Creators extends AutoCompleteInput {
   toSchema(field) {
     return {
       profile_id: field.id ? field.id : null,
-      name: field.id ? null : field.name
+      name: field.id ? null : field.name,
     };
     // Note: we do not need to strip the profile prefix
     // from the field.name property, as a username with
@@ -33,21 +33,21 @@ export default class Creators extends AutoCompleteInput {
   fetchCompletions(fragment) {
     Service.creators
       .get(fragment)
-      .then(profiles => {
-        let suggestions = profiles.map(creator => {
+      .then((profiles) => {
+        let suggestions = profiles.map((creator) => {
           if (creator.is_active) {
             creator.name = PROFILE_PREFIX + creator.name;
           }
 
           return {
             id: creator.id,
-            name: creator.name
+            name: creator.name,
           };
         });
 
         this.setState({ suggestions });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }

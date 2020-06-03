@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default props => {
+export default (props) => {
   let renderThumbnail = (thumbnail = ``) => {
     let style = {};
 
     if (thumbnail) {
       style = {
-        backgroundImage: `url(${thumbnail})`
+        backgroundImage: `url(${thumbnail})`,
       };
     }
 
@@ -18,10 +18,10 @@ export default props => {
     );
   };
 
-  let renderProfileBlurb = bio => {
+  let renderProfileBlurb = (bio) => {
     if (!bio) return null;
 
-    let paragraphs = bio.split(`\n`).map(paragraph => {
+    let paragraphs = bio.split(`\n`).map((paragraph) => {
       if (!paragraph) return null;
 
       return <p key={paragraph}>{paragraph}</p>;

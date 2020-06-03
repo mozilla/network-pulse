@@ -8,21 +8,21 @@ class ModerationPanel extends React.Component {
 
     this.state = {
       moderationState: this.props.moderationState,
-      featured: this.props.featured
+      featured: this.props.featured,
     };
   }
 
   getModerationStates(input, callback) {
     Service.moderationStates
       .get()
-      .then(data => {
-        let options = data.map(option => {
+      .then((data) => {
+        let options = data.map((option) => {
           return { value: option.id, label: option.name };
         });
 
         callback(null, { options });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -33,7 +33,7 @@ class ModerationPanel extends React.Component {
       .then(() => {
         this.setState({ moderationState: selected });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -46,7 +46,7 @@ class ModerationPanel extends React.Component {
       .then(() => {
         this.setState({ featured: featured });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -62,7 +62,7 @@ class ModerationPanel extends React.Component {
           loadOptions={(input, callback) =>
             this.getModerationStates(input, callback)
           }
-          onChange={selected => this.handleModerationStateChange(selected)}
+          onChange={(selected) => this.handleModerationStateChange(selected)}
           clearable={false}
         />
         <div className="col-sm-4">
@@ -70,7 +70,7 @@ class ModerationPanel extends React.Component {
             <input
               type="checkbox"
               className="d-inline-block mr-2"
-              onChange={event => this.handleFeatureToggleClick(event)}
+              onChange={(event) => this.handleFeatureToggleClick(event)}
               checked={this.state.featured}
             />
             Featured
@@ -83,7 +83,7 @@ class ModerationPanel extends React.Component {
 
 ModerationPanel.defaultProps = {
   id: ``,
-  moderationState: ``
+  moderationState: ``,
 };
 
 export default ModerationPanel;

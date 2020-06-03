@@ -5,7 +5,7 @@ import IssueSelector from "../components/issue-selector/issue-selector.jsx";
 import ProjectLoader from "../components/project-loader/project-loader.jsx";
 import Utility from "../js/utility.js";
 
-export default function(props) {
+export default function (props) {
   const issueParam = decodeURIComponent(props.match.params.issue);
   let issueName = Utility.getIssueNameFromUriPath(issueParam);
 

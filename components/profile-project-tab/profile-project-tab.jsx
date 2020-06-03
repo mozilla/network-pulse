@@ -16,7 +16,7 @@ class ProfileProjectTab extends React.Component {
   getInitialState(props) {
     return {
       profileId: props.profileId,
-      entries: null
+      entries: null,
     };
   }
 
@@ -35,7 +35,7 @@ class ProfileProjectTab extends React.Component {
   fetchProfileEntries() {
     let params = {};
 
-    this.props.projectTypes.forEach(type => {
+    this.props.projectTypes.forEach((type) => {
       params[type] = true;
 
       if (type === `favorited`) {
@@ -44,12 +44,12 @@ class ProfileProjectTab extends React.Component {
     });
 
     Service.profileEntries(this.state.profileId, params)
-      .then(profileEntries => {
+      .then((profileEntries) => {
         this.setState({
-          entries: profileEntries
+          entries: profileEntries,
         });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -164,7 +164,7 @@ ProfileProjectTab.propTypes = {
   profileId: PropTypes.number.isRequired,
   myProfile: PropTypes.bool.isRequired,
   tabName: PropTypes.string.isRequired,
-  projectTypes: PropTypes.array.isRequired
+  projectTypes: PropTypes.array.isRequired,
 };
 
 export default ProfileProjectTab;

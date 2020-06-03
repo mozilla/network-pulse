@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HintMessage from "../components/hint-message/hint-message.jsx";
 
-const NotFound = props => {
+const NotFound = (props) => {
   const { staticContext } = props;
   if (staticContext) {
     staticContext.pageNotFound = true;
@@ -31,12 +31,12 @@ const NotFound = props => {
 NotFound.propTypes = {
   header: PropTypes.string,
   linkComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
-  children: PropTypes.element
+  children: PropTypes.element,
 };
 
 NotFound.defaultProps = {
   header: `Something's wrong`,
-  linkComponent: <Link to={`/featured`}>Explore featured</Link>
+  linkComponent: <Link to={`/featured`}>Explore featured</Link>,
 };
 
 export default NotFound;
