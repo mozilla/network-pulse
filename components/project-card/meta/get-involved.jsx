@@ -46,15 +46,11 @@ class GetInvolved extends React.Component {
   renderHelpLabels() {
     if (!this.props.helpTypes) return null;
 
-    let classes = classNames(`btn btn-tag`, {
-      "btn-xs": this.props.onModerationMode,
-    });
-
     let helpLabels = this.props.helpTypes.map((helpType) => {
       return (
         <Link
           to={`/projects?helpType=${encodeURIComponent(helpType)}`}
-          className={classes}
+          className="btn btn-tag"
           key={helpType}
         >
           {helpType}

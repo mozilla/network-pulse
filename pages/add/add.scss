@@ -120,13 +120,13 @@
 
       &::after {
         content: "\2715";
-        color: $gray;
+        color: $gray-60;
         margin-left: 0.5rem;
       }
 
       &:hover,
       &:focus {
-        border-color: $gray-lighter;
+        border-color: $gray-20;
       }
     }
 
@@ -155,13 +155,13 @@
         padding: 0;
         list-style: none;
         background: $white;
-        border: 1px solid $gray-lighter;
+        border: 1px solid $gray-20;
         border-radius: $btn-border-radius;
         box-shadow: 0 2px 6px transparentize($black, 0.8);
       }
 
       li {
-        border-bottom: 1px solid $gray-lighter;
+        border-bottom: 1px solid $gray-20;
         padding: 6px 8px;
         margin: 0;
 
@@ -171,7 +171,7 @@
 
         &:hover,
         &.is-active {
-          background: $gray-lightest;
+          background: $gray-05;
         }
 
         &.is-disabled {

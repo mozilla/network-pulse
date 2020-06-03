@@ -54,7 +54,7 @@ class Issues extends React.Component {
           <title>Issues</title>
         </Helmet>
         <IssueSelector />
-        <p className="intro">
+        <p className="body-large">
           Mozilla has identified five issues that we believe must be tackled in
           the current era, to build the open internet we want. Tap above to
           browse by issue.
