@@ -20,7 +20,7 @@ class ProjectLoader extends React.Component {
       nextBatchIndex: 1,
       entries: [],
       moreEntriesToFetch: false,
-      totalMatched: null
+      totalMatched: null,
     };
   }
 
@@ -98,10 +98,10 @@ class ProjectLoader extends React.Component {
 
     Service.entries
       .get(bookmarkedOnly, combinedParams, this.promiseToken)
-      .then(data => {
+      .then((data) => {
         this.updateStateWithNewData(data);
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -127,7 +127,7 @@ class ProjectLoader extends React.Component {
       entries: this.state.entries.concat(newEntries),
       nextBatchIndex: nextBatchIndex,
       moreEntriesToFetch: moreEntriesToFetch,
-      totalMatched: data.count
+      totalMatched: data.count,
     };
 
     // store current project list's info in pageSettings
@@ -174,7 +174,7 @@ ProjectLoader.propTypes = {
   showCounter: PropTypes.bool,
   moderationState: PropTypes.object,
   bookmarkedOnly: PropTypes.bool,
-  ids: PropTypes.array
+  ids: PropTypes.array,
 };
 
 export default ProjectLoader;

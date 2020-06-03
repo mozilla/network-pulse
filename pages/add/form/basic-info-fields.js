@@ -15,13 +15,13 @@ export default {
     fieldClassname: `form-control`,
     validator: [
       validator.emptyValueValidator(),
-      validator.maxLengthValidator(80)
+      validator.maxLengthValidator(80),
     ],
     charLimit: 80,
-    charLimitText: function(charCount, charLimit) {
+    charLimitText: function (charCount, charLimit) {
       // show a twitter-style "characters remainig" count
       return charLimit - charCount;
-    }
+    },
   },
   content_url: {
     // required field
@@ -33,7 +33,7 @@ export default {
     ),
     placeholder: `https://example.com`,
     fieldClassname: `form-control`,
-    validator: [validator.emptyValueValidator(), validator.urlValidator()]
+    validator: [validator.emptyValueValidator(), validator.urlValidator()],
   },
   description: {
     type: `textarea`,
@@ -42,8 +42,8 @@ export default {
     fieldClassname: `form-control`,
     validator: validator.maxLengthValidator(600),
     charLimit: 600,
-    charLimitText: function(charCount, charLimit) {
+    charLimitText: function (charCount, charLimit) {
       return charLimit - charCount;
-    }
-  }
+    },
+  },
 };

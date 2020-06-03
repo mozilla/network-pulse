@@ -12,7 +12,7 @@ class ProfileAboutTab extends React.Component {
 
     return this.props.longBio
       .split(`\n`)
-      .map(line => (
+      .map((line) => (
         <ReactMarkdown
           key={line}
           source={line}
@@ -32,7 +32,7 @@ class ProfileAboutTab extends React.Component {
 }
 
 ProfileAboutTab.propTypes = {
-  longBio: PropTypes.string.isRequired
+  longBio: PropTypes.string.isRequired,
 };
 
 export default ProfileAboutTab;

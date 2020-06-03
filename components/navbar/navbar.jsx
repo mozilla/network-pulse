@@ -23,7 +23,7 @@ class NavBar extends React.Component {
     this.state = {
       user,
       burgerActive: false,
-      verified: false
+      verified: false,
     };
   }
 
@@ -41,7 +41,7 @@ class NavBar extends React.Component {
     if (event === `verified`) {
       this.setState({
         user,
-        verified: true
+        verified: true,
       });
     }
   }
@@ -57,7 +57,7 @@ class NavBar extends React.Component {
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
-        onClick={event => this.handleSignInBtnClick(event)}
+        onClick={(event) => this.handleSignInBtnClick(event)}
         className={classes}
       >
         Signin / Signup
@@ -88,7 +88,7 @@ class NavBar extends React.Component {
       category: `Account`,
       action: `Login`,
       label: `Login ${window.location.pathname}`,
-      transport: `beacon`
+      transport: `beacon`,
     });
 
     user.login(utility.getCurrentURL());
@@ -117,7 +117,7 @@ class NavBar extends React.Component {
 
   renderNavContent() {
     let classes = classNames(`nav-link-list px-3 hidden-lg-up dark-theme`, {
-      show: this.state.burgerActive
+      show: this.state.burgerActive,
     });
 
     let content = null;
@@ -132,7 +132,7 @@ class NavBar extends React.Component {
   }
 
   renderNavLinks() {
-    let MainNavLink = props => (
+    let MainNavLink = (props) => (
       <NavLink {...props} onClick={() => this.handleMobileNavLinkClick()}>
         {props.children}
       </NavLink>
@@ -180,7 +180,7 @@ class NavBar extends React.Component {
         <p>Share your projects or help out on other projects in our Network.</p>
         <a
           href={user.getLoginURL(utility.getCurrentURL())}
-          onClick={event => this.handleSignInBtnClick(event)}
+          onClick={(event) => this.handleSignInBtnClick(event)}
           className="btn btn-secondary"
         >
           Signin / Signup
@@ -191,7 +191,7 @@ class NavBar extends React.Component {
 
   renderBurger() {
     let classes = classNames(`burger hidden-md-up ml-md-0`, {
-      "menu-open": this.state.burgerActive
+      "menu-open": this.state.burgerActive,
     });
     return (
       <button className={classes} onClick={() => this.handleBurgerClick()}>

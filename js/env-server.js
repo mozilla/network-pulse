@@ -23,11 +23,11 @@ let envUtilities = {
       PULSE_API_HOST: process.env.PULSE_API_HOST,
       PULSE_API: process.env.PULSE_API,
       PULSE_LOGIN_URL: process.env.PULSE_LOGIN_URL,
-      PULSE_LOGOUT_URL: process.env.PULSE_LOGOUT_URL
+      PULSE_LOGOUT_URL: process.env.PULSE_LOGOUT_URL,
     };
 
     return JSON.stringify(config);
-  }
+  },
 };
 
 let env = process.env;

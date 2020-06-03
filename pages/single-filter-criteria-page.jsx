@@ -38,12 +38,12 @@ class SingleFilterCriteriaPage extends React.Component {
 
 SingleFilterCriteriaPage.propTypes = {
   searchParam: PropTypes.object.isRequired,
-  headerLabel: PropTypes.string.isRequired
+  headerLabel: PropTypes.string.isRequired,
 };
 
 SingleFilterCriteriaPage.defaultProps = {
   searchParam: { key: ``, value: `` },
-  headerLabel: ``
+  headerLabel: ``,
 };
 
 export default SingleFilterCriteriaPage;

@@ -9,7 +9,7 @@ class BookmarkControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false
+      bookmarked: false,
     };
   }
 
@@ -17,7 +17,7 @@ class BookmarkControl extends React.Component {
     let config = {
       category: `Entry`,
       action: action,
-      label: this.props.title
+      label: this.props.title,
     };
 
     if (transport) {
@@ -34,7 +34,7 @@ class BookmarkControl extends React.Component {
   setInitialBookmarkedStatus() {
     if (user.loggedin) {
       this.setState({
-        bookmarked: this.props.isBookmarked
+        bookmarked: this.props.isBookmarked,
       });
 
       return;
@@ -92,7 +92,7 @@ class BookmarkControl extends React.Component {
           callback(null);
         }
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         toggleUI(); // Toggle UI back since changes weren't persisted to server
         if (callback) {
@@ -135,7 +135,7 @@ BookmarkControl.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isBookmarked: PropTypes.bool.isRequired,
-  updateCardBookmarkedState: PropTypes.func.isRequired
+  updateCardBookmarkedState: PropTypes.func.isRequired,
 };
 
 export default BookmarkControl;

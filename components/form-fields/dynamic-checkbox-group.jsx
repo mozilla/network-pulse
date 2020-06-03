@@ -6,7 +6,7 @@ class DynamicCheckboxGroup extends React.Component {
     super(props);
 
     this.state = {
-      selected: props.selectedOptions || []
+      selected: props.selectedOptions || [],
     };
   }
 
@@ -44,7 +44,7 @@ class DynamicCheckboxGroup extends React.Component {
             type="checkbox"
             value={option}
             checked={checked}
-            onChange={event => this.handleCheckboxChange(event)}
+            onChange={(event) => this.handleCheckboxChange(event)}
           />
           {option}
         </label>
@@ -55,7 +55,9 @@ class DynamicCheckboxGroup extends React.Component {
   renderCheckboxes() {
     if (this.props.options.length < 1) return null;
 
-    let options = this.props.options.map(option => this.renderCheckbox(option));
+    let options = this.props.options.map((option) =>
+      this.renderCheckbox(option)
+    );
 
     return <div className="options">{options}</div>;
   }
@@ -66,12 +68,12 @@ class DynamicCheckboxGroup extends React.Component {
 }
 
 DynamicCheckboxGroup.propTypes = {
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 DynamicCheckboxGroup.defaultProps = {
   options: [],
-  selectedOptions: []
+  selectedOptions: [],
 };
 
 export default DynamicCheckboxGroup;

@@ -30,7 +30,7 @@ class Search extends React.Component {
     let criteria = {
       keywordSearched: query.keyword,
       activeTab: props.match.params.tab,
-      helpType: query.helpType
+      helpType: query.helpType,
     };
 
     return criteria;
@@ -40,7 +40,7 @@ class Search extends React.Component {
     // Current UX dictates that either search or help filter can be used, but not both at the same time, so we reset things every time this function gets called
     let criteria = {
       keywordSearched: ``,
-      helpType: ``
+      helpType: ``,
     };
 
     criteria[key] = value;
@@ -54,7 +54,7 @@ class Search extends React.Component {
     let keywordSearched = this.state.keywordSearched;
     let helpType = this.state.helpType;
     let location = {
-      pathname: this.state.activeTab == `people` ? `/people` : `/projects`
+      pathname: this.state.activeTab == `people` ? `/people` : `/projects`,
     };
     let query = {};
 
@@ -77,7 +77,7 @@ class Search extends React.Component {
     ReactGA.event({
       category: `Search`,
       action: `Help filtered`,
-      label: helpType
+      label: helpType,
     });
 
     this.setSearchCriteria(`helpType`, helpType);
@@ -89,7 +89,7 @@ class Search extends React.Component {
     ReactGA.event({
       category: `Search`,
       action: `Keywords entered`,
-      label: keywordsEntered
+      label: keywordsEntered,
     });
 
     this.setSearchCriteria(`keywordSearched`, keywordsEntered);
@@ -127,7 +127,7 @@ class Search extends React.Component {
 
   renderSearchBar() {
     let classes = classNames(`form-control`, {
-      focused: this.state.searchBoxFocused
+      focused: this.state.searchBoxFocused,
     });
 
     return (
@@ -138,8 +138,8 @@ class Search extends React.Component {
             value={this.state.keywordSearched}
             debounceTimeout={300}
             type="search"
-            onChange={event => this.handleInputChange(event)}
-            inputRef={ref => this.setDebounceInput(ref)}
+            onChange={(event) => this.handleInputChange(event)}
+            inputRef={(ref) => this.setDebounceInput(ref)}
             placeholder="Search keywords, people, tags..."
             className={classes}
           />
@@ -160,21 +160,21 @@ class Search extends React.Component {
 
     this.debounceInputElement = ref;
 
-    this.debounceInputElement.addEventListener(`focus`, event => {
+    this.debounceInputElement.addEventListener(`focus`, (event) => {
       this.setState({
-        searchBoxFocused: true
+        searchBoxFocused: true,
       });
     });
 
-    this.debounceInputElement.addEventListener(`blur`, event => {
+    this.debounceInputElement.addEventListener(`blur`, (event) => {
       this.setState({
-        searchBoxFocused: false
+        searchBoxFocused: false,
       });
     });
 
     // Set up bindings so that when this input
     // receives an "enter", we remove focus.
-    this.debounceInputElement.addEventListener(`keyup`, evt => {
+    this.debounceInputElement.addEventListener(`keyup`, (evt) => {
       if (evt.key === `Enter`) {
         this.debounceInputElement.blur();
       }
@@ -182,11 +182,11 @@ class Search extends React.Component {
   }
 
   renderLearnMore() {
-    let handleOnClick = function() {
+    let handleOnClick = function () {
       ReactGA.event({
         category: `Browse`,
         action: `About learn more tap`,
-        label: `Tagline learn more link`
+        label: `Tagline learn more link`,
       });
     };
 
@@ -219,7 +219,7 @@ class Search extends React.Component {
         <div className="col-12 col-lg-4">
           <HelpDropdown
             value={this.state.helpType}
-            helpType={event => this.handleHelpChange(event)}
+            helpType={(event) => this.handleHelpChange(event)}
           />
         </div>
       </div>

@@ -7,11 +7,11 @@ class IssuesField extends React.Component {
     super(props);
     this.state = {
       options: [],
-      selectedOptions: this.props.value
+      selectedOptions: this.props.value,
     };
 
-    Service.issues.get().then(options => {
-      this.setState({ options: options.map(option => option.name) });
+    Service.issues.get().then((options) => {
+      this.setState({ options: options.map((option) => option.name) });
     });
   }
 

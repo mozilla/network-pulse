@@ -33,7 +33,7 @@ class Search extends React.Component {
   getSearchCriteria(props) {
     let query = qs.parse(props.location.search.substring(1));
     let criteria = {
-      keywordSearched: query.keyword
+      keywordSearched: query.keyword,
     };
 
     if (this.props.moderation) {
@@ -43,7 +43,7 @@ class Search extends React.Component {
       }
       criteria.moderationState = {
         value: ``,
-        label: query.moderationstate || DEFAULT_MODERATION_FILTER
+        label: query.moderationstate || DEFAULT_MODERATION_FILTER,
       };
     }
 
@@ -80,7 +80,7 @@ class Search extends React.Component {
     ReactGA.event({
       category: `Search`,
       action: `Keywords entered`,
-      label: keywordsEntered
+      label: keywordsEntered,
     });
 
     this.setState({ keywordSearched: keywordsEntered }, () => {
@@ -100,7 +100,7 @@ class Search extends React.Component {
 
   renderSearchBar() {
     let classnames = classNames(`activated search-bar w-100`, {
-      "mb-0": this.props.moderation
+      "mb-0": this.props.moderation,
     });
 
     return (
@@ -111,8 +111,8 @@ class Search extends React.Component {
             value={this.state.keywordSearched}
             debounceTimeout={300}
             type="search"
-            onChange={event => this.handleInputChange(event)}
-            inputRef={ref => this.setDebounceInput(ref)}
+            onChange={(event) => this.handleInputChange(event)}
+            inputRef={(ref) => this.setDebounceInput(ref)}
             placeholder="Search keywords, people, tags..."
             className="form-control"
           />
@@ -134,7 +134,7 @@ class Search extends React.Component {
     this.debounceInputElement = ref;
     // Set up bindings so that when this input
     // receives an "enter", we remove focus.
-    this.debounceInputElement.addEventListener(`keyup`, evt => {
+    this.debounceInputElement.addEventListener(`keyup`, (evt) => {
       if (evt.key === `Enter`) {
         this.debounceInputElement.blur();
       }
@@ -144,14 +144,14 @@ class Search extends React.Component {
   getModerationStates(input, callback) {
     Service.moderationStates
       .get()
-      .then(mStates => {
-        let options = mStates.map(mState => {
+      .then((mStates) => {
+        let options = mStates.map((mState) => {
           return { value: mState.id, label: mState.name };
         });
 
         callback(null, { options });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
       });
   }
@@ -182,7 +182,7 @@ class Search extends React.Component {
         loadOptions={(input, callback) =>
           this.getModerationStates(input, callback)
         }
-        onChange={selected => this.handleStateFilterChange(selected)}
+        onChange={(selected) => this.handleStateFilterChange(selected)}
       />
     );
   }
@@ -193,7 +193,7 @@ class Search extends React.Component {
         <input
           type="checkbox"
           className="d-inline-block mr-2"
-          onChange={event => this.handleFeaturedFilterChange(event)}
+          onChange={(event) => this.handleFeaturedFilterChange(event)}
           checked={this.state.featured === `True`}
         />
         Featured only

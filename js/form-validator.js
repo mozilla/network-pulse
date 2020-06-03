@@ -4,17 +4,17 @@ const FormValidator = {
   emptyValueValidator() {
     return {
       error: `This field cannot be left blank.`,
-      validate: function(value) {
+      validate: function (value) {
         return !value;
-      }
+      },
     };
   },
   maxLengthValidator(maxCharLength) {
     return {
       error: `Maximum ${maxCharLength} characters.`,
-      validate: function(value) {
+      validate: function (value) {
         return value && value.length > maxCharLength;
-      }
+      },
     };
   },
   urlValidator(type = ``) {
@@ -25,7 +25,7 @@ const FormValidator = {
 
     return {
       error: error,
-      validate: function(value) {
+      validate: function (value) {
         if (!value) return false;
 
         try {
@@ -41,13 +41,13 @@ const FormValidator = {
           // Do nothing.
           // To check if a field is empty or not use Validator.emptyValueValidator() instead.
         }
-      }
+      },
     };
   },
   imageTypeValidator() {
     return {
       error: `Only JPG, JPEG, PNG, GIF, or SVG files are accepted.`,
-      validate: function(value) {
+      validate: function (value) {
         if (!value) {
           return;
         }
@@ -61,13 +61,13 @@ const FormValidator = {
 
           return allowedExtensions.indexOf(extension) < 0;
         }
-      }
+      },
     };
   },
   imageSizeValidator() {
     return {
       error: `File size is over 500KB.`,
-      validate: function(value) {
+      validate: function (value) {
         if (!value) {
           return;
         }
@@ -79,13 +79,13 @@ const FormValidator = {
         if (base64String && base64String.length > (4 / 3) * sizeLimit) {
           return new Error(`File size is over 500KB.`);
         }
-      }
+      },
     };
   },
   imageFilenameValidator() {
     return {
       error: `File name is over 2048 characters long.`,
-      validate: function(value) {
+      validate: function (value) {
         if (!value) {
           return;
         }
@@ -94,9 +94,9 @@ const FormValidator = {
         if (fileName && fileName.length > 2048) {
           return new Error(`File name is over 2048 characters long.`);
         }
-      }
+      },
     };
-  }
+  },
 };
 
 export default FormValidator;

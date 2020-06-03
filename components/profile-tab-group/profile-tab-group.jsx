@@ -8,7 +8,7 @@ import ProfileProjectTab from "../../components/profile-project-tab/profile-proj
 const PROJECT_TYPES_BY_TAB_NAME = {
   about: [], // a tab to show user's long bio
   projects: [`published`, `created`], // a tab to show projects
-  favs: [`favorited`] // a tab to show user's favourited projects
+  favs: [`favorited`], // a tab to show user's favourited projects
 };
 
 class ProfileTabGroup extends React.Component {
@@ -23,7 +23,7 @@ class ProfileTabGroup extends React.Component {
     let activeTab;
     let states = {
       activeTab,
-      availableTabs
+      availableTabs,
     };
 
     // this profile doesn't have any available tabs to show
@@ -52,7 +52,7 @@ class ProfileTabGroup extends React.Component {
   getAvailableTabs(props) {
     // returns a list of names of the tabs that are available for this profile
 
-    return Object.keys(PROJECT_TYPES_BY_TAB_NAME).filter(tab => {
+    return Object.keys(PROJECT_TYPES_BY_TAB_NAME).filter((tab) => {
       // show "about" tab only when there's long bio to available to show
       if (tab === `about`) {
         return !!props.userBioLong;
@@ -65,16 +65,16 @@ class ProfileTabGroup extends React.Component {
       return (
         props.myProfile ||
         PROJECT_TYPES_BY_TAB_NAME[tab].some(
-          type => props.entryCount[type] && props.entryCount[type] > 0
+          (type) => props.entryCount[type] && props.entryCount[type] > 0
         )
       );
     });
   }
 
   renderTabControls() {
-    let tabControls = this.state.availableTabs.map(tabName => {
+    let tabControls = this.state.availableTabs.map((tabName) => {
       let classnames = classNames(`btn btn-tab`, {
-        active: this.state.activeTab === tabName
+        active: this.state.activeTab === tabName,
       });
 
       return (
@@ -98,7 +98,7 @@ class ProfileTabGroup extends React.Component {
         <Redirect
           to={{
             pathname: `/profile/${this.props.profileId}`,
-            state: { activeTab: this.state.availableTabs[0] }
+            state: { activeTab: this.state.availableTabs[0] },
           }}
         />
       );
@@ -146,11 +146,11 @@ ProfileTabGroup.propTypes = {
   myProfile: PropTypes.bool.isRequired,
   entryCount: PropTypes.object.isRequired,
   userBioLong: PropTypes.string,
-  activeTab: PropTypes.string
+  activeTab: PropTypes.string,
 };
 
 ProfileTabGroup.defaultProps = {
-  entryCount: {}
+  entryCount: {},
 };
 
 export default ProfileTabGroup;

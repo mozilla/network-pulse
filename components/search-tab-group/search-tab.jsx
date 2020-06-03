@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-export default (Loader, type) => props => {
+export default (Loader, type) => (props) => {
   const { keywordSearched, helpType } = props;
   type = type.toLowerCase();
 

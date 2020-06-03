@@ -7,12 +7,12 @@ const ISSUES = [
   `Digital Inclusion`,
   `Privacy & Security`,
   `Openness`,
-  `Web Literacy`
+  `Web Literacy`,
 ];
 
 class IssueSelector extends React.Component {
   renderIssueLinks() {
-    return ISSUES.map(issueName => {
+    return ISSUES.map((issueName) => {
       let linkTo = `/issues/${Utility.getUriPathFromIssueName(issueName)}`;
       return (
         <NavLink className="btn btn-tag" to={linkTo} key={issueName}>
