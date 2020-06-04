@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const Description = props => {
-  let paragraphs = props.description.split(`\n`).map(paragraph => {
+const Description = (props) => {
+  let paragraphs = props.description.split(`\n`).map((paragraph) => {
     if (!paragraph) return null;
 
     return (
@@ -23,11 +23,11 @@ const Description = props => {
 };
 
 Description.propTypes = {
-  Description: PropTypes.string
+  Description: PropTypes.string,
 };
 
 Description.defaultProps = {
-  Description: ``
+  Description: ``,
 };
 
 export default Description;

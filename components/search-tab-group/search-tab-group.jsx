@@ -26,7 +26,7 @@ class SearchTabGroup extends React.PureComponent {
   getInitialState(props) {
     let activeTab;
     let states = {
-      activeTab
+      activeTab,
     };
 
     // when there are no available tabs to show
@@ -52,9 +52,9 @@ class SearchTabGroup extends React.PureComponent {
   }
 
   renderTabControls() {
-    let tabControls = this.availableTabs.map(tabName => {
+    let tabControls = this.availableTabs.map((tabName) => {
       let classnames = classNames(`btn btn-tab`, {
-        active: this.state.activeTab === tabName
+        active: this.state.activeTab === tabName,
       });
 
       let to = `/${tabName}`;
@@ -71,7 +71,7 @@ class SearchTabGroup extends React.PureComponent {
     });
 
     let tabContainerClasses = classNames(`tab-control-container mb-4`, {
-      "d-none": this.props.helpType
+      "d-none": this.props.helpType,
     });
 
     if (this.props.keywordSearched) {
@@ -86,7 +86,7 @@ class SearchTabGroup extends React.PureComponent {
         <Redirect
           to={{
             pathname: `/`,
-            state: { activeTab: this.availableTabs[0] }
+            state: { activeTab: this.availableTabs[0] },
           }}
         />
       );
@@ -97,7 +97,7 @@ class SearchTabGroup extends React.PureComponent {
       this.state.activeTab
     )({
       keywordSearched: this.props.keywordSearched,
-      helpType: this.props.helpType
+      helpType: this.props.helpType,
     });
   }
 
@@ -114,11 +114,11 @@ class SearchTabGroup extends React.PureComponent {
 SearchTabGroup.propTypes = {
   activeTab: PropTypes.string,
   keywordSearched: PropTypes.string,
-  helpType: PropTypes.string
+  helpType: PropTypes.string,
 };
 
 SearchTabGroup.defaultProps = {
-  keywordSearched: ``
+  keywordSearched: ``,
 };
 
 export default SearchTabGroup;

@@ -1,7 +1,7 @@
 // Posting to Basket
 // Doc: https://basket.readthedocs.io/newsletter_api.html#news-subscribe
 
-var basketSignup = function(transaction, onSuccess, onFail) {
+var basketSignup = function (transaction, onSuccess, onFail) {
   var params = new URLSearchParams();
   params.append(`fmt`, `H`); // format
   params.append(`newsletters`, `mozilla-foundation`);
@@ -14,12 +14,12 @@ var basketSignup = function(transaction, onSuccess, onFail) {
     method: `POST`,
     headers: {
       "Content-Type": `application/x-www-form-urlencoded`,
-      "X-Requested-With": `XMLHttpRequest`
+      "X-Requested-With": `XMLHttpRequest`,
     },
-    body: params.toString()
+    body: params.toString(),
   })
-    .then(response => response.json())
-    .then(response => {
+    .then((response) => response.json())
+    .then((response) => {
       // throw error if Basket responded with errors
       if (!response.success) {
         throw new Error(response.errors);
@@ -29,7 +29,7 @@ var basketSignup = function(transaction, onSuccess, onFail) {
         onSuccess();
       }
     })
-    .catch(error => {
+    .catch((error) => {
       if (onFail) {
         onFail(error);
       }

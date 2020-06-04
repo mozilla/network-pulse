@@ -28,7 +28,7 @@ class NavLink extends React.Component {
 
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default NavLink;

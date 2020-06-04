@@ -1,6 +1,6 @@
 import React from "react";
 
-export default props => {
+export default (props) => {
   if (props.totalMatched === null) return null;
 
   let counterText = `${props.totalMatched} result${

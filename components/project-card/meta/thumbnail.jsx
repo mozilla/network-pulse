@@ -44,12 +44,12 @@ class Thumbnail extends React.Component {
 Thumbnail.propTypes = {
   thumbnail: PropTypes.string,
   link: PropTypes.string,
-  sendGaEvent: PropTypes.func
+  sendGaEvent: PropTypes.func,
 };
 
 Thumbnail.defaultProps = {
   link: ``,
-  sendGaEvent: function() {}
+  sendGaEvent: function () {},
 };
 
 export default Thumbnail;

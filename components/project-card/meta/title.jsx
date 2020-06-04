@@ -36,13 +36,13 @@ class Title extends React.Component {
 Title.propTypes = {
   title: PropTypes.string.isRequired,
   link: PropTypes.string,
-  sendGaEvent: PropTypes.func
+  sendGaEvent: PropTypes.func,
 };
 
 Title.defaultProps = {
   title: ``,
   link: ``,
-  sendGaEvent: function() {}
+  sendGaEvent: function () {},
 };
 
 export default Title;

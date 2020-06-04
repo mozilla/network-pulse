@@ -1,10 +1,25 @@
+// colors
+
 $pulse-pink: #ff506e;
 $pulse-purple: #a56eff;
 $pulse-light-blue: #dbdcff;
 
+$form-error-color: #d24735;
+
+// spacing
+
+$form-field-mb-sm: 24px;
+$form-field-mb-lg: 48px;
+$form-check-input-margin-x: 0.5rem;
+
+// sizing
+
+$large-text-area: 11.25em;
+
+// z indices
 $z-indices: (
   join-us-modal: 4,
   nav-link-list: 3,
   btn-add: 2,
-  featured-flag: 1
+  featured-flag: 1,
 );

@@ -15,7 +15,7 @@ let IssuesLabel = () => {
   );
 };
 
-export default function(showLongBio) {
+export default function (showLongBio) {
   let fields = {
     custom_name: {
       type: `text`,
@@ -28,8 +28,8 @@ export default function(showLongBio) {
       fieldClassname: `form-control`,
       validator: [
         validator.emptyValueValidator(),
-        validator.maxLengthValidator(70)
-      ]
+        validator.maxLengthValidator(70),
+      ],
     },
     user_bio: {
       type: `textarea`,
@@ -45,9 +45,9 @@ export default function(showLongBio) {
       fieldClassname: `form-control`,
       validator: [validator.maxLengthValidator(140)],
       charLimit: 140,
-      charLimitText: function(charCount, charLimit) {
+      charLimitText: function (charCount, charLimit) {
         return charLimit - charCount;
-      }
+      },
     },
     twitter: {
       type: `text`,
@@ -55,7 +55,7 @@ export default function(showLongBio) {
       placeholder: `https://twitter.com/username`,
       labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
-      validator: [validator.urlValidator(`Twitter`)]
+      validator: [validator.urlValidator(`Twitter`)],
     },
     linkedin: {
       type: `text`,
@@ -63,7 +63,7 @@ export default function(showLongBio) {
       placeholder: `https://linkedin.com/in/username`,
       labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
-      validator: [validator.urlValidator(`LinkedIn`)]
+      validator: [validator.urlValidator(`LinkedIn`)],
     },
     github: {
       type: `text`,
@@ -71,7 +71,7 @@ export default function(showLongBio) {
       placeholder: `https://github.com/username`,
       labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
-      validator: [validator.urlValidator(`GitHub`)]
+      validator: [validator.urlValidator(`GitHub`)],
     },
     website: {
       type: `text`,
@@ -79,7 +79,7 @@ export default function(showLongBio) {
       placeholder: `https://example.com`,
       labelClassname: `h5-heading`,
       fieldClassname: `form-control`,
-      validator: [validator.urlValidator()]
+      validator: [validator.urlValidator()],
     },
     thumbnail: {
       type: `image`,
@@ -87,7 +87,8 @@ export default function(showLongBio) {
         <div className="h5-heading profile-image">
           Profile pic{" "}
           <span className="hint-text">
-            (only submit photos you have permission to use in this context)
+            (Only submit photos you have permission to use in this context)
+            (Maximum file size is 500KB.)
           </span>
         </div>
       ),
@@ -96,21 +97,21 @@ export default function(showLongBio) {
       validator: [
         validator.imageTypeValidator(),
         validator.imageSizeValidator(),
-        validator.imageFilenameValidator()
-      ]
+        validator.imageFilenameValidator(),
+      ],
     },
     location: {
       type: `text`,
       label: `Your location`,
       placeholder: `City, State, Country`,
       labelClassname: `h5-heading`,
-      fieldClassname: `form-control`
+      fieldClassname: `form-control`,
     },
     issues: {
       type: IssuesField,
       label: <IssuesLabel />,
-      colCount: 1
-    }
+      colCount: 1,
+    },
   };
 
   if (showLongBio) {
@@ -122,9 +123,9 @@ export default function(showLongBio) {
       fieldClassname: `form-control`,
       validator: [validator.maxLengthValidator(4096)],
       charLimit: 4096,
-      charLimitText: function(charCount, charLimit) {
+      charLimitText: function (charCount, charLimit) {
         return charLimit - charCount;
-      }
+      },
     };
   }
 

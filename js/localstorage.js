@@ -16,7 +16,7 @@ if (typeof localStorage !== `undefined`) {
     },
     removeItem(key) {
       delete data[key];
-    }
+    },
   };
 }
 

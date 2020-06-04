@@ -36,20 +36,20 @@ const Latest = () => {
   );
 };
 
-const Help = router => {
+const Help = (router) => {
   let searchParam = {
     key: `help_type`,
-    value: decodeURIComponent(router.match.params.helpType)
+    value: decodeURIComponent(router.match.params.helpType),
   };
   return (
     <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Help" />
   );
 };
 
-const Tag = router => {
+const Tag = (router) => {
   let searchParam = {
     key: `tag`,
-    value: decodeURIComponent(router.match.params.tag)
+    value: decodeURIComponent(router.match.params.tag),
   };
   return (
     <SingleFilterCriteriaPage searchParam={searchParam} headerLabel="Tag" />
@@ -61,14 +61,14 @@ const Routes = () => (
     <Route exact path="/" component={Search} />
     <Route
       path="/search/:tab"
-      render={props => (
+      render={(props) => (
         <Redirect to={`/${props.match.params.tab}${props.location.search}`} />
       )}
     />
     <Route
       exact
       path="/search"
-      render={props => <Redirect to={`/projects${props.location.search}`} />}
+      render={(props) => <Redirect to={`/projects${props.location.search}`} />}
     />
     <Route path="/:tab(people|projects)" component={Search} />
     <Redirect exact path="/featured" to="/" />

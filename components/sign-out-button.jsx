@@ -13,12 +13,12 @@ class SignOutButton extends React.Component {
     ReactGA.event({
       category: `Account`,
       action: `Logout`,
-      label: `Logout ${window.location.pathname}`
+      label: `Logout ${window.location.pathname}`,
     });
 
     this.props.user.logout();
     this.props.history.push({
-      pathname: `/featured`
+      pathname: `/featured`,
     });
   }
 
@@ -26,7 +26,7 @@ class SignOutButton extends React.Component {
     return (
       <button
         className={`btn btn-link inline-link ${this.props.className}`}
-        onClick={event => this.handleLogOutBtnClick(event)}
+        onClick={(event) => this.handleLogOutBtnClick(event)}
       >
         Sign out
       </button>
@@ -36,7 +36,7 @@ class SignOutButton extends React.Component {
 
 SignOutButton.propTypes = {
   user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 export default SignOutButton;

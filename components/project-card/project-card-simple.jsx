@@ -19,7 +19,7 @@ class ProjectCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookmarked: false
+      bookmarked: false,
     };
   }
 
@@ -28,7 +28,7 @@ class ProjectCard extends React.Component {
       {
         category: `Entry`,
         action: ``,
-        label: this.props.title
+        label: this.props.title,
       },
       config
     );
@@ -45,7 +45,7 @@ class ProjectCard extends React.Component {
   setInitialBookmarkedStatus() {
     if (user.loggedin) {
       this.setState({
-        bookmarked: this.props.isBookmarked
+        bookmarked: this.props.isBookmarked,
       });
 
       return;
@@ -66,13 +66,13 @@ class ProjectCard extends React.Component {
   handleCreatorClick(event, creator) {
     this.sendGaEvent({
       action: `Creator tap`,
-      label: `${this.props.title} - ${creator}`
+      label: `${this.props.title} - ${creator}`,
     });
   }
 
   handleReadMoreClick() {
     this.sendGaEvent({
-      action: `Read More`
+      action: `Read More`,
     });
   }
 
@@ -84,7 +84,7 @@ class ProjectCard extends React.Component {
         id={this.props.id}
         title={this.props.title}
         isBookmarked={this.props.isBookmarked}
-        updateCardBookmarkedState={bookmarked => {
+        updateCardBookmarkedState={(bookmarked) => {
           this.updateCardBookmarkedState(bookmarked);
         }}
         className="heart align-middle"
@@ -115,8 +115,7 @@ class ProjectCard extends React.Component {
           getInvolved={this.props.getInvolved}
           getInvolvedUrl={this.props.getInvolvedUrl}
           helpTypes={this.props.helpTypes}
-          sendGaEvent={config => this.sendGaEvent(config)}
-          onModeration={true}
+          sendGaEvent={(config) => this.sendGaEvent(config)}
           className="py-3 my-4"
         />
       </div>
@@ -128,8 +127,8 @@ class ProjectCard extends React.Component {
 
     let urls = [
       { label: `Link`, link: this.props.contentUrl },
-      { label: `Help`, link: this.props.getInvolvedUrl }
-    ].map(url => {
+      { label: `Help`, link: this.props.getInvolvedUrl },
+    ].map((url) => {
       return (
         url.link && (
           <li key={url.label}>
@@ -177,7 +176,7 @@ class ProjectCard extends React.Component {
     let classnames = classNames(`project-card`, {
       "regular-list-mode": !this.props.onModerationMode,
       "moderation-mode": this.props.onModerationMode,
-      bookmarked: this.state.bookmarked
+      bookmarked: this.state.bookmarked,
     });
 
     let detailViewLink = `/entry/${this.props.id}`;
@@ -228,11 +227,11 @@ ProjectCard.propTypes = {
   description: PropTypes.string,
   thumbnail: PropTypes.string,
   title: PropTypes.string.isRequired,
-  isBookmarked: PropTypes.bool
+  isBookmarked: PropTypes.bool,
 };
 
 ProjectCard.defaultProps = {
-  moderationState: undefined // id of the moderation state
+  moderationState: undefined, // id of the moderation state
 };
 
 export default ProjectCard;

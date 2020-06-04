@@ -19,19 +19,19 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 const request = (url, options, postData = ``) => {
   return new Promise((resolve, reject) => {
     let req = https
-      .request(url, options, res => {
+      .request(url, options, (res) => {
         let body = "";
         let statusCode = res.statusCode;
         if (statusCode !== 200) {
           throw new Error(`Status ${statusCode}`);
         }
 
-        res.on("data", chunk => (body += chunk));
+        res.on("data", (chunk) => (body += chunk));
         res.on("end", () => {
           resolve(body);
         });
       })
-      .on("error", e => {
+      .on("error", (e) => {
         reject(e);
       });
 
@@ -51,12 +51,12 @@ const postToSlack = () => {
     {
       method: "POST",
       header: { "Content-Type": "application/json" },
-      "Content-Length": data.length
+      "Content-Length": data.length,
     },
     data
   )
     .then(() => {})
-    .catch(sError => {
+    .catch((sError) => {
       console.log(sError);
     });
 };
@@ -76,25 +76,25 @@ let slack_payload = {
         {
           type: "button",
           text: "View review app",
-          url: `https://${reviewapp_name}.herokuapp.com`
+          url: `https://${reviewapp_name}.herokuapp.com`,
         },
         {
           type: "button",
           text: "View branch on Github",
-          url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`
-        }
-      ]
-    }
-  ]
+          url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`,
+        },
+      ],
+    },
+  ],
 };
 
 if (pr_number) {
   request(`https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}`, {
     method: "GET",
     headers: { "User-Agent": "request" },
-    Authorization: `token ${github_token}`
+    Authorization: `token ${github_token}`,
   })
-    .then(gBody => {
+    .then((gBody) => {
       const pr_title = JSON.parse(gBody)["title"];
 
       let color = "#7CD197";
@@ -119,21 +119,21 @@ if (pr_number) {
               {
                 type: "button",
                 text: "View review app",
-                url: `https://${reviewapp_name}.herokuapp.com`
+                url: `https://${reviewapp_name}.herokuapp.com`,
               },
               {
                 type: "button",
                 text: "View PR on Github",
-                url: `https://github.com/mozilla/network-pulse/pull/${pr_number}`
-              }
-            ]
-          }
-        ]
+                url: `https://github.com/mozilla/network-pulse/pull/${pr_number}`,
+              },
+            ],
+          },
+        ],
       };
 
       postToSlack(slack_payload);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 } else {

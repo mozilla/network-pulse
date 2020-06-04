@@ -30,7 +30,7 @@ class Add extends React.Component {
       authError: false,
       serverError: false,
       submitting: false,
-      showFormInvalidNotice: false
+      showFormInvalidNotice: false,
     };
   }
 
@@ -38,7 +38,7 @@ class Add extends React.Component {
     if (nextState.showFormInvalidNotice) {
       ReactGA.event({
         category: `Add new`,
-        action: `Submit error`
+        action: `Submit error`,
       });
     }
   }
@@ -66,7 +66,7 @@ class Add extends React.Component {
       category: `Account`,
       action: `Login`,
       label: `Login ${window.location.pathname}`,
-      transport: `beacon`
+      transport: `beacon`,
     });
 
     user.login(utility.getCurrentURL());
@@ -85,16 +85,16 @@ class Add extends React.Component {
       formValues,
       // hide notice once user starts typing again
       // this is a quick fix. for context see https://github.com/mozilla/network-pulse/pull/560
-      showFormInvalidNotice: false
+      showFormInvalidNotice: false,
     });
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
 
-    this.refs.basicForm.validates(basicFormIsValid => {
-      this.refs.detailForm.validates(detailFormIsValid => {
-        this.refs.getHelpForm.validates(getHelpFormIsValid => {
+    this.refs.basicForm.validates((basicFormIsValid) => {
+      this.refs.detailForm.validates((detailFormIsValid) => {
+        this.refs.getHelpForm.validates((getHelpFormIsValid) => {
           if (!basicFormIsValid) {
             console.error(`basic form does not pass validation!`);
           }
@@ -115,7 +115,7 @@ class Add extends React.Component {
           this.setState(
             {
               showFormInvalidNotice: false,
-              submitting: true
+              submitting: true,
             },
             () => this.postEntry(this.state.formValues)
           );
@@ -127,13 +127,13 @@ class Add extends React.Component {
   handlePostSuccess(entryId) {
     ReactGA.event({
       category: `Add new`,
-      action: `Submit success`
+      action: `Submit success`,
     });
 
     let pathname = `/submitted`;
     let query = qs.parse(this.props.location.search.substring(1));
 
-    this.getSubmittedEntry(entryId, approved => {
+    this.getSubmittedEntry(entryId, (approved) => {
       if (approved) {
         pathname = `/entry/${entryId}`;
         query.justPostedByUser = true;
@@ -149,7 +149,7 @@ class Add extends React.Component {
       .then(() => {
         sendApprovedStatus(true);
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         sendApprovedStatus(false);
       });
@@ -158,19 +158,19 @@ class Add extends React.Component {
   updateHistory(pathname, query) {
     this.props.history.push({
       pathname,
-      search: `?${qs.stringify(query)}`
+      search: `?${qs.stringify(query)}`,
     });
   }
 
   postEntry(entryData) {
     Service.entries
       .post(entryData)
-      .then(response => {
+      .then((response) => {
         this.handlePostSuccess(response.id);
       })
-      .catch(reason => {
+      .catch((reason) => {
         this.setState({
-          serverError: true
+          serverError: true,
         });
         console.error(reason);
       });
@@ -257,7 +257,7 @@ class Add extends React.Component {
             <button
               className="btn btn-primary mr-3"
               type="submit"
-              onClick={evt => this.handleFormSubmit(evt)}
+              onClick={(evt) => this.handleFormSubmit(evt)}
               disabled={this.state.submitting ? `disabled` : null}
             >
               {this.state.submitting ? SUBMITTING_LABEL : PRE_SUBMIT_LABEL}
@@ -278,7 +278,7 @@ class Add extends React.Component {
     let linkComponent = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
-        onClick={event => this.handleSignInBtnClick(event)}
+        onClick={(event) => this.handleSignInBtnClick(event)}
       >
         Sign in with Github or Google
       </a>

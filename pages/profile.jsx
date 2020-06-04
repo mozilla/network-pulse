@@ -18,7 +18,7 @@ class Profile extends React.Component {
       user,
       userProfile: null,
       showLoadingNotice: true,
-      activeTab: props.match.params.tab
+      activeTab: props.match.params.tab,
     };
   }
 
@@ -26,7 +26,7 @@ class Profile extends React.Component {
     user.addListener(this);
     user.verify(this.props.location, this.props.history);
 
-    this.fetchProfile(this.props.match.params.id, newState => {
+    this.fetchProfile(this.props.match.params.id, (newState) => {
       this.setState(newState);
     });
   }
@@ -41,7 +41,7 @@ class Profile extends React.Component {
 
     if (diffProfile) {
       this.setState(this.getInitialState(nextProps), () => {
-        this.fetchProfile(nextProps.match.params.id, newState => {
+        this.fetchProfile(nextProps.match.params.id, (newState) => {
           this.setState(newState);
         });
       });
@@ -54,16 +54,16 @@ class Profile extends React.Component {
 
   fetchProfile(profileId, response) {
     Service.profile(profileId)
-      .then(userProfile => {
+      .then((userProfile) => {
         response({
           userProfile,
-          showLoadingNotice: false
+          showLoadingNotice: false,
         });
       })
-      .catch(reason => {
+      .catch((reason) => {
         console.error(reason);
         response({
-          showLoadingNotice: false
+          showLoadingNotice: false,
         });
       });
   }

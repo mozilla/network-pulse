@@ -5,7 +5,7 @@ import validator from "./validator";
 import Creators from "./creators";
 import Tags from "./tags";
 
-const IssuesLabel = function() {
+const IssuesLabel = function () {
   return (
     <div className="form-label mb-0">
       Check any{" "}
@@ -22,29 +22,29 @@ export default {
     type: `checkbox`,
     label: `Yes`,
     fieldClassname: `published-by-creator`,
-    guideText: `Are you one of the creators?`
+    guideText: `Are you one of the creators?`,
   },
   related_creators: {
     type: Creators,
     label: `Name any creators, contributors, partners. Comma separated.`,
-    fieldClassname: `form-control`
+    fieldClassname: `form-control`,
   },
   interest: {
     type: `text`,
     label: `Why might this be interesting to other people in our network?`,
     placeholder: ``,
     fieldClassname: `form-control`,
-    validator: validator.maxLengthValidator(300)
+    validator: validator.maxLengthValidator(300),
   },
   issues: {
     type: IssuesField,
     label: <IssuesLabel />,
-    colCount: 1
+    colCount: 1,
   },
   tags: {
     type: Tags,
     label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
-    fieldClassname: `form-control`
+    fieldClassname: `form-control`,
   },
   thumbnail: {
     type: `image`,
@@ -52,7 +52,8 @@ export default {
       <div>
         Project image{" "}
         <span className="hint-text">
-          (only submit images that you have permission to use in this context)
+          (Only submit images that you have permission to use in this context.)
+          (Maximum file size is 500KB.)
         </span>
       </div>
     ),
@@ -62,7 +63,7 @@ export default {
     validator: [
       validator.imageTypeValidator(),
       validator.imageSizeValidator(),
-      validator.imageFilenameValidator()
-    ]
-  }
+      validator.imageFilenameValidator(),
+    ],
+  },
 };

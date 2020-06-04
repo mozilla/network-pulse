@@ -7,7 +7,7 @@ class HintMessage extends React.Component {
     if (!this.props.linkComponent) return null;
 
     return React.cloneElement(this.props.linkComponent, {
-      className: classNames(`btn`, `btn-secondary`)
+      className: classNames(`btn`, `btn-secondary`),
     });
   }
 
@@ -25,7 +25,7 @@ class HintMessage extends React.Component {
 HintMessage.propTypes = {
   header: PropTypes.string.isRequired,
   linkComponent: PropTypes.oneOfType([PropTypes.bool, PropTypes.element])
-    .isRequired
+    .isRequired,
 };
 
 export default HintMessage;
