@@ -38,6 +38,10 @@ This starts server in development mode. See [environment variables section](http
 #### `npm test`
 This starts a few test scripts. Don't forget to run this command and fix errors (if any) before you git push your changes.
 
+##### Fixing linting errors
+
+If `npm test` yields linting errors, you can run `npm run fix` to have the style linters try to automatically fix any linting issues. This should almost always be enough to fix any linting errors.
+
 #### `npm optimize`
 This starts a few image optimization scripts.
 
