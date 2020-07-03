@@ -159,12 +159,11 @@ export default class AutoCompleteInput extends Component {
           tags={this.state.data}
           suggestions={this.getFilteredSuggestions()}
           allowNew={true}
-          autofocus={false}
           delimiters={DELIMITERS}
-          handleDelete={(...args) => this.handleDelete(...args)}
-          handleAddition={(...args) => this.handleAddition(...args)}
-          handleInputChange={(...args) => this.handleInputChange(...args)}
-          placeholder={placeholder}
+          onDelete={(...args) => this.handleDelete(...args)}
+          onAddition={(...args) => this.handleAddition(...args)}
+          onInput={(...args) => this.handleInputChange(...args)}
+          placeholderText={placeholder}
           classNames={{
             root: `react-tags form-control d-flex flex-column flex-sm-row`,
             selectedTag: `selected-tag btn btn-sm mr-sm-2 my-1`,
