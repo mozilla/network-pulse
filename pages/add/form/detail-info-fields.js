@@ -26,7 +26,7 @@ export default {
   },
   related_creators: {
     type: Creators,
-    label: `Name any creators, contributors, partners. Comma separated.`,
+    label: `Name any creators, contributors, partners. Comma-separated.`,
     fieldClassname: `form-control`,
   },
   interest: {
@@ -43,7 +43,7 @@ export default {
   },
   tags: {
     type: Tags,
-    label: `Tags: Comma separated. Spaces are ok. Issues are added automatically.`,
+    label: `Tags: Comma-separated. Spaces in tag names are ok. Issues are added automatically.`,
     fieldClassname: `form-control`,
   },
   thumbnail: {

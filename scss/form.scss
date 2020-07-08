@@ -79,15 +79,12 @@ span.char-limit {
   border-radius: 0;
   padding: 0.75rem;
   border-color: $gray-20;
+  height: auto;
 
   &:focus,
   &:active {
     border-color: $light-blue;
     box-shadow: none;
-  }
-
-  @media (min-width: $bp-md) {
-    padding: 1.0625rem 0.75rem;
   }
 }
 
