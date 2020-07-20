@@ -19,19 +19,19 @@ const slack_webhook = process.env.SLACK_WEBHOOK;
 const request = (url, options, postData = ``) => {
   return new Promise((resolve, reject) => {
     let req = https
-      .request(url, options, (res) => {
+      .request(url, options, res => {
         let body = "";
         let statusCode = res.statusCode;
-        if (statusCode !== 200) {
-          throw new Error(`Status ${statusCode}`);
-        }
 
-        res.on("data", (chunk) => (body += chunk));
+        res.on("data", chunk => (body += chunk));
         res.on("end", () => {
+          if (statusCode !== 200) {
+            throw new Error(`Status ${statusCode}\n Error message: ${body}`);
+          }
           resolve(body);
         });
       })
-      .on("error", (e) => {
+      .on("error", e => {
         reject(e);
       });
 
@@ -51,89 +51,103 @@ const postToSlack = () => {
     {
       method: "POST",
       header: { "Content-Type": "application/json" },
-      "Content-Length": data.length,
+      "Content-Length": data.length
     },
     data
   )
     .then(() => {})
-    .catch((sError) => {
+    .catch(sError => {
       console.log(sError);
     });
 };
 
+// Review apps created from Heroku to deploy a branch
 let slack_payload = {
-  attachments: [
+  blocks: [
     {
-      fallback: `New review app deployed: It will be ready in a minute!\n
-                        Branch: ${branch_name}\n
-                        Login: use your staging credentials\n
-                        URL: https://${reviewapp_name}.herokuapp.com`,
-      pretext: "New review app deployed: It will be ready in a minute!",
-      title: `Branch: ${branch_name}`,
-      text: "Login: use your staging credentials",
-      color: "#7CD197",
-      actions: [
-        {
-          type: "button",
-          text: "View review app",
-          url: `https://${reviewapp_name}.herokuapp.com`,
-        },
-        {
-          type: "button",
-          text: "View branch on Github",
-          url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`,
-        },
-      ],
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `:computer: *[Devs] Branch: ${branch_name}*\nThis new review app will be ready in a minute!\n*Login:* use your staging credentials\n`
+      }
     },
-  ],
+    {
+      type: "actions",
+      elements: [
+        {
+          type: "button",
+          text: {
+            type: "plain_text",
+            text: "View review app"
+          },
+          url: `https://${reviewapp_name}.herokuapp.com`
+        },
+        {
+          type: "button",
+          text: {
+            type: "plain_text",
+            text: "View branch on Github"
+          },
+          url: `https://github.com/mozilla/network-pulse/tree/${branch_name}`
+        }
+      ]
+    }
+  ]
 };
 
+// Review apps created when opening a PR
 if (pr_number) {
   request(`https://api.github.com/repos/${org}/${repo}/pulls/${pr_number}`, {
     method: "GET",
     headers: { "User-Agent": "request" },
-    Authorization: `token ${github_token}`,
+    Authorization: `token ${github_token}`
   })
-    .then((gBody) => {
+    .then(gBody => {
       const pr_title = JSON.parse(gBody)["title"];
 
-      let color = "#7CD197";
+      let pre_title = ":computer: *[Devs]*";
       for (let label of JSON.parse(gBody)["labels"]) {
         if (label["name"] === "dependencies") {
-          color = "#BA55D3";
+          pre_title = ":robot_face: *[Dependabot]*";
         }
       }
 
       slack_payload = {
-        attachments: [
+        blocks: [
           {
-            fallback: `New review app deployed: It will be ready in a minute!\n
-                        PR ${pr_number}: ${pr_title}\n
-                        Login: use your staging credentials\n
-                        URL: https://${reviewapp_name}.herokuapp.com`,
-            pretext: "New review app deployed: It will be ready in a minute!",
-            title: `PR ${pr_number}: ${pr_title}`,
-            text: "Login: use your staging credentials",
-            color: `${color}`,
-            actions: [
-              {
-                type: "button",
-                text: "View review app",
-                url: `https://${reviewapp_name}.herokuapp.com`,
-              },
-              {
-                type: "button",
-                text: "View PR on Github",
-                url: `https://github.com/mozilla/network-pulse/pull/${pr_number}`,
-              },
-            ],
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `${pre_title} *PR ${pr_number} - ${pr_title}*\nThis new review app will be ready in a minute!\n*Login:* use your staging credentials`
+            }
           },
-        ],
+          {
+            type: "actions",
+            elements: [
+              {
+                type: "button",
+                text: {
+                  type: "plain_text",
+                  text: "View review app"
+                },
+                url: `https://${reviewapp_name}.herokuapp.com`
+              },
+              {
+                type: "button",
+                text: {
+                  type: "plain_text",
+                  text: "View PR on Github"
+                },
+                url: `https://github.com/mozilla/network-pulse/tree/${pr_number}`
+              }
+            ]
+          }
+        ]
       };
 
       postToSlack(slack_payload);
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
     });
 } else {
