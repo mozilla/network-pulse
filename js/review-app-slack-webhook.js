@@ -88,6 +88,9 @@ let slack_payload = {
         },
       ],
     },
+    {
+      type: "divider",
+    },
   ],
 };
 
@@ -137,6 +140,9 @@ if (pr_number) {
                 url: `https://github.com/mozilla/network-pulse/tree/${pr_number}`,
               },
             ],
+          },
+          {
+            type: "divider",
           },
         ],
       };
