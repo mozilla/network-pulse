@@ -272,7 +272,7 @@ class NewsletterSignUp extends React.Component {
 
 NewsletterSignUp.defaultProps = {
   ctaHeader: `Protect the internet as a global public resource`,
-  ctaDescription: `Join our email list to take action and stay updated!`,
+  ctaDescription: `Join our Mozilla News email list to take action and stay updated!`,
   thankYouMessage: `If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. <strong>Please check your inbox or your spam filter for an email from us.</strong>`,
 };
 

@@ -46,17 +46,20 @@ export default class Footer extends React.Component {
             Donate
           </a>
         </li>
+         <li className="col-auto mb-2" key="Cookies">
+          <a
+            href="https://www.mozilla.org/privacy/websites/#cookies"
+            target="_blank"
+          >
+            Cookies
+          </a>
+        </li>
         <li className="col-auto mb-2" key="Legal">
           <a
             href="https://www.mozilla.org/about/legal/terms/mozilla/"
             target="_blank"
           >
             Legal
-          </a>
-        </li>
-        <li className="col-auto mb-2" key="License">
-          <a href="https://creativecommons.org/licenses/by/4.0" target="_blank">
-            License
           </a>
         </li>
         <li className="col-auto mb-2" key="Participation">
@@ -70,14 +73,6 @@ export default class Footer extends React.Component {
         <li className="col-auto mb-2" key="Privacy">
           <a href="https://mozilla.org/en-US/privacy/websites/" target="_blank">
             Privacy
-          </a>
-        </li>
-        <li className="col-auto mb-2" key="Cookies">
-          <a
-            href="https://www.mozilla.org/privacy/websites/#cookies"
-            target="_blank"
-          >
-            Cookies
           </a>
         </li>
       </ul>
@@ -118,6 +113,10 @@ export default class Footer extends React.Component {
                     the web for the public good. Visit us at{" "}
                     <a href="https://foundation.mozilla.org">
                       foundation.mozilla.org
+                    </a>
+                    .Most content available under a{" "}
+                    <a href="https://foundation.mozilla.org/about/website-licensing/">
+                      Creative Commons license
                     </a>
                     .
                   </p>
