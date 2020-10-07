@@ -90,7 +90,7 @@ export default class Footer extends React.Component {
                   <img
                     src="../assets/svg/mozilla-block-white.8a5ea59a8186.svg"
                     alt="Mozilla Foundation Home Page"
-                    style={{width: 96, height: 31}}
+                    style={{ width: 96, height: 31 }}
                   />
                 </a>
               </div>
