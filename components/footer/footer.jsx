@@ -46,7 +46,7 @@ export default class Footer extends React.Component {
             Donate
           </a>
         </li>
-         <li className="col-auto mb-2" key="Cookies">
+        <li className="col-auto mb-2" key="Cookies">
           <a
             href="https://www.mozilla.org/privacy/websites/#cookies"
             target="_blank"
