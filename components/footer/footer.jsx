@@ -88,9 +88,9 @@ export default class Footer extends React.Component {
               <div className="my-5 mb-md-0">
                 <a className="logo" href="https://foundation.mozilla.org">
                   <img
-                    src="../assets/svg/mozilla-block-white.8a5ea59a8186.svg"
+                    src="../assets/svg/mozilla-block-white.svg"
                     alt="Mozilla Foundation Home Page"
-                    style={{ width: 96, height: 31 }}
+                    width="96"
                   />
                 </a>
               </div>
@@ -115,7 +115,7 @@ export default class Footer extends React.Component {
                     <a href="https://foundation.mozilla.org">
                       foundation.mozilla.org
                     </a>
-                    .Most content available under a{" "}
+                    . Most content available under a{" "}
                     <a href="https://foundation.mozilla.org/about/website-licensing/">
                       Creative Commons license
                     </a>
