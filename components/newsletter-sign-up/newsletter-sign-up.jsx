@@ -208,7 +208,7 @@ class NewsletterSignUp extends React.Component {
         <label className="form-check-label">
           <input
             type="checkbox"
-            className="form-check-input"
+            className="mt-1 form-check-input"
             id="PrivacyCheckbox"
             ref={(el) => (this.privacy = el)}
           />
