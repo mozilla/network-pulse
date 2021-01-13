@@ -3,7 +3,6 @@ pull_request_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - author~=^dependabot(|-preview)\[bot\]$
-      - "status-success=continuous-integration/appveyor/pr"
       - "status-success=continuous-integration/travis-ci/pr"
       - "status-success=continuous-integration/travis-ci/push"
     actions:
@@ -14,7 +13,6 @@ pull_request_rules:
   - name: Automatic merge for PRs labelled "ready to merge"
     conditions:
       - "#approved-reviews-by>=1"
-      - "status-success=continuous-integration/appveyor/pr"
       - "status-success=continuous-integration/travis-ci/pr"
       - "status-success=continuous-integration/travis-ci/push"
       - "label=ready-to-merge"
