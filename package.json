@@ -96,7 +96,7 @@
     "postcss-cli": "^7.1.2",
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-debounce-input": "^3.2.2",
     "react-dom": "^16.13.1",
     "react-formbuilder": "^0.11.0",
