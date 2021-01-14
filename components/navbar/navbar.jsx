@@ -1,8 +1,8 @@
 import React from "react";
-import ReactGA from "react-ga";
 import { NavLink as ReactRouterNavLink } from "react-router-dom";
 import classNames from "classnames";
 import NavLink from "../nav-link/nav-link.jsx";
+import Analytics from "../../js/analytics.js";
 import user from "../../js/app-user";
 import utility from "../../js/utility";
 import SignOutButton from "../sign-out-button.jsx";
@@ -84,7 +84,7 @@ class NavBar extends React.Component {
   handleSignInBtnClick(event) {
     event.preventDefault();
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Account`,
       action: `Login`,
       label: `Login ${window.location.pathname}`,

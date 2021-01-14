@@ -1,8 +1,8 @@
 import React from "react";
-import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import Analytics from "../../js/analytics.js";
 import Utility from "../../js/utility.js";
 import SignOutButton from "../sign-out-button.jsx";
 
@@ -23,7 +23,7 @@ class Bio extends React.Component {
   }
 
   handleSocialMediaClick(event, type) {
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Profile`,
       action: `Social link tap`,
       label: `${this.profileOwnerName} - ${type}`,

@@ -1,11 +1,11 @@
 import React from "react";
-import ReactGA from "react-ga";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Form } from "react-formbuilder";
 import qs from "qs";
 import SignOutButton from "../../components/sign-out-button.jsx";
 import HintMessage from "../../components/hint-message/hint-message.jsx";
+import Analytics from "../../js/analytics.js";
 import Service from "../../js/service.js";
 import utility from "../../js/utility";
 import user from "../../js/app-user";
@@ -36,7 +36,7 @@ class Add extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.showFormInvalidNotice) {
-      ReactGA.event({
+      Analytics.ReactGA.event({
         category: `Add new`,
         action: `Submit error`,
       });
@@ -62,7 +62,7 @@ class Add extends React.Component {
   handleSignInBtnClick(event) {
     event.preventDefault();
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Account`,
       action: `Login`,
       label: `Login ${window.location.pathname}`,
@@ -125,7 +125,7 @@ class Add extends React.Component {
   }
 
   handlePostSuccess(entryId) {
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Add new`,
       action: `Submit success`,
     });

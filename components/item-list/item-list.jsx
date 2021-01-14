@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactGA from "react-ga";
 import LoadingNotice from "../loading-notice.jsx";
 import ProjectCardSimple from "../project-card/project-card-simple.jsx";
 import ProfileCard from "../profile-card/profile-card.jsx";
+import Analytics from "../../js/analytics.js";
 import Utility from "../../js/utility.js";
 import pageSettings from "../../js/app-page-settings";
 
@@ -30,7 +30,7 @@ class ItemList extends React.Component {
   }
 
   handleLoadMoreBtnClick() {
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Browse`,
       action: `View more tap`,
       label: window.location.pathname,
