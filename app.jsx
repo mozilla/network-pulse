@@ -2,10 +2,10 @@ import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import Analytics from "./js/analytics.js";
+import { GoogleAnalytics } from "./js/google-analytics.js";
 import Main from "./main.jsx";
 
-Analytics.initialize();
+GoogleAnalytics.init();
 
 ReactDOM.render(
   <BrowserRouter>
