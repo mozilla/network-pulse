@@ -12,8 +12,7 @@ export default {
     } else if (ie10Match && w8Match) {
       _dntStatus = `Unspecified`;
     } else {
-      _dntStatus =
-        { "0": `Disabled`, "1": `Enabled` }[_dntStatus] || `Unspecified`;
+      _dntStatus = { 0: `Disabled`, 1: `Enabled` }[_dntStatus] || `Unspecified`;
     }
 
     if (_dntStatus !== `Enabled`) {
