@@ -88,7 +88,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
-    "helmet": "^3.23.3",
+    "helmet": "^4.4.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
