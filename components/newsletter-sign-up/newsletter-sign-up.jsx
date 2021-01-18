@@ -1,6 +1,6 @@
 import React from "react";
-import ReactGA from "react-ga";
 import classNames from "classnames";
+import Analytics from "../../js/analytics.js";
 import basketSignup from "../../js/basket-signup";
 
 class NewsletterSignUp extends React.Component {
@@ -84,7 +84,7 @@ class NewsletterSignUp extends React.Component {
       this.submitDataToApi();
     }
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `signup`,
       action: `form submit tap`,
       label: `Signup submitted`,
@@ -95,7 +95,7 @@ class NewsletterSignUp extends React.Component {
    * GA event when users interact with the signup form.
    */
   onInputFocus() {
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `signup`,
       action: `form focus`,
       label: `Signup form input focused`,

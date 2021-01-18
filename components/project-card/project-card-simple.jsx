@@ -1,5 +1,4 @@
 import React from "react";
-import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
@@ -12,6 +11,7 @@ import GetInvolved from "./meta/get-involved.jsx";
 import WhyInteresting from "./meta/why-interesting.jsx";
 import IssuesAndTags from "./meta/issues-and-tags.jsx";
 import BookmarkControl from "../bookmark-control.jsx";
+import Analytics from "../../js/analytics.js";
 import bookmarkManager from "../../js/bookmarks-manager";
 import user from "../../js/app-user.js";
 
@@ -35,7 +35,7 @@ class ProjectCard extends React.Component {
 
     // config usually contains the following properties:
     // category, action, label, transport
-    ReactGA.event(config);
+    Analytics.ReactGA.event(config);
   }
 
   componentDidMount() {

@@ -146,6 +146,8 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
           ``
         )}rss/latest">
         ${reactHelmet.title.toString()}
+        <meta name="ga-identifier" content="UA-87658599-4">
+        <meta name="gtm-identifier" content="GTM-KHLX47C">
       </head>
       <body>
         <div id="app">${appHtml}</div>

@@ -1,7 +1,7 @@
 import React from "react";
-import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import bookmarkManager from "../js/bookmarks-manager";
+import Analytics from "../js/analytics.js";
 import Service from "../js/service.js";
 import user from "../js/app-user.js";
 
@@ -109,7 +109,7 @@ class BookmarkControl extends React.Component {
       });
     }
 
-    ReactGA.event(
+    Analytics.ReactGA.event(
       this.createGaEventConfig(this.state.bookmarked ? `Remove fav` : `Add fav`)
     );
 
