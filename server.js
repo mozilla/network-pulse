@@ -46,7 +46,7 @@ app.use(
 );
 
 // No-index and No-follow in "not production"
-if (STAGING_SERVER) {
+if (env.STAGING_SERVER) {
   app.use((req, res, next) => {
     res.setHeader('X-Robots-Tag', 'noindex, noarchive, nofollow');
     next();
