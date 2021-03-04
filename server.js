@@ -45,6 +45,14 @@ app.use(
   })
 );
 
+// No-index and No-follow in "not production"
+if (NODE_ENV !== 'production') {
+  app.use((req, res, next) => {
+    res.setHeader('X-Robots-Tag', 'noindex, noarchive, nofollow');
+    next();
+  });
+}
+
 app.use((req, res, next) => {
   if (req.secure) {
     hstsMiddleware(req, res, next);
@@ -64,7 +72,7 @@ app.use(
 );
 
 // production specific configuration and middleware
-if (NODE_ENV === `production`) {
+if (env.STAGING_SERVER) {
   // trust x-forwarded-proto headers in production
   app.enable(`trust proxy`);
 
@@ -129,6 +137,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         <title>"${meta.title}"</title>
         <meta name="description" content="${meta.description}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        ${env.STAGING_SERVER && <meta name="googlebot" content="noindex, nofollow, noarchive" />}
         <meta charset="utf-8">
         ${twitterCard}
         ${ogTags}
