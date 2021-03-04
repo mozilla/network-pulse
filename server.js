@@ -46,7 +46,7 @@ app.use(
 );
 
 // No-index and No-follow in "not production"
-if (NODE_ENV !== 'production') {
+if (STAGING_SERVER) {
   app.use((req, res, next) => {
     res.setHeader('X-Robots-Tag', 'noindex, noarchive, nofollow');
     next();
@@ -72,7 +72,7 @@ app.use(
 );
 
 // production specific configuration and middleware
-if (env.STAGING_SERVER) {
+if (NODE_ENV === `production`) {
   // trust x-forwarded-proto headers in production
   app.enable(`trust proxy`);
 
