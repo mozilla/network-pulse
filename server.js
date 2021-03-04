@@ -48,7 +48,7 @@ app.use(
 // No-index and No-follow in "not production"
 if (env.STAGING_SERVER) {
   app.use((req, res, next) => {
-    res.setHeader('X-Robots-Tag', 'noindex, noarchive, nofollow');
+    res.setHeader("X-Robots-Tag", "noindex, noarchive, nofollow");
     next();
   });
 }
@@ -137,7 +137,11 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         <title>"${meta.title}"</title>
         <meta name="description" content="${meta.description}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        ${env.STAGING_SERVER && <meta name="googlebot" content="noindex, nofollow, noarchive" />}
+        ${
+          env.STAGING_SERVER && (
+            <meta name="googlebot" content="noindex, nofollow, noarchive" />
+          )
+        }
         <meta charset="utf-8">
         ${twitterCard}
         ${ogTags}
