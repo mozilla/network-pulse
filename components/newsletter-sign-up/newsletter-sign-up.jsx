@@ -206,13 +206,13 @@ class NewsletterSignUp extends React.Component {
     return (
       <div className={classes}>
         <label className="form-check-label">
-          <input
-            type="checkbox"
-            className="mt-1 form-check-input"
-            id="PrivacyCheckbox"
-            ref={(el) => (this.privacy = el)}
-          />
           <p className="d-inline-block body-small my-0">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="PrivacyCheckbox"
+              ref={(el) => (this.privacy = el)}
+            />
             I'm okay with Mozilla handling my info as explained in this{" "}
             <a href="https://www.mozilla.org/privacy/websites/">
               Privacy Notice
