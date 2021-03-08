@@ -1,6 +1,6 @@
 import React from "react";
-import ReactGA from "react-ga";
 import PropTypes from "prop-types";
+import Analytics from "../js/analytics.js";
 
 class SignOutButton extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class SignOutButton extends React.Component {
   handleLogOutBtnClick(event) {
     event.preventDefault();
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Account`,
       action: `Logout`,
       label: `Logout ${window.location.pathname}`,

@@ -8,6 +8,8 @@ export default {
       `'self'`,
       `https://*.google-analytics.com`,
       `https://platform.twitter.com/widgets.js`,
+      `https://www.googletagmanager.com/gtm.js`,
+      `https://www.googletagmanager.com/debug/bootstrap`,
     ],
     fontSrc: [
       `'self'`,

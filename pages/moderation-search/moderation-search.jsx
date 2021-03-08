@@ -4,7 +4,7 @@ import classNames from "classnames";
 import qs from "qs";
 import DebounceInput from "react-debounce-input";
 import Select from "react-select";
-import ReactGA from "react-ga";
+import Analytics from "../../js/analytics.js";
 import Service from "../../js/service.js";
 import ProjectLoader from "../../components/project-loader/project-loader.jsx";
 
@@ -77,7 +77,7 @@ class Search extends React.Component {
   handleInputChange(event) {
     let keywordsEntered = event.target.value;
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Search`,
       action: `Keywords entered`,
       label: keywordsEntered,

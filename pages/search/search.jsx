@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import env from "../../js/env-client";
 import qs from "qs";
 import DebounceInput from "react-debounce-input";
-import ReactGA from "react-ga";
+import Analytics from "../../js/analytics.js";
 import classNames from "classnames";
 import SearchTabGroup from "../../components/search-tab-group/search-tab-group.jsx";
 import HelpDropdown from "../../components/help-dropdown/help-dropdown.jsx";
@@ -74,7 +74,7 @@ class Search extends React.Component {
   handleHelpChange(event) {
     let helpType = event.target.value;
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Search`,
       action: `Help filtered`,
       label: helpType,
@@ -86,7 +86,7 @@ class Search extends React.Component {
   handleInputChange(event) {
     let keywordsEntered = event.target.value;
 
-    ReactGA.event({
+    Analytics.ReactGA.event({
       category: `Search`,
       action: `Keywords entered`,
       label: keywordsEntered,
@@ -183,7 +183,7 @@ class Search extends React.Component {
 
   renderLearnMore() {
     let handleOnClick = function () {
-      ReactGA.event({
+      Analytics.ReactGA.event({
         category: `Browse`,
         action: `About learn more tap`,
         label: `Tagline learn more link`,

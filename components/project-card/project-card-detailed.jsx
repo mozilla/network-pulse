@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactGA from "react-ga";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import moment from "moment";
@@ -14,6 +13,7 @@ import GetInvolved from "./meta/get-involved.jsx";
 import BookmarkControl from "../bookmark-control.jsx";
 import bookmarkManager from "../../js/bookmarks-manager";
 import user from "../../js/app-user.js";
+import Analytics from "../../js/analytics.js";
 
 class DetailedProjectCard extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class DetailedProjectCard extends React.Component {
 
     // config usually contains the following properties:
     // category, action, label, transport
-    ReactGA.event(config);
+    Analytics.ReactGA.event(config);
   }
 
   componentDidMount() {
