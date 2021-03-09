@@ -25,6 +25,9 @@ const APP_HOST = env.APP_HOST;
 // what environment are we running in
 const NODE_ENV = env.NODE_ENV;
 
+// are we running on staging?
+const ON_STAGING_SERVER = env.STAGING_SERVER === `True`;
+
 // maxAge for HSTS header must be at least 6 months
 // (see https://wiki.mozilla.org/Security/Guidelines/Web_Security#HTTP_Strict_Transport_Security)
 const hstsMiddleware = helmet.hsts({
@@ -46,7 +49,7 @@ app.use(
 );
 
 // No-index and No-follow in "not production"
-if (env.STAGING_SERVER) {
+if (ON_STAGING_SERVER) {
   app.use((req, res, next) => {
     res.setHeader("X-Robots-Tag", "noindex, noarchive, nofollow");
     next();
@@ -138,7 +141,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         <meta name="description" content="${meta.description}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         ${
-          env.STAGING_SERVER && (
+          ON_STAGING_SERVER && (
             <meta name="googlebot" content="noindex, nofollow, noarchive" />
           )
         }
