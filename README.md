@@ -97,7 +97,8 @@ The review app slack bot will post a message in the `mofo-ra-pulse` with links a
 
 #### Environment variables:
 
-- `GITHUB_TOKEN`: GITHUB API authentication,
-- `SLACK_WEBHOOK_RA`: Webhook to `mofo-ra-pulse`
+- `GITHUB_TOKEN`: GITHUB API authentication.
+- `SLACK_WEBHOOK_RA`: Webhook to `mofo-ra-pulse`.
+- `STAGING_SERVER`: Boolean, set this to `True` on the staging server.
 
 Non-secret envs can be added to the `app.json` file. Secrets must be set on Heroku in the `Review Apps` (pipelines' `settings` tab).
