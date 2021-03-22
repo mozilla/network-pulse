@@ -99,7 +99,7 @@
     "react": "^16.14.0",
     "react-debounce-input": "^3.2.3",
     "react-dom": "^16.13.1",
-    "react-formbuilder": "^0.11.0",
+    "react-formbuilder": "^0.11.1",
     "react-ga": "^3.3.0",
     "react-helmet": "^6.1.0",
     "react-markdown": "^4.3.1",
@@ -110,8 +110,5 @@
     "react-tag-autocomplete": "^6.1.0",
     "shx": "^0.3.3",
     "url": "^0.11.0"
-  },
-  "engines": {
-    "node": "14.4.*"
   }
 }
