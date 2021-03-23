@@ -98,7 +98,7 @@
     "qs": "^6.9.4",
     "react": "^16.14.0",
     "react-debounce-input": "^3.2.3",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.14.0",
     "react-formbuilder": "^0.11.1",
     "react-ga": "^3.3.0",
     "react-helmet": "^6.1.0",
