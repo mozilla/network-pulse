@@ -86,7 +86,7 @@
     "browserslist": "^4.16.1",
     "classnames": "^2.2.5",
     "document-env-vars": "^2.1.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "helmet": "^3.23.3",
