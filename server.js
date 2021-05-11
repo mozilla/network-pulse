@@ -133,18 +133,19 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
     <meta property="og:image:alt" content="${meta.image.altText}" />
   `;
 
+  const noIndex = ON_STAGING_SERVER
+    ? `<meta name="googlebot" content="noindex, nofollow, noarchive" />`
+    : ``;
+
   return `
     <!doctype html>
     <html>
       <head>
         <title>"${meta.title}"</title>
+        <meta charset="utf-8">
+        ${noIndex}
         <meta name="description" content="${meta.description}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">${
-          ON_STAGING_SERVER &&
-          `
-        <meta name="googlebot" content="noindex, nofollow, noarchive" />
-        `
-        }<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         ${twitterCard}
         ${ogTags}
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
