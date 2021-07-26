@@ -97,7 +97,7 @@
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
     "react": "^16.14.0",
-    "react-debounce-input": "^3.2.3",
+    "react-debounce-input": "^3.2.4",
     "react-dom": "^16.13.1",
     "react-formbuilder": "^0.11.1",
     "react-ga": "^3.3.0",
