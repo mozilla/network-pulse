@@ -84,12 +84,14 @@ class NavBar extends React.Component {
   handleSignInBtnClick(event) {
     event.preventDefault();
 
-    Analytics.ReactGA.event({
-      category: `Account`,
-      action: `Login`,
-      label: `Login ${window.location.pathname}`,
-      transport: `beacon`,
-    });
+    try {
+      Analytics.ReactGA.event({
+        category: `Account`,
+        action: `Login`,
+        label: `Login ${window.location.pathname}`,
+        transport: `beacon`,
+      });
+    } catch (err) {};
 
     user.login(utility.getCurrentURL());
   }

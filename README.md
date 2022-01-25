@@ -54,6 +54,8 @@ This starts a few image optimization scripts.
 `PULSE_API` | Default: `https://pulse-api.mofostaging.net/api/pulse`<br><br>URL to Pulse API. e.g., `http://test.example.com:8000/api/pulse`. <br>To set up a local instance of Pulse API, follow instructions on [Pulse API README doc](https://github.com/mozilla/network-pulse-api/blob/master/README.md).
 `PULSE_LOGIN_URL` | Default: `https://pulse-api.mofostaging.net/accounts/login/`<br><br>URL to use to login to Pulse. This needs to be a Pulse API login url.
 `PULSE_LOGOUT_URL` | Default: `https://pulse-api.mofostaging.net/accounts/logout/`<br><br>URL to use to logout of Pulse. This needs to be a Pulse API logout url.
+`USE_RECAPTCHA` | Default: false<br><br>Whether or not to have recaptcha securing the sign up/sign in action.
+`RECAPTCHA_KEY` | Default: empty string<br><br>The recaptcha site key to use, when recaptcha is enabled.
 `PROJECT_BATCH_SIZE`| Default: `24`<br><br>Number of projects you want to display as a batch. Make sure this number is divisible by 2 AND 3 so rows display evenly for different screen sizes.
 `PROFILE_BATCH_SIZE`| Default: `10`<br><br>Number of profiles you want to display as a batch.
 `LEARN_MORE_LINK` | Default: `https://www.mozillapulse.org/entry/120`<br><br>Link to learn more about what Pulse project is about.
