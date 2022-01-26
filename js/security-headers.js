@@ -18,9 +18,7 @@ export default {
       `https://code.cdn.mozilla.net`,
       `https://fonts.gstatic.com`,
     ],
-    frameSrc: [
-      `https://www.google.com/`,
-    ],
+    frameSrc: [`https://www.google.com/`],
     styleSrc: [
       `'self'`,
       `'unsafe-inline'`,

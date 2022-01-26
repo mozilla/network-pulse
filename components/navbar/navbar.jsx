@@ -91,7 +91,11 @@ class NavBar extends React.Component {
         label: `Login ${window.location.pathname}`,
         transport: `beacon`,
       });
-    } catch (err) {};
+    } catch (err) {
+      // This does not need to succeed, but we also
+      // don't want a throw to prevent the actual
+      // login from happening.
+    }
 
     user.login(utility.getCurrentURL());
   }
