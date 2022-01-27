@@ -130,13 +130,9 @@ class User {
 
     if (useRecaptcha) {
       grecaptcha.ready(() => {
-        console.log(`executing`);
         grecaptcha
           .execute(recaptchaKey, { action: "submit" })
-          .then((recaptcha_response) => {
-            console.log(`response:`, recaptcha_response);
-            performLogin(recaptcha_response);
-          });
+          .then((recaptcha_response) => performLogin(recaptcha_response));
       });
     } else performLogin();
   }
