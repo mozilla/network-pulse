@@ -10,12 +10,15 @@ export default {
       `https://platform.twitter.com/widgets.js`,
       `https://www.googletagmanager.com/gtm.js`,
       `https://www.googletagmanager.com/debug/bootstrap`,
+      `https://www.google.com/recaptcha/api.js`,
+      `https://www.gstatic.com/recaptcha/releases/`,
     ],
     fontSrc: [
       `'self'`,
       `https://code.cdn.mozilla.net`,
       `https://fonts.gstatic.com`,
     ],
+    frameSrc: [`https://www.google.com/`],
     styleSrc: [
       `'self'`,
       `'unsafe-inline'`,
@@ -28,6 +31,8 @@ export default {
       url.parse(env.PULSE_API).host ||
         `https://network-pulse-api-staging.herokuapp.com/`,
       `https://www.mozilla.org/en-US/newsletter/`,
+      `https://www.google.com/recaptcha/api.js`,
+      `https://www.gstatic.com/recaptcha/releases/`,
     ],
     childSrc: [
       `https://syndication.twitter.com`,

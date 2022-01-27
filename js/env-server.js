@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // load default.env so that anything didn't get set in .env or the host environment will get a default value
-dotenv.config({ path: `config/default.env` });
+dotenv.config({ path: `./config/default.env` });
 
 let envUtilities = {
   serializeSafeEnvAsJSON: () => {
@@ -24,6 +24,8 @@ let envUtilities = {
       PULSE_API: process.env.PULSE_API,
       PULSE_LOGIN_URL: process.env.PULSE_LOGIN_URL,
       PULSE_LOGOUT_URL: process.env.PULSE_LOGOUT_URL,
+      USE_RECAPTCHA: process.env.USE_RECAPTCHA,
+      RECAPTCHA_KEY: process.env.RECAPTCHA_KEY,
     };
 
     return JSON.stringify(config);

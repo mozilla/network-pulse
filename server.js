@@ -137,6 +137,11 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
     ? `<meta name="googlebot" content="noindex, nofollow, noarchive" />`
     : ``;
 
+  let recaptcha = ``;
+  if (env.USE_RECAPTCHA) {
+    recaptcha = `<script src="https://www.google.com/recaptcha/api.js?render=${env.RECAPTCHA_KEY}" async></script>`;
+  }
+
   return `
     <!doctype html>
     <html>
@@ -148,7 +153,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         ${twitterCard}
         ${ogTags}
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+        <script src="https://platform.twitter.com/widgets.js" async defer></script>
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicons/apple-touch-icon-180x180@2x.png">
         <link rel="icon" type="image/png" sizes="196x196" href="/assets/favicons/favicon-196x196@2x.png">
         <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
@@ -164,6 +169,7 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
         ${reactHelmet.title.toString()}
         <meta name="ga-identifier" content="UA-87658599-4">
         <meta name="gtm-identifier" content="GTM-KHLX47C">
+        ${recaptcha}
       </head>
       <body>
         <div id="app">${appHtml}</div>

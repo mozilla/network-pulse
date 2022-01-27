@@ -3,6 +3,8 @@ import env from "./env-client";
 import localstorage from "./localstorage.js";
 import Service from "./service.js";
 
+const useRecaptcha = env.USE_RECAPTCHA;
+const recaptchaKey = env.RECAPTCHA_KEY;
 const loginUrl = env.PULSE_LOGIN_URL;
 
 /**
@@ -14,8 +16,11 @@ const Login = {
   /*
    * Generates the oauth url for logging a user in, with a redirect-when-finished URL
    */
-  getLoginURL(redirectUrl) {
-    return `${loginUrl}?next=${encodeURIComponent(redirectUrl)}`;
+  getLoginURL(redirectUrl, recaptchaToken) {
+    const trailing = loginUrl.endsWith(`/`) ? `` : `/`;
+    const next = `?next=${encodeURIComponent(redirectUrl)}`;
+    const token = recaptchaToken ? `&token=${recaptchaToken}` : ``;
+    return [loginUrl, trailing, next, token].join(``);
   },
 
   /*
@@ -113,13 +118,23 @@ class User {
   }
 
   login(redirectUrl) {
-    // we record that the user started a login in localStorage,
-    // then the app gets closed and oauth happens. Once the
-    // oauth callback drops the user back at a URL that loads
-    // the app again, pages can run `user.verify` to finalise
-    // the login process.
-    localstorage.setItem(`pulse:user:attemptingLogin`, `True`);
-    window.location = Login.getLoginURL(redirectUrl);
+    const performLogin = (token) => {
+      // we record that the user started a login in localStorage,
+      // then the app gets closed and oauth happens. Once the
+      // oauth callback drops the user back at a URL that loads
+      // the app again, pages can run `user.verify` to finalise
+      // the login process.
+      localstorage.setItem(`pulse:user:attemptingLogin`, `True`);
+      window.location = Login.getLoginURL(redirectUrl, token);
+    };
+
+    if (useRecaptcha) {
+      grecaptcha.ready(() =>
+        grecaptcha
+          .execute(recaptchaKey, { action: "submit" })
+          .then((recaptcha_response) => performLogin(recaptcha_response))
+      );
+    } else performLogin();
   }
 
   verify(location, history) {
