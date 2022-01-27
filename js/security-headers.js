@@ -18,7 +18,10 @@ export default {
       `https://code.cdn.mozilla.net`,
       `https://fonts.gstatic.com`,
     ],
-    frameSrc: [`https://www.google.com/`],
+    frameSrc: [
+      `https://www.google.com/`,
+      `https://platform.twitter.com/`,
+    ],
     styleSrc: [
       `'self'`,
       `'unsafe-inline'`,
@@ -28,11 +31,11 @@ export default {
     imgSrc: [`'self'`, `data:`, `https:`, `http:`],
     connectSrc: [
       `'self'`,
-      url.parse(env.PULSE_API).host ||
-        `https://network-pulse-api-staging.herokuapp.com/`,
+      url.parse(env.PULSE_API).host || `https://network-pulse-api-staging.herokuapp.com/`,
       `https://www.mozilla.org/en-US/newsletter/`,
       `https://www.google.com/recaptcha/api.js`,
       `https://www.gstatic.com/recaptcha/releases/`,
+      `https://www.google-analytics.com/j/collect`,
     ],
     childSrc: [
       `https://syndication.twitter.com`,
