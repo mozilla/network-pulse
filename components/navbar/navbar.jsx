@@ -54,13 +54,16 @@ class NavBar extends React.Component {
 
     let classes = "signupin-glyph d-none d-md-flex align-items-md-center";
 
+    // Sign-in only, see https://github.com/mozilla/network-pulse-api/issues/768
+    // let linkLabel = "Signin / Signup";
+    let linkLabel = "Signin";
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
         onClick={(event) => this.handleSignInBtnClick(event)}
         className={classes}
       >
-        Signin / Signup
+        {linkLabel}
       </a>
     );
 
@@ -180,16 +183,22 @@ class NavBar extends React.Component {
   }
 
   renderSignInRequest() {
+    // Sign-in only, see https://github.com/mozilla/network-pulse-api/issues/768
+    // let headerText = "Signup or Signin to your Pulse Account";
+    // let linkLabel = "Signin / Signup";
+    let headerText = "Sign in to your Pulse Account";
+    let linkLabel = "Signin";
+
     return (
       <div className="signupin-request text-center">
-        <h3>Signup or Signin to your Pulse Account</h3>
+        <h3>{headerText}</h3>
         <p>Share your projects or help out on other projects in our Network.</p>
         <a
           href={user.getLoginURL(utility.getCurrentURL())}
           onClick={(event) => this.handleSignInBtnClick(event)}
           className="btn btn-secondary"
         >
-          Signin / Signup
+          {linkLabel}
         </a>
       </div>
     );
