@@ -53,10 +53,7 @@ class NavBar extends React.Component {
     }
 
     let classes = "signupin-glyph d-none d-md-flex align-items-md-center";
-
-    // Sign-in only, see https://github.com/mozilla/network-pulse-api/issues/768
-    // let linkLabel = "Signin / Signup";
-    let linkLabel = "Signin";
+    let linkLabel = "Signin/Signup";
     let link = (
       <a
         href={user.getLoginURL(utility.getCurrentURL())}
@@ -183,11 +180,8 @@ class NavBar extends React.Component {
   }
 
   renderSignInRequest() {
-    // Sign-in only, see https://github.com/mozilla/network-pulse-api/issues/768
-    // let headerText = "Signup or Signin to your Pulse Account";
-    // let linkLabel = "Signin / Signup";
-    let headerText = "Sign in to your Pulse Account";
-    let linkLabel = "Signin";
+    let headerText = "Signup or Signin to your Pulse Account";
+    let linkLabel = "Signin/Signup";
 
     return (
       <div className="signupin-request text-center">
