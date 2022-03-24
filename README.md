@@ -28,7 +28,16 @@ $> npm install
 $> npm start
 ```
 
+### Environments
+
 If you would like to override default environment variables... create a `.env` file on the root directory and set your env vars there. See [environment variables section](https://github.com/mozilla/network-pulse#environment-variables) for details.
+
+There are two files that you can expressly copy depending on your use:
+
+1. `default.env` has all the environment variables needed to run the pulse site without running a local pulse API instance.
+2. `default.localhost.env` has all the environment variables needed to run the pulse site in a way that it uses a locally running pulse API instance.
+
+If you need (2), make sure to follow the instructions in the network pulse api README.md that explain how to set up Google Authentication.
 
 ### Key scripts to run
 
