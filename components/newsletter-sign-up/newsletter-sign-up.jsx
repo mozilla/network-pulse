@@ -82,13 +82,21 @@ class NewsletterSignUp extends React.Component {
 
     if (email && this.validatesAsEmail(email) && consent) {
       this.submitDataToApi();
+      Analytics.ReactGA.event({
+        category: `signup`,
+        action: `form submit tap`,
+        label: `Signup submitted`,
+      });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'form_submission',
+        form_type: 'newsletter_signup', // type of form. should be static in this case
+        form_location: 'footer', // update with location of form in page -- either 'header' or 'footer', depending on which form the user used to sign up for the newsletter
+        country: 'argentina', // update according to the country the user selected from the dropdown, if the form has a country dropdown
+        language: 'english' // update according to the language that the user selected from the dropdown, if the form has a language dropdown
+        }
+      );
     }
-
-    Analytics.ReactGA.event({
-      category: `signup`,
-      action: `form submit tap`,
-      label: `Signup submitted`,
-    });
   }
 
   /**
