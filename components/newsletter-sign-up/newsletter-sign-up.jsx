@@ -82,13 +82,18 @@ class NewsletterSignUp extends React.Component {
 
     if (email && this.validatesAsEmail(email) && consent) {
       this.submitDataToApi();
+      Analytics.ReactGA.event({
+        category: `signup`,
+        action: `form submit tap`,
+        label: `Signup submitted`,
+      });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_submission",
+        form_type: "newsletter_signup",
+        form_location: "footer",
+      });
     }
-
-    Analytics.ReactGA.event({
-      category: `signup`,
-      action: `form submit tap`,
-      label: `Signup submitted`,
-    });
   }
 
   /**
