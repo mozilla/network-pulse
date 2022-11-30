@@ -43,10 +43,13 @@ const hstsMiddleware = helmet.hsts({
 // disable x-powered-by
 app.disable(`x-powered-by`);
 
-// Some app security settings
+// app security settings
+
 app.use((req, res, next) => {
+  // generate unique nonce for every response
   res.locals.cspNonce = crypto.randomBytes(16).toString("hex");
 
+  // pass the same nonce to CSP
   const cspMiddleware = helmet.contentSecurityPolicy(
     securityHeaders(res.locals.cspNonce)
   );
