@@ -9,6 +9,10 @@ import { StaticRouter } from "react-router";
 import Main from "./main.jsx";
 import securityHeaders from "./js/security-headers";
 import { envUtilities, env } from "./js/env-server";
+import crypto from "crypto";
+
+const GA_ID = `UA-87658599-4`;
+const GTM_ID = `GTM-KHLX47C`;
 
 const app = express();
 
@@ -39,8 +43,19 @@ const hstsMiddleware = helmet.hsts({
 // disable x-powered-by
 app.disable(`x-powered-by`);
 
-// Some app security settings
-app.use(helmet.contentSecurityPolicy(securityHeaders));
+// app security settings
+
+app.use((req, res, next) => {
+  // generate unique nonce for every response
+  res.locals.cspNonce = crypto.randomBytes(16).toString("hex");
+
+  // pass the same nonce to CSP
+  const cspMiddleware = helmet.contentSecurityPolicy(
+    securityHeaders(res.locals.cspNonce)
+  );
+
+  cspMiddleware(res, res, next);
+});
 
 app.use(
   helmet.xssFilter({
@@ -98,7 +113,7 @@ if (NODE_ENV !== `development`) {
   });
 }
 
-function renderPage(appHtml, reactHelmet, canonicalUrl) {
+function renderPage(appHtml, reactHelmet, canonicalUrl, cspNonce) {
   const meta = {
     url: canonicalUrl,
     title: `Mozilla Pulse`,
@@ -167,14 +182,28 @@ function renderPage(appHtml, reactHelmet, canonicalUrl) {
           ``
         )}rss/latest">
         ${reactHelmet.title.toString()}
-        <meta name="ga-identifier" content="UA-87658599-4">
-        <meta name="gtm-identifier" content="GTM-KHLX47C">
+        <meta name="ga-identifier" content="${GA_ID}">
+        <meta name="gtm-identifier" content="${GTM_ID}">
         ${recaptcha}
       </head>
       <body>
         <div id="app">${appHtml}</div>
         <script type="application/json" id="environment-variables">${envUtilities.serializeSafeEnvAsJSON()}</script>
         <script src="/bundle.js"></script>
+        <script nonce="${cspNonce}">
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          var n = d.querySelector("[nonce]");
+          n && j.setAttribute("nonce", n.nonce || n.getAttribute("nonce"));
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "${GTM_ID}");
+        </script>
       </body>
     </html>`;
 }
@@ -197,7 +226,9 @@ app.get(`*`, (req, res) => {
 
     res
       .status(context.pageNotFound ? 404 : 200)
-      .send(renderPage(appHtml, reactHelmet, canonicalUrl));
+      .send(
+        renderPage(appHtml, reactHelmet, canonicalUrl, res.locals.cspNonce)
+      );
   }
 });
 
