@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "",
   "main": "dist/server.bundle.js",
+  "engines": {
+    "node": ">=14.4.0"
+  },
   "scripts": {
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
     "start": "npm run build:dev && run-p server watch:**",
