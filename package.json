@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.bundle.js",
   "engines": {
-    "node": ">=14.4.0"
+    "node": "16.18.1"
   },
   "scripts": {
     "bootstrap": "shx rm -rf dist && shx mkdir dist",
