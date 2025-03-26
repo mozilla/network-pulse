@@ -1,3 +1,10 @@
+⚠️ **Archived Repository** ⚠️
+
+  **Note:** This repository has been archived as of March 2025 and is no longer maintained.
+
+---
+
+
 # Mozilla Pulse
 
 [![Travis Build Status](https://travis-ci.org/mozilla/network-pulse.svg?branch=master)](https://travis-ci.org/mozilla/network-pulse) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mozilla/network-pulse?svg=true)](https://ci.appveyor.com/project/mozillafoundation/network-pulse)
